@@ -1,5 +1,6 @@
 package command;
 
+import roland.RolandException;
 import roland.Storage;
 import roland.TaskList;
 import roland.Ui;
@@ -33,7 +34,10 @@ public class AddNotesCommand extends Command {
      * @param storage The storage for saving the updated task list to disk.
      * @return A message indicating that the notes have been successfully added to the task.
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws RolandException {
+        if (index > tasks.size() || tasks.size() == 0) {
+            throw new RolandException("No such task found. Please enter a valid task index or add tasks to your empty list");
+        }
         Task task = tasks.get(this.index - 1);
         task.addNotes(this.notes);
         super.serializeArrayList(tasks.getList(), storage.getFilePath());

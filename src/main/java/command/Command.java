@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import roland.RolandException;
 import roland.Storage;
 import roland.TaskList;
 import roland.Ui;
@@ -30,7 +31,7 @@ public abstract class Command {
      * @param ui The user interface that outputs to the terminal
      * @param storage The storage path to store persistent data
      */
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws RolandException;
 
     /**
      * Checks if the program should exit.

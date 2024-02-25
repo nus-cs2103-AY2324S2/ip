@@ -1,7 +1,5 @@
-package roland;
-
 import command.Command;
-import javafx.Launcher;
+import roland.*;
 
 
 /**

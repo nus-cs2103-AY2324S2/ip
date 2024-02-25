@@ -1,5 +1,3 @@
-package javafx;
-
 import javafx.application.Application;
 
 /**

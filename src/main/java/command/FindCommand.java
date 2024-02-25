@@ -30,7 +30,7 @@ public class FindCommand extends Command {
      * @param storage The storage path to store persistent data.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        String result = (ui.getBot() + "Here are the matching tasks in your list: \n");
+        String result = ("Here are the matching tasks in your list: \n");
         int count = 1;
         for (int i = 1; i < tasks.size() + 1; i++) {
             Task task = tasks.get(i - 1);
