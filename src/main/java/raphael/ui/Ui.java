@@ -65,6 +65,23 @@ public class Ui {
     }
 
     /**
+     * Prints the list of available command.
+     */
+    public void showHelpOutput() {
+        String output = "deadline\n"
+                + "todo\n"
+                + "event\n"
+                + "delete\n"
+                + "mark\n"
+                + "unmark\n"
+                + "list\n"
+                + "find\n"
+                + "bye\n";
+        this.savedOutput = output;
+        System.out.println(output);
+    }
+
+    /**
      * Prints the output when find command is used.
      *
      * @param text the text to be print when find command is used.

@@ -7,6 +7,7 @@ import raphael.command.EditCommand;
 import raphael.command.ExitCommand;
 import raphael.command.FindCommand;
 import raphael.command.HelloCommand;
+import raphael.command.HelpCommand;
 import raphael.command.ListCommand;
 import raphael.command.MarkCommand;
 import raphael.exception.RaphaelException;
@@ -33,6 +34,8 @@ public class Parser {
         }
         final String[] inputArr = input.split(" ", 2);
         switch(inputArr[0]) {
+        case "help":
+            return new HelpCommand();
         case "hello":
             return new HelloCommand();
         case "bye":

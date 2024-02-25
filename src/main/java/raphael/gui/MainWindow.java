@@ -35,7 +35,8 @@ public class MainWindow extends AnchorPane {
     public void setRaphael(Raphael raphael) {
         this.raphael = raphael;
         this.dialogContainer.getChildren().addAll(
-                DialogBox.getRaphaelDialog("<Report> This is Rapahel, how may I serve you?", this.raphaelImage)
+                DialogBox.getRaphaelDialog("<Report> This is Rapahel, how may I serve you?\n"
+                        + "Type help to get the whole list of commands.", this.raphaelImage)
         );
     }
 
