@@ -3,6 +3,8 @@ package roland;
 import command.Command;
 import javafx.Launcher;
 
+import java.util.Locale;
+
 
 /**
  * The Duke class is the main class for the Roland task management application.
@@ -38,7 +40,7 @@ public class Duke {
     public String getResponse(String input) {
         String response;
         try {
-            Command c = Parser.parse(input);
+            Command c = Parser.parse(input.toLowerCase());
             response = c.execute(tasks, ui, storage);
             System.out.println(response);
         } catch (RolandException e) {
