@@ -43,7 +43,7 @@ Format: `event [Event description] /from [Start date and time] /to [End date and
 
 eg. `event Project meeting /from 2019-12-12 12:00 /to 2019-12-12 16:00`
 
-## Listing tasks: `task`
+## Listing tasks: `list`
 
 List all tasks that you have inputted
 
