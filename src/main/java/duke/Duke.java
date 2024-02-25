@@ -61,13 +61,20 @@ public class Duke {
     public String run(String userInput) throws IOException {
         if (userInput.equals("bye")) {
             try {
+                new Thread(() -> {
+                    try {
+                        Thread.sleep(2000);
+                        System.exit(0);
+                    } catch (InterruptedException e) {
+                        Thread.currentThread().interrupt();
+                    }
+                }).start();
                 return chatbotUi.dividerWrapper(Ui.bye());
             } catch (Exception e) {
                 e.printStackTrace();
-            } finally {
-                System.exit(1);
             }
         } else {
+            // Assuming that the parse method updates the chatbotUi with the response
             return chatbotUi.getResponse(userInput, parser);
         }
         return null;
