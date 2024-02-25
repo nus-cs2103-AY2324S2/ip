@@ -3,7 +3,7 @@
 ![Raphael in action](Ui.png)
 
 Raphael is a **desktop bot for managing tasks, optimized for a use via a Command Line Interface (CLI)** while still having the benefits of a Graphical User Interface (GUI). If you can type fast, Raphael can get your task management tasks done faster.
-- [Adding deadlines: `deadline`](#deadline)
+- [Adding deadlines: `deadline`](deadline)
 - [Adding events: `event`](#event)
 - [Adding todos: `todo`](#todo)
 - [Deleting tasks: `delete`](#delete)
@@ -13,7 +13,7 @@ Raphael is a **desktop bot for managing tasks, optimized for a use via a Command
 - [Finding matching tasks: `find`](#find)
 - [Bid farewell: `bye`](#bye)
 
-## Adding deadlines: `deadline`{#deadline}
+## Adding deadlines: `deadline` {#deadline}
 Adds a deadline to the task list.
 Format: `deadline DESCRIPTION by DEADLINE`
 Examples:
