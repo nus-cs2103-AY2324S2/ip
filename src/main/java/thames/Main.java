@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Thames thames = new Thames("./data/tasks.txt");
+    private Thames thames = new Thames("../data/tasks.txt");
 
     @Override
     public void start(Stage stage) {
