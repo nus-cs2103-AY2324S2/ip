@@ -1,7 +1,6 @@
-package Dude;
+package dude;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 class Ui {
 

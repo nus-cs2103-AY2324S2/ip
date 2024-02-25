@@ -1,4 +1,4 @@
-package Dude;
+package dude;
 import javafx.application.Application;
 
 /**

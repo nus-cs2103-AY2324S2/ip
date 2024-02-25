@@ -1,9 +1,11 @@
-package Dude;
+package dude;
 
 // Base Task class
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.Duration;
+
 
 /**
  * Abstract class representing the structure and functionality of a task.
@@ -11,7 +13,7 @@ import java.time.format.DateTimeFormatter;
  * tracked, and modified.
  * Each task has a description and a status indicating whether it is done.
  */
-abstract class Task {
+public abstract class Task {
     /**
      * The descriptive text of the task.
      */
@@ -65,14 +67,20 @@ abstract class Task {
  * Inherits from the Task class.
  */
 class ToDo extends Task {
+    private Duration duration; // Duration of the task using java.time.Duration
+
+
     /**
-     * Constructs a new ToDo task with the specified description.
+     * Constructs a new ToDo task with the specified description and duration.
      *
      * @param description The description of the ToDo task.
+     * @param duration The duration of the ToDo task.
      */
-    public ToDo(String description) {
+    public ToDo(String description, Duration duration) {
         super(description);
+        this.duration = duration;
     }
+
 
     /**
      * Returns a string representation of the ToDo task,
@@ -82,13 +90,25 @@ class ToDo extends Task {
      */
     @Override
     public String toString() {
-        return "[T]" + (isDone ? "[X] " : "[ ] ") + description;
+        long hours = duration.toHours();
+        long minutes = duration.minusHours(hours).toMinutes();
+        String formattedDuration = String.format("%d hours, %d minutes", hours, minutes);
+
+        return "[T]" + (isDone ? "[X] " : "[ ] ") + description + " (Duration: " + formattedDuration + ")";
     }
 
     @Override
     public String toFileString() {
-        return "T|" + (isDone ? "1" : "0") + "|" + description;
+        return "T|" + (isDone ? "1" : "0") + "|" + description + "|" + duration;
+    }
 
+    public static ToDo fromCmd(Command cmd) {
+        if (!cmd.info.contains(" /dur ")) {
+            throw new IllegalArgumentException(
+                    "Invalid duration format. Use '/dur' to specify the duration.");
+        }
+        String[] deadlineParts = cmd.info.split(" /dur ", 2);
+        return new ToDo(deadlineParts[0], Duration.parse(deadlineParts[1]));
     }
 }
 
