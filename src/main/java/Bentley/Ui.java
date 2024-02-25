@@ -31,39 +31,18 @@ public class Ui {
     /**
      * Displays the welcome message to the user.
      */
-    public void showWelcomeMessage() {
-        System.out.println("Hello! I'm Bentley\n" + "What can I do for you?");
+    public String getWelcomeMessage() {
+        return "Hello! I'm Bentley\n" + "What can I do for you?";
     }
+
 
     /**
      * Displays the goodbye message to the user.
      */
-    public void showByeMessage() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String getByeMessage() {
+        return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * Displays a message confirming the addition of a task.
-     *
-     * @param task The added task.
-     * @param taskCount The total number of tasks after the addition.
-     */      
-    public void showTaskAddedMessage(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
-    }
-
-    /**
-     * Displays the list of tasks.
-     *
-     * @param tasks The list of tasks to be displayed.
-     */
-    public void showTaskList(ArrayList<Task> tasks) {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
-        }
-    }
 
     /**
      * Displays an error message to the user.

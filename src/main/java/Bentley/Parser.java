@@ -1,46 +1,61 @@
 package bentley;
 
-/**
- * A class responsible for parsing user commands and executing corresponding
- * actions.
- */
 public class Parser {
 
     /**
-     * Parses the user input and performs the corresponding action.
+     * Parses the user command and performs the corresponding action.
      *
-     * @param userInput The user input command.
-     * @param taskList  The TaskList object to manage tasks.
-     * @param ui        The Ui object for handling user interface interactions.
-     * @param storage   The Storage object for managing task data persistence.
+     * @param input    The user input command.
+     * @param taskList The TaskList object to perform actions on.
+     * @param ui       The Ui object for user interface interaction.
+     * @param storage  The Storage object for reading and writing tasks.
+     * @return A string representing the result or feedback of the command.
+     * @throws IllegalArgumentException If the command is not recognized.
      */
-    public static void parseCommand(String userInput, TaskList taskList, Ui ui, Storage storage) {
-        try {
-            if (userInput.equals("Bye")) {
-                ui.showByeMessage();
+    public static String parseCommand(String input, TaskList taskList, Ui ui, Storage storage) {
+        String[] parts = input.split(" ", 2);
+        String command = parts[0].toLowerCase();
+
+        switch (command) {
+            case "bye":
+                ui.getByeMessage();
                 storage.writeTasks(taskList.getTasks());
                 System.exit(0);
-            } else if (userInput.equals("List")) {
+            case "list":
                 taskList.listTasks();
-            } else if (userInput.startsWith("todo")) {
-                taskList.addTodoTask(userInput);
-            } else if (userInput.startsWith("deadline")) {
-                taskList.addDeadlineTask(userInput);
-            } else if (userInput.startsWith("event")) {
-                taskList.addEventTask(userInput);
-            } else if (userInput.startsWith("mark")) {
-                taskList.markAsDone(userInput);
-            } else if (userInput.startsWith("unmark")) {
-                taskList.markAsUndone(userInput);
-            } else if (userInput.startsWith("delete")) {
-                taskList.deleteTask(userInput);
-            } else if (userInput.startsWith("find")) {
-                taskList.findTasks(userInput.substring(5).trim());
-            } else {
-                System.out.println("Invalid command. Please input a valid command.");
-            }
-        } catch (IllegalArgumentException e) {
-            System.out.println(e.getMessage());
+                break;
+            case "done":
+                String doneResult = taskList.markAsDone(input);
+                storage.writeTasks(taskList.getTasks());
+                return doneResult;
+            case "undone":
+                taskList.markAsUndone(input);
+                storage.writeTasks(taskList.getTasks());
+                break;
+            case "delete":
+                String deleteResult = taskList.deleteTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return deleteResult;
+            case "todo":
+                String todoResult = taskList.addTodoTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return todoResult;
+            case "deadline":
+                String deadlineResult = taskList.addDeadlineTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return deadlineResult;
+            case "event":
+                String eventResult = taskList.addEventTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return eventResult;
+            case "find":
+                String findResult = taskList.findTasks(input);
+                return findResult;
+
+            default:
+                throw new IllegalArgumentException("I'm sorry, but I don't understand that command.");
         }
+
+        return "Command executed successfully!";
     }
 }
