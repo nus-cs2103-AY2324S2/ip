@@ -35,8 +35,10 @@ public class Tyler {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Get response from the String input to the UI.
+     *
+     * @param input The input to get response.
+     * @return A String representation of the input command, what input doing.
      */
     protected String getResponse(String input) throws TylerException {
         try {

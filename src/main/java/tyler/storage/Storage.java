@@ -28,7 +28,7 @@ public class Storage {
     }
 
     /**
-     * Load the task from local given specific file path.
+     * Load the task list from local given specific file path to the chatbot.
      *
      * @return             A Task ArrayList.
      * @throws IOException The file or directory may not exist.
