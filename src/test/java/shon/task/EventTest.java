@@ -1,12 +1,11 @@
 package shon.task;
 
-import org.junit.jupiter.api.Test;
-import shon.exception.ParameterException;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.format.DateTimeParseException;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
+import org.junit.jupiter.api.Test;
 
 public class EventTest {
     @Test
@@ -31,7 +30,7 @@ public class EventTest {
     public void constructor_invalidDateTime_exceptionThrown() {
         try {
             assertEquals(new Event("", "06/02/2024 0000", "06/02/2024 0000", false),
-                    new Event("Project Meeting","06/02/2024 0000", "b", false));
+                    new Event("Project Meeting", "06/02/2024 0000", "b", false));
             fail();
         } catch (DateTimeParseException e) {
             assertEquals("Text 'b' could not be parsed at index 0", e.getMessage());
@@ -39,7 +38,7 @@ public class EventTest {
 
         try {
             assertEquals(new Event("", "06/12/2024 0000", "06/13/2024/0000", false),
-                    new Event("Project Meeting","06/12/2024 0000", "06/13/2024/0000", false));
+                    new Event("Project Meeting", "06/12/2024 0000", "06/13/2024/0000", false));
             fail();
         } catch (DateTimeParseException e) {
             assertEquals("Text '06/13/2024/0000' could not be parsed at index 10", e.getMessage());

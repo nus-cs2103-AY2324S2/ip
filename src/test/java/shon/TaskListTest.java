@@ -62,7 +62,8 @@ public class TaskListTest {
         try {
             TaskList list = new TaskList();
             list.addTodo("Read book");
-            assertArrayEquals(new String[]{"OK, I've marked this task as not done yet:", "  [T][ ] Read book"}, list.unmark(1));
+            assertArrayEquals(new String[]{"OK, I've marked this task as not done yet:", "  [T][ ] Read book"},
+                    list.unmark(1));
         } catch (ParameterException e) {
             fail();
         }
