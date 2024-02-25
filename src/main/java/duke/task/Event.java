@@ -30,4 +30,18 @@ public class Event extends Task {
         return "E | " + (todoState == TodoState.DONE ? "1" : "0") + " | " + task + " | " + Util.formatDate(start)
                 + " | " + Util.formatDate(end);
     }
+
+    @Override
+    public int getOrder() {
+        return 1;
+    }
+
+    @Override
+    public int compareTo(Task o) {
+        if (o instanceof Event) {
+            return this.start.compareTo(((Event) o).start);
+        } else {
+            return super.compareTo(o);
+        }
+    }
 }
