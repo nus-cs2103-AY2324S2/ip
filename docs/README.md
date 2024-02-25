@@ -39,7 +39,8 @@ Here's a brief overview of each command and how to use it:
 
 ### 7. `TODO [task description]`
 - Adds a ToDo task to your task list.
-- Example: `todo Read a book`
+- the duration format is ISO8601
+- Example: `todo Read /dur PT1H30M`
 
 ### 8. `DEADLINE [task description] /by [deadline]`
 - Adds a Deadline task to your task list.
