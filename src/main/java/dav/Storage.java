@@ -32,12 +32,19 @@ class Storage {
     public List<Task> load() throws DavException {
         try {
             List<Task> tasks = new ArrayList<>();
-            List<String> lines = Files.readAllLines(Paths.get(filePath));
+            Path filePath = Paths.get(this.filePath);
 
-            for (String line : lines) {
-                Task task = Task.parseTask(line);
-                if (task != null) {
-                    tasks.add(task);
+            if (!Files.exists(filePath)) {
+                Files.createDirectories(filePath.getParent());
+                Files.createFile(filePath);
+            } else {
+                List<String> lines = Files.readAllLines(filePath);
+
+                for (String line : lines) {
+                    Task task = Task.parseTask(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
                 }
             }
 
