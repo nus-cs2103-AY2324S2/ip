@@ -152,5 +152,5 @@ Expected output:
 
 ```
 Edited task:
-[D][] finish tP (by Apr 10 2024 23:59)
+[D][] finish tP (by: Apr 10 2024 23:59)
 ```
