@@ -4,6 +4,7 @@
 Lelu is here to help you with __managing you tasks__!
 > ![Ui](https://github.com/Lalelulilulela/ip/assets/122797951/8c8b36e5-a207-4b70-beaf-7484387d7c5e)
 
+Dowload [Lelu](https://github.com/Lalelulilulela/ip/releases/tag/A-Release) now!
 ## Features
 
 ### Add a task
