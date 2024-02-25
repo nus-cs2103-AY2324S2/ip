@@ -17,8 +17,8 @@ public class Parser {
      * Identifies the string to contain command specific keywords and prompts the respective command.
      * Prompts an Invalid Command if the additional arguments do not fit the command criteria
      *
-     * @param str the command string
-     * @return the command to be executed
+     * @param str the command string.
+     * @return the command to be executed.
      */
     public static Command parse(String str) {
         String[] strings = str.trim().split(" ");
