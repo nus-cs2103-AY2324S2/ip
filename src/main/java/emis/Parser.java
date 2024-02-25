@@ -70,7 +70,7 @@ public class Parser {
                 return new FindCommand(taskToFind);
 
             } else {
-                throw new EmisException("Invalid command!");
+                throw new EmisException("Meow? Emis doesn't understand.\n Please send 'help' if needed.");
             }
         }
     }
