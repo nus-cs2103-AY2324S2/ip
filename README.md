@@ -1,24 +1,50 @@
-# Duke project template
+# Ursa Chatbot User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Welcome to the Ursa Chatbot User Guide!
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Listing All Tasks
+- **Command:** `list`
+- Lists all tasks you have added to Ursa.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Adding a Todo Task
+- **Command:** `todo TASK_DESCRIPTION`
+- Adds a todo task to your list.
+- Example: `todo read book`
+
+### Adding a Deadline Task
+- **Command:** `deadline TASK_DESCRIPTION /by YYYY-MM-DD`
+- Adds a deadline task with a specific due date.
+- Example: `deadline return book /by 2022-12-31`
+
+### Adding an Event Task
+- **Command:** `event TASK_DESCRIPTION /from YYYY-MM-DD /to YYYY-MM-DD`
+- Adds an event task with a start and end date.
+- Example: `event project meeting /from 2022-12-01 /to 2022-12-02`
+
+### Marking a Task as Done
+- **Command:** `mark TASK_NUMBER`
+- Marks a task as completed.
+- Example: `mark 2` (Marks the second task in the list as done.)
+
+### Unmarking a Task
+- **Command:** `unmark TASK_NUMBER`
+- Marks a task as not done.
+- Example: `unmark 2` (Unmarks the second task in the list.)
+
+### Deleting a Task
+- **Command:** `delete TASK_NUMBER`
+- Deletes a task from your list.
+- Example: `delete 3` (Deletes the third task in the list.)
+
+### Finding Tasks by Keyword
+- **Command:** `find KEYWORD`
+- Finds tasks that contain the given keyword.
+- Example: `find book` (Finds all tasks that contain the word "book".)
+
+### Exiting the Chatbot
+- **Command:** `bye`
+- Exits the chatbot application.
+
+We hope this guide helps you get started with using Ursa Chatbot to manage your tasks more effectively!
