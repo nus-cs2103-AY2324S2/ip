@@ -7,6 +7,9 @@ import simpli.exceptions.CommandException;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
+/**
+ * Chatbot will unmark the specified task as completed.
+ */
 public class UnmarkCommand implements Command {
     /** Handles UI messages that is to be displayed to user. */
     private final Ui ui;

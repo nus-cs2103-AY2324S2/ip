@@ -16,7 +16,8 @@ import simpli.core.Simpli;
 public class Gui extends Application {
     private Simpli simpli;
 
-    /** Starts running the GUI application.
+    /**
+     * Starts running the GUI application.
      *
      * @param stage JavaFx stage.
      */

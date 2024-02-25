@@ -23,6 +23,9 @@ public final class Parser {
     private static final int MAX_TOKENS = 5;
     private final HashSet<CommandWord> noArgumentsCommand;
 
+    /**
+     * Constructs the Parser.
+     */
     public Parser() {
         this.noArgumentsCommand = new HashSet<>();
         noArgumentsCommand.add(CommandWord.LIST);

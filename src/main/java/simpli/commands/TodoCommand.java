@@ -8,6 +8,9 @@ import simpli.tasks.Task;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
+/**
+ * Chatbot will add a new todo task.
+ */
 public class TodoCommand implements Command {
     /** Handles UI messages that is to be displayed to user. */
     private final Ui ui;

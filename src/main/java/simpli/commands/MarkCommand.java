@@ -8,8 +8,7 @@ import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
 /**
- * Chatbot will list all the tasks that have been added or
- * previously added.
+ * Chatbot will mark the specified task as completed.
  */
 public class MarkCommand implements Command {
     /** Handles UI messages that is to be displayed to user. */

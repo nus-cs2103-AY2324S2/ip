@@ -1,5 +1,7 @@
 package simpli.commands;
 
+import java.time.LocalDateTime;
+
 import simpli.commands.base.Command;
 import simpli.commands.base.CommandResult;
 import simpli.commands.base.CommandWord;
@@ -9,8 +11,6 @@ import simpli.interpreter.Interpreter;
 import simpli.tasks.Task;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
-
-import java.time.LocalDateTime;
 
 /**
  * Chatbot will add a new deadline task.

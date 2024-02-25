@@ -1,9 +1,9 @@
 package simpli.commands.base;
 
+/**
+ * Contains commands executable by the chatbot.
+ */
 public enum CommandWord {
-    /**
-     * Contains commands executable.
-     */
     GREET,
     LIST,
     MARK,

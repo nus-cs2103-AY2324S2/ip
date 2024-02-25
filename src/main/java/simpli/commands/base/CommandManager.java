@@ -2,13 +2,21 @@ package simpli.commands.base;
 
 import java.util.HashMap;
 
-import simpli.commands.*;
+import simpli.commands.ByeCommand;
+import simpli.commands.DeadlineCommand;
+import simpli.commands.DeleteCommand;
+import simpli.commands.EventCommand;
+import simpli.commands.FindCommand;
+import simpli.commands.GreetCommand;
+import simpli.commands.ListCommand;
+import simpli.commands.MarkCommand;
+import simpli.commands.TodoCommand;
+import simpli.commands.UnmarkCommand;
 import simpli.exceptions.CommandException;
 import simpli.exceptions.TaskException;
 import simpli.interpreter.Interpreter;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
-
 
 /**
  * Manages and executes the different types of commands.

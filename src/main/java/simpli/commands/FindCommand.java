@@ -1,5 +1,7 @@
 package simpli.commands;
 
+import java.util.ArrayList;
+
 import simpli.commands.base.Command;
 import simpli.commands.base.CommandResult;
 import simpli.commands.base.CommandWord;
@@ -8,8 +10,10 @@ import simpli.tasks.Task;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
-import java.util.ArrayList;
-
+/**
+ * Chatbot will find and return the list of tasks containing the
+ * specified string.
+ */
 public class FindCommand implements Command {
     /** Handles UI messages that is to be displayed to user. */
     private final Ui ui;

@@ -6,6 +6,9 @@ import simpli.commands.base.CommandWord;
 import simpli.tasks.TaskList;
 import simpli.ui.Ui;
 
+/**
+ * Chatbot will list all the tasks added.
+ */
 public class ListCommand implements Command {
     /** Handles UI messages that is to be displayed to user. */
     private final Ui ui;

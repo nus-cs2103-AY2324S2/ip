@@ -84,7 +84,7 @@ public class Simpli {
                     CommandWord.INVALID,
                     "No such action to simp for :("
             );
-        } catch (IOException e ) {
+        } catch (IOException e) {
             return new CommandResult(
                     CommandWord.INVALID,
                     "I am unable to save the tasks into your filesystem :("
