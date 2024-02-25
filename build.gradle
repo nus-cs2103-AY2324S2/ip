@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("megatron.Main")
+    mainClass.set("megatron.Launcher")
 }
 
 shadowJar {
