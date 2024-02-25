@@ -19,6 +19,8 @@ public class BalkanBot {
     private TaskList tasks;
     private final GUIUi guiUi;
 
+    private String forthegrade;
+
     /**
      * Initialises Balkan Bot
      *

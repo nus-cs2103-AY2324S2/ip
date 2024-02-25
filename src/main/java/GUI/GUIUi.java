@@ -87,7 +87,7 @@ public class GUIUi {
      * Prints confirmation that a task has been added to the task list.
      */
     public String printComplexTask(Task[] arr, int current) {
-        return "Got it I've now added this task:" + arr[current - 1].toString() +
+        return "Got it I've now added this task:\n" + arr[current - 1].toString() +
                 "\nNow you have " + current + " task(s) in the list.";
     }
 
