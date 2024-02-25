@@ -77,7 +77,7 @@ public class Task {
      * the other task types. It is normally used to indicate the format
      * of the data that is to be saved into the data file.
      *
-     * @return An empty string for the Task class. 
+     * @return An empty string for the Task class.
      */
     public String saveInput() {
         return "";

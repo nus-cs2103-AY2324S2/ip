@@ -57,7 +57,7 @@ public class Event extends Task {
         super(description, isDone);
         DateTimeFormatter formatter =
                 DateTimeFormatter.ofPattern(
-                "MMM dd yyyy HH:mm a");
+                "MMM dd yyyy hh:mm a");
         this.tempFrom = LocalDateTime.parse(from, tempFormatter);
         this.from = tempFrom.format(formatter);
         this.tempTo = LocalDateTime.parse(to, tempFormatter);
@@ -87,10 +87,10 @@ public class Event extends Task {
      */
     @Override
     public String saveInput() {
-        assert !tempTo.getClass().equals(LocalDateTime.class): "tempTo is not a LocalDateTime. When accessing it \" +\n" +
-                "                \"from the datanase, it will not format correctly.";
-        assert !tempFrom.getClass().equals(LocalDateTime.class): "tempFrom is not a LocalDateTime. When accessing it " +
-                "from the datanase, it will not format correctly.";
+        assert !tempTo.getClass().equals(LocalDateTime.class) : "tempTo is not a LocalDateTime. When accessing it "
+                + "from the database, it will not format correctly.";
+        assert !tempFrom.getClass().equals(LocalDateTime.class) : "tempFrom is not a LocalDateTime. When accessing it "
+                + "from the database, it will not format correctly.";
         return "E | " + isDone + " | " + description + " | "
                 + tempFrom.format(tempFormatter) + " | " + tempTo.format(tempFormatter);
     }
@@ -99,12 +99,12 @@ public class Event extends Task {
         return this.description.trim();
     }
 
-    public LocalDateTime getFrom() {
-        return this.tempFrom;
+    public String getFrom() {
+        return this.from;
     }
 
-    public LocalDateTime getTo() {
-        return this.tempTo;
+    public String getTo() {
+        return this.to;
     }
 
     @Override
@@ -114,8 +114,8 @@ public class Event extends Task {
         } else {
             Event newEvent = (Event) o;
             return Objects.equals(this.description.trim(), newEvent.getDes())
-                    && Objects.equals(this.tempFrom, newEvent.getFrom())
-                    && Objects.equals(this.tempTo, newEvent.getTo());
+                    && Objects.equals(this.from, newEvent.getFrom())
+                    && Objects.equals(this.to, newEvent.getTo());
         }
     }
 }

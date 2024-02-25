@@ -1,5 +1,11 @@
 package victor.command;
 
+import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import javafx.application.Platform;
 import victor.storage.Storage;
 import victor.tasklist.TaskList;
@@ -8,12 +14,6 @@ import victor.tasktype.Event;
 import victor.tasktype.Task;
 import victor.tasktype.Todo;
 import victor.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * Took inspiration about the Command from erv-teo command code.
@@ -38,7 +38,7 @@ public enum Command {
         public String execute(TaskList tasks, String[] commandLine) {
             try {
                 int position = Integer.parseInt(commandLine[1]);
-                assert position >= tasks.getSize(): "Position out of list";
+                assert position >= tasks.getSize() : "Position out of list";
                 Task currentTask = tasks.getPosValue(position - 1);
                 currentTask.markAsDone();
                 return "Nice! I've marked this task as done:\n" + currentTask;
@@ -48,7 +48,7 @@ public enum Command {
                         + "Can't mark an item not in the list"
                         + "The format to mark a task is: mark (task list number)";
             } catch (NumberFormatException e) {
-                return  "Sorry, I'm only smart enough to find the task based on numbers."
+                return "Sorry, I'm only smart enough to find the task based on numbers."
                         + "Please give a number. If you refuse, too bad, "
                         + "this is all I can do.";
             }
@@ -62,7 +62,7 @@ public enum Command {
         public String execute(TaskList tasks, String[] commandLine) {
             try {
                 int position = Integer.parseInt(commandLine[1]);
-                assert position >= tasks.getSize(): "Position out of list";
+                assert position >= tasks.getSize() : "Position out of list";
                 Task currentTask = tasks.getPosValue(position - 1);
                 currentTask.unmarkAsDone();
                 return "OK, I've marked this task as not done yet:\n" + currentTask;
@@ -86,11 +86,13 @@ public enum Command {
         public String execute(TaskList tasks, String[] commandLine) {
             try {
                 Todo userTask = new Todo(commandLine[1], false);
-                if (!tasks.detectDuplicates(userTask)) {
+                if (tasks.detectDuplicates(userTask)) {
                     tasks.addTask(userTask);
-                    return userTask + "\nNow you have " + tasks.getSize() + " tasks in the list.";
+                    return "Understood, I've added the task:\n" + userTask
+                            + "\nNow you have " + tasks.getSize() + " tasks in the list.";
                 }
-                return "Todo duplicate detected. Not adding " + userTask.getDes() + " todo task";
+                return "Todo duplicate detected."
+                        + "\nThere is already a todo task for '" + userTask.getDes() + "'.";
             } catch (IndexOutOfBoundsException e) {
                 return "Sorry pal, but your description is empty.\n"
                         + "Please redo the command and remember to "
@@ -112,14 +114,16 @@ public enum Command {
                 // can be parsed into a localDate
                 LocalDate deadDate = LocalDate.parse(deadLine[1]);
                 Deadline userTask = new Deadline(differentParts[0], false, deadLine[1]);
-                if (!tasks.detectDuplicates(userTask)) {
+                if (tasks.detectDuplicates(userTask)) {
                     tasks.addTask(userTask);
-                    return userTask.toString() + "\n"
+                    return "Understood, I've added the task:\n" + userTask.toString() + "\n"
                             + "Now you have " + tasks.getSize() + " tasks in the list.";
                 }
-                return "Deadline duplicate detected. Not adding " + userTask.getDes() + " deadline task";
+                return "Deadline duplicate detected.\nThere is already a duplicate dateline for '"
+                        + userTask.getDes() + "' by "
+                        + userTask.getBy() + ".";
             } catch (IndexOutOfBoundsException e) {
-                return  "Oh, you forgot to indicate when is the deadline "
+                return "Oh, you forgot to indicate when is the deadline "
                         + "or maybe you forgot the description.\n"
                         + "Please redo the command and remember to "
                         + "add the necessary information.\n"
@@ -148,12 +152,14 @@ public enum Command {
                 LocalDateTime startDT = LocalDateTime.parse(trimStartDate, formatter);
                 LocalDateTime endDT = LocalDateTime.parse(trimEndDate, formatter);
                 Event userTask = new Event(differentParts[0], false, trimStartDate, trimEndDate);
-                if (!tasks.detectDuplicates(userTask)) {
+                if (tasks.detectDuplicates(userTask)) {
                     tasks.addTask(userTask);
-                    return userTask
+                    return "Understood, I've added the task:\n" + userTask
                             + "\nNow you have " + tasks.getSize() + " tasks in the list.";
                 }
-                return "Event duplicate detected. Not adding " + userTask.getDes() + " event task";
+                return "Event duplicate detected.\nThere is already a duplicate event for '"
+                        + userTask.getDes() + "' from "
+                        + userTask.getFrom() + " to " + userTask.getTo() + ".";
             } catch (IndexOutOfBoundsException e) {
                 return "You forgot to provide either a description, "
                         + "an start date or an end date for this event.\n"
@@ -176,7 +182,7 @@ public enum Command {
         public String execute(TaskList tasks, String[] commandLine) {
             try {
                 int position = Integer.parseInt(commandLine[1]);
-                assert position >= tasks.getSize(): "Position out of list";
+                assert position >= tasks.getSize() : "Position out of list";
                 Task chosenTask = tasks.getPosValue(position - 1);
                 tasks.removeTask(position - 1);
                 return "Noted. I've removed this task:\n"
@@ -223,9 +229,7 @@ public enum Command {
             System.exit(0);
             return ui.showEnding();
         }
-    },
-
-    ;
+    };
 
     private final String command;
     Command(String command) {

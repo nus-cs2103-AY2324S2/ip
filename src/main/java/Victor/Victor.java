@@ -59,7 +59,7 @@ public class Victor {
 
         while (!userInput.equals("bye")) {
             userInput = ui.readCommand();
-            assert userInput.isBlank(): "User input is empty. Need to check." ;
+            assert userInput.isBlank() : "User input is empty. Need to check.";
             parser.parse(userInput);
         }
         ui.showEnding();
