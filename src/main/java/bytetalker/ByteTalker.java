@@ -47,7 +47,7 @@ public class ByteTalker extends Application {
 
     public ByteTalker() {
         ui = new Ui();
-        storage = new Storage("./data/bytetalker.ByteTalker.txt");
+        storage = new Storage("./data/ByteTalker.txt");
         storage.setupDirectoryAndFile();
         try {
             tasks = new TaskList(storage.loadTasks());
