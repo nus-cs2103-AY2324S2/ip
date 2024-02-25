@@ -29,7 +29,7 @@ public class Task {
      */
     @Override
     public String toString() {
-        return "[" + this.getStatusIcon() + "] " + this.description;
+        return "[" + this.getStatusIcon() + "] " + this.description + " " + this.getTags();
     }
 
     /**
@@ -92,5 +92,18 @@ public class Task {
      */
     public void addTag(String tag) {
         tags.add(tag);
+    }
+
+    /**
+     * Returns a string containing all the tags of the task.
+     *
+     * @return String containing all tags of task.
+     */
+    public String getTags() {
+        String result = "";
+        for (String tag : this.tags) {
+            result += tag;
+        }
+        return result;
     }
 }
