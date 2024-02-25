@@ -22,20 +22,8 @@ public class Parser {
                 storage.writeTasks(taskList.getTasks());
                 System.exit(0);
             case "list":
-                taskList.listTasks();
-                break;
-            case "done":
-                String doneResult = taskList.markAsDone(input);
-                storage.writeTasks(taskList.getTasks());
-                return doneResult;
-            case "undone":
-                taskList.markAsUndone(input);
-                storage.writeTasks(taskList.getTasks());
-                break;
-            case "delete":
-                String deleteResult = taskList.deleteTask(input);
-                storage.writeTasks(taskList.getTasks());
-                return deleteResult;
+                String listResult = taskList.listTasks();
+                return listResult;
             case "todo":
                 String todoResult = taskList.addTodoTask(input);
                 storage.writeTasks(taskList.getTasks());
@@ -48,6 +36,18 @@ public class Parser {
                 String eventResult = taskList.addEventTask(input);
                 storage.writeTasks(taskList.getTasks());
                 return eventResult;
+            case "mark":
+                String markResult = taskList.markAsDone(input);
+                storage.writeTasks(taskList.getTasks());
+                return markResult;
+            case "unmark":
+                String unmarkResult = taskList.markAsUndone(input);
+                storage.writeTasks(taskList.getTasks());
+                return unmarkResult;
+            case "delete":
+                String deleteResult = taskList.deleteTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return deleteResult;
             case "find":
                 String findResult = taskList.findTasks(input);
                 return findResult;
@@ -55,7 +55,5 @@ public class Parser {
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't understand that command.");
         }
-
-        return "Command executed successfully!";
     }
 }
