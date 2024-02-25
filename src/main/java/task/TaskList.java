@@ -123,7 +123,7 @@ public class TaskList {
 
     /**
      * Finds a list of tasks through the keyword.
-     * @param keyword keyword to compare
+     * @param keyword keyword to compare.
      * @return the tasks that contain the keyword.
      */
     public String findTask(String keyword) {
