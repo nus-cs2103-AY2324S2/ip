@@ -15,22 +15,25 @@ physical notebooks! Welcome to the world of efficient task handling where **Homi
 ## Features
 
 Here we explore all the features of **Homie!**
-> [!NOTE]
-> - Words in curly braces `{}` and `UPPER_CASE` are the parameters to be supplied by the user. e.g. in todo
-{TODO_DESCRIPTION}, {TODO_DESCRIPTION} is a parameter which can be used as `todo read book`.
-> - Commands are case-insensitive but parameters are case-sensitive. e.g. both `todo read book` and `TODO read book`
-will add a new todo task named 'read book' while `todo read BOOK` will add a new todo task named 'read BOOK'.
+
+**Important notes about the features:**
+- Words in curly braces `{}` and `UPPER_CASE` are the parameters to be supplied by the user. e.g. in `todo
+{TODO_DESCRIPTION}`, `{TODO_DESCRIPTION}` is a parameter which can be used as `todo read book`.
+- Commands are **case-insensitive** but parameters are **case-sensitive**. e.g. both `todo read book` and `TODO read 
+book` will add a new todo task named 'read book' while `todo read BOOK` will add a new todo task named 'read BOOK'.
+- After adding or deleting a new task, Homie will remind you of the number of tasks remaining in your task list.
 
 ### Adding todo
 
-Adds a todo to the list of tasks.
+Adds a new todo task to the list of tasks.
 
 **Formats:** 
 - `todo {TODO_DESCRIPTION}`
 - `t {TODO_DESCRIPTION}`
 
-> [!CAUTION]
-> {TODO_DESCRIPTION} cannot be empty. Empty {TODO_DESCRIPTION} will raise an exception and no tasks will be created.
+**Notes:**
+- `{TODO_DESCRIPTION}` **cannot** be empty. Empty `{TODO_DESCRIPTION}` will raise an exception and **no tasks** will be
+created.
 
 **Examples:** 
 - `todo read book`
@@ -41,23 +44,23 @@ Adds a todo to the list of tasks.
 _______________________________________
 Got it. I've added this task:
   [T][] read book
-Now you have 2 tasks in the list.
+Now you have 1 tasks in the list.
 _______________________________________
 ```
 
 ### Adding deadlines
 
-Adds a deadline to the list of tasks.
+Adds a new deadline task to the list of tasks.
 
 **Formats:**
 - `deadline {DEADLINE_DESCRIPTION} /by {DD-MM-YYYY HHmm}`
 - `dead {DEADLINE_DESCRIPTION} /by {DD-MM-YYYY HHmm}`
 
-> [!CAUTION]
-> {DEADLINE_DESCRIPTION} cannot be empty. Empty {DEADLINE_DESCRIPTION} will raise an exception and no tasks will be
-created.
-> {DD-MM-YYYY HHmm} must be in the correct format as specified. Incorrect format will raise an exception and no tasks
-will be created.
+**Notes:**
+- `{DEADLINE_DESCRIPTION}` cannot be empty. Empty `{DEADLINE_DESCRIPTION}` will raise an exception and **no tasks**
+will be created. 
+- `{DD-MM-YYYY HHmm}` must be in the correct format as specified. Incorrect formats will raise an exception and 
+**no tasks** will be created.
 
 **Examples:**
 - `deadline CS2103 Quiz 3 /by 24 02 2024 2359`
@@ -74,17 +77,17 @@ _______________________________________
 
 ### Adding event
 
-Adds an event to the list of tasks.
+Adds a new event task to the list of tasks.
 
 **Formats:** 
 - `event {EVENT_DESCRIPTION} /from {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}`
 - `e {EVENT_DESCRIPTION} /from {DD-MM-YYYY HHmm} /to {DD-MM-YYYY HHmm}`
 
-> [!CAUTION]
-> {EVENT_DESCRIPTION} cannot be empty. Empty {EVENT_DESCRIPTION} will raise an exception and no tasks will be
+**Notes:**
+- `{EVENT_DESCRIPTION}` cannot be empty. Empty `{EVENT_DESCRIPTION}` will raise an exception and no tasks will be
 created.
-> {DD-MM-YYYY HHmm} must be in the correct format as specified. Incorrect format will raise an exception and no tasks
-will be created.
+- `{DD-MM-YYYY HHmm}` must be in the correct format as specified. Incorrect formats will raise an exception and no 
+tasks will be created.
 
 **Examples:**
 - `event CS2103 Briefing /from 24 02 2024 1600 /to 24 02 2024 1800`
@@ -94,8 +97,9 @@ Expected outcome:
 ```
 _______________________________________
 Got it. I've added this task:
-  [E][] CS2103 Briefing (from: 02-24-2024 16:00 
-to: 02-24-2024 18:00)\nNow you have 1 tasks in the list.\n_______________________________________
+  [E][] CS2103 Briefing (from: 02-24-2024 16:00 to: 02-24-2024 18:00)
+Now you have 1 tasks in the list.
+_______________________________________
 ```
 
 ### Listing all tasks
@@ -127,10 +131,12 @@ Deletes an existing tasks from the task list.
 - `delete {INDEX}`
 - `del {INDEX}`
 
-- Deletes the task at the specified `INDEX` from the task list. The `INDEX` refers to the index number shown in the 
-displayed task list after using the `list` command. The index must be a positive integer 1, 2, 3...
-- The `INDEX` must be within the range of 0 < INDEX < Total number of tasks in the list + 1
-- Exception will be thrown when `INDEX is out of specified range`
+**Notes:**
+- Deletes the task at the specified `{INDEX}` from the task list. The `{INDEX}` refers to the index number shown in the 
+displayed task list **after** using the `list` command.
+- The `{INDEX}` must be a **positive integer** 1, 2, 3...
+- The `{INDEX}` must be within the range of **0 < `{INDEX}` < Total number of tasks in the list + 1**
+- An exception will be thrown when `{INDEX}` is out of specified range`
 
 **Examples:**
 - `delete 1`
@@ -147,16 +153,17 @@ _______________________________________
 
 ### Marking task
 
-Marks an existing task as done.
+Marks an existing task in the task list as done.
 
 **Formats:** 
 - `mark {INDEX}`
 - `m {INDEX}`
 
-- Marks the task at the specified `INDEX` as **done**. The `INDEX` refers to the index number shown in the displayed
-task list after using the `list` command. The index must be a positive integer 1, 2, 3...
-- The `INDEX` must be within the range of 0 < INDEX < Total number of tasks in the list + 1
-- Exception will be thrown when `INDEX is out of specified range`
+- Marks the task at the specified `{INDEX}` as **done**. The `{INDEX}` refers to the index number shown in the displayed
+task list after using the `list` command. 
+- The `{INDEX}` must be a **positive integer** 1, 2, 3...
+- The `{INDEX}` must be within the range of **0 < `{INDEX}` < Total number of tasks in the list + 1**
+- An exception will be thrown when `{INDEX}` is out of specified range`
 
 **Examples:** 
 - `mark 1`
@@ -166,23 +173,23 @@ Expected outcome:
 ```
 _______________________________________
 Nice! I've marked this task as done:
-  [E][X] CS2103 Briefing (from: 
-02-24-2024 16:00 to: 02-24-2024 18:00)
+  [E][X] CS2103 Briefing (from: 02-24-2024 16:00 to: 02-24-2024 18:00)
 _______________________________________
 ```
 
 ### Unmarking task
 
-Marks an existing task as not done.
+Marks an existing task in the task list as not done.
 
 **Formats:** 
 - `unmark {INDEX}`
 - `unm {INDEX}`
 
-- Marks the task at the specified `INDEX` as **not done**. The `INDEX` refers to the index number shown in the
-displayed task list after using the `list` command. The index must be a positive integer 1, 2, 3...
-- The `INDEX` must be within the range of 0 < INDEX < Total number of tasks in the list + 1
-- Exception will be thrown when `INDEX` is out of specified range
+- Marks the task at the specified `{INDEX}` as **not done**. The `{INDEX}` refers to the index number shown in the
+displayed task list after using the `list` command. 
+- The `{INDEX}` must be a **positive integer** 1, 2, 3...
+- The `{INDEX}` must be within the range of **0 < `{INDEX}` < Total number of tasks in the list + 1**
+- An exception will be thrown when `{INDEX}` is out of specified range`
 
 **Examples:** 
 - `unmark 1`
@@ -204,7 +211,9 @@ Formats:
 - `find {KEYWORD}`
 - `f {KEYWORD}`
 
+**Notes:**
 - Shows all tasks with the matching keyword.
+- If no tasks contain the matching keyword, no tasks will be shown.
 
 Examples:
 - `find read`
