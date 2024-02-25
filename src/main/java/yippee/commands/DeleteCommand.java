@@ -9,6 +9,7 @@ import yippee.exceptions.InvalidCommandException;
  */
 public class DeleteCommand extends Command {
     private int deleteNumber;
+    private static int deleteCount = 0;
     public DeleteCommand(int number) {
         super(false);
         this.deleteNumber = number;
@@ -24,6 +25,11 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         tasks.deleteTask(this.deleteNumber);
+        deleteCount++;
+    }
+
+    public static int getDeleteCount() {
+        return deleteCount;
     }
 
 }

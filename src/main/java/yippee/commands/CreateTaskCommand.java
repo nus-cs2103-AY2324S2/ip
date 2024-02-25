@@ -14,6 +14,7 @@ import yippee.tasks.ToDo;
 public class CreateTaskCommand extends Command {
     private String taskType;
     private String details;
+    private static int totalCreated = 0;
     public CreateTaskCommand(String taskType, String details) {
         super(false);
         this.taskType = taskType;
@@ -66,5 +67,10 @@ public class CreateTaskCommand extends Command {
         }
         assert newTask != null : "New task created should not be null";
         tasks.addNewTask(newTask);
+        totalCreated++;
+    }
+
+    public static int getTotalCreated() {
+        return totalCreated;
     }
 }
