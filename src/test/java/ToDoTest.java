@@ -1,7 +1,14 @@
+import exceptions.JojoTaskNoDescException;
+import jojo.Parser;
+import jojo.TaskList;
 import jojo.ToDo;
+import jojo.Ui;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 public class ToDoTest {
     @Test
     public void testSimpleToStr() {
@@ -27,10 +34,23 @@ public class ToDoTest {
     }
 
     @Test
-    public void unmarkTest() {
+    public void testUnmark() {
         ToDo todo = new ToDo("Mop the floor");
         todo.setUndone();
         String result = todo.toString();
         assertEquals("[T][ ] Mop the floor", result);
+    }
+
+    @Test
+    public void testParseEmptyEvent() {
+        String cmd = "event";
+        assertThrows(JojoTaskNoDescException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>())));
+    }
+
+    @Test
+    public void testParseTrailingToDo() {
+        String cmd = "todo hw ";
+        String desc = Parser.parseToDoOrFind(cmd);
+        assertEquals(desc, "hw");
     }
 }
