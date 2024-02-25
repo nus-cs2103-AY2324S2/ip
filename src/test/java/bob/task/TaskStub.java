@@ -1,8 +1,11 @@
 package bob.task;
 
 import java.time.LocalDate;
-import java.time.Month;
 
+/**
+ * Represents a stub class in place of <code>Task</code>. A <code>TaskStub</code> object corresponds to
+ * a concrete instance of a general <code>Task</code>.
+ */
 public class TaskStub extends Task {
     public TaskStub(String description) {
         super(description);

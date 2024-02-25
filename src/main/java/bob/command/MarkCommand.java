@@ -12,8 +12,8 @@ import bob.task.Task;
  * A <code>MarkCommand</code> object corresponds to a command to mark a task as done or undone.
  */
 public class MarkCommand extends Command {
-    int taskIndex;
-    boolean isDone;
+    private final int taskIndex;
+    private final boolean isDone;
 
     /**
      * Returns a command to mark or unmark a task with a specified task index.

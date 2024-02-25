@@ -1,5 +1,8 @@
 package bob;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -8,15 +11,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-import bob.task.Task;
-import bob.task.TaskStub;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
-
 import bob.exception.BobException;
+import bob.task.Task;
+import bob.task.TaskStub;
 
 public class StorageTest {
     @TempDir
@@ -26,20 +26,20 @@ public class StorageTest {
     public void load_validDataFile_success() throws IOException {
         Path dataPath = sharedTempDir.resolve("bob.txt");
         String[] fileContents = new String[] {
-                "T | false | a",
-                "T | true | a",
-                "D | false | a | 2024-02-12T23:12:00",
-                "D | true | a | 2024-02-12T23:12:00",
-                "E | false | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00",
-                "E | true | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00"
+            "T | false | a",
+            "T | true | a",
+            "D | false | a | 2024-02-12T23:12:00",
+            "D | true | a | 2024-02-12T23:12:00",
+            "E | false | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00",
+            "E | true | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00"
         };
         String[] expectedTasks = new String[] {
-                "[T][ ] a",
-                "[T][X] a",
-                "[D][ ] a (by: Feb 12 2024 2312)",
-                "[D][X] a (by: Feb 12 2024 2312)",
-                "[E][ ] a (from: Feb 11 2024 2312 to: Feb 12 2024 2312)",
-                "[E][X] a (from: Feb 11 2024 2312 to: Feb 12 2024 2312)"
+            "[T][ ] a",
+            "[T][X] a",
+            "[D][ ] a (by: Feb 12 2024 2312)",
+            "[D][X] a (by: Feb 12 2024 2312)",
+            "[E][ ] a (from: Feb 11 2024 2312 to: Feb 12 2024 2312)",
+            "[E][X] a (from: Feb 11 2024 2312 to: Feb 12 2024 2312)"
         };
 
         BufferedWriter bw = new BufferedWriter(new FileWriter(dataPath.toFile().getAbsoluteFile()));
@@ -135,12 +135,12 @@ public class StorageTest {
         Path dataPath = sharedTempDir.resolve("bob.txt");
 
         String[] fileContents = new String[] {
-                "T | false | a",
-                "T | true | a",
-                "D | false | a | 2024-02-12T23:12:00",
-                "D | true | a | 2024-02-12T23:12:00",
-                "E | false | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00",
-                "E | true | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00"
+            "T | false | a",
+            "T | true | a",
+            "D | false | a | 2024-02-12T23:12:00",
+            "D | true | a | 2024-02-12T23:12:00",
+            "E | false | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00",
+            "E | true | a | 2024-02-11T23:12:00 | 2024-02-12T23:12:00"
         };
 
         ArrayList<Task> tasks = new ArrayList<>(Arrays.asList(

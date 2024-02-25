@@ -8,18 +8,17 @@ import java.util.Scanner;
 import bob.task.Task;
 
 /**
- * Represents the user interface (UI) of the program. A <code>Ui</code></code> object corresponds to
+ * Represents the user interface (UI) of the program. A <code>Ui</code> object corresponds to
  * a user interface which the program can apply.
  */
 public class Ui {
-    private final Scanner scanner;
 
     private static final int INDENT_SPACE_COUNT = 4;
 
     private static final String EXIT = "ok";
     private static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
-    private static final String LINE
-            = ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
+    private static final String LINE =
+            ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
     private static final String LOADING_ERROR = "wait what happened i cant load any data";
 
     private static final String HEADER_ADD = "added:";
@@ -35,6 +34,8 @@ public class Ui {
     private static final String PATTERN_DATE_TIME = "MMM dd yyyy HHmm";
 
     private static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
+
+    private final Scanner scanner;
 
     /**
      * Initialises the scanner to be used to read inputs from the user.
@@ -120,9 +121,9 @@ public class Ui {
      */
     public void showAdd(Task task, int numberOfTasks) {
         show(new String[] {
-                HEADER_ADD,
-                " ".repeat(2) + task,
-                String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
+            HEADER_ADD,
+            " ".repeat(2) + task,
+            String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
         });
     }
 
