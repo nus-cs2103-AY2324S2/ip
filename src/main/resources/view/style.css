@@ -1,0 +1,24 @@
+.dialog-box {
+    -fx-background-radius: 10;
+    -fx-padding: 10;
+}
+
+.bee-dialog-background {
+    -fx-background-color: #fff3b2;
+    -fx-border-width: 2;
+    -fx-border-color: #ffd700;
+    -fx-border-radius: 10 10 10 10;
+    -fx-text-fill: #665600;
+}
+
+.user-dialog-background {
+    -fx-background-color: #B7B7B7;
+    -fx-border-width: 2;
+    -fx-border-radius: 10 10 10 10;
+    -fx-border-color: #828282;
+    -fx-text-fill: #000000;
+}
+
+.text-field {
+    -fx-text-fill: #000000;
+}
