@@ -21,7 +21,7 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        return "[D]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription() + "(by: "
-                + deadline.format(DateTimeFormatter.ofPattern("HH:mm MMM dd yyyy")) + ")";
+        return "[D]" + "[" + (isDone() ? "X" : " ") + "] " + getDescription() + "(by "
+                + deadline.format(DateTimeFormatter.ofPattern("HH:mm dd MMM yyyy")) + ")";
     }
 }
