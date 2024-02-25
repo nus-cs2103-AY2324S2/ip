@@ -36,12 +36,14 @@ public class Duke {
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            ArrayList<Task> temp = new ArrayList<Task>(storage.loadData());
+            ArrayList<Task> temp = new ArrayList<>(storage.loadData());
             tasks = new TaskList(temp);
+            assert tasks.getTasks() != storage.loadData() :
+                    "TaskList and Storage data should not reference the same object for their respective task lists";
         } catch (IllegalArgumentException e) {
-            //System.out.println("Couldn't read from file");
             tasks = new TaskList();
         }
+
     }
 
     /**

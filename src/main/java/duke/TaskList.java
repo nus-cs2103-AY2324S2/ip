@@ -51,15 +51,6 @@ public class TaskList {
     }
 
     /**
-     * Method to print all current tasks in the task list.
-     */
-    public void listTasks() {
-        for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + "." + tasks.get(i).toString());
-        }
-    }
-
-    /**
      * Method to mark a task at the specified 1-indexed index.
      *
      * @param taskNum an int representing the 1-indexed location of the task in the task list
