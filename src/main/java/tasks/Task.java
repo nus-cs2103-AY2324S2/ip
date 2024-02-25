@@ -42,6 +42,15 @@ public class Task {
     }
 
     /**
+     * Gets the description of the task.
+     *
+     * @return The description of the task.
+     */
+    public String getDescription() {
+        return this.description;
+    }
+
+    /**
      * Returns a string representation of the task.
      *
      * @return A string with the marked or unmarked done status and description of the task.

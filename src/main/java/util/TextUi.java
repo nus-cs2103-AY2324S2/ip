@@ -15,6 +15,7 @@ public class TextUi {
     private static final String BYE = " Aye mate, hit me up if u need anything more yea\n";
     private static final String ERROR_MESSAGE = "OOOPS! Something went WRONGG!";
     private static final String HELP_MESSAGE = "If confused, type 'help' for a list of commands you can use!\n";
+    private static final String FIND_MESSAGE = "Here are the matching tasks in your list:\n";
     private static final String COMMANDS = "Here is a list of commands you can use:\n"
             + "'list'\n"
             + "mark/unmark [task number]\n"
@@ -23,6 +24,10 @@ public class TextUi {
             + "deadline [task name] /by yyyy-mm-dd HHmm\n"
             + "event [task name] /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm\n"
             + "'bye'\n";
+
+    public String showFindMessage(String tasksFound) {
+        return DIVIDER_SINGLE + FIND_MESSAGE + tasksFound + DIVIDER_SINGLE;
+    }
 
     /**
      * Generates an error message for the user.

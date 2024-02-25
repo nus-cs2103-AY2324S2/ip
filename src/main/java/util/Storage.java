@@ -56,5 +56,4 @@ public class Storage {
             throw new ChillChiefException("Error saving tasks to file!: " + e.getMessage());
         }
     }
-
 }

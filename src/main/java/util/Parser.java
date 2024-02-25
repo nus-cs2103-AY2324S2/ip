@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 
 /**
  * A parser class to parse user input and executing corresponding actions.
@@ -51,6 +52,8 @@ public class Parser {
             return handleMark(tokens, tasks, textUi);
         case "delete":
             return handleDelete(tokens, tasks, textUi);
+        case "find":
+            return handleFind(tokens, tasks, textUi);
         default:
             try {
                 throw new ChillChiefException("OOPS!!! I'm sorry, but I don't know what that means :-(");
@@ -58,6 +61,22 @@ public class Parser {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private static String handleFind(String[] tokens, TaskList taskList, TextUi textUi) {
+        int count = 1;
+        StringBuilder result = new StringBuilder();
+
+        String keyword = tokens[1].trim();
+        ArrayList<Task> tasks = taskList.getAllTasks();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                result.append("  ").append(count).append(".").append(task).append("\n");
+                count++;
+            }
+        }
+
+        return textUi.showFindMessage(String.valueOf(result));
     }
 
     private static LocalDateTime parseDate(String dateString) throws ChillChiefException {
