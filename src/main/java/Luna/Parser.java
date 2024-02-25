@@ -12,7 +12,7 @@ public class Parser {
 
 
     public static Command parse(String str) {
-        String[] strings = str.split(" ");
+        String[] strings = str.trim().split(" ");
         if (strings[0].equalsIgnoreCase("list")) {
             if (strings.length != 1) {
                 return new InvalidCommand("too many arguments for [list]");
