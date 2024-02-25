@@ -1,6 +1,5 @@
 package sam.ui;
 
-import sam.Sam;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import sam.Sam;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -24,8 +24,8 @@ public class MainWindow extends AnchorPane {
 
     private Sam sam;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/psyduck.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/pikachu.jpg"));
 
     @FXML
     public void initialize() {
@@ -34,6 +34,7 @@ public class MainWindow extends AnchorPane {
 
     public void setSam(Sam newSam) {
         sam = newSam;
+        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog("Hello this is Sam.", dukeImage));
     }
 
     /**
