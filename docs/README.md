@@ -78,7 +78,7 @@ Attending an event? Don't forget it!
 
 Format: event TASK /from START_DATE [START_TIME] /to END_DATE [END_TIME]
 
-For example: `event meeting /from 8 Mar 3pm /to 4pm`
+For example: `event meeting /from 8 Mar 3pm /to 8 Mar 4pm`
 
 ```
 You added a task human!
