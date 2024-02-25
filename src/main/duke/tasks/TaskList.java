@@ -139,6 +139,7 @@ public class TaskList {
             // Start at 1 beacuse indexes start at 1. Index 0 is "delete"
             for (int i = 0; i < numbers.length; i++) {
                 int idx = numbers[numbers.length - i - 1];
+                forPrintingError = String.valueOf(idx);
                 Task t = tl.remove(idx - 1);
                 duke.setTaskList(tl);
                 s.append("Noted. I've removed this task:\n  ").append(t);
