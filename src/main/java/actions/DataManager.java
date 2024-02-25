@@ -13,19 +13,33 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * A class that manages the saving and retreiving of task to and from storage
+ */
 public class DataManager {
     private static String path;
 
+    /**
+     * instantiates a DataManager object
+     */
     public DataManager(String path) {
         this.path = path;
     }
 
+    /**
+     * parses the date and time from file format
+     * @param time The date and time in file string format
+     * @return a local date time object of the date and time
+     */
     public static LocalDateTime parseFromFileString(String time) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM-dd-yyyy HH:mm");
         return LocalDateTime.parse(time,formatter);
     }
 
-
+    /**
+     * Saves the task list to storage
+     * @param tasks the Array list of task to be saved
+     */
     public static void saveTasks(ArrayList<Task> tasks) {
         try{
             File dataFile = new File(path);
@@ -40,7 +54,10 @@ public class DataManager {
         }
     }
 
-
+    /**
+     * Retrieves the saved task list from storage
+     * @return the saved task list
+     */
     public ArrayList<Task> retrieveTasks () {
         ArrayList<Task> tasks = new ArrayList<>();
         try{
@@ -62,10 +79,15 @@ public class DataManager {
         return tasks;
     }
 
-
     public static boolean getStatus(String num) {
         return num.equals("1");
     }
+
+    /**
+     * Parses a file string representation of a task
+     * @param message the file string representation of the task
+     * @return the task object
+     */
     public static Task getTask(String message) {
         String parts[] = message.split(" \\| ");
         if (parts.length < 3) return null;

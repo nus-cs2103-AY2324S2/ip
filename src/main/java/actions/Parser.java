@@ -10,13 +10,25 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Parses the user input and uses appropriate handle functions to deal with the user input
+ */
 public class Parser {
         private final String input;
 
+        /**
+         * Instantiates a parser object
+         */
         public Parser(String input) {
             this.input = input;
         }
 
+        /**
+         * Parses the user input and handles them
+         * @param tasklist a task list object
+         * @param ui a ui object
+         * @return returns isExit boolean that indicates if the program has reach termination
+         */
         public boolean parse(TaskList tasklist, Ui ui) {
                 String[] parts = input.split(" ", 2);
                 String command = parts[0].toLowerCase();
@@ -139,8 +151,11 @@ public class Parser {
                 }
         }
 
-
-
+        /**
+         * Gets the task description
+         * @param part a part of the string representation of the task
+         * @return the task description
+         */
         public static String getTask(String part) {
                 int end = part.indexOf("/");
                 if (end == -1) {
@@ -151,12 +166,23 @@ public class Parser {
                 return task.trim();
         }
 
+        /**
+         * Gets the time components of a task
+         * @param message the user input
+         * @return the part of the string representation of the task that indicates time
+         */
         public static String getTime(String message) {
                 int start = message.indexOf("/");
                 String time = message.substring(start + 1);
                 return time;
         }
 
+        /**
+         * Parses a string format of the date and time of a task
+         * @param time the string representation of the date and time
+         * @return A local date time object of the date and time
+         * @throws DukeException
+         */
         public static LocalDateTime parseToLocalDate(String time) throws DukeException {
                 try{
                         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
