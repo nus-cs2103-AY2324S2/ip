@@ -95,21 +95,45 @@ public class Parser {
             if (words.length == 1) {
                 return response.noIndexMarkAsDone();
             }
-            int doneTaskIndex = Integer.parseInt(words[1]);
-            return this.taskList.markTaskAsDone(doneTaskIndex);
+            String doneMethod = userInput.substring(command.length()).trim();
+            if (doneMethod.equals("all") || doneMethod.equals("a")) {
+                return this.taskList.markAllTaskAsDone();
+            }
+            try {
+                int doneTaskIndex = Integer.parseInt(words[1]);
+                return this.taskList.markTaskAsDone(doneTaskIndex);
+            } catch (NumberFormatException e) {
+                return response.noIndexMarkAsDone();
+            }
         case "undone":
             if (words.length == 1) {
                 return response.noIndexMarkAsUndone();
             }
-            int undoneTaskIndex = Integer.parseInt(words[1]);
-            return this.taskList.markTaskAsUndone(undoneTaskIndex);
+            String undoneMethod = userInput.substring(command.length()).trim();
+            if (undoneMethod.equals("all") || undoneMethod.equals("a")) {
+                return this.taskList.markAllTaskAsUndone();
+            }
+            try {
+                int undoneTaskIndex = Integer.parseInt(words[1]);
+                return this.taskList.markTaskAsUndone(undoneTaskIndex);
+            } catch (NumberFormatException e) {
+                return response.noIndexMarkAsUndone();
+            }
         case "delete":
         case "/del":
             if (words.length == 1) {
                 return response.noIndexDeleteTask();
             }
-            int deleteTaskIndex = Integer.parseInt(words[1]);
-            return this.taskList.deleteTask(deleteTaskIndex);
+            String deleteMethod = userInput.substring(command.length()).trim();
+            if (deleteMethod.equals("all") || deleteMethod.equals("a")) {
+                return this.taskList.clearTasks();
+            }
+            try {
+                int deleteTaskIndex = Integer.parseInt(words[1]);
+                return this.taskList.deleteTask(deleteTaskIndex);
+            } catch (NumberFormatException e) {
+                return response.noIndexDeleteTask();
+            }
         case "clear":
             return this.taskList.clearTasks();
         case "todo":

@@ -43,7 +43,10 @@ public class Ui {
             "List all tasks alphabetically using abbreviated command \"list a\".",
             "Enter \"Save\" command to save your tasks.",
             "\"List top done\" command is same as \"List done top\".",
-            "\"List top undone\" command is same as \"List undone top\"."
+            "\"List top undone\" command is same as \"List undone top\".",
+            "Mark all tasks as completed by using \"done all\" command.",
+            "Mark all tasks as incomplete by using \"undone all\" command.",
+            "Delete all tasks by entering \"delete all\" command."
     };
 
     /**
@@ -249,6 +252,14 @@ public class Ui {
                 + "  " + undoneTask;
     }
 
+    public String markAllAsDone() {
+        return "Congrats! You have marked all as done!";
+    }
+
+    public String markAllAsUndone() {
+        return "Oops! You have marked all as incomplete!";
+    }
+
     /**
      * Sends when user enter invalid index
      *
@@ -357,7 +368,7 @@ public class Ui {
                 "\n" + "--> Shortcut: /del taskIndex" +
                 "\n" + "--> delete certain task" +
                 "\n" +
-                "\n" + "clear" +
+                "\n" + "clear or delete all" +
                 "\n" + "--> clear all tasks in task list" +
                 "\n" +
                 "\n" + "done taskIndex" +
@@ -365,6 +376,12 @@ public class Ui {
                 "\n" +
                 "\n" + "undone taskIndex" +
                 "\n" + "--> mark certain task as not done" +
+                "\n" +
+                "\n" + "done all" +
+                "\n" + "--> mark all tasks as done" +
+                "\n" +
+                "\n" + "undone all" +
+                "\n" + "--> mark all tasks as not done" +
                 "\n" +
                 "\n" + "search keyword" +
                 "\n" + "--> Shortcut: /s keyword" +

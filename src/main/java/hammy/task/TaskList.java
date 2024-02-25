@@ -62,6 +62,20 @@ public class TaskList {
         return response.markAsUndone(undoneTask);
     }
 
+    public String markAllTaskAsDone() {
+        for (Task task : this.tasks) {
+            task.markAsDone();
+        }
+        return response.markAllAsDone();
+    }
+
+    public String markAllTaskAsUndone() {
+        for (Task task : this.tasks) {
+            task.markAsUndone();
+        }
+        return response.markAllAsUndone();
+    }
+
     public String searchTasks(String keyword) {
         // Search for tasks containing the specified keyword
         int currentIndex = 1;
