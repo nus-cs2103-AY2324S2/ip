@@ -1,0 +1,19 @@
+package gandalf;
+
+/**
+ * Executes the TaskList's filter method to find all tasks that matches given keyword
+ */
+public class FindCommand extends Command {
+
+    String keyword;
+    public FindCommand(String commandName, TaskList tasks, Storage storage, Ui ui, String keyword) {
+        super(commandName, tasks, storage, ui);
+        this.keyword = keyword;
+    }
+
+    @Override
+    public void execute() {
+        TaskList filteredList = tasks.filter(this.keyword);
+        filteredList.list();
+    }
+}

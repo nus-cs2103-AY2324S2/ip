@@ -6,11 +6,10 @@ public class ToDos extends Task {
     }
     @Override
     public String toString() {
-        if(status) {
-            return "[T][X] " + nameOfTask;
-        }
-        else {
-            return "[T][ ] " + nameOfTask;
+        if (getStatus()) {
+            return "[T][X] " + getNameOfTask();
+        } else {
+            return "[T][ ] " + getNameOfTask();
         }
     }
 }
