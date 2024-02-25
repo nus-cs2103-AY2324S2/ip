@@ -1,7 +1,6 @@
 package duke.tasks;
 
 import java.time.format.DateTimeFormatter;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import duke.DukeException;
@@ -9,7 +8,15 @@ import duke.DukeException;
 public abstract class Task {
     private static final String UNEXPECTED_TYPE_MSG = "unexpected type string %s";
     private static final String UNEXPECTED_DONE_MSG = "unexpected done string %s";
-    private static final String MISSING_FIELD_MSG = "expected a type identifier, but none was given";
+    private static final String UNEXPECTED_PRIORITY_MSG = "unexpected priority string %s";
+    private static final String MISSING_TYPE_MSG = "expected a type identifier, but none was given";
+    private static final String MISSING_NAME_MSG = "expected a name, but none was given";
+    private static final String MISSING_DONE_MSG = "expected an done status, but none was given";
+    private static final String MISSING_PRIORITY_MSG = "expected a priority status, but none was given";
+    private static final String MISSING_BY_DATE_MSG = "expected a deadline date, but none was given";
+    private static final String MISSING_FROM_DATE_MSG = "expected a start date, but none was given";
+    private static final String MISSING_TO_DATE_MSG = "expected an end date, but none was given";
+    private static final String UNEXPECTED_EXTRA = "unexpected extra field in storage string";
 
     protected final String name;
     protected boolean isDone;
@@ -98,61 +105,112 @@ public abstract class Task {
         return String.format("%s,%s,%s", this.name, doneStr, priorityStr);
     }
 
+    /**
+     * Helper method for fromStorageString to scan a string from the given scanner, or throw a DukeException with the given message.
+     * @param sc The scanner to scan from.
+     * @param msg The message thrown if the scanner is empty.
+     * @return The scanned string.
+     * @throws DukeException If the scanner is empty.
+     */
+    private static String scanOrThrowMsg(Scanner sc, String msg) throws DukeException {
+        if (!sc.hasNext()) {
+            throw new DukeException(msg);
+        }
+        return sc.next();
+    }
+
+    /**
+     * Helper method for fromStorageString to construct a task based on the given type and name strings. The scanner
+     * must also be passed in.
+     * @param sc The scanner to scan from.
+     * @param typeStr The type of the task, which is either "T", "D", or "E".
+     * @param nameStr The name of the task.
+     * @return The constructed task.
+     * @throws DukeException If typeStr is invalid.
+     */
+    private static Task baseTaskFromString(Scanner sc, String typeStr, String nameStr) throws DukeException {
+        Task t;
+        switch (typeStr) {
+        case "T":
+            t = new ToDo(nameStr);
+            break;
+        case "D":
+            t = new Deadline(nameStr, Task.scanOrThrowMsg(sc, MISSING_BY_DATE_MSG));
+            break;
+        case "E":
+            t = new Event(nameStr,
+                    Task.scanOrThrowMsg(sc, MISSING_FROM_DATE_MSG),
+                    Task.scanOrThrowMsg(sc, MISSING_TO_DATE_MSG));
+            break;
+        default:
+            throw new DukeException(String.format(UNEXPECTED_TYPE_MSG, typeStr));
+        }
+        return t;
+    }
+
+    /**
+     * Helper method for fromStorageString to mark a task based on the given string.
+     * @param t The task to mark.
+     * @param doneStr The string to mark the done status of the task.
+     * @throws DukeException If doneStr is not "T" or "F".
+     */
+    private static void markDoneFromStorage(Task t, String doneStr) throws DukeException {
+        assert doneStr != null : "doneStr cannot be null";
+        switch (doneStr) {
+        case "T":
+            t.isDone = true;
+            break;
+        case "F":
+            t.isDone = false;
+            break;
+        default:
+            throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
+        }
+    }
+
+    /**
+     * Helper method for fromStorageString to set task priority based on the given string.
+     * @param t The task to set priority for.
+     * @param priorityStr The string to set the priority of the task.
+     * @throws DukeException If priorityStr is not "H" or "L".
+     */
+    private static void markPriorityFromStorage(Task t, String priorityStr) throws DukeException {
+        assert priorityStr != null : "priorityStr cannot be null";
+        switch (priorityStr) {
+        case "H":
+            t.priority = Priority.HIGH;
+            break;
+        case "L":
+            t.priority = Priority.LOW;
+            break;
+        default:
+            throw new DukeException(String.format(UNEXPECTED_PRIORITY_MSG, priorityStr));
+        }
+    }
+
+    /**
+     * Returns a Task object that is reconstructed from the given string from storage.
+     * @param str The string to reconstruct the task from.
+     * @return The reconstructed task object.
+     * @throws DukeException If the string is not in the correct format.
+     */
     public static Task fromStorageString(String str) throws DukeException {
         assert str != null : "str cannot be null";
         Scanner sc = new Scanner(str);
-        String typeStr;
-        String nameStr;
-        String doneStr;
-        String priorityStr;
-        Task t;
-
         sc.useDelimiter(",");
-        try {
-            typeStr = sc.next();
-            nameStr = sc.next();
-            doneStr = sc.next();
-            priorityStr = sc.next();
+        String typeStr = scanOrThrowMsg(sc, MISSING_TYPE_MSG);
+        String nameStr = scanOrThrowMsg(sc, MISSING_NAME_MSG);
+        String doneStr = scanOrThrowMsg(sc, MISSING_DONE_MSG);
+        String priorityStr = scanOrThrowMsg(sc, MISSING_PRIORITY_MSG);
+        Task t = baseTaskFromString(sc, typeStr, nameStr);
 
-            switch (typeStr) {
-            case "T":
-                t = new ToDo(nameStr);
-                break;
-            case "D":
-                t = new Deadline(nameStr, sc.next());
-                break;
-            case "E":
-                t = new Event(nameStr, sc.next(), sc.next());
-                break;
-            default:
-                throw new DukeException(String.format(UNEXPECTED_TYPE_MSG, typeStr));
-            }
-
-            switch (doneStr) {
-            case "T":
-                t.isDone = true;
-                break;
-            case "F":
-                t.isDone = false;
-                break;
-            default:
-                throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
-            }
-
-            switch (priorityStr) {
-            case "H":
-                t.priority = Priority.HIGH;
-                break;
-            case "L":
-                t.priority = Priority.LOW;
-                break;
-            default:
-                throw new DukeException(String.format(UNEXPECTED_DONE_MSG, doneStr));
-            }
-
-            return t;
-        } catch (NoSuchElementException e) {
-            throw new DukeException(MISSING_FIELD_MSG);
+        if (sc.hasNext()) {
+            throw new DukeException(UNEXPECTED_EXTRA);
         }
+
+        markDoneFromStorage(t, doneStr);
+        markPriorityFromStorage(t, priorityStr);
+
+        return t;
     }
 }
