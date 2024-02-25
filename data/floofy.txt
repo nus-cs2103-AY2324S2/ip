@@ -1,7 +1,5 @@
-E | 1 | cny trip | Feb 9 2024 - Feb 12 2023
-D | 0 | acc tutorial | Feb 9 2024
-T | 0 | pset 4
-D | 1 | cs2103 iP | Feb 26 2024
-D | 0 | b | Feb 28 2024
-E | 1 | c | Feb 25 2024 - Mar 4 2024
-D | 0 | b | Feb 28 2024
+T | 1 |  Purchase Birthday Gift
+D | 1 | Problem Set 4 | Feb 28 2024
+E | 0 | Hack Bash | Mar 1 2024 - Mar 16 2024
+E | 0 | Floofy's Birthday Vacation | Feb 28 2024 - Feb 29 2024
+D | 0 | Individual Assignment | Mar 1 2024
