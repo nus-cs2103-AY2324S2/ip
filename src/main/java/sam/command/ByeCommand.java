@@ -4,7 +4,6 @@ import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
 
-
 /**
  * Represents a command to exit the program.
  */
