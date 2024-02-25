@@ -3,6 +3,7 @@ package sam.command;
 import sam.SamException;
 import sam.Storage;
 import sam.TaskList;
+import sam.task.Task;
 
 /**
  * Represents a command to delete a task.
@@ -34,7 +35,7 @@ public class DeleteCommand extends Command {
 
     @Override
     public String execute(TaskList tasks, Storage storage) throws SamException {
-        String deletedTask = tasks.deleteTask(index);
+        Task deletedTask = tasks.deleteTask(index);
         storage.save(tasks);
         return String.format("This task has been deleted from the list: \n%s\nNow you have %d tasks left.\n",
                 deletedTask, tasks.getNumOfTasks());

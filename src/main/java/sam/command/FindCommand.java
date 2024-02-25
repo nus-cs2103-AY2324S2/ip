@@ -29,7 +29,7 @@ public class FindCommand extends Command {
     @Override
     public String execute(TaskList tasks, Storage storage) throws SamException {
         ArrayList<Task> list = tasks.findTasksByKeyword(this.keyword);
-        StringBuilder notice = new StringBuilder("These are the tasks with the specified keyword");
+        StringBuilder notice = new StringBuilder("These are the tasks with the specified keyword\n");
         for (int i = 0; i < list.size(); i++) {
             notice.append(String.format("%d. %s\n", i + 1, list.get(i)));
         }

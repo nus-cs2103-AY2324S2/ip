@@ -87,14 +87,13 @@ public class TaskList {
      * @param index the index of the task to delete from the list
      * @throws SamException if the index is out of bounds
      */
-    public String deleteTask(int index) throws SamException {
+    public Task deleteTask(int index) throws SamException {
         if (index < 0 || index >= items.size()) {
             throw new SamException("Invalid task number. Please check how many tasks your have in the list.");
         }
 
         Task removedTask = items.remove(index);
-        String notice = String.format("This task has been deleted \n$s\n", removedTask);
-        return notice;
+        return removedTask;
     }
 
     /**

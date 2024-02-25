@@ -43,6 +43,6 @@ public class UpdateCommand extends Command {
     public String execute(TaskList tasks, Storage storage) throws SamException {
         Task updatedTask = tasks.updateTask(index, description, to, from, by);
         storage.save(tasks);
-        return String.format("Edited task: %s\n", updatedTask);
+        return String.format("Edited task: \n %s", updatedTask);
     }
 }

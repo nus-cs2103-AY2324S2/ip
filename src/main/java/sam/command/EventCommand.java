@@ -63,7 +63,7 @@ public class EventCommand extends Command {
         Event newTask = new Event(this.description, this.from, this.to);
         tasks.addTask(newTask);
         storage.save(tasks);
-        return String.format("The task has been added to the list:\n%s\nNow you have %d tasks left.\n",
+        return String.format("The task has been added to the list:\n%s\nNow you have %d tasks left in the list.\n",
                 newTask, tasks.getNumOfTasks());
     }
 }

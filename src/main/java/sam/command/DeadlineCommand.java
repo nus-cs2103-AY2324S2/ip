@@ -44,7 +44,7 @@ public class DeadlineCommand extends Command {
         Deadline newTask = new Deadline(description, by);
         tasks.addTask(newTask);
         storage.save(tasks);
-        return String.format("I've added this task \n%s\n You have %d tasks left in the list.\n",
+        return String.format("The task has been added to the list: \n%s\n You have %d tasks left in the list.\n",
                 newTask, tasks.getNumOfTasks());
     }
 }
