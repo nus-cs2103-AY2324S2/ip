@@ -1,4 +1,5 @@
 import exceptions.JojoException;
+import exceptions.JojoTaskNoDescException;
 import exceptions.JojoUnknownTaskException;
 import jojo.Parser;
 import jojo.TaskList;
@@ -34,4 +35,16 @@ public class ParserTest {
         assertThrows(JojoUnknownTaskException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>())));
     }
 
+    @Test
+    public void testParseEmptyEvent() {
+        String cmd = "event";
+        assertThrows(JojoTaskNoDescException.class, () -> Parser.parse(cmd, new Ui(), new TaskList(new ArrayList<>())));
+    }
+
+    @Test
+    public void testParseTrailingToDo() {
+        String cmd = "todo hw ";
+        String desc = Parser.parseToDoOrFind(cmd);
+        assertEquals(desc, "hw");
+    }
 }
