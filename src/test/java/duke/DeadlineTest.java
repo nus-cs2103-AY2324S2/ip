@@ -1,22 +1,23 @@
 package duke;
 
-import duke.tasks.Deadline;
-import duke.tasks.Task;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.format.DateTimeParseException;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 
-import java.time.format.DateTimeParseException;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import duke.tasks.Deadline;
+import duke.tasks.Task;
 
 public class DeadlineTest {
 
     public static final String NAME_1 = "deadline 1";
     public static final String DATE_1 = "2024-06-06 0000";
     public static final String EXPECTED_DESCRIBE_1 = "[D][ ] deadline 1 (by: 12:00 am, 6-06-2024)";
-    public static final String EXPECTED_STORED_1 = "D,deadline 1,F,2024-06-06 0000";
+    public static final String EXPECTED_STORED_1 = "D,deadline 1,F,L,2024-06-06 0000";
 
 
     @Nested
@@ -60,13 +61,13 @@ public class DeadlineTest {
         @Test
         public void toStorageString_markedDeadline_success() {
             t.mark();
-            assertEquals(t.toStorageString(), "D,deadline 1,T,2024-06-06 0000");
+            assertEquals(t.toStorageString(), "D,deadline 1,T,L,2024-06-06 0000");
         }
 
         @Test
         public void toStorageString_unmarkedDeadline_success() {
             t.mark();
-            assertEquals(t.toStorageString(), "D,deadline 1,T,2024-06-06 0000");
+            assertEquals(t.toStorageString(), "D,deadline 1,T,L,2024-06-06 0000");
             t.unmark();
             assertEquals(t.toStorageString(), EXPECTED_STORED_1);
         }
@@ -74,7 +75,7 @@ public class DeadlineTest {
         @Test
         public void toStorageString_noNameDeadline_success() {
             t = new Deadline("", DATE_1);
-            assertEquals(t.toStorageString(), "D,,F,2024-06-06 0000");
+            assertEquals(t.toStorageString(), "D,,F,L,2024-06-06 0000");
         }
 
         // by right this should fail as it will mess up parsing
@@ -82,7 +83,7 @@ public class DeadlineTest {
         @Test
         public void toStorageString_commaInName_success() {
             Task t = new Deadline("mwa, ha, ha", DATE_1);
-            assertEquals(t.toStorageString(), "D,mwa, ha, ha,F,2024-06-06 0000");
+            assertEquals(t.toStorageString(), "D,mwa, ha, ha,F,L,2024-06-06 0000");
         }
     }
 
