@@ -10,38 +10,39 @@ public class Ui {
     /**
      * Prints first message when user activates Awex.
      */
-    public void greeting() {
-        System.out.println("Hello! I'm AWEX!\nWhat can I do for you?");
+    public String greeting() {
+        return "Hello! I'm AWEX!\n"
+                + "What can I do for you?";
     }
 
     /**
      * Prints last message after user deactivates Awex.
      */
-    public void farewell() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String farewell() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Prints explainer message when user gives erroneous inputs.
      */
-    public void allInstructions() {
-        System.out.println("Input type must be one of:");
-        System.out.println("  1. list");
-        System.out.println("  2. mark <task number>");
-        System.out.println("  3. unmark <task number>");
-        System.out.println("  4. todo <task>");
-        System.out.println("  5. deadline <task> /by <YYYY-MM-DD hh:mm>");
-        System.out.println("  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>");
-        System.out.println("  7. delete <task number>");
-        System.out.println("  8. find <item>");
-        System.out.println("Type 'bye' to exit.");
+    public String allInstructions() {
+        return "Input type must be one of:\n"
+                + "  1. list\n"
+                + "  2. mark <task number>\n"
+                + "  3. unmark <task number>\n"
+                + "  4. todo <task>\n"
+                + "  5. deadline <task> /by <YYYY-MM-DD hh:mm>\n"
+                + "  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>\n"
+                + "  7. delete <task number>\n"
+                + "  8. find <item>\n"
+                + "Type 'bye' to exit.";
     }
 
     /**
      * Prints error message if list is empty.
      */
-    public void emptyListMessage() {
-        System.out.println("List is empty.");
+    public String emptyListMessage() {
+        return "List is empty.";
     }
 
     /**
@@ -49,12 +50,13 @@ public class Ui {
      *
      * @param list TaskList with saved tasks
      */
-    public void showListMessage(TaskList list) {
-        System.out.println("Here are the tasks in your list:");
+    public String showListMessage(TaskList list) {
+        String str = "Here are the tasks in your list:\n";
         int len = list.size();
         for (int i = 1; i <= len; i++) {
-            System.out.println(i + "." + list.get(i - 1).showAll());
+            str += i + "." + list.get(i - 1).showAll() + "\n";
         }
+        return str;
     }
 
     /**
@@ -63,73 +65,73 @@ public class Ui {
      * @param tasks TaskList with saved tasks
      * @param str String each task description to be compared to
      */
-    public void showFindMessage(TaskList tasks, String str) {
-        System.out.println("Here are the matching tasks in your list:");
+    public String showFindMessage(TaskList tasks, String str) {
+        String stri = "Here are the matching tasks in your list:\n";
         LinkedList<Task> list = tasks.find(str);
         int len = list.size();
         for (int i = 1; i <= len; i++) {
-            System.out.println(i + "." + list.get(i - 1).showAll());
+            stri += i + "." + list.get(i - 1).showAll() + "\n";
         }
+        return stri;
     }
 
     /**
      * Prints explainer message when user gives erroneous inputs when marking, unmarking or deleting tasks.
      */
-    public void wrongMarkDeleteFormatMessage(String str) {
-        System.out.println("Format should be '" + str + " <task number>'");
+    public String wrongMarkDeleteFormatMessage(String str) {
+        return "Format should be '" + str + " <task number>'";
     }
 
     /**
      * Prints explainer message when user provides inaccessible list index.
      */
-    public void wrongIndexMessage(int i, int len) {
+    public String wrongIndexMessage(int i, int len) {
         if (i == 0) {
-            System.out.println("Pick a value between 1 and " + len + ".");
+            return "Pick a value between 1 and " + len + ".";
         } else {
-            System.out.println("List has only " + len + " tasks.");
+            return "List has only " + len + " tasks.";
         }
     }
 
     /**
      * Prints notification message when task deleted successfully.
      */
-    public void deleteTaskMessage(int i, TaskList list) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println("  " + list.remove(i - 1).showAll());
-        System.out.println("Now you have " + list.size() + " tasks in the list.");
+    public String deleteTaskMessage(int i, TaskList list) {
+        return "Noted. I've removed this task:\n"
+                + "  " + list.remove(i - 1).showAll() + "\n"
+                + "Now you have " + list.size() + " tasks in the list.";
     }
 
     /**
      * Prints notification message when task marked/unmarked successfully.
      */
-    public void changeStatusMessage(String str, Task t) {
+    public String changeStatusMessage(String str, Task t) {
         if (str.equals("mark")) {
-            System.out.println("Nice! I've marked this task as done:");
-        } else if (str.equals("unmark")) {
-            System.out.println("OK, I've marked this task as not done yet:");
+            return "Nice! I've marked this task as done:\n" + "  " + t.showAll();
+        } else {
+            return "OK, I've marked this task as not done yet:\n" + "  " + t.showAll();
         }
-        System.out.println("  " + t.showAll());
     }
 
     /**
      * Prints explainer message when user provides erroneous inputs while making tasks.
      */
-    public void failedTaskCreationMessage(String str) {
+    public String failedTaskCreationMessage(String str) {
         if (str.equals("todo")) {
-            System.out.println("Format should be 'todo <task>'");
+            return "Format should be 'todo <task>'";
         } else if (str.equals("deadline")) {
-            System.out.println("Format should be 'deadline <task> /by <YYYY-MM-DD hh:mm>'");
+            return "Format should be 'deadline <task> /by <YYYY-MM-DD hh:mm>'";
         } else {
-            System.out.println("Format should be 'event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>'");
+            return "Format should be 'event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>'";
         }
     }
 
     /**
      * Prints notification message when task saved successfully.
      */
-    public void newTaskAddedMessage(int i, Task t) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println("  " + t.showAll());
-        System.out.println("Now you have " + i + " tasks in the list.");
+    public String newTaskAddedMessage(int i, Task t) {
+        return "Got it. I've added this task:\n"
+                + "  " + t.showAll() + "\n"
+                + "Now you have " + i + " tasks in the list.";
     }
 }
