@@ -103,7 +103,7 @@ public class TaskListTest {
 
     @Test
     public void toString_emptyList_returnsDefaultMessage() {
-        String expected = "Looks like you have nothing to do! Yay!\n";
+        String expected = "Looks like you have no tasks to do! Yay!\n";
         assertEquals(expected, taskList.toString());
     }
 }
