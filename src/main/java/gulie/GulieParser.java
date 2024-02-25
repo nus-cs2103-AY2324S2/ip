@@ -41,6 +41,7 @@ public class GulieParser {
                     if (!silent) {
                         ui.printMark(tasklist.get(index));
                     }
+                    storage.save(tasklist);
                 };
             } catch (NumberFormatException e) {
                 throw new GulieException("Index provided must be an integer.");
@@ -54,6 +55,7 @@ public class GulieParser {
                     if (!silent) {
                         ui.printUnmark(tasklist.get(index));
                     }
+                    storage.save(tasklist);
                 };
             } catch (NumberFormatException e) {
                 throw new GulieException("Index provided must be an integer.");
@@ -67,6 +69,7 @@ public class GulieParser {
                 if (!silent) {
                     ui.printStore(todo, tasklist.size());
                 }
+                storage.save(tasklist);
             };
         }
         case "deadline": {
@@ -79,6 +82,7 @@ public class GulieParser {
                     if (!silent) {
                         ui.printStore(deadline, tasklist.size());
                     }
+                    storage.save(tasklist);
                 };
             } catch (DateTimeParseException e) {
                 throw new GulieException("The datetime that you have given is invalid.");
@@ -95,6 +99,7 @@ public class GulieParser {
                     if (!silent) {
                         ui.printStore(event, tasklist.size());
                     }
+                    storage.save(tasklist);
                 };
             } catch (DateTimeParseException e) {
                 throw new GulieException("The datetime that you have given is invalid.");
@@ -108,6 +113,7 @@ public class GulieParser {
                     if (!silent) {
                         ui.printDelete(task, tasklist.size());
                     }
+                    storage.save(tasklist);
                 };
             } catch (NumberFormatException e) {
                 throw new GulieException("Index provided must be an integer.");
