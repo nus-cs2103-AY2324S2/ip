@@ -81,6 +81,13 @@ public class Event extends Task {
                 end.format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    /**
+     * Parses a date string into a LocalDate object using the format 'yyyy-MM-dd'.
+     *
+     * @param dateString A string representing a date in the format 'yyyy-MM-dd'.
+     * @return The parsed LocalDate object.
+     *         Returns null if the provided date string is not in the correct format.
+     */
     public static LocalDate parseDate(String dateString) {
         try {
             return LocalDate.parse(dateString, DateTimeFormatter.ofPattern("yyyy-MM-dd"));

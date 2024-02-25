@@ -1,6 +1,7 @@
 package georgie;
 
 import java.io.IOException;
+
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Georgie using FXML.
+ * Represents a GUI for Georgie using FXML.
  */
 public class Main extends Application {
 
