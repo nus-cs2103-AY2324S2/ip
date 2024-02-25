@@ -25,8 +25,8 @@ The `GUI` is the newest update and the CLI is a `legacy version`.
 1. Ensure you have Java `11` installed on your Computer. For mac users, ensure that your Java 11 version is `Azul Zulu version 11.0.22`
 2. Download the latest copy of Jar from releases in this repo, open it.
 3. Build it and it should be able to run.
-4. For `GUI`, it should be launched from java file `Launcher`.
-5. For `CLI`, launch it from java file `Venus`.
+4. For `GUI`, download the latest Jar release and launch it with `java -jar venus.jar`.
+5. For `CLI`, compile the source code in a project setting and launch it from java file `Venus`.
 6. Type command in the command box, and press enter to proceed. You can try the following commands
 - `list`: List all the tasks.
 - `event /from 2020-01-01 /to 2020-01-02`: Adds an event from 2020 1st Jan to 2020 2nd Jan to be tracked.

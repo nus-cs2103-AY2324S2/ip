@@ -48,20 +48,14 @@ test {
 }
 
 application {
-    mainClass.set("Launcher.main")
+    mainClass.set("venus.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "venus"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    archiveFileName = 'venus.jar'
 }
 
 run{
     standardInput = System.in
-    enableAssertions = true
-}
-
-run {
     enableAssertions = true
 }

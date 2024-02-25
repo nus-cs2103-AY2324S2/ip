@@ -353,7 +353,6 @@ public class TaskList {
         String output;
         try {
             int index = Parser.findMarkIndex(word);
-            System.out.println(index);
             boolean isNotValidIndex = index >= data.size() || index < 0;
             if (isNotValidIndex) {
                 output = Gui.formatResponse("No task index found, something went wrong.");

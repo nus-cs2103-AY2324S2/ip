@@ -25,17 +25,26 @@ public class Storage {
      *
      * @param filePath Relative filepath of data in project.
      */
+
     public Storage(String filePath) {
-        File folder = new File(filePath.split(File.separator)[0]);
+        File folder = new File(filePath);
         if (!folder.exists()) { // handling folder does not exist issues
-            folder.mkdir();
-            System.out.println("Folder does not exist, data folder is created");
+            folder.mkdirs(); // Use mkdirs() to create parent directories if necessary
+            System.out.println("Folder does not exist, data folder is created.\n"
+                    + "Do not worry if system say there is error, it will fix itself.:)");
         }
-        if (!Files.exists(Path.of("data" + File.separator + "venus.txt"))) { // handling file does not exist
-            File f = new File("data" + File.separator + "venus.txt");
+        if (!Files.exists(Path.of("data", "venus.txt"))) { // handling file does not exist
+            // Create the file if it doesn't exist
+            File f = new File("data", "venus.txt");
+            try {
+                f.createNewFile();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
         this.filePath = filePath;
     }
+
 
     /**
      * Store a single line of task into file.
