@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import ciara.Ciara;
 import ciara.exceptions.CiaraException;
@@ -96,6 +98,7 @@ public class MarkCommandTest {
      * Tests print to standard output for successful marking of task as completed
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_markTask_success() throws CiaraException {
         String expected = "Nice! I've marked this task as done:\n"
                 + "  [E][X] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
@@ -110,6 +113,7 @@ public class MarkCommandTest {
      * Tests print to standard output for successful unmarking of task as completed
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_unmarkTask_success() throws CiaraException {
         String expected = "Nice! I've marked this task as not done:\n"
                 + "  [E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";

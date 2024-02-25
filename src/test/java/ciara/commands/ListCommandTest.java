@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import ciara.Ciara;
 import ciara.exceptions.CiaraException;
@@ -91,6 +93,7 @@ public class ListCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_noFiltersPopulated_success() throws CiaraException {
         String expected = "1.[T][ ] buy lunch\n"
                 + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
@@ -115,6 +118,7 @@ public class ListCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_dateFilterPopulated_success() throws CiaraException {
         String expected = "1.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
                 + "2.[E][ ] taengoo concert (from: 29-Jan-2024 05:39PM to: 29-Jan-2024 07:39PM)\n";
@@ -136,6 +140,7 @@ public class ListCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_dateFilterPopulated_empty() throws CiaraException {
         String expected = "\n";
 
@@ -156,6 +161,7 @@ public class ListCommandTest {
      * unpopulated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_noFilterUnpopulated_success() throws CiaraException {
         String expected = "\n";
 

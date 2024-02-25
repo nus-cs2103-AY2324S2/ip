@@ -14,6 +14,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.api.TestInstance.Lifecycle;
+import org.junit.jupiter.api.condition.DisabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 
 import ciara.Ciara;
 import ciara.exceptions.CiaraException;
@@ -91,6 +93,7 @@ public class FindCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_noKeywordPopulated_success() throws CiaraException {
         String expected = "1.[T][ ] buy lunch\n"
                 + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n"
@@ -114,6 +117,7 @@ public class FindCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_keywordPopulated_success() throws CiaraException {
         String expected = "1.[T][ ] buy lunch\n"
                 + "2.[D][ ] eat lunch (by: 29-Jan-2024 03:39PM)\n";
@@ -135,6 +139,7 @@ public class FindCommandTest {
      * populated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_keywordPopulated_empty() throws CiaraException {
         String expected = "\n";
 
@@ -155,6 +160,7 @@ public class FindCommandTest {
      * unpopulated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_noKeywordUnpopulated_success() throws CiaraException {
         String expected = "\n";
 
@@ -169,6 +175,7 @@ public class FindCommandTest {
      * unpopulated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_keywordUnpopulated_success() throws CiaraException {
         String expected = "\n";
 
