@@ -14,7 +14,7 @@ public class InvalidInputException extends ChatbotException {
                 + "\n\nCommands available:\n"
                 + "- todo <task>,\n- deadline <task> /by <dd/mm/yyyy hhmm>,"
                 + "\n- event <task> /from <dd/mm/yyyy hhmm> /to <dd/mm/yyyy hhmm>,"
-                + "\n- mark <task number>,\n- unmark <task number>\n- delete <task number>,\n- find <keyword>,"
+                + "\n- mark <task number>,\n- unmark <task number>,\n- delete <task number>,\n- find <keyword>,"
                 + "\n- list,\n- remind");
     }
 }
