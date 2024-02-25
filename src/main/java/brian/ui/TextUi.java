@@ -9,18 +9,18 @@ public class TextUi {
     private static final String LINE = "____________________________________________________________";
     private final Scanner scanner;
 
+    private StringBuilder sb = new StringBuilder();
+
     public TextUi() {
         this.scanner = new Scanner(System.in);
     }
 
     public void showFileLoadingError() {
-        System.out.println("Error loading file");
+        sb.append("Error loading file").append("\n");
     }
 
     public void showWelcome() {
-        System.out.println(LINE);
-        System.out.println("Hello! I'm Brian\nWhat can I do for you?");
-        System.out.println(LINE);
+        sb.append("Hello! I'm Brian\nWhat can I do for you?").append("\n");
     }
 
     public String readCommand() {
@@ -32,28 +32,30 @@ public class TextUi {
     }
 
     public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+        sb.append(errorMessage).append("\n");
     }
 
     public void showTasks(List<Task> tasks) {
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.printf("%d. %s\n", i + 1, tasks.get(i));
+            sb.append(String.format("%d. %s\n", i + 1, tasks.get(i)));
         }
+        sb.append("\n");
+
     }
 
     public void foundTasks(List<Task> tasks) {
-        System.out.println("Here are the matching tasks in your list:");
+        sb.append("Here are the matching tasks in your list:").append("\n");
         showTasks(tasks);
     }
 
     public void showMarked(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
-        System.out.println(task);
+        sb.append("Nice! I've marked this task as done:").append("\n");
+        sb.append(task).append("\n");
     }
 
     public void showUnmarked(Task task) {
-        System.out.println("Okay! I've marked this task as not done yet");
-        System.out.println(task);
+        sb.append("Okay! I've marked this task as not done yet").append("\n");
+        sb.append(task).append("\n");
 
     }
 
@@ -61,19 +63,24 @@ public class TextUi {
     }
 
     public void showTask(Task task, int size) {
-        System.out.println("Got it. I've added this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
+        sb.append("Got it. I've added this task:").append("\n");
+        sb.append(task).append("\n");
+        sb.append(String.format("Now you have %d tasks in the list.\n", size)).append("\n");
     }
 
     public void removeTask(Task task, int size) {
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task);
-        System.out.printf("Now you have %d tasks in the list.\n", size);
-
+        sb.append("Noted. I've removed this task:").append("\n");
+        sb.append(task).append("\n");
+        sb.append(String.format("Now you have %d tasks in the list.\n", size)).append("\n");
     }
 
     public void showBye() {
-        System.out.println("Bye. Hope to see you again soon!");
+        sb.append("Bye. Hope to see you again soon!").append("\n");
+    }
+
+    public String showResponse() {
+        String result = sb.toString();
+        sb = new StringBuilder();
+        return result;
     }
 }

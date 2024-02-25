@@ -51,7 +51,13 @@ public class Brian {
     }
 
     public String getResponse(String input) {
-        return "Brian heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            c.execute(tasks, ui, storage);
+        } catch (BrianException e) {
+            ui.showError(e.getMessage());
+        }
+        return ui.showResponse();
     }
 
     void run() {
