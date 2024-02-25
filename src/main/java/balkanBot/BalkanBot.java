@@ -18,6 +18,7 @@ public class BalkanBot {
     private final Storage storage;
     private TaskList tasks;
     private final GUIUi guiUi;
+    private String iLoveBranches;
 
     /**
      * Initialises Balkan Bot
