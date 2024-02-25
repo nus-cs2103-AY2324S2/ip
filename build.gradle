@@ -48,16 +48,17 @@ test {
 }
 
 application {
-    mainClass.set("tasklist.Launcher")
+    mainClass.set("tasklist.gui.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "michelle"
+    archiveFileName = 'michelle.jar'
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
     enableAssertions = true
 }

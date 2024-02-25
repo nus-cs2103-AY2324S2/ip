@@ -36,19 +36,19 @@ public class AddCommand implements Command {
     public String execute(TaskList taskList, Ui ui, Storage storage) {
         switch (number) {
         case 0:
-            if (input.trim() != "") {
+            if (!input.trim().equals("")) {
                 this.addedTask = new Task(input);
             } else {
-                return "Error, please enter a task.";
+                return ("Error, please enter a task.");
             }
             break;
 
         case 1:
-            if (input.trim() != "") {
+            if (!input.trim().equals("")) {
                 ToDo newToDo = new ToDo(input);
                 this.addedTask = newToDo;
             } else {
-                return "Error, please enter a task.";
+                return ("Error, please enter a task.");
             }
             break;
 
@@ -56,8 +56,8 @@ public class AddCommand implements Command {
             try {
                 String[] theParts = input.split("/", 2);
                 if (!theParts[1].trim().startsWith("by")) {
-                    return "Error: Deadline format is incorrect. Please include '/by' to specify the deadline."
-                        + "Example: 'Task Title /by Deadline'";
+                    return ("Error: Deadline format is incorrect. Please include '/by' to specify the deadline."
+                        + "\nExample: 'Task Title /by Deadline'");
                 }
 
                 Deadline newDeadline = new Deadline(theParts[0].trim(), theParts[1].trim());
@@ -93,7 +93,7 @@ public class AddCommand implements Command {
             break;
 
         default:
-            return ("error creating Task. Please contact the adminstrator.");
+            return ("Error creating Task. Please contact the adminstrator.");
         }
 
 

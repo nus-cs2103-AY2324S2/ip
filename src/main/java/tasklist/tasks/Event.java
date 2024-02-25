@@ -32,7 +32,7 @@ public class Event extends Task {
         try {
             String fromDateString = fromDate.substring(fromDate.indexOf("/from") + 5, fromDate.length());
             String toDateString = toDate.substring(toDate.indexOf("/to") + 3, toDate.length());
-            if (fromDateString.trim() == "" | toDateString.trim() == "") {
+            if (fromDateString.trim().equals("") | toDateString.trim().equals("")) {
                 throw new EmptyDateException();
             }
 

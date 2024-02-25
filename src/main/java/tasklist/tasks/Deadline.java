@@ -25,7 +25,7 @@ public class Deadline extends Task {
         super(item);
         try {
             String byDateString = byDate.substring(byDate.indexOf("/to") + 3, byDate.length());
-            if (byDateString.trim() == "") {
+            if (byDateString.trim().equals("")) {
                 throw new EmptyDateException();
             }
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d-M-yyyy HHmm");

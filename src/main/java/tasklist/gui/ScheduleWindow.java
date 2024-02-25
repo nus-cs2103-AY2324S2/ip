@@ -80,6 +80,9 @@ public class ScheduleWindow {
         int col = startDayOfWeek;
 
         for (int day = 1; day <= daysInMonth; day++) {
+            if (col == 7) {
+                col = 0;
+            }
             Label dayLabel = new Label(String.valueOf(day));
             dayLabel.setAlignment(Pos.TOP_CENTER);
             dayLabel.setMaxHeight(Double.MAX_VALUE);
@@ -110,9 +113,10 @@ public class ScheduleWindow {
 
         for (int i = 0; i < deadlines.size(); i++) {
             LocalDateTime byDate = deadlines.get(i).getDeadlineDate();
-            if (byDate.getMonth() != dateFocus.getMonth()) {
+            if (byDate.getMonth() != dateFocus.getMonth() || byDate.getYear() != dateFocus.getYear()) {
                 continue;
             }
+
             Label deadlineLabel = new Label(deadlines.get(i).toString());
             int deadlineDayOfWeek = (byDate.getDayOfWeek().getValue()) % 7;
             int deadlineRow = getRowNumber(byDate);
@@ -134,6 +138,11 @@ public class ScheduleWindow {
             LocalDateTime toDate = theEvent.getToDate();
             if (fromDate.getMonthValue() != dateFocus.getMonthValue()
                 && toDate.getMonthValue() != dateFocus.getMonthValue()) {
+                continue;
+            }
+
+            if (fromDate.getYear() != dateFocus.getYear()
+                && toDate.getYear() != dateFocus.getYear()) {
                 continue;
             }
 
