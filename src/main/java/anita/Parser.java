@@ -1,7 +1,5 @@
 package anita;
 
-import java.util.Arrays;
-
 /**
  * The Parser class handles all methods used to parse user commands.
  */

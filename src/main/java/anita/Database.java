@@ -14,16 +14,16 @@ import java.util.Scanner;
  */
 public class Database {
     private File myFile;
-    private Duke duke;
+    private Anita anita;
 
     /**
      * Creates a Database object.
      *
-     * @param duke The main class object.
+     * @param anita The main class object.
      */
-    public Database(Duke duke) {
+    public Database(Anita anita) {
         myFile = new File("./data/saved-data");
-        this.duke = duke;
+        this.anita = anita;
     }
 
     /**
@@ -82,7 +82,7 @@ public class Database {
             String[] tokens = i.split("/");
             String command = tokens[0].split(" ")[0];
             try {
-                duke.addingTask(command, i);
+                anita.addingTask(command, i);
             } catch (Exception e) {
                 System.out.println(e.getMessage());
             }

@@ -2,6 +2,7 @@ package anita;
 
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ParserTest {
     @Test
@@ -13,6 +14,17 @@ public class ParserTest {
         assertEquals("deadline", new Parser().parseCommand("deadline return book /by Sunday"));
 
         assertEquals("delete", new Parser().parseCommand("delete 69"));
+    }
+
+    @Test
+    public void parseCommand_nullInput_exceptionThrown() throws Exception {
+        boolean isThrown = false;
+        try {
+            new Parser().parseCommand(null);
+        } catch (NullPointerException e) {
+            isThrown = true;
+        }
+        assertTrue(isThrown);
     }
 
     @Test

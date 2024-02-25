@@ -74,7 +74,7 @@ public class TaskList {
      */
     public String addTask(Task task) throws ArrayIndexOutOfBoundsException {
         taskList.add(task);
-        if (!Duke.isInitialized) {
+        if (!Anita.isInitialized) {
             return ui.addTask(task) + getNumberOfTasks();
         }
         return "";

@@ -9,11 +9,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Anita using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Anita anita = new Anita();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             stage.setTitle("I Need The Max Win");
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setAnita(anita);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

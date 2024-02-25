@@ -3,7 +3,7 @@ package anita;
 /**
  * The main class.
  */
-public class Duke {
+public class Anita {
     protected static boolean isInitialized = true;
 
     private Database database;
@@ -11,9 +11,9 @@ public class Duke {
     private TaskList taskList;
 
     /**
-     * Creates a Duke object.
+     * Creates an Anita object.
      */
-    public Duke() {
+    public Anita() {
         database = new Database(this);
         ui = new Ui();
         taskList = new TaskList(database);
@@ -118,3 +118,4 @@ public class Duke {
         return allocateTask(command, input);
     }
 }
+

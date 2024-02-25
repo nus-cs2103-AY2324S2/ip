@@ -21,10 +21,10 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke = new Duke();
+    private Anita anita = new Anita();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/DaDuke.png"));
+    private Image anitaImage = new Image(this.getClass().getResourceAsStream("/DaDuke.png"));
 
     /**
      * Creates a dialogue box showing Anita's prompt message.
@@ -32,32 +32,32 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        String greet = duke.getGreeting();
+        String greet = anita.getGreeting();
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(greet, dukeImage)
+                DialogBox.getAnitaDialog(greet, anitaImage)
         );
     }
 
     /**
      * Sets Anita to the parameter d.
      *
-     * @param d The Anita instance.
+     * @param a The Anita instance.
      */
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setAnita(Anita a) {
+        anita = a;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Anita's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = anita.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getAnitaDialog(response, anitaImage)
         );
         if (input.equals("bye")) {
             javafx.application.Platform.exit();
