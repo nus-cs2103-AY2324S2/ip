@@ -115,7 +115,6 @@ public class XiaoBai {
      *                          adding the task.
      */
     public String processTodoCommand(String input) throws XiaoBaiException {
-        assert input.substring(4) != null : "Task Details cannot be empty";
         Todo newTodo = new Todo(input.substring(4));
         taskList.addTask(newTodo);
         return ui.showAddTaskMessage(newTodo, taskList);
@@ -133,7 +132,6 @@ public class XiaoBai {
      *                          adding the task.
      */
     public String processDeadlineCommand(String input) throws XiaoBaiException {
-        assert input.substring(8) != null : "Task Details cannot be empty";
         String[] parts = input.substring(8).split(" /");
         Deadline newDeadline = new Deadline(parts[0], parts[1].substring(3));
         taskList.addTask(newDeadline);
@@ -151,7 +149,6 @@ public class XiaoBai {
      *                          adding the task.
      */
     public String processEventCommand(String input) throws XiaoBaiException {
-        assert input.substring(5) != null : "Task Details cannot be empty";
         String[] parts = input.substring(5).split(" /");
         Event newEvent = new Event(parts[0], parts[1].substring(5),
                 parts[2].substring(3));
@@ -168,7 +165,6 @@ public class XiaoBai {
      */
     public String processMarkCommand(String input) {
         String[] parts = input.split(" ");
-        assert parts[1] != null : "Mark details cannot be empty";
         int index = Integer.parseInt(parts[1]);
         Task task = taskList.getTask(index - 1);
         task.setDone();
@@ -184,7 +180,6 @@ public class XiaoBai {
      */
     public String processUnmarkCommand(String input) {
         String[] parts = input.split(" ");
-        assert parts[1] != null : "Unmark details cannot be empty";
         Task unmarkTask = taskList.getTask(Integer.parseInt(parts[1]) - 1);
         unmarkTask.setNotDone();
         return ui.showUnmarkMessage(unmarkTask);
@@ -202,7 +197,6 @@ public class XiaoBai {
             throw new XiaoBaiException("Task List is empty");
         }
         String[] parts = input.split(" ");
-        assert parts[1] != null : "Delete details cannot be empty";
         int deleteIndex = Integer.parseInt(parts[1]) - 1;
         Task deletedTask = taskList.getTask(deleteIndex);
         taskList.removeTask(deleteIndex);
@@ -218,7 +212,6 @@ public class XiaoBai {
      */
     public String processFindCommand(String input) {
         String stringToFind = input.substring(5);
-        assert stringToFind != null : "Find details cannot be empty";
         return ui.showFoundTask(taskList, stringToFind);
     }
 }
