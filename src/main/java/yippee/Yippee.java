@@ -92,9 +92,20 @@ public class Yippee extends Application {
     
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        AnchorPane mainLayout = setUpComponents(stage);
+        setDimensions(stage, mainLayout);
+        setUserInputDim();
 
-        //The container for the content of the chat to scroll.
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        setAnchor();
+
+        setInputHandler();
+
+
+    }
+
+    private AnchorPane setUpComponents(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -110,7 +121,10 @@ public class Yippee extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //Step 2. Formatting the window to look as expected
+        return mainLayout;
+    }
+
+    private void setDimensions(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -124,14 +138,14 @@ public class Yippee extends Application {
 
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
+    }
 
-        //You will need to import `javafx.scene.layout.Region` for this.
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
+    private void setUserInputDim() {
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
+    }
 
+    private void setAnchor() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -139,8 +153,9 @@ public class Yippee extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //Step 3. Add functionality to handle user input.
+    private void setInputHandler() {
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -150,22 +165,6 @@ public class Yippee extends Application {
         });
 
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-
-
-    }
-
-    /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
     }
 
     /**
