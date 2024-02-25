@@ -17,4 +17,9 @@ public class ToDos extends Task{
     public String toString() {
         return isDone + " todo " + getDescription();
     }
+
+    @Override
+    public String notPrint() {
+        return "\t" + "[T]" + getStatusIcon() + getDescription();
+    }
 }

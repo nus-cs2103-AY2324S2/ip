@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.File;
+import java.util.Calendar;
 import java.io.FileNotFoundException;
 public class Goblin {
     static String greetings = "Hello！ I'm NetGoblin\n"
@@ -97,8 +98,7 @@ public class Goblin {
         line();
         System.out.println("\t" + "Read it yourself.");
         for (int i = 0; i < list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + list.get(i).type()
-                    + list.get(i).getStatusIcon() + list.get(i).getDescription());
+            System.out.println("\t" + (i + 1) + "." + list.get(i).notPrint());
         }
         line();
     }
@@ -128,7 +128,7 @@ public class Goblin {
     }
 
     public static void addDeadline(String command) {
-        String[] split = command.split("/by") ;
+        String[] split = command.split("/by ") ;
         String description = split[0];
         String deadline = split[1];
         Deadlines deadlines = new Deadlines(description, deadline);
@@ -137,10 +137,10 @@ public class Goblin {
     }
 
     public static void addEvent(String command) {
-        String[] split = command.split("/from") ;
+        String[] split = command.split("/from ") ;
         String description =split[0];
         String time = split[1];
-        String[] timeSplit = time.split(" /to");
+        String[] timeSplit = time.split(" /to ");
         String start = timeSplit[0];
         String end = timeSplit[1];
         Events events = new Events(description, start, end);

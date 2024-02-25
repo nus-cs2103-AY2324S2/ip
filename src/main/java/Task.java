@@ -28,8 +28,11 @@ public class Task {
 
     }
 
+    public String notPrint() {
+        return "";
+    }
+
     public String type(){
         return type;
-    }
-    //...
+    }//...
 }
