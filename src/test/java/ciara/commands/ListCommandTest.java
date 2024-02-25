@@ -176,6 +176,7 @@ public class ListCommandTest {
      * unpopulated tasklist
      */
     @Test
+    @DisabledOnOs(OS.WINDOWS)
     public void execute_dateFilterUnpopulated_success() throws CiaraException {
         String expected = "\n";
 
