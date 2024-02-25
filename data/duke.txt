@@ -1,1 +1,7 @@
+<<<<<<< HEAD
 T [ ] homework
+=======
+T [X]  homework
+D [ ] urn book | Oct 15 2019
+E [ ] project meeting | From Oct 15 2019 18:00 to Oct 15 2019 19:00
+>>>>>>> 218b8cc82e1042b3924d7df2fc0c0fc62615f68f

@@ -37,6 +37,7 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(duke.getWelcomeMessage(), dukeImage));
+
     }
 
     /**
@@ -53,14 +54,9 @@ public class MainWindow extends AnchorPane {
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
-
-        if (input.trim().equalsIgnoreCase("list")) {
-            String taskListResult = duke.getTaskList();
-            dialogContainer.getChildren().add(DialogBox.getDukeDialog(taskListResult, dukeImage));
-        }
+                DialogBox.getDukeDialog(response, dukeImage)
+        );
 
         userInput.clear();
-
     }
 }

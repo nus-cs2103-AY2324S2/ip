@@ -1,8 +1,6 @@
 package bentley;
 
 import java.util.Scanner;
-import bentley.DialogBox;
-import bentley.MainWindow;
 
 /**
  * The main class representing the Duke application.
@@ -40,20 +38,29 @@ public class Duke {
     public void run() {
         Scanner scanner = new Scanner(System.in);
 
-        while (true) {
-            String userInput = scanner.nextLine();
+        try {
+            while (true) {
+                String userInput = scanner.nextLine();
 
-            if (userInput.equals("Bye")) {
-                ui.getByeMessage();
-                storage.writeTasks(taskList.getTasks());
-                break;
-            } else {
-                String response = getResponse(userInput);
-                System.out.println(response);
-                storage.writeTasks(taskList.getTasks());
+                taskList = new TaskList(storage.loadTasks());
+                assert storage.checkFileIsOpen() : "File is not open!";
+
+                if (userInput.equals("Bye")) {
+                    ui.getByeMessage();
+                    storage.writeTasks(taskList.getTasks());
+                    break;
+                } else {
+                    String response = getResponse(userInput);
+                    System.out.println(response);
+                    storage.writeTasks(taskList.getTasks());
+                }
             }
+        } catch (AssertionError e) {
+            // Handle the assertion failure
+            System.err.println("Assertion failed: " + e.getMessage());
+        } finally {
+            scanner.close();
         }
-        scanner.close();
     }
 
     /**
