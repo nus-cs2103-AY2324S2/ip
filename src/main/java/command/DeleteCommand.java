@@ -1,14 +1,15 @@
 package command;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-
 import roland.Storage;
 import roland.TaskList;
 import roland.Ui;
 import task.Task;
+
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the TaskList based on its index.
@@ -38,12 +39,26 @@ public class DeleteCommand extends Command {
      * @param ui The user interface that outputs to the terminal
      * @param storage The storage path to store persistent data
      */
-    public String execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage) {
         Task task = tasks.get(index - 1);
         tasks.remove(index - 1);
         serializeArrayList(tasks.getList(), storage.getFilePath());
-        return ("I have removed " + task.toString()
+        System.out.println(ui.getBot() + "I have removed " + task.toString()
                 + " from your list. You have " + tasks.size() + " task(s) in list");
+    }
+
+    /**
+     * Serializes the provided ArrayList of tasks to the specified file path using object serialization.
+     *
+     * @param list     The ArrayList of tasks to be serialized.
+     * @param filePath The file path where the serialized data will be stored.
+     */
+    private static void serializeArrayList(ArrayList<Task> list, String filePath) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filePath))) {
+            oos.writeObject(list);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 }
