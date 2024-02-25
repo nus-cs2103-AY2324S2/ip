@@ -1,5 +1,6 @@
-T | 1 | read book
-D | 0 | feed cat | 2024-02-02 1900
+D | 0 | feed cat | Feb 02 2024 19:00
 E | 0 | wit | aug 2 | aug 3
 T | 0 | read
-T | 0 | hi
+E | 0 | hi |  | 
+D | 0 | feed | Oct 23 2024
+D | 0 | feed | 2359

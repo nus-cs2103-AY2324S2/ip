@@ -39,7 +39,7 @@ public class Emis {
      */
     public String getResponse(String input) {
         try {
-            Command command = Parser.parse(input);
+            Command command = Parser.parse(input.trim());
             return command.execute(tasklist, storage);
         } catch (EmisException e) {
             return e.getMessage();

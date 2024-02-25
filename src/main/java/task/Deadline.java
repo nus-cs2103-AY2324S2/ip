@@ -1,29 +1,28 @@
 package task;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 /**
  * The Deadline class represents a task with a deadline in the EMIS application.
  * It is a subclass of the Task class and provides additional functionality specific to tasks with deadlines.
  */
 public class Deadline extends Task {
-    /** The deadline string in the format 'yyyy-MM-dd HHmm'. */
+    /** The deadline string in the format 'dd-MM-yyyy HHmm'. */
     protected String by;
-
-    /** The deadline date and time represented as a LocalDateTime object. */
-    protected LocalDateTime doByDateTime;
 
     /**
      * Constructs a new Deadline object with the specified description and deadline.
      *
      * @param description The description of the deadline task.
-     * @param by The deadline in the format 'yyyy-MM-dd HHmm'.
+     * @param by The deadline.
      */
     public Deadline(String description, String by) {
         super(description);
         this.by = by.trim();
-        this.doByDateTime = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        formatDate();
     }
 
     /**
@@ -31,12 +30,43 @@ public class Deadline extends Task {
      *
      * @param isDone The completion status of the deadline task.
      * @param description The description of the deadline task.
-     * @param by The deadline in the format 'yyyy-MM-dd HHmm'.
+     * @param by The deadline.
      */
     public Deadline(boolean isDone, String description, String by) {
         super(isDone, description);
         this.by = by;
-        this.doByDateTime = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        formatDate();
+    }
+
+    /**
+     * Formats the deadline date and time into a standard format.
+     * Attempts various date and date-time patterns to parse the deadline string.
+     */
+    public void formatDate() {
+        LocalDateTime doByDateTime = null;
+        String[] datePatterns = {"yyyy-MM-dd", "dd-MM-yyyy", "dd/MM/yyyy", "MMM dd yyyy", "dd MMM yyyy"};
+        String[] datetimePatterns = {"yyyy-MM-dd HHmm", "dd-MM-yyyy HHmm", "dd/MM/yyyy HHmm", "MMMM dd yyyy HHmm"};
+        LocalDate ld = null;
+
+        for (String dtpattern : datetimePatterns) {
+            try {
+                doByDateTime = LocalDateTime.parse(this.by, DateTimeFormatter.ofPattern(dtpattern));
+                this.by = doByDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm"));
+                break;
+            } catch (DateTimeParseException e) {
+            }
+        }
+
+        if (doByDateTime == null) {
+            for (String pattern : datePatterns) {
+                try {
+                    ld = LocalDate.parse(this.by, DateTimeFormatter.ofPattern(pattern));
+                    this.by = ld.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+                    break;
+                } catch (DateTimeParseException e) {
+                }
+            }
+        }
     }
 
     /**
@@ -56,7 +86,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + this.doByDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) + ")";
+        return "[D]" + super.toString() + " (by: " + this.by + ")";
     }
 
     /**
@@ -77,7 +107,6 @@ public class Deadline extends Task {
 
         Deadline otherTask = (Deadline) other;
         return this.description.equals(otherTask.description) 
-        && this.by.equals(otherTask.by)
-        && this.doByDateTime.equals(otherTask.doByDateTime);
+        && this.by.equals(otherTask.by);
     }
 }
