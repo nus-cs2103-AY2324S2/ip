@@ -23,7 +23,7 @@ public class FindCommand extends Command {
     }
 
     /**
-     * Executes the command by displaying the list of tasks in the TaskList along with their indices.
+     * Executes the command by displaying the tasks in the TaskList that matches the keywords along with their indices.
      *
      * @param tasks   The TaskList that stores the tasks.
      * @param ui      The user interface that outputs to the terminal.
