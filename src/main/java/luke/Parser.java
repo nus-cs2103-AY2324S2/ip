@@ -155,7 +155,7 @@ public class Parser {
     private String parseUnaryCommands(String input, String command, List taskList, Storage storage, Ui ui)
             throws IOException {
         if (input.split(" ").length <= 1) {
-            return new InvalidSyntaxException("todo").toString();
+            return new InvalidSyntaxException(command).toString();
         }
         switch (command) {
         case "todo":
