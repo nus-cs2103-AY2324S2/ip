@@ -1,5 +1,6 @@
 package Gops;
 
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,6 +14,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.layout.Region;
 import javafx.scene.control.Label;
+import javafx.util.Duration;
+
 import java.io.File;
 import java.io.IOException;
 public class Gops extends Application {
@@ -127,7 +130,12 @@ public class Gops extends Application {
     private void userInput() {
         Label userText = new Label(input.getText());
         if (input.getText().equals("bye")) {
-            Platform.exit();
+            chatBox.getChildren().add(ChatBox.getUserDialog(userText, new ImageView(user)));
+            Label byeMessage = new Label("Goodbye! Window will close in 5 seconds");
+            chatBox.getChildren().add(ChatBox.getDukeDialog(byeMessage, new ImageView(gops)));
+            PauseTransition fiveSeconDelay = new PauseTransition(Duration.seconds(5));
+            fiveSeconDelay.setOnFinished(event -> Platform.exit());
+            fiveSeconDelay.play();
         } else {
             Label dukeText = new Label(getResponse(input.getText()));
             chatBox.getChildren().addAll(

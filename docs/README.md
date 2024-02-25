@@ -1,30 +1,57 @@
-# Duke User Guide
+# Gops Userguide
+![](Ui.png)
 
-// Update the title above to match the actual product name
+## Setup
+1. Configure Java 11 SE
+2. Download latest version of [JAR file](https://github.com/bgopi23/ip/releases)
+3. Run JAR file
 
-// Product screenshot goes here
+## Features
+### Todo / Deadline / Event
 
-// Product intro goes here
+Adds a task to tasklist
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
+`Format`
 
 ```
-expected output
+todo [description]
+deadline [description] /by [YYYY-MM-DD]
+event [description]] /from [start-date] /to [end-date]
 ```
 
-## Feature ABC
+### List
 
-// Feature details
+Prints out list of tasks in the tasklist
 
+`Format`
 
-## Feature XYZ
+```
+list
+```
+### Mark / Unmark
 
-// Feature details
+Marks or unmarks a specified task in the task list
+
+`Format`
+
+```
+mark [index]
+unmark [index]
+```
+### Delete
+
+Deletes a specified task from the task list
+
+`Format`
+
+```
+delete [index]
+```
+### Clear
+Clears tasklist
+
+`Format`
+
+```
+clear
+```
