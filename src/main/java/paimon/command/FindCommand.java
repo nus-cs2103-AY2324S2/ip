@@ -32,7 +32,7 @@ public class FindCommand extends Command {
      * @throws ChatException If no tasks containing the keyword are found.
      */
     public String execute(TaskList taskList) throws ChatException {
-        String foundTasks = taskList.getFoundString(keyword);
+        String foundTasks = taskList.getFoundString(this.keyword);
         if (foundTasks.isEmpty()) {
             throw new ChatException("Could not find any tasks with that keyword");
         } else {
