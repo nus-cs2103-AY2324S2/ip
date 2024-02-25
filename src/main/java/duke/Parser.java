@@ -11,6 +11,7 @@ import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.ExitCommand;
 import duke.command.FindCommand;
+import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.ToggleMarkCommand;
 import duke.task.Deadline;
@@ -21,45 +22,89 @@ import duke.task.Todo;
  * Parses user input and returns corresponding Command objects for execution.
  */
 public class Parser {
+    /**
+     * Enumerates the different types of instructions that can be parsed.
+     */
     public enum Instructions {
-        BYE ("^bye"),
-        LIST ("^list", "^l"),
-        MARK ("^mark \\d+", "^m \\d+"),
-        UNMARK ("^unmark \\d+", "^u \\d+"),
-        DELETE ("^delete \\d+", "^d \\d+"),
+        BYE ("^bye", "^exit", "^quit"),
+        LIST ("^list", "^l", "^ls"),
+        MARK ("^mark \\d+", "^m \\d+", "^done \\d+"),
+        UNMARK ("^unmark \\d+", "^u \\d+", "^um \\d+", "^undone \\d+"),
+        DELETE ("^delete \\d+", "^del \\d+", "^rm \\d+"),
         TODO ("^todo .+", "^td .+"),
         DEADLINE ("^deadline .+", "^dl .+"),
         EVENT ("^event .+", "^ev .+"),
-        FIND ("^find \\S+$", "^f \\S+$");
+        FIND ("^find \\S+$", "^f \\S+$", "^search \\S+$"),
+        HELP ("^help", "^h", "^help \\S+$", "^h \\S+$");
 
+        /** Array of regex patterns for each instruction. */
         private final String[] patterns;
+
+        /**
+         * Constructs a new Instructions enum value with the specified regex patterns.
+         *
+         * @param patterns a String array representing the regex patterns for the instruction
+         */
         Instructions(String... patterns) {
             this.patterns = patterns;
         }
+
+        /**
+         * Returns the array of regex patterns for the instruction.
+         *
+         * @return a String array containing the regex patterns for the instruction
+         */
+        public String[] getPatterns() {
+            return patterns;
+        }
     }
 
+    /**
+     * Enumerates the different types of date specifiers that can be parsed.
+     */
     public enum DateSpecifiers {
         BY ("/by", "/at", "/b", "/a"),
         FROM ("/from", "/start", "/f", "/s"),
         TO ("/to", "/end ", "/t ", "/e");
 
+        /** Array of regex patterns for each specifier. */
         private final String[] patterns;
+
+        /**
+         * Constructs a new DateSpecifiers enum value with the specified regex patterns.
+         *
+         * @param patterns a String array representing the regex patterns for the specifier
+         */
         DateSpecifiers(String... patterns) {
             this.patterns = patterns;
         }
     }
 
+    /**
+     * Enumerates the different types of date formats that can be parsed.
+     */
     public enum DateFormats {
         FORMAT1 ("dd/MM/yyyy HHmm"),
         FORMAT2 ("dd-MM-yyyy HHmm"),
         FORMAT3 ("ddMMyyyy HHmm");
 
+        /** String representing the date format. */
         private final String format;
+
+        /**
+         * Constructs a new DateFormats enum value with the specified date format.
+         *
+         * @param format a String representing the date format
+         */
         DateFormats(String format) {
             this.format = format;
         }
     }
 
+    /**
+     * Constructs a new Parser object.
+     * This constructor does not require any parameters.
+     */
     public Parser() {
         //do nothing
     }
@@ -130,6 +175,8 @@ public class Parser {
                 return handleEventInstruction(input);
             } else if (matchesPattern(input, Instructions.FIND)) {
                 return handleFindInstruction(input);
+            } else if (matchesPattern(input, Instructions.HELP)) {
+                return handleHelpInstruction(input);
             } else {
                 throw new IllegalArgumentException("Arrr, me apologies! I cannot fathom that.");
             }
@@ -230,6 +277,21 @@ public class Parser {
         String[] wordArray = input.split(" ", 0);
         String keyword = wordArray[1];
         return new FindCommand(keyword);
+    }
+
+    /**
+     * Helper function to handle help commands.
+     * @param input a String taken from the user's command line input
+     * @return a Command object corresponding to the user's input
+     */
+    private static Command handleHelpInstruction(String input) {
+        String[] wordArray = input.split(" ", 0);
+        if (wordArray.length > 1) {
+            String command = wordArray[1];
+            return new HelpCommand(command);
+        } else {
+            return new HelpCommand();
+        }
     }
 
     /**
