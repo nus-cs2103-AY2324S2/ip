@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("balkanBot.BalkanBot")
+    mainClass.set("GUI.Launcher")
 }
 
 shadowJar {
@@ -52,6 +52,6 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
 }
