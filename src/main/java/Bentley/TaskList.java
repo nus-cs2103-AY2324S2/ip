@@ -166,7 +166,6 @@ public class TaskList {
         String[] parts = userInput.split("/by");
         String description = parts[0].trim();
         String date = parts[1].trim();
-        System.out.println("Description: " + description);
 
         if (description.isEmpty() || date.isEmpty()) {
             throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
@@ -305,7 +304,6 @@ public class TaskList {
      * @return A string containing the matching tasks or a message if no tasks match the keyword.
      */
     public String findTasks(String userInput) {
-        System.out.println("Searching for tasks with keyword: " + userInput);
 
         String[] parts = userInput.split(" ", 2); // Split into two parts, limit to 2 parts
         String keyword = parts.length > 1 ? parts[1] : "";
@@ -320,7 +318,6 @@ public class TaskList {
                     result.append("Here are the matching tasks in your list:\n");
                 }
                 result.append((i + 1)).append(". ").append(currentTask).append("\n");
-                System.out.println("Current Task: " + currentTask);
                 count++;
             }
         }

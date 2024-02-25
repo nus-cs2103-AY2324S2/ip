@@ -24,18 +24,6 @@ public class Parser {
             case "list":
                 String listResult = taskList.listTasks();
                 return listResult;
-            case "mark":
-                String markResult = taskList.markAsDone(input);
-                storage.writeTasks(taskList.getTasks());
-                return markResult;
-            case "unmark":
-                String unmarkResult = taskList.markAsUndone(input);
-                storage.writeTasks(taskList.getTasks());
-                return unmarkResult;
-            case "delete":
-                String deleteResult = taskList.deleteTask(input);
-                storage.writeTasks(taskList.getTasks());
-                return deleteResult;
             case "todo":
                 String todoResult = taskList.addTodoTask(input);
                 storage.writeTasks(taskList.getTasks());
@@ -48,6 +36,18 @@ public class Parser {
                 String eventResult = taskList.addEventTask(input);
                 storage.writeTasks(taskList.getTasks());
                 return eventResult;
+            case "mark":
+                String markResult = taskList.markAsDone(input);
+                storage.writeTasks(taskList.getTasks());
+                return markResult;
+            case "unmark":
+                String unmarkResult = taskList.markAsUndone(input);
+                storage.writeTasks(taskList.getTasks());
+                return unmarkResult;
+            case "delete":
+                String deleteResult = taskList.deleteTask(input);
+                storage.writeTasks(taskList.getTasks());
+                return deleteResult;
             case "find":
                 String findResult = taskList.findTasks(input);
                 return findResult;

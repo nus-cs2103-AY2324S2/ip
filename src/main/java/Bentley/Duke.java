@@ -1,8 +1,6 @@
 package bentley;
 
 import java.util.Scanner;
-import bentley.DialogBox;
-import bentley.MainWindow;
 
 /**
  * The main class representing the Duke application.
