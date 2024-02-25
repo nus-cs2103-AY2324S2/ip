@@ -110,12 +110,12 @@ public class Parser {
                 case "deadline": {
                     StringBuilder taskDescription = new StringBuilder();
                     StringBuilder deadline = new StringBuilder();
-                    boolean foundDeadline = false;
+                    boolean isDeadline = false;
                     for (String currentString : details) {
-                        if (foundDeadline) {
+                        if (isDeadline) {
                             deadline.append(currentString).append(" ");
                         } else if (currentString.equals("/by")) {
-                            foundDeadline = true;
+                            isDeadline = true;
                         } else {
                             taskDescription.append(currentString).append(" ");
                         }
@@ -134,19 +134,19 @@ public class Parser {
                     StringBuilder taskDescription = new StringBuilder();
                     StringBuilder from = new StringBuilder();
                     StringBuilder to = new StringBuilder();
-                    boolean foundFrom = false;
-                    boolean foundTo = false;
+                    boolean isFrom = false;
+                    boolean isTo = false;
                     for (String currentString : details) {
-                        if (foundTo) {
+                        if (isTo) {
                             to.append(currentString).append(" ");
-                        } else if (foundFrom) {
+                        } else if (isFrom) {
                             if (currentString.equals("/to")) {
-                                foundTo = true;
+                                isTo = true;
                             } else {
                                 from.append(currentString).append(" ");
                             }
                         } else if (currentString.equals("/from")) {
-                            foundFrom = true;
+                            isFrom = true;
                         } else {
                             taskDescription.append(currentString).append(" ");
                         }
