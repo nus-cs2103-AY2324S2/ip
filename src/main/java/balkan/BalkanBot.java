@@ -4,15 +4,12 @@
  * It is also able to Mark or Unmark them as complete.
  */
 
-package balkanBot;
+package balkan;
 
 import GUI.GUIUi;
 import storage.Storage;
 import task.TaskList;
-import ui.Ui;
 import parser.Parser;
-
-import java.util.Scanner;
 
 public class BalkanBot {
     private final Storage storage;

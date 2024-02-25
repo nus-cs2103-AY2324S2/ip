@@ -6,7 +6,7 @@
 
 package storage;
 
-import balkanBot.BalkanBotException;
+import balkan.BalkanBotException;
 import task.*;
 import parser.Parser;
 
