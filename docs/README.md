@@ -13,7 +13,7 @@ Raphael is a **desktop bot for managing tasks, optimized for a use via a Command
 - [Finding matching tasks: `find`](#find)
 - [Bid farewell: `bye`](#bye)
 
-## Adding deadlines: `deadline` {#deadline}
+## Adding deadlines: `deadline`{#deadline}
 Adds a deadline to the task list.
 Format: `deadline DESCRIPTION by DEADLINE`
 Examples:
