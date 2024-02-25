@@ -12,9 +12,6 @@ public class Ui {
     /** The scanner to read user input. */
     protected Scanner scanner;
 
-    /** The line to separate different sections of the chat-bot. */
-    private final String line = "---------------------------";
-
     /**
      * Constructs a Ui object.
      */
@@ -26,6 +23,7 @@ public class Ui {
      * Wraps the given string with a line above and below it.
      */
     public String wrapWithlines(String str) {
+        String line = "---------------------------";
         return line + "\n" + str + "\n" + line;
     }
 
