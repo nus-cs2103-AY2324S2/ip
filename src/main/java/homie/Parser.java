@@ -62,7 +62,7 @@ public class Parser {
             break;
         case "t":
         case "todo":
-            outputResponse = this.processTodoCommand(inputStringSplits);
+            outputResponse = this.processTodoCommand(inputStringSplits, fullCommand);
             break;
         case "dead":
         case "deadline":
@@ -185,12 +185,10 @@ public class Parser {
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message to show that task has been added.
      */
-    private String processTodoCommand(String[] inputStringSplits) throws TodoException {
+    private String processTodoCommand(String[] inputStringSplits, String fullCommand) throws TodoException {
         // Get Description for new to-do tasks
-        StringBuilder todoDescription = new StringBuilder();
-        for (int i = 1; i < inputStringSplits.length; i++) {
-            todoDescription.append(inputStringSplits[i]);
-        }
+        int lengthOfTodo = 5;
+        String todoDescription = fullCommand.substring(lengthOfTodo);
         try {
             // Create to-do task
             Todo currTodo = new Todo(todoDescription.toString());
