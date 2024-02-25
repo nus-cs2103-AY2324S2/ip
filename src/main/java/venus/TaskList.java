@@ -276,8 +276,13 @@ public class TaskList {
         String output;
         try {
             int index = Parser.findDeleteIndex(word);
-            output = Gui.deleteTaskMessage(data.get(index), data.size());
-            data.remove(index);
+            boolean isNotValidIndex = index >= data.size() || index < 0;
+            if (isNotValidIndex) {
+                output = Gui.formatResponse("No task index found, something went wrong.");
+            } else {
+                output = Gui.deleteTaskMessage(data.get(index), data.size());
+                data.remove(index);
+            }
         } catch (StringIndexOutOfBoundsException e) {
             output = Gui.formatResponse("Incorrect name or spelling for delete, please check");
         } catch (NumberFormatException e) {
@@ -329,8 +334,13 @@ public class TaskList {
         String output;
         try {
             int index = Parser.findUnmarkIndex(word);
-            data.get(index).unmark();
-            output = Gui.unmarkMessage(data.get(index));
+            boolean isNotValidIndex = index >= data.size() || index < 0;
+            if (isNotValidIndex) {
+                output = Gui.formatResponse("No task index found, something went wrong.");
+            } else {
+                data.get(index).unmark();
+                output = Gui.unmarkMessage(data.get(index));
+            }
         } catch (StringIndexOutOfBoundsException e) {
             output = Gui.formatResponse("Incorrect name or spelling for unmark, please check");
         } catch (NumberFormatException e) {
@@ -343,8 +353,14 @@ public class TaskList {
         String output;
         try {
             int index = Parser.findMarkIndex(word);
-            data.get(index).mark();
-            output = Gui.markMessage(data.get(index));
+            System.out.println(index);
+            boolean isNotValidIndex = index >= data.size() || index < 0;
+            if (isNotValidIndex) {
+                output = Gui.formatResponse("No task index found, something went wrong.");
+            } else {
+                data.get(index).mark();
+                output = Gui.markMessage(data.get(index));
+            }
         } catch (StringIndexOutOfBoundsException e) {
             output = Gui.formatResponse("Incorrect name or spelling for mark, please check");
         } catch (NumberFormatException e) {
