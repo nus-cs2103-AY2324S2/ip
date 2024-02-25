@@ -121,15 +121,11 @@ public class TaskList {
      */
     public String listTasks() {
         StringBuilder result = new StringBuilder();
-        int maxTaskNumberWidth = String.valueOf(tasks.size()).length();
-
         for (int i = 0; i < tasks.size(); i++) {
-            String taskNumber = String.format("%-" + maxTaskNumberWidth + "s", i + 1);
-            result.append(taskNumber).append(". ").append(tasks.get(i)).append("\n");
+            result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         return result.toString();
     }
-
 
     /**
      * Adds a Todo task to the list based on user input.
