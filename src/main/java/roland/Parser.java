@@ -67,7 +67,7 @@ public class Parser {
                     throw new RolandException("Please include when is the deadline by with /by <YYYY-mm-dd>");
                 }
                 assert fullCommand.length() > 9 : "Please provide description for deadline";
-                assert fullCommand.split("/").length > 1
+                assert fullCommand.split("/").length >= 2
                         : "Please include when is the deadline by with /by <YYYY-mm-dd>";
                 String[] split = fullCommand.split(" /");
                 String description = split[0].substring(9, split[0].length());
