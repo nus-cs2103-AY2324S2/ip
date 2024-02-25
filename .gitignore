@@ -17,7 +17,7 @@ bin/
 text-ui-test/EXPECTED-UNIX.TXT
 
 #jar files
-*.jar
+#*.jar
 
 # Ignore compiled Java class files
 *.class

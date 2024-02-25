@@ -3,6 +3,13 @@
 
 Emis is a **desktop app for managing tasks** while still having the benefits of a Graphical User Interface (GUI).
 
+# Quick start
+1. Ensure you have Java '11' or above installed in your computer.
+2. Download the latest emis.jar
+3. Copy the file to the folder you want to use as the *home folder* for Emis.
+4. Open a command terminal, 'cd' into the folder you put the jar file in, and use the 'java -jar emis.jar' command to run the application.
+
+
 ## Viewing help : 'help'
 Shows the list of commands Emis can execute and how to use them.
 
