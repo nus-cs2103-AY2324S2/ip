@@ -22,16 +22,6 @@ public class Deadline extends Task {
     }
 
     /**
-     * Converts the date from LocalDate to String format.
-     *
-     * @param date The date representing when the deadline has to be completed by.
-     * @return The date in a string format.
-     */
-    public String getDateString(LocalDate date) {
-        return date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth() + " " + date.getYear();
-    }
-
-    /**
      * Returns the String form of the task type (Deadline) - "D".
      */
     @Override

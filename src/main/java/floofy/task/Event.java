@@ -27,17 +27,6 @@ public class Event extends Task {
     }
 
     /**
-     * Converts the date from LocalDate to String format.
-     *
-     * @param date The date to be converted into a string.
-     * @return The date in a string format.
-     */
-    //NOTE TO SELF: OOP TO TASK!!
-    public String getDateString(LocalDate date) {
-        return date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH) + " " + date.getDayOfMonth() + " " + date.getYear();
-    }
-
-    /**
      * Returns the String form of the task type (Event) - "E".
      */
     @Override

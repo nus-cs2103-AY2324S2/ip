@@ -1,5 +1,9 @@
 package floofy.task;
 
+import java.time.LocalDate;
+import java.time.format.TextStyle;
+import java.util.Locale;
+
 /**
  * Represents a task.
  */
@@ -35,6 +39,17 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
+    }
+
+    /**
+     * Converts the date from LocalDate to String format.
+     *
+     * @param date The date representing dates associated with a task.
+     * @return The date in a string format.
+     */
+    public String getDateString(LocalDate date) {
+        return date.getMonth().getDisplayName(TextStyle.SHORT, Locale.ENGLISH)
+                + " " + date.getDayOfMonth() + " " + date.getYear();
     }
 
     /**
