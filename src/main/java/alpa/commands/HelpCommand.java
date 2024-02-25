@@ -29,15 +29,15 @@ public class HelpCommand implements Command {
     private String getHelpMessage() {
         return "I am Alpa - Your Fluffy Task Manager!\n"
             + "Here are some commands you can use:\n"
-            + "1. list - lists all the tasks you have!\n"
-            + "2. todo <description> - Adds a todo task\n"
-            + "3. deadline <description> /by <date/time> - Adds a new deadline task\n"
-            + "4. event <description> /at <date/time> - Adds a new event task\n"
-            + "5. mark <task number> - Marks a task as done\n"
-            + "6. unmark <task number> - Marks a task as not done\n"
-            + "7. delete <task number> - Deletes a task\n"
-            + "8. bye - Exits the application\n"
-            + "9. help - Displays this help message\n";
+            + "  1. list - lists all the tasks you have!\n"
+            + "  2. todo <description> - Adds a todo task\n"
+            + "  3. deadline <description> /by <date/time> - Adds a new deadline task\n"
+            + "  4. event <description> /at <date/time> - Adds a new event task\n"
+            + "  5. mark <task number> - Marks a task as done\n"
+            + "  6. unmark <task number> - Marks a task as not done\n"
+            + "  7. delete <task number> - Deletes a task\n"
+            + "  8. bye - Exits the application\n"
+            + "  9. help - Displays this help message\n";
     }
 
     /**

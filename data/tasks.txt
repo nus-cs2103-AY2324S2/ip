@@ -1,2 +1,3 @@
-T | 0 | submit iP
-D | 0 | finish quiz6 | 2024-02-23 16:00
+D | 1 | finish quiz6 | 2024-02-23 16:00
+D | 0 | submit assignment | 2024-02-23 16:00
+D | 0 | tP | 2024-02-23 23:59
