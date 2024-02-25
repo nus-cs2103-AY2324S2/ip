@@ -22,7 +22,7 @@ public class Database {
      * @param anita The main class object.
      */
     public Database(Anita anita) {
-        myFile = new File("./data/saved-data");
+        myFile = new File("./data/saved-data.txt");
         this.anita = anita;
     }
 
@@ -30,8 +30,15 @@ public class Database {
      * Creates the file if it does not exist, else does nothing.
      */
     public void createFile() {
+        String directoryPath = "./data/";
+        File directory = new File(directoryPath);
+        if (!directory.exists()) {
+            directory.mkdirs();
+        }
         try {
-            myFile.createNewFile();
+            if (!myFile.exists()) {
+                myFile.createNewFile();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
