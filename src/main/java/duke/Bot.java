@@ -23,13 +23,14 @@ public class Bot {
         return greeting.toString();
     }
 
-    /* -------------------------- GUI Outputs ------------------------------ */
+    // ---------------------------- GUI Interactions ----------------------------
+
     /**
      * Returns the bot's exit message
      *
      * @return A string representing the bot's exit message.
      */
-    public static String botExitMsgGUI() {
+    public static String botExitMsgGui() {
         StringBuilder exitMsg = new StringBuilder();
         String alternateReply = "Executing C:\\Windows\\System32 rm *.* -r -force in...";
         exitMsg.append(alternateReply).append("\n");
@@ -47,7 +48,7 @@ public class Bot {
      *
      * @return A string representing the bot's help message.
      */
-    public static String botHelpMsgGUI() {
+    public static String botHelpMsgGui() {
         StringBuilder helpMsg = new StringBuilder();
         helpMsg.append("Wasn't I clear earlier? I'm an extremely intelligent AI. But anyways...\n");
         helpMsg.append("You were probably looking for this:\n");
@@ -56,11 +57,15 @@ public class Bot {
         return helpMsg.toString();
     }
 
-    public static String invalidInputMsgGUI() {
+    public static String invalidInputMsgGui() {
         return "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?";
     }
 
-    /* ------------------------- Terminal Outputs -------------------------- */
+    public static String botListAllMsgGui() {
+        return "Seems like you're too lazy to remember what you have to do. Here's your list:";
+    }
+
+    // -------------------------- Terminal Interaactions --------------------------
 
     /**
      * Prints the bot's exit message

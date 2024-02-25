@@ -1,4 +1,5 @@
 package duke;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -12,7 +13,16 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private final Duke duke = new Duke();
+    private Duke duke;
+
+    public Main() {
+        try {
+            duke = new Duke();
+        } catch (BotException e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
 
     @Override
     public void start(Stage stage) {
