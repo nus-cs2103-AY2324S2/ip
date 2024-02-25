@@ -68,8 +68,8 @@ public class Deadline extends Task {
      */
     @Override
     public String saveInput() {
-        assert !tempBy.getClass().equals(LocalDate.class): "tempBy is not a LocalDate. When accessing it \" +\n" +
-                "                \"from the datanase, it will not format correctly.";
+        assert !tempBy.getClass().equals(LocalDate.class) : "tempBy is not a LocalDate. When accessing it \" +\n"
+                + "from the database, it will not format correctly.";
         return "D | " + isDone + " | " + description + " | " + tempBy;
     }
 

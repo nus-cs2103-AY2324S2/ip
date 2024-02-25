@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
 import victor.ui.Ui;
 
 
@@ -33,6 +32,9 @@ public class MainWindow extends AnchorPane {
     private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/userImage.png"));
     private final Image victorImage = new Image(this.getClass().getResourceAsStream("/images/victorImage.png"));
 
+    /**
+     * The initialize method helps to initilize the GUI
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());

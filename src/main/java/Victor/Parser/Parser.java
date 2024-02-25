@@ -2,8 +2,6 @@ package victor.parser;
 
 import java.io.IOException;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 import victor.command.Command;
 import victor.storage.Storage;

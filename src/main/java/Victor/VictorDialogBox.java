@@ -17,6 +17,9 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
+/**
+ * The VictorDialogBox is the GUI box that is used to output any user input and the replies from Victor
+ */
 public class VictorDialogBox extends HBox {
     @FXML
     private Label dialog;
