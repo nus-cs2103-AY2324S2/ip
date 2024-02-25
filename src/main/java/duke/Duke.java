@@ -1,5 +1,7 @@
 package duke;
 
+import java.io.IOException;
+
 import duke.command.Command;
 import duke.parser.Parser;
 import duke.storage.FileStorage;
@@ -7,8 +9,6 @@ import duke.storage.Storage;
 import duke.task.TaskList;
 import duke.ui.TextUi;
 import duke.utils.DukeException;
-
-import java.io.IOException;
 
 class DukeConfig {
     private final String filePath;
@@ -35,10 +35,6 @@ public class Duke {
         this(DukeConfig.Default());
     }
 
-    public String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
-
     Duke(DukeConfig config) throws IOException {
         ui = new TextUi();
         storage = new FileStorage(config.getFilePath());
@@ -48,6 +44,14 @@ public class Duke {
             ui.showFileLoadingError();
             tasks = new TaskList();
         }
+    }
+
+    public static void main(String[] args) throws IOException {
+        new Duke().run();
+    }
+
+    public String getResponse(String input) {
+        return "Duke heard: " + input;
     }
 
     void run() {
@@ -66,9 +70,5 @@ public class Duke {
                 ui.showLine();
             }
         }
-    }
-
-    public static void main(String[] args) throws IOException {
-        new Duke().run();
     }
 }

@@ -7,17 +7,16 @@ import duke.utils.DukeException;
 
 /**
  * The specification for the command classes.
- *
+ * <p>
  * By default, the command is not an exit command.
- *
  */
 public abstract class Command {
 
     /**
      * Executes the command with the given task list, user interface and storage.
      *
-     * @param tasks The list of tasks
-     * @param ui The user interface to write results to
+     * @param tasks   The list of tasks
+     * @param ui      The user interface to write results to
      * @param storage The storage to save the tasks to
      * @throws DukeException
      */
