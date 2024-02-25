@@ -153,13 +153,23 @@ public class Parser {
      * @param input String containing command arguments.
      * @return String containing tag information.
      */
-    public String parseTagArguments(String input) {
+    public String parseTagArguments(String input) throws AegisException {
         StringTokenizer st = new StringTokenizer(input);
         st.nextToken();
 
         String arguments = "";
         while(st.hasMoreTokens()) {
             arguments += st.nextToken() + " ";
+        }
+
+        if (arguments.isBlank()) {
+            return "";
+        }
+
+        if (arguments.charAt(0) != '#' || !arguments.contains("#")) {
+            throw new AegisException("Invalid format for tag."
+                    + "\nPlease provide a tag in the following format:"
+                    + "\n#<tag>");
         }
 
         return arguments.trim();

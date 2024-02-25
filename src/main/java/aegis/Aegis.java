@@ -247,17 +247,20 @@ public class Aegis {
                 return "Invalid task index provided.\nPlease provide a valid task index.\n";
             }
 
-            if (tag.isBlank() || !tag.contains("#")) {
-                return "Invalid tag provided. Please specify a tag in the following format:\n"
-                        + "#<tag>";
+            if (tag.isBlank()) {
+                return "Invalid command given for tagging task."
+                        + "\nPlease provide command in the following format:"
+                        + "\ntag <Task Index> #<Tag>";
             }
 
             taskList.tagTask(taskNum, tag);
             return ui.getTagTaskSuccess(tag) + taskList.getTask(taskNum).toString();
-        } catch (NoSuchElementException e) {
+        } catch (NoSuchElementException | NumberFormatException e) {
             return "Invalid command given for tagging task."
                     + "\nPlease provide command in the following format:"
                     + "\ntag <Task Index> #<Tag>";
+        } catch (AegisException e) {
+            return e.getMessage();
         }
     }
 }
