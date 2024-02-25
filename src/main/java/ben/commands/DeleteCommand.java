@@ -31,13 +31,12 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws BenException {
-        if (tasks.isEmpty()) {
-            throw new BenException("   No tasks to delete :)");
-        }
 
-        if (tasks.isOutOfBounds(this.index)) {
-            throw new BenException("   Please input a valid number between 1 and " + tasks.size());
-        }
+        // check if task list is empty
+        assert !tasks.isEmpty() : "   No tasks to delete :)";
+
+        // check if input is within bounds
+        assert !tasks.isOutOfBounds(index) : "Please input a valid number between 1 and " + tasks.size();
 
         Task deletedTask = tasks.removeTask(index);
 
