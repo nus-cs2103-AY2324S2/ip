@@ -48,4 +48,4 @@ To start using RahhBot, simply type your queries or commands into the chat windo
 ## Conclusion
 That's it! You are now ready to start using RahhBot to manage your tasks and get things done more efficiently. If you have any questions or encounter any issues, feel free to ask RahhBot for help. Enjoy chatting with RahhBot!
 
-## Download the latest version of RahhBot [here.](https://github.com/justinlengch/ip/releases/tag/A-Release)
+## Download the latest version of RahhBot [here](https://github.com/justinlengch/ip/releases/tag/A-Release).
