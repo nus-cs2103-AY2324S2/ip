@@ -169,6 +169,13 @@ public class Parser {
                 keyword += " " + inputTokens[i];
             }
             return tasks.findTask(keyword.toLowerCase());
+        case "help":
+            if (len > 1) {
+                String exceptionMessage3 = "did you mean \"help\"?\n"
+                        + "please use that command instead!";
+                throw new DukeException(exceptionMessage3);
+            }
+            return Ui.printHelpPage();
         default:
             return Ui.printUnknownCommand();
         }

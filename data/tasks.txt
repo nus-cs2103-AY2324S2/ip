@@ -4,4 +4,4 @@ E | 1 | convention | Jun 30 2024 6:45pm | Jul 02 2024 5:55pm
 D | 1 | study for finals | Apr 27 2024 4:00pm
 E | 0 | attend lecture | Apr 09 2024 4:45pm | Apr 09 2024 6:25pm
 T | 1 | attend class
-T | 0 | dinner
+T | 1 | dinner
