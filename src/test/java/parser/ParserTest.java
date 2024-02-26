@@ -6,7 +6,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import processor.*;
 
-import task.TaskList;
+import tasks.TaskList;
 import ui.Ui;
 
 import java.io.IOException;

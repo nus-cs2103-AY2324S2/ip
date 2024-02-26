@@ -1,15 +1,16 @@
-package main;
+
+package duke;
 
 import java.io.IOException;
 
 import parser.Parser;
 import processor.Factory;
-import task.TaskList;
+import tasks.TaskList;
 import ui.Ui;
 /**
- * The IreneAI class is a clever chatbot.
+ * IreneAI is a cleaver chatbot for managing your daily tasks.
  */
-public class IreneAI {
+public class Duke {
     private final Ui chatbotUi;
     private final TaskList taskList;
     private final Factory factory;
@@ -17,7 +18,7 @@ public class IreneAI {
     /**
      * Constructs a Duke object with the specified Ui, TaskList, Processor, and Parser.
      */
-    public IreneAI() {
+    public Duke() {
         chatbotUi = new Ui();
         taskList = new TaskList();
         factory = new Factory(taskList, chatbotUi);
@@ -28,7 +29,6 @@ public class IreneAI {
      * @throws IOException if an I/O error occurs while running the chatbot
      */
     public void run() throws IOException {
-        // Greet User
         System.out.print(chatbotUi.greetingBox());
         String userInput;
         do {
@@ -44,16 +44,14 @@ public class IreneAI {
 
     public String run(String userInput) throws IOException {
         if (userInput.equals("bye")) {
-            //return chatbotUi.dividerWrapper(Ui.bye());
             System.exit(1);
         } else {
-            // Assuming that the parse method updates the chatbotUi with the response
             return chatbotUi.getResponse(userInput, parser);
         }
         return null;
     }
     public static void main(String[] args) throws IOException {
-        IreneAI chatBot = new IreneAI();
-        chatBot.run();
+        Duke duke = new Duke();
+        duke.run();
     }
 }

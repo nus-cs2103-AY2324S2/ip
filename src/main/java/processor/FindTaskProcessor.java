@@ -1,6 +1,6 @@
 package processor;
 
-import task.TaskList;
+import tasks.TaskList;
 import ui.Ui;
 
 public class FindTaskProcessor extends Processor {

@@ -49,27 +49,27 @@ public class Parser {
      */
     public void parse(String userInput) throws IOException {
         switch (userInput.split(" ")[0]) {
-            case "find":
-                findTaskProcessor.processCommand(userInput);
-                break;
-            case "delete":
-                deleteTaskProcessor.processCommand(userInput);
-                break;
-            case "mark":
-                markTaskProcessor.processCommand(userInput);
-                break;
-            case "unmark":
-                unmarkTaskProcessor.processCommand(userInput);
-                break;
-            case "list":
-                listTasksProcessor.processCommand(userInput);
-                break;
-            case "sort":
-                sortTaskProcessor.processCommand(userInput);
-                break;
-            default:
-                addTaskProcessor.processCommand(userInput);
-                break;
+        case "find":
+            findTaskProcessor.processCommand(userInput);
+            break;
+        case "delete":
+            deleteTaskProcessor.processCommand(userInput);
+            break;
+        case "mark":
+            markTaskProcessor.processCommand(userInput);
+            break;
+        case "unmark":
+            unmarkTaskProcessor.processCommand(userInput);
+            break;
+        case "list":
+            listTasksProcessor.processCommand(userInput);
+            break;
+        case "sort":
+            sortTaskProcessor.processCommand(userInput);
+            break;
+        default:
+            addTaskProcessor.processCommand(userInput);
+            break;
         }
     }
 }
