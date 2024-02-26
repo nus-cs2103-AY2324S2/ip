@@ -1,3 +1,7 @@
+package kirby.tasks;
+
+import kirby.exceptions.MissingArgumentException;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -22,7 +26,7 @@ public class TaskList {
         System.out.println();
     }
 
-    public void mark(String var) throws MissingArgumentException{
+    public void mark(String var) throws MissingArgumentException {
         if (var.split(" ").length == 1){
             throw new MissingArgumentException("Missing Argument");
         }
