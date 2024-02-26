@@ -1,7 +1,6 @@
 package nihao;
 
 import javafx.application.Application;
-
 import nihao.handler.DataHandler;
 
 

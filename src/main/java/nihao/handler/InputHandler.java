@@ -117,14 +117,14 @@ public class InputHandler {
             throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
         }
 
-        final int DEADLINE_LENGTH = 9;
-        final int BY_LENGTH = 5;
+        final int deadlineLength = 9;
+        final int byLength = 5;
         int byIndex = input.indexOf(" /by ");
-        if (byIndex < DEADLINE_LENGTH) {
+        if (byIndex < deadlineLength) {
             throw new IllegalArgumentException("illegal use of /by flag");
         }
-        String taskName = input.substring(DEADLINE_LENGTH, byIndex);
-        LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + BY_LENGTH));
+        String taskName = input.substring(deadlineLength, byIndex);
+        LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + byLength));
         DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
         return new TaskAction(deadlineTask);
     }
@@ -135,18 +135,18 @@ public class InputHandler {
             throw new IllegalArgumentException("'event' requires exactly 1 /from flag and 1 /to flag");
         }
 
-        final int EVENT_LENGTH = 6;
-        final int FROM_LENGTH = 7;
-        final int TO_LENGTH = 5;
+        final int eventLength = 6;
+        final int fromLength = 7;
+        final int toLength = 5;
         int fromIndex = input.indexOf(" /from ");
         int toIndex = input.indexOf(" /to ");
-        if (fromIndex < EVENT_LENGTH || toIndex < fromIndex + FROM_LENGTH) {
+        if (fromIndex < eventLength || toIndex < fromIndex + fromLength) {
             throw new IllegalArgumentException("illegal use of flags");
             // Todo: define "  " and " " more clearly
         }
         String taskName = input.substring(6, fromIndex);
-        LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + FROM_LENGTH, toIndex));
-        LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + TO_LENGTH));
+        LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + fromLength, toIndex));
+        LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + toLength));
         EventTask eventTask = new EventTask(taskName, from, to);
         return new TaskAction(eventTask);
     }

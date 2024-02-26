@@ -1,15 +1,13 @@
 package nihao;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
 import nihao.action.Action;
 import nihao.action.ExitAction;
 import nihao.handler.InputHandler;
@@ -19,7 +17,7 @@ import nihao.ui.MainWindowController;
 /**
  * Contains the main application logic for the Nihao app.
  */
-public class Nihao extends Application{
+public class Nihao extends Application {
     public static final Nihao INSTANCE = new Nihao();
     public Nihao() {}
 
@@ -35,7 +33,9 @@ public class Nihao extends Application{
             stage.setResizable(false);
             stage.setMinHeight(600);
             stage.setMinWidth(400);
-            stage.getIcons().add(new javafx.scene.image.Image(this.getClass().getResourceAsStream("/images/logo_600.png")));
+            stage.getIcons().add(new javafx.scene.image.Image(
+                    this.getClass().getResourceAsStream("/images/logo_600.png")
+            ));
 
             FXMLLoader fxmlLoader = new FXMLLoader(Nihao.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
