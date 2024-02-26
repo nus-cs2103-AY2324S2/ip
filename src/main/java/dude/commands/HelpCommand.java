@@ -10,11 +10,11 @@ public class HelpCommand extends Command {
     private static final String COMMAND_FORMAT = "help <?command>";
 
     private final String[] supportedCommands = new String[]{
-            "bye: Exits the program.", "deadline: Adds a deadline task to the task list.",
-            "delete: Deletes a task from the task list.", "event: Adds an event task to the task list.",
-            "help: Provides help on the commands I support.", "list: Lists all the tasks in the task list.",
-            "mark: Marks a task as done.", "todo: Adds a todo task to the task list.",
-            "unmark: Marks a task as undone."
+        "bye: Exits the program.", "deadline: Adds a deadline task to the task list.",
+        "delete: Deletes a task from the task list.", "event: Adds an event task to the task list.",
+        "help: Provides help on the commands I support.", "list: Lists all the tasks in the task list.",
+        "mark: Marks a task as done.", "todo: Adds a todo task to the task list.",
+        "unmark: Marks a task as undone."
     };
 
     private final String input;
