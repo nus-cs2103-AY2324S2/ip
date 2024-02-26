@@ -30,6 +30,7 @@ public class Parser {
      */
     public static String parseInput(String userInput, TaskList tasks, TextUi textUi, Storage storage) throws ChillChiefException, IOException {
         String[] tokens = userInput.split(" ", 2);
+        assert !tokens[0].isEmpty() : "userInput cannot have empty command keyword.";
         String command = tokens[0].toLowerCase();
 
         switch (command) {
@@ -64,6 +65,7 @@ public class Parser {
     }
 
     private static String handleFind(String[] tokens, TaskList taskList, TextUi textUi) {
+        assert tokens != null : "Tokens cannot be null";
         int count = 1;
         StringBuilder result = new StringBuilder();
 
@@ -81,6 +83,8 @@ public class Parser {
     }
 
     private static LocalDateTime parseDate(String dateString) throws ChillChiefException {
+        assert dateString != null && !dateString.isEmpty() : "dateString should not be null or empty";
+
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateString, formatter);
@@ -91,6 +95,7 @@ public class Parser {
     }
 
     private static String handleTodo(String[] tokens, TaskList tasks, TextUi textUi) {
+        assert tokens != null : "Tokens cannot be null";
         String description = tokens[1].trim();
         Todo todoTask = new Todo(description, false);
         tasks.addToTaskList(todoTask);
@@ -98,6 +103,7 @@ public class Parser {
     }
 
     private static String handleDeadline(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+        assert tokens != null : "Tokens cannot be null";
         String descriptionAndBy = tokens[1].trim();
         String deadlineDescription = descriptionAndBy.split(" /by ")[0].trim();
         String when = descriptionAndBy.split(" /by ")[1].trim();
@@ -108,6 +114,7 @@ public class Parser {
     }
 
     private static String handleEvent(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+        assert tokens != null : "Tokens cannot be null";
         String descriptionAndStartAndEnd = tokens[1].trim();
         String[] parts = descriptionAndStartAndEnd.split(" /from | /to ");
         String eventDescription = parts[0].trim();
@@ -119,6 +126,7 @@ public class Parser {
     }
 
     private static String handleUnmark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+        assert tokens != null && tokens.length > 2 : "Invalid command format for unmark";
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToUnMark = tasks.getTask(index);
         tasks.getTask(index).markNotDone();
@@ -126,6 +134,7 @@ public class Parser {
     }
 
     private static String handleMark(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+        assert tokens != null && tokens.length > 2 : "Invalid command format for mark";
         int index = Integer.parseInt(tokens[1]) - 1;
         Task taskToMark = tasks.getTask(index);
         taskToMark.markDone();
@@ -133,7 +142,9 @@ public class Parser {
     }
 
     private static String handleDelete(String[] tokens, TaskList tasks, TextUi textUi) throws ChillChiefException {
+        assert tokens != null : "Tokens cannot be null";
         int index = Integer.parseInt(tokens[1]) - 1;
+        assert index < tasks.getTaskListLength() : "Index for task to delete is out of bounds";
         Task taskToDelete = tasks.getTask(index);
         tasks.deleteTask(index);
         return textUi.showDeletedTask(taskToDelete, tasks.getTaskListLength());
