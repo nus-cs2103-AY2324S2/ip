@@ -23,12 +23,13 @@ public class Event extends Task {
 
     @Override
     public String toFileString() {
-        return "event|" + super.toFileString() + "|" + this.start + "|" + this.end;
+        return "event|" + super.toFileString() + "|" + this.start + "|" + this.end + "|" + super.tagToString();
     }
 
     @Override
     public String toString() {
-        return "[E]" + super.toString() +
-                String.format(" (from: %s to: %s)", start, end);
+        return "[E]" + super.toString()
+                + String.format(" (from: %s to: %s)", start, end)
+                + super.tagToString();
     }
 }

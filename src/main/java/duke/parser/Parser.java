@@ -123,11 +123,15 @@ public class Parser {
     }
 
     /**
-     * Parses user input as integer for commands 'delete', 'unmark', 'mark'.
+     * Parses user input as integer for commands 'delete', 'unmark', 'mark', 'tag'.
      *
      * @return User input as integer.
      */
     public int parseIndex() {
-        return Integer.parseInt(userInput.trim());
+        return Integer.parseInt(userInput.split(" ")[0].trim());
+    }
+
+    public String getTag() {
+        return userInput.split(" ")[1].trim();
     }
 }

@@ -114,6 +114,9 @@ public class Duke {
         case "find":
             message = response.getFindMessage(taskList.find(parser.getUserInput()));
             break;
+        case "tag":
+            message = response.getTagMessage(taskList.tagTask(parser.parseIndex(), parser.getTag()));
+            break;
         case "bye":
             storage.writeFile(taskList);
             message = response.getGoodbye();
@@ -131,6 +134,4 @@ public class Duke {
         return message;
     }
 }
-
-
 
