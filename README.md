@@ -12,7 +12,7 @@ IreneAI is an intuitive chatbot designed to streamline your task management proc
 
 *Comprehensive Task Viewing*: View your entire task list with a single command.
 
-*Task Search*: Locate specific tasks using keywords.
+*Task Search*: Find specific tasks using keywords.
 
 *Task Deletion*: Remove tasks from your list as needed.
 
