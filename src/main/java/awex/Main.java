@@ -23,6 +23,8 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setDuke(awex);
+            fxmlLoader.<MainWindow>getController().showGreeting(awex.sendGreeting());
+            stage.setTitle("AWEX - A Wonderful Experience");
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

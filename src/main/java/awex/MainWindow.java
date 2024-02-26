@@ -34,6 +34,12 @@ public class MainWindow extends AnchorPane {
         awex = a;
     }
 
+    public void showGreeting(String str) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getAwexDialog(str, dukeImage)
+        );
+    }
+
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.

@@ -59,13 +59,6 @@ public class TaskList {
         return this.tasks.isEmpty();
     }
 
-    public void listSaver(FileWriter fw) throws IOException {
-        int len = this.tasks.size();
-        for (int i = 0; i < len; i++) {
-            fw.write(this.tasks.get(i).toString() + System.lineSeparator());
-        }
-    }
-
     public Task remove(int i) {
         return this.tasks.remove(i);
     }

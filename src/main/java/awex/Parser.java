@@ -6,7 +6,6 @@ import tasks.*;
 
 public class Parser {
 
-    // REDO
     public static void parse(TaskList tasks, Ui ui) throws IOException {
         Scanner sc = new Scanner(System.in);
         while (true) {
