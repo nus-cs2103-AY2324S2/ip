@@ -24,7 +24,7 @@ Luna is
 - [x] Save/Store List
 - [ ] Sort Task (maybe)
 
-This is the greeting message which constructs the first message you should see when you run the file but sadly some characters might be lost in transmission :"
+This is the `greetingString()` message which constructs the first message you should see when you run the file but sadly some characters might be lost in transmission :"
 ```
 private  String greetingString() {
         String msg = "";
