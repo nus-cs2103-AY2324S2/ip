@@ -1,29 +1,147 @@
-# User Guide
+# PannaBot User Guide
 
-## Features 
+![Image of UI](Ui.png)
 
-### Feature-ABC
+PannaBot is the premier chatbot task management system. 
+It uses intuitive GUI systems, along with easy
+commands to make your life just a _bit_ easier!
 
-Description of the feature.
+Let us explore some of its <u>features</u>: 
 
-### Feature-XYZ
+### 1. Adding todos, deadlines and events
 
-Description of the feature.
+PannaBot uses state-of-the-art systems to make the process as seamless as possible!
 
-## Usage
+We just simply use the respective keywords along with their arguments and PannaBot does the rest for you!
 
-### `Keyword` - Describe action
+The syntax of each command is as follows: 
 
-Describe the action and its outcome.
+a) `todo NAME`\
+b) `deadline NAME DEADLINE(in YYYY-MM-DD)`\
+c) `Event NAME START(in YYYY-MM-DD) END(in YYYY-MM-DD)`
 
-Example of usage: 
+Examples:
+* `todo finish homework`
+* `deadline CS2103T 2024-02-23`
+* `event Olympics 2022-07-26 2022-09-09`
 
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+From this: we can use the `list` command to generate the following
 
 ```
-expected output
+>> list
+
+Fine... Your list is
+----------------------------------------------------------
+1. [T] [] Finish homework
+2. [D] [] CS2103T (By: Feb 23 2024)
+3. [E} [] Olympics (from: Jul 26 2022 to Sep 09 2022)
+----------------------------------------------------------
+
 ```
+
+## Mark and unmark
+
+Through these functions, you can mark or unmark your various tasks as done, and it will appear to be done to the user.
+
+The syntax of the following commands are: 
+
+`mark LABEL`\
+`unmark LABEL`
+
+Here, label is an integer which represents which position of the list the item we want to mark is in
+
+For example, if we consider our previous list: 
+
+```
+>> mark 1
+
+----------------------------------------------------------
+Congratulations on getting done with the task
+[T] [X] Finish homework
+Have a cookie! [o]
+----------------------------------------------------------
+```
+
+```
+>> unmark 1
+
+----------------------------------------------------------
+Awwwww Man we were doing so well!
+I've marked this task as undone:
+[T] [] Finish homework
+I take back my cookie :[  Me <- [o] <- you
+----------------------------------------------------------
+```
+
+
+
+
+
+## Delete
+
+You can delete a task in your list using this command. The syntax is as follows:
+
+`delete LABEL`
+
+label is an integer which represents which position in the list the item is.
+
+For example: 
+
+```
+>> delete 1
+
+----------------------------------------------------------
+Goodbye task
+[T] [] Finish homework
+You were a good task while you lasted :(
+----------------------------------------------------------
+```
+
+## Find
+
+You can search for tasks with matching patterns to the one you provide it with!
+
+The syntax of the `find` command is
+
+`find SUBSTRING`
+
+Substring is the text that you want to search for in the tasks!
+
+For instance, 
+```
+>> Find olym
+
+Woah! We found the following matches.
+1. [E] [] Olympics (from: Jul 26 2022 to Sep 09 2022)
+
+Who knew a bot could play matchmaker :]
+```
+
+## Update
+
+The update command helps to modify the name of an already-existing task in the list!
+It takes in the old task name and replaces it with the new task name!
+
+The syntax is: 
+
+`Update OLDTASK NEWTASK`
+
+For instance, it can be used like
+
+```
+>> update Olympics Superbowl
+
+We have updated the name from
+Olympics
+to
+superbowl
+```
+
+Using the `list` command, you can see the changes being reflected.
+
+
+## **Coming Soon**
+
+- [x] Release v2.0 is coming out soon!
+- [x] Upgrades on customization features such as sorting deadlines
+- [ ] Unlimited ice cream supply :(
