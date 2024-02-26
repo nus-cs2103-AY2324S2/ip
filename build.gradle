@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("hirwan.Main")
+    mainClass.set("hirwan/Launcher")
 }
 
 shadowJar {
@@ -57,4 +57,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'hirwan.Main'
+mainClassName = 'hirwan.Launcher'
