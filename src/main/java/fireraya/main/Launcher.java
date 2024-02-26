@@ -1,6 +1,5 @@
-package fireraya;
+package fireraya.main;
 
-import fireraya.Ui.Main;
 import javafx.application.Application;
 
 /**

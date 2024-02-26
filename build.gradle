@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("fireraya.Launcher")
+    mainClass.set("fireraya.main.Launcher")
 }
 
 shadowJar {
