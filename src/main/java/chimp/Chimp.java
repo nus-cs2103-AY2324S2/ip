@@ -54,6 +54,7 @@ public class Chimp extends Application {
         AnchorPane mainLayout = getMainLayout(stage);
         formatWindow(stage, mainLayout);
         addFunctionality();
+        displayOpeningMessage();
     }
 
     private void addFunctionality() {
@@ -156,5 +157,12 @@ public class Chimp extends Application {
             e.printStackTrace();
         }
         System.exit(0);
+    }
+
+    private void displayOpeningMessage() {
+        String openingMessage = ui.say("greet");
+        Label openingTextLabel = new Label(openingMessage);
+        dialogContainer.getChildren().add(DialogBox.getChimpDialog(openingTextLabel, new ImageView(duke)));
+        scrollPane.setVvalue(1.0);
     }
 }
