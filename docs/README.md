@@ -12,10 +12,10 @@
 ## <span style="color:#A366F9">Features</span>
 Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
 
-## Adding events
+## <span style="color:#A366F9">Adding Events</span>
 Adds an event to the task list.
-```event <description> /from <datetime> /to <datetime>```
-```deadline <description> /by <datetime>```
+```event <description> /from <datetime> /to <datetime>```\n
+```deadline <description> /by <datetime>```\n
 ```todo <description>```
 
 ## Listing all tasks
