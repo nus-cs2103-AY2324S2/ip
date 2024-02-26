@@ -84,12 +84,24 @@ public class Storage {
 
         switch (taskType) {
             case "T":
-                return new ToDo(description);
+                ToDo todo = new ToDo(description);
+                if (isDone) {
+                    todo.markAsDone();
+                } else {
+                    todo.markAsNotDone();
+                }
+                return todo;
             case "D":
                 String dueBy = parts.length > 3 ? parts[3].trim() : "";
                 LocalDate dueByDate = parseDateDeadline(dueBy);
                 if (dueByDate != null) {
-                    return new Deadline(description, dueByDate);
+                    Deadline deadline = new Deadline(description, dueByDate);
+                    if (isDone) {
+                        deadline.markAsDone();
+                    } else {
+                        deadline.markAsNotDone();
+                    }
+                    return deadline;
                 } else {
                     System.out.println("Error parsing dueByDate.");
                     return null;
@@ -100,7 +112,13 @@ public class Storage {
                 LocalDate startDate = parseDateEvent(start);
                 LocalDate endDate = parseDateEvent(end);
                 if (startDate != null && endDate != null) {
-                    return new Event(description, startDate, endDate);
+                    Event event = new Event(description, startDate, endDate);
+                    if (isDone) {
+                        event.markAsDone();
+                    } else {
+                        event.markAsNotDone();
+                    }
+                    return event;
                 } else {
                     System.out.println("Error parsing startDate and/or endDate.");
                     return null;
