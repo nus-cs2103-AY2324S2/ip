@@ -1,8 +1,8 @@
 package taskList;
 
-import task.Task;
-
 import java.util.ArrayList;
+
+import task.Task;
 
 /**
  * The taskList.TaskList class represents a list of tasks.
