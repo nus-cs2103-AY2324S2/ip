@@ -3,7 +3,6 @@ package jojo;
 import exceptions.JojoException;
 
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -90,9 +89,13 @@ public class Storage {
      */
     public ArrayList<Task> load() throws JojoException {
         ArrayList<Task> taskArr = new ArrayList<>();
-        File file = new File(filePath);
-        if (!file.exists()) {
-            return taskArr;
+        Path path = Paths.get(this.filePath);
+        if (!Files.exists(path)) {
+            try {
+                Files.createFile(path);
+            } catch (IOException e) {
+                throw new JojoException("Error creating file: " + e.getMessage());
+            }
         }
         try (BufferedReader br = new BufferedReader(new FileReader(filePath))) {
             String s;
