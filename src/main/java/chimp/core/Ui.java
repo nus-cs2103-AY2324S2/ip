@@ -53,9 +53,9 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         sb.append(DIVIDER);
-        sb.append("Got it. I've added this task:");
-        sb.append(task);
-        sb.append("Now you have " + list.size() + " tasks in the list.");
+        sb.append("Got it. I've added this task:").append("\n");
+        sb.append(task).append("\n");
+        sb.append("Now you have " + list.size() + " tasks in the list.").append("\n");
         sb.append(DIVIDER);
 
         return sb.toString();
@@ -74,9 +74,9 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         sb.append(DIVIDER);
-        sb.append(phrase);
-        sb.append(task);
-        sb.append("Now you have " + list.size() + " tasks in the list.");
+        sb.append(phrase).append("\n");
+        sb.append(task).append("\n");
+        sb.append("Now you have " + list.size() + " tasks in the list.").append("\n");
         sb.append(DIVIDER);
 
         return sb.toString();
@@ -87,7 +87,7 @@ public class Ui {
         StringBuilder sb = new StringBuilder();
 
         sb.append(DIVIDER);
-        sb.append(phrase);
+        sb.append(phrase).append("\n");
         for (int i = 0; i < matches.length; i++) {
             sb.append((i + 1)).append(". ").append(matches[i].toString()).append("\n");
         }
