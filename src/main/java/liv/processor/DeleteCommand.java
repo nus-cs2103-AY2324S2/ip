@@ -30,7 +30,7 @@ public class DeleteCommand extends Command {
      * @param tasks   The list of tasks to operate on.
      * @param ui      The Ui to gives interaction with users.
      * @param storage The storage where the data is stored.
-     * @throws LivException
+     * @throws LivException if one of the task number specified does not exist in the list.
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {

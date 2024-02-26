@@ -241,6 +241,16 @@ public class Parser {
         return new EventCommand(newEvent);
     }
 
+    /**
+     * Parses the input string to extract a keyword and creates a FindCommand instance with it.
+     * <p>
+     * This method expects the input string to contain a keyword following a space character.
+     * It checks for the presence of a space and throws a LivException if the keyword is missing or empty.
+     *
+     * @param input The input string containing the command and keyword.
+     * @return A new FindCommand instance initialized with the extracted keyword.
+     * @throws LivException if the keyword is missing or empty.
+     */
     private static Command parseFindCommand(String input) throws LivException {
         int spaceIndex = input.indexOf(' ');
         if (spaceIndex == -1) {
