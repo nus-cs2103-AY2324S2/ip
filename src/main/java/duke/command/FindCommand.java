@@ -21,16 +21,21 @@ public class FindCommand extends Command {
         try {
             StringBuilder string = new StringBuilder();
             String keyWord = message.split(" ", 2)[1].toLowerCase();
-            for (int i = 0; i < taskList.size(); i++) {
-                if (taskList.get(i).getDescription().toLowerCase().contains(keyWord)) {
-                    string.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
-                }
-            }
+            find(taskList, keyWord, string);
             return Ui.showMatchingTasks(string.toString());
         } catch (ArrayIndexOutOfBoundsException e) {
             return Ui.showWrongFormat() + "\n" + Ui.showFindFormat();
         }
     }
+
+    private static void find(TaskList taskList, String keyWord, StringBuilder string) {
+        for (int i = 0; i < taskList.size(); i++) {
+            if (taskList.get(i).getDescription().toLowerCase().contains(keyWord)) {
+                string.append(i + 1).append(". ").append(taskList.get(i)).append("\n");
+            }
+        }
+    }
+
     public  boolean isExit() {
         return false;
     }

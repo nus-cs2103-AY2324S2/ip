@@ -12,7 +12,6 @@ public abstract class Command {
      * Executes the command.
      *
      * @param taskList The TaskList that is used by the user.
-     * @param ui The Ui that is used by the user to interact with the chatbot.
      * @param storage The Storage that is used to save the chat history.
      */
     public abstract String execute(TaskList taskList, Storage storage);
