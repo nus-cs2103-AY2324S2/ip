@@ -2,7 +2,7 @@ package judy;
 
 import judy.commands.Command;
 import judy.commands.GreetCommand;
-import judy.exceptions.DukeException;
+import judy.exceptions.JudyException;
 import judy.javafx.Launcher;
 import judy.parser.Parser;
 import judy.storage.Storage;
@@ -57,7 +57,7 @@ public class Judy {
                 Command c = parser.parse();
                 c.execute(storage, ui);
                 isExit = c.isExit();
-            } catch (DukeException e) {
+            } catch (JudyException e) {
                 System.out.println(e.getMessage());
             } finally {
                 ui.showLine();
@@ -82,13 +82,15 @@ public class Judy {
      */
     public String getResponse(String input) {
         Command c;
-        String response = null;
+        String response;
         try {
             Parser parser = new Parser(input, taskList);
             c = parser.parse();
+            assert c != null;
             response = c.execute(storage, ui);
             isExit = c.isExit();
-        } catch (DukeException e) {
+        } catch (JudyException e) {
+            assert e.getMessage() != null;
             response = e.getMessage();
         }
         return response;
