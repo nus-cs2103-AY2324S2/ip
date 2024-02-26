@@ -28,7 +28,7 @@ public class Command {
 
     public String execute() throws IOException {
         String reply;
-        switch (command) {
+        switch (command.toLowerCase()) {
             case "list":
                 reply = TaskList.listTasks();
                 break;
