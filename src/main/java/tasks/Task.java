@@ -16,6 +16,7 @@ public class Task {
     public Task(String what, String status, String type) {
         this.what = what;
         this.type = type;
+        assert status.equals("t") || status.equals("f");
         if (status.equals("t")) {
             this.status = "[X]";
         } else {
@@ -38,9 +39,10 @@ public class Task {
      * @param status completion status of task
      */
     public void changeStatus(String status) {
+        assert status.equals("mark") || status.equals("unmark");
         if (status.equals("mark")) {
             this.status = "[X]";
-        } else if (status.equals("unmark")) {
+        } else {
             this.status = "[ ]";
         }
     }
