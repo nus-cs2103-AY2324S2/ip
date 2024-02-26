@@ -1,3 +1,2 @@
-T/X/this
-D/ /homework/2024-04-04
-E/ /comp/2024-04-04/2024-05-04
+T/ /create a resume
+D/ /CS2103T individual project/2024-02-23
