@@ -32,7 +32,7 @@ public class MainWindow extends AnchorPane {
     private Seiki seiki;
 
     private final Image userImage = new Image(Objects.requireNonNull(
-            getClass().getResourceAsStream("/images/DaUser.png")));
+            getClass().getResourceAsStream("/images/DuckIcon.png")));
     private final Image seikiImage = new Image(Objects.requireNonNull(
             getClass().getResourceAsStream("/images/SeikiIcon.png")));
 
