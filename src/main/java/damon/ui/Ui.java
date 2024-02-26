@@ -140,10 +140,10 @@ public class Ui {
     }
 
     public void showFindCommand(TaskList tasks) {
-        int n = tasks.size();
+        int n = tasks.getSize();
         System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < n; i++) {
-            Task currentTask = tasks.get(i);
+            Task currentTask = tasks.getTask(i);
             System.out.println((i + 1) + "." + currentTask.toString());
         }
     }
