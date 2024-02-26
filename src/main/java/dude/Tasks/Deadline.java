@@ -78,4 +78,13 @@ public class Deadline extends Task {
     public LocalDateTime getBy() {
         return deadline_date;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Deadline) {
+            Deadline t = (Deadline) o;
+            return t.getDescription().equals(this.getDescription()) && t.getBy().equals(this.getBy());
+        }
+        return false;
+    }
 }
