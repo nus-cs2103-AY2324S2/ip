@@ -14,7 +14,7 @@ public class Parser {
     private static final String[] DATE_FORMATS = { "yyyy-MM-dd", "dd-MM-yyyy", "MM-dd-yyyy", "dd/MM/yyyy", "MM/dd/yyyy",
             "yyyy/MM/dd", "dd MMM yyyy", "MMM dd yyyy", "yyyy MMM dd", "dd MMM yyyy", "yyyy-MM-d", "d-MM-yyyy",
             "MM-d-yyyy", "d/MM/yyyy", "MM/d/yyyy", "yyyy/MM/d", "d MMM yyyy", "MMM d yyyy", "yyyy MMM d",
-            "d MMM yyyy", "MMM dd yyyy", "dd-MMMM-yyyy", "yyyy-MMM-dd", "yyyy-MMMM-dd", "dd/MMM/yyyy",
+            "dd MMM yyyy", "MMM dd yyyy", "dd-MMMM-yyyy", "yyyy-MMM-dd", "yyyy-MMMM-dd", "dd/MMM/yyyy",
             "dd/MMMM/yyyy", "yyyy/MMM/dd", "yyyy/MMMM/dd", "d-MMMM-yyyy", "d MMMM yyyy", "dd MMMM yyyy" };
     private static final String[] TIME_FORMATS = { "HH:mm", "HH:mm", "h:mm a", "HHmm", "hh:mm a" };
 

@@ -27,11 +27,10 @@ public class Storage {
     private static final Path FILEPATH = Paths.get("data", "xiaobai.txt");
 
     /**
-     * Constructs a Storage class that writes and loads input into XiaoBai.
-     * 
+     * Constructs a Storage object.
+     * Creates the necessary directories if they do not exist.
      */
     public Storage() {
-        // Create the directory if it doesn't exist
         try {
             Files.createDirectories(FILEPATH.getParent());
         } catch (IOException e) {
