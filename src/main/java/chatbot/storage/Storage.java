@@ -30,7 +30,7 @@ public class Storage {
     private static final Pattern PATTERN_DEADLINE = Pattern.compile("([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?)");
     private static final Pattern PATTERN_EVENT = Pattern.compile(
             "([A-Z]) \\| (\\d) \\| (.*?) \\| (.*?) \\| (.*?)");
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
      * Constructs a new chatbot.storage.Storage object.
@@ -102,14 +102,15 @@ public class Storage {
      * @return The chatbot.task.Task containing the task data.
      */
     private static Task parseTask(String line) {
+        assert line != null : "line should not be empty";
         Matcher todoMatcher = PATTERN_TODO.matcher(line);
         Matcher deadlineMatcher = PATTERN_DEADLINE.matcher(line);
         Matcher eventMatcher = PATTERN_EVENT.matcher(line);
         if (eventMatcher.matches()) {
             boolean isCompleted = eventMatcher.group(2).equals("1");
             String taskName = " " + eventMatcher.group(3);
-            LocalDateTime start = LocalDateTime.parse(eventMatcher.group(4), formatter);
-            LocalDateTime end = LocalDateTime.parse(eventMatcher.group(5), formatter);
+            LocalDateTime start = LocalDateTime.parse(eventMatcher.group(4), FORMATTER);
+            LocalDateTime end = LocalDateTime.parse(eventMatcher.group(5), FORMATTER);
             Event eventTask = new Event(taskName, start, end);
             if (isCompleted) {
                 eventTask.complete();
@@ -118,7 +119,7 @@ public class Storage {
         } else if (deadlineMatcher.matches()) {
             boolean isCompleted = deadlineMatcher.group(2).equals("1");
             String taskName = " " + deadlineMatcher.group(3);
-            LocalDateTime deadline = LocalDateTime.parse(deadlineMatcher.group(4), formatter);
+            LocalDateTime deadline = LocalDateTime.parse(deadlineMatcher.group(4), FORMATTER);
             Deadline deadlineTask = new Deadline(taskName, deadline);
             if (isCompleted) {
                 deadlineTask.complete();

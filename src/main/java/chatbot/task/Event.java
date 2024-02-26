@@ -12,14 +12,14 @@ import java.time.format.DateTimeFormatter;
 public class Event extends Task {
     private LocalDateTime start;
     private LocalDateTime end;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
      * Constructs a new chatbot.task.Event task with the given name, start date and end date.
      *
-     * @param name The name of the chatbot.task.Deadline task.
+     * @param name  The name of the chatbot.task.Deadline task.
      * @param start The LocalDateTime object containing the start date.
-     * @param end The LocalDateTime object containing the end date.
+     * @param end   The LocalDateTime object containing the end date.
      */
     public Event(String name, LocalDateTime start, LocalDateTime end) {
         super(name);
@@ -34,7 +34,7 @@ public class Event extends Task {
      * @return The formatted deadline, as a String.
      */
     public String formatDeadline(LocalDateTime time) {
-        return time.format(formatter);
+        return time.format(FORMATTER);
     }
 
     @Override

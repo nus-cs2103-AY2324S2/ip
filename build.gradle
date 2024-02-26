@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("chatbot.Duke")
+    mainClass.set("chatbot.gui.Launcher")
 }
 
 shadowJar {

@@ -1,5 +1,6 @@
-package chatbot;
+package chatbot.gui;
 
+import chatbot.Duke;
 import chatbot.exception.DukeException;
 import chatbot.gui.DialogBox;
 import chatbot.parser.Parser;
@@ -22,7 +23,11 @@ import javafx.util.Duration;
 import java.time.format.DateTimeParseException;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Encapsulates the controller for MainWindow.
+ * Provides the layout for the other controls.
+ *
+ * @author Huang Zhuoyan, Celeste
+ * @version CS2103T AY24/25 Semester 1, G07
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -36,9 +41,12 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
     private Parser parser;
-    private static final Image userImg = new Image(Duke.class.getResourceAsStream("/images/User.png"));
-    private static final Image dukeImg = new Image(Duke.class.getResourceAsStream("/images/Chatbot.png"));
+    private static final Image IMAGE_USER = new Image(Duke.class.getResourceAsStream("/images/User.png"));
+    private static final Image IMAGE_CHATBOT = new Image(Duke.class.getResourceAsStream("/images/Chatbot.png"));
 
+    /**
+     * Initialises the MainWindow controller.
+     */
     @FXML
     public void initialize() {
         sendButton.setOnMouseClicked((event) -> {
@@ -51,18 +59,23 @@ public class MainWindow extends AnchorPane {
 
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        displayMessage(Ui.printWelcomeMessage("Fatnom"));
-        System.out.println("initialised");
+        displayBotMessage(Ui.printWelcomeMessage("Fatnom"));
     }
 
+    /**
+     * Sets the Duke and Parser objects associated with this MainWindow instance.
+     *
+     * @param d The Duke object.
+     * @param p The Parser object.
+     */
     public void setDuke(Duke d, Parser p) {
         duke = d;
         parser = p;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input by processing it with the Parser object and displaying the corresponding responses.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
@@ -79,6 +92,12 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Retrieves the chatbot's response to the given user input.
+     *
+     * @param input The user input.
+     * @return The chatbot's response.
+     */
     @FXML
     private String getResponse(String input) {
         StringBuilder responseBuilder = new StringBuilder();
@@ -93,21 +112,23 @@ public class MainWindow extends AnchorPane {
         return responseBuilder.toString();
     }
 
-    private void displayMessage(String message) {
-        Label messageLabel = new Label(message);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(message, dukeImg));
-    }
-
+    /**
+     * Displays a message from the user in the dialog container.
+     *
+     * @param message The message to be displayed.
+     */
     private void displayUserMessage(String message) {
-        Label userLabel = new Label(message);
         dialogContainer.getChildren().add(
-                DialogBox.getUserDialog(message, userImg));
+                DialogBox.getUserDialog(message, IMAGE_USER));
     }
 
+    /**
+     * Displays a message from the chatbot in the dialog container.
+     *
+     * @param message The message to be displayed.
+     */
     private void displayBotMessage(String message) {
-        Label botLabel = new Label(message);
         dialogContainer.getChildren().add(
-                DialogBox.getDukeDialog(message, dukeImg));
+                DialogBox.getDukeDialog(message, IMAGE_CHATBOT));
     }
 }
