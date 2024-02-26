@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("yarr.javafx.Launcher")
 }
 
 checkstyle {
@@ -53,7 +53,7 @@ checkstyle {
 shadowJar {
     archiveBaseName = "yarr"
     archiveClassifier = null
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'yarr.jar'
     dependsOn("distZip", "distTar")
 }
 
