@@ -29,78 +29,18 @@ public class Awex {
         return this.ui.greeting();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         String[] arr = input.split(" ", 2);
         if (input.equals("bye")) {
-            try {
-                storage.store(tasks);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return ui.farewell();
+            return Parser.byeParser(this.storage, this.tasks, this.ui);
         } else if (input.equals("list")) {
-            if (arr.length > 1) {
-                return ui.allInstructions();
-            } else if (tasks.isEmpty()) {
-                return ui.emptyListMessage();
-            } else {
-                return ui.showListMessage(tasks);
-            }
+            return Parser.listParser(arr, this.tasks, this.ui);
         } else if (arr[0].equals("find")) {
-            if (arr.length < 2) {
-                return ui.allInstructions();
-            } else if (tasks.isEmpty()) {
-                return ui.emptyListMessage();
-            } else {
-                return ui.showFindMessage(tasks, arr[1]);
-            }
+            return Parser.findParser(arr, this.tasks, this.ui);
         } else if (arr[0].equals("mark") || arr[0].equals("unmark") || arr[0].equals("delete")) {
-            String[] array = input.split(" ");
-            if (array.length != 2) {
-                return ui.wrongMarkDeleteFormatMessage(arr[0]);
-            } else {
-                int i = Integer.parseInt(array[1]);
-                int len = tasks.size();
-                if (i == 0 || i > len) {
-                    return ui.wrongIndexMessage(i, len);
-                } else {
-                    if (arr[0].equals("delete")) {
-                        return ui.deleteTaskMessage(i, tasks);
-                    } else {
-                        Task t = tasks.get(i - 1);
-                        t.changeStatus(arr[0]);
-                        return ui.changeStatusMessage(arr[0], t);
-                    }
-                }
-            }
+            return Parser.markAndDeleteParser(input, arr, this.tasks, this.ui);
         } else {
-            Task t;
-            if (arr[0].equals("todo")) {
-                if (arr.length == 1) {
-                    return ui.failedTaskCreationMessage("todo");
-                }
-                t = TodoTask.of(arr[1]);
-            } else if (arr[0].equals("deadline")) {
-                String[] array = input.split("/");
-                if (array.length != 2) {
-                    return ui.failedTaskCreationMessage("deadline");
-                }
-                t = DeadlineTask.of(arr[1]);
-            } else if (arr[0].equals("event")) {
-                String[] array = input.split("/");
-                if (array.length != 3) {
-                    return ui.failedTaskCreationMessage("event");
-                }
-                t = EventTask.of(arr[1]);
-            } else {
-                return ui.allInstructions();
-            }
-            tasks.add(t);
-            return ui.newTaskAddedMessage(tasks.size(), t);
+            return Parser.taskParser(input, arr, this.tasks, this.ui);
         }
     }
 }
