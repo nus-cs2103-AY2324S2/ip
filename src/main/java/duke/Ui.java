@@ -118,7 +118,8 @@ public class Ui {
     public static String showValidCommands() {
         return "You need to use 'todo', 'deadline' or 'event' command to add a task.\n" +
                 "You can use 'list' to see all of your tasks.\n" +
-                "Use 'mark' or 'unmark' for any of your tasks.";
+                "Use 'mark' or 'unmark' for any of your tasks.\n" +
+                "Use 'find' to find a keyword in your task list.";
     }
 
 
