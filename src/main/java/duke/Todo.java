@@ -6,16 +6,19 @@ package duke;
 public class Todo extends Task {
     private String name;
     private boolean isDone;
+    private Tag tag;
     private final static String IDENTIFIER = "[T]";
     public Todo(String name) {
         super(name);
         this.name = name;
         this.isDone = false;
+        this.tag = new Tag();
     }
     public Todo(String name, boolean isDone) {
         super(name);
         this.name = name;
         this.isDone = isDone;
+        this.tag = new Tag();
 
     }
 
@@ -31,12 +34,16 @@ public class Todo extends Task {
         return this.name;
     }
 
+    public void addTag(Tag tag) {
+        this.tag = tag;
+    }
+
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X]" + IDENTIFIER + " " + this.name;
+            return "[X]" + IDENTIFIER + " " + this.name + " " + this.tag.toString();
         } else {
-            return "[ ]" + IDENTIFIER + " " + this.name;
+            return "[ ]" + IDENTIFIER + " " + this.name + " " + this.tag.toString();
         }
     }
 
@@ -47,7 +54,7 @@ public class Todo extends Task {
         } else {
             mark = "0";
         }
-        String str = String.format("%s/todo/%s", mark, name);
+        String str = String.format("%s/todo/%s/%s", mark, name, tag.getInput());
         return str;
     }
 }

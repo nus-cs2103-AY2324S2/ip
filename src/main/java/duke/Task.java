@@ -6,16 +6,19 @@ package duke;
 public class Task {
     private String name;
 
+    private Tag tag;
     private boolean isDone;
 
     public Task(String name) {
         this.name = name;
         this.isDone = false;
+        this.tag = new Tag();
     }
 
     public Task() {
         this.name = "";
         this.isDone = false;
+        this.tag = new Tag();
     }
 
     /**
@@ -36,13 +39,16 @@ public class Task {
         return this.name;
     }
 
+    public void addTag(Tag tag) {
+        this.tag = tag;
+    }
 
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X] " + this.name;
+            return "[X] " + this.name + this.tag.toString();
         } else {
-            return "[ ] " + this.name;
+            return "[ ] " + this.name + this.tag.toString();
         }
     }
 

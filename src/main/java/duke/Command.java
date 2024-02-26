@@ -218,14 +218,35 @@ public enum Command {
 
             return found.toString();
         }
+    },
+
+    TAG("tag") {
+        @Override
+        public String execute(TaskList tasks, String description) throws DukeException {
+            try {
+                String[] arr = description.split(" ", 3);
+
+                String index = arr[1];
+                String value = arr[2];
+                Tag tag = new Tag(value);
+                int i = Integer.parseInt(index);
+                Task targetTask = tasks.get(i - 1);
+                targetTask.addTag(tag);
+                Storage.write(tasks);
+                String str = String.format("Tag added to task\n%s", targetTask);
+                return str;
+
+            } catch (IndexOutOfBoundsException | NumberFormatException e) {
+                throw new DukeException("Invalid format. Please use: tag INDEX VALUE");
+            }
+
+
+        }
     };
 
     private final String command;
     Command(String command) {
         this.command = command;
-    }
-    public String getCommand() {
-        return this.command;
     }
 
     /**

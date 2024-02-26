@@ -63,7 +63,7 @@ public class Parser {
     public static Task parseFromData(String input) throws DukeException {
         Task task = null;
         boolean isDone;
-        String[] arr = input.split("/", 5);
+        String[] arr = input.split("/", 6);
         if (arr[0].equals("1")) {
             isDone = true;
         } else {
@@ -79,17 +79,23 @@ public class Parser {
 
         if (command.equals("todo")) {
             task = new Todo(arr[2], isDone);
+            Tag tag = new Tag(arr[3]);
+            task.addTag(tag);
+
         } else if (command.equals("deadline")) {
-
             task = deadlineDataHandler(arr, isDone);
-
+            Tag tag = new Tag(arr[4]);
+            task.addTag(tag);
 
         } else if (command.equals("event")) {
             task = eventDataHandler(arr, isDone);
+            Tag tag = new Tag(arr[5]);
+            task.addTag(tag);
 
         } else {
             throw new DukeException("I don't know what that means.");
         }
+
         return task;
     }
 

@@ -11,6 +11,7 @@ public class Event extends Task {
     private LocalDateTime from;
     private LocalDateTime to;
     private boolean isDone;
+    private Tag tag;
     private static String IDENTIFIER = "[E]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
@@ -21,6 +22,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         this.isDone = false;
+        this.tag = new Tag();
     }
 
     public Event(String name, LocalDateTime from, LocalDateTime to, boolean isDone) {
@@ -29,6 +31,7 @@ public class Event extends Task {
         this.from = from;
         this.to = to;
         this.isDone = isDone;
+        this.tag = new Tag();
     }
 
     public void mark() {
@@ -39,6 +42,9 @@ public class Event extends Task {
         this.isDone = false;
     }
 
+    public void addTag(Tag tag) {
+        this.tag = tag;
+    }
     public String getName() {
         return this.name;
     }
@@ -47,10 +53,12 @@ public class Event extends Task {
     public String toString() {
         if (this.isDone) {
             return "[X]" + IDENTIFIER + " " + this.name +
-                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")" +
+                    " " + this.tag.toString();
         } else {
             return "[ ]" + IDENTIFIER + " " + this.name +
-                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")" +
+                    " " + this.tag.toString();
         }
     }
 
@@ -61,7 +69,7 @@ public class Event extends Task {
         } else {
             mark = "0";
         }
-        String str = String.format("%s/event/%s/%s/%s", mark, name, from, to);
+        String str = String.format("%s/event/%s/%s/%s/%s", mark, name, from, to, tag.getInput());
         return str;
     }
 

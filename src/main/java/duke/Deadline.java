@@ -10,6 +10,7 @@ public class Deadline extends Task {
     private String name;
     private LocalDateTime by;
     private boolean isDone;
+    private Tag tag;
     private static String IDENTIFIER = "[D]";
 
     private DateTimeFormatter dtfoutput = DateTimeFormatter.ofPattern("dd MMM yyyy HHmm");
@@ -19,6 +20,7 @@ public class Deadline extends Task {
         this.name = name;
         this.by = by;
         this.isDone = false;
+        this.tag = new Tag();
     }
 
     public Deadline(String name, LocalDateTime by, boolean isDone) {
@@ -35,6 +37,11 @@ public class Deadline extends Task {
     public void unmark() {
         this.isDone = false;
     }
+
+    public void addTag(Tag tag) {
+        this.tag = tag;
+    }
+
     public String getName() {
         return this.name;
     }
@@ -42,9 +49,11 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
+            return "[X]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")" +
+                    " " + tag.toString();
         } else {
-            return "[ ]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")";
+            return "[ ]" + IDENTIFIER + " " + this.name + "(by " + dtfoutput.format(by) + ")" +
+                    " " + tag.toString();
         }
 
     }
@@ -56,7 +65,7 @@ public class Deadline extends Task {
         } else {
             mark = "0";
         }
-        String str = String.format("%s/deadline/%s/%s", mark, name, by);
+        String str = String.format("%s/deadline/%s/%s/%s", mark, name, by, tag.getInput());
         return str;
     }
 }

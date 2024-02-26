@@ -71,6 +71,9 @@ public class Ui {
         case "find":
             this.currentCommand = Command.FIND;
             break;
+        case "tag":
+            this.currentCommand = Command.TAG;
+            break;
         default:
             this.currentCommand = Command.UNKNOWN;
             break;
