@@ -2,8 +2,8 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
+import bob.Ui;
 import bob.exception.SavingException;
-import bob.gui.Ui;
 import bob.task.Task;
 
 /**
@@ -23,15 +23,14 @@ public class AddTodoCommand extends AddCommand {
     /**
      * Executes the command to add a todo with a specified description.
      *
-     * @param ui The UI to display the result of adding the todo.
      * @param storage The storage to save the new todo in hard disk.
      * @param taskList The task list to store the new todo.
      * @throws SavingException If there was an error saving the new todo in hard disk.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) throws SavingException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException {
         Task task = taskList.addTodo(description);
         storage.saveTask(task);
-        return ui.getAddResponse(task, taskList.getSize());
+        return Ui.getAddResponse(task, taskList.getSize());
     }
 }

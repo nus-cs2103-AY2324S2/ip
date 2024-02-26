@@ -2,9 +2,9 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
+import bob.Ui;
 import bob.exception.InvalidTaskIndexException;
 import bob.exception.SavingException;
-import bob.gui.Ui;
 import bob.task.Task;
 
 /**
@@ -29,16 +29,15 @@ public class MarkCommand extends Command {
     /**
      * Executes the command to mark or unmark a task with a specified task index.
      *
-     * @param ui The UI to display the result of marking or unmarking the task.
      * @param storage The storage to update the task list in hard disk.
      * @param taskList The task list to store the list of tasks after the mark or unmark.
      * @throws InvalidTaskIndexException If the specified task index is invalid.
      * @throws SavingException If there was an error updating the task list in hard disk.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) throws InvalidTaskIndexException, SavingException {
+    public String execute(Storage storage, TaskList taskList) throws InvalidTaskIndexException, SavingException {
         Task task = taskList.mark(taskIndex, isDone);
         taskList.updateStorage(storage);
-        return ui.getMarkResponse(task, task.getDone());
+        return Ui.getMarkResponse(task, task.getDone());
     }
 }

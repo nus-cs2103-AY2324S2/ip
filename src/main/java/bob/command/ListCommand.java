@@ -2,7 +2,7 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.gui.Ui;
+import bob.Ui;
 
 /**
  * Represents an action to list the tasks. A <code>ListCommand</code> object corresponds to
@@ -12,12 +12,11 @@ public class ListCommand extends Command {
     /**
      * Executes the command to list the tasks.
      *
-     * @param ui The UI to display the list.
      * @param storage The storage to retrieve the tasks to list.
      * @param taskList The task list that stores the tasks to be listed.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) {
-        return ui.getListResponse(taskList.list());
+    public String execute(Storage storage, TaskList taskList) {
+        return Ui.getListResponse(taskList.list());
     }
 }

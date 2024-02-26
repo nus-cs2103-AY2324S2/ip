@@ -2,7 +2,7 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.gui.Ui;
+import bob.Ui;
 
 /**
  * Represents an action to list the tasks matching a specified keyword.
@@ -24,12 +24,11 @@ public class ListKeywordCommand extends ListCommand {
     /**
      * Executes the command to list the tasks matching a specified keyword.
      *
-     * @param ui The UI to display the list.
      * @param storage The storage to retrieve the tasks to list.
      * @param taskList The task list that stores the tasks that might be listed.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) {
-        return ui.getFindResponse(taskList.listKeyword(keyword));
+    public String execute(Storage storage, TaskList taskList) {
+        return Ui.getFindResponse(taskList.listKeyword(keyword));
     }
 }

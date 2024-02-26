@@ -1,4 +1,4 @@
-package bob.gui;
+package bob;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -7,12 +7,16 @@ import java.util.ArrayList;
 import bob.task.Task;
 
 /**
- * Represents the user interface (UI) of the program. A <code>Ui</code> object corresponds to
- * a user interface which the program can apply.
+ * Utility class to handle the user interface (UI) of the program. The class contains various methods to
+ * construct responses to the user.
  */
 public class Ui {
     private static final String EXIT = "ok";
+
     private static final String GREET = "yo im bob\nwhat do you want";
+
+    private static final int INDENT_SPACE_COUNT = 2;
+
     private static final String LOADING_ERROR = "wait what happened i cant load any data";
 
     private static final String HEADER_ADD = "added:";
@@ -45,7 +49,7 @@ public class Ui {
      *
      * @param lines The lines of output to be indented and displayed to the user.
      */
-    public String getResponse(String ... lines) {
+    public static String getResponse(String ... lines) {
         return String.join("\n", lines);
     }
 
@@ -54,14 +58,14 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public String getLoadingErrorResponse(String message) {
+    public static String getLoadingErrorResponse(String message) {
         return getResponse(LOADING_ERROR, message);
     }
 
     /**
      * Greets the user.
      */
-    public String getGreetResponse() {
+    public static String getGreetResponse() {
         return getResponse(GREET);
     }
 
@@ -75,10 +79,10 @@ public class Ui {
      * @param task The added task.
      * @param numberOfTasks The number of tasks after adding the task.
      */
-    public String getAddResponse(Task task, int numberOfTasks) {
+    public static String getAddResponse(Task task, int numberOfTasks) {
         return getResponse(
                 HEADER_ADD,
-                " ".repeat(2) + task,
+                " ".repeat(INDENT_SPACE_COUNT) + task,
                 String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
         );
     }
@@ -89,8 +93,8 @@ public class Ui {
      * @param task The marked or unmarked task.
      * @param isDone Whether the task is marked or unmarked.
      */
-    public String getMarkResponse(Task task, boolean isDone) {
-        return getResponse(isDone ? HEADER_MARK : HEADER_UNMARK, " ".repeat(2) + task);
+    public static String getMarkResponse(Task task, boolean isDone) {
+        return getResponse(isDone ? HEADER_MARK : HEADER_UNMARK, " ".repeat(INDENT_SPACE_COUNT) + task);
     }
 
     /**
@@ -99,8 +103,12 @@ public class Ui {
      * @param task The deleted task.
      * @param numberOfTasks The number of tasks after deleting the task.
      */
-    public String getDeleteResponse(Task task, int numberOfTasks) {
-        return getResponse(HEADER_DELETE, " ".repeat(2) + task, String.format(FOOTER_DELETE, numberOfTasks));
+    public static String getDeleteResponse(Task task, int numberOfTasks) {
+        return getResponse(
+                HEADER_DELETE,
+                " ".repeat(INDENT_SPACE_COUNT) + task,
+                String.format(FOOTER_DELETE, numberOfTasks)
+        );
     }
 
     /**
@@ -109,7 +117,7 @@ public class Ui {
      * @param tasks The specified list of tasks to be displayed.
      * @param header The header of the display.
      */
-    public String getListResponse(ArrayList<Task> tasks, String header) {
+    public static String getListResponse(ArrayList<Task> tasks, String header) {
         // Prepare an array to store the lines to display, setting the first element as the header line
         String[] lines = new String[tasks.size() + 1];
         lines[0] = header;
@@ -128,7 +136,7 @@ public class Ui {
      *
      * @param tasks The specified list of tasks to be displayed.
      */
-    public String getListResponse(ArrayList<Task> tasks) {
+    public static String getListResponse(ArrayList<Task> tasks) {
         return getListResponse(tasks, HEADER_LIST);
     }
 
@@ -137,14 +145,14 @@ public class Ui {
      *
      * @param tasks The specified list of tasks to be displayed.
      */
-    public String getFindResponse(ArrayList<Task> tasks) {
+    public static String getFindResponse(ArrayList<Task> tasks) {
         return getListResponse(tasks, HEADER_FIND);
     }
 
     /**
      * Displays the exit message.
      */
-    public String getExitResponse() {
+    public static String getExitResponse() {
         return getResponse(EXIT);
     }
 }

@@ -4,8 +4,8 @@ import java.time.LocalDateTime;
 
 import bob.Storage;
 import bob.TaskList;
+import bob.Ui;
 import bob.exception.SavingException;
-import bob.gui.Ui;
 import bob.task.Task;
 
 /**
@@ -29,15 +29,14 @@ public class AddDeadlineCommand extends AddCommand {
     /**
      * Executes the command to add a deadline with a specified description and due time.
      *
-     * @param ui The UI to display the result of adding the deadline.
      * @param storage The storage to save the new deadline in hard disk.
      * @param taskList The task list to store the new deadline.
      * @throws SavingException If there was an error saving the new deadline in hard disk.
      */
     @Override
-    public String execute(Ui ui, Storage storage, TaskList taskList) throws SavingException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException {
         Task task = taskList.addDeadline(description, by);
         storage.saveTask(task);
-        return ui.getAddResponse(task, taskList.getSize());
+        return Ui.getAddResponse(task, taskList.getSize());
     }
 }
