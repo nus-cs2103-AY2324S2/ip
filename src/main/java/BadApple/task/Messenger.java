@@ -7,8 +7,7 @@ import java.util.Random;
  * Do add extra enums to customise the replies Mari can give
  */
 public class Messenger {
-    public static boolean isSuppressingMessages;
-    public static boolean suppressMessages = false;
+    public static boolean isSuppressingMessages = false;
     /**
      * When a user adds a task, a response of PrependMessages + task is rendered
      * To add a message: Write the enum and then place a prepend and append message in brackets
