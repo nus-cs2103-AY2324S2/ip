@@ -23,7 +23,7 @@ public class AddCommand extends Command {
         String name = Parser.getInfo(input, 1);
         String type = Parser.getInfo(input, 2);
 
-        Task t;
+        Task t = null;
         switch (type) {
         case ("todo"):
             t = new Todos(name);
@@ -48,6 +48,7 @@ public class AddCommand extends Command {
             storage.storeList(tasks.getTasks());
             return("I've added " + t.toString());
         default:
+            assert (t == null) : "t should be null";
             throw new ReacherException("That is not a type of task.");
         }
     }
