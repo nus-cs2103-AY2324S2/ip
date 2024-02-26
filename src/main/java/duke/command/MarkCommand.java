@@ -25,15 +25,15 @@ public class MarkCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             String number = message.split(" ")[1];
             int integerNumber = Integer.parseInt(number);
             return taskList.mark(integerNumber);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.showForgetTaskNumber() + "\n" + ui.showMarkFormat();
+            return Ui.showForgetTaskNumber() + "\n" + Ui.showMarkFormat();
         } catch (NumberFormatException e) {
-            return ui.showWrongFormat() + "\n" + ui.showMarkFormat();
+            return Ui.showWrongFormat() + "\n" + Ui.showMarkFormat();
         }
     }
 

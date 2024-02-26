@@ -27,7 +27,7 @@ public class EventCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             String task = message.split(" ", 2)[1];
             String description = task.split(" /from ", 2)[0];
@@ -40,11 +40,11 @@ public class EventCommand extends Command {
                 fromDate = LocalDate.parse(from);
                 toDate = LocalDate.parse(to);
             } catch (DateTimeParseException e) {
-                return ui.showWrongFormat() + "\n" + ui.showDateFormat();
+                return Ui.showWrongFormat() + "\n" + Ui.showDateFormat();
             }
             return taskList.createEvent(description, fromDate, toDate);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.showWrongFormat() + "\n" + ui.showEventFormat();
+            return Ui.showWrongFormat() + "\n" + Ui.showEventFormat();
         }
     }
 

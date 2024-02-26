@@ -25,15 +25,15 @@ public class UnmarkCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             String number = message.split(" ")[1];
             int integerNumber = Integer.parseInt(number);
             return taskList.unmark(integerNumber);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.showForgetTaskNumber() + "\n" + ui.showUnmarkFormat();
+            return Ui.showForgetTaskNumber() + "\n" + Ui.showUnmarkFormat();
         } catch (NumberFormatException e) {
-            return ui.showUnmarkFormat();
+            return Ui.showUnmarkFormat();
         }
     }
 
