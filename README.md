@@ -1,24 +1,81 @@
-# Duke project template
+# The TalkingBox User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+The TalkingBox is a chatbot app that helps users keep track of their tasks and other notes.
 
-## Setting up in Intellij
+## Features
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Adding, removing and listing tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+You can add 3 types of tasks to the TalkingBox: Todos, Deadlines and Events
+
+Example:
+
+`todo read book`
+
+`deadline return book /by 24/3/2024 1600`
+
+The app will then add your tasks to your task list
+```
+Added new task: 
+[T] [] read book
+current number of tasks: 1
+
+```
+
+Unwanted tasks can be deleted using the `delete` command
+
+
+You can also view the entire task list with the `list` command
+
+```
+Current list of tasks: 
+1. [T] [ ] read book
+```
+
+### Completing tasks
+
+You can mark a task number as done using the `mark` command
+
+```
+mark 1
+
+
+Task marked as done. Good job!
+1. [T] [x] read book
+```
+
+Similarly, you can mark a task as not done using the `unmark` command
+
+### Finding tasks
+
+You can search for any tasks containg a certain keyword or key phrase in its name
+
+``` 
+find book
+
+Here are the matching tasks in your list:
+1. [T] [x] read book
+```
+
+### Adding and viewing notes
+
+Besides tasks, the program can also be used to store notes using the `write` command
+
+```dtd
+write today was a good day
+
+New note added!
+'today was a good day
+
+```
+
+the list of notes currently stored can be viewed using the `notes` command
+
+```
+notes
+
+Current list of notes:
+1. today was a good day
+```
+
+Like tasks, notes can also be removed using the `remove` command
