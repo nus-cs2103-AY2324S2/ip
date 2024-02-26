@@ -1,11 +1,21 @@
 package chimp.core;
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.HashSet;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import chimp.task.TaskStatus;
+import chimp.task.Todo;
+import chimp.task.Deadline;
+import chimp.task.Event;
 
 public class Storage {
     /**
@@ -53,6 +63,49 @@ public class Storage {
             Files.write(filePath, output.getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    public static TaskList readOutputFromFile(String path) {
+        TaskList taskList = new TaskList();
+        Path filePath = Path.of(path);
+
+        try (BufferedReader reader = Files.newBufferedReader(filePath)) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                parseLineToTask(line, taskList);
+            }
+        } catch (IOException e) {
+            System.err.println("Error reading from file: " + e.getMessage());
+        }
+
+        return taskList;
+    }
+
+    private static void parseLineToTask(String line, TaskList taskList) {
+        Pattern pattern = Pattern.compile("\\[(T|D|E)] \\[([ X])] (.+?)(?: \\(by: (.+)\\)| \\(at: (.+) to (.+)\\))?");
+        Matcher matcher = pattern.matcher(line);
+
+        if (matcher.find()) {
+            String type = matcher.group(1);
+            boolean isMarked = matcher.group(2).trim().equals("X");
+            String description = matcher.group(3);
+            TaskStatus status = isMarked ? TaskStatus.MARKED : TaskStatus.UNMARKED;
+
+            switch (type) {
+                case "T":
+                    taskList.add(new Todo(description, status));
+                    break;
+                case "D":
+                    LocalDate byDate = LocalDate.parse(matcher.group(4), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    taskList.add(new Deadline(description, status, byDate));
+                    break;
+                case "E":
+                    LocalDate fromDate = LocalDate.parse(matcher.group(5), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    LocalDate toDate = LocalDate.parse(matcher.group(6), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    taskList.add(new Event(description, status, fromDate, toDate));
+                    break;
+            }
         }
     }
 }
