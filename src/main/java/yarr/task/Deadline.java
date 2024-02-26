@@ -1,4 +1,4 @@
-package duke.task;
+package yarr.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     protected LocalDateTime by;
     protected DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Constructs a new Deadline object with the specified description and deadline.

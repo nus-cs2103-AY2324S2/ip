@@ -1,9 +1,9 @@
-package duke;
+package yarr;
 
 import java.util.ArrayList;
 
-import duke.command.Command;
-import duke.task.Task;
+import yarr.command.Command;
+import yarr.task.Task;
 
 /**
  * Duke is a simple chatbot application that allows users to manage tasks.
@@ -12,9 +12,9 @@ import duke.task.Task;
  * Tasks are stored in a file on the hard disk and loaded on startup.
  * If there is no file to read from, Duke creates the necessary directory and file.
  */
-public class Duke {
+public class Yarr {
     /** Filepath for reading and writing data. */
-    private static final String FILE_PATH = "./data/duke.txt";
+    private static final String FILE_PATH = "./data/yarr.txt";
 
     /** Ui object for handling printing to screen. */
     private Ui ui;
@@ -31,23 +31,26 @@ public class Duke {
      * Constructor for Duke class. Instantiates Ui and Storage.
      * Loads TaskList from filepath or makes relevant directory and file if required.
      */
-    public Duke() {
+    public Yarr() {
         String filePath = FILE_PATH;
         ui = new Ui();
         storage = new Storage(filePath);
         try {
-            ArrayList<Task> temp = new ArrayList<Task>(storage.loadData());
+            ArrayList<Task> temp = new ArrayList<>(storage.loadData());
             tasks = new TaskList(temp);
+            assert tasks.getTasks() != storage.loadData()
+                    : "TaskList and Storage data should not reference the same object for their respective task lists";
         } catch (IllegalArgumentException e) {
-            //System.out.println("Couldn't read from file");
             tasks = new TaskList();
         }
     }
 
     /**
-     * Method to generate a response to user input.
+     * Returns a response to user input.
+     * @param input a String representing the user's input
+     * @return a String representing the response to the user's input
      */
-    protected String getResponse(String input) {
+    public String getResponse(String input) {
         try {
             Command c = Parser.handleInput(input);
             isExit = c.isExit();
@@ -58,10 +61,18 @@ public class Duke {
     }
 
     /**
-     * Method to check if the program should exit.
+     * Returns boolean signalling if the program should exit.
      * @return boolean representing whether the program should exit
      */
-    protected boolean isExit() {
+    public boolean isExit() {
         return isExit;
+    }
+
+    /**
+     * Returns a welcome message to be displayed to the user.
+     * @return a String representing the welcome message
+     */
+    public String showWelcome() {
+        return ui.showWelcome();
     }
 }

@@ -1,8 +1,8 @@
-package duke.command;
+package yarr.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to mark or unmark a specific tasks in the task list.
@@ -26,7 +26,7 @@ public class ToggleMarkCommand extends Command {
     }
 
     /**
-     * Method that executes the mark/unmark action on the task depending on the isDone variable.
+     * Executes the mark/unmark action on the task depending on the isDone variable.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
@@ -40,7 +40,7 @@ public class ToggleMarkCommand extends Command {
         String message;
         if (isDone) {
             super.tasks.markTask(index);
-            message = "X marks the spot. I've crossed this task of yer list, me heartie!\n"
+            message = "X marks the spot. I've crossed this task off yer list, me heartie!\n"
                     + super.tasks.printTask(index);
         } else {
             super.tasks.unmarkTask(index);

@@ -1,8 +1,8 @@
-package duke.command;
+package yarr.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to be executed by the Duke chatbot.
@@ -33,7 +33,7 @@ public abstract class Command {
     public abstract String execute(TaskList tasks, Storage storage, Ui ui);
 
     /**
-     * Method returns false by default to keep the chatbot loop running.
+     * Returns false by default to keep the chatbot loop running.
      * Overridden methods should return true to end the program.
      *
      * @return Returns false

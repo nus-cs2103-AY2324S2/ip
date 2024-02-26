@@ -1,4 +1,4 @@
-package duke;
+package yarr.javafx;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -10,20 +10,33 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Circle;
 
 /**
- * An example of a custom control using FXML.
- * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
- * containing text from the speaker.
+ * A custom control using FXML. This control represents a dialog box consisting of an ImageView to represent the
+ * speaker's face and a label containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    /**
+     * The label to display the text in the dialog box.
+     */
     @FXML
     private Label dialog;
+    /**
+     * The image view to display the image in the dialog box.
+     */
     @FXML
     private ImageView displayPicture;
+    /**
+     * The circle to clip the image view to a circle.
+     */
+    @FXML
+    private Circle clip;
 
     /**
      * Constructs a DialogBox with the specified text and image.
@@ -43,6 +56,8 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        displayPicture.setClip(clip);
+        displayPicture.setEffect(new DropShadow(10, Color.BLACK));
     }
 
     /**
@@ -63,7 +78,9 @@ public class DialogBox extends HBox {
      * @return a DialogBox object representing a user dialog with the specified text and image
      */
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        var db = new DialogBox(text, img);
+        db.dialog.setStyle("-fx-background-color: #38536b; -fx-background-radius: 8; -fx-text-fill: #ffffff;");
+        return db;
     }
 
     /**
@@ -73,9 +90,10 @@ public class DialogBox extends HBox {
      * @param img an Image object representing the image to be displayed in the dialog box
      * @return a DialogBox object representing a bot dialog with the specified text and image
      */
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getYarrDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
+        db.dialog.setStyle("-fx-background-color: #a99c6a; -fx-background-radius: 8; -fx-text-fill: #000000;");
         return db;
     }
 }

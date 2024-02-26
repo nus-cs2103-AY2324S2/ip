@@ -1,8 +1,8 @@
-package duke.command;
+package yarr.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to delete a task from the task list.
@@ -22,8 +22,7 @@ public class DeleteCommand extends Command {
     }
 
     /**
-     * Method that deletes the task from the current task list
-     * within the program and on the hard disk.
+     * Deletes the task from the current task list within the program and on the hard disk.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
@@ -38,8 +37,8 @@ public class DeleteCommand extends Command {
         super.tasks.deleteTask(index);
         super.storage.saveTaskListToFile(super.tasks.getTasks());
         String message = "As ye command, this one has walked the plank:\n"
-                + tempTask + "\nOnly "
-                + super.tasks.getTaskCount() + " tasks remain, captain!";
+                + tempTask
+                + "\n\nOnly " + super.tasks.getTaskCount() + " tasks remain, captain!";
         return super.ui.printMessage(message);
     }
 }

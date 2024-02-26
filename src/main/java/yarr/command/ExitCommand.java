@@ -1,8 +1,8 @@
-package duke.command;
+package yarr.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to exit the Duke chatbot program.
@@ -19,7 +19,7 @@ public class ExitCommand extends Command {
     }
 
     /**
-     * Method that prints a message signalling the closing of the program.
+     * Returns a message signalling the closing of the program.
      *
      * @param tasks The TaskList object on which the command will operate
      * @param storage The Storage object that will read and write to files
@@ -30,12 +30,12 @@ public class ExitCommand extends Command {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
-        return ui.printMessage("Fair winds to ye, me hearty! "
+        return ui.printMessage("Fair winds to ye, me hearty!\n"
                 + "May the tide carry ye safely until our paths cross again.");
     }
 
     /**
-     * Method that returns the boolean value if the main loop should be exited.
+     * Returns boolean signalling for program to exit.
      *
      * @return Returns true
      */

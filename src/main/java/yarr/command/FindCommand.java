@@ -1,10 +1,10 @@
-package duke.command;
+package yarr.command;
 
 import java.util.NoSuchElementException;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to find all tasks with a matching keyword in the current task list.
@@ -35,7 +35,7 @@ public class FindCommand extends Command {
         super.storage = storage;
         super.ui = ui;
         try {
-            return super.ui.displayList("Land ho! I've spied these tasks over yonder!",
+            return super.ui.displaySearchedList("Land ho! I've spied these tasks over yonder!",
                     super.tasks.findTasks(this.keyword));
         } catch (NoSuchElementException e) {
             return super.ui.printMessage(e.getMessage());
