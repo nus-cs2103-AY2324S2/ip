@@ -4,24 +4,26 @@ import reacher.*;
 import reacher.task.Task;
 import reacher.ui.MainWindow;
 
+import static reacher.Parser.Variable.CHANGE;
+import static reacher.Parser.Variable.TASK_NO;
+
 /**
  * Command that when executed allows user to mark task done, undone or delete it.
  */
 public class EditCommand extends Command{
     /**
-     * Executes command to mark a task in tasks done, undone or delete it ans update storage.
+     * Executes command to mark a task in tasks done, undone or delete it and update storage
+     * and returns String for output.
      *
      * @param tasks   List of tasks
-     * @param ui      User interface
      * @param storage Local file storage
-     * @return
      * @throws ReacherException If user did not specify done, undone or delete.
      */
     @Override
-    public String execute(String input, TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+    public String execute(String input, TaskList tasks, Storage storage) throws ReacherException {
         int num = 0;
         try {
-            num = Integer.parseInt(Parser.getInfo(input, 1));
+            num = Integer.parseInt(Parser.getInfo(input, TASK_NO));
         } catch (NumberFormatException e) {
             throw new ReacherException("Pls give a number.");
         }
@@ -29,7 +31,7 @@ public class EditCommand extends Command{
             throw new ReacherException("No such task number");
         }
         Task task = tasks.getTask(num - 1);
-        String change = Parser.getInfo(input, 2);
+        String change = Parser.getInfo(input, CHANGE);
         if (change.equalsIgnoreCase("done")) {
             task.markDone();
             storage.storeList(tasks.getTasks());

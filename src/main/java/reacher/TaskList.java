@@ -48,13 +48,25 @@ public class TaskList {
     public Task getTask(int index){
         return tasks.get(index);
     }
-    public ArrayList<Task> findTasks(String keyword) {
+
+    public TaskList findTasks(String keyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             if (task.isMatching(keyword)) {
                 matchingTasks.add(task);
             }
         }
-        return matchingTasks;
+        TaskList list = new TaskList(matchingTasks);
+        return list;
+    }
+    @Override
+    public String toString() {
+        StringBuilder list = new StringBuilder("Tasks:\n");
+        int c = 1;
+        for (Task task : tasks) {
+            list.append(task.toString()).append("\n");
+            c++;
+        }
+        return String.valueOf(list);
     }
 }

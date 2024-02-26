@@ -12,19 +12,19 @@ public class ParserTest {
 
     @Test
     public void parse_success() throws ReacherException {
-        assertEquals(new ExitCommand(), Parser.parse("bye"));
+        assertEquals(new ExitCommand(), Parser.getCommand("bye"));
 
-        assertEquals(new ListCommand(), Parser.parse("list"));
+        assertEquals(new ListCommand(), Parser.getCommand("list"));
 
-        assertEquals(new EditCommand(), Parser.parse("edit"));
+        assertEquals(new EditCommand(), Parser.getCommand("edit"));
 
-        assertEquals(new AddCommand(), Parser.parse("add"));
+        assertEquals(new AddCommand(), Parser.getCommand("add"));
     }
 
     @Test
     public void parse_exceptionThrown(){
         try{
-            assertEquals(new AddCommand(), Parser.parse("notcommand"));
+            assertEquals(new AddCommand(), Parser.getCommand("notcommand"));
             fail();
         } catch (ReacherException e){
             assertEquals("Not a valid command!", e.getMessage());
