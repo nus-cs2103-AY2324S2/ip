@@ -16,7 +16,7 @@ import liv.exception.LivException;
  */
 public class MainWindow extends AnchorPane {
     private static final String GREETING_MESSAGE = String.join("\n",
-            "Liv, under your instructions!", "What is your command?");
+            "Welcome back. Liv is ready to help you!", "What is your command?");
     @FXML
     private ScrollPane scrollPane;
     @FXML
