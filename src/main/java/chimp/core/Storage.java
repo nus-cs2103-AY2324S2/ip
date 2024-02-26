@@ -66,9 +66,27 @@ public class Storage {
         }
     }
 
-    public static TaskList readOutputFromFile(String path) {
+    public static void createFileIfNotExist() {
+        Path filePath = Path.of("./data/chimp.txt");
+
+        try {
+            Path directoryPath = filePath.getParent();
+            if (directoryPath != null) {
+                Files.createDirectories(directoryPath);
+            }
+            Files.createFile(filePath);
+        } catch (FileAlreadyExistsException e) {
+            // Ignore this error
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+    }
+
+    public static TaskList readOutputFromFile() {
         TaskList taskList = new TaskList();
-        Path filePath = Path.of(path);
+        Path filePath = Path.of("./data/chimp.txt");
+
+        createFileIfNotExist();
 
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;
