@@ -64,8 +64,11 @@ public class MainWindow extends AnchorPane {
      */
     private void showIntro() {
         String message = "Welcome!\n" +
+                "My name is Reacher\n" +
+                "I can help record tasks!" +
                 "Commands are:\n" +
-                "find, add, edit, list, edit, bye";
+                "find, add, edit, list, edit, bye\n" +
+                "If you need help, just type help in the text box";
         DialogBox reacherDialog = DialogBox.getReacherDialog(message, dukeImage);
         dialogContainer.getChildren().addAll(reacherDialog);
     }
