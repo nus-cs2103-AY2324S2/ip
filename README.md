@@ -1,16 +1,47 @@
-# IreneAI project template
+# IreneAI Chatbot
 
-This is a project template for a greenfield Java project. It's formatted after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Overview
 
-## Setting up in Intellij
+IreneAI is an intuitive chatbot designed to streamline your task management process. Leveraging the power of Java, IreneAI facilitates effortless tracking of your to-do list, enabling you to add, mark, and search tasks with ease. Simplify your productivity journey with a tool that adapts to your needs.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Key Features
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
+*Task Addition*: Effortlessly add new tasks to your list.
 
+*Task Completion Status*: Conveniently mark tasks as completed or revert them to pending.
+
+*Comprehensive Task Viewing*: View your entire task list with a single command.
+
+*Task Search*: Locate specific tasks using keywords.
+
+*Task Deletion*: Remove tasks from your list as needed.
+
+## Tools Used
+
+- [Java](https://www.java.com/en/)
+
+## Getting Started
+
+**Adding a Task**
+
+To add a task to your list, use the command: `add <task>`. Replace `<task>` with the name of your task.
+
+**Marking a Task as Completed**
+
+To mark a task as completed, input: `mark <task>`. Ensure `<task>` matches the task you wish to update.
+
+**Unmarking a Task**
+
+If you need to revert a task to an uncompleted status, type: `unmark <task>`.
+
+**Listing All Tasks**
+
+To view all your tasks, simply enter: `list`.
+
+**Searching for a Task**
+
+Find a task by keyword with the command: `find <keyword>`. Replace `<keyword>` with relevant search terms.
+
+**Deleting a Task**
+
+To remove a task from your list, use: `delete <task>`. Make sure `<task>` specifies the task you intend to delete.

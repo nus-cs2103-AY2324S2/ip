@@ -26,10 +26,10 @@ public class Ui {
 
     private static final String UNMARKED = "OK, I've marked this task as not done yet:";
 
-    private static final String RECOMMENDER = "RECCOMENDATION";
+    private static final String RECOMMENDER = "RECOMMENDATION";
 
     private static final String QUOTE_STRING =
-            ">  You must do the things you think you cannot do.\n>  - Eleanor Roosevelt";
+            ">  A robot may not harm humanity, or by inaction, allow humanity to come to harm.\n>  - Issac Asimov";
 
     private Scanner sc;
 

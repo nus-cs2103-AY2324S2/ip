@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 /**
  * The Task class represents a task in the TaskList.
@@ -69,9 +69,9 @@ public class Task {
 
 
     /**
-     * Returns the task description.
-     * @return the task description
-     */
+    * Returns the task description.
+    * @return the task description
+    */
     public String getDesc() {
         return desc;
     }

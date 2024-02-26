@@ -1,4 +1,4 @@
-package task;
+package tasks;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +8,10 @@ import java.util.List;
  * The TaskList class represents a list of tasks.
  */
 public class TaskList {
+
+
     /**
-     * Enum for different ways to sort the tasks.
+     * Enum to represent the sort type.
      */
     public enum SortType {
         ALPHABETICAL,
@@ -123,8 +125,8 @@ public class TaskList {
 
     /**
      * Finds a list of tasks through the keyword.
-     * @param keyword keyword to compare.
-     * @return the tasks that contain the keyword.
+     * @param keyword keyword to compare
+     * @return the tasks that contain the keyword
      */
     public String findTask(String keyword) {
         StringBuilder sb = new StringBuilder();
@@ -144,30 +146,30 @@ public class TaskList {
         List<Task> tempTaskList = new ArrayList<>(taskList);
         tempTaskList.sort((task1, task2) -> {
             switch (sortType) {
-                case ALPHABETICAL:
+            case ALPHABETICAL:
+                return task1.getDesc().compareTo(task2.getDesc());
+            case START_DATE:
+                if (task1.getStart() == null) {
                     return task1.getDesc().compareTo(task2.getDesc());
-                case START_DATE:
-                    if (task1.getStart() == null) {
-                        return task1.getDesc().compareTo(task2.getDesc());
-                    }
-                    if (task2.getStart() == null) {
-                        return task1.getDesc().compareTo(task2.getDesc());
-                    }
-                    return task1.getStart().compareTo(task2.getStart());
-                case END_DATE:
-                    if (task1.getEnd() == null) {
-                        return task1.getDesc().compareTo(task2.getDesc());
-                    }
-                    if (task2.getEnd() == null) {
-                        return task1.getDesc().compareTo(task2.getDesc());
-                    }
-                    return task1.getEnd().compareTo(task2.getEnd());
-                case TASK_TYPE:
-                    return task1.getType().compareTo(task2.getType());
-                case MARK:
-                    return Boolean.compare(task1.isDone(), task2.isDone());
-                default:
-                    return 0;
+                }
+                if (task2.getStart() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                return task1.getStart().compareTo(task2.getStart());
+            case END_DATE:
+                if (task1.getEnd() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                if (task2.getEnd() == null) {
+                    return task1.getDesc().compareTo(task2.getDesc());
+                }
+                return task1.getEnd().compareTo(task2.getEnd());
+            case TASK_TYPE:
+                return task1.getType().compareTo(task2.getType());
+            case MARK:
+                return Boolean.compare(task1.isDone(), task2.isDone());
+            default:
+                return 0;
             }
         });
         taskList.clear();

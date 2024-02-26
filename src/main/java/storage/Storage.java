@@ -6,8 +6,8 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import task.Task;
-import task.TaskList;
+import tasks.Task;
+import tasks.TaskList;
 
 /**
  * The Storage class is responsible for reading and writing tasks to the file.
