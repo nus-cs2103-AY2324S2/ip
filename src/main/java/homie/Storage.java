@@ -12,9 +12,9 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Storage class to deal with storing of tasks and
+ * Storage class to handle storing of tasks and
  * loading of tasks when the homie chatbot starts, ends or have
- * any updates in the task list
+ * any updates in the task list.
  */
 public class Storage {
     private static final String CURRENT_DIRECTORY_STRING = System.getProperty("user.dir");
@@ -23,7 +23,7 @@ public class Storage {
     private File myStorageFile;
 
     /**
-     * Constructor for Storage class
+     * Constructor for Storage class.
      */
     public Storage() throws IOException {
         File storageDirectory = new File(STORAGE_DIRECTORY_PATH.toString());
@@ -57,7 +57,7 @@ public class Storage {
         }
     }
     /**
-     * Method to create the storage text file if file is not yet created.
+     * Method to create the storage text file if file does not exist.
      */
     public void createStorageFile(Path filePath) {
         File f = new File(filePath.toString());
@@ -74,6 +74,7 @@ public class Storage {
 
     /**
      * Method to load tasks from the text file into the tasks object.
+     *
      * @return Returns an ArrayList of type Tasks loaded with tasks from the text file to the caller.
      */
     public ArrayList<Task> loadTasksFromFile() {
@@ -82,7 +83,7 @@ public class Storage {
             if (readTasks.available() == 0) {
                 readTasks.close();
                 System.out.println("No tasks in file.");
-                return new ArrayList<Task>();
+                return new ArrayList<>();
             }
 
             ObjectInputStream readStream = new ObjectInputStream(readTasks);
@@ -98,12 +99,16 @@ public class Storage {
         }
 
         System.out.println("Error in loading task!");
-        return new ArrayList<Task>();
+        return new ArrayList<>();
     }
 
+    //@@author ZhiWei1010-reused
+    //Reused from https://stackoverflow.com/questions/24475286/saving-class-objects-to-a-text-file-in-java
+    // with minor modifications
     /**
      * Method to update storage text file whenever there are changes to the task list.
-     * @param taskList This is the tasklist to update.
+     *
+     * @param taskList The tasklist that stores all tasks.
      */
     public void updateStorageFile(TaskList taskList) {
         try {
@@ -118,6 +123,4 @@ public class Storage {
             System.out.println("Error updating storage file: " + e);
         }
     }
-
-
 }

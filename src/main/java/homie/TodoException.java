@@ -1,10 +1,11 @@
 package homie;
 
 /**
- * To do Exception class. Thrown when there is an error creating to do task.
+ * TodoException class. Handles all exceptions related to to-do tasks.
+ * Thrown when no description is given when creating to-do task.
  */
 public class TodoException extends Exception {
     public TodoException(String message) {
-        super(message);
+        super("Bruh... " + message + "\nPlease follow this format:\ntodo {TODO_DESCRIPTION}");
     }
 }

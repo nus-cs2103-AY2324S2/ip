@@ -1,39 +1,38 @@
 package homie;
 
 /**
- * Ui Class to handle any output to user
+ * Ui Class to handle outputs to user.
  */
 public class Ui {
-    public static final String DIVIDER = "________________________________________";
     public Ui() {
 
     }
 
     /**
-     * Shows welcome message when user first open application.
+     * Gets welcome message when user first open application.
      *
-     * @return String message for welcome.
+     * @return Welcome message in String.
      */
-    public String showWelcomeMessage() {
-        return DIVIDER + "\nSup I'm Homie!!\n" + "What can I do for you?\n" + DIVIDER;
+    public String getWelcomeMessage() {
+        return "Sup I'm Homie!!\n" + "What can I do for you?";
     }
 
     /**
-     * Shows goodbye message when user exits the application.
+     * Gets goodbye message when user exits the application.
      *
-     * @return String message for goodbye.
+     * @return Goodbye message in String.
      */
-    public String showGoodbyeMessage() {
-        return DIVIDER + "\nBye Homie. Hope to see you again soon!\n" + DIVIDER;
+    public String getGoodbyeMessage() {
+        return "Bye Homie. Hope to see you again soon!";
     }
 
     /**
-     * Shows loading error message when there is an error loading tasks from storage.
+     * Gets loading error message when there is an error loading tasks from storage.
      *
-     * @return String message for error loading tasks.
+     * @return Loading error message in String.
      */
-    public String showLoadingError() {
-        return DIVIDER + "\nHomie, theres an error loading your tasks!\n" + DIVIDER;
+    public String getLoadingErrorMessage() {
+        return "Homie, theres an error loading your tasks!";
     }
 
     /**
@@ -41,104 +40,84 @@ public class Ui {
      *
      * @return String message to show all tasks in the list.
      */
-    public String showListMessage(TaskList tasks) {
-        return DIVIDER + "\nHere are the tasks in your list:\n" + tasks.getTasks() + DIVIDER;
+    public String showListMessage(String allTasks) {
+        return "Here are the tasks in your list:\n" + allTasks;
     }
 
     /**
-     * Shows delete message after deleting a task
+     * Gets delete message after deleting a task.
      *
-     * @param task The task object to be deleted
-     * @param tasks The task lists that stores all the task objects
-     * @return String message to acknowledge the task has been deleted
+     * @param task The task object to be deleted.
+     * @param taskListSize The remaining number of tasks in the task list.
+     * @return Delete task message in String.
      */
-    public String showDeleteMessage(Task task, TaskList tasks) {
-        return DIVIDER + "\nNoted. I've removed this task:\n" + "\t" + task.toString()
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
+    public String getDeleteMessage(Task task, int taskListSize) {
+        return "Noted. I've removed this task:\n" + "\t" + task.toString()
+                + "\nNow you have " + taskListSize + " tasks in the list.";
     }
 
     /**
-     * Shows message after adding a to-do task
+     * Gets message after adding a to-do task.
      *
-     * @param task The task object to be added
-     * @param tasks The task lists that stores all the task objects
-     * @return String message to acknowledge that the to-do task has been added
+     * @param task The new to-do task to be added.
+     * @param taskListSize The remaining number of tasks in the task list.
+     * @return String message to acknowledge that the to-do task has been added.
      */
-    public String showToDoMessage(Task task, TaskList tasks) {
-        return DIVIDER + "\nGot it. I've added this task:\n" + "\t" + task.toString()
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
+    public String getToDoMessage(Task task, int taskListSize) {
+        return "Got it. I've added this task:\n" + "\t" + task.toString()
+                + "\nNow you have " + taskListSize + " tasks in the list.";
     }
 
     /**
-     * Shows message after adding a deadline task
+     * Gets message after adding a deadline task.
      *
-     * @param task The deadline task to be added
-     * @param tasks The task lists that stores all the task objects
-     * @return String message to acknowledge that the deadline task has been added
+     * @param task The deadline task to be added.
+     * @param taskListSize The remaining number of tasks in the task list.
+     * @return String message to acknowledge that the deadline task has been added.
      */
-    public String showDeadlineMessage(Task task, TaskList tasks) {
-        return DIVIDER + "\nGot it. I've added this task:\n" + "\t" + task.toString()
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
+    public String getDeadlineMessage(Task task, int taskListSize) {
+        return "Got it. I've added this task:\n" + "\t" + task.toString()
+                + "\nNow you have " + taskListSize + " tasks in the list.\n";
     }
 
     /**
-     * Shows message after added an event task.
+     * Gets message after adding an event task.
      *
      * @param task The event task to be added.
-     * @param tasks The task lists that stores all the tasks object.
+     * @param taskListSize The remaining number of tasks in the task list.
      * @return String message to acknowledge that the event task has been added.
      */
-    public String showEventMessage(Task task, TaskList tasks) {
-        return DIVIDER + "\nGot it. I've added this task:\n" + "\t" + task.toString()
-                + "\nNow you have " + tasks.getSize() + " tasks in the list.\n" + DIVIDER;
+    public String getEventMessage(Task task, int taskListSize) {
+        return "Got it. I've added this task:\n" + "\t" + task.toString()
+                + "\nNow you have " + taskListSize + " tasks in the list.";
     }
 
     /**
-     * Shows message after marking a task.
+     * Gets message after marking a task as done.
      *
-     * @param task The task to be marked.
+     * @param task The task to be marked as done.
      * @return String message to acknowledge task has been marked.
      */
-    public String showMarkMessage(Task task) {
-        return DIVIDER + "\nNice! I've marked this task as done:\n" + "\t" + task.toString() + "\n" + DIVIDER;
+    public String getMarkMessage(Task task) {
+        return "Nice! I've marked this task as done:\n" + "\t" + task.toString();
     }
 
     /**
-     * Shows message when un marking a task.
+     * Gets message after marking a task as not done.
      *
-     * @param task The task to be unmarked.
-     * @return String message to acknowledge task has been unmarked.
+     * @param task The task to be marked as no done.
+     * @return String message to acknowledge task has been marked as not done.
      */
-    public String showUnmarkMessage(Task task) {
-        return DIVIDER + "\nOk, I've marked this task as not done yet:\n" + "\t" + task.toString() + "\n" + DIVIDER;
+    public String getUnmarkMessage(Task task) {
+        return "Ok, I've marked this task as not done yet:\n" + "\t" + task.toString();
     }
 
     /**
-     * Shows message after user entered a wrong command.
-     *
-     * @return String message that user has entered a wrong command.
-     */
-    public String showWrongCommand() {
-        return DIVIDER + "\nWrong Command!\n" + DIVIDER;
-    }
-
-    /**
-     * Shows tasks with the matching keyword.
+     * Gets all tasks that contains the matching keyword.
      *
      * @return String message of all tasks with matching keyword.
      */
-    public String showFindMessage(TaskList tasks, String keyword) {
-        String matchingTasks = tasks.findTask(keyword);
-        return DIVIDER + "\nHere are the matching tasks in your list:\n" + matchingTasks + DIVIDER;
-    }
-
-    /**
-     * Show empty to-do description task message
-     *
-     * @return String message of to-do description cannot be empty
-     */
-    public String showEmptyTodoDescriptionMessage() {
-        return DIVIDER + "\nPlease la bro, Todo description cannot be empty...\nWhat you want to add liddat?\n"
-                + DIVIDER;
+    public String showFindMessage(String matchingTasks) {
+        return "Here are the matching tasks in your list:\n" + matchingTasks;
     }
 }

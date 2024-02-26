@@ -1,24 +1,17 @@
 package homie;
 
 /**
- * To-do class that extends the Task class.
- * Throws a To-do exception when description is empty
+ * To-do class that extends the Task class. Handles all to-do related tasks.
  */
 public class Todo extends Task {
-    private String DIVIDER = "________________________________________";
 
     /**
      * Constructor for to-do object
+     *
      * @param description The String description of the to-do task
-     * @throws TodoException The exception when to-do description is empty
      */
-    public Todo(String description) throws TodoException {
+    public Todo(String description) {
         super(description);
-        if (description.isEmpty()) {
-            throw new TodoException("\n" + DIVIDER + "\nOpps!!! The description of a todo cannot be empty.\n"
-                    + DIVIDER);
-        }
-
     }
 
     @Override

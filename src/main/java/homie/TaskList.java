@@ -89,7 +89,7 @@ public class TaskList {
     }
 
     /**
-     * Unmarks a task in the task list as done.
+     * Marks a task in the task list as not done.
      *
      * @param taskIndex Index of the task to be marked in the task list.
      */
@@ -100,14 +100,14 @@ public class TaskList {
     /**
      * Finds all tasks with matching keyword.
      *
-     * @param text The keyword to be matched in the task list
+     * @param keyword The keyword to be matched in the task list
      * @return The matching tasks in a string
      */
-    public String findTask(String text) {
+    public String findTask(String keyword) {
         String matchingTasks = "";
         int index = 1;
         for (Task task : this.myList) {
-            if (task.toString().contains(text)) {
+            if (task.toString().contains(keyword)) {
                 matchingTasks = matchingTasks + "\t" + index + ". " + task + "\n";
                 index++;
             }
