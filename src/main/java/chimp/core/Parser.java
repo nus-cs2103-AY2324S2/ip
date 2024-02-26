@@ -48,7 +48,7 @@ public class Parser {
             if (arg == null || arg.equals("")) {
                 throw new CommandParseException("todo must have a desc");
             }
-            return new TodoCommand(arg);
+            return new TodoCommand(arg.trim());
         case "event":
         // intentional fallthrough
         case "e":
