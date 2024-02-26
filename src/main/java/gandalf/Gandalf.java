@@ -30,6 +30,8 @@ public class Gandalf extends Application {
 
     }
 
+    //@@author ZHANGTIANYAO1-reused
+    //Reused from PR
     @Override
     public void start(Stage stage) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
@@ -40,7 +42,7 @@ public class Gandalf extends Application {
         stage.getIcons().add(new javafx.scene.image.Image(
                 this.getClass().getResourceAsStream("/images/daGandalf.jpg")));
         fxmlLoader.<MainWindow>getController().setGandalf(this);
-        fxmlLoader.<MainWindow>getController().initialize();
+        //fxmlLoader.<MainWindow>getController().initialize();
         Button sendButton = fxmlLoader.<MainWindow>getController().getSendButton();
         sendButton.setOnAction((event) -> {
             fxmlLoader.<MainWindow>getController().handleUserInput();
@@ -52,6 +54,7 @@ public class Gandalf extends Application {
         stage.setResizable(true);
         stage.show();
     }
+    //@@author
 
     public String getResponse(String input) {
         if (input.length() == 0) { //ignore accidental new lines from user
@@ -97,7 +100,7 @@ public class Gandalf extends Application {
                 break;
             default:
                 return "I do not recognize this command, I must check with the head of my order."
-                    + "If you believe you are right, then check formatting in the user guide.";
+                        + "If you believe you are right, then check formatting in the user guide.";
             }
             return c.execute();
         } catch (GandalfException e) {

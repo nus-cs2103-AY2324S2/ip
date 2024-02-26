@@ -28,6 +28,7 @@ public class Storage {
         this.filePathRead = filePathRead;
     }
 
+    //Solution below adapted from https://chat.openai.com/c/3260be53-2e5f-4fe9-ad52-234790c8ad5b
     public ArrayList<Task> load() {
         ArrayList<Task> data = new ArrayList<>(100);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
@@ -54,6 +55,8 @@ public class Storage {
         }
         return data;
     }
+
+    //Solution below adapted from https://chat.openai.com/c/3260be53-2e5f-4fe9-ad52-234790c8ad5b
     public void store(ArrayList<Task> arrayList) {
         try {
             // Create directory if it doesn't exist

@@ -2,4 +2,4 @@
 2. [T][ ] eat
 3. expenses transport 4.5
 4. expenses transport 5.0
-5. expenses book 3.8
+5. [E][ ] study (from: Tuesday, April 2, 2024 4:00PM to: Wednesday, April 3, 2024 7:00PM)
