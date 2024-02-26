@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import dialogbox.DialogBox;
 import javafx.scene.image.Image;
@@ -43,14 +44,26 @@ public class Duke extends Application {
     public static void main(String[] args) {
         Ui duke = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
+        Storage archived = new Storage("./data/archived.txt");
         duke.greeting();
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
         TaskList todoList = new TaskList(temp);
 
-        Parser parser = new Parser(todoList, storage);
-        parser.parse();
+        Parser parser = new Parser(todoList, storage, archived);
+
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            } else {
+                parser.parse(userInput);
+            }
+        }
+        scanner.close();
 
         duke.exit();
     }
@@ -63,7 +76,6 @@ public class Duke extends Application {
      * @return a label with the specified text that has word wrap enabled.
      */
     private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
 
@@ -76,9 +88,9 @@ public class Duke extends Application {
      * Duke's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    private void handleUserInput(Parser parser) {
+        Label userText = getDialogLabel(userInput.getText());
+        Label dukeText = getDialogLabel(getResponse(userInput.getText(), parser));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
@@ -89,12 +101,36 @@ public class Duke extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    public String getResponse(String input) {
-        return "Duke heard: ";
+    public String getResponse(String userInput, Parser parser) {
+        return parser.parse(userInput);
     }
 
     @Override
     public void start(Stage stage) {
+        Ui duke = new Ui("Zizhen");
+        Storage storage = new Storage("./data/duke.txt");
+        Storage archived = new Storage("./data/archived.txt");
+        duke.greeting();
+
+        ArrayList<Task> temp = new ArrayList<>();
+        temp = storage.getHistory();
+        TaskList todoList = new TaskList(temp);
+
+        Parser parser = new Parser(todoList, storage, archived);
+
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            }
+            parser.parse(userInput);
+        }
+        scanner.close();
+
+        duke.exit();
+
         // Step 1. Setting up required components
 
         // The container for the content of the chat to scroll.
@@ -142,11 +178,11 @@ public class Duke extends Application {
 
         // Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            handleUserInput(parser);
         });
 
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            handleUserInput(parser);
         });
 
         // Scroll down to the end every time dialogContainer's height changes.

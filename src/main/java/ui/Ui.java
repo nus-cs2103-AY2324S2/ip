@@ -18,13 +18,13 @@ public class Ui {
         this.botName = botName;
     }
 
-    public void greeting() {
-        System.out.println("Hello from\n" + logo);
-        System.out.println("Hello! I'm " + this.botName + "\n"
-                + "What can I do for you?");
+    public String greeting() {
+        String output = "Hello from\n" + logo;
+        output += "Hello! I'm " + this.botName + "\n" + "What can I do for you?\n";
+        return output;
     }
 
-    public void exit() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String exit() {
+        return "Bye. Hope to see you again soon!";
     }
 }
