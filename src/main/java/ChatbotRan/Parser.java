@@ -110,7 +110,7 @@ public class Parser {
                 if (currTask < 1 || currTask > taskList.size()) {
                     throw new TaskException("No task by that number: " + args[i]);
                 }
-                tasks[i-1] = taskList.get(currTask);
+                tasks[i-1] = taskList.get(currTask - 1);
             } catch (NumberFormatException exception) {
                 throw new TaskException("Invalid task number: " + args[i]);
             }
