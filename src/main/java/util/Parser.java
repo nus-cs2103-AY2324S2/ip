@@ -162,22 +162,22 @@ public class Parser {
         boolean isDone = splitFileString[1].trim().equals("1");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         switch(taskType) {
-            case "T":
-                return new Todo(taskDescription, isDone);
-            case "D":
-                assert when != null;
-                LocalDateTime by = LocalDateTime.parse(when, formatter);
-                return new Deadline(taskDescription, isDone, by);
-            case "E":
-                assert when != null;
-                String[] sections = when.split("to");
-                String start = sections[0].trim(); // yyyy-MM-dd_HH:mm
-                String end = sections[1].trim(); //yyyy-MM-dd_HH:mm
-                LocalDateTime startTime = LocalDateTime.parse(start, formatter);
-                LocalDateTime endTime = LocalDateTime.parse(end, formatter);
-                return new Event(taskDescription, isDone, startTime, endTime);
-            default:
-                throw new ChillChiefException("Error parsing saved tasks!!");
+        case "T":
+            return new Todo(taskDescription, isDone);
+        case "D":
+            assert when != null;
+            LocalDateTime by = LocalDateTime.parse(when, formatter);
+            return new Deadline(taskDescription, isDone, by);
+        case "E":
+            assert when != null;
+            String[] sections = when.split("to");
+            String start = sections[0].trim(); // yyyy-MM-dd_HH:mm
+            String end = sections[1].trim(); //yyyy-MM-dd_HH:mm
+            LocalDateTime startTime = LocalDateTime.parse(start, formatter);
+            LocalDateTime endTime = LocalDateTime.parse(end, formatter);
+            return new Event(taskDescription, isDone, startTime, endTime);
+        default:
+            throw new ChillChiefException("Error parsing saved tasks!!");
         }
     }
 }
