@@ -3,7 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
 import duke.task.Task;
 
 /**
@@ -41,7 +40,7 @@ public class UpdateCommand extends Command{
      * @param storage  the storage
      * @throws DukeException the duke exception
      */
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         int taskIndexInList = this.taskSeqNo-1;
         Task taskToUpdate = taskList.getItemFromListByIndex(taskIndexInList);
         taskToUpdate.setMarked(this.isMarked);
@@ -49,11 +48,11 @@ public class UpdateCommand extends Command{
         storage.Store(taskList.toString());
         StringBuilder sb = new StringBuilder();
         if (isMarked) {
-            sb.append("Nice! I've marked this task as done:");
+            sb.append("Nice! I've marked this task as done:\n");
         } else {
-            sb.append("OK, I've marked this task as note done yet:");
+            sb.append("OK, I've marked this task as note done yet:\n");
         }
-        sb.append("\n").append(taskToUpdate.printOutput());
-        ui.setCommandOutput(sb.toString());
+        sb.append(taskToUpdate.printOutput());
+        return sb.toString();
     }
 }

@@ -3,8 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
-import duke.command.Command;
 import duke.task.Task;
 
 import java.util.ArrayList;
@@ -12,9 +10,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Findcommand used for searching tasks by given string in task list.
+ * The type Find command.
  */
-public class FindCommand extends Command {
+public class FindCommand extends Command{
     private String searchString = "";
 
     /**
@@ -27,15 +25,21 @@ public class FindCommand extends Command {
     /**
      * Instantiates a new Find command.
      *
-     * @param searchStr the query string
+     * @param searchStr the search str
      */
     public FindCommand(String searchStr) {
         this.searchString = searchStr;
     }
 
-
+    /**
+     * Finds the list of tasks in task list matching searchStr.
+     *
+     * @param taskList the task list
+     * @param storage  the storage
+     * @throws DukeException the duke exception
+     */
     @Override
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         StringBuilder sb = new StringBuilder();
         ArrayList<Task> results = new ArrayList<>();
         Pattern pat = Pattern.compile(this.searchString, Pattern.CASE_INSENSITIVE);
@@ -53,6 +57,6 @@ public class FindCommand extends Command {
             sb2.append("Here are the matching tasks in your list:");
             sb2.append(sb.toString());
         }
-        ui.setCommandOutput(sb2.toString());
+        return sb2.toString();
     }
 }

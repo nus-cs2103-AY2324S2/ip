@@ -1,15 +1,37 @@
 package duke.task;
 
+/**
+ * Todo - Simple task with no due dates
+ */
 public class Todo extends Task {
     private String taskType = "T";
+
+    /**
+     * Instantiates a new Todo.
+     */
     public Todo() {
         super();
     }
 
+    /**
+     * Instantiates a new Todo.
+     *
+     * @param taskName the task name
+     * @param marked   true or false indicating whether the task is marked as done or not
+     * @param seqNo    the seq no
+     */
     public Todo(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
+    /**
+     * Instantiates a new Todo.
+     *
+     * @param taskName the task name
+     * @param marked   true or false indicating whether the task is marked as done or not
+     * @param seqNo    the seq no
+     * @param type     the type
+     */
     public Todo(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;

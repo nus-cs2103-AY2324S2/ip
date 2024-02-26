@@ -1,12 +1,6 @@
 package duke;
 
-import duke.command.Command;
-import duke.command.AddCommand;
-import duke.command.ListCommand;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.UpdateCommand;
+import duke.command.*;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -17,6 +11,7 @@ import duke.task.Todo;
  * This class parses the commands entered by user.
  */
 public class Parser {
+
     /**
      * Parse command.
      *
@@ -48,6 +43,9 @@ public class Parser {
             command = new AddCommand(todo);
         } else if (commandText.startsWith("delete")) {
             int index = commandText.indexOf(" ");
+            if (index <= 0) {
+                throw new DukeException("OMG! Item no to delete is empty. Cannot accept.");
+            }
             String argVal = commandText.substring(index+1);
             int itemNo = Integer.parseInt(argVal);
             command = new DeleteCommand(itemNo);
@@ -80,17 +78,13 @@ public class Parser {
         } else if (info.startsWith("event")) {
             int indfrom = argVal.indexOf("/from");
             String eventname = argVal.substring(0,indfrom);
-            eventname = eventname.trim();
             String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
-            eventFromStr = eventFromStr.trim();
             int indto = argVal.indexOf("/to");
             String eventToStr = argVal.substring(indto+4);
-            eventToStr = eventToStr.trim();
             todo = new Event(eventname, false, -1, "E", eventFromStr, eventToStr);
         } else if (info.startsWith("deadline")) {
             int indfrom = argVal.indexOf("/by");
             String eventname = argVal.substring(0,indfrom);
-            eventname = eventname.trim();
             String deadlineStr = argVal.substring(indfrom+4);
             todo = new Deadline(eventname, false, -1, "D", deadlineStr);
         }

@@ -16,7 +16,6 @@ public class TaskList {
     private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private ArrayList<Task> taskList = new ArrayList<>();
 
-
     /**
      * Instantiates a new Task list.
      */
@@ -39,7 +38,6 @@ public class TaskList {
         }
     }
 
-
     public void addPropertyChangeListener(PropertyChangeListener listener){
         pcs.addPropertyChangeListener(listener);
     }
@@ -60,12 +58,12 @@ public class TaskList {
     /**
      * Get item from list task.
      *
-     * @param t Task to locate from TaskList
+     * @param task Task to locate from TaskList
      * @return the task
      */
-    public Task getItemFromList(Task t){
-        if (taskList.contains(t)) {
-            int index = taskList.indexOf(t);
+    public Task getItemFromList(Task task){
+        if (taskList.contains(task)) {
+            int index = taskList.indexOf(task);
             return taskList.get(index);
         }
         return null;
@@ -91,9 +89,9 @@ public class TaskList {
      */
     public Task getItemFromListByIndex(int idx){
         if (idx >= 0 && idx < taskList.size()) {
-            Task t = taskList.get(idx);
-            if (null != t) {
-                int index = taskList.indexOf(t);
+            Task task = taskList.get(idx);
+            if (null != task) {
+                int index = taskList.indexOf(task);
                 return taskList.get(index);
             }
             return null;
@@ -104,23 +102,23 @@ public class TaskList {
     /**
      * Add Task object to TaskList.
      *
-     * @param t Task to TaskList
+     * @param task Task to TaskList
      */
-    public void add(Task t) {
-        taskList.add(t);
+    public void add(Task task) {
+        taskList.add(task);
         pcs.firePropertyChange("ADD", null, Collections.unmodifiableList(taskList));
     }
 
     /**
      * Update task in TaskList.
      *
-     * @param t Task object
+     * @param task Task object
      * @return true or false based on whether update is successful or not
      */
-    public boolean updateTaskInList(Task t) {
-        if (taskList.contains(t)) {
-            int index = taskList.indexOf(t);
-            taskList.set(index, t);
+    public boolean updateTaskInList(Task task) {
+        if (taskList.contains(task)) {
+            int index = taskList.indexOf(task);
+            taskList.set(index, task);
             pcs.firePropertyChange("UPDATE", null, Collections.unmodifiableList(taskList));
             return true;
         }
@@ -131,14 +129,14 @@ public class TaskList {
      * Update task in TaskList at given index.
      *
      * @param index the index of item in TaskList
-     * @param t     the Task object
+     * @param task     the Task object
      * @return true or false based on success of update
      */
-    public boolean updateTaskInList(int index, Task t) {
-        if (taskList.contains(t)) {
-            taskList.set(index, t);
+    public boolean updateTaskInList(int index, Task task) {
+        if (taskList.contains(task)) {
+            taskList.set(index, task);
             pcs.firePropertyChange("UPDATE", null, taskList);
-            System.out.println("tasklist:update:task: "+t.getStringRepresentation());
+            System.out.println("tasklist:update:task: "+task.getStringRepresentation());
             return true;
         }
         return false;
@@ -163,14 +161,14 @@ public class TaskList {
     /**
      * Remove Task from TaskList.
      *
-     * @param t Task object to be removed from TaskList
+     * @param task Task object to be removed from TaskList
      * @return true or false indicating removal result
      */
-    public boolean remove(Task t) {
-        if (taskList.contains(t)) {
-            int index = taskList.indexOf(t);
+    public boolean remove(Task task) {
+        if (taskList.contains(task)) {
+            int index = taskList.indexOf(task);
             Task obj = taskList.get(index);
-            taskList.remove(t);
+            taskList.remove(task);
             pcs.firePropertyChange("REMOVE", null, Collections.unmodifiableList(taskList));
             return true;
         }

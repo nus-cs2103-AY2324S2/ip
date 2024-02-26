@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,8 +36,16 @@ public class Storage {
      * @return the list of Strings
      */
     public List<String> load(){
+        List<String> lines;
         try {
-            List<String> lines = Files.readAllLines(Path.of(filePath));
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
+                lines = new ArrayList<>();
+                return lines;
+            }
+
+            lines = Files.readAllLines(Path.of(filePath));
             return lines;
         }catch (IOException io){
             throw new RuntimeException("Error while loading data file");

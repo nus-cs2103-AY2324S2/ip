@@ -3,7 +3,6 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
 import duke.task.Task;
 
 /**
@@ -33,18 +32,17 @@ public class AddCommand extends Command{
      * Stores updated task list to file store
      *
      * @param taskList the task list
-     * @param ui       the ui
      * @param storage  the storage
      * @throws DukeException the duke exception
      */
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         taskList.add(this.task);
         storage.Store(taskList.toString());
-        int count = taskList.getTaskList().size();
+        int count = taskList.getCountByType (this.task.getTypeOfTask());
         StringBuilder sb = new StringBuilder();
-        sb.append("Got it. I've added this task:");
-        sb.append("\n").append(this.task.printOutput());
-        sb.append("\n").append("Now you have "+count+" tasks in the list");
-        ui.setCommandOutput(sb.toString());
+        sb.append("Got it. I've added this task:\n");
+        sb.append(this.task.printOutput());
+        sb.append("\nNow you have "+count+" tasks in the list");
+        return sb.toString();
     }
 }

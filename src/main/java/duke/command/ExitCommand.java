@@ -3,25 +3,24 @@ package duke.command;
 import duke.DukeException;
 import duke.Storage;
 import duke.TaskList;
-import duke.UI;
 
 /**
  * The type Exit command.
  * Used when user types command "bye" to exit from Duke application
  */
 public class ExitCommand extends Command{
+
     /**
      * Execute.
      *
      * @param taskList the task list
-     * @param ui       the ui
      * @param storage  the storage
      * @throws DukeException the duke exception
      */
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
+    public String execute(TaskList taskList, Storage storage) throws DukeException {
         StringBuilder sb = new StringBuilder();
         sb.append("Bye. Hope to see you again soon!");
-        ui.setCommandOutput(sb.toString());
+        return sb.toString();
     }
 
     /**
