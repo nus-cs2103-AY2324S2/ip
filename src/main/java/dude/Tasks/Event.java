@@ -1,33 +1,34 @@
 package dude.Tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import dude.Commands.EventCommand;
 import dude.Exceptions.InvalidArgumentException;
 import dude.Exceptions.InvalidDescriptionException;
 import dude.Exceptions.InvalidFormatException;
 import dude.Utils.utils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Event class represents a task with a description, start and end time.
  */
 public class Event extends Task {
 
-    private final LocalDateTime from_time;
-    private final LocalDateTime to_time;
+    private final LocalDateTime fromTime;
+    private final LocalDateTime toTime;
 
     /**
      * Constructor for the Event class.
      *
      * @param description The description of the event.
-     * @param from_time   The start time of the event.
-     * @param to_time     The end time of the event.
+     * @param fromTime   The start time of the event.
+     * @param toTime     The end time of the event.
      */
-    public Event(String description, LocalDateTime from_time, LocalDateTime to_time) {
+    public Event(String description, LocalDateTime fromTime, LocalDateTime toTime) {
         super(description);
-        this.from_time = from_time;
-        this.to_time = to_time;
+        this.fromTime = fromTime;
+        this.toTime = toTime;
     }
 
     /**
@@ -39,8 +40,9 @@ public class Event extends Task {
      * @throws InvalidFormatException If the format of the string is invalid.
      * @throws InvalidDescriptionException If the description of the event is empty.
      */
-    public static Event from(String s) throws InvalidArgumentException, InvalidFormatException, InvalidDescriptionException {
-        //Expects a string in the format "event <description> /at <from_time> to <to_time>"
+    public static Event from(String s) throws InvalidArgumentException,
+            InvalidFormatException, InvalidDescriptionException {
+        //Expects a string in the format "event <description> /at <fromTime> to <toTime>"
 
         //get rid of the command
         // <description> </from> time </to> time
@@ -48,60 +50,63 @@ public class Event extends Task {
 
         String[] arr = rest.split(" ");
 
-        int from_occurences = utils.countOccurrences(arr, "/from");
+        int fromOccurences = utils.countOccurrences(arr, "/from");
 
-        if (from_occurences == 0 || from_occurences > 1){
-            throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT + ". Provide one and only one '/from'.");
+        if (fromOccurences == 0 || fromOccurences > 1) {
+            throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT
+                    + ". Provide one and only one '/from'.");
         }
 
-        int to_occurences = utils.countOccurrences(arr, "/to");
+        int toOccurences = utils.countOccurrences(arr, "/to");
 
-        if (to_occurences == 0 || to_occurences > 1){
-            throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT + ". Provide one and only one '/to'.");
+        if (toOccurences == 0 || toOccurences > 1) {
+            throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT
+                    + ". Provide one and only one '/to'.");
         }
 
         //they will not be -1 as I have already checked for their occurences
-        int from_index = utils.findIndex(arr, "/from");
-        int to_index = utils.findIndex(arr, "/to");
+        int fromIndex = utils.findIndex(arr, "/from");
+        int toIndex = utils.findIndex(arr, "/to");
 
-        if (from_index > to_index){
+        if (fromIndex > toIndex) {
             throw new InvalidFormatException("The 'from time' of an event cannot be after the 'to time'.");
         }
 
-        //description is from 0 to from_index
+        //description is from 0 to fromIndex
         String description = "";
-        for (int i = 0; i < from_index; i++){
+        for (int i = 0; i < fromIndex; i++) {
             description += arr[i] + " ";
         }
         description = description.trim();
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
             throw new InvalidDescriptionException("The description of an event cannot be empty.");
         }
 
-        String from_time = "";
-        for (int i = from_index+1; i < to_index; i++){
-            from_time += arr[i] + " ";
+        String fromTime = "";
+        for (int i = fromIndex + 1; i < toIndex; i++) {
+            fromTime += arr[i] + " ";
         }
-        from_time = from_time.trim();
-        if (from_time.isEmpty()){
-            throw new InvalidArgumentException("The 'from_time' of an event cannot be empty.");
+        fromTime = fromTime.trim();
+        if (fromTime.isEmpty()) {
+            throw new InvalidArgumentException("The 'fromTime' of an event cannot be empty.");
         }
 
-        String to_time = "";
-        for (int i = to_index+1; i < arr.length; i++){
-            to_time += arr[i] + " ";
+        String toTime = "";
+        for (int i = toIndex + 1; i < arr.length; i++) {
+            toTime += arr[i] + " ";
         }
-        to_time = to_time.trim();
-        if (to_time.isEmpty()){
-            throw new InvalidArgumentException("The 'to_time' of an event cannot be empty.");
+        toTime = toTime.trim();
+        if (toTime.isEmpty()) {
+            throw new InvalidArgumentException("The 'toTime' of an event cannot be empty.");
         }
 
         try {
-            LocalDateTime from = parseDate(from_time);
-            LocalDateTime to = parseDate(to_time);
+            LocalDateTime from = parseDate(fromTime);
+            LocalDateTime to = parseDate(toTime);
             return new Event(description, from, to);
         } catch (DateTimeParseException e) {
-            throw new InvalidFormatException("Invalid date format after '/from' or '/to'. Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
+            throw new InvalidFormatException("Invalid date format after '/from' or '/to'."
+                    + "Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
         }
     }
 
@@ -113,7 +118,7 @@ public class Event extends Task {
      */
     @Override
     public String toString() {
-        return "[E]" + super.toString() + " (from: " + formatDate(from_time) + " to: " + formatDate(to_time) + ")";
+        return "[E]" + super.toString() + " (from: " + formatDate(fromTime) + " to: " + formatDate(toTime) + ")";
     }
 
     /**
@@ -122,7 +127,7 @@ public class Event extends Task {
      * @return The start date-time  of the event.
      */
     public LocalDateTime getFromTime() {
-        return from_time;
+        return fromTime;
     }
 
     /**
@@ -131,7 +136,7 @@ public class Event extends Task {
      * @return The end date-time of the event.
      */
     public LocalDateTime getToTime() {
-        return to_time;
+        return toTime;
     }
 
     /**
