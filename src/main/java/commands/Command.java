@@ -40,6 +40,14 @@ public abstract class Command {
         return i;
     }
 
+    /**
+     * Checks if description of a command input is empty.
+     *
+     * @param message User input
+     * @param command Command type
+     * @param error if description is empty
+     * @throws InvalidFormatException
+     */
     public void checkEmptyDescription(String message, String command, LeluException.ErrorType error) throws InvalidFormatException {
         if (message.trim().equals(command.trim())) {
             InvalidFormatException.callInvalidFormatException(error);
