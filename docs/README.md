@@ -1,30 +1,60 @@
-# Duke User Guide
+# AWEX User Guide
 
-// Update the title above to match the actual product name
+AWEX (A Wonderful Experience) provides you a simple, yet interactive experience while making your list of things to do, so you'll never feel alone on the path to peak productivity!
 
-// Product screenshot goes here
+![Screenshot of AWEX's first messages](Ui.png)
 
-// Product intro goes here
+## Features
 
-## Adding deadlines
+### Add Tasks
 
-// Describe the action and its outcome.
+Input Format:
 
-// Give examples of usage
+`todo <task>`
 
-Example: `keyword (optional arguments)`
+`deadline <task> /by <YYYY-MM-DD hh:mm>`
 
-// A description of the expected outcome goes here
+`event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>`
+
+### Mark/Unmark Tasks
+
+Input Format:
+
+`mark <task number>`
+
+`unmark <task number>`
+
+### Find Tasks
+
+Input Format:
+
+`find <item>`
+
+### List Tasks
+
+Input Format: `list`
+
+### Delete Tasks
+
+Input Format:
+
+`delete <task number>`
+
+### User Manual
+
+Input Format: `help`
+
+Response:
 
 ```
-expected output
+Input type must be one of:
+  1. list
+  2. mark <task number>
+  3. unmark <task number>
+  4. todo <task>
+  5. deadline <task> /by <YYYY-MM-DD hh:mm>
+  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>
+  7. delete <task number>
+  8. find <item>\n"
+Type 'bye' to exit.
 ```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details

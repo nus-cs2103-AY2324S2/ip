@@ -20,10 +20,12 @@ public class Awex {
         }
     }
 
-
+    //@@author {alex-setyawan}-reused
+    //adapted from https://github.com/nus-cs2103-AY2324S2/ip/pull/4/files
     public String sendGreeting() {
         return this.ui.greeting();
     }
+    //@@author
 
     public String getResponse(String input) {
         String[] arr = input.split(" ", 2);

@@ -34,11 +34,15 @@ public class MainWindow extends AnchorPane {
         awex = a;
     }
 
+    //@@author {alex-setyawan}-reused
+    //adapted from https://github.com/nus-cs2103-AY2324S2/ip/pull/4/files
+
     public void showGreeting(String str) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAwexDialog(str, dukeImage)
         );
     }
+    //@@author
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
