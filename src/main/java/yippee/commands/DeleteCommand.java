@@ -10,6 +10,10 @@ import yippee.exceptions.InvalidCommandException;
 public class DeleteCommand extends Command {
     private static int deleteCount = 0;
     private int deleteNumber;
+    /**
+     * Instantiates new DeleteCommand instance.
+     * @param number Index of task to delete.
+     */
     public DeleteCommand(int number) {
         super(false);
         this.deleteNumber = number;

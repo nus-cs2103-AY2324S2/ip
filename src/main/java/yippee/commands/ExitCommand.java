@@ -11,13 +11,16 @@ import yippee.exceptions.YippeeException;
  * Represents commands to exit the chatbot.
  */
 public class ExitCommand extends Command {
+    /**
+     * Instantiates new ExitCommand instance.
+     */
     public ExitCommand() {
         super(true);
     }
 
     /**
      * {@inheritDoc}
-     * @param tasks TaskList of active tasks
+     * @param tasks TaskList of active tasks.
      * @param ui Ui instance to print responses.
      * @param storage Storage instance to store any data.
      * @throws InvalidCommandException If command is of invalid format.

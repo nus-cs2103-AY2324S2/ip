@@ -130,6 +130,10 @@ public class Ui {
         return output;
     }
 
+    /**
+     * Prints the statistics for actions from the user.
+     * @return String reply to the user.
+     */
     public String printStats() {
         StringBuilder stringBuilder = new StringBuilder();
 

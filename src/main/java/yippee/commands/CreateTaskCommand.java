@@ -30,6 +30,7 @@ public class CreateTaskCommand extends Command {
      * @param tasks TaskList of active tasks
      * @param ui Ui instance to print responses.
      * @param storage Storage instance to store any data.
+     * @return String Output to be displayed to user.
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
@@ -62,6 +63,11 @@ public class CreateTaskCommand extends Command {
         return totalCreated;
     }
 
+    /**
+     * Processes string data to be used for creating deadline task.
+     * @return String[] Processed input data for use in constructor.
+     * @throws InvalidCommandException If format of command is incorrect.
+     */
     private String[] processDeadline() throws InvalidCommandException {
         String[] deadlineSplit = details.trim().split("/by");
         if (deadlineSplit.length == 1) {
@@ -72,6 +78,11 @@ public class CreateTaskCommand extends Command {
         return deadlineSplit;
     }
 
+    /**
+     * Processes string data to be used for creating event task.
+     * @return String[] Processed input data for use in constructor.
+     * @throws InvalidCommandException If format of command is incorrect.
+     */
     private String[] processEvent() throws InvalidCommandException {
         String[] result = new String[3];
 

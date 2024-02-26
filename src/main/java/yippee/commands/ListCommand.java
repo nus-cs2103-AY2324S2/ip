@@ -9,6 +9,9 @@ import yippee.exceptions.InvalidCommandException;
  */
 public class ListCommand extends Command {
     private boolean isExit = false;
+    /**
+     * Instantiates new ListCommand instance.
+     */
     public ListCommand() {
         super(false);
     }

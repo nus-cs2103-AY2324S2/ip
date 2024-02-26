@@ -24,7 +24,6 @@ public class Yippee extends Application {
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
-
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
@@ -84,6 +83,13 @@ public class Yippee extends Application {
         this.ui.endCommands();
     }
 
+    /**
+     * {@inheritDoc}
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         this.storage = new Storage(FILE_PATH);
@@ -107,6 +113,11 @@ public class Yippee extends Application {
         greet();
     }
 
+    /**
+     * Set up components in the form of class variables for the GUI.
+     * @param stage Stage where application scene will be set.
+     * @return AnchorPane for the main layout.
+     */
     private AnchorPane setUpComponents(Stage stage) {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
@@ -126,6 +137,11 @@ public class Yippee extends Application {
         return mainLayout;
     }
 
+    /**
+     * Set up dimensions for each component of the scene.
+     * @param stage Stage where application scene will be set.
+     * @param mainLayout AnchorPane for the main layout.
+     */
     private void setDimensions(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Yippee");
         stage.setResizable(false);
@@ -142,6 +158,9 @@ public class Yippee extends Application {
         scrollPane.setFitToWidth(true);
     }
 
+    /**
+     * Sets the dimensions for the input area.
+     */
     private void setUserInputDim() {
         userInput.setPrefWidth(325.0);
         sendButton.setPrefWidth(55.0);
@@ -170,9 +189,7 @@ public class Yippee extends Application {
     }
 
     /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input and generates the response to be displayed.
      */
     private void handleUserInput() {
         String userText = userInput.getText();
@@ -185,8 +202,9 @@ public class Yippee extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Generates response for the input from the user.
+     * @param input String input parsed from the user.
+     * @return String representation for the command reply.
      */
     public String getResponse(String input) {
         try {

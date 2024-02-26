@@ -16,5 +16,14 @@ public abstract class Command {
     public boolean isExit() {
         return this.isExit;
     }
+
+    /**
+     * Executes command.
+     * @param tasks Tasklist of all current tasks.
+     * @param ui Ui element to generate replies for user.
+     * @param storage Storage to store and load data after each action.
+     * @return String output to be displayed to user.
+     * @throws InvalidCommandException If command format is inaccurate.
+     */
     public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException;
 }
