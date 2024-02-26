@@ -31,12 +31,13 @@ public class TaskList extends ArrayList<Task> {
      * @param storage Storage object to handle file storage.
      */
     public TaskList(String content, Ui ui, Storage storage) {
+        taskLog = new ArrayList<>();
+
         if (content.isBlank()) {
-            this.taskLog = new ArrayList<>();
             ui.printEmptyStorage();
             return;
         }
-        taskLog = new ArrayList<>();
+
         String[] lines = content.split("\n");
         Integer indexCounter = 1;
 
@@ -48,55 +49,38 @@ public class TaskList extends ArrayList<Task> {
             boolean isDone = info[1].trim().equals("1");
             String taskDescription = info[2].trim();
 
-            switch (taskType) {
-                case "T":
-                    try {
-                        Command c = Parser.parse("todo " + taskDescription);
-                        c.execute(this, ui, storage);
-                        if (isDone) {
-                            Command done = new DoneCommand(indexCounter.toString());
-                            done.execute(this, ui, storage);
-                        }
-                    } catch (Exception e) {
-                        ui.printErrInvalidTask();
-                    }
-                    indexCounter++;
-                    break;
+            try {
+                Command c = null;
+                switch (taskType) {
+                    case "T":
+                        c = Parser.parse("todo " + taskDescription);
+                        break;
+                    case "D":
+                        String taskDueDate = info[3].trim();
+                        c = Parser.parse("due " + taskDescription + " /by " + taskDueDate);
+                        break;
+                    case "E":
+                        String taskStart = info[3].trim();
+                        String taskEnd = info[4].trim();
+                        c = Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
+                        break;
+                    default:
+                        ui.printErrInvalidCommand();
+                        break;
+                }
 
-                case "D":
-                    String taskDueDate = info[3].trim();
-                    try {
-                        Command c = Parser.parse("due " + taskDescription + " /by " + taskDueDate);
-                        c.execute(this, ui, storage);
-                        if (isDone) {
-                            Command done = new DoneCommand(indexCounter.toString());
-                            done.execute(this, ui, storage);
-                        }
-                    } catch (Exception e) {
-                        ui.printErrInvalidTask();
+                if (c != null) {
+                    c.execute(this, ui, storage);
+                    if (isDone) {
+                        Command done = new DoneCommand(indexCounter.toString());
+                        done.execute(this, ui, storage);
                     }
-                    indexCounter++;
-                    break;
-
-                case "E":
-                    String taskStart = info[3].trim();
-                    String taskEnd = info[4].trim();
-                    try {
-                        Command c = Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
-                        c.execute(this, ui, storage);
-                        if (isDone) {
-                            Command done = new DoneCommand(indexCounter.toString());
-                            done.execute(this, ui, storage);
-                        }
-                    } catch (Exception e) {
-                        ui.printErrInvalidTask();
-                    }
-                    indexCounter++;
-                    break;
-                default:
-                    ui.printErrInvalidCommand();
-                    break;
+                }
+            } catch (Exception e) {
+                ui.printErrInvalidTask();
             }
+
+            indexCounter++;
         }
     }
 

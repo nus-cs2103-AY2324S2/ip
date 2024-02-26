@@ -27,6 +27,7 @@ public class BMO {
     public BMO() {
         ui = new Ui();
         storage = new Storage();
+
         try {
             tasks = new TaskList(storage.loadData(), ui, storage);
         } catch (IOException e) {
@@ -39,9 +40,9 @@ public class BMO {
      * Runs the BMO chatbot.
      */
     public void run() {
+        Scanner sc = new Scanner(System.in);
         ui.printTutorial();
 
-        Scanner sc = new Scanner(System.in);
         do {
             String input = sc.nextLine().toLowerCase().trim();
             try {
@@ -79,7 +80,9 @@ public class BMO {
     public String getResponse(String input) throws IOException {
         Command c = Parser.parse(input.trim());
         String response = c.execute(tasks, ui, storage);
+
         storage.saveData(tasks);
+
         return response;
     }
 }
