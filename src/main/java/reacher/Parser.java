@@ -37,6 +37,8 @@ public class Parser {
             return new EditCommand();
         case ("add"):
             return new AddCommand();
+        case ("help"):
+            return new HelpCommand();
         default:
             throw new ReacherException("Not a valid command!");
         }
