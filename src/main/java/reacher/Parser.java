@@ -2,6 +2,8 @@ package reacher;
 
 import reacher.command.*;
 
+import java.util.Locale;
+
 import static reacher.Parser.Variable.*;
 
 
@@ -13,7 +15,7 @@ public class Parser {
         END,
         KEYWORD,
         TYPE,
-        CHANGE, 
+        CHANGE,
          TASK_NO,
          DEADLINE
     }
@@ -22,7 +24,7 @@ public class Parser {
      * @throws ReacherException If input is not a valid command.
      */
     public static Command getCommand(String input) throws ReacherException {
-        String command = getInfo(input, COMMAND);
+        String command = getInfo(input, COMMAND).toLowerCase();
 
         switch (command) {
         case ("find"):

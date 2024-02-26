@@ -65,8 +65,8 @@ public class MainWindow extends AnchorPane {
     private void showIntro() {
         String message = "Welcome!\n" +
                 "Commands are:\n" +
-                "add, edit, list, edit, bye";
-        dialogContainer.getChildren().addAll(DialogBox.getUserDialog(message, userImage));
+                "find, add, edit, list, edit, bye";
+        dialogContainer.getChildren().addAll(DialogBox.getReacherDialog(message, dukeImage));
     }
 
 }
