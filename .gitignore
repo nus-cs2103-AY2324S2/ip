@@ -18,3 +18,5 @@ text-cli-test/EXPECTED-UNIX.TXT
 
 # Data files
 /data/
+
+/docs/vendor

@@ -1,7 +1,11 @@
-# SIMP-LI User Guide
+---
+layout: page
+title: User Guide
+---
+
+# Welcome to SIMP-LI's User Guide! :girl:
 
 ![Ui](Ui.png)
-
 
 ## Introduction
 
@@ -35,7 +39,6 @@ so that maybe one day you can hold a basic conversation with her :smile:.
   - [Editing SIMP-LI's memory (:exclamation: advanced parents only)](#editing-simp-lis-memory-exclamation-advanced-parents-only)
 - [Command summary :clipboard:](#command-summary-clipboard)
 
-
 ## Quick start :watch:
 
 1. Verify that you have Java `11` or above installed in your machine to
@@ -47,10 +50,9 @@ poop out a directory and a file to help her remember the things given to her.
 4. Open a terminal, `cd` into the folder where `simpli.jar` resides in, and execute
 `java -jar simpli.jar` command. Congratulations you have brought SIMP-LI to LIFEEE!
 
-
 ## Features :girl:
 
-**Command format:**
+**Just some things to take note:**
 
 - Words in `UPPER_CASE` are parameters to be supplied by you.
 e.g. `todo TASK_NAME`, `TASK_NAME` is a parameter which can be `todo feed SIMP-LI dinner`.
@@ -67,13 +69,18 @@ e.g. `greet [MESSAGE]` which can be `greet` or `greet I love you SIMP-LI`.
 - SIMP-LI is very honest she will reply to every command even if it is extraneous,
 but she will inform you if it is extraneous or ignore it and execute the operation normally.
 
-To interact with SIMP-LI, simply enter your commands in the text field shown below before
-pressing `<Enter>` key on your keyboard or by clicking on the `<Send>` button.
+- To interact with SIMP-LI, simply enter your commands in the text field shown below before pressing `<Enter>` key on your keyboard or by clicking on the `<Send>` button.  
+![TextField](TextField.png)
 
-![Greet](TextField.png)
+- Quick tip boxes.  
+<div markdown="span" class="alert alert-info">
+:information_source: The blue block highlights additional information that might be useful in clearing some confusion.
+</div>  
+<div markdown="span" class="alert alert-warning">
+:warning: The yellow block draws attention to crucial information that requires careful consideration to mitigate potential risks or challenges.
+</div>
 
-
-## Greeting SIMP-LI: `greet`
+### Greeting SIMP-LI: `greet`
 
 SIMP-LI greets you as her adoptive parent. It makes you happy to see her alive and kicking :smile:.
 
@@ -85,8 +92,7 @@ SIMP-LI greets you as her adoptive parent. It makes you happy to see her alive a
 
 ![Greet](responses/greet.png)
 
-
-## Adding a todo task: `todo`
+### Adding a todo task: `todo`
 
 SIMP-LI memorize the *todo* task as *undone* so that you can relax your mind.
 
@@ -98,8 +104,7 @@ SIMP-LI memorize the *todo* task as *undone* so that you can relax your mind.
 
 ![Todo](responses/todo.png)
 
-
-## Adding a deadline task: `deadline`
+### Adding a deadline task: `deadline`
 
 SIMP-LI memorize the *deadline* task that has to be done by a certain *date* and *time* as *undone*
 so that you can relax your mind.
@@ -112,8 +117,7 @@ so that you can relax your mind.
 
 ![Deadline](responses/deadline.png)
 
-
-## Adding an event task: `event`
+### Adding an event task: `event`
 
 SIMP-LI memorize an *event* that you have to attend *from* and *to* a specific *date* and *time*
 so that you can relax your mind.
@@ -127,8 +131,7 @@ where date and time must not be in the past and the date after `/from` must be b
 
 ![Event](responses/event.png)
 
-
-## Deleting a task: `delete`
+### Deleting a task: `delete`
 
 SIMP-LI forgets the task number that she had remembered.
 You reduce SIMP-LI's workload of remembering things.
@@ -143,8 +146,7 @@ refer to [Listing all tasks: `list`](#listing-all-tasks-list) to understand more
 
 ![Delete](responses/delete.png)
 
-
-## Listing all tasks: `list`
+### Listing all tasks: `list`
 
 SIMP-LI excitedly lists all the task numbers and their tasks *task number* that she had remembered.
 
@@ -160,11 +162,11 @@ SIMP-LI excitedly lists all the task numbers and their tasks *task number* that 
 
 ![List](responses/list.png)
 
-> :bulb: **SIMP-LI ignores** any extraneous parameter that comes after the list command and will just execute
-the list command. For example `list 1` will just execute the list command and ignore the `1`.
+<div markdown="span" class="alert alert-info">
+:information_source: **SIMP-LI ignores** any extraneous parameter that comes after the list command and will just execute the list command. For example `list 1` will just execute the list command and ignore the `1`.
+</div>
 
-
-## Finding specific tasks: `find`
+### Finding specific tasks: `find`
 
 SIMP-LI looks through her memory for specific tasks that contains a substring, `SUBSTRING`.
 
@@ -176,8 +178,7 @@ SIMP-LI looks through her memory for specific tasks that contains a substring, `
 
 ![Find](responses/find.png)
 
-
-## Marking a task as done: `mark`
+### Marking a task as done: `mark`
 
 SIMP-LI marks the task number in her memory as *done*.
 
@@ -190,8 +191,7 @@ refer to [Listing all tasks: `list`](#listing-all-tasks-list) to understand more
 
 ![Mark](responses/mark.png)
 
-
-## Unmarking a task as done: `unmark`
+### Unmarking a task as done: `unmark`
 
 SIMP-LI marks the task number in her memory as *not done*.
 
@@ -204,8 +204,7 @@ refer to [Listing all tasks: `list`](#listing-all-tasks-list) to understand more
 
 ![Unmark](responses/unmark.png)
 
-
-## Goodbye SIMP-LI: `bye`
+### Goodbye SIMP-LI: `bye`
 
 SIMP-LI is sad to see you leave. She understands your reasons and bids you farewell :cry:.
 
@@ -217,8 +216,7 @@ SIMP-LI is sad to see you leave. She understands your reasons and bids you farew
 
 ![Bye](responses/bye.png)
 
-
-## SIMP-LI memorizing tasks
+### SIMP-LI memorizing tasks
 
 SIMP-LI memorizes and stores the tasks in her brain which is located at `./data/simpli.csv`,
 `.` is the path where SIMP-LI, `simpli.jar` resides. For example SIMP-LI resides in `C:\Users\Papa\Downloads\simpli.jar` then
@@ -226,8 +224,7 @@ her brain will be at `C:\Users\Papa\Downloads\data\simpli.csv`.
 
 Whenever a new command is given to SIMP-LI she will update her brain.
 
-
-## SIMP-LI prioritizing tasks
+### SIMP-LI prioritizing tasks
 
 SIMP-LI is somewhat intelligent, she knows how to prioritize deadline task that are about to be due.
 This is done automatically whenever you give her new tasks to memorize.
@@ -235,15 +232,15 @@ This is done automatically whenever you give her new tasks to memorize.
 Deadline tasks that are about to be due will have a lower *task number*. Learn more about *task number*
 by refering to [Listing all tasks: `list`](#listing-all-tasks-list).
 
-
-## Editing SIMP-LI's memory (:exclamation: advanced parents only)
+### Editing SIMP-LI's memory (:exclamation: advanced parents only)
 
 In SIMP-LI's brain, tasks are stored in comma-separated values (CSV) format.
 Different task may have slightly different format.
 You can open `simpli.csv` with any text editor of your choice.
 
-> :warning: **Modifying SIMP-LI's brain** without following the proper format may result you to lose
-all your data. It is advisible you back up your data first.
+<div markdown="span" class="alert alert-warning">
+:warning: **Modifying SIMP-LI's brain** without following the proper format may result you to lose all your data. It is advisible you back up your data first.
+</div>
 
 **CSV storage format:**
 
@@ -280,5 +277,4 @@ Refer to [Features](#features) for details about the date and time format.
 | **Unmark**   | `unmark TASK_NUMBER`<br/> e.g. `unmark 1`                                                                                                        |
 | **Bye**      | `bye`                                                                                                                                            |
 
-|[back to top](#simp-li-user-guide)|
-|---|
+[back to top](#welcome-to-simp-lis-user-guide-girl)
