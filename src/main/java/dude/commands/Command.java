@@ -1,6 +1,6 @@
-package dude.Commands;
+package dude.commands;
 
-import dude.Exceptions.DudeException;
+import dude.exceptions.DudeException;
 
 /**
  * The Command class represents a command that can be executed by the user.

@@ -1,7 +1,7 @@
 package dude.tasks;
 
-import dude.Exceptions.InvalidDescriptionException;
-import dude.Utils.utils;
+import dude.exceptions.InvalidDescriptionException;
+import dude.utils.utils;
 
 /**
  * The Todo class represents a task with a description.

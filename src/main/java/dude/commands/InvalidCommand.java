@@ -1,4 +1,4 @@
-package dude.Commands;
+package dude.commands;
 
 /**
  * The InvalidCommand class represents a command that is invalid.

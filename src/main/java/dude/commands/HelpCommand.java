@@ -1,6 +1,6 @@
-package dude.Commands;
+package dude.commands;
 
-import dude.Exceptions.DudeException;
+import dude.exceptions.DudeException;
 
 /**
  * The HelpCommand class represents a command that provides help on the commands the application supports.

@@ -1,4 +1,4 @@
-package dude.Utils;
+package dude.utils;
 
 /**
  * The Ui class handles the user interface of the application.

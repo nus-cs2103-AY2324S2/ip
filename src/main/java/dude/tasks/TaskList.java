@@ -2,8 +2,8 @@ package dude.tasks;
 
 import java.util.ArrayList;
 
-import dude.Exceptions.DudeException;
-import dude.Exceptions.TaskListFullException;
+import dude.exceptions.DudeException;
+import dude.exceptions.TaskListFullException;
 
 /**
  * The TaskList class handles keeping track of the list of tasks.

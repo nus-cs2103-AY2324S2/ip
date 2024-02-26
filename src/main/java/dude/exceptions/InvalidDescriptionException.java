@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The InvalidDescriptionException class represents an exception that is thrown when the description for a task is invalid.

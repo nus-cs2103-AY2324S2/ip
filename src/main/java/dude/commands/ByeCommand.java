@@ -1,4 +1,4 @@
-package dude.Commands;
+package dude.commands;
 
 /**
  * The ByeCommand class represents a command to exit the program.

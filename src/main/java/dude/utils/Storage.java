@@ -1,4 +1,4 @@
-package dude.Utils;
+package dude.utils;
 
 import java.io.File;
 import java.io.FileInputStream;

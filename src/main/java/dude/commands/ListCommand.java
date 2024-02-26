@@ -1,4 +1,4 @@
-package dude.Commands;
+package dude.commands;
 
 import dude.tasks.TaskList;
 

@@ -1,8 +1,8 @@
-package dude.Commands;
+package dude.commands;
 
-import dude.Exceptions.DudeException;
-import dude.Exceptions.InvalidDescriptionException;
-import dude.Exceptions.TaskListFullException;
+import dude.exceptions.DudeException;
+import dude.exceptions.InvalidDescriptionException;
+import dude.exceptions.TaskListFullException;
 import dude.tasks.TaskList;
 import dude.tasks.Todo;
 import org.junit.jupiter.api.Test;

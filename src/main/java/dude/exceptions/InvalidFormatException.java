@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The InvalidFormatException class represents an exception that is thrown when the format is invalid.

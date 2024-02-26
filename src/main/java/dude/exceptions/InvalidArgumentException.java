@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The InvalidArgumentException class represents an exception that is thrown when an argument for a command is invalid.

@@ -3,13 +3,14 @@ package dude;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
-import dude.Commands.Command;
-import dude.Commands.CommandTypes;
-import dude.Commands.Parser;
-import dude.Exceptions.DudeException;
+import dude.commands.Command;
+import dude.commands.CommandTypes;
+import dude.commands.Parser;
+import dude.exceptions.DudeException;
+import dude.utils.Storage;
+import dude.utils.Ui;
 import dude.tasks.TaskList;
-import dude.Utils.Storage;
-import dude.Utils.Ui;
+
 
 /**
  * The main class of the Duke application.

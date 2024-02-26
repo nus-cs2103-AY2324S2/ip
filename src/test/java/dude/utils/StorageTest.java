@@ -1,6 +1,6 @@
-package dude.Utils;
+package dude.utils;
 
-import dude.Exceptions.TaskListFullException;
+import dude.exceptions.TaskListFullException;
 import dude.tasks.Task;
 import dude.tasks.TaskList;
 import dude.tasks.Todo;

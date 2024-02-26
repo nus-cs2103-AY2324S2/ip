@@ -1,7 +1,7 @@
-package dude.Commands;
+package dude.commands;
 
-import dude.Exceptions.DudeException;
-import dude.Exceptions.InvalidFormatException;
+import dude.exceptions.DudeException;
+import dude.exceptions.InvalidFormatException;
 import dude.tasks.Task;
 import dude.tasks.TaskList;
 

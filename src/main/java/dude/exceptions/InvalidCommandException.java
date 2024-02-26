@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The InvalidCommandException class represents an exception that is thrown when the command is invalid.

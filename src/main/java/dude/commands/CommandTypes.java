@@ -1,4 +1,4 @@
-package dude.Commands;
+package dude.commands;
 
 /**
  * The CommandTypes enum represents the types of commands that can be used in the application.

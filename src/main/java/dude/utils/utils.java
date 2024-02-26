@@ -1,4 +1,4 @@
-package dude.Utils;
+package dude.utils;
 
 public class utils {
 

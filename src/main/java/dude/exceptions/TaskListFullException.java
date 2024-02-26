@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The TaskListFullException class represents an exception that is thrown when the task list is full.

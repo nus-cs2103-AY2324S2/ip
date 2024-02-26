@@ -1,4 +1,4 @@
-package dude.Exceptions;
+package dude.exceptions;
 
 /**
  * The DudeException class represents an exception that is specific to the Dude application.
