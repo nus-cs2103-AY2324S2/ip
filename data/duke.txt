@@ -1,23 +1,3 @@
-todo read book
-mark 1
-delete 1
-todo read book
-mark 1
-unmark 1
-todo lessons
-todo tutorial
-mark 2
-deadline return book /by 2019-06-06
-mark 1
-mark 4
-unmark 1
-list
-delete 3
-list
-delete 3
-list
+todo result
+todo report
 todo dinner
-list
-mark dinner
-list
-mark 3
