@@ -18,6 +18,12 @@ import javafx.stage.Stage;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+/**
+ * The Chimp class represents the main application class for the Chimp chatbot.
+ * It extends the Application class and provides the user interface for the chatbot.
+ * The chatbot interacts with the user through a graphical user interface (GUI) and
+ * responds to user inputs by generating appropriate responses.
+ */
 public class Chimp extends Application {
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -38,6 +44,11 @@ public class Chimp extends Application {
         this.tasks = Storage.readOutputFromFile();
     }
 
+    /**
+     * Starts the application by initializing the main layout, formatting the window, and adding functionality.
+     *
+     * @param stage the primary stage of the application
+     */
     @Override
     public void start(Stage stage) {
         AnchorPane mainLayout = getMainLayout(stage);
@@ -125,6 +136,7 @@ public class Chimp extends Application {
             Command c = Parser.parse(input);
             String response = c.execute(this.tasks, this.ui, this.storage);
             if (c.isExit()) {
+                ui.say("bye");
                 exitChimp();
             }
             Storage.saveOutputToFile(this.tasks);
