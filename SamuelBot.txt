@@ -1,3 +1,10 @@
 T |   | a
 T |   | a
+<<<<<<< HEAD
 T |   | homework
+=======
+T |   | a
+D | 0 | b | 2004-10-22
+E | 0 | born | 2004-10-22 11:00 | 2004-10-22 12:00
+T |   | dohomework
+>>>>>>> A-CodingStandard
