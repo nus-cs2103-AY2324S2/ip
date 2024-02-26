@@ -4,8 +4,9 @@ import chimp.command.Command;
 import chimp.controls.DialogBox;
 import chimp.core.*;
 import chimp.exception.*;
-
+import javafx.animation.PauseTransition;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -137,7 +139,6 @@ public class Chimp extends Application {
             Command c = Parser.parse(input);
             String response = c.execute(this.tasks, this.ui, this.storage);
             if (c.isExit()) {
-                ui.say("bye");
                 exitChimp();
             }
             Storage.saveOutputToFile(this.tasks);
@@ -151,12 +152,9 @@ public class Chimp extends Application {
     }
 
     private void exitChimp() {
-        try {
-            Thread.sleep(2000);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
-        System.exit(0);
+        PauseTransition delay = new PauseTransition(Duration.seconds(2));
+        delay.setOnFinished(event -> Platform.exit());
+        delay.play();
     }
 
     private void displayOpeningMessage() {
