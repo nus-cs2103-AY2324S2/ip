@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import yippee.commands.Command;
+import yippee.exceptions.InvalidCommandException;
 import yippee.exceptions.YippeeException;
 
 /**
@@ -123,8 +124,8 @@ public class Yippee extends Application {
     }
 
     private void setDimensions(Stage stage, AnchorPane mainLayout) {
-        stage.setTitle("Duke");
-        stage.setResizable(false);
+        stage.setTitle("Yippee");
+        stage.setResizable(true);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 
@@ -171,11 +172,11 @@ public class Yippee extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String yippeeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(yippee))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getDukeDialog(yippeeText, yippee)
         );
         userInput.clear();
     }
@@ -184,11 +185,11 @@ public class Yippee extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    public String getResponse(String input) {
             try {
                 Command command = new Parser().parseCommand(input);
                 return command.execute(taskList, ui, storage);
-            } catch (YippeeException e) {
+            } catch (InvalidCommandException e) {
                 return ui.printError(e);
             }
     }

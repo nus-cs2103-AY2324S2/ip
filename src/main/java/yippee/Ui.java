@@ -34,7 +34,7 @@ public class Ui {
      * @param e YippeeException encountered.
      */
     public String printError(YippeeException e) {
-        return String.format("    %s\n", e.getMessage());
+        return String.format("%s\n", e.getMessage());
     }
 
     /**
@@ -122,7 +122,7 @@ public class Ui {
             return "Nothing added to list yet!";
         }
         for (Task task : tasks) {
-            String entry = String.format("      %d. %s\n", count, task.toString());
+            String entry = String.format("%d. %s\n", count, task.toString());
             count++;
             output += entry;
         }
