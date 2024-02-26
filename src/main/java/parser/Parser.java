@@ -1,7 +1,5 @@
 package parser;
 
-import java.util.Scanner;
-
 import storage.Storage;
 import task.Deadline;
 import task.Event;
@@ -29,29 +27,21 @@ public class Parser {
      * If not, pass it to further cases of commands.
      */
 
-    public void parse() {
-        boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
-        while ((!isExit) && scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                isExit = true;
-            } else if (userInput.equals("list")) {
-                this.todoList.printList();
-            } else if (userInput.equals("archived")) {
-                TaskList archivedTasks = new TaskList(this.archived.getHistory());
-                archivedTasks.printList();
-            } else if (isMarkTask(userInput)) {
-                this.todoList.changeMarkingOfTask(userInput, storage);
-            } else if (isDeleteTask(userInput)) {
-                this.todoList.deleteTask(userInput, storage, archived);
-            } else if (isFindTask(userInput)) {
-                this.todoList.findTask(userInput, storage);
-            } else {
-                this.echo(userInput);
-            }
+    public void parse(String userInput) {
+        if (userInput.equals("list")) {
+            this.todoList.printList();
+        } else if (userInput.equals("archived")) {
+            TaskList archivedTasks = new TaskList(this.archived.getHistory());
+            archivedTasks.printList();
+        } else if (isMarkTask(userInput)) {
+            this.todoList.changeMarkingOfTask(userInput, storage);
+        } else if (isDeleteTask(userInput)) {
+            this.todoList.deleteTask(userInput, storage, archived);
+        } else if (isFindTask(userInput)) {
+            this.todoList.findTask(userInput, storage);
+        } else {
+            this.echo(userInput);
         }
-        scanner.close();
     }
 
     /**
@@ -60,7 +50,7 @@ public class Parser {
      * @param userInput the input from the user.
      */
 
-    public void echo(String userInput) {
+    public String echo(String userInput) {
         String[] words = userInput.split("\\s+");
         if (words.length > 0) {
             String firstWord = words[0];
@@ -68,29 +58,25 @@ public class Parser {
             String description = userInput.substring(firstSpaceIndex + 1);
             switch (firstWord) {
                 case "todo": {
-                    todoCase(words, description);
-                    break;
+                    return todoCase(words, description);
                 }
                 case "deadline": {
-                    deadlineCase(words, description);
-                    break;
+                    return deadlineCase(words, description);
                 }
                 case "event": {
-                    eventCase(userInput, words);
-                    break;
+                    return eventCase(userInput, words);
                 }
                 default:
-                    System.out.println("Sorry, I don't understand your command.");
-                    break;
+                    return "Sorry, I don't understand your command.";
             }
         } else {
-            System.out.println("Sorry, I don't understand your command.");
+            return "Sorry, I don't understand your command.";
         }
     }
 
-    private void eventCase(String userInput, String[] words) {
+    private String eventCase(String userInput, String[] words) {
         if (words.length == 1) {
-            System.out.println("The description of a todo cannot be empty!");
+            return "The description of a todo cannot be empty!";
         } else {
             String[] parts = userInput.split("\\\\from|\\\\to");
             String event_description = parts.length > 0 ? parts[0].trim() : "";
@@ -99,30 +85,30 @@ public class Parser {
             Task t = new Event(event_description, this.storage.readAsDate(event_from),
                     this.storage.readAsDate(event_to));
             this.todoList.add(t);
-            this.todoList.listOverviewAfterAdding(t, this.storage);
+            return this.todoList.listOverviewAfterAdding(t, this.storage);
         }
     }
 
-    private void deadlineCase(String[] words, String description) {
+    private String deadlineCase(String[] words, String description) {
         if (words.length == 1) {
-            System.out.println("The description of a deadline cannot be empty!");
+            return "The description of a deadline cannot be empty!";
         } else {
             String[] parts = description.split("\\\\by");
             String ddl_description = parts.length > 0 ? parts[0].trim() : "";
             String ddl_time = parts.length > 1 ? parts[1].trim() : "";
             Task t = new Deadline(ddl_description, this.storage.readAsDate(ddl_time));
             this.todoList.add(t);
-            this.todoList.listOverviewAfterAdding(t, this.storage);
+            return this.todoList.listOverviewAfterAdding(t, this.storage);
         }
     }
 
-    private void todoCase(String[] words, String description) {
+    private String todoCase(String[] words, String description) {
         if (words.length == 1) {
-            System.out.println("The description of a todo cannot be empty!");
+            return "The description of a todo cannot be empty!";
         } else {
             Task t = new Todo(description);
             this.todoList.add(t);
-            this.todoList.listOverviewAfterAdding(t, this.storage);
+            return this.todoList.listOverviewAfterAdding(t, this.storage);
         }
     }
 

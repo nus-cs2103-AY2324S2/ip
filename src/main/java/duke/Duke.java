@@ -1,6 +1,7 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import dialogbox.DialogBox;
 import javafx.scene.image.Image;
@@ -51,7 +52,18 @@ public class Duke extends Application {
         TaskList todoList = new TaskList(temp);
 
         Parser parser = new Parser(todoList, storage, archived);
-        parser.parse();
+
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            } else {
+                parser.parse(userInput);
+            }
+        }
+        scanner.close();
 
         duke.exit();
     }
@@ -77,8 +89,8 @@ public class Duke extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        Label userText = getDialogLabel(userInput.getText());
+        Label dukeText = getDialogLabel(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
@@ -90,7 +102,7 @@ public class Duke extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-        return "Duke heard: ";
+        return "oh";
     }
 
     @Override
