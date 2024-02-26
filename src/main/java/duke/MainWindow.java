@@ -30,6 +30,10 @@ public class MainWindow extends AnchorPane {
     private final Image dukeImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/skynet.png")));
 
+    /**
+     * Initializes the MainWindow controller.
+     * This method is automatically called after the fxml file has been loaded.
+     */
     @FXML
     public void initialize() {
         // display bot greeting
@@ -39,6 +43,11 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the Duke instance for this MainWindow.
+     * 
+     * @param d The Duke instance.
+     */
     public void setDuke(Duke d) {
         duke = d;
     }
