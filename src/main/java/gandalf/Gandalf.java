@@ -1,5 +1,15 @@
 package gandalf;
 
+import gandalf.commands.Command;
+import gandalf.commands.AddCommand;
+import gandalf.commands.ByeCommand;
+import gandalf.commands.DeleteCommand;
+import gandalf.commands.FindCommand;
+import gandalf.commands.ListCommand;
+import gandalf.commands.MarkCommand;
+import gandalf.commands.UnmarkCommand;
+import gandalf.commands.SumCommand;
+
 import java.util.Scanner;
 
 /**
@@ -26,7 +36,7 @@ public class Gandalf {
         try {
             tasks = new TaskList(storage.load());
         } catch (GandalfException e) {
-            ui.showError(e.getMessage());
+            tasks = new TaskList();
         }
     }
 
@@ -71,11 +81,16 @@ public class Gandalf {
                     String keyword = parser.getTaskName();
                     c = new FindCommand(command, tasks, storage, ui, keyword);
                     break;
+                case "sum":
+                    String expensesName = parser.getTaskName();
+                    c = new SumCommand(command, tasks, storage, ui, expensesName);
+                    break;
+                case "expenses":
                 case "todo":
                 case "deadline":
                 case "event":
-                    c = new AddCommand(command, tasks, storage, ui, parser.getTaskName(), parser.getStartDate(),
-                                        parser.getEndDate());
+                    c = new AddCommand(command, tasks, storage, ui, parser.getTaskName(), parser.getFirstInfo(),
+                                        parser.getSecondInfo());
                     break;
                 default:
                     ui.showError("I do not recognize this command, I must check with the head of my order.");

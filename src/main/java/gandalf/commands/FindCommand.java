@@ -1,7 +1,11 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 /**
- * Executes the TaskList's filter method to find all tasks that matches given keyword
+ * Executes the TaskList's filter method to find all tasks that matches given keyword.
  */
 public class FindCommand extends Command {
 

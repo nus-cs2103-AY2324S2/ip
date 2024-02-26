@@ -18,11 +18,14 @@ public class Ui {
         System.out.println(exception);
     }
     public void mark() {
-        System.out.println("The task is done, humans truly are remarkable creatures");
+        System.out.println("Humans truly are remarkable creatures");
     }
 
     public void unmark() {
-        System.out.println("The task is undone, but fret not, for its not about how much we do, but how much we did");
+        System.out.println("Fret not, for its not about how much we do, but how much we did");
+    }
+    public void showExpenses(String expensesName, double totalSum) {
+        System.out.println("Total expenses for " + expensesName + ": " + totalSum);
     }
     public void bye() {
         System.out.println("So here at last, comes the end of our fellowship. I will not say: Do not weep. "

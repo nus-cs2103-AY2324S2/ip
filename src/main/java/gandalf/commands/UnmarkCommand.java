@@ -1,4 +1,9 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.GandalfException;
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 /**
  * Calls the TaskList object's unmark() method to unmark the task at the specified index.

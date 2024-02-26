@@ -1,4 +1,4 @@
-package gandalf;
+package gandalf.tasktypes;
 
 import java.io.Serializable;
 

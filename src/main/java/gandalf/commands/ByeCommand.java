@@ -1,4 +1,8 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 import java.util.Scanner;
 
