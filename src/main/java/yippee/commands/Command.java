@@ -16,5 +16,5 @@ public abstract class Command {
     public boolean isExit() {
         return this.isExit;
     }
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException;
 }

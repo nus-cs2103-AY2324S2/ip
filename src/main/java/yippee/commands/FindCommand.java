@@ -32,11 +32,11 @@ public class FindCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         ArrayList<Task> taskList = tasks.getList();
         ArrayList<Task> filteredList = taskList.stream()
                 .filter(task -> task.getName().contains(keyword))
                 .collect(Collectors.toCollection(ArrayList::new));
-        ui.printList(new TaskList(filteredList));
+        return ui.printList(new TaskList(filteredList));
     }
 }

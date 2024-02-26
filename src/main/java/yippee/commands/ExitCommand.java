@@ -21,15 +21,17 @@ public class ExitCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         storage.resetSave();
         storage.storeData(tasks);
         TaskList savedData = null;
         try {
             savedData = storage.load();
+            assert savedData == tasks : "Saved data not the same as tasklist";
+            return ui.endCommands();
         } catch (YippeeException e) {
-            ui.printError(e);
+            return ui.printError(e);
         }
-        assert savedData == tasks : "Saved data not the same as tasklist";
+
     }
 }

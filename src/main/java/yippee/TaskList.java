@@ -44,9 +44,9 @@ public class TaskList {
      * Adds new task to active list.
      * @param task Task to be added to active list.
      */
-    public void addNewTask(Task task) {
+    public String addNewTask(Task task) {
         this.tasks.add(task);
-        ui.addTaskRespond(task, this.tasks.size());
+        return ui.addTaskRespond(task, this.tasks.size());
     }
 
     /**
@@ -54,13 +54,13 @@ public class TaskList {
      * @param deleteNumber Index of task to be deleted.
      * @throws InvalidCommandException If index of task is out of bounds.
      */
-    public void deleteTask(int deleteNumber) throws InvalidCommandException {
+    public String deleteTask(int deleteNumber) throws InvalidCommandException {
         if (deleteNumber < 1 || deleteNumber > tasks.size()) {
             throw new InvalidTaskNumberException("Invalid number! Index does not exist >:((");
         } else {
             Task task = tasks.get(deleteNumber - 1);
             tasks.remove(deleteNumber - 1);
-            ui.deleteTaskRespond(task, this.tasks.size());
+            return ui.deleteTaskRespond(task, this.tasks.size());
         }
     }
 
@@ -69,13 +69,13 @@ public class TaskList {
      * @param number Index of task to be marked as complete.
      * @throws InvalidCommandException If index of task is out of bounds
      */
-    public void markTask(int number) throws InvalidCommandException {
+    public String markTask(int number) throws InvalidCommandException {
         if (number < 1 || number > tasks.size()) {
             throw new InvalidTaskNumberException("Invalid number! Index does not exist >:((");
         } else {
             Task task = tasks.get(number - 1);
             task.markDone();
-            ui.markTaskRespond(task);
+            return ui.markTaskRespond(task);
         }
     }
 
@@ -84,13 +84,13 @@ public class TaskList {
      * @param number Index of task to be marked as incomplete.
      * @throws InvalidCommandException If index of task is out of bounds
      */
-    public void unmarkTask(int number) throws InvalidCommandException {
+    public String unmarkTask(int number) throws InvalidCommandException {
         if (number < 1 || number > tasks.size()) {
             throw new InvalidTaskNumberException("Invalid number! Index does not exist >:((");
         } else {
             Task task = tasks.get(number - 1);
             task.markNotDone();
-            ui.unmarkTaskRespond(task);
+            return ui.unmarkTaskRespond(task);
         }
     }
 

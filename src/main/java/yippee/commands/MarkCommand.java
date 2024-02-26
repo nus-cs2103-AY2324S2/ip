@@ -34,13 +34,13 @@ public class MarkCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         if (isUnmarkCommand) {
-            tasks.unmarkTask(number);
             markInCompleteCount++;
+            return tasks.unmarkTask(number);
         } else {
-            tasks.markTask(number);
             markCompleteCount++;
+            return tasks.markTask(number);
         }
     }
 

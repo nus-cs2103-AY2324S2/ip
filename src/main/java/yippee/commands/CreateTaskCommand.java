@@ -29,7 +29,7 @@ public class CreateTaskCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         Task newTask = null;
         switch(taskType) {
         case "todo":
@@ -66,8 +66,8 @@ public class CreateTaskCommand extends Command {
             assert false : taskType;
         }
         assert newTask != null : "New task created should not be null";
-        tasks.addNewTask(newTask);
         totalCreated++;
+        return tasks.addNewTask(newTask);
     }
 
     public static int getTotalCreated() {

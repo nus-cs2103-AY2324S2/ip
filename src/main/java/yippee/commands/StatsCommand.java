@@ -10,8 +10,8 @@ public class StatsCommand extends Command {
         super(false);
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        ui.printStats();
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+        return ui.printStats();
     }
 
 }

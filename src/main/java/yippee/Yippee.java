@@ -14,6 +14,7 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import yippee.commands.Command;
+import yippee.exceptions.InvalidCommandException;
 import yippee.exceptions.YippeeException;
 
 /**
@@ -21,7 +22,7 @@ import yippee.exceptions.YippeeException;
  * It is able to add, delete, and mark tasks as complete/incomplete
  */
 public class Yippee extends Application {
-    private String storePath;
+    private static final String FILE_PATH = "./data/storage.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -32,22 +33,14 @@ public class Yippee extends Application {
     private Button sendButton;
     private Scene scene;
 
-    private Image user = new Image(getClass().getResourceAsStream("/images/DaDuke.png"));
-    private Image duke = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
+    private Image user = new Image(getClass().getResourceAsStream("/images/Duck.jpg"));
+    private Image yippee = new Image(getClass().getResourceAsStream("/images/Yippee.jpg"));
     /**
      * Instantiates the Yippee bot instance.
      * @param filePath Path where data is stored.
      */
     public Yippee(String filePath) {
-        this.storePath = filePath;
-        this.storage = new Storage(filePath);
-        this.ui = new Ui();
-        try {
-            this.taskList = storage.load();
-        } catch (YippeeException e) {
-            ui.printError(e);
-            this.taskList = new TaskList();
-        }
+
     }
 
     public Yippee() {
@@ -58,11 +51,12 @@ public class Yippee extends Application {
      * Greets the user.
      */
     public void greet() {
-        String name = "Yippee";
-        System.out.println("    ____________________________________________________________");
-        System.out.printf("      Hello! I'm %s\n", name);
-        System.out.println("      What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Hello! I'm Yippee! \n");
+        stringBuilder.append("What can I do for you?");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(stringBuilder.toString(), yippee)
+        );
     }
 
     /**
@@ -92,6 +86,14 @@ public class Yippee extends Application {
     
     @Override
     public void start(Stage stage) {
+        this.storage = new Storage(FILE_PATH);
+        this.ui = new Ui();
+        try {
+            this.taskList = storage.load();
+        } catch (YippeeException e) {
+            ui.printError(e);
+            this.taskList = new TaskList();
+        }
         AnchorPane mainLayout = setUpComponents(stage);
         setDimensions(stage, mainLayout);
         setUserInputDim();
@@ -102,7 +104,7 @@ public class Yippee extends Application {
 
         setInputHandler();
 
-
+        greet();
     }
 
     private AnchorPane setUpComponents(Stage stage) {
@@ -125,7 +127,7 @@ public class Yippee extends Application {
     }
 
     private void setDimensions(Stage stage, AnchorPane mainLayout) {
-        stage.setTitle("Duke");
+        stage.setTitle("Yippee");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -173,11 +175,11 @@ public class Yippee extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+        String userText = userInput.getText();
+        String yippeeText = getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userText, user),
+                DialogBox.getDukeDialog(yippeeText, yippee)
         );
         userInput.clear();
     }
@@ -186,8 +188,13 @@ public class Yippee extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
+    public String getResponse(String input) {
+            try {
+                Command command = new Parser().parseCommand(input);
+                return command.execute(taskList, ui, storage);
+            } catch (InvalidCommandException e) {
+                return ui.printError(e);
+            }
     }
 
     public static void main(String[] args) {

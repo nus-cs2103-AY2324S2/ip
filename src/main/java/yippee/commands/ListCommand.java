@@ -20,7 +20,7 @@ public class ListCommand extends Command {
      * @throws InvalidCommandException If command is of invalid format.
      */
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
-        ui.printList(tasks);
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+        return ui.printList(tasks);
     }
 }
