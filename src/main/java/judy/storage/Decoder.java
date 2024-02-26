@@ -43,7 +43,6 @@ public class Decoder {
         boolean isDone = parts[1].trim().equals("1");
         String description = parts[2].trim();
         Task decodedTask;
-        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
         switch (taskType) {
         case "T":
@@ -51,15 +50,15 @@ public class Decoder {
             break;
         case "D":
             String by = parts[3].trim();
-            LocalDateTime byDateTime = LocalDateTime.parse(by, pattern);
+            LocalDateTime byDateTime = decodeDateTime(by);
             decodedTask = new Deadline(description, byDateTime);
             break;
         case "E":
             String[] eventTimings = parts[3].split(" - ");
             String from = eventTimings[0].trim();
             String to = eventTimings[1].trim();
-            LocalDateTime fromDateTime = LocalDateTime.parse(from, pattern);
-            LocalDateTime toDateTime = LocalDateTime.parse(to, pattern);
+            LocalDateTime fromDateTime = decodeDateTime(from);
+            LocalDateTime toDateTime = decodeDateTime(to);
             decodedTask = new Event(description, fromDateTime, toDateTime);
             break;
         default:
@@ -67,6 +66,16 @@ public class Decoder {
         }
         decodedTask.setIsDone(isDone);
         return decodedTask;
+    }
+
+    /**
+     * Decodes date time format stored in text file to Local Date Tie format.
+     * @param dateTime The date time stored in a string format in text file.
+     * @return Local Date Time that represents a specific date time.
+     */
+    private static LocalDateTime decodeDateTime(String dateTime) {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
+        return LocalDateTime.parse(dateTime, pattern);
     }
 
 }

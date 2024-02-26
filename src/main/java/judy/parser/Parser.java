@@ -14,7 +14,12 @@ import judy.commands.InvalidCommand;
 import judy.commands.ListTaskCommand;
 import judy.commands.MarkTaskCommand;
 import judy.commands.UnmarkTaskCommand;
-import judy.exceptions.DukeException;
+import judy.exceptions.InvalidDateTimeException;
+import judy.exceptions.InvalidDeadlineException;
+import judy.exceptions.InvalidEventException;
+import judy.exceptions.InvalidTaskIndexException;
+import judy.exceptions.InvalidTodoException;
+import judy.exceptions.JudyException;
 import judy.task.Deadline;
 import judy.task.Event;
 import judy.task.Task;
@@ -43,9 +48,9 @@ public class Parser {
      * Parses the user input and returns the corresponding Command object.
      *
      * @return The Command object representing the parsed user input.
-     * @throws DukeException If an error occurs during the parsing process.
+     * @throws JudyException If an error occurs during the parsing process.
      */
-    public Command parse() throws DukeException {
+    public Command parse() throws JudyException {
         String[] commandParts = userInput.trim().split(" ", 2);
         Command command;
         switch (commandParts[0]) {
@@ -92,23 +97,20 @@ public class Parser {
      *
      * @param commandParts The parts of the user input after splitting by space.
      * @return a MarkTaskCommand based on user's input.
-     * @throws DukeException if user entered empty or invalid index.
+     * @throws JudyException if user entered empty or invalid index.
      */
 
-    private Command handleMark(String[] commandParts) throws DukeException {
-        assert commandParts.length == 2 : "Invalid mark format";
+    private Command handleMark(String[] commandParts) throws JudyException {
+        if (isEmptyDescription(commandParts)) {
+            throw new JudyException("The index of task cannot be empty. ");
+        }
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
-            assert taskId < taskList.getSize() : "Invalid task index";
-            try {
-                return new MarkTaskCommand(taskId, this.taskList);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(" Invalid task index. Type 'list' to list out your tasks. ");
-            }
-        } catch (NumberFormatException e) {
-            throw new DukeException(" The index you've input is not an integer. ");
+            return new MarkTaskCommand(taskId, this.taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(" The index of task cannot be empty.");
+            throw new InvalidTaskIndexException();
+        } catch (NumberFormatException e) {
+            throw new JudyException("The index you've input is not an integer. ");
         }
     }
 
@@ -117,22 +119,19 @@ public class Parser {
      *
      * @param commandParts The parts of the user input after splitting by space.
      * @return a UnmarkTaskCommand based on user's input.
-     * @throws DukeException if user entered empty or invalid index.
+     * @throws JudyException if user entered empty or invalid index.
      */
-    private Command handleUnmark(String[] commandParts) throws DukeException {
-        assert commandParts.length == 2 : "Invalid unmark format";
+    private Command handleUnmark(String[] commandParts) throws JudyException {
+        if (isEmptyDescription(commandParts)) {
+            throw new JudyException("The index of task cannot be empty. ");
+        }
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
-            assert taskId < taskList.getSize() : "Invalid task index";
-            try {
-                return new UnmarkTaskCommand(taskId, this.taskList);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(" Invalid task index. Type 'list' to list out your tasks. ");
-            }
-        } catch (NumberFormatException e) {
-            throw new DukeException(" The task index you've input is not an integer. ");
+            return new UnmarkTaskCommand(taskId, this.taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(" The index of task cannot be empty.");
+            throw new InvalidTaskIndexException();
+        } catch (NumberFormatException e) {
+            throw new JudyException("The task index you've input is not an integer. ");
         }
     }
 
@@ -141,21 +140,19 @@ public class Parser {
      *
      * @param commandParts The parts of the user input after splitting by space.
      * @return a DeleteCommand based on user's input.
-     * @throws DukeException if user entered empty or invalid index.
+     * @throws JudyException if user entered empty or invalid index.
      */
-    private Command handleDelete(String[] commandParts) throws DukeException {
-        assert commandParts.length == 2 : "Invalid delete format";
+    private Command handleDelete(String[] commandParts) throws JudyException {
+        if (isEmptyDescription(commandParts)) {
+            throw new JudyException("The index of task cannot be empty. ");
+        }
         try {
             int taskIndex = Integer.parseInt(commandParts[1].trim()) - 1;
-            try {
-                return new DeleteTaskCommand(taskIndex, taskList);
-            } catch (IndexOutOfBoundsException e) {
-                throw new DukeException(" Invalid task index. Type 'list' to list out your tasks. ");
-            }
+            return new DeleteTaskCommand(taskIndex, taskList);
         } catch (IndexOutOfBoundsException e) {
-            throw new DukeException(" The index of task cannot be empty. ");
+            throw new InvalidTaskIndexException();
         } catch (NumberFormatException e) {
-            throw new DukeException(" The task index you've input is not an integer. ");
+            throw new JudyException("The task index you've input is not an integer. ");
         }
     }
 
@@ -163,13 +160,11 @@ public class Parser {
      * Parses a todo input.
      *
      * @return a Todo based on user's input.
-     * @throws DukeException if user left the description empty.
+     * @throws JudyException if user left the description empty.
      */
-    private static Todo handleTodo(String[] todo) throws DukeException {
-        assert todo.length == 2: "Invalid todo format";
-        if (todo.length != 2 || todo[1].isEmpty()) {
-            throw new DukeException(" The description of a todo cannot be empty :c \n"
-                    + " (Eg format: todo <Description> )");
+    private static Todo handleTodo(String[] todo) throws JudyException {
+        if (isEmptyDescription(todo)) {
+            throw new InvalidTodoException();
         }
         return new Todo(todo[1]);
     }
@@ -178,30 +173,22 @@ public class Parser {
      * Parses a deadline input.
      *
      * @return a Deadline based on user's input.
-     * @throws DukeException if user left the description empty or entered invalid format.
+     * @throws JudyException if user left the description empty or entered invalid format.
      */
-    private static Deadline handleDeadline(String[] deadline) throws DukeException {
-        assert deadline.length == 2 && deadline[1].contains("/by"): "Invalid deadline format";
-        if (deadline.length != 2 || deadline[1].isEmpty()) {
-            throw new DukeException(" The description of a deadline cannot be empty.");
+    private static Deadline handleDeadline(String[] commandParts) throws JudyException {
+        if (isEmptyDescription(commandParts)) {
+            throw new JudyException("The description of a deadline cannot be empty.");
+        }
+        String deadlineDetails = commandParts[1];
+        if (deadlineDetails.contains("/by")) {
+            String[] deadlineParts = deadlineDetails.split("/by ", 2);
+            String taskDescription = deadlineParts[0].trim();
+            String by = deadlineParts[1].trim();
+
+            LocalDateTime byDateTime = parseDateTime(by);
+            return new Deadline(taskDescription, byDateTime);
         } else {
-            String[] parts = deadline[1].split("/by ", 2);
-            assert parts.length == 2 : "Invalid deadline format";
-            if (parts.length == 2) {
-                String taskDescription = parts[0].trim();
-                String by = parts[1].trim();
-                LocalDateTime byDateTime;
-                try {
-                    DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                    byDateTime = LocalDateTime.parse(by, pattern);
-                } catch (DateTimeParseException e) {
-                    throw new DukeException(" Invalid date format! Please use yyyy-MM-dd HHmm.");
-                }
-                return new Deadline(taskDescription, byDateTime);
-            } else {
-                throw new DukeException(" Invalid format :c \n"
-                        + " (Eg format: deadline <Description> /by yyyy-MM-dd HHmm)");
-            }
+            throw new InvalidDeadlineException();
         }
     }
 
@@ -209,38 +196,26 @@ public class Parser {
      * Parses an event input.
      *
      * @return an Event based on user's input.
-     * @throws DukeException if user left the description empty or entered invalid format.
+     * @throws JudyException if user left the description empty or entered invalid format.
      */
-    private static Event handleEvent(String[] event) throws DukeException {
-        assert event.length == 2 && event[1].contains("/from") && event[1].contains("to") : "invalid event format";
-        if (event.length != 2 || event[1].isEmpty()) {
-            throw new DukeException(" The description of an event cannot be empty.");
+    private static Event handleEvent(String[] commandParts) throws JudyException {
+        if (isEmptyDescription(commandParts)) {
+            throw new JudyException("The description of an event cannot be empty. ");
+        }
+        String eventDetails = commandParts[1];
+        if (eventDetails.contains("/from") && eventDetails.contains("/to")) {
+            String[] eventParts = eventDetails.split("/from ", 2);
+            String taskDescription = eventParts[0].trim();
+
+            String[] eventDates = eventParts[1].split("/to ", 2);
+            String from = eventDates[0].trim();
+            String to = eventDates[1].trim();
+
+            LocalDateTime fromDateTime = parseDateTime(from);
+            LocalDateTime toDateTime = parseDateTime(to);
+            return new Event(taskDescription, fromDateTime, toDateTime);
         } else {
-            String[] eventParts = event[1].split("/from ", 2);
-            if (eventParts.length == 2) {
-                String taskDescription = eventParts[0].trim();
-                String[] eventDetails = eventParts[1].split("/to ");
-                if (eventDetails.length == 2) {
-                    String from = eventDetails[0].trim();
-                    String to = eventDetails[1].trim();
-                    LocalDateTime fromDateTime;
-                    LocalDateTime toDateTime;
-                    try {
-                        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-                        fromDateTime = LocalDateTime.parse(from, pattern);
-                        toDateTime = LocalDateTime.parse(to, pattern);
-                    } catch (DateTimeParseException e) {
-                        throw new DukeException(" Invalid date/time format! Please use yyyy-MM-dd HHmm. ");
-                    }
-                    return new Event(taskDescription, fromDateTime, toDateTime);
-                } else {
-                    throw new DukeException(" Oops! Invalid format :c \n "
-                            + " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
-                }
-            } else {
-                throw new DukeException(" Oops! Invalid format :c \n "
-                        + " (Try this: event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm)");
-            }
+            throw new InvalidEventException();
         }
     }
 
@@ -248,13 +223,38 @@ public class Parser {
      * Parses a find task input.
      *
      * @return a FindTaskCommand based on user's input.
-     * @throws DukeException if user left the description empty.
+     * @throws JudyException if user left the description empty.
      */
-    private FindTaskCommand handleFind(String[] input) throws DukeException {
-        assert input.length == 2 : "Invalid find format.";
-        if (input.length != 2 || input[1].isEmpty()) {
-            throw new DukeException("The description of find cannot be empty.");
+    private FindTaskCommand handleFind(String[] input) throws JudyException {
+        if (isEmptyDescription(input)) {
+            throw new JudyException("The description of find cannot be empty. ");
         }
         return new FindTaskCommand(this.taskList, input[1]);
+    }
+
+    /**
+     * Parses a date time from a string format to a LocalDateTime format.
+     *
+     * @param inputDateTIme a String format date time entered by users.
+     * @return a LocalDateTime with respect to the input date time string entered.
+     * @throws InvalidDateTimeException if encountered invalid date time format.
+     */
+    public static LocalDateTime parseDateTime(String inputDateTIme) throws InvalidDateTimeException {
+        DateTimeFormatter pattern = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        try {
+            return LocalDateTime.parse(inputDateTIme, pattern);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException();
+        }
+    }
+
+    /**
+     * Checks if the user input has empty description.
+     *
+     * @param commandParts user input split.
+     * @return boolean indicating if there is an empty description.
+     */
+    private static boolean isEmptyDescription(String[] commandParts) {
+        return (commandParts.length != 2) || (commandParts[1].isEmpty());
     }
 }
