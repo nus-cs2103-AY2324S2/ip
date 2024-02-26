@@ -10,6 +10,7 @@ import command.ExitCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
+
 import task.TaskList;
 
 /**
@@ -18,18 +19,18 @@ import task.TaskList;
 public class Parser {
     private StringTokenizer st;
     private String command;
-    private TaskList taskList;
+    private TaskList tasks;
 
     /**
      * Creates an instance of a Parser object to parse the user input.
      * 
      * @param fullCommand The entire user input.
-     * @param taskList The list of tasks.
+     * @param tasks The list of tasks.
      */
-    public Parser(String fullCommand, TaskList taskList) {
+    public Parser(String fullCommand, TaskList tasks) {
         st = new StringTokenizer(fullCommand);
         command = st.nextToken().toLowerCase();
-        this.taskList = taskList;
+        this.tasks = tasks;
     }
 
     /**
@@ -42,32 +43,40 @@ public class Parser {
      * @throws NoSuchElementException If the user input is invalid
      * @throws DukeException If there are other unexpected errors
      */
-    public Command parse() throws IndexOutOfBoundsException, NumberFormatException, NoSuchElementException, DukeException {
+    public Command parse() throws IndexOutOfBoundsException, NumberFormatException,
+            NoSuchElementException, DukeException {
+
         Command cmd;
         switch (command) {
         case "list":
-            cmd = new ListCommand(taskList);
+            cmd = new ListCommand(tasks);
             return cmd;
+
         case "mark":
             int indexOfTaskToMark = Integer.parseInt(st.nextToken());
-            cmd = new MarkCommand(taskList, indexOfTaskToMark);
+            cmd = new MarkCommand(tasks, indexOfTaskToMark);
             return cmd;
+
         case "unmark":
             int indexOfTaskToUnmark = Integer.parseInt(st.nextToken());
-            cmd = new UnmarkCommand(taskList, indexOfTaskToUnmark);
+            cmd = new UnmarkCommand(tasks, indexOfTaskToUnmark);
             return cmd;
+
         case "delete":
             int indexOfTaskToDelete = Integer.parseInt(st.nextToken());                
-            cmd = new DeleteCommand(taskList, indexOfTaskToDelete);
+            cmd = new DeleteCommand(tasks, indexOfTaskToDelete);
             return cmd;
+
         case "todo":
         case "deadline":
         case "event":
-            cmd = new AddCommand(command, taskList, st);
+            cmd = new AddCommand(command, tasks, st);
             return cmd;
+
         case "bye":
             cmd = new ExitCommand();
             return cmd;
+
         default:
             throw new DukeException("OOPS!! Pls try again. :)");
         }

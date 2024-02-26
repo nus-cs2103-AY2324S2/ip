@@ -16,8 +16,8 @@ public class Ui {
      * Shows the start up message upon successful loading of the program.
      */
     public void showWelcome() {
-        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" +
-                "What can I do for you?";
+        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" 
+                + "What can I do for you?";
         System.out.println(welcomeMessage);
         showLine();
     }

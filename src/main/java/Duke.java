@@ -1,16 +1,13 @@
 import java.util.NoSuchElementException;
-import java.util.StringTokenizer;
 
 import command.Command;
+
 import common.DukeException;
 import common.Parser;
 import common.Storage;
 import common.Ui;
-import task.Deadline;
-import task.Event;
-import task.Task;
+
 import task.TaskList;
-import task.ToDo;
 
 /**
  * The Duke program implements a chatbot, now named NextGenerationJarvis, that keeps track of tasks for the user.
@@ -38,10 +35,12 @@ public class Duke {
     public void run() {
         ui.showWelcome();
         boolean isExit = false;
+
         while (!isExit) {
             try {
                 String userInput = ui.readCommand();
                 Ui.showLine();
+
                 Command cmd = new Parser(userInput, tasks).parse();
                 cmd.execute();
                 isExit = cmd.isExit();

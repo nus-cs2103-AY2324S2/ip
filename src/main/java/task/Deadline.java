@@ -19,8 +19,10 @@ public class Deadline extends Task {
      */
     public Deadline(String taskName, String deadline) throws DukeException {
         super(taskName);
+
         try {
             this.deadline = LocalDateTime.parse(deadline, receivingFormatter);
+
         } catch (DateTimeParseException e) {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: dd/MM/yyyy-HHmm\n"
@@ -34,8 +36,10 @@ public class Deadline extends Task {
      */
     public Deadline(boolean isDone, String taskName, String deadline) throws DukeException {
         super(isDone, taskName);
+
         try {
             this.deadline = LocalDateTime.parse(deadline, printingFormatter);
+            
         } catch (DateTimeParseException e) {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"
