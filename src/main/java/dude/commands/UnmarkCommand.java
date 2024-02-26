@@ -15,8 +15,8 @@ public class UnmarkCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructor for the UnmarkCommand class. Returns a command object to mark a task as not done in the task list upon
-     * execution.
+     * Constructor for the UnmarkCommand class. Returns a command object to mark a task as not done in the task
+     * list upon execution.
      *
      * @param input    The input string that resulted in the creation of this command.
      * @param tasklist The TaskList object in which the task is to be marked as not done.
