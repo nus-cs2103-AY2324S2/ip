@@ -39,6 +39,15 @@ public class Task {
         return "T | " + done + " | " + super.toString() + "\n";
     }
 
+    /**
+     * Returns the comparison of the description of the tasks, used for sorting.
+     *
+     * @return Integer representing the comparison of the description of the tasks.
+     */
+    public int compareTo(Task t) {
+        return this.description.compareTo(t.description);
+    };
+
     @Override
     public String toString() {
         return this.description;

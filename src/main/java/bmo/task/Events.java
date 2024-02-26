@@ -49,6 +49,21 @@ public class Events extends Task {
                 + startStr + " | " + endStr + "\n";
     }
 
+    /**
+     * Returns the comparison of the start time of the events, used for sorting.
+     *
+     * @return Integer representing the comparison of the start time of the events.
+     */
+    @Override
+    public int compareTo(Task t) {
+        if (t instanceof Events) {
+            Events e = (Events) t;
+            return this.start.compareTo(e.start);
+        } else {
+            return super.compareTo(t);
+        }
+    }
+
     @Override
     public String toString() {
         return "[E] " + super.toString() + " (from: " + getStart() + " to: " + getEnd() + ")";

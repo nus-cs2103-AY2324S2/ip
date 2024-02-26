@@ -39,6 +39,21 @@ public class Deadlines extends Task {
         return "D | " + done + " | " + super.toString() + " | " + deadlineStr + "\n";
     }
 
+    /**
+     * Returns the comparison of the deadline of the tasks, used for sorting.
+     *
+     * @return Integer representing the comparison of the deadline of the tasks.
+     */
+    @Override
+    public int compareTo(Task t) {
+        if (t instanceof Deadlines) {
+            Deadlines d = (Deadlines) t;
+            return this.deadline.compareTo(d.deadline);
+        } else {
+            return super.compareTo(t);
+        }
+    }
+
     @Override
     public String toString() {
         return "[D] " + super.toString() + " (by: " + getDeadline() + ")";
