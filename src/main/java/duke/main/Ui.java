@@ -135,4 +135,19 @@ public class Ui {
         return "Removing note " + i + ". ";
     }
 
+    public String printHelp() {
+        return "List of available commands:"
+                + "\n\n list: view currently stored tasks "
+                + "\ntodo (task name): add a new todo task"
+                + "\ndeadline (task name) /by (due date): add a new deadline task"
+                + "\nevent (task name) /from (start time) /to (end time): add a new event task"
+                + "\nmark (index): mark a task as done"
+                + "\nunmark (index): mark a task as not done"
+                + "\ndelete (index): delete a task"
+                + "\nnotes: view currently stored notes"
+                + "\nwrite (note): add a new note"
+                + "\nremove (index): remove a note"
+                + "\nbye: close programme";
+    }
+
 }

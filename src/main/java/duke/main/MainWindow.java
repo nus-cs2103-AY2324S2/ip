@@ -3,12 +3,13 @@ package duke.main;
 import java.io.IOException;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -27,9 +28,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/bot.jpg"));
-
-
-
+    public MainWindow() {}
     public void setProgramme(TalkingBox b) {
         main = b;
     }
@@ -37,6 +36,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setBackground(new Background(new BackgroundFill(Color.rgb(235, 255, 255), null, null)));
         showInit();
     }
 
@@ -45,7 +45,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() throws IOException {
+    private void handleUserInput() {
         String input = userInput.getText();
         String response;
         if (main.parser.isExit(input)) {
@@ -65,7 +65,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void showInit() {
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog("Hello! What tasks do you have?", dukeImage));
+                DialogBox.getDukeDialog("Hello! What tasks do you have? (type 'help' for a list of available commands)", dukeImage));
     }
 }
 

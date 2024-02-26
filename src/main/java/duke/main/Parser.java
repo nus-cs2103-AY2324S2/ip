@@ -42,7 +42,6 @@ public class Parser {
         try {
             TaskType type = TaskType.valueOf(commandType);
             String details = input.substring(taskEnd + 1);
-
             switch (type) {
             case bye:
                 return this.ui.printExitMessage();
@@ -104,13 +103,19 @@ public class Parser {
             case notes:
                 return this.ui.printAllNotes();
             case remove:
-                this.notesList.remove(Integer.parseInt(details) - 1);
-                return this.ui.printOnDeleteNote(Integer.parseInt(details));
+                try {
+                    this.notesList.remove(Integer.parseInt(details));
+                    return this.ui.printOnDeleteNote(Integer.parseInt(details));
+                } catch (ArrayIndexOutOfBoundsException e) {
+                    return Ui.printException(e);
+                }
+            case help:
+                return this.ui.printHelp();
             default:
                 throw new UnknownInputException();
             }
         } catch (IllegalArgumentException | InvalidIndexException | UnknownInputException e) {
-            return this.ui.printException(e);
+            return Ui.printException(new UnknownInputException());
         }
     }
 }

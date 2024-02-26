@@ -1,5 +1,7 @@
 package duke.main;
 
+import duke.exception.FileNotFoundException;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +10,9 @@ import java.util.ArrayList;
 public class NotesList {
     private final ArrayList<String> notesList;
     public NotesList() {
-        this.notesList = Storage.readNotes();
+        ArrayList<String> notesList1;
+        notesList1 = Storage.readNotes();
+        this.notesList = notesList1;
     }
     public void add(String note) {
         assert !note.isEmpty();

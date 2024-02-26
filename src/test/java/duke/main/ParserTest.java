@@ -6,11 +6,16 @@ import org.junit.jupiter.api.Test;
 
 import duke.task.ToDo;
 
+import java.io.FileNotFoundException;
+
 public class ParserTest {
     private TaskList tempList = new TaskList();
     private NotesList tempNotes = new NotesList();
     private Ui tempUI = new Ui(tempList, tempNotes);
     private Parser tempParse = new Parser(tempList, tempUI, tempNotes);
+
+    public ParserTest() throws FileNotFoundException {
+    }
 
     @Test
     public void task_parse_success() {

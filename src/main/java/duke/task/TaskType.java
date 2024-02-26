@@ -45,5 +45,6 @@ public enum TaskType {
         notes,
         remove,
 
-        bye;
+        bye,
+        help;
 }
