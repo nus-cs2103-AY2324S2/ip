@@ -98,7 +98,7 @@ public class Deadline extends Task {
         String prev_desc = description;
         description = !args[0].isBlank() ?  args[0] + " " : description;
 
-        this.by = LocalDate.parse(args[1]);
+        this.by = args.length == 2 ? LocalDate.parse(args[1]) : LocalDate.parse(args[0]);
         return "Alright, I have changed your task from " + prev_desc + " to " + description + "\n"
                 + "and the due time to " + by.format(DateTimeFormatter.ofPattern("dd MMM yyyy")) ;
     }
