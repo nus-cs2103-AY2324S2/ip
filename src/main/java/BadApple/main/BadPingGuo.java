@@ -18,14 +18,14 @@ import static BadApple.task.Storage.loadSave;
  * note: PingGuo means Apple.
  */
 public class BadPingGuo {
-    public static final String FILENAME = "src/main/data/whiteSpace.txt";
+    public static final String FILENAME = "../data/whiteSpace.txt";
 
     private boolean isMakingFile = false;
     private final Image Mari = new Image(this.getClass().getResourceAsStream("/images/MARI.png"));
 
     public DialogBox getInitialList() {
         try {
-            File file = new File("src/main/data/whiteSpace.txt");
+            File file = new File("../data/whiteSpace.txt");
             FileReader fr = new FileReader(file);
 
             String tasks = TaskList.listTasks(new BufferedReader(fr));
@@ -46,8 +46,8 @@ public class BadPingGuo {
 
     public static String makeFile() {
         try {
-            File f1 = new File("src/main/data");
-            File f = new File("src/main/data/whiteSpace.txt");
+            File f1 = new File("../data");
+            File f = new File("../data/whiteSpace.txt");
             if (f1.mkdir() && f.createNewFile()) return "Welcome to headspace!";
         } catch (IOException e) {
             return "Humphrey has denied your entrance to white space! \n " +

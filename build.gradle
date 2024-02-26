@@ -42,7 +42,7 @@ test {
 }
 
 application {
-    mainClass.set("BadApple.main.BadPingGuo")
+    mainClass.set("BadApple.main.Launcher")
 }
 
 shadowJar {
