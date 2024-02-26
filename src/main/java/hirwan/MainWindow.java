@@ -1,5 +1,9 @@
 package hirwan;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -7,6 +11,9 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
+import java.util.Objects;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -35,6 +42,7 @@ public class MainWindow extends AnchorPane {
 
     /**
      * initialises the hirwan object
+     *
      * @param d the hirwan object initialised
      */
     public void setHirwan(Hirwan d) {
@@ -54,6 +62,12 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getHirwanDialog(response, hirwanImage)
         );
         userInput.clear();
+
+        if (Objects.equals(input, "bye")) {
+            ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
+            scheduler.schedule(Platform::exit, 2, TimeUnit.SECONDS);
+            scheduler.shutdown();
+        }
     }
 
     /**
