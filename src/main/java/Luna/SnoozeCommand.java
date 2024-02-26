@@ -31,7 +31,7 @@ public class SnoozeCommand extends Command{
 
         } else {
             tl.snoozeEntry(index, days);
+            ui.shiftedPrint("Snoozed " + tl.getEntry(index).task + " by " + days + " days.");
         }
-
     }
 }

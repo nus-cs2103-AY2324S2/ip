@@ -31,6 +31,7 @@ public class EventCommand extends Command {
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         tl.add(new ListEntryEvent(taskName, false, startDate, endDate));
+        ui.shiftedPrint("Added Deadline task");
     }
 
 }

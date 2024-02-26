@@ -28,6 +28,7 @@ public class DeadlineCommand extends Command {
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         tl.add(new ListEntryDeadline(taskName, false, endDate));
+        ui.shiftedPrint("Added Deadline task");
     }
 
 }

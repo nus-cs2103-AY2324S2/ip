@@ -24,6 +24,7 @@ public class TodoCommand extends Command {
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         tl.add(new ListEntryTodo(taskName, false));
+        ui.shiftedPrint("Added Deadline task");
     }
 
 }

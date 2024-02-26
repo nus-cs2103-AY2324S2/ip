@@ -22,5 +22,7 @@ public class SaveCommand extends Command {
         super.execute(tl, ui, storage);
         storage.clearFile();
         storage.appendList(tl);
+        ui.shiftedPrint("Save tasks to files");
+
     }
 }

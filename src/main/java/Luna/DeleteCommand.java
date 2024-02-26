@@ -24,9 +24,10 @@ public class DeleteCommand extends Command{
         super.execute(tl, ui, storage);
         if (tl.isValidIndex(index)) {
             tl.delete(index);
+            ui.shiftedPrint("Deleted a task from the list");
+            ui.showList(tl);
         } else {
             new InvalidCommand("index not in range of list").execute(tl, ui, storage);
         }
-        ui.showList(tl);
     }
 }

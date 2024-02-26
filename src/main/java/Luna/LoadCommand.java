@@ -22,5 +22,6 @@ public class LoadCommand extends Command {
         super.execute(tl, ui, storage);
         tl.clear();
         storage.loadList(tl);
+        ui.shiftedPrint("Loaded tasks from files");
     }
 }

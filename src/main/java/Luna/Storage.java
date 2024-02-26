@@ -72,9 +72,7 @@ public class Storage {
             FileWriter myWriter = new FileWriter(listFile, true);
             myWriter.write(str);
             myWriter.close();
-            System.out.println("Successfully wrote to the file.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
 //            e.printStackTrace();
         }
     }
@@ -108,9 +106,8 @@ public class Storage {
             FileWriter myWriter = new FileWriter(listFile);
             myWriter.write("");
             myWriter.close();
-            System.out.println("Successfully cleared the file.");
         } catch (IOException e) {
-            System.out.println("An error occurred.");
+            e.getStackTrace();
         }
     }
 
