@@ -1,0 +1,18 @@
+/* @@author VietAnh1010-reused */
+/* Reused from https://github.com/VietAnh1010/ip */
+/* With minor modifications */
+.background {
+    -fx-background-image: url("../images/background.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-size: cover;
+}
+.liv-text-box {
+    -fx-background-color: rgba(250, 40, 250, 0.7);
+    -fx-background-radius: 25px;
+    -fx-padding: 10;
+}
+.user-text-box {
+    -fx-background-color: rgba(50, 220, 240, 0.7);
+    -fx-background-radius: 25px;
+    -fx-padding: 10;
+}
