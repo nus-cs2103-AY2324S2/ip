@@ -2,6 +2,7 @@ package univus;
 
 import java.util.Scanner;
 
+import univus.exceptions.UnivusException;
 import univus.task.TaskList;
 
 /**
