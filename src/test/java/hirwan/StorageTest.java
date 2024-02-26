@@ -12,14 +12,14 @@ import java.util.Scanner;
 public class StorageTest {
     @Test
     public void newFileReadTest() {
-        String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+        String FILE_PATH = "src\\main\\java\\data\\hirwan.txt";
         File file = new File(FILE_PATH);
         assertEquals(true, file.exists());
     }
 
     @Test
     public void writeTask_StringList_() {
-        String FILE_PATH = "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+        String FILE_PATH = "src\\main\\java\\data\\hirwan.txt";
         List<String> listToWrite = new ArrayList<>();
         listToWrite.add("1");
         listToWrite.add("2");

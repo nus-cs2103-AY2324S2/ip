@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 class Storage {
     static List<String> tasks = new ArrayList<>();
     static String FILE_PATH =
-            "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
+            "src\\main\\java\\data\\hirwan.txt";
 
     /**
      * The read method that reads in the data from the text file that stores the list into the hard disk
@@ -51,5 +51,4 @@ class Storage {
             e.printStackTrace();
         }
     }
-
 }

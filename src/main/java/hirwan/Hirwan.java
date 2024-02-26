@@ -28,9 +28,6 @@ public class Hirwan {
         return this.parseInput(input);
     }
 
-    static final String FILE_PATH =
-            "C:\\Users\\eugen\\Documents\\National University of Singapore\\Y2S2\\CS2103T\\IP\\src\\main\\java\\data\\hirwan.txt";
-
     /**
      * The main method of the program. This method is the entry point
      * when the program is executed.
@@ -94,6 +91,7 @@ public class Hirwan {
                 output = "Error: I am sorry but I do not recognise this command";
             } else {
                 output = "Bye. Hope to see you again soon!";
+
             }
         } catch (Exception e) {
             output = e.getMessage();

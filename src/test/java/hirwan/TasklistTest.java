@@ -18,10 +18,4 @@ public class TasklistTest {
             assertEquals("Index 3 out of bounds for length 1", e.getMessage());
         }
     }
-
-//    @Test
-//    public void printList() {
-//
-//        assertEquals(4, 4);
-//    }
 }

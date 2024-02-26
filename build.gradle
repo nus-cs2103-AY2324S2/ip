@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("hirwan.Main")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "hirwan"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
     archiveFileName = 'hirwan.jar'
@@ -57,4 +57,4 @@ run{
     standardInput = System.in
 }
 
-mainClassName = 'hirwan.hirwan'
+mainClassName = 'hirwan.Main'
