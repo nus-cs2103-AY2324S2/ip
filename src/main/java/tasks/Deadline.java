@@ -10,7 +10,6 @@ import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
     private LocalDateTime by;
 
-
     /**
      * Constructs a new Deadline instance.
      *

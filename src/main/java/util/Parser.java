@@ -67,6 +67,7 @@ public class Parser {
         int count = 1;
         StringBuilder result = new StringBuilder();
 
+        // extract the keyword to match with existing tasks' descriptions.
         String keyword = tokens[1].trim();
         ArrayList<Task> tasks = taskList.getAllTasks();
         for (Task task : tasks) {
