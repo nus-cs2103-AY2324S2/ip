@@ -6,6 +6,8 @@ Chimp stores your tasks in a human-readable format under
 
 Chimp provides the following commands
 
+> Note: dates are expected to be in the format yyyy-mm-dd
+
 ### List (`list`/`ls`)
 Displays the current list of tasks <br>
 
