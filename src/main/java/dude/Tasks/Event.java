@@ -33,21 +33,18 @@ public class Event extends Task {
 
     /**
      * Static method to create an Event object from parsing a string.
+     * Expects a string in the format "event <description> /at <fromTime> to <toTime>"
      *
-     * @param s The string to be parsed into an Event object.
+     * @param input The string to be parsed into an Event object.
      * @return The Event object created from the string.
      * @throws InvalidArgumentException If the 'from_time' or 'to_time' of the event is empty.
      * @throws InvalidFormatException If the format of the string is invalid.
      * @throws InvalidDescriptionException If the description of the event is empty.
      */
-    public static Event from(String s) throws InvalidArgumentException,
+    public static Event from(String input) throws InvalidArgumentException,
             InvalidFormatException, InvalidDescriptionException {
-        //Expects a string in the format "event <description> /at <fromTime> to <toTime>"
 
-        //get rid of the command
-        // <description> </from> time </to> time
-        String rest = utils.discardFirstWord(s.trim()).trim();
-
+        String rest = utils.discardFirstWord(input.trim()).trim();
         String[] arr = rest.split(" ");
 
         int fromOccurences = utils.countOccurrences(arr, "/from");
@@ -57,9 +54,9 @@ public class Event extends Task {
                     + ". Provide one and only one '/from'.");
         }
 
-        int toOccurences = utils.countOccurrences(arr, "/to");
+        int toOccurrences = utils.countOccurrences(arr, "/to");
 
-        if (toOccurences == 0 || toOccurences > 1) {
+        if (toOccurrences == 0 || toOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT
                     + ". Provide one and only one '/to'.");
         }

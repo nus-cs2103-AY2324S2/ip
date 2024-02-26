@@ -6,6 +6,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Task class represents a task with a description and a status.
+ */
 public class Task implements Serializable {
     private final String description;
     private boolean isDone;
