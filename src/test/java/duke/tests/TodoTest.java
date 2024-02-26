@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import duke.tasks.ToDo;
 
 public class TodoTest {
-    
     /**
      * JUnit test method for the {@link duke.tasks.ToDo#toString()} method.
      * Tests the string representation of a ToDo task.
