@@ -17,13 +17,14 @@ public class TextUi {
     private static final String HELP_MESSAGE = "If confused, type 'help' for a list of commands you can use!\n";
     private static final String FIND_MESSAGE = "Here are the matching tasks in your list:\n";
     private static final String COMMANDS = "Here is a list of commands you can use:\n"
-            + "'list'\n"
-            + "mark/unmark [task number]\n"
-            + "delete [task number]\n"
-            + "todo [task name]\n"
-            + "deadline [task name] /by yyyy-mm-dd HHmm\n"
-            + "event [task name] /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm\n"
-            + "'bye'\n";
+            + "\n"
+            + " 'list' to list all the tasks you have.\n"
+            + " 'mark/unmark' [task number] to mark or unmark a particular task,\n"
+            + " 'delete' [task number] to delete a particular task.\n"
+            + " 'todo' [task name] to create a todo task.\n"
+            + " 'deadline' [task name] /by yyyy-mm-dd HHmm to create a deadline task.\n"
+            + " 'event' [task name] /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm to create a deadline task.\n"
+            + " 'bye' to exit.\n";
 
     /**
      * Generates a find message for the user.
