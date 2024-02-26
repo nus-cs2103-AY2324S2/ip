@@ -1,5 +1,6 @@
 package SamuelBot;
 
+import java.util.List;
 import java.util.Scanner;
 
 /**
@@ -52,5 +53,12 @@ public class Ui {
      */
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon! Have a nice day!");
+    }
+
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
     }
 }

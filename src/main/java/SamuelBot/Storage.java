@@ -1,4 +1,5 @@
 package SamuelBot;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -6,14 +7,29 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-class Storage {
+
+/**
+ * The Storage class handles the loading and saving of tasks from/to a file.
+ */
+public class Storage {
     private final String filePath;
 
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The path to the file where tasks will be saved and loaded from.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
         createNewFile();
     }
 
+    /**
+     * Parses a task from a string representation.
+     *
+     * @param line The string representation of the task.
+     * @return The parsed Task object.
+     */
     private Task parseTaskFromString(String line) {
         String[] parts = line.split("\\|");
         if (parts.length >= 3) {
@@ -50,44 +66,20 @@ class Storage {
         return null;
     }
 
-
+    /**
+     * Loads tasks from the file specified in the filePath.
+     *
+     * @return The list of tasks loaded from the file.
+     */
     public List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
             while (scanner.hasNextLine()) {
                 String line = scanner.nextLine();
-                String[] parts = line.split("\\|");
-                if (parts.length >= 3) {
-                    String type = parts[0].trim();
-                    String status = parts[1].trim();
-                    String description = parts[2].trim();
-                    switch (type) {
-                        case "T":
-                            tasks.add(new Todo(description));
-                            break;
-                        case "D":
-                            if (parts.length >= 4) {
-                                String by = parts[3].trim();
-                                tasks.add(new Deadline(description, by));
-                            } else {
-                                System.out.println("Incomplete input for deadline task.");
-                            }
-                            break;
-                        case "E":
-                            if (parts.length >= 5) {
-                                String from = parts[3].trim();
-                                String to = parts[4].trim();
-                                tasks.add(new Event(description, from, to)); // Event does not take status as parameter
-                            } else {
-                                System.out.println("Incomplete input for event task.");
-                            }
-                            break;
-                        default:
-                            System.out.println("Unknown task type: " + type);
-                            break;
-                    }
-                } else {
-                    System.out.println("Incomplete input: " + line);
+                // Parse each line and create Task objects
+                Task task = parseTaskFromString(line);
+                if (task != null) {
+                    tasks.add(task);
                 }
             }
         } catch (FileNotFoundException e) {
@@ -96,6 +88,11 @@ class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the list of tasks to the file specified in the filePath.
+     *
+     * @param taskList The list of tasks to be saved.
+     */
     public void saveTasksToFile(List<Task> taskList) {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : taskList) {
@@ -106,6 +103,9 @@ class Storage {
         }
     }
 
+    /**
+     * Creates a new file if it does not exist.
+     */
     private void createNewFile() {
         try {
             File file = new File(filePath);
