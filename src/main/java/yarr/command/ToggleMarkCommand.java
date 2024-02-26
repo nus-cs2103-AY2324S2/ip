@@ -40,7 +40,7 @@ public class ToggleMarkCommand extends Command {
         String message;
         if (isDone) {
             super.tasks.markTask(index);
-            message = "X marks the spot. I've crossed this task of yer list, me heartie!\n"
+            message = "X marks the spot. I've crossed this task off yer list, me heartie!\n"
                     + super.tasks.printTask(index);
         } else {
             super.tasks.unmarkTask(index);

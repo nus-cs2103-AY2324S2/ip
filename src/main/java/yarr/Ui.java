@@ -2,6 +2,7 @@ package yarr;
 
 import java.util.ArrayList;
 
+import javafx.util.Pair;
 import yarr.task.Task;
 
 /**
@@ -73,8 +74,31 @@ public class Ui {
         response += message + "\n";
         int count = 1;
         for (Task task : tasks) {
-            System.out.println(count + "." + task.toString());
-            response += count + "." + task.toString() + "\n";
+            System.out.println(count + ". " + task.toString());
+            response += count + ". " + task.toString() + "\n";
+            count += 1;
+        }
+        printDivider();
+        return response;
+    }
+
+    /**
+     * Returns string from an ArraylList of pairs of Task objects and their indexes
+     * and a message as a numbered list of tasks with their original indexes.
+     * Additionally prints the list to the console with section dividers above and below.
+     *
+     * @param message a String containing the message to be printed before the list
+     * @param tasks an ArrayList of Pairs of Task objects and their indexes to be printed as a numbered list
+     */
+    public String displaySearchedList(String message, ArrayList<Pair<Task, Integer>> tasks) {
+        String response = "";
+        printDivider();
+        System.out.println(message);
+        response += message + "\n";
+        int count = 1;
+        for (Pair<Task, Integer> task : tasks) {
+            System.out.println(count + ". " + task.getKey().toString() + " index: " + task.getValue());
+            response += count + ". " + task.getKey().toString() + " [index: " + task.getValue().toString() + "]\n";
             count += 1;
         }
         printDivider();

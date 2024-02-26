@@ -3,6 +3,7 @@ package yarr;
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
+import javafx.util.Pair;
 import yarr.task.Task;
 
 /**
@@ -112,12 +113,14 @@ public class TaskList {
      * @return an ArrayList containing all matches found with the keyword
      * @throws NoSuchElementException if there are no matches found in the task list
      */
-    public ArrayList<Task> findTasks(String keyword) throws NoSuchElementException {
-        ArrayList<Task> matches = new ArrayList<>();
+    public ArrayList<Pair<Task, Integer>> findTasks(String keyword) throws NoSuchElementException {
+        ArrayList<Pair<Task, Integer>> matches = new ArrayList<>();
+        int index = 1;
         for (Task task : tasks) {
             if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
-                matches.add(task);
+                matches.add(new Pair<>(task, index));
             }
+            index++;
         }
         if (matches.size() == 0) {
             throw new NoSuchElementException("Avast! I be not spyin' that task on me list, matey.");

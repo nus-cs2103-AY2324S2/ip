@@ -30,7 +30,7 @@ public class ExitCommand extends Command {
         super.tasks = tasks;
         super.storage = storage;
         super.ui = ui;
-        return ui.printMessage("Fair winds to ye, me hearty! "
+        return ui.printMessage("Fair winds to ye, me hearty!\n"
                 + "May the tide carry ye safely until our paths cross again.");
     }
 

@@ -12,7 +12,7 @@ public class Event extends Task {
     protected LocalDateTime start;
     protected LocalDateTime end;
     protected DateTimeFormatter dataFormat = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
-    protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("MMM dd yyyy HHmm");
+    protected DateTimeFormatter stringFormat = DateTimeFormatter.ofPattern("MMM dd yyyy hh:mm a");
 
     /**
      * Constructs a new Event object with the specified description, start time and end time.
