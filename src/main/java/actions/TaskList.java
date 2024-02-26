@@ -3,7 +3,9 @@ package actions;
 import task.Task;
 
 import java.util.ArrayList;
-
+/**
+ * Tasklist is a class that handles the possible actions on a list of tasks
+ */
 public class TaskList {
     protected ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {

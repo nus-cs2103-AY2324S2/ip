@@ -4,6 +4,9 @@ import task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Handles the user interface of the application
+ */
 public class Ui {
     public static final String LINE = "____________________________________________________________\n";
 
