@@ -32,7 +32,7 @@ Now you have 1 tasks in the list.
 Command: `deadline <DESCRIPTION> /by <DATETIME>`<br>
 What it does: Adds a deadline task with the description and date & time of the deadline provided to the list of tasks. 
 <br>
-Note: The format of the date in <DATETIME> is dd/mm/yyyy. If the date or month is a single digit, there is no need to 
+Note: The format of the date in `<DATETIME>` is dd/mm/yyyy. If the date or month is a single digit, there is no need to 
 add an extra "0" in front (e.g. 2/3/2024 is acceptable). The format of the time is in 24-hour format (e.g. 1300). <br>
 
 Example: `deadline english assignment /by 02/12/2024 2359` <br>
@@ -49,7 +49,7 @@ Now you have 1 tasks in the list.
 Command: `event <DESCRIPTION> /from <START_TIME> /to <END_TIME>` <br>
 What it does: Adds an event task with the description, start and end time of the event provided to the list of tasks. 
 <br>
-Note: <START_TIME> and <END_TIME> both takes in a String. <br>
+Note: `<START_TIME>` and `<END_TIME>` both takes in a String. <br>
 
 Example: `event Taylor Swift concert /from Sat 6pm /to 9pm` <br>
 This adds a deadline task with the description "Taylor Swift concert", and time period from "Sat 6pm" to "9pm" to the 
