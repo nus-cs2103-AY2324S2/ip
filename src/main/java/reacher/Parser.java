@@ -68,7 +68,7 @@ public class Parser {
             c = 2;
             break;
         case DEADLINE:
-            c = 2;
+            c = 3;
             break;
         case TASK_NO:
             c = 1;
