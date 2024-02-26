@@ -1,10 +1,4 @@
 # Luna
-
-todo:
-- quick start instructions
-- (DD-MM-YYYY) format
-- submit here
-
 Luna is a desktop application for managing your tasks, optimized for usage via a GUI.
 * [Quick start](https://whitesnowx.github.io/ip/#quick-start)
 * [Features](https://whitesnowx.github.io/ip/#features)
