@@ -45,7 +45,7 @@ test {
 }
 
 application {
-    mainClass.set("reacher.Reacher")
+    mainClass.set("reacher.Launcher")
 }
 
 shadowJar {
