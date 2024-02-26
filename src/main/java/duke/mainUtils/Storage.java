@@ -59,7 +59,7 @@ public class Storage {
                     taskList.addTask(Parser.parseSaveFile(line));
                 }
             }
-        } catch (IOException e) {
+        } catch (IOException | StorageException e) {
             createSaveFile();
         } catch (InvalidDateException ex) {
             throw new StorageException();
