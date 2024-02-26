@@ -40,6 +40,8 @@ public class Storage {
                     System.out.printf("Failed to create new directory: %s%n", directory.getName());
                 }
             }
+            assert directory.exists() : "Directory should exist";
+
             listFile = new File(directory.getName() + "/" + filename + ".txt");
 
             if (success) {
@@ -49,6 +51,8 @@ public class Storage {
                     System.out.println("File already exists. " + listFile.getAbsolutePath());
                 }
             }
+            assert listFile.exists() : "File for list should exist";
+
 
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -62,6 +66,7 @@ public class Storage {
      * @param str to add to the end of the file
      */
     public void appendToFile(String str) {
+        assert listFile.exists() : "File for list should exist";
         //https://www.w3schools.com/java/java_files_create.asp
         try {
             FileWriter myWriter = new FileWriter(listFile, true);
@@ -98,6 +103,7 @@ public class Storage {
      * Clears all data from a file.
      */
     public void clearFile() {
+        assert listFile.exists() : "File for list should exist";
         try {
             FileWriter myWriter = new FileWriter(listFile);
             myWriter.write("");
@@ -114,6 +120,7 @@ public class Storage {
      * @param loadList to load all the entries into .
      */
     public void loadList(TaskList loadList) {
+        assert listFile.exists() : "File for list should exist";
         try {
             BufferedReader br = new BufferedReader(new FileReader(listFile));
             while (br.ready()) {

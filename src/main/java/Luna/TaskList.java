@@ -94,6 +94,7 @@ public class TaskList {
      */
     public void clear() {
         this.list.clear();
+        assert list.isEmpty() : "List should not contain any elements";
     }
 
 }
