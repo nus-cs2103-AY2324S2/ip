@@ -13,29 +13,47 @@
 Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
 
 ### Add task
-```todo <description>``` : add to do  
-```event <description> /from <datetime> /to <datetime>```: add a task with deadline  
-```deadline <description> /by <datetime>```: add an event  
+
+- ```todo <description>``` : add to do  
+- ```event <description> /from <datetime> /to <datetime>```: add a task with deadline  
+- ```deadline <description> /by <datetime>```: add an event  
 
 ### List all tasks
 Lists all tasks in the task list.  
+
 ```list```: list all tasks using checkbox
 
 ### Mark task as done
 Marks a task as done.  
+
 ```mark <task number>```
+- Mark a task that is already checked does nothing
+- Mark the task using TASK NUMBER shown in `list`.
+- The index must be a positive integer 1, 2, 3, …
 
 ### Unmark task as not done
-Unmarks a task as not done.  
+Unmarks a task as not done. 
+
 ```unmark <task number>```
+- Unmark an unchecked task does nothing
+- Unmark the task using TASK NUMBER shown in `list`.
+- The index must be a positive integer 1, 2, 3, …
 
 ### Delete tasks
 Deletes a task from the task list.  
+
 ```delete <task number>```
+- CDletes task one-by-one
+- Deletes the task using TASK NUMBER shown in `list`.
+- The index must be a positive integer 1, 2, 3, …
 
 ### Find tasks
 Finds tasks that match the given keyword.  
+
 ```find <keyword>```
+- The search is case-insensitive. e.g john will match John
+- Only the task description is searched.
+- Only full words will be matched e.g. read will not match reads
 
 ### Exit the program
 Exits the program.  
