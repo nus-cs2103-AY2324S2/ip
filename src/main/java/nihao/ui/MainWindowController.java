@@ -54,6 +54,7 @@ public class MainWindowController extends AnchorPane {
         if (userText.isEmpty()) {
             return;
         }
+
         String nihaoText = nihao.getResponse(inputField.getText());
         dialogueContainer.getChildren().addAll(
                 DialogueBoxController.getUserDialogue(userText, userImage),
