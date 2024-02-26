@@ -1,19 +1,20 @@
 package dude.Tasks;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
+
 import dude.Exceptions.InvalidArgumentException;
 import dude.Exceptions.InvalidDescriptionException;
 import dude.Exceptions.InvalidFormatException;
 import dude.Utils.utils;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Deadline class represents a task with a description and a deadline.
  */
 public class Deadline extends Task {
 
-    private final LocalDateTime deadline_date;
+    private final LocalDateTime deadlineDate;
 
     /**
      * Constructor for the Deadline class.
@@ -23,11 +24,12 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
-        this.deadline_date = by;
+        this.deadlineDate = by;
     }
 
     /**
      * Static method to create a Deadline object from parsing a string.
+     * Expects a string in the format "deadline <description> /by <deadline_date>".
      *
      * @param s The string to be parsed into a Deadline object.
      * @return The Deadline object created from the string.
@@ -35,7 +37,8 @@ public class Deadline extends Task {
      * @throws InvalidDescriptionException If the description of the deadline is empty.
      * @throws InvalidArgumentException    If the 'by' of the deadline is empty.
      */
-    public static Deadline from(String s) throws InvalidFormatException, InvalidDescriptionException, InvalidArgumentException {
+    public static Deadline from(String s) throws InvalidFormatException,
+            InvalidDescriptionException, InvalidArgumentException {
         //Expects a string in the format "deadline <description> /by <deadline_date>"
 
         //get rid of the command
@@ -43,39 +46,42 @@ public class Deadline extends Task {
 
         String[] arr = rest.split(" ");
 
-        int by_occurences = utils.countOccurrences(arr, "/by");
+        int byOccurences = utils.countOccurrences(arr, "/by");
 
-        if (by_occurences == 0 || by_occurences > 1){
-            throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. Provide one and only one '/by'.");
+        if (byOccurences == 0 || byOccurences > 1) {
+            throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. "
+                    + "Provide one and only one '/by'.");
         }
 
         //they will not be -1 as I have already checked for their occurences
-        int by_index = utils.findIndex(arr, "/by");
+        int byIndex = utils.findIndex(arr, "/by");
 
-        //description is from 0 to by_index
+        //description is from 0 to byIndex
         String description = "";
-        for (int i = 0; i < by_index; i++){
+        for (int i = 0; i < byIndex; i++) {
             description += arr[i] + " ";
         }
         description = description.trim();
-        if (description.isEmpty()){
+        if (description.isEmpty()) {
             throw new InvalidDescriptionException("The description of a deadline cannot be empty.");
         }
 
         String by = "";
-        for (int i = by_index+1; i < arr.length; i++){
+        for (int i = byIndex + 1; i < arr.length; i++) {
             by += arr[i] + " ";
         }
         by = by.trim();
-        if (by.isEmpty()){
-            throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. Follow this format: deadline <description> /by <deadline date time>");
+        if (by.isEmpty()) {
+            throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. "
+                    + "Follow this format: deadline <description> /by <deadline date time>");
         }
 
-        try{
+        try {
             LocalDateTime dt = parseDate(by);
             return new Deadline(description, dt);
-        }catch (DateTimeParseException e){
-            throw new InvalidFormatException("Invalid date format after '/by'. Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException("Invalid date format after '/by'. "
+                    + "Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
         }
     }
 
@@ -85,7 +91,7 @@ public class Deadline extends Task {
      * @return The deadline date-time of the Deadline object.
      */
     public LocalDateTime getBy() {
-        return deadline_date;
+        return deadlineDate;
     }
 
     /**
@@ -95,7 +101,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + formatDate(deadline_date) + ")";
+        return "[D]" + super.toString() + " (by: " + formatDate(deadlineDate) + ")";
     }
 
     /**
