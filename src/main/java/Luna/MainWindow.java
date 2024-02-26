@@ -25,8 +25,8 @@ public class MainWindow extends AnchorPane {
 
     private Luna luna;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/bro.jpg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/capy.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/luna.png"));
 
     @FXML
     public void initialize() {
@@ -66,6 +66,5 @@ public class MainWindow extends AnchorPane {
 
 
         return baos.toString();
-//        return "PLEASE FKING WORK";
     }
 }
