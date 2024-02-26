@@ -29,7 +29,7 @@ public class Ui {
     private static final String ADD_TASK = " has been accounted for! \n" + NEW_LINE;
     private static final String REMOVE = "remove";
     private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
-    private static final String FILE_PATH = "./data/saved_tasks.txt";
+    private static final String FILE_PATH = "./src/main/java/data/saved_tasks.txt";
 
     Storage storage = new Storage(FILE_PATH);
     TaskList taskList;
