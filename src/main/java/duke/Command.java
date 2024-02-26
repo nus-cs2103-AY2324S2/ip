@@ -18,6 +18,7 @@ public enum Command {
             return str;
         }
     },
+
     /**
      * Bye command. Displays Bye message.
      */
@@ -31,6 +32,7 @@ public enum Command {
             return str;
         }
     },
+
     /**
      * Mark command. Marks a task as done.
      */
@@ -55,6 +57,7 @@ public enum Command {
 
         }
     },
+
     /**
      * Unmark command. Marks a task as undone.
      */
@@ -78,6 +81,7 @@ public enum Command {
         }
 
     },
+
     /**
      * List command. Prints all tasks currently in list.
      */
@@ -90,6 +94,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Delete command. Delete task from list.
      */
@@ -114,6 +119,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Event command. Adds a Event Task to the list.
      */
@@ -131,6 +137,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Deadline command. Adds a Deadline Task to the list.
      */
@@ -148,6 +155,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Todo command. Adds a Todo task to the list.
      */
@@ -166,6 +174,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Unknown command. Throws an exception if command supplied is not recognized.
      */
@@ -177,6 +186,7 @@ public enum Command {
         }
 
     },
+
     /**
      * Clear command. Clears all tasks in list.
      */
@@ -189,6 +199,7 @@ public enum Command {
             return str;
         }
     },
+
     /**
      * Find command. Finds all tasks that match keyword.
      */
