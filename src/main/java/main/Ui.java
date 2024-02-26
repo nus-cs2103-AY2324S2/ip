@@ -32,7 +32,7 @@ public class Ui {
     }
 
     public static String help() {
-        return "Add ToDo : todo name\n Add Deadline : deadline name /by date\n " +
+        return " Add ToDo : todo name\n Add Deadline : deadline name /by date\n " +
                 "Add Event : event name /from date /to date\n Mark a task : mark index\n " +
                 "Unmark a task : unmark index\n Delete a task : delete index\n " +
                 "Find a task : find name\n List out all tasks : list \n Exit : bye";
