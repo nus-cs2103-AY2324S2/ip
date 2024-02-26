@@ -1,6 +1,6 @@
 # Zizhen Bot - Your Personal TodoList Assistant User Guide
 
-// Product screenshot goes here
+![image](https://github.com/YuZizhen/ip/assets/105737133/14ee5aa6-82ae-4561-b431-b6f0d295a7d8)
 
 Welcome to Zizhen Bot, your personal TodoList assistant! Zizhen is here to help you stay organized and on top of your tasks with ease.
 **Easy Task Management**: Zizhen allows you to effortlessly create, update, and manage your tasks in a simple and intuitive manner.
@@ -34,7 +34,7 @@ For example:
 
 ## Feature Greeting
 
-When the users first enter the application, Zizhen will greet the user!
+When the users say "hi" to Zizhen, Zizhen will greet the user!
 
 ## Feature Exiting
 
