@@ -1,7 +1,5 @@
 package georgie;
 
-import java.time.LocalDate;
-
 /**
  * Parses user input and performs specific parsing operations.
  */
