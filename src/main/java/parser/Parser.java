@@ -156,6 +156,13 @@ public class Parser {
         return false;
     }
 
+    /**
+     * Check whether the user is intend to find tasks with keyword.
+     * 
+     * @param userInput
+     * @return True means the user want to fins taks, or false, which is otherwise.
+     */
+
     public boolean isFindTask(String userInput) {
         String[] words = userInput.split("\\s+");
         if (words.length == 2) {

@@ -27,6 +27,12 @@ public class TaskList {
         return output;
     }
 
+    /**
+     * Returns the tasks inside the TodoList.
+     * 
+     * @return
+     */
+
     public String printList() {
         int length = this.todoList.size();
         if (length == 0) {
@@ -111,6 +117,14 @@ public class TaskList {
         output += updateHelper(t, storage);
         return output;
     }
+
+    /**
+     * This function handles the find of tasks in the TodoList with gvien keywords.
+     * 
+     * @param userInput
+     * @param storage
+     * @return The TodoList that satisfies the find function.
+     */
 
     public String findTask(String userInput, Storage storage) {
         String[] words = userInput.split("\\s+");

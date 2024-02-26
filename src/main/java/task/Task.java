@@ -37,12 +37,24 @@ public class Task {
         return this.isDone;
     }
 
+    /**
+     * Change the status of isDone to True.
+     * 
+     * @return A sucess output for changing the status to True.
+     */
+
     public String markAsDone() {
         this.isDone = true;
         String output = "Nice! I've marked this task as done:\n";
         output += this.toString();
         return output;
     }
+
+    /**
+     * Change the status of isDone to False.
+     * 
+     * @return A sucess output for changing the status to False.
+     */
 
     public String unmark() {
         this.isDone = false;

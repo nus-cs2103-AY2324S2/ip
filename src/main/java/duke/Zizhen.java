@@ -24,10 +24,10 @@ import storage.Storage;
 import parser.Parser;
 
 /**
- * The main class for duke chat bot.
+ * The main class for Zizhen chat bot.
  */
 
-public class Duke extends Application {
+public class Zizhen extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -37,7 +37,7 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public Duke() {
+    public Zizhen() {
 
     }
 
@@ -98,8 +98,7 @@ public class Duke extends Application {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Passes in the user input and returns what the parser will return.
      */
     public String getResponse(String userInput, Parser parser) {
         return parser.parse(userInput);

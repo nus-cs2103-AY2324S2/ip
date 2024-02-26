@@ -39,6 +39,12 @@ public class Storage {
         return localDate;
     }
 
+    /**
+     * Update the storage whenever there is a change in the current TodoList.
+     * 
+     * @param todoList
+     */
+
     public void autoUpdate(ArrayList<Task> todoList) {
         File file = new File(this.pathName);
         file.getParentFile().mkdirs();
@@ -66,6 +72,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Update the storage whenever there is a change in one of the tasks in the
+     * current TodoList.
+     * 
+     * @param todoList
+     */
+
     public void updateOneTask(Task t) {
         File file = new File(this.pathName);
         file.getParentFile().mkdirs();
@@ -90,6 +103,12 @@ public class Storage {
             e.printStackTrace();
         }
     }
+
+    /**
+     * Gets the history of the TodoList inside the storage.
+     * 
+     * @return TodoList that stores the past data
+     */
 
     public ArrayList<Task> getHistory() {
         ArrayList<Task> historyList = new ArrayList<>();
