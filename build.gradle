@@ -5,6 +5,9 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+sourceCompatibility = 11
+targetCompatibility = 11
+
 repositories {
     mavenCentral()
 }
@@ -49,7 +52,7 @@ test {
 }
 
 application {
-    mainClass.set("cal.Main")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
