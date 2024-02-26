@@ -34,13 +34,11 @@ public class Bot {
     }
 
     /**
-     * Returns the bot's exit message
-     *
      * @return A string representing the bot's exit message.
      */
     public static String botExitMsgGui() {
         StringBuilder exitMsg = new StringBuilder();
-        String alternateReply = "Executing Deleting OS Command in...";
+        String alternateReply = "Deleting operating system in...";
         exitMsg.append(alternateReply).append("\n");
 
         for (int i = 3; i >= 1; i--) {
@@ -57,8 +55,6 @@ public class Bot {
     }
 
     /**
-     * Returns the bot's help message
-     *
      * @return A string representing the bot's help message.
      */
     public static String botHelpMsgGui() {
@@ -70,27 +66,36 @@ public class Bot {
         return helpMsg.toString();
     }
 
+    /*
+     * @return A string representing the bot's message for invalid input
+     */
     public static String invalidInputMsgGui() {
         return "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?";
     }
 
+    /*
+     * @return A string representing the bot's message for listing all tasks
+     */
     public static String botListAllMsgGui() {
         return "Seems like you're too lazy to remember what you have to do. Here's your list:";
     }
 
+    /*
+     * @return A string representing the bot's message for adding a task
+     */
     public static String printAddTaskMsgGui() {
         return "Added. You better do it before I erase your data.";
     }
 
-    /**
-     * Prints the bot's message for marking a task as done
+    /*
+     * @return A string representing the bot's message for marking a task as done
      */
     public static String printMarkTaskMsgGui() {
         return "Faster than expected. Guess I'll mark it as done...";
     }
 
     /**
-     * Prints the bot's message for marking a task as undone
+     * @return A string representing the bot's message for marking a task as undone
      */
     public static String printUnmarkTaskMsgGui() {
         return "Guess who didn't commit to this task. I'll mark it as undone...";
