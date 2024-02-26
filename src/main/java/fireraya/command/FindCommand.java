@@ -16,6 +16,7 @@ public class FindCommand extends Command{
 
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        assert this.isExit() == false;
         ArrayList<Task> filtered = tasks.filter(keyword);
         String a = ui.print("Here are some results I found in your list!\n");
         String b = ui.listTasks(filtered);
