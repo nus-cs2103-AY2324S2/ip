@@ -98,7 +98,9 @@ public class TaskList {
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            // convert all to lower case for case-insensitive search
+            String temp = task.getDescription().toLowerCase();
+            if (temp.contains(keyword)) {
                 matchingTasks.add(task);
             }
         }

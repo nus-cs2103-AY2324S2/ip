@@ -25,6 +25,14 @@ public class Bot {
 
     // ---------------------------- GUI Interactions ----------------------------
 
+    public static String botDeleteMessageGui() {
+        return "Bet. I'll remove it from your list. You weren't gonna do it anyways...";
+    }
+
+    public static String botFindMessageGui() {
+        return "Here's what I found. You're welcome.";
+    }
+
     /**
      * Returns the bot's exit message
      *

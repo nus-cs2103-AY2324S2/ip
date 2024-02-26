@@ -2,6 +2,7 @@ package duke;
 
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * The Duke class is the main entry point for the bot application itself
@@ -85,18 +86,21 @@ public class Duke {
                 } catch (BotException e) {
                     return e.getMessage();
                 }
-                // break;
-                // case "delete":
-                // try {
-                // handleDeleteCommand(userInputArray);
-                // taskRepository.saveTasksToFile(taskList);
-                // } catch (BotException e) {
-                // System.out.println(e.getMessage());
-                // }
-                // break;
-                // case "find":
-                // handleFindCommand(userInputArray);
-                // break;
+            case "delete":
+                try {
+                    handleDeleteCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return deleteMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "find":
+                try {
+                    String tasksFound = handleFindCommand(userInputArray);
+                    return findMsg(tasksFound);
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
             default:
                 return Bot.invalidInputMsgGui();
         }
@@ -128,11 +132,74 @@ public class Duke {
         return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
+    private String deleteMsg() {
+        return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+    }
+
+    private String findMsg(String tasks) {
+        return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
+    }
+
     /**
      * Prints the number of tasks in the task list.
      */
     private String TaskCountMsg() {
         return "You have " + taskList.getTaskCount() + " tasks in your list.";
+    }
+
+    /**
+     * Handles the "find" command by searching for tasks that contain a specified
+     * keyword
+     *
+     * @param userInputArray the array of user input tokens
+     * @throws BotException if the keyword is not provided
+     */
+    private String handleFindCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a keyword to search for.");
+        }
+        String keyword = userInputArray[1];
+        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1) + "." + matchingTasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /*
+     * Handles the delete command by removing a task from the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * 
+     * @throws BotException if the user input is invalid or the task number is out
+     * of range
+     */
+    private void handleDeleteCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a task number to delete.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(userInputArray[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
+        Ui.printSeparatorLine();
+        Task taskToRemove = taskList.getTaskByNum(i);
+        taskList.removeTask(i);
+        Bot.printDeleteTaskMsg();
+        if (taskList.getTaskCount() > 0) {
+            System.out.println("Removed Task: " + taskToRemove);
+            Ui.printList(taskList.listTasks());
+        } else {
+            System.out.println("All tasks have been removed.");
+        }
+        TaskCountMsg();
+        Ui.printSeparatorLine();
     }
 
     /**
