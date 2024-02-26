@@ -1,4 +1,4 @@
-package duke.task;
+package yarr.task;
 
 /**
  * Represents a task with a description and a completion status.

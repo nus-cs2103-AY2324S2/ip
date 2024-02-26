@@ -1,8 +1,8 @@
-package duke.command;
+package yarr.command;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to delete a task from the task list.

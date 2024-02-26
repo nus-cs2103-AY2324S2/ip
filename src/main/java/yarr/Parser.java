@@ -1,4 +1,4 @@
-package duke;
+package yarr;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,17 +6,17 @@ import java.time.format.DateTimeParseException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import duke.command.AddCommand;
-import duke.command.Command;
-import duke.command.DeleteCommand;
-import duke.command.ExitCommand;
-import duke.command.FindCommand;
-import duke.command.HelpCommand;
-import duke.command.ListCommand;
-import duke.command.ToggleMarkCommand;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Todo;
+import yarr.command.AddCommand;
+import yarr.command.Command;
+import yarr.command.DeleteCommand;
+import yarr.command.ExitCommand;
+import yarr.command.FindCommand;
+import yarr.command.HelpCommand;
+import yarr.command.ListCommand;
+import yarr.command.ToggleMarkCommand;
+import yarr.task.Deadline;
+import yarr.task.Event;
+import yarr.task.Todo;
 
 /**
  * Parses user input and returns corresponding Command objects for execution.
@@ -65,7 +65,7 @@ public class Parser {
     public enum DateSpecifiers {
         BY("/by", "/at", "/b", "/a"),
         FROM("/from", "/start", "/f", "/s"),
-        TO("/to", "/end ", "/t ", "/e");
+        TO("/to", "/end ", "/t", "/e");
 
         /** Array of regex patterns for each specifier. */
         private final String[] patterns;
