@@ -30,9 +30,9 @@ public class DoAfterTask extends Task {
     @Override
     public String getTask() {
         if (isDone) {
-            return "[A][X] " + this.description + " (from: " + beginDate.format(DATE_FORMAT) + ")";
+            return "[A][X] " + this.description + " (after: " + beginDate.format(DATE_FORMAT) + ")";
         } else {
-            return "[A][ ] " + this.description + " (from: " + beginDate.format(DATE_FORMAT) + ")";
+            return "[A][ ] " + this.description + " (after: " + beginDate.format(DATE_FORMAT) + ")";
         }
     }
 
