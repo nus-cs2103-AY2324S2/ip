@@ -18,9 +18,7 @@ public class ExitCommand extends Command{
      * @throws DukeException the duke exception
      */
     public String execute(TaskList taskList, Storage storage) throws DukeException {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Bye. Hope to see you again soon!");
-        return sb.toString();
+        return "Bye. Hope to see you again soon!";
     }
 
     /**

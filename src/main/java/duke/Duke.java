@@ -20,9 +20,9 @@ public class Duke extends Application {
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+
+    private final Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
+    private final Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
     private Storage storage;
     private TaskList taskList;
@@ -43,10 +43,10 @@ public class Duke extends Application {
      *
      */
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         //assuming filepath is specified as the only argument
         try {
-            String filePath = "";
+            String filePath;
             if (this.getParameters().getRaw().size() > 0) {
                 filePath = this.getParameters().getRaw().get(0);
             } else {
@@ -75,7 +75,7 @@ public class Duke extends Application {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);;
+        stage.setMinWidth(400.0);
 
         mainLayout.setPrefSize(400.0,600.0);
         scrollPane.setPrefSize(385,535);

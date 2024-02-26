@@ -13,7 +13,7 @@ import java.util.List;
  * Used for maitaining list of tasks in Duke task maintenance application.
  */
 public class TaskList {
-    private PropertyChangeSupport pcs = new PropertyChangeSupport(this);
+    private final PropertyChangeSupport pcs = new PropertyChangeSupport(this);
     private ArrayList<Task> taskList = new ArrayList<>();
 
     /**
@@ -77,7 +77,7 @@ public class TaskList {
      */
     public int getCountByType(String taskType){
         int count = 0;
-        count = (int) taskList.stream().filter( obj -> ((Task)obj).getTypeOfTask().equals(taskType)).count();
+        count = (int) taskList.stream().filter( obj -> obj.getTypeOfTask().equals(taskType)).count();
         return count;
     }
 

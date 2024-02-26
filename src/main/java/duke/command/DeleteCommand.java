@@ -43,10 +43,9 @@ public class DeleteCommand extends Command{
         taskList.removeItemAtIndex(taskIndex);
         storage.Store(taskList.toString());
         int count = taskList.getCountByType (taskToDelete.getTypeOfTask());
-        StringBuilder sb = new StringBuilder();
-        sb.append("Noted. I've removed this task:\n");
-        sb.append(taskToDelete.printOutput());
-        sb.append("Now you have "+count+" tasks in the list");
-        return sb.toString();
+        String sb = "Noted. I've removed this task:\n" +
+                taskToDelete.printOutput() +
+                "Now you have " + count + " tasks in the list";
+        return sb;
     }
 }

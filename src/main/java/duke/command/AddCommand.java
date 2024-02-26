@@ -40,10 +40,9 @@ public class AddCommand extends Command{
         taskList.add(this.task);
         storage.Store(taskList.toString());
         int count = taskList.getCountByType (this.task.getTypeOfTask());
-        StringBuilder sb = new StringBuilder();
-        sb.append("Got it. I've added this task:\n");
-        sb.append(this.task.printOutput());
-        sb.append("\nNow you have "+count+" tasks in the list");
-        return sb.toString();
+        String sb = "Got it. I've added this task:\n" +
+                this.task.printOutput() +
+                "\nNow you have " + count + " tasks in the list";
+        return sb;
     }
 }

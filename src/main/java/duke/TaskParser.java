@@ -58,10 +58,7 @@ public class TaskParser {
         Todo todo;
         String taskType = todoStr.substring(0,3);
         String markedStr = todoStr.substring(6,9);
-        boolean marked = false;
-        if (MARKED_TAG.equals(markedStr)) {
-            marked = true;
-        }
+        boolean marked = MARKED_TAG.equals(markedStr);
         String taskname = todoStr.substring(11);
         taskname = taskname.trim();
         todo = new Todo(taskname,marked,-1);
@@ -73,10 +70,7 @@ public class TaskParser {
         Event task;
         String taskType = evtStr.substring(0,3);
         String markedStr = evtStr.substring(6,9);
-        boolean marked = false;
-        if (MARKED_TAG.equals(markedStr)) {
-            marked = true;
-        }
+        boolean marked = MARKED_TAG.equals(markedStr);
         String taskname = evtStr.substring(11, evtStr.indexOf(FROM));
         taskname = taskname.replace('|',' ');
         taskname = taskname.trim();
@@ -84,7 +78,7 @@ public class TaskParser {
         from = from.substring(7);//to exclude "(from: "
         String to = evtStr.substring(evtStr.indexOf(TO),evtStr.indexOf(")"));
         to = to.substring(4);//to exclude "to: "
-        to = to.substring(0, to.length());//to exclude last bracket
+        to = to;//to exclude last bracket
         from = from.trim();
         to = to.trim();
 
@@ -97,10 +91,7 @@ public class TaskParser {
         Deadline task;
         String taskType = deadlineStr.substring(0,3);
         String markedStr = deadlineStr.substring(6,9);
-        boolean marked = false;
-        if (MARKED_TAG.equals(markedStr)) {
-            marked = true;
-        }
+        boolean marked = MARKED_TAG.equals(markedStr);
         String taskname = deadlineStr.substring(11, deadlineStr.indexOf(BY));
         taskname = taskname.replace('|',' ');
         taskname = taskname.trim();
@@ -116,10 +107,7 @@ public class TaskParser {
         Task task;
         String taskType = othStr.substring(0,3);
         String markedStr = othStr.substring(6,9);
-        boolean marked = false;
-        if (MARKED_TAG.equals(markedStr)) {
-            marked = true;
-        }
+        boolean marked = MARKED_TAG.equals(markedStr);
         String taskname = othStr.substring(11);
         taskname = taskname.trim();
         task = new Task(taskname,marked,-1);

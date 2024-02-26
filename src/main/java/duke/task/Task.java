@@ -7,7 +7,7 @@ public class Task {
     private String taskName = "";
     private boolean marked = false;
     private int seqNo = -1;
-    private String taskType = "";
+    private final String taskType = "";
 
     /**
      * Instantiates a new Task.

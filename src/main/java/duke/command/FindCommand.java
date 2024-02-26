@@ -58,7 +58,7 @@ public class FindCommand extends Command{
             sb2.append("No matching tasks found in the list.");
         }else {
             sb2.append("Here are the matching tasks in your list:");
-            sb2.append(sb.toString());
+            sb2.append(sb);
         }
         return sb2.toString();
     }
