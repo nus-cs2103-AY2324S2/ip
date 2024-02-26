@@ -1,0 +1,18 @@
+todo test
+deadline test2 /by Mon
+deadline test2 /by 11/02/2024 2359
+event test3 /from 11/02/2024 2359 /to 11/02/2024 2358
+event test3 /from 11/02/2024 2359 /to 12/02/2024 2359
+list
+mark 4
+mark 3
+todo
+deadline  /by
+event  /from  /to
+list
+delete 2
+list
+delete 1
+list
+delete 1
+bye
