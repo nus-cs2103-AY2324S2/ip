@@ -2,6 +2,9 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 
+/**
+ * The HelpCommand class represents a command that provides help on the commands the application supports.
+ */
 public class HelpCommand extends Command {
 
     private static final String COMMAND_FORMAT = "help <?command>";
@@ -20,11 +23,23 @@ public class HelpCommand extends Command {
 
     private final String input;
 
+    /**
+     * Constructor for the HelpCommand class. Returns a command object to provide help on the commands the application
+     * supports upon execution.
+     *
+     * @param input The input string that resulted in the creation of this command.
+     */
     public HelpCommand(String input) {
         super("help <?command>", "help");
         this.input = input.trim();
     }
 
+    /**
+     * Provides help on the commands the application supports.
+     *
+     * @return The string message from the execution of the command.
+     * @throws DudeException If the command execution fails.
+     */
     public String execute() throws DudeException {
         if (input.equals("help")) {
             return this.generateHelpMessage();

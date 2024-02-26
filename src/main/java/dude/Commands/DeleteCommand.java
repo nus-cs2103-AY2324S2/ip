@@ -5,18 +5,34 @@ import dude.Exceptions.InvalidFormatException;
 import dude.Tasks.Task;
 import dude.Tasks.TaskList;
 
+/**
+ * The DeleteCommand class represents a command to delete a task from the TaskList object.
+ */
 public class DeleteCommand extends Command {
     private final String input;
     private final TaskList taskList;
 
     private static final String COMMAND_FORMAT = "delete <id>";
 
+    /**
+     * Constructor for the DeleteCommand class. Returns a command object to delete a task from the TaskList object upon
+     * execution.
+     *
+     * @param input    The input string that resulted in the creation of this command.
+     * @param tasklist The TaskList object from which the task is to be deleted.
+     */
     public DeleteCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "delete \\d+");
         this.input = input.trim();
         this.taskList = tasklist;
     }
 
+    /**
+     * Deletes a task from the TaskList object.
+     *
+     * @return The string message from the execution of the command.
+     * @throws DudeException If the command execution fails.
+     */
     public String execute() throws DudeException {
         boolean inputMatches = input.matches(this.getRegex());
 

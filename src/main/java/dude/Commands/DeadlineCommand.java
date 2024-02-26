@@ -5,18 +5,34 @@ import dude.Exceptions.InvalidFormatException;
 import dude.Tasks.Deadline;
 import dude.Tasks.TaskList;
 
+/**
+ * The DeadlineCommand class represents a command to add a deadline task to the TaskList object.
+ */
 public class DeadlineCommand extends Command {
+
+    static final String COMMAND_FORMAT = "deadline <description> /by <date>";
     private final String input;
     private final TaskList taskList;
 
-    static final String COMMAND_FORMAT = "deadline <description> /by <date>";
-
+    /**
+     * Constructor for the DeadlineCommand class. Returns a command object to add a deadline task to the TaskList object upon
+     * execution.
+     *
+     * @param input    The input string that resulted in the creation of this command.
+     * @param tasklist The TaskList object to which the deadline task is to be added.
+     */
     public DeadlineCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "deadline .* /by .*");
         this.input = input;
         this.taskList = tasklist;
     }
 
+    /**
+     * Add a deadline task to the TaskList object.
+     *
+     * @return The string message from the execution of the command.
+     * @throws DudeException If the command execution fails.
+     */
     public String execute() throws DudeException {
         boolean doesInputMatch = input.matches(this.getRegex());
 

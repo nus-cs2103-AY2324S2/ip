@@ -2,8 +2,18 @@ package dude.Commands;
 
 import dude.Tasks.TaskList;
 
+/**
+ * The Parser class is responsible for parsing the user input and returning the appropriate command.
+ */
 public class Parser {
 
+    /**
+     * Parses the user input and returns the appropriate command.
+     *
+     * @param input    The user input.
+     * @param tasklist The TaskList to be used by the command.
+     * @return The parsed command from the user input.
+     */
     public static Command parse(String input, TaskList tasklist) {
         String[] command = input.split(" ", 2);
         switch (command[0]) {

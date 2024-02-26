@@ -5,18 +5,34 @@ import dude.Exceptions.InvalidFormatException;
 import dude.Tasks.Task;
 import dude.Tasks.TaskList;
 
+/**
+ * The MarkCommand class represents a command to mark a task as done in the TaskList object.
+ */
 public class MarkCommand extends Command {
 
     public static final String COMMAND_FORMAT = "mark <id>";
     private final String input;
     private final TaskList taskList;
 
+    /**
+     * Constructor for the MarkCommand class. Returns a command object to mark a task as done in the TaskList object upon
+     * execution.
+     *
+     * @param input    The input string that resulted in the creation of this command.
+     * @param tasklist The TaskList object in which the task is to be marked as done.
+     */
     public MarkCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "mark \\d+");
         this.input = input.trim();
         this.taskList = tasklist;
     }
 
+    /**
+     * Marks a task as done in the TaskList object.
+     *
+     * @return The string message from the execution of the command.
+     * @throws DudeException If the command execution fails.
+     */
     @Override
     public String execute() throws DudeException {
         boolean inputMatches = input.matches(this.getRegex());

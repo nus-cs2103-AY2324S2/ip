@@ -1,9 +1,15 @@
 package dude.Commands;
 
+/**
+ * The ByeCommand class represents a command to exit the program.
+ */
 public class ByeCommand extends Command {
 
     static final String COMMAND_FORMAT = "bye";
 
+    /**
+     * Constructor for the ByeCommand class. Returns a command object to exit the program upon execution.
+     */
     public ByeCommand() {
         super(COMMAND_FORMAT, "bye");
     }
