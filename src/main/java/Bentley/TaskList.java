@@ -228,8 +228,8 @@ public class TaskList {
         LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
 
         Task newTask = new Task(description + " | " +
-                "From " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")) +
-                " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm")));
+                "From " + fromDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")) +
+                " to " + toDateTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy h:mma")));
 
         tasks.add(newTask);
 
