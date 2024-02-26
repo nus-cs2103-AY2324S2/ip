@@ -11,7 +11,7 @@ import seiki.ui.Ui;
 public class HelpCommand extends Command {
 
     public static final String COMMAND_WORD = "help";
-    public static final String COMMAND_USAGE = COMMAND_WORD + ": Displays program usage instructions.\n"
+    public static final String COMMAND_USAGE = COMMAND_WORD + ": Displays chatbot usage instructions.\n"
             + "Example: " + COMMAND_WORD;
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
