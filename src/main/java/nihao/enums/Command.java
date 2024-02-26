@@ -23,20 +23,36 @@ public enum Command {
         case "bye":
             return BYE;
         case "list":
+            // Fallthrough
+        case "ls":
             return LIST;
         case "mark":
+            // Fallthrough
+        case "mk":
             return MARK;
         case "unmark":
+            // Fallthrough
+        case "um":
             return UNMARK;
         case "delete":
+            // Fallthrough
+        case "del":
             return DELETE;
         case "find":
+            // Fallthrough
+        case "f":
             return FIND;
         case "todo":
+            // Fallthrough
+        case "td":
             return TODO;
         case "deadline":
+            // Fallthrough
+        case "ddl":
             return DEADLINE;
         case "event":
+            // Fallthrough
+        case "ev":
             return EVENT;
         default:
             return UNKNOWN;
