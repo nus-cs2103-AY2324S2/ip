@@ -62,9 +62,9 @@ public class DataManager {
         ArrayList<Task> tasks = new ArrayList<>();
         try{
             File file = new File(path);
-            if(file.exists()) {
+            if (file.exists()) {
                 Scanner scanner = new Scanner(file);
-                while(scanner.hasNextLine()) {
+                while (scanner.hasNextLine()) {
                     String data =scanner.nextLine();
                     Task task = getTask(data);
                     if (task != null) {
@@ -97,12 +97,12 @@ public class DataManager {
         String taskName = parts[2].trim();
         Task task = null;
 
-        if(type.equals("T")) {
+        if (type.equals("T")) {
             task = new Todo(taskName, status);
-        }else if(type.equals("D")) {
+        } else if (type.equals("D")) {
             String time = parts[3].trim();
             task = new Deadline(taskName, status, parseFromFileString(time));
-        }else {
+        } else {
             String time = parts[3].trim();
             String timeParts[] = time.split(" - ");
             String from = timeParts[0];

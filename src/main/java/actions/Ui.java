@@ -39,7 +39,7 @@ public class Ui {
     
 
     public void printList(ArrayList<Task> tasks) {
-        if(tasks.size() == 0) {
+        if (tasks.size() == 0) {
             System.out.println("You have no tasks yet");
         } else {
             System.out.println("Here are the tasks in your list:");
@@ -79,7 +79,7 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Noted. I've removed this task:");
         System.out.println(task.toString());
-        if(count == 1){
+        if (count == 1){
             System.out.println("Now you have " + count + " task in the list.");
         } else {
             System.out.println("Now you have " + count + " tasks in the list.");
