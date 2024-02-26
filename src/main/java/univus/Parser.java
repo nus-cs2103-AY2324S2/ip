@@ -33,6 +33,7 @@ public class Parser {
                 throw new UnivusException("Already Marked!");
             } else {
                 task.mark();
+                assert task.isDone() == true;
                 responses.append("Nice! I've marked this task as done:\n");
                 responses.append("\t" + task.toString() + "\n");
             }
@@ -58,6 +59,7 @@ public class Parser {
                 throw new UnivusException("Already Unmarked!");
             } else {
                 task.unMark();
+                assert task.isDone() == false;
                 responses.append("OK, I've marked this task as not done yet:\n");
                 responses.append("\t" + task.toString() + "\n");
             }
