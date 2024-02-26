@@ -1,7 +1,5 @@
 package linus;
 
-import java.util.ArrayList;
-
 /**
  * Main class for running Linus chatbot.
  */
@@ -18,7 +16,9 @@ public class Linus {
     }
 
     /**
-     * Runs the Linus application.
+     *
+     * @param command
+     * @return
      */
     public String getResponse(String command) {
         Parser parser = new Parser(taskList, ui, storage);

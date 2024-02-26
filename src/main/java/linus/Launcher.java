@@ -8,8 +8,8 @@ import javafx.application.Application;
 public class Launcher {
 
     /**
-     * main method for starting the javaFX for Linus.
-     * @param args
+     * Main method for starting the javaFX for Linus.
+     * @param args An array of arguments.
      */
     public static void main(String[] args) {
         Application.launch(Main.class, args);
