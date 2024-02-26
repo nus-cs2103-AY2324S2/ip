@@ -17,7 +17,12 @@ public class Storage {
 
     public void store(TaskList t) throws IOException {
         FileWriter fw = new FileWriter(this.filepath);
-        t.listSaver(fw);
+        int len = t.size();
+        String str = "";
+        for (int i = 0; i < len; i++) {
+            str += t.get(i).toString() + "\n";
+        }
+        fw.write(str);
         fw.close();
     }
 }

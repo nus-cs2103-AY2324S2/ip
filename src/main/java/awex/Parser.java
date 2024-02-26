@@ -5,6 +5,7 @@ import java.util.Scanner;
 import tasks.*;
 
 public class Parser {
+
     public static void parse(TaskList tasks, Ui ui) throws IOException {
         Scanner sc = new Scanner(System.in);
         while (true) {
