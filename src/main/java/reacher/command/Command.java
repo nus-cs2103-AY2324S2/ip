@@ -9,13 +9,6 @@ import reacher.TaskList;
  */
 public abstract class Command {
     /**
-     * Returns whether this command is an exit command.
-     */
-    public boolean isExit(){
-        return false;
-    }
-
-    /**
      * Executes the command.
      *
      * @param tasks   List of tasks.

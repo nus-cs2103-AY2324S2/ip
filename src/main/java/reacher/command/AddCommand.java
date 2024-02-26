@@ -31,18 +31,21 @@ public class AddCommand extends Command {
             storage.storeList(tasks.getTasks());
             return ("I've added " + t.toString());
         case ("deadline"):
-            String deadlineS = Parser.getInfo(input, DEADLINE);
-            LocalDate  deadlineD = LocalDate.parse(deadlineS);
-            t = new Deadline(name, deadlineD);
+            String deadlineString = Parser.getInfo(input, DEADLINE);
+            LocalDate  deadlineDate = LocalDate.parse(deadlineString);
+
+            t = new Deadline(name, deadlineDate);
             tasks.addTask(t);
             storage.storeList(tasks.getTasks());
             return ("I've added " + t.toString());
         case ("event"):
             LocalDate start = LocalDate.parse(Parser.getInfo(input, START));
             LocalDate end = LocalDate.parse(Parser.getInfo(input, END));
+
             if (start.isAfter(end)) {
                 throw new ReacherException("End cannot be before start.");
             }
+
             t = new Events(name, start, end);
             tasks.addTask(t);
             storage.storeList(tasks.getTasks());
