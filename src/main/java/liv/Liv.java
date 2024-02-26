@@ -34,6 +34,7 @@ public class Liv extends Application {
     private Scene scene;
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image livImage = new Image(this.getClass().getResourceAsStream("/images/liv.png"));
+    private Image iconImage = new Image(this.getClass().getResourceAsStream("/images/icon.png"));
 
     public Liv() {
         //...
@@ -68,6 +69,7 @@ public class Liv extends Application {
 
         scene = new Scene(mainLayout);
 
+        stage.getIcons().add(iconImage);
         stage.setScene(scene);
         stage.show();
 
