@@ -11,6 +11,9 @@ public class Awex {
     private TaskList tasks;
     private Ui ui;
 
+    /**
+     * Constructor for an Awex object
+     */
     public Awex() {
         this.storage = new Storage("./list.txt");
         this.ui = new Ui();
@@ -20,6 +23,7 @@ public class Awex {
             e.printStackTrace();
         }
     }
+
 
     public String sendGreeting() {
         return this.ui.greeting();
