@@ -1,3 +1,2 @@
-boring | 1 
-mid | 3 4 
-fun | 1 2 
+mid | 2 
+fun | 1 

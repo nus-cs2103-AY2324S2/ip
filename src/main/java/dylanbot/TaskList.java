@@ -136,6 +136,27 @@ public class TaskList {
     public String deleteTask(int idx) {
         Task toRemove = tasks.get(idx - 1);
         tasks.remove(idx - 1);
+        ArrayList<String> tagsToRemove = new ArrayList<>();
+        for (String tag : tagList.keySet()) {
+            ArrayList<Integer> indices = tagList.get(tag);
+            indices.remove(Integer.valueOf(idx));
+            if (indices.isEmpty()) {
+                tagsToRemove.add(tag);
+                continue;
+            }
+            ArrayList<Integer> newIndices = new ArrayList<>();
+            for (int i : indices) {
+                if (i > idx) {
+                    newIndices.add(i - 1);
+                } else {
+                    newIndices.add(i);
+                }
+            }
+            tagList.put(tag, newIndices);
+        }
+        for (String tag : tagsToRemove) {
+            tagList.remove(tag);
+        }
         return "Aight removed this task:\n\t" + toRemove.toString();
     }
 
@@ -172,7 +193,7 @@ public class TaskList {
                 taggedTasks.add(this.tasks.get(idx - 1));
             }
             StringBuilder response = new StringBuilder();
-            response.append("Here you go, results from your filter for: '" + tag + "'");
+            response.append("Here you go, results from your filter for: #" + tag);
             response.append("\n").append(ui.displayTasks(taggedTasks));
             return response.toString();
         }
@@ -189,6 +210,6 @@ public class TaskList {
         ArrayList<Integer> tasksWithTag = tagList.getOrDefault(tag, new ArrayList<>());
         tasksWithTag.add(idx - 1);
         tagList.put(tag, tasksWithTag);
-        return "Tagged " + tasks.get(idx - 1).getDesc() + " with tag " + tag;
+        return "Tagged " + tasks.get(idx - 1).getDesc() + " with tag #" + tag;
     }
 }
