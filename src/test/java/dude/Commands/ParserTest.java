@@ -3,8 +3,8 @@ package dude.Commands;
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidDescriptionException;
 import dude.Exceptions.TaskListFullException;
-import dude.Tasks.TaskList;
-import dude.Tasks.Todo;
+import dude.tasks.TaskList;
+import dude.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 public class ParserTest {

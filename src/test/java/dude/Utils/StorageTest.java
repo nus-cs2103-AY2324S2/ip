@@ -1,9 +1,9 @@
 package dude.Utils;
 
 import dude.Exceptions.TaskListFullException;
-import dude.Tasks.Task;
-import dude.Tasks.TaskList;
-import dude.Tasks.Todo;
+import dude.tasks.Task;
+import dude.tasks.TaskList;
+import dude.tasks.Todo;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;

@@ -2,8 +2,8 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidFormatException;
-import dude.Tasks.Deadline;
-import dude.Tasks.TaskList;
+import dude.tasks.Deadline;
+import dude.tasks.TaskList;
 
 /**
  * The DeadlineCommand class represents a command to add a deadline task to the TaskList object.

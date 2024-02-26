@@ -1,6 +1,6 @@
 package dude.Commands;
 
-import dude.Tasks.TaskList;
+import dude.tasks.TaskList;
 
 /**
  * The Parser class is responsible for parsing the user input and returning the appropriate command.

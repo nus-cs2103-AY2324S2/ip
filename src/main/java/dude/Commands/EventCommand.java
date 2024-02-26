@@ -2,8 +2,8 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidFormatException;
-import dude.Tasks.Event;
-import dude.Tasks.TaskList;
+import dude.tasks.Event;
+import dude.tasks.TaskList;
 
 /**
  * The EventCommand class represents a command that adds an event to the TaskList object.

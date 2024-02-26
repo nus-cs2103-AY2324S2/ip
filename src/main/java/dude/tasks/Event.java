@@ -1,4 +1,4 @@
-package dude.Tasks;
+package dude.tasks;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;

@@ -2,8 +2,8 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidFormatException;
-import dude.Tasks.Task;
-import dude.Tasks.TaskList;
+import dude.tasks.Task;
+import dude.tasks.TaskList;
 
 /**
  * The DeleteCommand class represents a command to delete a task from the TaskList object.

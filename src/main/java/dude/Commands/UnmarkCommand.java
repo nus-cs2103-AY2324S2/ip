@@ -2,8 +2,8 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidFormatException;
-import dude.Tasks.Task;
-import dude.Tasks.TaskList;
+import dude.tasks.Task;
+import dude.tasks.TaskList;
 
 /**
  * The UnmarkCommand class represents a command to mark a task as not done in the task list.

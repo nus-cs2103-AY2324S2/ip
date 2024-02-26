@@ -1,4 +1,4 @@
-package dude.Tasks;
+package dude.tasks;
 
 import dude.Exceptions.InvalidDescriptionException;
 import dude.Utils.utils;

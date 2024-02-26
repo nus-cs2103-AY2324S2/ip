@@ -2,8 +2,8 @@ package dude.Commands;
 
 import dude.Exceptions.DudeException;
 import dude.Exceptions.InvalidFormatException;
-import dude.Tasks.TaskList;
-import dude.Tasks.Todo;
+import dude.tasks.TaskList;
+import dude.tasks.Todo;
 
 /**
  * The TodoCommand class represents a command to add a todo task to the TaskList object.

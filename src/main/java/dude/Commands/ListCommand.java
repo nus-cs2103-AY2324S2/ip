@@ -1,6 +1,6 @@
 package dude.Commands;
 
-import dude.Tasks.TaskList;
+import dude.tasks.TaskList;
 
 /**
  * The ListCommand class represents a command to list all the tasks in the TaskList object.

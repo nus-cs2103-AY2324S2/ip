@@ -1,4 +1,4 @@
-package dude.Tasks;
+package dude.tasks;
 
 import java.io.Serializable;
 import java.time.LocalDate;

@@ -8,8 +8,8 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
-import dude.Tasks.Task;
-import dude.Tasks.TaskList;
+import dude.tasks.Task;
+import dude.tasks.TaskList;
 
 
 /**

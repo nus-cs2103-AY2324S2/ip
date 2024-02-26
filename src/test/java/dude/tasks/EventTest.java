@@ -1,4 +1,4 @@
-package dude.Tasks;
+package dude.tasks;
 
 import org.junit.jupiter.api.Test;
 
