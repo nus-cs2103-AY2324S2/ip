@@ -3,7 +3,6 @@ package bmo.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-
 /**
  * Represents a task that is an event.
  */
@@ -21,6 +20,8 @@ public class Events extends Task {
      */
     public Events(String task, LocalDateTime start, LocalDateTime end) {
         super(task);
+        assert start != null : "Start time cannot be null";
+        assert end != null : "End time cannot be null";
         this.start = start;
         this.end = end;
     }
