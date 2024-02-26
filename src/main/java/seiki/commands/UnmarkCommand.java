@@ -12,8 +12,14 @@ import seiki.ui.Ui;
  * Represents the 'unmark' command.
  */
 public class UnmarkCommand extends Command {
-    public static final String COMMAND_HELPER = "Please follow the format: unmark [task number]";
     public static final String COMMAND_WORD = "unmark";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " [TASK_NUMBER]";
+    public static final String COMMAND_HELPER = "Please use the following format: " + COMMAND_FORMAT;
+    public static final String COMMAND_USAGE = COMMAND_WORD
+            + ": Unmarks task identified by the task number as completed.\n"
+            + "Parameters: TASK_NUMBER (must be positive interger)\n"
+            + "Example: " + COMMAND_WORD + " 1";
+
     private final Integer taskNumber;
 
     public UnmarkCommand(String taskNumber) {
@@ -25,7 +31,8 @@ public class UnmarkCommand extends Command {
         taskList.checkIfListEmpty(MESSAGE_EMPTY_TASKLIST);
         taskList.checkIfNumberValid(taskNumber);
 
-        assert taskNumber >= 0 || taskNumber < taskList.getTaskCount() : "Task number should be within range of task list";
+        assert taskNumber >= 0 || taskNumber < taskList.getTaskCount()
+                : "Task number should be within range of task list";
 
         Task task = taskList.getTaskByNumber(taskNumber);
         task.markAsNotDone();

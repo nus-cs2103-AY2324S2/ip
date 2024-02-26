@@ -10,8 +10,13 @@ import seiki.ui.Ui;
  * Represents the 'todo' command.
  */
 public class ToDoCommand extends Command {
-    public static final String COMMAND_HELPER = "Please use the following format: todo [task title]";
     public static final String COMMAND_WORD = "todo";
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " [TASK_TITLE]";
+    public static final String COMMAND_HELPER = "Please use the following format: " + COMMAND_FORMAT;
+    public static final String COMMAND_USAGE = COMMAND_WORD
+            + ": Creates a deadline task.\n"
+            + "Parameters: TASK_TITLE\n"
+            + "Example: " + COMMAND_WORD + " read book /by 2022/02/22 1234";
     private final String taskTitle;
 
     public ToDoCommand(String taskTitle) {
