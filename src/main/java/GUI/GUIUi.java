@@ -98,7 +98,7 @@ public class GUIUi {
      * Prints confirmation that a task has been deleted from the task list.
      */
     public String printDeletion(Task deletedTask, int current) {
-        return "Noted. I've removed this task:" +
+        return "Noted. I've removed this task:\n" +
                 deletedTask.toString() +
                 "\nNow you have " + current + " task(s) in the list.";
     }

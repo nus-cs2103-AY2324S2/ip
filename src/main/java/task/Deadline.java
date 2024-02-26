@@ -5,12 +5,11 @@
 
 package task;
 
-import java.time.LocalDateTime;
-
+import java.time.LocalDate;
 public class Deadline extends Task {
 
     protected String by;
-    protected LocalDateTime deadline;
+    protected LocalDate deadline;
 
     public Deadline(String description, String by) throws InvalidInputException, InvalidDateException {
         super(description);
@@ -34,12 +33,10 @@ public class Deadline extends Task {
     public void parseDate(String date) throws InvalidDateException {
         String[] brokenDate = date.split("[\\s/-]+");
         try {
-            int year = Integer.parseInt(brokenDate[2]);
+            int year = Integer.parseInt(brokenDate[0]);
             int month = Integer.parseInt(brokenDate[1]);
-            int day = Integer.parseInt(brokenDate[0]);
-            int hour = Integer.parseInt(brokenDate[3].substring(0, 2));
-            int minute = Integer.parseInt(brokenDate[3].substring(2));
-            deadline = LocalDateTime.of(year, month, day, hour, minute);
+            int day = Integer.parseInt(brokenDate[2]);
+            deadline = LocalDate.of(year, month, day);
         } catch (Exception e) {
             throw new InvalidDateException("Date provided is not valid");
         }
