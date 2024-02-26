@@ -43,3 +43,6 @@ list
 priority 3 2
 priority 3 2
 deadline CS2103T /by 2021-12-31
+priority 3 1
+priority 3 5
+priority 3 2

@@ -72,7 +72,9 @@ public class Area {
                 result = tasks.findTask(keyword);
             } else if(command.equals("priority")){
                 storage.saveTask(instruction);
-                tasks.modifyTask(instruction);
+                result = tasks.modifyTask(instruction);
+            } else{
+                result = "Area does not understand your command.";
             }
         } catch (Exception e) {
             storage.deleteIncorrectInstruction();

@@ -81,7 +81,6 @@ public class TaskList {
         String command = parser.parseCommand(instruction);
         if (command.equals("todo")) {
             Todo task = new Todo(parser.parseTodo(instruction));
-            System.out.println("correct");
             tasks.add(task);
             taskCount++; // keep track of number of tasks
             return ui.addTask(this);
@@ -131,6 +130,7 @@ public class TaskList {
             int prority = Integer.parseInt(parser.parsePriority(instruction));
             Task prioritiseTask = tasks.get(index-1);
             prioritiseTask.setPriority(prority);
+            return ui.priorityMessage(prioritiseTask);
         }
         return "";
     }

@@ -68,6 +68,9 @@ public class Parser {
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
         } else {
+            if(sentence[1].contains(" /by ") == false){
+                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
+            }
             String[] deadline = sentence[1].split(" /by ");
             return deadline;
         }
@@ -83,7 +86,9 @@ public class Parser {
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
         } else {
-
+            if(sentence[1].contains(" /from ") == false){
+                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
+            }
             String[] arr = sentence[1].split(" /from "); // split task into description and deadline
             String[] arr1 = arr[1].split(" /to "); // split deadline into from and to
             String[] description = { arr[0], arr1[0], arr1[1] };

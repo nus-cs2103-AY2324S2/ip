@@ -6,7 +6,8 @@ import java.util.ArrayList;
  * Returns responses to user instructions in the form of printed statements. It
  * starts with greeting the user and ends with the command bye. If any task is
  * added or modified,
- * Ui will return a statement accordingly to inform user that user's instructions
+ * Ui will return a statement accordingly to inform user that user's
+ * instructions
  * have been followed.
  */
 public class Ui {
@@ -47,7 +48,7 @@ public class Ui {
      * @param tasks
      */
     public String taskUndone(int num, TaskList tasks) {
-        return"OK, I've marked this task as not done yet:\n " +
+        return "OK, I've marked this task as not done yet:\n " +
                 tasks.getTaskList().get(num - 1).toString() + "\n";
     }
 
@@ -69,11 +70,11 @@ public class Ui {
      */
     public String showList(ArrayList<Task> tasks) {
         String result = "Here are the tasks:\n";
-        if(tasks.size()>0){
+        if (tasks.size() > 0) {
             for (int i = 0; i < tasks.size(); i++) {
-                result += i + 1 + "." + tasks.get(i).toString()+"\n";
+                result += i + 1 + "." + tasks.get(i).toString() + "\n";
             }
-        } else{
+        } else {
             result = "There are no tasks. Please add some tasks first!\n";
         }
         return result;
@@ -93,5 +94,8 @@ public class Ui {
         System.out.println(error.toString());
     }
 
-    
+    public String priorityMessage(Task task) {
+        return "Priority hase been set to " + task.getPriority() + " for " + task.toString();
+    }
+
 }

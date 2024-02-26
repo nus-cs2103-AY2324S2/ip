@@ -23,7 +23,8 @@ public class Storage {
     private ArrayList<String> instructions;
 
     /**
-     * The Storage class manages files I/O operations for storing and retrieving task data.
+     * The Storage class manages files I/O operations for storing and retrieving
+     * task data.
      * It handles the interaction with the data files where tasks are located.
      * 
      * @param tasks
@@ -52,7 +53,9 @@ public class Storage {
 
     public void createFile() {
         try {
-            file.createNewFile();
+            if (!file.exists()) {
+                file.createNewFile();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -92,21 +95,21 @@ public class Storage {
     public void saveTask(String instruction) {
         try {
             FileWriter writer = new FileWriter("./data/area.txt", true);
-                writer.write(instruction + "\n");
+            writer.write(instruction + "\n");
             writer.close();
         } catch (IOException e) {
             System.out.println("Error saving tasks to file: " + e.getMessage());
         }
     }
 
-    public void deleteIncorrectInstruction(){
+    public void deleteIncorrectInstruction() {
         Path path = Paths.get("./data/area.txt");
         try {
             List<String> lines = Files.readAllLines(path);
-            lines.remove(lines.size()-1);
+            lines.remove(lines.size() - 1);
             FileWriter writer = new FileWriter("./data/area.txt", false);
-            for(String line:lines){
-                writer.write(line+"\n");
+            for (String line : lines) {
+                writer.write(line + "\n");
             }
             writer.close();
         } catch (IOException e) {
