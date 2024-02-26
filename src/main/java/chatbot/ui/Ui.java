@@ -18,6 +18,7 @@ public class Ui {
     public static String printWelcomeMessage(String name) {
         String welcomeMessage = "hello! i'm " + name + "!!!\n"
                 + "i'm here to manage your task list!\n"
+                + "use command \"help\" to access the help page!\n"
                 + "what can i do for you?";
         return welcomeMessage;
     }
@@ -140,17 +141,63 @@ public class Ui {
      */
     public static String printUnknownCommand() throws DukeException {
         String exceptionMessage = "hm? i don't understand what that means :(\n"
-                + "you can try any of these commands instead!!\n"
-                + "list\n"
-                + "mark\n"
-                + "unmark\n"
-                + "delete\n"
-                + "todo\n"
-                + "deadline\n"
-                + "event\n"
-                + "find\n"
-                + "bye\n";
+                + "please access the help page for my available commands, with the command \"help\"!";
         throw new DukeException(exceptionMessage);
+    }
+
+    /**
+     * Returns a string containing the message displaying the help page.
+     * @return
+     */
+    public static String printHelpPage() {
+        String helpMessage = "_____________________________________\n"
+                + "Help Page\n"
+                + "_____________________________________\n"
+                + "\n"
+                + "hello!! here is the list of available commands:\n"
+                + "\n"
+                + "     1. list\n"
+                + "     function: list all tasks in your task list\n"
+                + "     command format: list\n"
+                + "\n"
+                + "     2. todo\n"
+                + "     function: add a to do task\n"
+                + "     command format: todo [task description]\n"
+                + "\n"
+                + "     3. deadline\n"
+                + "     function: add a task with a deadline\n"
+                + "     command format: deadline [task description]\n"
+                + "     /by [deadline]\n"
+                + "     date time format: YYYY-MM-DD HH:MM\n"
+                + "\n"
+                + "     4. event\n"
+                + "     function: add an event with a start\n"
+                + "     and end date\n"
+                + "     command format: event [task description]\n"
+                + "     /from [start date] /to [end date]\n"
+                + "     date time format: YYYY-MM-DD HH:MM\n"
+                + "\n"
+                + "     5. mark\n"
+                + "     function: mark a task as completed\n"
+                + "     command format: mark [task number]\n"
+                + "\n"
+                + "     6. unmark\n"
+                + "     function: unmark a task\n"
+                + "     command format: unmark [task number]\n"
+                + "\n"
+                + "     7. delete\n"
+                + "     function: delete a task\n"
+                + "     command format: delete [task number]\n"
+                + "\n"
+                + "     8. find\n"
+                + "     function: find tasks with the specified\n"
+                + "     keyword\n"
+                + "     command format: find [keyword]\n"
+                + "\n"
+                + "     9. bye\n"
+                + "     function: close the chatbot\n"
+                + "     command format: bye\n";
+        return helpMessage;
     }
 
     /**
