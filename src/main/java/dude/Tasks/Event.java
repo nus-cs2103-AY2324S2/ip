@@ -33,7 +33,7 @@ public class Event extends Task {
 
     /**
      * Static method to create an Event object from parsing a string.
-     * Expects a string in the format "event <description> /at <fromTime> to <toTime>"
+     * Expects a string in the format "event *description* /at *fromTime* to *toTime*"
      *
      * @param input The string to be parsed into an Event object.
      * @return The Event object created from the string.

@@ -30,7 +30,7 @@ public class Todo extends Task {
         //get rid of the command
         String description = utils.discardFirstWord(s.trim()).trim();
 
-        if (!description.isEmpty()){
+        if (!description.isEmpty()) {
             return new Todo(description);
         } else {
             throw new InvalidDescriptionException("The description of a todo cannot be empty.");

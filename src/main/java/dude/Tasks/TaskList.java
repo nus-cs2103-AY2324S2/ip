@@ -1,8 +1,8 @@
 package dude.Tasks;
 
-import dude.Exceptions.DudeException;
 import java.util.ArrayList;
 
+import dude.Exceptions.DudeException;
 import dude.Exceptions.TaskListFullException;
 
 /**
@@ -41,17 +41,17 @@ public class TaskList {
      */
     public String add_task(Task task) throws TaskListFullException {
 
-        if ( list.size() >= 100) {
+        if (list.size() >= 100) {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
 
         list.add(task);
 
-        return "\t-----------------------------------\n" +
-                "\tGot it. I've added this task:\n" +
-                "\t\t" + task.toString() + "\n" +
-                "\tNow you have " + list.size() + " tasks in the list.\n" +
-                "\t-----------------------------------";
+        return "\t-----------------------------------\n"
+                + "\tGot it. I've added this task:\n"
+                + "\t\t" + task.toString() + "\n"
+                + "\tNow you have " + list.size() + " tasks in the list.\n"
+                + "\t-----------------------------------";
     }
 
     /**
@@ -66,11 +66,11 @@ public class TaskList {
             throw new DudeException("Sorry, the provided id is invalid.");
         }
         Task removed = list.remove(taskID - 1);
-        return "\t-----------------------------------\n" +
-                "\tNoted. I've removed this task:\n" +
-                "\t  " + removed.toString() + "\n" +
-                "\tNow you have " + list.size() + " tasks in the list.\n" +
-                "\t-----------------------------------";
+        return "\t-----------------------------------\n"
+                + "\tNoted. I've removed this task:\n"
+                + "\t  " + removed.toString() + "\n"
+                + "\tNow you have " + list.size() + " tasks in the list.\n"
+                + "\t-----------------------------------";
     }
 
     /**
@@ -157,8 +157,8 @@ public class TaskList {
      */
     public Task getTask(int taskID) throws IndexOutOfBoundsException {
         if (taskID <= 0 || taskID > list.size()) {
-            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid. " +
-                    "Use the list command to see the list of tasks.");
+            throw new IndexOutOfBoundsException("Sorry, the provided id is invalid. "
+                    + "Use the list command to see the list of tasks.");
         }
         return list.get(taskID - 1);
     }
