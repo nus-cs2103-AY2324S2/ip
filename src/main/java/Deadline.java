@@ -1,15 +1,15 @@
-public class Deadline extends Task{
+public class Deadline extends Task {
     private String taskType = "D";
     private String by = "";
-    public Deadline() {
+    Deadline() {
         super();
     }
 
-    public Deadline(String taskName, boolean marked, int seqNo) {
+    Deadline(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
-    public Deadline(String taskName, boolean marked, int seqNo, String type) {
+    Deadline(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;
     }
@@ -19,14 +19,14 @@ public class Deadline extends Task{
         this.by = by;
     }
 
-    public String getTaskType() { return this.taskType; }
+    public String getTypeOfTask() { return this.taskType; }
 
     public String getBy() { return this.by; }
 
     public String printOutput() {
         String output = getSeqNo() +".";
         if (null != taskType && !taskType.isBlank()) {
-            output = output +"["+this.getTaskType()+"]";
+            output = output +"["+this.getTypeOfTask()+"]";
         }
         if (isMarked()) {
             output = output + "[X] ";
@@ -37,4 +37,21 @@ public class Deadline extends Task{
         output = output + "(by: "+this.by+")";
         return output;
     }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(getSeqNo()).append(" | ");
+        if (null != taskType && !taskType.isBlank()) {
+            sb.append(getTypeOfTask()).append(" | ");
+        }
+        if (isMarked()) {
+            sb.append("[X]").append(" | ");
+        } else {
+            sb.append("[X]").append(" | ");
+        }
+        sb.append(getTaskName()).append(" | ");
+        sb.append("(by: ").append(this.by).append(")");
+        return sb.toString();
+    }
+
 }

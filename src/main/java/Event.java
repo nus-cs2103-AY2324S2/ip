@@ -1,16 +1,16 @@
-public class Event extends Task{
+public class Event extends Task {
     private String taskType = "E";
     private String from = "";
     private String to = "";
-    public Event() {
+    Event() {
         super();
     }
 
-    public Event(String taskName, boolean marked, int seqNo) {
+    Event(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
-    public Event(String taskName, boolean marked, int seqNo, String type) {
+    Event(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;
     }
@@ -21,7 +21,7 @@ public class Event extends Task{
         this.to = to;
     }
 
-    public String getTaskType() { return this.taskType; }
+    public String getTypeOfTask() { return this.taskType; }
 
     public String getFrom() { return this.from; }
 
@@ -29,7 +29,7 @@ public class Event extends Task{
     public String printOutput() {
         String output = getSeqNo() +".";
         if (null != taskType && !taskType.isBlank()) {
-            output = output +"["+this.getTaskType()+"]";
+            output = output +"["+this.getTypeOfTask()+"]";
         }
         if (isMarked()) {
             output = output + "[X] ";
@@ -39,5 +39,21 @@ public class Event extends Task{
         output = output + getTaskName();
         output = output + "(from: "+this.from +" to: "+this.to+")";
         return output;
+    }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(getSeqNo()).append(" | ");
+        if (null != taskType && !taskType.isBlank()) {
+            sb.append(getTypeOfTask()).append(" | ");
+        }
+        if (isMarked()) {
+            sb.append("[X]").append(" | ");
+        } else {
+            sb.append("[X]").append(" | ");
+        }
+        sb.append(getTaskName()).append(" | ");
+        sb.append("(from: ").append(this.from).append(" to: ").append(this.to).append(")");
+        return sb.toString();
     }
 }

@@ -1,15 +1,28 @@
-import java.util.ArrayList;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Scanner;
 
 public class Duke {
     public static void main(String[] args) {
+        String filepath = "./duke.txt";
         System.out.println("____________________________________________________________");
         String greeting = "Hi, I'm Lighthouse.\nHow can I help you?";
         System.out.println(greeting);
         System.out.println("____________________________________________________________");
         Scanner scan = new Scanner(System.in);
         boolean continueRun = true;
-        ArrayList<Task> taskList = new ArrayList<>();
+        TaskList taskList = new TaskList();
+        //taskList.addPropertyChangeListener();
+        PropertyChangeListener pcs = new PropertyChangeListener() {
+            @Override
+            public void propertyChange(PropertyChangeEvent evt) {
+                saveTaskListToFile(filepath, taskList.toString());
+            }
+        };
+        taskList.addPropertyChangeListener(pcs);
 
         while(continueRun) {
             String info = scan.nextLine();
@@ -23,7 +36,7 @@ public class Duke {
                 int index = info.indexOf(" ");
                 String argVal = info.substring(index+1);
                 int itemNo = Integer.parseInt(argVal) - 1;
-                Task task = taskList.get(itemNo);
+                Task task = (Task) taskList.getItemFromListByIndex(itemNo);
                 System.out.println("____________________________________________________________");
                 if (info.startsWith("mark")) {
                     task.setMarked(true);
@@ -34,14 +47,13 @@ public class Duke {
                 }
                 System.out.println(task.printOutput());
                 System.out.println("____________________________________________________________");
-                taskList.set(itemNo, task);
+                taskList.updateTaskInList(itemNo, task);
             } else if (info.equals("list")) {
                 String output = "";
                 System.out.println("____________________________________________________________");
                 System.out.println("Here are the tasks in your list:");
-                for(int i=0; i < taskList.size(); i++) {
-                    System.out.println(taskList.get(i).printOutput());
-                }
+                String taskoutput = taskList.printOutput();
+                System.out.println(taskoutput);
                 System.out.println("____________________________________________________________");
             } else if (info.startsWith("todo") || info.startsWith("event") || info.startsWith("deadline")) {
                 Task todo = null;
@@ -57,33 +69,31 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:\n");
                 System.out.println(todo.printOutput());
-                int count = (int) taskList.stream().filter(obj -> obj.getTaskType().equals("T")).count();
-                System.out.println("Now you have "+taskList.size()+" tasks in the list");
+//                int count = taskList.getCountByType ("T");
+                int count = taskList.getTaskList().size();
+                System.out.println("Now you have "+count+" tasks in the list");
                 System.out.println("____________________________________________________________");
             } else if (info.startsWith("delete")) {
+                int count = taskList.getTaskList().size()-1;
                 int index = info.indexOf(" ");
                 String argVal = info.substring(index+1);
                 int itemNo = Integer.parseInt(argVal) - 1;
-                Task task = taskList.get(itemNo);
-                taskList.remove(itemNo);
+                Task task = (Task) taskList.getItemFromListByIndex(itemNo);
+                taskList.remove(index);
                 System.out.println("____________________________________________________________");
                 System.out.println("Noted. I've removed this task:\n");
                 System.out.println(task.printOutput());
-                int count = (int) taskList.stream().filter(obj -> obj.getTaskType().equals("T")).count();
-                System.out.println("Now you have "+taskList.size()+" tasks in the list");
+                System.out.println("Now you have "+count+" tasks in the list");
                 System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("Oh dear! I do not understand this command! Try again!");
                 System.out.println("____________________________________________________________");
-//                Task4 task = new Task4(info, false, taskList.size()+1);
-//                taskList.add(task);
-//                System.out.println("added: "+info);
             }
         }
     }
 
-    private static Task handleTodoEventDeadline(String info, ArrayList<Task> taskList) throws DukeException {
+    private static Task handleTodoEventDeadline(String info, TaskList taskList) throws DukeException {
         int index = info.indexOf(" ");
         if (index <= 0) {
             throw new DukeException("OMG! Description is empty. Cannot accept.");
@@ -91,21 +101,36 @@ public class Duke {
         String argVal = info.substring(index+1);
         Task todo = null;
         if (info.startsWith("todo")) {
-            todo = new Todo(argVal, false, taskList.size() + 1, "T");
+            todo = new Todo(argVal, false, taskList.getTaskList().size() + 1, "T");
         } else if (info.startsWith("event")) {
             int indfrom = argVal.indexOf("/from");
             String eventname = argVal.substring(0,indfrom);
             String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
             int indto = argVal.indexOf("/to");
             String eventToStr = argVal.substring(indto+4);
-            todo = new Event(eventname, false, taskList.size() + 1, "E", eventFromStr, eventToStr);
+            todo = new Event(eventname, false, taskList.getTaskList().size() + 1, "E", eventFromStr, eventToStr);
         } else if (info.startsWith("deadline")) {
             int indfrom = argVal.indexOf("/by");
             String eventname = argVal.substring(0,indfrom);
 
             String deadlineStr = argVal.substring(indfrom+4);
-            todo = new Deadline(eventname, false, taskList.size() + 1, "D", deadlineStr);
+            todo = new Deadline(eventname, false, taskList.getTaskList().size() + 1, "D", deadlineStr);
         }
         return todo;
+    }
+
+    private static void saveTaskListToFile(String path, String content) {
+        try {
+            File file = new File(path);
+            if (!file.exists()) {
+                file.createNewFile();
+            }
+            FileWriter fw = new FileWriter(file);
+            fw.write(content);
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
     }
 }

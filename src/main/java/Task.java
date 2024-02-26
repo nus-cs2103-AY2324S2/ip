@@ -3,6 +3,7 @@ public class Task {
     private boolean marked = false;
     private int seqNo = -1;
     private String taskType = "";
+
     public Task() {
     }
     public Task(String name, boolean marked, int seq) {
@@ -14,7 +15,7 @@ public class Task {
     public String printOutput() {
         String output = getSeqNo() +".";
         if (null != taskType && !taskType.isBlank()) {
-            output = output +"["+getTaskType()+"]";
+            output = output +"["+getTypeOfTask()+"]";
         }
         if (isMarked()) {
             output = output + "[X] ";
@@ -49,5 +50,20 @@ public class Task {
         this.seqNo = seqNo;
     }
 
-    public String getTaskType() { return taskType; }
+    public String getTypeOfTask() { return taskType; }
+
+    public String toString(){
+        StringBuilder sb = new StringBuilder();
+        sb.append(getSeqNo()).append(" | ");
+        if (null != taskType && !taskType.isBlank()) {
+            sb.append(getTypeOfTask()).append(" | ");
+        }
+        if (isMarked()) {
+            sb.append("[X]").append(" | ");
+        } else {
+            sb.append("[X]").append(" | ");
+        }
+        sb.append(getTaskName());
+        return sb.toString();
+    }
 }
