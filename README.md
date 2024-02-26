@@ -5,6 +5,7 @@
 Linus is a chatbot application designed to be used via computers.
 It allows you to manage your tasks conveniently.
 
+
 ## Quick Start
 1. Ensure you have Java 11 or above properly installed in your computer.
 2. Download the latest `linus.jar` from [here](https://github.com/jeong-jaeho/ip/releases/tag/A-Release).
