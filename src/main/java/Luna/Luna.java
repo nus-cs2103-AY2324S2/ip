@@ -14,20 +14,7 @@ public class Luna {
         storage = new Storage("taskList");
         tasks = new TaskList();
         ui = new Ui("Luna");
-//        new Luna().begin();
     }
-
-//    @Override
-//    public void start(Stage stage) {
-//
-//        Scene scene = new Scene(new Label("Jello"));
-//        stage.setScene(scene);
-//        stage.show();
-//
-//
-//        ui.greet();
-//        run();
-//    }
 
     public void run() {
         String userInput = ui.readInput();

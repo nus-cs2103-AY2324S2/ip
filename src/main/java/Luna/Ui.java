@@ -104,12 +104,10 @@ public class Ui {
             BufferedReader br = new BufferedReader(new StringReader(text));
             String readText = br.readLine();
             StringBuilder output = new StringBuilder();
-//            output.append("      " + HORIZONTAL_LINE);
             while (readText != null) {
                 output.append("      ").append(readText).append("\n");
                 readText = br.readLine();
             }
-//            output.append("      " + HORIZONTAL_LINE);
             System.out.print(output);
         } catch (Exception e) {
             //
