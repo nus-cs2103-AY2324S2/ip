@@ -1,29 +1,60 @@
-# User Guide
+# AWEX User Guide
 
-## Features 
+AWEX (A Wonderful Experience) provides you a simple, yet interactive experience while making your list of things to do, so you'll never feel alone on the path to peak productivity!
 
-### Feature-ABC
+![Screenshot of AWEX's first messages](Ui.png)
 
-Description of the feature.
+## Features
 
-### Feature-XYZ
+### Add Tasks
 
-Description of the feature.
+Input Format:
 
-## Usage
+`todo <task>`
 
-### `Keyword` - Describe action
+`deadline <task> /by <YYYY-MM-DD hh:mm>`
 
-Describe the action and its outcome.
+`event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>`
 
-Example of usage: 
+### Mark/Unmark Tasks
 
-`keyword (optional arguments)`
+Input Format:
 
-Expected outcome:
+`mark <task number>`
 
-Description of the outcome.
+`unmark <task number>`
+
+### Find Tasks
+
+Input Format:
+
+`find <item>`
+
+### List Tasks
+
+Input Format: `list`
+
+### Delete Tasks
+
+Input Format:
+
+`delete <task number>`
+
+### User Manual
+
+Input Format: `help`
+
+Response:
 
 ```
-expected output
+Input type must be one of:
+  1. list
+  2. mark <task number>
+  3. unmark <task number>
+  4. todo <task>
+  5. deadline <task> /by <YYYY-MM-DD hh:mm>
+  6. event <task> /from <YYYY-MM-DD hh:mm> /to <YYYY-MM-DD hh:mm>
+  7. delete <task number>
+  8. find <item>\n"
+Type 'bye' to exit.
 ```
