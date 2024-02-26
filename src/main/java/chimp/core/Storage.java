@@ -99,27 +99,33 @@ public class Storage {
     }
 
     private static void parseLineToTask(String line, TaskList taskList) {
-        Pattern pattern = Pattern.compile("\\[(T|D|E)] \\[([ X])] (.+?)(?: \\(by: (.+)\\)| \\(at: (.+) to (.+)\\))?");
+        Pattern pattern = Pattern.compile("\\[(T|D|E)] \\[([ X])] (.*?)(?: \\(by: (.*?)\\)| \\(from: (.*?) to: (.*?)\\))?$");
+
         Matcher matcher = pattern.matcher(line);
 
+        
         if (matcher.find()) {
             String type = matcher.group(1);
             boolean isMarked = matcher.group(2).trim().equals("X");
-            String description = matcher.group(3);
+            String description = matcher.group(3).trim();
             TaskStatus status = isMarked ? TaskStatus.MARKED : TaskStatus.UNMARKED;
-
+        
             switch (type) {
                 case "T":
                     taskList.add(new Todo(description, status));
                     break;
                 case "D":
-                    LocalDate byDate = LocalDate.parse(matcher.group(4), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    taskList.add(new Deadline(description, status, byDate));
+                    if (matcher.group(4) != null && !matcher.group(4).isEmpty()) {
+                        LocalDate byDate = LocalDate.parse(matcher.group(4), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        taskList.add(new Deadline(description, status, byDate));
+                    }
                     break;
                 case "E":
-                    LocalDate fromDate = LocalDate.parse(matcher.group(5), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    LocalDate toDate = LocalDate.parse(matcher.group(6), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                    taskList.add(new Event(description, status, fromDate, toDate));
+                    if (matcher.group(5) != null && !matcher.group(5).isEmpty() && matcher.group(6) != null && !matcher.group(6).isEmpty()) {
+                        LocalDate fromDate = LocalDate.parse(matcher.group(5), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        LocalDate toDate = LocalDate.parse(matcher.group(6), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                        taskList.add(new Event(description, status, fromDate, toDate));
+                    }
                     break;
             }
         }

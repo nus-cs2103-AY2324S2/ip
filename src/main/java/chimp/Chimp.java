@@ -1,7 +1,5 @@
 package chimp;
 
-import java.security.InvalidParameterException;
-import java.util.Scanner;
 import chimp.command.Command;
 import chimp.controls.DialogBox;
 import chimp.core.*;
@@ -146,46 +144,5 @@ public class Chimp extends Application {
             e.printStackTrace();
         }
         System.exit(0);
-    }
-
-    /**
-     * The main method is the entry point of the Chimp program.
-     * It initializes the user interface, task list, and storage objects.
-     * It then enters a loop to continuously read user input, parse it into a
-     * command,
-     * execute the command, and save the output to a file.
-     * If an invalid command or exception occurs, an error message is displayed.
-     * The loop continues until the user enters an exit command.
-     * Finally, the scanner is closed.
-     *
-     * @param args the command line arguments
-     * @throws InvalidParameterException if an invalid parameter is passed
-     */
-    public static void main(String[] args) throws InvalidParameterException {
-        Ui ui = new Ui();
-        Storage storage = new Storage();
-        Storage.createFileIfNotExist();
-        TaskList tasks = Storage.readOutputFromFile();
-        ui.say("greet");
-
-
-        Scanner sc = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            String inp = sc.nextLine();
-            try {
-                Command c = Parser.parse(inp);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                Storage.saveOutputToFile(tasks);
-            } catch (InvalidCommandException
-                    | CommandParseException
-                    | CommandExecuteException e) {
-                ui.say("hoo");
-            } catch (IndexOutOfBoundsException e) {
-                ui.say("hoo");
-            }
-        }
-        sc.close();
     }
 }
