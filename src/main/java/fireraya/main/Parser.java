@@ -151,7 +151,7 @@ public class Parser {
                 return new DeleteCommand(curr);
             }
 
-            throw new FirerayaException("Error: command not supported");
+            throw new FirerayaException("Sorry mate, I don't understand what that means");
 
         } catch (FirerayaException e) {
             throw e;
