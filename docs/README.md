@@ -1,6 +1,7 @@
 # Dav User Guide
 
-![Dav TaskBot Interface](/docs/Ui.png)
+**Dav TaskBot Interface**
+![Dav TaskBot Interface](Ui.png)
 
 Dav Taskbot is designed to help you manage your tasks. 
 It's an interactive and user-friendly tool that can help 
