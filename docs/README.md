@@ -7,7 +7,7 @@
 > Hey, I'm Judy! You personal assistant for task management.
 
 ## Start Using Judy
-1. Click [here](https://github.com/ziyi22/ip/releases/download/v0.1/Judy.jar) to download Judy.
+1. Click [here](https://github.com/ziyi22/ip/releases/download/A-Release/Judy.jar) to download Judy.
 2. Navigate to your Downloads folder using the terminal.
 3. Enter `java -jar Judy.jar` in your terminal.
 4. Press enter.
