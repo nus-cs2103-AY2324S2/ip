@@ -39,8 +39,15 @@ public class Storage {
     public boolean checkFileIsOpen() {
         return fileIsOpen;
     }
-    public ArrayList<TaskList.Task> loadTasks() {
-        ArrayList<TaskList.Task> tasks = new ArrayList<>();
+
+    /**
+     * Loads tasks from the file specified in the constructor.
+     *
+     * @return An ArrayList of Task objects loaded from the file.
+     * @throws FileNotFoundException If the file is not found.
+     */
+    public ArrayList<Task> loadTasks() {
+        ArrayList<Task> tasks = new ArrayList<>();
 
         try {
             File file = new File(filePath);
@@ -49,8 +56,7 @@ public class Storage {
             while (scanner.hasNextLine()) {
                 String taskData = scanner.nextLine();
 
-                // Assuming TaskList.Task has a constructor
-                TaskList.Task task = new TaskList.Task(taskData);
+                Task task = new Task(taskData);
                 tasks.add(task);
             }
             scanner.close();
@@ -68,10 +74,10 @@ public class Storage {
      *
      * @param tasks The ArrayList of tasks to be written to the file.
      */
-    public void writeTasks(ArrayList<TaskList.Task> tasks) {
+    public void writeTasks(ArrayList<Task> tasks) {
         try {
             FileWriter writer = new FileWriter(filePath);
-            for (TaskList.Task task : tasks) {
+            for (Task task : tasks) {
                 writer.write(task.toString() + "\n");
             }
             writer.close();

@@ -1,5 +1,9 @@
 package bentley;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Parser {
 
     /**
@@ -25,17 +29,11 @@ public class Parser {
                 String listResult = taskList.listTasks();
                 return listResult;
             case "todo":
-                String todoResult = taskList.addTodoTask(input);
-                storage.writeTasks(taskList.getTasks());
-                return todoResult;
+                return addTodoTask(input, taskList, storage);
             case "deadline":
-                String deadlineResult = taskList.addDeadlineTask(input);
-                storage.writeTasks(taskList.getTasks());
-                return deadlineResult;
+                return addDeadlineTask(input, taskList, storage);
             case "event":
-                String eventResult = taskList.addEventTask(input);
-                storage.writeTasks(taskList.getTasks());
-                return eventResult;
+                return addEventTask(input, taskList, storage);
             case "mark":
                 String markResult = taskList.markAsDone(input);
                 storage.writeTasks(taskList.getTasks());
@@ -51,9 +49,133 @@ public class Parser {
             case "find":
                 String findResult = taskList.findTasks(input);
                 return findResult;
-
             default:
                 throw new IllegalArgumentException("I'm sorry, but I don't understand that command.");
         }
+    }
+
+    /**
+     * Adds a todo task based on user input.
+     *
+     * @param input    The user input command for adding a todo task.
+     * @param taskList The TaskList object to add the new task to.
+     * @param storage  The Storage object for writing tasks.
+     * @return A string representing the result or feedback of adding the todo task.
+     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     */
+    private static String addTodoTask(String input, TaskList taskList, Storage storage) {
+        if (input.length() <= 5) {
+            throw new IllegalArgumentException("Looks like something is missing (description)");
+        }
+
+        String description = input.substring(5).trim();
+
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Looks like the description is missing");
+        }
+
+        if (isDuplicateDescription(description, taskList)) {
+            throw new IllegalArgumentException("Task with the same description already exists");
+        }
+
+        Task newTask = new Todo(description);
+        taskList.getTasks().add(newTask);
+
+        String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.getTasks().size()
+                + " tasks in the list.";
+        storage.writeTasks(taskList.getTasks());
+        return result;
+    }
+
+    /**
+     * Adds a deadline task based on user input.
+     *
+     * @param input    The user input command for adding a deadline task.
+     * @param taskList The TaskList object to add the new task to.
+     * @param storage  The Storage object for writing tasks.
+     * @return A string representing the result or feedback of adding the deadline task.
+     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     */
+    private static String addDeadlineTask(String input, TaskList taskList, Storage storage) {
+        if (input.length() <= 9) {
+            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+        }
+
+        String[] parts = input.split("/by");
+        String descriptionWithDeadline = parts[0].trim();
+        String date = parts[1].trim();
+
+        if (descriptionWithDeadline.isEmpty() || date.isEmpty()) {
+            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+        }
+
+        // Extracting "deadline" from the description
+        String[] descriptionParts = descriptionWithDeadline.split(" ", 2);
+        String keyword = descriptionParts[0].trim(); // Assuming the keyword is the first word
+
+        // Remove "deadline" from the description
+        String description = descriptionWithDeadline.replaceFirst(keyword, "").trim();
+
+        LocalDate deadlineDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        Task newTask = new Deadline(description, deadlineDate);
+        taskList.getTasks().add(newTask);
+
+        String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.getTasks().size()
+                + " tasks in the list.";
+        storage.writeTasks(taskList.getTasks());
+        return result;
+    }
+
+    /**
+     * Adds an event task based on user input.
+     *
+     * @param input    The user input command for adding an event task.
+     * @param taskList The TaskList object to add the new task to.
+     * @param storage  The Storage object for writing tasks.
+     * @return A string representing the result or feedback of adding the event task.
+     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     */
+    private static String addEventTask(String input, TaskList taskList, Storage storage) {
+        if (input.length() <= 6) {
+            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+        }
+
+        String[] parts = input.substring(0).split("/from");
+        String description = parts[0].trim().replace("event", "").trim();
+        String[] eventParts = parts[1].trim().split("/to");
+        String from = eventParts[0].trim();
+        String to = eventParts[1].trim();
+        if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
+            throw new IllegalArgumentException(
+                    "Looks like something is missing (description/ start date/ end date)");
+        }
+
+        LocalDateTime fromDateTime = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+        LocalDateTime toDateTime = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+
+        Task newTask = new Event(description, fromDateTime, toDateTime);
+        taskList.getTasks().add(newTask);
+
+        String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.getTasks().size()
+                + " tasks in the list.";
+        storage.writeTasks(taskList.getTasks());
+        return result;
+    }
+    
+    /**
+     * Checks if a task with the same description already exists in the TaskList.
+     *
+     * @param description The description of the task to check for duplicates.
+     * @param taskList    The TaskList object to search for duplicates.
+     * @return True if a task with the same description exists, false otherwise.
+     */
+    private static boolean isDuplicateDescription(String description, TaskList taskList) {
+        for (Task task : taskList.getTasks()) {
+            if (task.getDescription().trim().equalsIgnoreCase(description.trim())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

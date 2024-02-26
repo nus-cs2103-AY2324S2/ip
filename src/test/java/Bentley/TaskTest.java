@@ -2,9 +2,6 @@ package Bentley;
 
 import java.util.ArrayList;
 
-import Bentley.Task;
-import Bentley.Deadline;
-import Bentley.Event;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

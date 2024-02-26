@@ -35,7 +35,7 @@ Command: `todo <description>`
 Example: `todo homework`
 
 **Output:**
-`T [ ] homework`
+`[ ] T homework`
 
 
 ### 2. Create a Deadline Task with date 
@@ -44,7 +44,7 @@ Command: `deadline <description> /by YYYY-MM-DD`
 Example: `deadline return books /by 2025-11-10`
 
 **Output:**
-`D [ ] return books | Nov 10 2025`
+`[ ] (D) return books | Nov 10 2025`
 
 
 ### 3. Create a Event task with date and time
@@ -53,7 +53,7 @@ Command: `event <description> /from YYYY-MM-DD HHmm /to YYYY-MM-DD HHmm`
 Example: `event project meeting /from 2025-11-10 1800 /to 2025-11-10 1900`
 
 **Output:**
-`E [ ] project meeting | From Nov 10 2025 6:00pm to Nov 10 2025 7:00pm`
+`[ ] (E) project meeting | From Nov 10 2025 6:00pm to Nov 10 2025 7:00pm`
 
 ### Other features
 1. list: Displays the list of tasks

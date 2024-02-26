@@ -11,7 +11,7 @@ public class DeadlineTest {
         TaskList taskList = new TaskList(new ArrayList<>());
         taskList.addDeadlineTask("deadline return books by/ 2025-09-09");
         assertEquals(1, taskList.getTasks().size());
-        assertEquals("D [ ] return books | Sep 09 2025", taskList.getTasks().get(0).toString());
+        assertEquals("[X] (D) return books | Sep 09 2025", taskList.getTasks().get(0).toString());
     }
 
     @Test
@@ -20,5 +20,6 @@ public class DeadlineTest {
         taskList.addDeadlineTask("deadline return book by/ 2025-09-09");
         taskList.markAsDone("done 1");
 
-        assertEquals("D [X] return book | Sep 09 2025", taskList.getTasks().get(0).toString());
+        assertEquals("[X] (D) return book | Sep 09 2025", taskList.getTasks().get(0).toString());
     }
+}
