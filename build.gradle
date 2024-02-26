@@ -42,11 +42,11 @@ test {
 }
 
 application {
-    mainClass.set("seedu.dukio.dukio")
+    mainClass.set("dukio.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "dukio"
+    archiveBaseName = "dukio.jar"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
@@ -54,3 +54,6 @@ shadowJar {
 run{
     standardInput = System.in
 }
+
+sourceCompatibility = 11
+targetCompatibility = 11
