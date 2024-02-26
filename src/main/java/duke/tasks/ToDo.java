@@ -18,6 +18,9 @@ public class ToDo extends Task {
         super(description);
     }
 
+    public ToDo(String description, boolean isMarked) {
+        super(description, isMarked);
+    }
     /**
      * Returns a String representation of the ToDo task, indicating its completion status.
      * @return A formatted String indicating the completion status and description of the ToDo task.

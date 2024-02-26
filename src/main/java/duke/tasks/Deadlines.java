@@ -26,6 +26,11 @@ public class Deadlines extends Task {
         this.actualDeadline = actualDeadline;
     }
 
+    public Deadlines(String description, boolean isMarked, LocalDateTime actualDeadline) {
+        super(description, isMarked);
+        this.actualDeadline = actualDeadline;
+    }
+
     /**
      * Returns the deadline date of the Deadlines task.
      *
@@ -52,7 +57,7 @@ public class Deadlines extends Task {
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm'hrs'");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm'hrs'");
         if (this.isMarked()) {
             return "[D][X] " + super.toString() + "(by: " + this.getAbsoluteDeadline().format(outputFormatter) + ")";
         } else {

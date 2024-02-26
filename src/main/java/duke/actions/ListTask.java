@@ -31,6 +31,7 @@ public class ListTask {
      * @return A string listing all tasks with their index in the list, or a message if the list is empty.
      */
     public String list() {
+        //storage.loadDataFromFile();
         if (storage.load().isEmpty()) {
             return "List is Empty !";
         }

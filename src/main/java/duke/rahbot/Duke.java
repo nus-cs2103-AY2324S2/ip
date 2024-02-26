@@ -41,6 +41,7 @@ public class Duke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.png"));
     private Stage stage;
     private AnchorPane mainLayout;
+    private Storage storage = new Storage();
 
     public static void main(String[] args) {
         launch(args);
@@ -181,12 +182,11 @@ public class Duke extends Application {
      * @return A String containing Duke's response to the input.
      */
     private String getResponse(String input) {
-        Storage storage = new Storage();
         Parser parser = new Parser(storage);
         Output output = new Output(parser, storage);
         String response = output.execute(input);
         try {
-            storage.writeToFile(storage.load());
+            storage.overWriteToFile(storage.load());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }

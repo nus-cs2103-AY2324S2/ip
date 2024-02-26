@@ -23,6 +23,11 @@ public abstract class Task {
         this.isMarked = false;
     }
 
+    Task(String description, boolean isMarked) {
+        this.description = description;
+        this.isMarked = isMarked;
+    }
+
     /**
      * Marks the task as completed.
      */
