@@ -15,7 +15,7 @@ Luna is a desktop application for managing your tasks, optimized for usage via a
   * [Load saved tasks](https://whitesnowx.github.io/ip/#load-saved-tasks-load) `load`
   * [Find a task using a keyword](https://whitesnowx.github.io/ip/#find-a-task-using-a-keyword-find) `find`
   * [Snooze a _deadline_ or _event_ task](https://whitesnowx.github.io/ip/#snooze-a-deadline-or-event-task-snooze) `snooze`
-  * Exit the program: `exit`
+  * [Exit the program](https://whitesnowx.github.io/ip/#exit-the-program-exit) `exit`
 * [FAQ](https://whitesnowx.github.io/ip/#faq)
 * [Known Issues](https://whitesnowx.github.io/ip/#known-issues)
 * [Command Summary](https://whitesnowx.github.io/ip/#command-summary)
@@ -51,22 +51,22 @@ Add a task named `<TASK_NAME>` with the **event** task type and set its start da
 --> Format: `event` `<TASK_NAME>` `<START_DATE>` `<END_DATE>` 
 
 #### Mark a task as done: `mark`
-Mark a task in the list using its `index` in the list to show that a task is _done_.\
+Mark a task in the list using its `<INDEX>` in the list to show that a task is _done_.\
 --> Format: `mark` `<INDEX>` 
 
 
 #### Unmark a task as undone: `unmark`
-Unmark a task in the list using its `index` in the list to show that a task is _undone_.\
+Unmark a task in the list using its `<INDEX>` in the list to show that a task is _undone_.\
 --> Format: `unmark` `<INDEX>` 
 
 
 #### Delete a task from the list: `delete`
-Remove the entry using its `index` in the list.\
+Remove the entry using its `<INDEX>` in the list.\
 --> Format: `delete` `<INDEX>` 
 
 
 #### Save any changes made: `save`
-Save the current list into the device you are running the program.\
+Save the current list to the device you are running the program.\
 --> Format: `save` 
 
 
@@ -76,12 +76,12 @@ Load the current list from the device you are running the program.\
 
 
 #### Find a task using a keyword: `find`
-Show only the task from the list that contains the `keyword` in its task name.\
---> Format: `find` `<KEY_WORD>` 
+Show only the task from the list that contains the `<KEYWORD>` in its task name.\
+--> Format: `find` `<KEYWORD>` 
 
 
 #### Snooze a _deadline_ or _event_ task: `snooze`
-Snooze a _deadline_ or _event_  using its `index` in the list by the `<DAYS_TO_SNOOZE>` number of days.\
+Snooze a _deadline_ or _event_  using its `<INDEX>` in the list by the `<DAYS_TO_SNOOZE>` number of days.\
 --> Format: `snooze` `<INDEX_IN_LIST>` `<DAYS_TO_SNOOZE>` 
 
 
