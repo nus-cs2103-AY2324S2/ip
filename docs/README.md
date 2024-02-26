@@ -63,10 +63,10 @@ Expected Output: Got it. I've added the task
 
 ### Task Manipulation
 There are various way to manipulate yout task with eve, there are
-    - Task Deletion
-    - Task Finding
-    - Marking a Task as done/not done
-    - Tagging a task 
+- Task Deletion
+- Task Finding
+- Marking a Task as done/not done
+- Tagging a task 
 ## Deleting a Task
 We all make mistake, perhaps the task is is wrongly inputed or you would not like to track it anymore, in this case do delete the task with
 
@@ -107,7 +107,10 @@ Expected Output: Nice! I've marked this task as not done yet:
 ## Tagging a Task
 You are able to add a tag to a tag using the 'Tag' Command
 
-Example input: 
+Example input: tag 1 hard
+
+Expected Output: Nice! I've added a tag to this:
+                [T][ ] Submit project # Hard
 
 
 ### Listing all the availble task
