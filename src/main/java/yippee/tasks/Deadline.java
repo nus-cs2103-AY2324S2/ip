@@ -9,8 +9,8 @@ import yippee.exceptions.InvalidCommandException;
  * Represents tasks of type Deadline.
  */
 public class Deadline extends Task {
-    private LocalDate deadline;
     private static int deadlineCount = 0;
+    private LocalDate deadline;
 
     /**
      * Constructor for tasks of type Deadline.

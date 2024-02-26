@@ -1,4 +1,7 @@
 package yippee.commands;
+
+import java.util.Arrays;
+
 import yippee.Storage;
 import yippee.TaskList;
 import yippee.Ui;
@@ -8,15 +11,14 @@ import yippee.tasks.Event;
 import yippee.tasks.Task;
 import yippee.tasks.ToDo;
 
-import java.util.Arrays;
 
 /**
  * Represents commands that creates a new task.
  */
 public class CreateTaskCommand extends Command {
+    private static int totalCreated = 0;
     private String taskType;
     private String details;
-    private static int totalCreated = 0;
     public CreateTaskCommand(String taskType, String details) {
         super(false);
         this.taskType = taskType;

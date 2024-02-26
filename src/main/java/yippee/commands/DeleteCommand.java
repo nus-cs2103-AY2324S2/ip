@@ -8,8 +8,8 @@ import yippee.exceptions.InvalidCommandException;
  * Represents commands to delete a task.
  */
 public class DeleteCommand extends Command {
-    private int deleteNumber;
     private static int deleteCount = 0;
+    private int deleteNumber;
     public DeleteCommand(int number) {
         super(false);
         this.deleteNumber = number;

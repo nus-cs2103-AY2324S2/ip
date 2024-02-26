@@ -9,9 +9,9 @@ import yippee.exceptions.InvalidCommandException;
  * Represents Tasks of type Event.
  */
 public class Event extends Task {
+    private static int eventCount = 0;
     private LocalDate from;
     private LocalDate to;
-    private static int eventCount = 0;
 
     /**
      * Constructor for Event type Tasks.

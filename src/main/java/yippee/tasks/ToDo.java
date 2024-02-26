@@ -4,11 +4,11 @@ package yippee.tasks;
  * Represents tasks of type ToDo.
  */
 public class ToDo extends Task {
+    private static int todoCount = 0;
     /**
      * Instantiates new ToDo task.
      * @param name String representation of name of the new task.
      */
-    private static int todoCount = 0;
     public ToDo(String name) {
         super(name);
         todoCount++;

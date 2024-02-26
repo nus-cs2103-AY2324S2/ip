@@ -8,12 +8,11 @@ import yippee.exceptions.InvalidCommandException;
  * Represents commands to mark tasks as complete or incomplete.
  */
 public class MarkCommand extends Command {
+    private static int markCompleteCount = 0;
+    private static int markInCompleteCount = 0;
     private boolean isUnmarkCommand;
     private boolean isExit = false;
     private int number;
-
-    private static int markCompleteCount = 0;
-    private static int markInCompleteCount = 0;
 
     /**
      * Constructor to commands of type MarkCommand.

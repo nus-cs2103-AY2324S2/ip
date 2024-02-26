@@ -1,4 +1,5 @@
 package yippee;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +17,9 @@ import yippee.exceptions.InvalidCommandException;
  * Represents element to parse and unpack user command inputs.
  */
 public class Parser {
-    /** All valid task command names */
+    /**
+     * All valid task command names
+     */
     private static final List<String> NUMBER_COMMANDS = new ArrayList<>(List.of("mark", "unmark", "delete"));
     private static final List<String> VALID_TASKS = new ArrayList<>(List.of("todo", "deadline", "event"));
     private Ui ui;
@@ -31,6 +34,7 @@ public class Parser {
 
     /**
      * Parses given command and instantiates corresponding command type.
+     *
      * @param command String representation of command from user.
      * @return Command object instantiated based on user input.
      * @throws InvalidCommandException If user input format is invalid.
@@ -57,7 +61,7 @@ public class Parser {
         }
     }
 
-    private Command parseEditNumber(String[] split, String commandName) throws InvalidCommandException{
+    private Command parseEditNumber(String[] split, String commandName) throws InvalidCommandException {
         if (split.length == 1) {
             throw new InvalidCommandException(
                     "Wrong format! Please include the number that you want me to unmark >:(");

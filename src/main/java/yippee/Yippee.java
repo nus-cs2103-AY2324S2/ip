@@ -4,11 +4,9 @@ import GUI.DialogBox;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -35,8 +33,10 @@ public class Yippee extends Application {
 
     private Image user = new Image(getClass().getResourceAsStream("/images/Duck.jpg"));
     private Image yippee = new Image(getClass().getResourceAsStream("/images/Yippee.jpg"));
+
     /**
      * Instantiates the Yippee bot instance.
+     *
      * @param filePath Path where data is stored.
      */
     public Yippee(String filePath) {
@@ -83,7 +83,7 @@ public class Yippee extends Application {
         }
         this.ui.endCommands();
     }
-    
+
     @Override
     public void start(Stage stage) {
         this.storage = new Storage(FILE_PATH);
@@ -153,7 +153,7 @@ public class Yippee extends Application {
         AnchorPane.setBottomAnchor(sendButton, 1.0);
         AnchorPane.setRightAnchor(sendButton, 1.0);
 
-        AnchorPane.setLeftAnchor(userInput , 1.0);
+        AnchorPane.setLeftAnchor(userInput, 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
     }
 
@@ -189,12 +189,12 @@ public class Yippee extends Application {
      * Replace this stub with your completed method.
      */
     public String getResponse(String input) {
-            try {
-                Command command = new Parser().parseCommand(input);
-                return command.execute(taskList, ui, storage);
-            } catch (InvalidCommandException e) {
-                return ui.printError(e);
-            }
+        try {
+            Command command = new Parser().parseCommand(input);
+            return command.execute(taskList, ui, storage);
+        } catch (InvalidCommandException e) {
+            return ui.printError(e);
+        }
     }
 
     public static void main(String[] args) {
