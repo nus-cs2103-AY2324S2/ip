@@ -20,7 +20,7 @@ import javafx.stage.Stage;
  */
 public class TalkToMeOrIllDie extends Application {
     private final Storage storage;
-    private TaskList tasks;
+    private final TaskList tasks;
     private final Ui ui;
 
     private final Image user;

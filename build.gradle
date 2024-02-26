@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("talktomeorilldie.TalkToMeOrIllDie")
+    mainClass.set("talktomeorilldie.Launcher")
 }
 
 shadowJar {
