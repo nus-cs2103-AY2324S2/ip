@@ -60,6 +60,18 @@ public class Duke {
                 int count = (int) taskList.stream().filter(obj -> obj.getTaskType().equals("T")).count();
                 System.out.println("Now you have "+taskList.size()+" tasks in the list");
                 System.out.println("____________________________________________________________");
+            } else if (info.startsWith("delete")) {
+                int index = info.indexOf(" ");
+                String argVal = info.substring(index+1);
+                int itemNo = Integer.parseInt(argVal) - 1;
+                Task task = taskList.get(itemNo);
+                taskList.remove(itemNo);
+                System.out.println("____________________________________________________________");
+                System.out.println("Noted. I've removed this task:\n");
+                System.out.println(task.printOutput());
+                int count = (int) taskList.stream().filter(obj -> obj.getTaskType().equals("T")).count();
+                System.out.println("Now you have "+taskList.size()+" tasks in the list");
+                System.out.println("____________________________________________________________");
             } else {
                 System.out.println("____________________________________________________________");
                 System.out.println("Oh dear! I do not understand this command! Try again!");
