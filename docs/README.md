@@ -1,6 +1,6 @@
 # Eve User Guide
 
-// Product screenshot goes here
+[Screenshot of the UI](docs/Ui.png)
 
 Welcome to Eve, your personal chatbot for managing tasks. This guide will help you nagivate through using EVE and utilize her features to organize your tasks effectively.
 
