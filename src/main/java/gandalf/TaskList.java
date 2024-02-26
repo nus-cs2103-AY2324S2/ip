@@ -75,11 +75,13 @@ public class TaskList {
     /**
      * Lists all the tasks in the list, prints as 1-indexing.
      */
-    public void list() {
+    public String list() {
+        String list = "";
         for (int i = 0; i < this.list.size(); i++) {
             Task action = this.list.get(i);
-            System.out.println((i + 1) + ". " + action);
+            list += (i + 1) + ". " + action + "\n";
         }
+        return list;
     }
 
     /**
@@ -133,14 +135,14 @@ public class TaskList {
      * @param taskIndex Index of task to be marked.
      * @throws GandalfException throws an error if index is out of bounds.
      */
-    public void mark(int taskIndex) throws GandalfException {
+    public String mark(int taskIndex) throws GandalfException {
         if (taskIndex > list.size()) {
             throw new GandalfException("This task does not exist");
         }
         Task correspondingTask = list.get(taskIndex - 1);
         correspondingTask.markStatus(true);
         assert(correspondingTask.getStatus());
-        System.out.println(correspondingTask);
+        return correspondingTask.toString();
     }
 
     /**
@@ -149,14 +151,14 @@ public class TaskList {
      * @param taskIndex Index of task to be unmarked.
      * @throws GandalfException throws an error if index is out of bounds.
      */
-    public void unmark(int taskIndex) throws GandalfException {
+    public String unmark(int taskIndex) throws GandalfException {
         if (taskIndex > list.size()) {
             throw new GandalfException("This task does not exist");
         }
         Task correspondingTask = list.get(taskIndex - 1);
         correspondingTask.markStatus(false);
         assert(!correspondingTask.getStatus());
-        System.out.println(correspondingTask);
+        return correspondingTask.toString();
     }
 }
 

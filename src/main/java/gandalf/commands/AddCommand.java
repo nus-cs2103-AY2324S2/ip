@@ -22,9 +22,9 @@ public class AddCommand extends Command {
     }
 
     @Override
-    public void execute() throws GandalfException {
+    public String execute() throws GandalfException {
         tasks.add(commandName, taskName, firstInfo, secondInfo);
         storage.store(tasks.getList());
-        System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
+        return "Total number of tasks so far: " + (tasks.getList().size());
     }
 }

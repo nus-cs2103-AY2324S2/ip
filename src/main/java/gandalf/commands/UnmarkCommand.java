@@ -17,9 +17,8 @@ public class UnmarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws GandalfException {
-        tasks.unmark(taskNumber);
-        ui.unmark();
+    public String execute() throws GandalfException {
         storage.store(tasks.getList());
+        return ui.unmark() + "\n" + tasks.unmark(taskNumber);
     }
 }

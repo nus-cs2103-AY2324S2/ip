@@ -20,16 +20,27 @@ public class MainWindow extends AnchorPane {
 
     private Gandalf gandalf;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/daUser.png"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/daUser.jpg"));
     private Image gandalfImage = new Image(this.getClass().getResourceAsStream("/images/daGandalf.jpg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
+        dialogContainer.getChildren().add(DialogBox.getGandalfDialog("Through fire and shadow, I'm Gandalf. "
+                                                                        + "What can i do for you?", gandalfImage));
     }
 
     public void setGandalf(Gandalf g) {
         gandalf = g;
+    }
+
+    public Button getSendButton() {
+        return sendButton;
+    }
+
+    public TextField getUserInput() {
+        return userInput;
     }
 
     /**
@@ -37,7 +48,7 @@ public class MainWindow extends AnchorPane {
      * the dialog container. Clears the user input after processing.
      */
     @FXML
-    private void handleUserInput() {
+    public void handleUserInput() {
         String input = userInput.getText();
         String response = gandalf.getResponse(input);
         dialogContainer.getChildren().addAll(

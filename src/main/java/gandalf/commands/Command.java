@@ -24,7 +24,7 @@ public abstract class Command {
         this.otherInputs = otherInputs;
     }
 
-    public abstract void execute() throws GandalfException;
+    public abstract String execute() throws GandalfException;
 
     public boolean setExit() {
         return false;

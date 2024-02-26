@@ -16,9 +16,9 @@ public class SumCommand extends Command {
     }
 
     @Override
-    public void execute() {
+    public String execute() {
         double totalSum = tasks.sumExpenses(expensesName);
-        ui.showExpenses(this.expensesName, totalSum);
+        return ui.showExpenses(this.expensesName, totalSum);
     }
 
 }

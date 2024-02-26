@@ -4,31 +4,24 @@ public class Ui {
     public Ui() {
 
     }
-    public void welcome() {
-        System.out.println("Through fire and shadow, I'm Gandalf");
-        System.out.println("What can I do for you?\n");
+    public String listUi(TaskList tasks) {
+        return "Total number of tasks so far: " + (tasks.getList().size());
     }
-    public void listUi(TaskList tasks) {
-        System.out.println("Total number of tasks so far: " + (tasks.getList().size()));
-    }
-    public void showLine() {
-        System.out.println("_____________________________________________________________________________");
-    }
-    public void showError(String exception) {
-        System.out.println(exception);
-    }
-    public void mark() {
-        System.out.println("Humans truly are remarkable creatures");
+    public String mark() {
+        return "Humans truly are remarkable creatures";
     }
 
-    public void unmark() {
-        System.out.println("Fret not, for its not about how much we do, but how much we did");
+    public String unmark() {
+        return "Fret not, for its not about how much we do, but how much we did";
     }
-    public void showExpenses(String expensesName, double totalSum) {
-        System.out.println("Total expenses for " + expensesName + ": " + totalSum);
+    public String showExpenses(String expensesName, double totalSum) {
+        return "Total expenses for " + expensesName + ": " + totalSum + " dollars";
     }
-    public void bye() {
-        System.out.println("So here at last, comes the end of our fellowship. I will not say: Do not weep. "
-                + "For not all tears are an evil.");
+    public String delete() {
+        return "I have removed the task";
+    }
+    public String bye() {
+        return "So here at last, comes the end of our fellowship. I will not say: Do not weep. "
+                + "For not all tears are an evil.";
     }
 }

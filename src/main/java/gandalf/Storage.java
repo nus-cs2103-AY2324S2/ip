@@ -28,7 +28,8 @@ public class Storage {
         this.filePathRead = filePathRead;
     }
 
-    public ArrayList<Task> load() throws GandalfException {
+    //Solution below adapted from https://chat.openai.com/c/3260be53-2e5f-4fe9-ad52-234790c8ad5b
+    public ArrayList<Task> load() {
         ArrayList<Task> data = new ArrayList<>(100);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
             Object storedData = ois.readObject();
@@ -47,13 +48,15 @@ public class Storage {
                     Files.createFile(Paths.get(this.filePathMeta));
                 }
             } catch (IOException ex) {
-                throw new GandalfException("Error creating file: " + ex.getMessage());
+                System.out.println(ex.getMessage());
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new GandalfException("Error with IO or class");
+            return data;
         }
         return data;
     }
+
+    //Solution below adapted from https://chat.openai.com/c/3260be53-2e5f-4fe9-ad52-234790c8ad5b
     public void store(ArrayList<Task> arrayList) {
         try {
             // Create directory if it doesn't exist
