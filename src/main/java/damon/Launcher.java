@@ -1,5 +1,6 @@
 package damon;
 
+import damon.gui.Main;
 import javafx.application.Application;
 
 /**
@@ -7,6 +8,6 @@ import javafx.application.Application;
  */
 public class Launcher {
     public static void main(String[] args) {
-        Application.launch(Damon.class, args);
+        Application.launch(Main.class, args);
     }
 }

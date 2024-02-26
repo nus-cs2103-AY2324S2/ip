@@ -191,6 +191,7 @@ public class Damon extends Application {
         userText.setBackground(new Background(new BackgroundFill(Paint.valueOf("pink"), CornerRadii.EMPTY, Insets.EMPTY)));
         dukeText.setBackground(new Background(new BackgroundFill(Paint.valueOf("cyan"), CornerRadii.EMPTY, Insets.EMPTY)));
 
+        userText.setPadding(new Insets(0,10,0,0));
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
                 DialogBox.getDamonDialog(dukeText, new ImageView(damon))
@@ -202,7 +203,7 @@ public class Damon extends Application {
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
-    private String getResponse(String input) {
+    protected String getResponse(String input) {
         return "Damon heard: " + input;
     }
 
