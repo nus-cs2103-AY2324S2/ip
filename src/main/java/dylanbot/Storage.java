@@ -51,7 +51,7 @@ public class Storage {
                 boolean isCompleted = tokens[1].equals("true");
                 String desc = tokens[2];
                 int numOfTags = Integer.parseInt(tokens[3]);
-                ArrayList<String> tags = parseTags(numOfTags, tokens[4]);
+                ArrayList<String> tags = parseTags(numOfTags, tokens);
                 Task curr = createTask(type, desc, isCompleted, numOfTags, tags, tokens);
                 res.add(curr);
             }
@@ -68,11 +68,11 @@ public class Storage {
      * @param tokens The input String to be parsed
      * @return ArrayList of tags
      */
-    public ArrayList<String> parseTags(int numOfTags, String tokens) {
+    public ArrayList<String> parseTags(int numOfTags, String[] tokens) {
         ArrayList<String> tagList = new ArrayList<>();
-        String[] tags = tokens.split(" ");
-        int currIdx = 4;
         if (numOfTags > 0) {
+            String[] tags = tokens[4].split(" ");
+            int currIdx = 4;
             for (int i = 0; i < numOfTags; i++) {
                 tagList.add(tags[i].substring(1));
                 currIdx++;
