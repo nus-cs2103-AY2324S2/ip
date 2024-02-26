@@ -90,32 +90,46 @@ public class VirtueTaskList {
     }
 
     /**
-     * Marks the i-th task in the task list as done, where i is the index input by the user.
+     * For each index i input by the user, marks the i-th task in the task list as done.
      *
-     * @param index The index input by the user (starts from 1 and not 0).
+     * @param indices The indices input by the user (starts from 1 and not 0).
      * @return The message to be sent to the user.
      */
-    private String markTaskAsDone(int index) {
-        VirtueTask task = getTask(index);
-        task.markAsDone();
+    private String markTasksAsDone(Integer... indices) {
+        int numOfIndices = 0;
         String message = "";
-        message += "Nice! I've marked this task as done:\n";
-        message += "   " + task;
+
+        for (int index : indices) {
+            VirtueTask task = getTask(index);
+            task.markAsDone();
+            message += "   " + task + "\n";
+            numOfIndices++;
+        }
+
+        String singularOrPlural = numOfIndices == 1 ? "this task" : "these tasks";
+        message = "Nice! I've marked " + singularOrPlural + " as done:\n" + message;
         return message;
     }
 
     /**
-     * Marks the i-th task in the task list as not done, where i is the index input by the user.
+     * For each index i input by the user, marks the i-th task in the task list as not done.
      *
-     * @param index The index input by the user (starts from 1 and not 0).
+     * @param indices The indices input by the user (starts from 1 and not 0).
      * @return The message to be sent to the user.
      */
-    private String markTaskAsNotDone(int index) {
-        VirtueTask task = getTask(index);
-        task.markAsNotDone();
+    private String markTasksAsNotDone(Integer... indices) {
+        int numOfIndices = 0;
         String message = "";
-        message += "OK, I've marked this task as not done yet:\n";
-        message += "   " + task;
+
+        for (int index : indices) {
+            VirtueTask task = getTask(index);
+            task.markAsNotDone();
+            message += "   " + task + "\n";
+            numOfIndices++;
+        }
+
+        String singularOrPlural = numOfIndices == 1 ? "this task" : "these tasks";
+        message = "OK, I've marked " + singularOrPlural + " as not done yet:\n" + message;
         return message;
     }
 
@@ -141,18 +155,26 @@ public class VirtueTaskList {
     }
 
     /**
-     * Deletes the i-th task in the task list, where i is the index input by the user.
+     * For each index i input by the user, marks the i-th task in the task list
      *
-     * @param index The index input by the user (starts from 1 and not 0).
+     * @param indices The indices input by the user (starts from 1 and not 0).
      * @return The message to be sent to the user.
      */
-    private String deleteTask(int index) {
-        VirtueTask deletedTask = tasks.remove(index - 1);
-        int numTasks = numTasks();
+    private String deleteTasks(Integer... indices) {
+        int numOfIndices = 0;
         String message = "";
-        message += "Noted. I've removed this task:\n";
-        message += "   " + deletedTask + "\n";
-        message += "Now you have " + numTasks + " tasks in the list.";
+
+        for (int index : indices) {
+            VirtueTask deletedTask = tasks.remove(index - 1);
+            message = "   " + deletedTask + "\n" + message;
+            numOfIndices++;
+        }
+
+        String singularOrPlural = numOfIndices == 1 ? "this task" : "these tasks";
+        int numTasks = numTasks();
+        String sOrNone = numTasks == 1 ? "" : "s";
+        message = "Noted. I've removed " + singularOrPlural + ":\n" + message;
+        message += "Now you have " + numTasks + " task" + sOrNone + " in the list.";
         return message;
     }
 
@@ -193,13 +215,13 @@ public class VirtueTaskList {
             message = printOut();
             break;
         case MARK:
-            message = markTaskAsDone(command.index);
+            message = markTasksAsDone(command.indices);
             break;
         case UNMARK:
-            message = markTaskAsNotDone(command.index);
+            message = markTasksAsNotDone(command.indices);
             break;
         case DELETE:
-            message = deleteTask(command.index);
+            message = deleteTasks(command.indices);
             break;
         case TODO:
             message = addTodo(command.description);
