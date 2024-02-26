@@ -1,11 +1,11 @@
 package chillchief;
 
-import exceptions.ChillChiefException;
 import util.Parser;
 import util.Storage;
 import util.TaskList;
 import util.TextUi;
 
+import exceptions.ChillChiefException;
 import java.io.IOException;
 import java.util.Scanner;
 
