@@ -6,7 +6,7 @@ Buto is a personal task manager that can help you to track your tasks.
 
 Prerequisites: JDK 11, update Intellij to the most recent version.
 
-##Features
+## Features
 ### 1. Add Todo Task
 
 Add a todo task to your task list.
