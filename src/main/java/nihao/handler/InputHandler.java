@@ -15,6 +15,7 @@ import nihao.action.task.EventTask;
 import nihao.action.task.TodoTask;
 import nihao.enums.Command;
 import nihao.exception.IllegalArgumentException;
+import nihao.exception.IncorrectDateTimeFormatException;
 import nihao.exception.UnknownCommandException;
 
 /**
@@ -35,8 +36,14 @@ public class InputHandler {
         String taskName;
         switch (command) {
         case BYE:
+            if (parsedInput.length != 1) {
+                throw new IllegalArgumentException("bye", 0);
+            }
             return new ExitAction();
         case LIST:
+            if (parsedInput.length != 1) {
+                throw new IllegalArgumentException("list", 0);
+            }
             return new ListAction();
         case MARK:
             if (parsedInput.length != 2) {
@@ -66,17 +73,8 @@ public class InputHandler {
             TodoTask todoTask = new TodoTask(taskName);
             return new TaskAction(todoTask);
         case DEADLINE:
-            if (countByFlag(parsedInput) != 1) {
-                throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
-            }
-            int byIndex = input.indexOf(" /by ");
-            if (byIndex < 9) {
-                throw new IllegalArgumentException("illegal use of /by flag");
-            }
-            taskName = input.substring(9, byIndex);
-            LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + 5));
-            DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
-            return new TaskAction(deadlineTask);
+
+
         case EVENT:
             if (countFromFlag(parsedInput) != 1 || countToFlag(parsedInput) != 1) {
                 throw new IllegalArgumentException("'event' requires exactly 1 /from flag and 1 /to flag");
@@ -126,4 +124,20 @@ public class InputHandler {
         }
         return counter;
     }
+
+    private static TaskAction deadlineActionBuilder(String input, String[] parsedInput)
+            throws IncorrectDateTimeFormatException, IllegalArgumentException {
+        if (countByFlag(parsedInput) != 1) {
+            throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
+        }
+        int byIndex = input.indexOf(" /by ");
+        if (byIndex < 9) {
+            throw new IllegalArgumentException("illegal use of /by flag");
+        }
+        String taskName = input.substring(9, byIndex);
+        LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + 5));
+        DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
+        return new TaskAction(deadlineTask);
+    }
+
 }
