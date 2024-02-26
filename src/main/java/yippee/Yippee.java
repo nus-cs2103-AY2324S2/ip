@@ -51,11 +51,12 @@ public class Yippee extends Application {
      * Greets the user.
      */
     public void greet() {
-        String name = "Yippee";
-        System.out.println("    ____________________________________________________________");
-        System.out.printf("      Hello! I'm %s\n", name);
-        System.out.println("      What can I do for you?");
-        System.out.println("    ____________________________________________________________");
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append("Hello! I'm Yippee! \n");
+        stringBuilder.append("What can I do for you?");
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(stringBuilder.toString(), yippee)
+        );
     }
 
     /**
@@ -102,6 +103,8 @@ public class Yippee extends Application {
         setAnchor();
 
         setInputHandler();
+
+        greet();
     }
 
     private AnchorPane setUpComponents(Stage stage) {
@@ -125,7 +128,7 @@ public class Yippee extends Application {
 
     private void setDimensions(Stage stage, AnchorPane mainLayout) {
         stage.setTitle("Yippee");
-        stage.setResizable(true);
+        stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
 

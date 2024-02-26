@@ -55,6 +55,10 @@ public class DialogBox extends HBox {
         Collections.reverse(tmp);
         getChildren().setAll(tmp);
         setAlignment(Pos.TOP_LEFT);
+
+        if (dialog.getStyle().contains("-fx-background-color: lightblue;")) {
+            dialog.setStyle("-fx-background-color: skyblue; -fx-padding: 10px; -fx-background-radius: 10px;");
+        }
     }
 
     public static DialogBox getUserDialog(String text, Image img) {
