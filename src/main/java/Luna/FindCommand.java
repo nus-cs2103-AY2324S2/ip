@@ -29,7 +29,6 @@ public class FindCommand extends Command {
                 filteredList.add(ent);
             }
         }
-
         ui.showList(filteredList);
     }
 }

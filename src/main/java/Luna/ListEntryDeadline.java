@@ -4,9 +4,9 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 public class ListEntryDeadline extends ListEntry {
-        public ListEntryDeadline(String task, boolean check, LocalDate tEnd) {
-            super(task, check, TYPE_DEADLINE, tEnd);
-        }
+    public ListEntryDeadline(String task, boolean check, LocalDate tEnd) {
+        super(task, check, TYPE_DEADLINE, tEnd);
+    }
 
     @Override
     public String toString() {

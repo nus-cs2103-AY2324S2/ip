@@ -20,7 +20,6 @@ public class LoadCommand extends Command {
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
-
         tl.clear();
         storage.loadList(tl);
     }
