@@ -108,7 +108,7 @@ public class Ui {
      */
     public static String showEventFormat() {
         return "The correct format is:\n" +
-                "event <description> /from <start date> /to <end date>"\n +
+                "event <description> /from <start date> /to <end date>\n" +
                 "OR event <description> /to <end date> /from <start date>";
     }
 
