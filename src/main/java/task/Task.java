@@ -1,16 +1,14 @@
 package task;
 
 /**
- * Creates an instance of Task.
+ * Represents a task to be stored in the list of tasks.
  */
 public class Task {
-    /** Task taskName, also the user input */
     protected String taskName;
-    /** Status of the task, done or not done */
     protected boolean isDone;
 
     /**
-     * Returns an instance of Task, a constructor.
+     * Returns an instance of Task. Mark by default as undone.
      * 
      * @param taskName User-defined task name.
      */
@@ -19,6 +17,12 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns an instance of Task. Status of task is provided by the user.
+     * 
+     * @param isDone The status of the task.
+     * @param taskName User-defined task name.
+     */
     public Task(boolean isDone, String taskName) {
         this.taskName = taskName;
         this.isDone = isDone;
@@ -47,11 +51,17 @@ public class Task {
         this.isDone = false;
     }
 
+    /**
+     * Returns the string format of the task for printing to the ui.
+     */
     @Override
     public String toString() {
         return getStatusIcon() + taskName;
     }
 
+    /**
+     * Returns the string format of the task for writing to save file.
+     */
     public String toData() {
         return (isDone ? "1" : "0") + " | " + taskName;
     }

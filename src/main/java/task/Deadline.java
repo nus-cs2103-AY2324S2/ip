@@ -6,11 +6,17 @@ import java.time.format.DateTimeParseException;
 
 import common.DukeException;
 
+/**
+ * {@inheritDoc}
+ */
 public class Deadline extends Task {
     protected LocalDateTime deadline;
     DateTimeFormatter receivingFormatter = DateTimeFormatter.ofPattern("d/M/yyyy-HHmm");
     DateTimeFormatter printingFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
+    /**
+     * {@inheritDoc}
+     */
     public Deadline(String taskName, String deadline) throws DukeException {
         super(taskName);
         try {
@@ -23,6 +29,9 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Deadline(boolean isDone, String taskName, String deadline) throws DukeException {
         super(isDone, taskName);
         try {
@@ -35,11 +44,17 @@ public class Deadline extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline.format(printingFormatter) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toData() {
         return "D | " + super.toData() + " | " + deadline.format(printingFormatter);
