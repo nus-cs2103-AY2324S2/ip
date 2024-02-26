@@ -250,7 +250,7 @@ public class TaskList {
         assert splitMessages != null;
         assert ui != null;
 
-        if (splitMessages.length != 2) {
+        if (splitMessages.length > 1) {
             return "Please use the correct format";
         }
         String content = Parser.parseFindInput(splitMessages);
