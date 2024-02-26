@@ -1,10 +1,16 @@
 package duke;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.time.LocalDate;
-import java.util.Scanner;
 import java.io.FileWriter;
+
+import java.time.LocalDate;
+
+import java.util.Scanner;
+
+import java.io.FileWriter;
+
 import duke.tasks.Task;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
