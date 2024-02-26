@@ -65,6 +65,9 @@ public class Parser {
             case "find" :
                     handleFindCommand(tasklist, ui, parts);
                     break;
+            case "update" :
+                handleUpdateCommand(tasklist, ui, parts);
+                break;
             default:
                     ui.printInputError();
 
@@ -121,6 +124,23 @@ public class Parser {
            }
         }
 
+        public void updateTodoCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+            assert parts !=null : "Input should not be null";
+            try {
+                String task = parts[1];
+                if (task.isEmpty()) {
+                    throw new DukeException("Don't forget the description!");
+                } else {
+                    Task todo = new Todo(task, false);
+                    taskList.setTask(todo, index);
+                    ui.printUpdate();
+                }
+
+            } catch (DukeException e) {
+                ui.printError(e.getMessage());
+            }
+        }
+
         public void handleDeadlineCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts !=null : "Input should not be null";
             try {
@@ -141,6 +161,29 @@ public class Parser {
                 }
             } catch (DukeException e) {
                     ui.printError(e.getMessage());
+            }
+        }
+
+        public void updateDeadlineCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+            assert parts !=null : "Input should not be null";
+            try {
+                String task = getTask(parts[1]);
+                String time = getTime(parts[1]);
+
+                if (task.isEmpty()) {
+                    throw new DukeException("Don't forget the description!");
+                } else if (time.isEmpty()) {
+                    throw new DukeException("Don't forget the deadline!");
+                } else {
+                    String[] timeparts = time.split("by");
+                    LocalDateTime by = parseToLocalDate(timeparts[1].trim());
+
+                    Task deadline = new Deadline(task, false, by);
+                    taskList.setTask(deadline, index);
+                    ui.printUpdate();
+                }
+            } catch (DukeException e) {
+                ui.printError(e.getMessage());
             }
         }
 
@@ -172,6 +215,52 @@ public class Parser {
             }
 
           
+        }
+
+        public void updateEventCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+            assert parts !=null : "Input should not be null";
+            try {
+                String task = getTask(parts[1]);
+                String time = getTime(parts[1]);
+                String[] timeparts = time.split("from");
+                String[] dateParts = timeparts[1].trim() .split("/to");
+
+                if (task.isEmpty()) {
+                    throw new DukeException("Don't forget the description!");
+                } else if (time.isEmpty()) {
+                    throw new DukeException("Don't forget the deadline!");
+                } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
+                    throw new DukeException("Don't forget to include start and end time!");
+                } else {
+                    LocalDateTime from = parseToLocalDate(dateParts[0].trim());
+                    LocalDateTime to = parseToLocalDate(dateParts[1].trim());
+
+                    Task event = new Event(task, false, from, to);
+                    taskList.setTask(event, index);
+
+                    ui.printUpdate();
+                }
+            } catch (DukeException e) {
+                ui.printError(e.getMessage());
+            }
+        }
+
+        public void handleUpdateCommand(TaskList taskList, Ui ui, String[] parts) {
+            String[] commandParts = parts[1].split(" ", 2);
+            int index = Integer.parseInt(commandParts[0]) - 1;
+
+            Parser newParser = new Parser(commandParts[1]);
+
+            String[] taskParts = commandParts[1].split(" ", 2);
+
+            if(commandParts[1].startsWith("todo")) {
+                newParser.updateTodoCommand(taskList, ui, taskParts, index);
+            } else if (commandParts[1].startsWith("deadline")) {
+                newParser.updateDeadlineCommand(taskList, ui, taskParts, index);
+            } else {
+                newParser.updateEventCommand(taskList, ui, taskParts, index);
+            }
+
         }
 
         /**

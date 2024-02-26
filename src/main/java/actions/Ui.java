@@ -109,5 +109,9 @@ public class Ui {
         System.out.println(LINE);
     }
 
+    public void printUpdate() {
+        System.out.println("Okay! I have updated your task list.");
+    }
+
 
 }

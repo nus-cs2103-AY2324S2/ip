@@ -43,6 +43,10 @@ public class TaskList {
         task.unmark();
     }
 
+    public void setTask(Task task, int index) {
+        tasks.set(index,task);
+    }
+
     public List<Task> find(String input) {
         return this.tasks.stream()
                 .filter(task-> task.toString().toLowerCase().contains(input.toLowerCase()))
