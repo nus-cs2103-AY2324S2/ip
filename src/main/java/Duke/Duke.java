@@ -4,11 +4,13 @@ import task.Task;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+
 import actions.Parser;
 import actions.Ui;
 import actions.TaskList;
 import actions.DataManager;
-public class Duke {
+;
+public class Duke  {
 
     /**
      * Duke is a command line interface application that helps to keep track of tasks
@@ -60,5 +62,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
+
 
 }
