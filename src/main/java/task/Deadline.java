@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +10,6 @@ public class Deadline extends Task {
         super(s);
 
         String cleanedString = deadlineString.replaceAll("\\s", "");
-
         LocalDateTime deadline = LocalDateTime.parse(cleanedString, ORIGINAL_FORMATTER);
         this.deadline = deadline;
     }

@@ -13,6 +13,7 @@ public class TaskList {
     private int lastIdx = 0;
 
     public TaskList(ArrayList<Task> taskArrayList) {
+        assert taskArrayList != null : "Error reading from data store.";
         this.taskArrayList = taskArrayList;
         this.lastIdx = taskArrayList.size();
     }
