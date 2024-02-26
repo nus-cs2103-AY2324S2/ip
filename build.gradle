@@ -49,7 +49,7 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
-    archiveFileName = "duke.jar"
+    archiveFileName = "RahhBot.jar"
     dependsOn("distZip", "distTar")
     manifest {
         attributes 'Main-Class': 'duke.Duke'
