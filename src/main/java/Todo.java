@@ -16,24 +16,24 @@ public class Todo extends Task {
     public String getTypeOfTask() { return this.taskType; }
 
     public String printOutput() {
-        String output = getSeqNo() +".";
+        StringBuilder sb = new StringBuilder();
         if (null != taskType && !taskType.isBlank()) {
-            output = output +"["+this.getTypeOfTask()+"]";
+            sb.append("[").append(getTypeOfTask()).append("]");
         }
         if (isMarked()) {
-            output = output + "[X] ";
+            sb.append("[X] ");
         } else {
-            output = output + "[ ] ";
+            sb.append("[ ] ");
         }
-        output = output + getTaskName();
-        return output;
+        sb.append(getTaskName());
+        return sb.toString();
     }
 
-    public String toString(){
+    public String getStringRepresentation(){
         StringBuilder sb = new StringBuilder();
-        sb.append(getSeqNo()).append(" | ");
+        //sb.append(getSeqNo()).append(" | ");
         if (null != taskType && !taskType.isBlank()) {
-            sb.append(getTypeOfTask()).append(" | ");
+            sb.append("[").append(getTypeOfTask()).append("]").append(" | ");
         }
         if (isMarked()) {
             sb.append("[X]").append(" | ");
