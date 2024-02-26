@@ -13,6 +13,12 @@ import dino.tasks.Deadline;
 
 public class Reminders {
 
+    /**
+     * The `getReminders` function generates reminders for today deadlines and events based on tasks in a TaskList.
+     * 
+     * @param tasks The `tasks` parameter is a `TaskList` that contains all tasks. The `TaskList`.
+     * @param messages a list of strings where reminder messages for today will be added.
+     */
     public static void getReminders(TaskList tasks, List<String> messages) {
         TaskList[] lists = filterOutTodo(tasks);
         TaskList todayDeadlines = getTodayDeadlines(lists[0]);
@@ -20,12 +26,19 @@ public class Reminders {
 
         messages.add("\nReminders for Today");
 
-        getDeadlineMessage(todayDeadlines, messages);
+        formatDeadlineMessage(todayDeadlines, messages);
 
-        getEventMessage(todayEvents, messages);
+        formatEventMessage(todayEvents, messages);
 
     }
 
+    /**
+     * The function `getTodayDeadlines` filters out tasks from a `TaskList` that
+     * do not have a deadline set for todays date.
+     * 
+     * @param deadlineList a list of deadline tasks
+     * @return a `TaskList` containing only the deadlines that have their date set to today.
+     */
     private static TaskList getTodayDeadlines(TaskList deadlineList) {
         LocalDate today = LocalDate.now();
         for (int i = deadlineList.size() - 1; i >= 0; i--) {
@@ -38,6 +51,13 @@ public class Reminders {
         return deadlineList;
     }
 
+    /**
+     * The function `getTodayEvents` filters out events from a `TaskList` that are not happening today.
+     * 
+     * @param eventList a list of devent tasks
+     * @return a `TaskList` after removing any events from the input
+     * `eventList` that are not scheduled for today.
+     */
     private static TaskList getTodayEvents(TaskList eventList) {
         LocalDate today = LocalDate.now();
         for (int i = eventList.size() - 1; i >= 0; i--) {
@@ -69,7 +89,7 @@ public class Reminders {
         return result;
     }
 
-    private static void getDeadlineMessage(TaskList tasks, List<String> messages) {
+    private static void formatDeadlineMessage(TaskList tasks, List<String> messages) {
         int number = 0;
         if (tasks.isEmpty()) {
             messages.add("\nNo tasks due today.");
@@ -82,7 +102,7 @@ public class Reminders {
         }
     }
 
-    private static void getEventMessage(TaskList tasks, List<String> messages) {
+    private static void formatEventMessage(TaskList tasks, List<String> messages) {
         int number = 0;
         if (tasks.isEmpty()) {
             messages.add("\nNo events is happening today.");
