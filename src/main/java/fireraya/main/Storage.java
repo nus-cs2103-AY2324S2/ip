@@ -12,15 +12,31 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
 
-
+/**
+ * This class deals with the storing and loading of the tasks in the program.
+ *
+ * As this program supports auto-saving and loading of tasks,
+ * this class deals with saving and loading the data into memory.
+ */
 public class Storage {
 
     private String filePath;
 
+    /**
+     * Constructor for a Storage object.
+     *
+     * @param filePath path of the data file in memory.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+
+    /**
+     * Saves the current tasks in the program into a file specified in the filepath.
+     *
+     * @param tasks ArrayList of tasks held by the program.
+     */
     public void saveToFile(ArrayList<Task> tasks) throws FirerayaException {
         try {
             File file = new File(filePath);
@@ -36,10 +52,14 @@ public class Storage {
         }
     }
 
+    /**
+     * Loads the current tasks in the program from the file specified in the filepath.
+     *
+     * @return an ArrayList of tasks in readable format for the program.
+     */
     public ArrayList<Task> load() throws FirerayaException {
         ArrayList<Task> loaded = new ArrayList<>();
 
-        //Tests if file exists. If not, load new file
         try {
             File curr = new File(filePath);
             if (!curr.exists()) {
@@ -51,7 +71,6 @@ public class Storage {
                 String input = s.nextLine();
                 String[] all = input.split("\\|");
                 String keyword = all[0];
-                int arrLen = all.length;
 
                 Task nextTask = null;
 
@@ -73,9 +92,6 @@ public class Storage {
                 }
 
                 loaded.add(nextTask);
-
-                //System.out.println(Arrays.toString(all));
-
             }
 
 

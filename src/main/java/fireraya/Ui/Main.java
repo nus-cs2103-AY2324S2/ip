@@ -16,6 +16,11 @@ public class Main extends Application {
 
     private Fireraya fireraya = new Fireraya("current_list.txt");
 
+    /**
+     * Initializes the program.
+     *
+     * @param stage Stage for the JavaFX util to run.
+     */
     @Override
     public void start(Stage stage) {
         try {
