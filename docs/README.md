@@ -109,8 +109,6 @@ Quit the application.
 bye
 ```
 
-## Usage
-
 ## Handling Errors
 James is designed to provide helpful error messages should you enter a command incorrectly. Pay attention to the command format and required information to ensure smooth operation.
 
