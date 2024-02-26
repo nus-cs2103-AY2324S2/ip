@@ -1,30 +1,98 @@
-# Duke User Guide
+# Patrick User Guide
 
-// Update the title above to match the actual product name
 
-// Product screenshot goes here
+## Features
 
-// Product intro goes here
+### Adding Tasks
+Available task types: `deadline`, `todo`, `event`
 
-## Adding deadlines
+Accepted DATETIME formats: "ddMM", "ddMMyy", "ddMMyy HHmm"
 
-// Describe the action and its outcome.
+#### Adding Deadline tasks
+Deadline tasks can be added using the `deadline` command or simply `d`.
 
-// Give examples of usage
+Format: `deadline TASK /by DATETIME` OR `d TASK /by DATETIME`
 
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
+Expected output: 
 ```
-expected output
+added: [][D] TASK (by DATETIME)
+You now have ___ tasks.
 ```
 
-## Feature ABC
+#### Adding Todo tasks
+Todo tasks can be added using the `todo` command or simply `t`.
 
-// Feature details
+Format: `todo TASK` OR `t TASK`
+
+Expected output: 
+```
+added: [][T] TASK
+You now have ___ tasks.
+```
+#### Adding Event tasks
+Event tasks can be added using the `event` command or simply `e`.
+
+Format: `event TASK /from DATETIME /to DATETIME` OR `e TASK /from DATETIME /to DATETIME`
+
+Expected output: 
+```
+added: [][E] TASK (from DATETIME to DATETIME)
+You now have ___ tasks.
+```
+
+### Adding Tags
+Tags can be added to tasks to categorize them.
+
+Format: `tag INDEX TAG_NAME`
+
+`INDEX` should be an integer value which represents the index of the task in the list. 
+
+`TAG_NAME` can be any String.
+
+Expected output:
+```
+Tag added to task
+[][T] TASK [TAG_NAME]
+```
+
+### Seeing your tasks
+Use the `list` or `ls` command to view all your tasks.
 
 
-## Feature XYZ
+### Finding tasks
+The `find` or `f` command can be used when you are looking for specific tasks. 
 
-// Feature details
+Format: `find STRING`
+
+Patrick will list all tasks with names that contain STRING.
+
+### Mark tasks
+You can indicate tasks as completed using the `mark` or `m` keyword.
+
+Format: `mark INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Unmark tasks
+You can unmark a task using the `unmark` or `u` keyword.
+
+Format: `unmark INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Deleting tasks
+You can delete a task from the list using the `delete` or `del` keyword.
+
+Format: `delete INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Clearing all tasks
+You can clear all tasks in the list using `clear` or `cl`.
+
+### Exiting the program
+Use `bye` or `b` to close the program.
+
+
+
+
+
+
+
