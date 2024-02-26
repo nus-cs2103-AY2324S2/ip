@@ -1,8 +1,8 @@
-import java.io.*;
-import java.time.LocalDateTime;
+package kirby;
+
+import kirby.tasks.TaskList;
+
 import java.util.Scanner;
-import java.util.ArrayList;
-import java.time.format.DateTimeFormatter;
 
 
 public class Kirby {
@@ -14,7 +14,7 @@ public class Kirby {
     public static void main(String[] args) {
 
         String message =
-                "____________________________________________________________\nHiiiiii \uD83D\uDE00! I'm Kirby Yayyyyy \uD83C\uDF8C!\nWhat can I do for you?\n____________________________________________________________\n";
+                "____________________________________________________________\nHiiiiii \uD83D\uDE00! I'm kirby.Kirby Yayyyyy \uD83C\uDF8C!\nWhat can I do for you?\n____________________________________________________________\n";
 
         Scanner sc = new Scanner(System.in);
 
