@@ -2,7 +2,7 @@
 
 ![Screenshot of Yarr handling adding a todo task, listing tasks and marking a task](Ui.png)
 
-Yarr is a desktop app for managing tasks, optimized for use via a typewritten commands. If you can type fast, Yarr can help you manage your tasks faster than traditional Graphical User Interface (GUI) apps.
+Yarr is a desktop app for managing tasks, optimized for use via typewritten commands. If you can type fast, Yarr can help you manage your tasks faster than traditional Graphical User Interface (GUI) apps.
 
 ## Installation
 1. Ensure you have Java 11 or above installed on your computer.
