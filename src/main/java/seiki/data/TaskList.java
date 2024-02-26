@@ -1,7 +1,10 @@
 package seiki.data;
 
+import static seiki.common.ErrorMessages.ERROR_MESSAGE_INVALID_TASK_NUMBER;
+
 import java.util.ArrayList;
 
+import seiki.data.exception.SeikiException;
 import seiki.data.task.Task;
 
 /**
@@ -75,21 +78,46 @@ public class TaskList {
         return new TaskList(result);
     }
 
+    /**
+     * Checks if task list is empty.
+     * @param errMsg the error message in the exception
+     * @throws SeikiException when task list is empty
+     */
+    public void checkIfListEmpty(String errMsg) throws SeikiException {
+        if (taskCount == 0) {
+            throw new SeikiException(errMsg);
+        }
+    }
+
+    /**
+     * Checks if the given task number is within range of the task list.
+     * @param taskNumber the task number that the user inputs
+     * @throws SeikiException when task number is out of range
+     */
+    public void checkIfNumberValid(Integer taskNumber) throws SeikiException {
+        if (taskNumber < 1 || taskNumber > taskCount) {
+            throw new SeikiException(ERROR_MESSAGE_INVALID_TASK_NUMBER);
+        }
+    }
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         if (taskCount == 0) {
             sb.append("There are currently no task added.");
         } else {
-            for (int i = 0; i < taskList.size(); i++) {
-                int taskNum = i + 1;
-                String taskString = "\u2794 " + taskNum + ". " + taskList.get(i).toString();
-                sb.append(taskString);
-                if (taskNum != taskList.size()) {
-                    sb.append("\n");
-                }
-            }
+            getAllTaskToString(sb);
         }
         return sb.toString();
+    }
+
+    private void getAllTaskToString(StringBuilder sb) {
+        for (int i = 0; i < taskList.size(); i++) {
+            int taskNum = i + 1;
+            String taskString = "\u2794 " + taskNum + ". " + taskList.get(i).toString();
+            sb.append(taskString);
+            if (taskNum != taskList.size()) {
+                sb.append("\n");
+            }
+        }
     }
 }
