@@ -24,6 +24,7 @@ import seiki.commands.DeadlineCommand;
 import seiki.commands.DeleteCommand;
 import seiki.commands.EventCommand;
 import seiki.commands.FindCommand;
+import seiki.commands.HelpCommand;
 import seiki.commands.ListCommand;
 import seiki.commands.MarkCommand;
 import seiki.commands.ToDoCommand;
@@ -73,6 +74,8 @@ public class Parser {
             return new ByeCommand();
         case FindCommand.COMMAND_WORD:
             return parseFindCommand(args);
+        case HelpCommand.COMMAND_WORD:
+            return new HelpCommand();
         default:
             throw new SeikiException(ERROR_MESSAGE_INVALID_COMMAND);
         }

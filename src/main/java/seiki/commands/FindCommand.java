@@ -12,9 +12,13 @@ import seiki.ui.Ui;
  * Represents the 'find' command.
  */
 public class FindCommand extends Command {
-    public static final String COMMAND_HELPER = "Please follow the format: find [keyword]";
     public static final String COMMAND_WORD = "find";
-
+    public static final String COMMAND_FORMAT = COMMAND_WORD + " [KEYWORD]";
+    public static final String COMMAND_HELPER = "Please use the following format: " + COMMAND_FORMAT;
+    public static final String COMMAND_USAGE = COMMAND_WORD
+            + ": Find tasks containing the given keyword.\n"
+            + "Parameters: KEYWORD\n"
+            + "Example: " + COMMAND_WORD + " book";
     private final String keyword;
 
     public FindCommand(String keyword) {

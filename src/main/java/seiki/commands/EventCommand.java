@@ -1,5 +1,7 @@
 package seiki.commands;
 
+import static seiki.common.DateTime.DATE_TIME_FORMAT;
+
 import java.time.LocalDateTime;
 
 import seiki.data.TaskList;
@@ -12,9 +14,15 @@ import seiki.ui.Ui;
  * Represents the 'event' command.
  */
 public class EventCommand extends Command {
-    public static final String COMMAND_HELPER = "Please use the following format: "
-            + "event [task title] /from [startdatetime] /to [enddatetime]";
     public static final String COMMAND_WORD = "event";
+    public static final String COMMAND_FORMAT = COMMAND_WORD
+            + " [TASK_TITLE] /from [START_DATE_TIME] /to [END_DATE_TIME]";
+    public static final String COMMAND_HELPER = "Please use the following format: " + COMMAND_FORMAT;
+    public static final String COMMAND_USAGE = COMMAND_WORD
+            + ": Creates an event task.\n"
+            + "Parameters: TASK_TITLE, START_DATE_TIME (must be " + DATE_TIME_FORMAT
+            + "), END_DATE_TIME (must be " + DATE_TIME_FORMAT + ")\n"
+            + "Example: " + COMMAND_WORD + " read book /from 2022/02/22 1234 /to 2022/02/22 2234";
     private final String taskTitle;
     private final LocalDateTime startDateTime;
     private final LocalDateTime endDateTime;
