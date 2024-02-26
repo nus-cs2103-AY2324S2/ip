@@ -55,8 +55,10 @@ public class BMO {
      */
     @FXML
     public String getResponse(String input) throws IOException {
+        assert input != null : "Input should not be null";
         Command c = Parser.parse(input.trim());
         String response = c.execute(tasks, ui, storage);
+        assert response != null : "Response should not be null";
         storage.saveData(tasks);
         return response;
     }

@@ -54,6 +54,7 @@ public class Storage {
      * @throws IOException if unable to load data.
      */
     public String loadData() throws IOException {
+        assert dataFile != null && dataFile.exists() : "Data file does not exist";
         try {
             Scanner sc = new Scanner(dataFile);
             StringBuilder output = new StringBuilder();
@@ -80,6 +81,7 @@ public class Storage {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             fileWriter.write(tasks.toSaveData());
             fileWriter.close();
+            assert dataFile.length() > 0 : "Data file should not be empty after saving data";
         } catch (IOException e) {
             System.out.println("Error: Unable to save data. " + e.getMessage());
         }
