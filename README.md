@@ -1,24 +1,113 @@
-# Duke project template
+# Paimon User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Paimon User Interface](Ui.png)
 
-## Setting up in Intellij
+Paimon is a versatile task manager designed to help you keep track of your tasks efficiently. With a user-friendly graphical user interface (GUI), Paimon simplifies task management, allowing you to add, delete, mark tasks as done or undone, and search for tasks with ease. Below is a comprehensive guide to Paimon's features, ensuring you get the most out of your task manager.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## List Tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+**Description:** Displays all your tasks in a list.
+
+**Usage Example:** `list`
+
+**Expected Outcome:**
+
+    1. [T][ ] Read a book
+    2. [D][X] Submit assignment (by: Mar 10)
+    3. [E][ ] Project meeting (from: Mar 11, 10am to: Mar 11, 11am)
+
+## Add a Todo Task
+
+**Description:** Adds a task without any deadline.
+
+**Usage Example:** `todo Read a book`
+
+**Expected Outcome:**
+
+    Added: [T][ ] Read a book
+
+## Add a Deadline
+
+**Description:** Adds a task with a deadline.
+
+**Usage Example:** `deadline Submit assignment /by Mar 10`
+
+**Expected Outcome:**
+
+    Added: [D][ ] Submit assignment (by: Mar 10)
+
+## Add an Event
+
+**Description:** Adds a task with a start and end time.
+
+**Usage Example:** `event Project meeting /from Mar 11, 10am /to Mar 11, 11am`
+
+**Expected Outcome:**
+
+    Added: [E][ ] Project meeting (from: Mar 11, 10am to: Mar 11, 11am)
+
+## Mark a Task as Done
+
+**Description:** Marks a task as completed.
+
+**Usage Example:** `mark 2`
+
+**Expected Outcome:**
+
+    Marked as done: [D][X] Submit assignment (by: Mar 10)
+
+## Unmark a Task
+
+**Description:** Marks a completed task as not done.
+
+**Usage Example:** `unmark 2`
+
+**Expected Outcome:**
+
+    Marked as not done: [D][ ] Submit assignment (by: Mar 10)
+
+
+## Delete a Task
+
+**Description:** Deletes a task from your list.
+
+**Usage Example:** `delete 1`
+
+**Expected Outcome:**
+
+    Deleted: [T][ ] Read a book
+
+
+## Find Tasks by Keyword
+
+**Description:** Lists all tasks that contain a specific keyword.
+
+**Usage Example:** `find book`
+
+**Expected Outcome:**
+
+    [T][ ] Read a book
+
+
+## Exit the Program
+
+**Description:** Safely exits Paimon.
+
+**Usage Example:** `bye`
+
+**Expected Outcome:**
+
+    Goodbye! Hope to see you again soon!
+
+## Add a Task with a Start Time
+
+**Description:** Adds a task that must be started after a specific time.
+
+**Usage Example:** `doafter Email professor /from Mar 12`
+
+**Expected Outcome:**
+
+    Added: [T][ ] Email professor (after: Mar 12)
+
+
+This user guide aims to make your experience with Paimon as smooth and productive as possible. Whether you're managing daily tasks or planning for future events, Paimon is here to assist you every step of the way.
