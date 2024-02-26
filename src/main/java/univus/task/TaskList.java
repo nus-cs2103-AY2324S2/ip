@@ -2,6 +2,7 @@ package univus.task;
 
 import java.util.ArrayList;
 
+import univus.exceptions.DuplicatesException;
 /**
  * Represents a list of tasks in the Univus application.
  */
@@ -20,7 +21,12 @@ public class TaskList {
      *
      * @param task The task to be added to the list.
      */
-    public void add(Task task) {
+    public void add(Task task) throws DuplicatesException {
+        for (Task existingTask : taskList) {
+            if (existingTask.getDescription().equals(task.getDescription())) {
+                throw new DuplicatesException("OOPS!!! Task with the same description already exists.");
+            }
+        }
         this.taskList.add(task);
     }
 
@@ -62,6 +68,16 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Sets the task list for the current instance.
+     *
+     * @param taskList An ArrayList of Task objects representing the new task list.
+     *                 If null is passed, the task list will be set to an empty ArrayList.
+     */
+    public void setTaskList(ArrayList<Task> taskList) {
+        this.taskList = taskList;
+    }
+
 
     /**
      * @param keyword The keyword to find the sentence containing this keyword.
@@ -69,12 +85,14 @@ public class TaskList {
      */
     public TaskList find(String keyword) {
         TaskList searchingResult = new TaskList();
+        ArrayList<Task> results = new ArrayList<>();
         for (Task task: taskList) {
             String description = task.getDescription();
             if (description.contains(keyword)) {
-                searchingResult.add(task);
+                results.add(task);
             }
         }
+        searchingResult.setTaskList(results);
         return searchingResult;
     }
 

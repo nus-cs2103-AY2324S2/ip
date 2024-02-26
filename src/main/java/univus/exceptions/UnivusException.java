@@ -1,4 +1,4 @@
-package univus;
+package univus.exceptions;
 
 /**
  * Custom exception for univus class.

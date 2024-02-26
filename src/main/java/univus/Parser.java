@@ -3,6 +3,8 @@ package univus;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import univus.exceptions.DuplicatesException;
+import univus.exceptions.UnivusException;
 import univus.task.Deadline;
 import univus.task.Event;
 import univus.task.Task;
@@ -88,6 +90,8 @@ public class Parser {
                 responses.append("\t" + todo.toString() + "\n");
                 responses.append("Now you have " + taskList.size() + " tasks in the list.\n");
             }
+        } catch (DuplicatesException duplicateError) {
+            responses.append(duplicateError.getMessage() + "\n");
         } catch (UnivusException error) {
             responses.append(error.getMessage() + "\n");
         }
@@ -120,6 +124,8 @@ public class Parser {
                     throw new UnivusException("OOPS!!! Invalid date format. Please use yyyy-MM-dd.");
                 }
             }
+        } catch (DuplicatesException duplicateError) {
+            responses.append(duplicateError.getMessage() + "\n");
         } catch (UnivusException error) {
             responses.append(error.getMessage() + "\n");
         }
@@ -145,6 +151,8 @@ public class Parser {
                 responses.append("\t" + event.toString() + "\n");
                 responses.append("Now you have " + taskList.size() + " tasks in the list.\n");
             }
+        } catch (DuplicatesException duplicateError) {
+            responses.append(duplicateError.getMessage() + "\n");
         } catch (UnivusException error) {
             responses.append(error.getMessage() + "\n");
         }

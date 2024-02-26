@@ -58,44 +58,44 @@ public class Storage {
         return description;
     }
     /**
-     * Loads a Todo task into the provided TaskList based on the given message.
+     * Loads a Todo task into the provided taskList based on the given message.
      *
-     * @param store   The TaskList to which the Todo task will be added.
+     * @param taskList   The taskList to which the Todo task will be added.
      * @param message The message containing the description of the Todo task.
      */
-    public void loadTodo(TaskList store, String message) {
+    public void loadTodo(ArrayList<Task> taskList, String message) {
         int index = message.lastIndexOf("]");
         String description = "todo" + message.substring(index + 1);
         ToDo todo = new ToDo(description);
-        store.add(todo);
+        taskList.add(todo);
     }
     /**
      * Loads a Deadline task into the provided TaskList based on the given message.
      *
-     * @param store   The TaskList to which the Deadline task will be added.
+     * @param taskList   The taskList to which the Deadline task will be added.
      * @param message The message containing the description and due date of the Deadline task.
      */
-    public void loadDeadline(TaskList store, String message) {
+    public void loadDeadline(ArrayList<Task> taskList, String message) {
         int timeIndex = message.lastIndexOf(":");
         String dueDate = "by " + message.substring(timeIndex + 1, message.length() - 1);
         String description = getDescription(message);
         Deadline deadline = new Deadline(description, dueDate);
-        store.add(deadline);
+        taskList.add(deadline);
     }
     /**
-     * Loads an Event task into the provided TaskList based on the given message.
+     * Loads an Event task into the provided taskList based on the given message.
      *
-     * @param store   The TaskList to which the Event task will be added.
+     * @param taskList   The taskList to which the Event task will be added.
      * @param message The message containing the description, start time, and end time of the Event task.
      */
-    public void loadEvent(TaskList store, String message) {
+    public void loadEvent(ArrayList<Task> taskList, String message) {
         int startIdx = message.indexOf(":");
         int endIdx = message.lastIndexOf(":");
         String description = getDescription(message);
         String start = "from" + message.substring(startIdx + 1, endIdx - 2);
         String end = "to" + message.substring(endIdx + 1, message.length() - 1);
         Event event = new Event(description, start, end);
-        store.add(event);
+        taskList.add(event);
     }
     /**
      * Loads task data from the file specified in the constructor and returns a TaskList.
@@ -104,17 +104,19 @@ public class Storage {
      */
     public TaskList loadFromFile() {
         TaskList store = new TaskList();
+        ArrayList<Task> taskList = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
             String message;
             while ((message = reader.readLine()) != null) {
                 if (message.startsWith("[T]")) {
-                    loadTodo(store, message);
+                    loadTodo(taskList, message);
                 } else if (message.startsWith("[D]")) {
-                    loadDeadline(store, message);
+                    loadDeadline(taskList, message);
                 } else if (message.startsWith("[E]")) {
-                    loadEvent(store, message);
+                    loadEvent(taskList, message);
                 }
             }
+            store.setTaskList(taskList);
         } catch (FileNotFoundException e) {
             System.err.println("File not found. Creating an empty list.");
             return new TaskList();
