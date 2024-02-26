@@ -1,6 +1,6 @@
 # Tyler User Guide
 
-![Screenshot of Tyler](https://github.com/Ty-stan0417/ip/blob/master/docs/Ui.png)
+![Screenshot of Tyler](https://ty-stan0417.github.io/ip/Ui.png)
 
 Tyler help you managed your list of tasks, so that you can forget about all your tasks and go to play around with your friends.
 
