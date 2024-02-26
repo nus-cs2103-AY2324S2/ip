@@ -1,4 +1,5 @@
 package Luna;
+
 import java.time.LocalDate;
 
 public class ListEntry {
@@ -44,7 +45,6 @@ public class ListEntry {
         this.taskStart = null;
         this.taskEnd = null;
     }
-
 
     /**
      * Marks the check of the entry as true
