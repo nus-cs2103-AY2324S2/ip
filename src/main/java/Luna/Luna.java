@@ -1,5 +1,9 @@
 package Luna;
 
+import javafx.scene.Scene;
+import javafx.scene.control.Label;
+import javafx.stage.Stage;
+
 public class Luna {
     private final Storage storage;
     private final TaskList tasks;
@@ -10,12 +14,20 @@ public class Luna {
         storage = new Storage("taskList");
         tasks = new TaskList();
         ui = new Ui("Luna");
+//        new Luna().begin();
     }
 
-    public void start() {
-        ui.greet();
-        run();
-    }
+//    @Override
+//    public void start(Stage stage) {
+//
+//        Scene scene = new Scene(new Label("Jello"));
+//        stage.setScene(scene);
+//        stage.show();
+//
+//
+//        ui.greet();
+//        run();
+//    }
 
     public void run() {
         String userInput = ui.readInput();
@@ -24,9 +36,22 @@ public class Luna {
         run();
     }
 
-    public static void main(String[] args)  {
-        new Luna().start();
+    public void begin() {
+
+        ui.greet();
+        run();
     }
+
+    public void readIn(String input) {
+        String userInput = ui.readInput(input);
+        Command c = Parser.parse(userInput);
+        c.execute(tasks,ui,storage);
+    }
+
+    public static void main(String[] args)  {
+        new Luna().begin();
+    }
+
 
 
 }

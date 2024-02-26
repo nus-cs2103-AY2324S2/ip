@@ -1,21 +1,19 @@
 package Luna;
 
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.StringReader;
 
 /**
  * Handles the interaction between the user and the program. A UI handles the input and output of the program.
  */
 public class Ui {
-    public  final String HORIZONTAL_LINE = "____________________________________________________________\n";
     public String name;
 
     BufferedReader br;
 
     public Ui (String n) {
         this.name = n;
-        br = new BufferedReader(new InputStreamReader(System.in));
+//        br = new BufferedReader(new InputStreamReader(System.in));
     }
 
     /**
@@ -35,9 +33,14 @@ public class Ui {
     public String readInput() {
         try {
             return br.readLine();
+//            return ri;
         } catch (Exception e) {
             return "";
         }
+    }
+
+    public String readInput(String input) {
+        return input;
     }
 
     /**
@@ -101,12 +104,12 @@ public class Ui {
             BufferedReader br = new BufferedReader(new StringReader(text));
             String readText = br.readLine();
             StringBuilder output = new StringBuilder();
-            output.append("      " + HORIZONTAL_LINE);
+//            output.append("      " + HORIZONTAL_LINE);
             while (readText != null) {
                 output.append("      ").append(readText).append("\n");
                 readText = br.readLine();
             }
-            output.append("      " + HORIZONTAL_LINE);
+//            output.append("      " + HORIZONTAL_LINE);
             System.out.print(output);
         } catch (Exception e) {
             //
