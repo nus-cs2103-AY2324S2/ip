@@ -1,41 +1,92 @@
 package SamuelBot;
-import java.time.LocalDate;
-import java.time.format.DateTimeParseException;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-
-public class Duke_Level8 {
-    private static final String file_path = "./SamuelBot.txt";
+import SamuelBot.Task;
+public class Duke_Level7 {
+    private static final String FILE_PATH = "D:\\Samuel\\NUS\\2324Sem2\\CS2103T\\ip";
     private List<Task> taskList;
-    private Ui ui;
-    private Storage storage;
 
-    public Duke_Level8() {
+    public Duke_Level7() {
         this.taskList = new ArrayList<>();
-        this.ui = new Ui();
-        this.storage = new Storage(file_path);
         loadTasksFromFile();
     }
 
-    private void saveTasksToFile() {
-        storage.saveTasksToFile(taskList);
+    private void loadTasksFromFile() {
+        try {
+            File file = new File(FILE_PATH);
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNextLine()) {
+                    String line = scanner.nextLine();
+                    String[] parts = line.split("\\|");
+                    String type = parts[0].trim();
+                    boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
+                    String description = parts[2].trim();
+                    switch (type) {
+                        case "T":
+                            taskList.add(new Todo(description));
+                            break;
+                        case "D":
+                            String by = parts[3].trim();
+                            taskList.add(new Deadline(description, by));
+                            break;
+                        case "E":
+                            String from = parts[3].trim();
+                            String to = parts[4].trim();
+                            taskList.add(new Event(description, from, to));
+                            break;
+                        default:
+                            System.out.println("Unknown task type: " + type);
+                            break;
+                    }
+                }
+                scanner.close();
+            } else {
+                System.out.println("No existing data file found. Starting with an empty task list.");
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("Error loading tasks from file: " + e.getMessage());
+        }
     }
 
-    private void loadTasksFromFile() {
-        taskList = storage.loadTasksFromFile();
+    private void saveTasksToFile() {
+        try {
+            FileWriter writer = new FileWriter(FILE_PATH);
+            for (Task task : taskList) {
+                writer.write(task.toFileString() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("Error saving tasks to file: " + e.getMessage());
+        }
+    }
+
+    public void greet() {
+        String logo = " ____        _        \n"
+                + "|  _ \\ _   _| | _____ \n"
+                + "| | | | | | | |/ / _ \\\n"
+                + "| |_| | |_| |   <  __/\n"
+                + "|____/ \\__,_|_|\\_\\___|\n";
+        System.out.println("Hello from\n" + logo);
+        System.out.println("What can I do for you?");
     }
 
     public void run() {
-        ui.showWelcome();
+        this.greet();
         Scanner scanner = new Scanner(System.in);
         String input;
         do {
             input = scanner.nextLine().trim();
             processInput(input);
-            saveTasksToFile();
+            saveTasksToFile(); // Call saveTasksToFile() after processing each input
         } while (!input.equals("bye"));
-        ui.showGoodbye();
+
+        System.out.println("Bye. Hope to see you again soon!");
     }
 
     private void processInput(String input) {
@@ -53,7 +104,7 @@ public class Duke_Level8 {
             case "list":
                 listTasks();
                 break;
-            case "mark":
+            case "mark": // Added case for marking task as done
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     markTask(index);
@@ -61,7 +112,7 @@ public class Duke_Level8 {
                     System.out.println("Invalid command format.");
                 }
                 break;
-            case "unmark":
+            case "unmark": // Added case for marking task as undone
                 try {
                     int index = Integer.parseInt(tokens[1]);
                     unmarkTask(index);
@@ -175,33 +226,23 @@ public class Duke_Level8 {
     }
 
     private void addDeadlineTask(String description, String by) {
-        try {
-            Task deadlineTask = new Deadline(description, by);
-            taskList.add(deadlineTask);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(deadlineTask);
-            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please use the format yyyy-MM-dd.");
-        }
+        Task deadlineTask = new Deadline(description, by);
+        taskList.add(deadlineTask);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(deadlineTask);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
-
 
     private void addEventTask(String description, String from, String to) {
-        try {
-            Task eventTask = new Event(description, from, to);
-            taskList.add(eventTask);
-            System.out.println("Got it. I've added this task:");
-            System.out.println(eventTask);
-            System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-        } catch (DateTimeParseException e) {
-            System.out.println("Invalid date/time format. Please use the format yyyy-MM-dd HH:mm.");
-        }
+        Task eventTask = new Event(description, from, to);
+        taskList.add(eventTask);
+        System.out.println("Got it. I've added this task:");
+        System.out.println(eventTask);
+        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
     }
 
-
     public static void main(String[] args) {
-        Duke_Level8 duke = new Duke_Level8();
+        Duke_Level7 duke = new Duke_Level7();
         duke.run();
     }
 }

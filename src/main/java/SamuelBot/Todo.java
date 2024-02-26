@@ -25,7 +25,3 @@ public class Todo extends Task {
         return isDone;
     }
 }
-
-
-
-
