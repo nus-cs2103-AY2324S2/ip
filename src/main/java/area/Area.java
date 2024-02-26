@@ -1,7 +1,5 @@
 package area;
 
-import java.util.Scanner;
-
 /**
  *
  * Main class.
@@ -22,8 +20,7 @@ public class Area {
         this.ui = new Ui();
         this.tasks = new TaskList();
         this.storage = new Storage(tasks);
-        this.storage.createFile();
-        this.storage.createFolder();
+        this.storage.createNewFile();
         this.storage.loadTasks();
     }
 

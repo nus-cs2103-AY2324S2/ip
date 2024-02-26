@@ -45,13 +45,11 @@ public class Storage {
         this.instructions.add(instruction);
     }
 
-    public void createFolder() {
+    public void createNewFile() {
         if (!folder.exists()) {
             folder.mkdir();
         }
-    }
 
-    public void createFile() {
         try {
             if (!file.exists()) {
                 file.createNewFile();
