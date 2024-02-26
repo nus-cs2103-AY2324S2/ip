@@ -92,7 +92,7 @@ To start using RahhBot, simply type your queries or commands into the chat windo
 
 ## Additional Features
 ### Help Command:
-- If you need assistance or want to see a list of available commands, type: help.
+- If you need assistance or want to see a list of available commands, type help!
 
 ## Conclusion
 That's it! You are now ready to start using RahhBot to manage your tasks and get things done more efficiently. If you have any questions or encounter any issues, feel free to ask RahhBot for help. Enjoy chatting with RahhBot!
