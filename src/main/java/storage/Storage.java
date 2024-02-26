@@ -1,3 +1,5 @@
+package storage;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -15,7 +17,7 @@ import java.util.Objects;
 import java.nio.file.Files;
 
 /**
- * The Storage class manages reading from and writing to a data store txt file.
+ * The storage.Storage class manages reading from and writing to a data store txt file.
  * It handles tasks related to file operations and task data persistence.
  */
 public class Storage {

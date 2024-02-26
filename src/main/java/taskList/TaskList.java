@@ -1,9 +1,11 @@
+package taskList;
+
 import task.Task;
 
 import java.util.ArrayList;
 
 /**
- * The TaskList class represents a list of tasks.
+ * The taskList.TaskList class represents a list of tasks.
  * It provides methods for adding, removing, and accessing tasks.
  */
 public class TaskList {
