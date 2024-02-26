@@ -16,7 +16,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
  * An object that has methods to change tasks in the list
  */
 public class TaskList {
-    ArrayList<Task> list = new ArrayList<>(100);;
+    ArrayList<Task> list = new ArrayList<>();
 
     public TaskList(String str) {
         addList(str);
@@ -113,7 +113,7 @@ public class TaskList {
 
             return new Pair<>(true,"Congrats on completing the task!\n" + curr + "\n");
         } catch (IndexOutOfBoundsException e) {
-            return new Pair<>(true,"Index out of bounds :(");
+            return new Pair<>(false,"Index out of bounds :(");
         }
     }
 
@@ -129,7 +129,7 @@ public class TaskList {
             curr.unmarkMark();
 
             return new Pair<>(true,"\nUnmarked the task, :(\n" + curr.toString() + "\n");
-        } catch (IndexOutOfBoundsException e){
+        } catch (IndexOutOfBoundsException e) {
             return new Pair<>(false,"Index out of bounds :(");
         }
     }

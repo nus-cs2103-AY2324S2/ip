@@ -47,7 +47,7 @@ public class Parser {
      */
     public String processInput(String str) {
         try {
-            String[] splitStr = str.split("\\s+", 2);
+            String[] splitStr = str.trim().split("\\s+", 2);
             assert splitStr != null : "Input string is null";
             switch (splitStr[0].toLowerCase()) {
             case "bye":
@@ -76,6 +76,8 @@ public class Parser {
             }
         } catch (ArrayIndexOutOfBoundsException E1) {
             return "No input found after action";
+        } catch (NumberFormatException E2) {
+            return "Wrong number input. USE INTEGER HAIYA";
         }
     }
 
