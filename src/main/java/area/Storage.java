@@ -30,7 +30,7 @@ public class Storage {
      * @param tasks List of tasks
      */
     public Storage(TaskList tasks) {
-        file = new File("./data/duke.txt");
+        file = new File("./data/area.txt");
         folder = new File("./data");
         this.tasks = tasks;
         this.instructions = new ArrayList<String>();
@@ -49,12 +49,12 @@ public class Storage {
      * Creates a new directory and file if it does not exist
      */
     public void createNewFile() {
-        if (!folder.exists()) {
+        if (folder.exists() == false) {
             folder.mkdir();
         }
 
         try {
-            if (!file.exists()) {
+            if (file.exists() == false) {
                 file.createNewFile();
             }
         } catch (IOException e) {

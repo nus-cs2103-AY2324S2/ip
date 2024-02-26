@@ -9,7 +9,7 @@ public class Parser {
     }
 
     /**
-     * Takes in raw input and extracts type of instruction to be performed.
+     * Takes in input and extracts type of instruction to be performed.
      * 
      * @param instruction User input string.
      * @return Command by user.
@@ -21,7 +21,7 @@ public class Parser {
     }
 
     /**
-     * Takes in raw input and extracts description of instruction.
+     * Takes in input and extracts description of instruction.
      * 
      * @param instruction User input string.
      * @return Description of instruction.
@@ -33,7 +33,7 @@ public class Parser {
     }
 
     /**
-     * Takes in raw input and extracts changes to be made by instruction.
+     * Takes in input and extracts changes to be made by instruction.
      * 
      * @param instruction User input.
      * @return String representation of index of task in list to be modified.
