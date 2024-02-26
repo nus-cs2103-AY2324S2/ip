@@ -22,3 +22,7 @@ Prerequisites: JDK 11, update Intellij to the most recent version.
    | |_| | |_| |   <  __/
    |____/ \__,_|_|\_\___|
    ```
+   
+# Deprecated text-based UI
+
+Prior to being added a GUI, this chatbot adopted a text-based UI, which is now deprecated. Relevant test files, which use the I/O redirection style automated testing, are kept in the `text-ui-test` folder for documentation purposes, but the text-based UI itself is no longer kept.
