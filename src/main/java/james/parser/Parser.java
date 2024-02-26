@@ -140,7 +140,7 @@ public class Parser {
             return deadline;
         case "E":
             String[] timeParts = parts[3].split(" to ");
-            String start = timeParts[0].substring(6).trim(); // Remove "from " prefix
+            String start = timeParts[0].substring(5).trim(); // Remove "from " prefix
             String end = timeParts[1].trim();
             Event event = new Event(description, start, end);
             if (isDone) {
