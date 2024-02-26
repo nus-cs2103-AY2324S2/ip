@@ -50,7 +50,7 @@ public class MarkCommand extends Command {
         } else {
             task.mark();
             String result = "Nice! I've marked this task as done:\n";
-            result += "  " + task + '\n';
+            result += "  " + task.toString();
             storage.editLine(num, task);
             return result;
         }

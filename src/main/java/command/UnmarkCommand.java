@@ -49,8 +49,8 @@ public class UnmarkCommand extends Command {
             return "Not done in the first place.";
         } else {
             task.unmark();
-            String result = "OK, I've marked this task as not done yet:";
-            result += "  " + task + '\n';
+            String result = "OK, I've marked this task as not done yet:\n";
+            result += "  " + task.toString();
             storage.editLine(num, task);
             return result;
         }
