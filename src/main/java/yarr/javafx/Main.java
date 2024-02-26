@@ -12,11 +12,11 @@ import javafx.stage.Stage;
 import yarr.Yarr;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Yarr using FXML.
  */
 public class Main extends Application {
     /**
-     * The Duke object to be used in the application.
+     * The Yarr object to be used in the application.
      */
     private Yarr yarr = new Yarr();
 

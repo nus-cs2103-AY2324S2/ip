@@ -6,11 +6,11 @@ import yarr.command.Command;
 import yarr.task.Task;
 
 /**
- * Duke is a simple chatbot application that allows users to manage tasks.
+ * Yarr is a simple chatbot application that allows users to manage tasks.
  * It provides a CLI for users to interact with.
  * Users can add, delete, mark as done, find and list tasks.
  * Tasks are stored in a file on the hard disk and loaded on startup.
- * If there is no file to read from, Duke creates the necessary directory and file.
+ * If there is no file to read from, Yarr creates the necessary directory and file.
  */
 public class Yarr {
     /** Filepath for reading and writing data. */
@@ -28,7 +28,7 @@ public class Yarr {
     private boolean isExit;
 
     /**
-     * Constructor for Duke class. Instantiates Ui and Storage.
+     * Constructor for Yarr class. Instantiates Ui and Storage.
      * Loads TaskList from filepath or makes relevant directory and file if required.
      */
     public Yarr() {

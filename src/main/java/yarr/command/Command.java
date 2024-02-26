@@ -5,7 +5,7 @@ import yarr.TaskList;
 import yarr.Ui;
 
 /**
- * Represents a command to be executed by the Duke chatbot.
+ * Represents a command to be executed by the Yarr chatbot.
  * This is an abstract class that serves as the base class for all commands.
  */
 public abstract class Command {

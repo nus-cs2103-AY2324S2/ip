@@ -5,7 +5,7 @@ import yarr.TaskList;
 import yarr.Ui;
 
 /**
- * Represents a command to exit the Duke chatbot program.
+ * Represents a command to exit the Yarr chatbot program.
  * This class extends the Command class and overrides the execute method to print a closing message.
  * Also overrides the isExit() method to exit the program loop.
  */

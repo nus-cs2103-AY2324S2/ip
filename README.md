@@ -11,9 +11,9 @@ Have you ever felt:
 - Bored of speaking plain English?
 - Tired of minimalist app interfaces?
 
-If you answered yes to any of the above, then DukeYarr is perfect for you! DukeYarr can be your swashbuckling assistant on the high seas of productivity.
+If you answered yes to any of the above, then Yarr is perfect for you! Yarr can be your swashbuckling assistant on the high seas of productivity.
 
-## Getting Started with DukeYarr
+## Getting Started with Yarr
 To get acquainted with him:
 1. download the most recent release from [here](https://github.com/H4mes/ip/releases/tag/v0.1);
 2. run `java -jar yarr.jar` from your terminal
@@ -23,14 +23,14 @@ To get acquainted with him:
 All this for the low, low price of **FREE**!
 
 ## Features
-DukeYarr continues to grow more capable each day and is able to:
+Yarr continues to grow more capable each day and is able to:
 - [X] Handle To-dos
 - [X] Handle Deadlines and Events 
 - [X] Be operated with a GUI interface
 - [ ] Accomodate flexible command formats
 
 ## Customisability
-For enthusiastic programmers, DukeYarr is highly customisable with easily extended packages and classes. Here's a snippet of the `Task` class for example:
+For enthusiastic programmers, Yarr is highly customisable with easily extended packages and classes. Here's a snippet of the `Task` class for example:
 ```java
 public class Task {  
     protected String description;  
@@ -51,5 +51,5 @@ public class Task {
 }
 ```
 ##
-What are you waiting for? Download DukeYarr now and join our other happy users!
+What are you waiting for? Download Yarr now and join our other happy users!
 > The ~~One Piece~~ Productivity! The ~~One Piece~~ Productivity is real! – Edward Newgate
