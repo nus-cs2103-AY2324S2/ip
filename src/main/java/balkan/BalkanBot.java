@@ -15,13 +15,10 @@ public class BalkanBot {
     private final Storage storage;
     private TaskList tasks;
     private final GUIUi guiUi;
-    private String iLoveBranchesAndLevel8;
 
     /**
      * Initialises Balkan Bot
      */
-
-    private String urmomgay;
 
     public BalkanBot() {
         guiUi = new GUIUi();
