@@ -4,7 +4,6 @@ import java.util.NoSuchElementException;
 import java.util.StringTokenizer;
 
 import common.DukeException;
-
 import task.Deadline;
 import task.Event;
 import task.TaskList;
@@ -31,7 +30,7 @@ public class AddCommand extends Command {
     /**
      * {@inheritDocs}
      * Adds a task into a tasklist.
-     * 
+     *
      * @throws DukeException If the command cannot be executed.
      */
     @Override
@@ -73,18 +72,18 @@ public class AddCommand extends Command {
                 }
 
                 if (taskName.equals("") || deadline.equals("")) {
-                    throw new DukeException("Missing field(s) / incorrect input(s). :(" 
+                    throw new DukeException("Missing field(s) / incorrect input(s). :("
                             + "\nCheck if you have used the keyword \"/by\"");
 
-                    } else {
-                        Deadline d = new Deadline(taskName.strip(), deadline);
-                        taskList.add(d);
+                } else {
+                    Deadline d = new Deadline(taskName.strip(), deadline);
+                    taskList.add(d);
 
-                        System.out.println("Got it. I've added this task:");
-                        System.out.println(" " + d.toString());
-                        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
-                    }
-                    break;
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + d.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+                }
+                break;
 
             case "event":
                 String startTime = "";
@@ -107,7 +106,7 @@ public class AddCommand extends Command {
                 }
 
                 if (taskName.equals("") || startTime.equals("") || endTime.equals("")) {
-                    throw new DukeException("Missing field(s) / incorrect input(s). :(\n" 
+                    throw new DukeException("Missing field(s) / incorrect input(s). :(\n"
                             + "Check if you have used the keyword \"/from\" and \"/to\"");
 
                 } else {
@@ -118,6 +117,10 @@ public class AddCommand extends Command {
                     System.out.println("  " + e.toString());
                     System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
+                break;
+
+            default:
+                // Unreachable line
             }
 
         } catch (NoSuchElementException e) {

@@ -4,12 +4,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.util.LinkedList;
 import java.util.Scanner;
 
-import task.Event;
 import task.Deadline;
+import task.Event;
 import task.Task;
 import task.TaskList;
 import task.ToDo;
@@ -74,8 +73,8 @@ public class Storage {
     }
 
     /**
-     * Returns the list of tasks loaded from the storage file. 
-     * 
+     * Returns the list of tasks loaded from the storage file.
+     *
      * @return The list of tasks loaded in a LinkedList.
      */
     public LinkedList<Task> loadData() {
@@ -150,7 +149,7 @@ public class Storage {
                 fw.write(t.toData());
                 fw.write(System.lineSeparator());
             }
-            
+
             fw.close();
             System.out.println("Data saved successfully. :)");
 

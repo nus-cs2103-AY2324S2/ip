@@ -11,8 +11,8 @@ import common.DukeException;
  */
 public class Deadline extends Task {
     protected LocalDateTime deadline;
-    DateTimeFormatter receivingFormatter = DateTimeFormatter.ofPattern("d/M/yyyy-HHmm");
-    DateTimeFormatter printingFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private DateTimeFormatter receivingFormatter = DateTimeFormatter.ofPattern("d/M/yyyy-HHmm");
+    private DateTimeFormatter printingFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
     /**
      * {@inheritDoc}
@@ -39,7 +39,7 @@ public class Deadline extends Task {
 
         try {
             this.deadline = LocalDateTime.parse(deadline, printingFormatter);
-            
+
         } catch (DateTimeParseException e) {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"

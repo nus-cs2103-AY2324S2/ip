@@ -1,12 +1,10 @@
 import java.util.NoSuchElementException;
 
 import command.Command;
-
 import common.DukeException;
 import common.Parser;
 import common.Storage;
 import common.Ui;
-
 import task.TaskList;
 
 /**
@@ -19,7 +17,7 @@ public class Duke {
 
     /**
      * Returns an instance of the program and loads the tasks from the file found at the provided filepath.
-     * 
+     *
      * @param filepath The filepath of the file to load/save the tasks.
      */
     public Duke(String filepath) {
@@ -47,10 +45,10 @@ public class Duke {
 
             } catch (IndexOutOfBoundsException e) {
                 System.out.println("Invalid task number. :(");
-    
+
             } catch (NumberFormatException e) {
                 System.out.println("Input is not an integer. :(");
-    
+
             } catch (NoSuchElementException e) {
                 System.out.println("Missing task number. :(");
 

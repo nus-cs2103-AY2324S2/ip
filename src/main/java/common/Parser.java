@@ -11,7 +11,6 @@ import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
-
 import task.TaskList;
 
 /**
@@ -24,7 +23,7 @@ public class Parser {
 
     /**
      * Creates an instance of a Parser object to parse the user input.
-     * 
+     *
      * @param fullCommand The entire user input.
      * @param tasks The list of tasks.
      */
@@ -37,7 +36,6 @@ public class Parser {
     /**
      * Returns the command object after parsing through the user input.
      *
-     * @param fullCommand The entire user input.
      * @return The command object created.
      * @throws IndexOutOfBoundException If the user input a number more/less than the number of tasks in the list.
      * @throws NumberFormatException If the user input is invalid
@@ -64,7 +62,7 @@ public class Parser {
             return cmd;
 
         case "delete":
-            int indexOfTaskToDelete = Integer.parseInt(st.nextToken());                
+            int indexOfTaskToDelete = Integer.parseInt(st.nextToken());
             cmd = new DeleteCommand(tasks, indexOfTaskToDelete);
             return cmd;
 
@@ -77,7 +75,7 @@ public class Parser {
         case "find":
             cmd = new FindCommand(tasks, st);
             return cmd;
-            
+
         case "bye":
             cmd = new ExitCommand();
             return cmd;

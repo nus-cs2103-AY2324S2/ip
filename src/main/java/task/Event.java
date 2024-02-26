@@ -52,7 +52,7 @@ public class Event extends Task {
             String[] startToEndTime = time.split(" - ");
             startTime = LocalDateTime.parse(startToEndTime[0], printingFormatter);
             endTime = LocalDateTime.parse(startToEndTime[1], printingFormatter);
-            
+
         } catch (DateTimeParseException e) {
             throw new DukeException("Date and Time not in the correct format.\n"
                     + "Correct format: MMM dd yyyy, HH:mm\n"

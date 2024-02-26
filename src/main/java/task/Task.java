@@ -9,7 +9,7 @@ public class Task {
 
     /**
      * Returns an instance of Task. Mark by default as undone.
-     * 
+     *
      * @param taskName User-defined task name.
      */
     public Task(String taskName) {
@@ -19,7 +19,7 @@ public class Task {
 
     /**
      * Returns an instance of Task. Status of task is provided by the user.
-     * 
+     *
      * @param isDone The status of the task.
      * @param taskName User-defined task name.
      */
@@ -30,7 +30,7 @@ public class Task {
 
     /**
      * Returns the status of the task.
-     * 
+     *
      * @return A string to indicate the status.
      */
     public String getStatusIcon() {

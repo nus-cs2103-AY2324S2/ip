@@ -10,7 +10,7 @@ public class TaskList {
 
     /**
      * Creates an instance of TaskList containing tasks.
-     * 
+     *
      * @param tasks List of tasks to be stored upon instantiating.
      */
     public TaskList(LinkedList<Task> tasks) {

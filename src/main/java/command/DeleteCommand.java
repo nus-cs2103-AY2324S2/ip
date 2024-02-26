@@ -1,7 +1,6 @@
 package command;
 
 import common.DukeException;
-
 import task.Task;
 import task.TaskList;
 
@@ -24,13 +23,13 @@ public class DeleteCommand extends Command {
     /**
      * {@inheritDocs}
      * Deletes a task from a tasklist.
-     * 
+     *
      * @throws DukeException If the command cannot be executed.
      */
     @Override
     public void execute() {
         Task t = taskList.remove(taskIndex);
-        
+
         System.out.println("Noted, I've removed this task:");
         System.out.println(" " + t.toString());
         System.out.println("Now you have " + taskList.size() + " tasks in the list.");

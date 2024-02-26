@@ -8,11 +8,11 @@ import common.DukeException;
 public abstract class Command {
     /**
      * Executes the command.
-     * 
+     *
      * @throws DukeException If command cannot be executed.
      */
     public abstract void execute() throws DukeException;
-    
+
     /**
      * Returns true if the command executed exits the program.
      *

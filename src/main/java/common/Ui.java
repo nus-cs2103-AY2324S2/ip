@@ -2,9 +2,12 @@ package common;
 
 import java.util.Scanner;
 
+/**
+ * Represents the user interface that interacts with the user.
+ */
 public class Ui {
     private Scanner scanner = new Scanner(System.in);
-    
+
     /**
      * Reads the user input.
      */
@@ -16,12 +19,12 @@ public class Ui {
      * Shows the start up message upon successful loading of the program.
      */
     public void showWelcome() {
-        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n" 
+        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n"
                 + "What can I do for you?";
         System.out.println(welcomeMessage);
         showLine();
     }
-    
+
     /**
      * Shows the separating line for different messages.
      */

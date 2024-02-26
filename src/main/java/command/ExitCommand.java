@@ -6,10 +6,10 @@ package command;
  */
 public class ExitCommand extends Command {
 
-/**
- * {@inheritDocs}
- * Exits the program.
- */
+    /**
+     * {@inheritDocs}
+     * Exits the program.
+     */
     @Override
     public void execute() {
         String exitMessage = "Bye. Hope to see you again soon!";
