@@ -1,6 +1,6 @@
 package seiki.commands;
 
-import java.util.ArrayList;
+import static seiki.common.Messages.MESSAGE_EMPTY_TASKLIST;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
@@ -12,32 +12,23 @@ import seiki.ui.Ui;
  * Represents the 'delete' command.
  */
 public class DeleteCommand extends Command {
+    public static final String COMMAND_HELPER = "Please follow the format: delete [task number]";
     public static final String COMMAND_WORD = "delete";
-    private ArrayList<String> args;
+    private final Integer taskNumber;
 
-    public DeleteCommand(ArrayList<String> args) {
-        this.args = args;
+    public DeleteCommand(String taskNumber) {
+        this.taskNumber = Integer.parseInt(taskNumber);
     }
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
-        if (taskList.getTaskCount() == 0) {
-            throw new SeikiException("There are currently no tasks to be deleted.");
-        } else {
-            if (args.size() == 0) {
-                throw new SeikiException("Please enter a task number.");
-            } else {
-                int taskNumber = Integer.parseInt(args.get(0));
-                if (taskNumber < 1 || taskNumber > taskList.getTaskCount()) {
-                    throw new SeikiException("Please enter a valid task number.");
-                } else {
-                    Task task = taskList.getTaskByNumber(taskNumber);
-                    taskList.deleteTask(task);
-                    storage.save(taskList);
-                    return ui.showDeleteTask(task, taskList);
-                }
-            }
-        }
+        taskList.checkIfListEmpty(MESSAGE_EMPTY_TASKLIST);
+        taskList.checkIfNumberValid(taskNumber);
+
+        Task task = taskList.getTaskByNumber(taskNumber);
+        taskList.deleteTask(task);
+        storage.save(taskList);
+        return ui.showDeleteTask(task, taskList);
     }
 
     @Override

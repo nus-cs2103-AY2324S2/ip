@@ -39,14 +39,15 @@ public class Seiki {
     }
 
     /**
-     * Main run method of the chatbot.
+     * Gets response to the user's input.
+     * @param input the user's input
+     * @return      the execution of the given command
+     *              the error thrown
      */
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
-            if (c.isExit()) {
-                isExit = true;
-            }
+            isExit = c.isExit();
             return c.execute(storage, tasks, ui);
         } catch (SeikiException e) {
             return ui.showError(e.getMessage());

@@ -1,6 +1,7 @@
 package seiki.commands;
 
-import java.util.ArrayList;
+import static seiki.common.Messages.MESSAGE_EMPTY_TASKLIST;
+import static seiki.common.Messages.MESSAGE_FIND_FAIL;
 
 import seiki.data.TaskList;
 import seiki.data.exception.SeikiException;
@@ -11,28 +12,21 @@ import seiki.ui.Ui;
  * Represents the 'find' command.
  */
 public class FindCommand extends Command {
+    public static final String COMMAND_HELPER = "Please follow the format: find [keyword]";
     public static final String COMMAND_WORD = "find";
 
-    private ArrayList<String> args;
+    private final String keyword;
 
-    public FindCommand(ArrayList<String> args) {
-        this.args = args;
+    public FindCommand(String keyword) {
+        this.keyword = keyword;
     }
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
-        if (taskList.getTaskCount() == 0) {
-            throw new SeikiException("There are currently no tasks to search from.");
-        } else {
-            String keyword = args.get(0).trim();
-            TaskList resultList = taskList.searchByKeyword(keyword);
-
-            if (resultList.getTaskCount() == 0) {
-                throw new SeikiException("There are no task that matches the keyword: " + keyword);
-            } else {
-                return ui.showFindTask(keyword, resultList);
-            }
-        }
+        taskList.checkIfListEmpty(MESSAGE_EMPTY_TASKLIST);
+        TaskList resultList = taskList.searchByKeyword(keyword);
+        resultList.checkIfListEmpty(String.format(MESSAGE_FIND_FAIL, keyword));
+        return ui.showFindTask(keyword, resultList);
     }
 
     @Override

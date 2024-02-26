@@ -43,7 +43,7 @@ public class Ui {
 
     /**
      * Shows the message(s) to the user.
-     * @param message
+     * @param message   the message
      */
     public String showToUser(String... message) {
         for (String m : message) {
@@ -56,7 +56,7 @@ public class Ui {
 
     /**
      * Generates and prints out the error message.
-     * @param message
+     * @param message   the error message
      */
     public String showError(String message) {
         return showToUser(message);
@@ -72,8 +72,8 @@ public class Ui {
 
     /**
      * Generates and returns the newly added task upon success.
-     * @param task
-     * @param taskList
+     * @param task      the task given by the user
+     * @param taskList  the current task list
      */
     public String showAddTask(Task task, TaskList taskList) {
         return showToUser(MESSAGE_ADD_SUCCESS,
@@ -83,7 +83,7 @@ public class Ui {
 
     /**
      * Generates and returns all tasks.
-     * @param taskList
+     * @param taskList  the current task list
      */
     public String showList(TaskList taskList) {
         return showToUser(MESSAGE_LIST_SUCCESS,
@@ -92,7 +92,7 @@ public class Ui {
 
     /**
      * Generates and returns the newly marked task upon success.
-     * @param task
+     * @param task  the task corresponding to the task number given by the user
      */
     public String showMarkTask(Task task) {
         return showToUser(MESSAGE_MARK_SUCCESS,
@@ -101,7 +101,7 @@ public class Ui {
 
     /**
      * Generates and returns the newly unmarked task upon success.
-     * @param task
+     * @param task  the task corresponding to the task number given by the user
      */
     public String showUnmarkTask(Task task) {
         return showToUser(MESSAGE_UNMARK_SUCCESS,
@@ -110,8 +110,8 @@ public class Ui {
 
     /**
      * Generates and returns the deleted task upon success.
-     * @param task
-     * @param taskList
+     * @param task      the task corresponding to the task number given by the user
+     * @param taskList  the current task list
      */
     public String showDeleteTask(Task task, TaskList taskList) {
         return showToUser(MESSAGE_DELETE_SUCCESS,
@@ -121,8 +121,8 @@ public class Ui {
 
     /**
      * Generates and returns the found tasks upon success.
-     * @param keyword
-     * @param resultList
+     * @param keyword       keyword given by user
+     * @param resultList    list of task containing the keyword
      */
     public String showFindTask(String keyword, TaskList resultList) {
         return showToUser(String.format(MESSAGE_FIND_SUCCESS, keyword),
