@@ -1,3 +1,4 @@
-T | 0 | 1
-T | 0 | 1
-T | 0 | 1
+T | 0 | eat food
+T | 0 | eat dinner
+D | 0 | eat lunch | 2024-02-26
+E | 0 | Arts Showcase | 2024-02-20 | 2024-02-21

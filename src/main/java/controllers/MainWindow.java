@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
         String response = ben.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, profileImage),
-                DialogBox.getDukeDialog(response, chatbotImage)
+                DialogBox.getBenDialog(response, chatbotImage)
         );
         userInput.clear();
     }
