@@ -17,7 +17,7 @@ If you can type fast, DylanBot can get your task management done faster than tra
 
 ## Quick Start
 1. Ensure you have Java `11` installed on your computer.
-2. Download the latest `dylanbot.jar` from [here](samplelink.com)
+2. Download the latest `dylanbot.jar` from [here](https://github.com/thewongdylan/ip/releases)
 3. Copy the file to the folder you want to use as the home folder for your DylanBot.
 4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar dylanbot.jar` command to run the application. 
 <br>A GUI similar to the below should appear in a few seconds.
