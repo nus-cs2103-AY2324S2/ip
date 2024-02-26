@@ -5,23 +5,35 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.util.Scanner;
 import java.io.FileWriter;
-import duke.TaskList;
 import duke.tasks.Task;
 import duke.tasks.Deadline;
 import duke.tasks.Event;
 import duke.tasks.Todo;
 
+/**
+ * Class used to load and store data externally.
+ */
 public class Storage {
     // Parses file and outputs it as a list
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
-
     private String path;
 
+    /**
+     * Constructor for Storage.
+     * @param path Path to file to be loaded or saved
+     */
     public Storage(String path) {
         this.path = path;
     }
 
+    /**
+     * Returns tasklist after reading external txt file according to path.
+     * 
+     * @return taskList based on external txt file
+     * @throws FileNotFoundException If path does not lead to the correct file.
+     * @throws IOException If the file cannot be created if not found.
+     */
     public TaskList load() throws FileNotFoundException, IOException {
         TaskList taskList = new TaskList();
         Task task;
@@ -65,12 +77,13 @@ public class Storage {
             return taskList;
         }
     }
-/**
+
+    /**
      * Saves task list into a txt file
      * 
      * @param taskList to be saved
+     * @throws IOException If file cannot be created.
      */
-    
     public void save(TaskList taskList) throws IOException {
         int length = taskList.getLength();
         String finalOutput = "";

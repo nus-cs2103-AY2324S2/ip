@@ -10,6 +10,9 @@ import duke.tasks.Todo;
 import duke.exceptions.UnrecognizedException;
 import duke.exceptions.MissingInputException;
 
+/**
+ * Class that handles inputs given to the chat bot.
+ */
 public class Ui {
     private static final String INDENT = "    ";
     private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
@@ -37,15 +40,32 @@ public class Ui {
     int idx;
     Task task;
 
+    /**
+     * Constructor for Ui
+     * @throws FileNotFoundException 
+     * @throws IOException
+     */
     public Ui() throws FileNotFoundException, IOException {
         System.out.println(NEW_LINE + GREETING);
         taskList = storage.load();
     }
 
+    /**
+     * Checks if chatbot is no longer in use.
+     * @return false if still in use.
+     */
     public Boolean hasFinished() {
         return isFinished;
     }
 
+    /**
+     * Returns the appropriate reply string based on the input.
+     * @param input Message given to chatbot by user.
+     * @return Reply message based on input.
+     * @throws UnrecognizedException If input contains an invalid command.
+     * @throws MissingInputException If input is missing required inputs.
+     * @throws IOException 
+     */
     public String interact(String input) throws UnrecognizedException, MissingInputException, IOException {
         if (input.contains(LIST)) {
             return NEW_LINE + taskList.showList() + NEW_LINE;
