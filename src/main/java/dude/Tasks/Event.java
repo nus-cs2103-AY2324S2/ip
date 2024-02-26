@@ -9,12 +9,36 @@ import dude.Utils.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Event class represents a task with a description, start and end time.
+ */
 public class Event extends Task {
 
     private final LocalDateTime from_time;
     private final LocalDateTime to_time;
 
+    /**
+     * Constructor for the Event class.
+     *
+     * @param description The description of the event.
+     * @param from_time   The start time of the event.
+     * @param to_time     The end time of the event.
+     */
+    public Event(String description, LocalDateTime from_time, LocalDateTime to_time) {
+        super(description);
+        this.from_time = from_time;
+        this.to_time = to_time;
+    }
 
+    /**
+     * Static method to create an Event object from parsing a string.
+     *
+     * @param s The string to be parsed into an Event object.
+     * @return The Event object created from the string.
+     * @throws InvalidArgumentException If the 'from_time' or 'to_time' of the event is empty.
+     * @throws InvalidFormatException If the format of the string is invalid.
+     * @throws InvalidDescriptionException If the description of the event is empty.
+     */
     public static Event from(String s) throws InvalidArgumentException, InvalidFormatException, InvalidDescriptionException {
         //Expects a string in the format "event <description> /at <from_time> to <to_time>"
 
@@ -81,29 +105,45 @@ public class Event extends Task {
         }
     }
 
-    public Event(String description, LocalDateTime from_time, LocalDateTime to_time) {
-        super(description);
-        this.from_time = from_time;
-        this.to_time = to_time;
-    }
 
+    /**
+     * Returns a string representation of the Event object.
+     *
+     * @return A string representation of the Event object.
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + formatDate(from_time) + " to: " + formatDate(to_time) + ")";
     }
 
+    /**
+     * Returns the start time of the event.
+     *
+     * @return The start date-time  of the event.
+     */
     public LocalDateTime getFromTime() {
         return from_time;
     }
 
+    /**
+     * Returns the end date-time  of the event.
+     *
+     * @return The end date-time of the event.
+     */
     public LocalDateTime getToTime() {
         return to_time;
     }
 
+    /**
+     * Returns whether the object is equal to this object.
+     *
+     * @param object The object to be compared.
+     * @return Whether the object is equal to this object.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof Event) {
-            Event t = (Event) o;
+    public boolean equals(Object object) {
+        if (object instanceof Event) {
+            Event t = (Event) object;
 
             boolean isDescriptionEqual = t.getDescription().equals(this.getDescription());
             boolean isFromTimeEqual = t.getFromTime().equals(this.getFromTime());

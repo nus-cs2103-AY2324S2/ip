@@ -8,8 +8,33 @@ import dude.Utils.utils;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
+/**
+ * The Deadline class represents a task with a description and a deadline.
+ */
 public class Deadline extends Task {
 
+    private final LocalDateTime deadline_date;
+
+    /**
+     * Constructor for the Deadline class.
+     *
+     * @param description The description of the deadline.
+     * @param by          The deadline of the deadline.
+     */
+    public Deadline(String description, LocalDateTime by) {
+        super(description);
+        this.deadline_date = by;
+    }
+
+    /**
+     * Static method to create a Deadline object from parsing a string.
+     *
+     * @param s The string to be parsed into a Deadline object.
+     * @return The Deadline object created from the string.
+     * @throws InvalidFormatException      If the format of the string is invalid.
+     * @throws InvalidDescriptionException If the description of the deadline is empty.
+     * @throws InvalidArgumentException    If the 'by' of the deadline is empty.
+     */
     public static Deadline from(String s) throws InvalidFormatException, InvalidDescriptionException, InvalidArgumentException {
         //Expects a string in the format "deadline <description> /by <deadline_date>"
 
@@ -54,35 +79,35 @@ public class Deadline extends Task {
         }
     }
 
-    private final LocalDateTime deadline_date;
-    public Deadline(String description, LocalDateTime by) {
-        super(description);
-        this.deadline_date = by;
+    /**
+     * Returns the deadline of the Deadline object.
+     *
+     * @return The deadline date-time of the Deadline object.
+     */
+    public LocalDateTime getBy() {
+        return deadline_date;
     }
 
-    @Override
-    public void markAsDone() {
-        super.markAsDone();
-    }
-
-    @Override
-    public void markAsUndone() {
-        super.markAsUndone();
-    }
-
+    /**
+     * Returns a string representation of the Deadline object.
+     *
+     * @return A string representation of the Deadline object.
+     */
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + formatDate(deadline_date) + ")";
     }
 
-    public LocalDateTime getBy() {
-        return deadline_date;
-    }
-
+    /**
+     * Returns whether the object is equal to this object.
+     *
+     * @param object The object to be compared.
+     * @return Whether the object is equal to this object.
+     */
     @Override
-    public boolean equals(Object o) {
-        if (o instanceof Deadline) {
-            Deadline t = (Deadline) o;
+    public boolean equals(Object object) {
+        if (object instanceof Deadline) {
+            Deadline t = (Deadline) object;
             return t.getDescription().equals(this.getDescription()) && t.getBy().equals(this.getBy());
         }
         return false;
