@@ -43,7 +43,7 @@ public class DialogBox extends HBox {
 
         Rectangle clip = new Rectangle(200, 200);
         dialog.setText(text);
-        dialog.setWrappingWidth(300);
+        //dialog.setWrappingWidth(300);
         displayPicture.setImage(img);
         displayPicture.setClip(clip);
     }

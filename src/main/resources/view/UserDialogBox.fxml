@@ -9,22 +9,22 @@
     <style>
         -fx-padding: 10 10 10 90;
     </style>
-    <HBox maxHeight="2E308" maxWidth="2E308" prefWidth="500">
+    <HBox maxHeight="2E308" maxWidth="2E308" prefWidth="550">
         <style>
             -fx-background-color: #AAD9BB;
-            -fx-background-radius: 30px;
+            -fx-background-radius: 25px;
             -fx-spacing: 10px;
             -fx-padding: 20px;
         </style>
         <padding>
             <Insets bottom="15.0" left="5.0" right="4.0" top="15.0" />
         </padding>
-        <Text fx:id="dialog" text="Label" textAlignment="RIGHT" >
+        <Text fx:id="dialog" text="Label" textAlignment="RIGHT" wrappingWidth="300">
             <font>
                 <Font name="Comic Sans MS" size="16.0" />
             </font>
         </Text>
-        <ImageView fx:id="displayPicture" fitHeight="80" fitWidth="80" preserveRatio="true" />
+        <ImageView fx:id="displayPicture" fitHeight="102.0" fitWidth="95.0" preserveRatio="true" />
         <HBox.margin>
             <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
         </HBox.margin>

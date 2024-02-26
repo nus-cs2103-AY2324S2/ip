@@ -22,15 +22,15 @@ public class Messages {
      * @return The help message.
      */
     public static String helpMessage() {
-        return (" Here are the commands that I understand!\n"
-                + "   1. To add a todo, type 'todo <description>'\n"
-                + "   2. To add a deadline, type 'deadline <description> /by <yyyy-mm-dd HHmm>' \n"
-                + "   3. To add an event, type 'event <description> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>'\n"
-                + "   4. To list out your tasks, type 'list'\n"
-                + "   5. To mark a task as done, type 'mark <task number>' \n"
-                + "   6. To mark a task as undone, type 'unmark <task number>' \n"
-                + "   7. To delete a task, type 'delete <task number>' \n"
-                + "   8. To exit the chat, type 'bye'\n"
+        return ("Here are the commands that I understand!\n"
+                + "To add a todo, type 'todo <description>'\n"
+                + "To add a deadline, type 'deadline <description> /by <yyyy-mm-dd HHmm>' \n"
+                + "To add an event, type 'event <description> /from <yyyy-mm-dd HHmm> /to <yyyy-mm-dd HHmm>'\n"
+                + "To list out your tasks, type 'list'\n"
+                + "To mark a task as done, type 'mark <task number>' \n"
+                + "To mark a task as undone, type 'unmark <task number>' \n"
+                + "To delete a task, type 'delete <task number>' \n"
+                + "To exit the chat, type 'bye'"
             );
     }
 
