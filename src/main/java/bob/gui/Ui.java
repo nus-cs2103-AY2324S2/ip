@@ -3,7 +3,6 @@ package bob.gui;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 import bob.task.Task;
 
@@ -12,13 +11,8 @@ import bob.task.Task;
  * a user interface which the program can apply.
  */
 public class Ui {
-
-    private static final int INDENT_SPACE_COUNT = 4;
-
     private static final String EXIT = "ok";
     private static final String GREET = "yo im bob\nwhat do you want";
-    private static final String LINE =
-            ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
     private static final String LOADING_ERROR = "wait what happened i cant load any data";
 
     private static final String HEADER_ADD = "added:";
@@ -35,24 +29,6 @@ public class Ui {
 
     private static final DateTimeFormatter FORMATTER_DATE_TIME = DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
-    private final Scanner scanner;
-
-    /**
-     * Initialises the scanner to be used to read inputs from the user.
-     */
-    public Ui() {
-        scanner = new Scanner(System.in);
-    }
-
-    /**
-     * Reads the next command from the user.
-     *
-     * @return The read command.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
-
     /**
      * Utility method to format the given <code>LocalDateTime</code>
      * using the predefined <code>DateTimeFormatter</code>.
@@ -62,13 +38,6 @@ public class Ui {
      */
     public static String formatDateTime(LocalDateTime dateTime) {
         return dateTime.format(FORMATTER_DATE_TIME);
-    }
-
-    /**
-     * Displays the line.
-     */
-    public void showLine() {
-        System.out.println(" ".repeat(INDENT_SPACE_COUNT) + LINE);
     }
 
     /**

@@ -25,7 +25,7 @@ public class Bob {
         try {
             tasks = new TaskList(storage.load(dataPath));
         } catch (BobException e) {
-            initialMessage = e.getMessage();
+            initialMessage = ui.getLoadingErrorResponse(e.getMessage());
             tasks = new TaskList();
         }
 
