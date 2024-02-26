@@ -1,6 +1,6 @@
 # Snorlax User Guide
 
-<img width="400" alt="Ui" src="https://github.com/howen02/ip/assets/108785851/43c65cd7-61c0-4303-a20d-5c4bbfe587ab">
+<img width="400" alt="Ui" src="https://github.com/howen02/ip/assets/108785851/9f3831bb-9562-4691-87b7-4743430066b4">
 
 Can't seem to remember your tasks? Snorlax is the solution to your problems!
 
