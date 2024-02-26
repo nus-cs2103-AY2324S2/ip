@@ -43,11 +43,9 @@ import duke.tasks.ToDo;
  */
 public class Parser {
     private Storage storage;
-    public boolean isTask;
 
     public Parser(Storage storage) {
         this.storage = storage;
-        isTask = false;
     }
 
     /**
@@ -124,7 +122,6 @@ public class Parser {
         if (!input.trim().equals("list")) {
             throw new DukeException("OOPS!!! This is an invalid call of list command.");
         } else {
-            isTask = false;
             ListTask lister = new ListTask(storage);
             return lister.list();
         }
@@ -145,7 +142,6 @@ public class Parser {
             if (index < 1 || index > inventory.size()) {
                 throw new DukeException("OOPS!!! The task number you are trying to mark does not exist. ");
             }
-            isTask = false;
             MarkTask marker = new MarkTask(storage, index);
             return marker.mark();
         }
@@ -166,7 +162,6 @@ public class Parser {
             if (index < 1 || index > inventory.size()) {
                 throw new DukeException("OOPS!!! The task number you are trying to unmark does not exist. ");
             }
-            isTask = false;
             UnmarkTask unmarker = new UnmarkTask(storage, index);
             return unmarker.unmark();
         }
@@ -182,7 +177,6 @@ public class Parser {
         if (input.trim().equals("todo")) {
             throw new DukeException("OOPS!!! The description of a todo cannot be empty.");
         } else {
-            isTask = true;
             String task = input.substring(5);
             ToDo todoTask = new ToDo(task);
             AddTask adder = new AddTask(storage, todoTask);
@@ -207,7 +201,6 @@ public class Parser {
         } else if (input.substring(9).split("/").length < 2) {
             throw new DukeException("OOPS!!! Your deadline command's format is invalid. " + validFormat);
         } else {
-            isTask = true;
             String[] parts = input.substring(9).split("/");
             LocalDateTime dateTime;
             try {
@@ -258,7 +251,6 @@ public class Parser {
         } else if (input.substring(6).split("/").length < 3) {
             throw new DukeException("OOPS!!! Your event command's format is invalid. " + validFormat);
         } else {
-            isTask = true;
             String[] parts = input.substring(6).split("/");
             LocalDateTime dateTime1;
             LocalDateTime dateTime2;
@@ -294,7 +286,6 @@ public class Parser {
             if (index < 1 || index > inventory.size()) {
                 throw new DukeException("OOPS!!! The task number you are trying to delete does not exist. ");
             }
-            isTask = false;
             DeleteTask deleter = new DeleteTask(storage, index);
             deleter.delete();
             return deleter.toString();
@@ -312,7 +303,6 @@ public class Parser {
         if (input.trim().equals("find")) {
             throw new DukeException("OOPS!! Invalid find command " + validFormat);
         } else {
-            isTask = true;
             String task = input.substring(5);
             FindTask finder = new FindTask(storage, task);
             finder.createMatches();
@@ -321,7 +311,6 @@ public class Parser {
     }
 
     private String handleSort(String input) throws DukeException {
-        isTask = false;
         ArrayList<Task> temp = new ArrayList<>(storage.load());
         temp.sort(new TaskComparator());
         String result = "Here is the SORTED Task List!: \n";

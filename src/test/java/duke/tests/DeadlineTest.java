@@ -12,6 +12,6 @@ public class DeadlineTest {
     @Test
     public void deadlineToStringTest() {
         LocalDateTime dateTime = LocalDateTime.of(2020, 1, 1, 19, 0);
-        assertEquals("[D][ ] Find Bill(by: 1/1/2020 1900hrs)", new Deadlines("Find Bill", dateTime).toString());
+        assertEquals("[D][ ] Find Bill(by: 01/01/2020 1900hrs)", new Deadlines("Find Bill", dateTime).toString());
     }
 }

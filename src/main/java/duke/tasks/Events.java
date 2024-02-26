@@ -28,6 +28,13 @@ public class Events extends Task {
         this.actualEnd = actualEnd;
     }
 
+    /**
+     * Constructs an Events task with the given description, completion status, actual start, and actual end times.
+     * @param description  The description of the Events task.
+     * @param isMarked     A boolean indicating whether the Events task is marked as completed.
+     * @param actualStart  The actual start time for the task, represented as a LocalDateTime object.
+     * @param actualEnd    The actual end time for the task, represented as a LocalDateTime object.
+     */
     public Events(String description, boolean isMarked, LocalDateTime actualStart, LocalDateTime actualEnd) {
         super(description, isMarked);
         this.actualStart = actualStart;
