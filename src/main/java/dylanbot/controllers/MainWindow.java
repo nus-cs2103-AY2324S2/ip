@@ -1,5 +1,7 @@
 package dylanbot.controllers;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import dylanbot.DylanBot;
 import dylanbot.DylanBotException;
 import javafx.animation.KeyFrame;
@@ -15,7 +17,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -35,14 +36,12 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DylanBotUser.jpeg"));
     private Image dylanBotImage = new Image(this.getClass().getResourceAsStream("/images/DylanBotBot.jpeg"));
 
+    /**
+     * Initializes the MainWindow with the scrollPane and dialogContainer
+     */
     @FXML
-    public void initialize() throws DylanBotException {
+    public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-
-    }
-
-    @FXML
-    public void start() throws DylanBotException {
 
     }
 
@@ -91,7 +90,8 @@ public class MainWindow extends AnchorPane {
                 new KeyFrame(Duration.seconds(1), event -> {
                     countdownSeconds.getAndDecrement();
                     countdownLabel.setText(countdownTimer + String.valueOf(countdownSeconds.get()));
-                    dialogContainer.getChildren().add(DialogBox.getDylanBotDialog(countdownTimer + countdownSeconds.get(), dylanBotImage));
+                    dialogContainer.getChildren().add(DialogBox.getDylanBotDialog(
+                            countdownTimer + countdownSeconds.get(), dylanBotImage));
                     if (countdownSeconds.get() == 0) {
                         Platform.exit();
                     }
