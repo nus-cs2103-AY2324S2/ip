@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 import java.util.ArrayList;
 

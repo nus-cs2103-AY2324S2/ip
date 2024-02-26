@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 /**
  * Class that represents the list command.

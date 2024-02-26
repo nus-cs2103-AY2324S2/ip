@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 import java.io.File;
 import java.io.FileNotFoundException;

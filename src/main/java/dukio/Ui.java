@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 public class Ui {
     /**

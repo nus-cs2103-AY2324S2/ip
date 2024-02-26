@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 import org.junit.jupiter.api.Test;
 
@@ -13,7 +13,7 @@ public class ParserTest {
             Parser.parse("blah", null);
             fail();
         } catch (Exception e) {
-            assertEquals(e.getClass(), DukeException.class);
+            assertEquals(e.getClass(), DukioException.class);
         }
     }
     @Test
@@ -22,13 +22,13 @@ public class ParserTest {
             Parser.parse("delete -1", new State());
             fail();
         } catch (Exception e) {
-            assertEquals(e.getClass(), DukeException.class);
+            assertEquals(e.getClass(), DukioException.class);
         }
         try {
             Parser.parse("delete 1", new State());
             fail();
         } catch (Exception e) {
-            assertEquals(e.getClass(), DukeException.class);
+            assertEquals(e.getClass(), DukioException.class);
         }
     }
 
@@ -38,7 +38,7 @@ public class ParserTest {
             Parser.parse("todo", new State());
             fail();
         } catch (Exception e) {
-            assertEquals(e.getClass(), DukeException.class);
+            assertEquals(e.getClass(), DukioException.class);
         }
     }
     @Test

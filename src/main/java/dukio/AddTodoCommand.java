@@ -1,4 +1,4 @@
-package duke;
+package dukio;
 
 /**
  * Class that represents the command to add a todo task.
