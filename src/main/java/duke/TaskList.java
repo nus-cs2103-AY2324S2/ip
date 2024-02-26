@@ -52,5 +52,19 @@ public class TaskList {
         taskList.remove(idx);
     }
 
+    public String findTask(String keyword) {
+        Task task;
+        String status;
+        String finalOutput = new String("");
+
+        for (int i = 0; i < taskList.size(); i++) {
+            task = taskList.get(i);
+            status = task.checkStatus();
+            if (task.correctKeyword(keyword)) {
+                finalOutput = finalOutput + indent + Integer.toString(i + 1) + "." + status + "\n";
+            }
+        }        
+        return finalOutput;
+    }
 
 }

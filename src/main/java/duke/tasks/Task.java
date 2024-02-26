@@ -49,4 +49,7 @@ public abstract class Task {
         this.isDone = false;
     }
     
+    public boolean correctKeyword(String keyword) {
+        return this.name.contains(keyword);
+    }
 }
