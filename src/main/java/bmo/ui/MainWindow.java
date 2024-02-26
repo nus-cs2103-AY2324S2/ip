@@ -60,6 +60,5 @@ public class MainWindow {
                 DialogBox.getBmoDialog(response, bmoImg)
         );
         userInput.clear();
-
     }
 }
