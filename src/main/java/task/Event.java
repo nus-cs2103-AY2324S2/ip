@@ -36,7 +36,7 @@ public class Event extends Task {
 
         } catch (DateTimeParseException e) {
             throw new DukeException("End time not in the correct format.\n"
-                    + "Correct format: dd/MM/yyyy HHmm\n"
+                    + "Correct format: dd/MM/yyyy-HHmm\n"
                     + "Received: " + endTime + "\n"
                     + "\"" + taskName + "\" not added to the list.");
         }
