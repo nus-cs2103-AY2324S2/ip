@@ -1,7 +1,15 @@
 package dude.Exceptions;
 
+/**
+ * The InvalidDescriptionException class represents an exception that is thrown when the description for a task is invalid.
+ */
 public class InvalidDescriptionException extends DudeException {
-    //Used to indicate that the description is invalid
+
+    /**
+     * Constructor for the InvalidDescriptionException class.
+     *
+     * @param message The message of the exception.
+     */
     public InvalidDescriptionException(String message) {
         super(message);
     }
