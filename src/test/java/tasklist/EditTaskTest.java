@@ -23,4 +23,19 @@ public class EditTaskTest {
                 + "[E][ ] The Eras Tour Singapore (from:02 Mar 2024 07:00PM to: 09 Mar 2024 10:00PM)\n"
                 + "Now you have 1 tasks in the list.\n", result);
     }
+
+    @Test
+    public void deleteSuccess() throws TaylorException {
+        List<List<Task>> taskList = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            taskList.add(new ArrayList<>());
+        }
+        String commandInsert = "event The Eras Tour Singapore /from 2024-03-02 1900 /to 2024-03-09 2200";
+        InsertTask.execInsertTask(commandInsert, taskList).toString();
+
+        String commandDelete = "delete event 1";
+        String result = DeleteTask.execDeleteTask(commandDelete, taskList).toString();
+        assertEquals("With every stroke, a memory fades:\n"
+                + "[E][ ] The Eras Tour Singapore (from:02 Mar 2024 07:00PM to: 09 Mar 2024 10:00PM)\n", result);
+    }
 }
