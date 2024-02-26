@@ -5,15 +5,15 @@ It is a desktop app that has a **Graphical User Interface (GUI)**.
 If you can type fast, DylanBot can get your task management done faster than traditional GUI apps.
 
 - [Quick Start](#quick-start)
-- Features
-  - [Listing all tasks: `list`](#listing-all-tasks)
-  - Adding a task: `todo`, `deadline`, `event`
-  - Marking a task as complete/incomplete: `mark`/`unmark`
-  - Tagging a task: `tag`
-  - Deleting a task: `delete`
-  - Finding tasks by keyword: `find`
-  - Finding tasks by tag: `filter`
-  - Exiting the program: `bye`
+- [Features](#features)
+  - [Listing all tasks: `list`](#listing-all-tasks-list)
+  - [Adding a task: `todo`, `deadline`, `event`](#adding-a-task-todo-deadline-event
+  - [Marking a task as complete/incomplete: `mark`/`unmark`](#marking-a-task-as-completeincomplete-markunmark)
+  - [Tagging a task: `tag`](#tagging-a-task-tag)
+  - [Deleting a task: `delete`](#deleting-a-task-delete)
+  - [Finding tasks by keyword: `find`](#finding-tasks-by-keyword-find)
+  - [Finding tasks by tag: `filter`](#finding-tasks-by-tag-filter)
+  - [Exiting the program: `bye`](#exiting-the-program-bye)
 
 ## Quick Start
 1. Ensure you have Java `11` installed on your computer.
