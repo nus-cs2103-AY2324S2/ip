@@ -2,7 +2,7 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.Ui;
+import bob.gui.Ui;
 
 /**
  * Represents an action to list the tasks due in a specified number of days.
@@ -29,7 +29,7 @@ public class ListDueInCommand extends ListCommand {
      * @param taskList The task list that stores the tasks that might be listed.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        ui.showList(taskList.listDueIn(days));
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        return ui.getListResponse(taskList.listDueIn(days));
     }
 }

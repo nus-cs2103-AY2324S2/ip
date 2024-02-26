@@ -2,7 +2,7 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.Ui;
+import bob.gui.Ui;
 
 /**
  * Represents an action to show the exit message. An <code>ExitCommand</code> object corresponds to
@@ -17,8 +17,8 @@ public class ExitCommand extends Command {
      * @param taskList The task list during which the program exits.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        ui.showExit();
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        return ui.getExitResponse();
     }
 
     /**

@@ -2,9 +2,9 @@ package bob.command;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.Ui;
 import bob.exception.InvalidTaskIndexException;
 import bob.exception.SavingException;
+import bob.gui.Ui;
 import bob.task.Task;
 
 /**
@@ -33,9 +33,9 @@ public class DeleteCommand extends Command {
      * @throws SavingException If there was an error updating the task list in hard disk.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws InvalidTaskIndexException, SavingException {
+    public String execute(Ui ui, Storage storage, TaskList taskList) throws InvalidTaskIndexException, SavingException {
         Task task = taskList.delete(taskIndex);
-        ui.showDelete(task, taskList.getSize());
         taskList.updateStorage(storage);
+        return ui.getDeleteResponse(task, taskList.getSize());
     }
 }

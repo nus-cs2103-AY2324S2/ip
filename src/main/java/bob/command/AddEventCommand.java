@@ -4,9 +4,9 @@ import java.time.LocalDateTime;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.Ui;
 import bob.exception.InvalidEventException;
 import bob.exception.SavingException;
+import bob.gui.Ui;
 import bob.task.Task;
 
 /**
@@ -39,9 +39,9 @@ public class AddEventCommand extends AddCommand {
      * @throws SavingException If there was an error saving the new event in hard disk.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws SavingException, InvalidEventException {
+    public String execute(Ui ui, Storage storage, TaskList taskList) throws SavingException, InvalidEventException {
         Task task = taskList.addEvent(description, from, to);
-        ui.showAdd(task, taskList.getSize());
         storage.saveTask(task);
+        return ui.getAddResponse(task, taskList.getSize());
     }
 }

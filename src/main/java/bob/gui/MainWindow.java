@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.Objects;
 
 import bob.Bob;
+import bob.Parser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -34,7 +35,7 @@ public class MainWindow extends AnchorPane {
 
     private final Image userImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
-    private final Image dukeImage = new Image(
+    private final Image bobImage = new Image(
             Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
 
     /**
@@ -62,6 +63,7 @@ public class MainWindow extends AnchorPane {
 
     public void setBob(Bob b) {
         bob = b;
+        dialogContainer.getChildren().add(DialogBox.getBobDialog(bob.getInitialMessage(), bobImage));
     }
 
     /**
@@ -74,9 +76,13 @@ public class MainWindow extends AnchorPane {
         String response = bob.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.getBobDialog(response, bobImage)
         );
         userInput.clear();
+
+        if (input.equals(Parser.COMMAND_EXIT)) {
+            stage.close();
+        }
     }
 
     public void show() {

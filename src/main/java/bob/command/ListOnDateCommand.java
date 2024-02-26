@@ -4,7 +4,7 @@ import java.time.LocalDate;
 
 import bob.Storage;
 import bob.TaskList;
-import bob.Ui;
+import bob.gui.Ui;
 
 /**
  * Represents an action to list the tasks on a specified day.
@@ -31,7 +31,7 @@ public class ListOnDateCommand extends ListCommand {
      * @param taskList The task list that stores the tasks that might be listed.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        ui.showList(taskList.listOnDate(date));
+    public String execute(Ui ui, Storage storage, TaskList taskList) {
+        return ui.getListResponse(taskList.listOnDate(date));
     }
 }

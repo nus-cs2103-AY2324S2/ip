@@ -4,7 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 import bob.Storage;
-import bob.Ui;
+import bob.gui.Ui;
 
 /**
  * Represents an event with a specified description, start time and end time.

@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
 import bob.Storage;
-import bob.Ui;
+import bob.gui.Ui;
 
 /**
  * Represents a deadline with a specified description and due time. A <code>Deadline</code> object corresponds to

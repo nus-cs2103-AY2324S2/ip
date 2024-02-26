@@ -1,4 +1,4 @@
-package bob;
+package bob.gui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -16,7 +16,7 @@ public class Ui {
     private static final int INDENT_SPACE_COUNT = 4;
 
     private static final String EXIT = "ok";
-    private static final String[] GREET = new String[]{ "yo im bob", "what do you want" };
+    private static final String GREET = "yo im bob\nwhat do you want";
     private static final String LINE =
             ".-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-.";
     private static final String LOADING_ERROR = "wait what happened i cant load any data";
@@ -76,19 +76,8 @@ public class Ui {
      *
      * @param lines The lines of output to be indented and displayed to the user.
      */
-    public void show(String[] lines) {
-        for (String line : lines) {
-            System.out.println(" ".repeat(INDENT_SPACE_COUNT + 1) + line);
-        }
-    }
-
-    /**
-     * Indents and displays a specified line of output to the user.
-     *
-     * @param line The line to be indented and displayed to the user.
-     */
-    public void show(String line) {
-        show(new String[]{ line });
+    public String getResponse(String ... lines) {
+        return String.join("\n", lines);
     }
 
     /**
@@ -96,17 +85,15 @@ public class Ui {
      *
      * @param message The error message to be displayed.
      */
-    public void showLoadingError(String message) {
-        show(new String[] { LOADING_ERROR, message });
+    public String getLoadingErrorResponse(String message) {
+        return getResponse(LOADING_ERROR, message);
     }
 
     /**
      * Greets the user.
      */
-    public void showWelcome() {
-        showLine();
-        show(GREET);
-        showLine();
+    public String getGreetResponse() {
+        return getResponse(GREET);
     }
 
     // The methods below all display the result of a command.
@@ -119,12 +106,12 @@ public class Ui {
      * @param task The added task.
      * @param numberOfTasks The number of tasks after adding the task.
      */
-    public void showAdd(Task task, int numberOfTasks) {
-        show(new String[] {
-            HEADER_ADD,
-            " ".repeat(2) + task,
-            String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
-        });
+    public String getAddResponse(Task task, int numberOfTasks) {
+        return getResponse(
+                HEADER_ADD,
+                " ".repeat(2) + task,
+                String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
+        );
     }
 
     /**
@@ -133,8 +120,8 @@ public class Ui {
      * @param task The marked or unmarked task.
      * @param isDone Whether the task is marked or unmarked.
      */
-    public void showMark(Task task, boolean isDone) {
-        show(new String[] { isDone ? HEADER_MARK : HEADER_UNMARK, " ".repeat(2) + task });
+    public String getMarkResponse(Task task, boolean isDone) {
+        return getResponse(isDone ? HEADER_MARK : HEADER_UNMARK, " ".repeat(2) + task);
     }
 
     /**
@@ -143,8 +130,8 @@ public class Ui {
      * @param task The deleted task.
      * @param numberOfTasks The number of tasks after deleting the task.
      */
-    public void showDelete(Task task, int numberOfTasks) {
-        show(new String[] {HEADER_DELETE, " ".repeat(2) + task, String.format(FOOTER_DELETE, numberOfTasks) });
+    public String getDeleteResponse(Task task, int numberOfTasks) {
+        return getResponse(HEADER_DELETE, " ".repeat(2) + task, String.format(FOOTER_DELETE, numberOfTasks));
     }
 
     /**
@@ -153,7 +140,7 @@ public class Ui {
      * @param tasks The specified list of tasks to be displayed.
      * @param header The header of the display.
      */
-    public void showList(ArrayList<Task> tasks, String header) {
+    public String getListResponse(ArrayList<Task> tasks, String header) {
         // Prepare an array to store the lines to display, setting the first element as the header line
         String[] lines = new String[tasks.size() + 1];
         lines[0] = header;
@@ -164,7 +151,7 @@ public class Ui {
         }
 
         // Display the lines
-        show(lines);
+        return getResponse(lines);
     }
 
     /**
@@ -172,8 +159,8 @@ public class Ui {
      *
      * @param tasks The specified list of tasks to be displayed.
      */
-    public void showList(ArrayList<Task> tasks) {
-        showList(tasks, HEADER_LIST);
+    public String getListResponse(ArrayList<Task> tasks) {
+        return getListResponse(tasks, HEADER_LIST);
     }
 
     /**
@@ -181,14 +168,14 @@ public class Ui {
      *
      * @param tasks The specified list of tasks to be displayed.
      */
-    public void showFind(ArrayList<Task> tasks) {
-        showList(tasks, HEADER_FIND);
+    public String getFindResponse(ArrayList<Task> tasks) {
+        return getListResponse(tasks, HEADER_FIND);
     }
 
     /**
      * Displays the exit message.
      */
-    public void showExit() {
-        show(EXIT);
+    public String getExitResponse() {
+        return getResponse(EXIT);
     }
 }
