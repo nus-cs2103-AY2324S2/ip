@@ -100,7 +100,7 @@ public final class Parser {
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
         String[] sections = taskStringData.trim().split("\\|");
         // Validate input data
-        if (sections.length < 3) {
+        if (sections.length != 3) {
             throw new StorageException();
         }
 
