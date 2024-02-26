@@ -8,6 +8,9 @@ import chimp.task.Task;
 import chimp.task.TaskStatus;
 import chimp.task.Todo;
 
+/**
+ * Represents a list of tasks.
+ */
 public class TaskList extends ArrayList<Task>{
 
     
@@ -18,7 +21,11 @@ public class TaskList extends ArrayList<Task>{
         super();
     }
 
-    // TODO: Is this a maintainable way of doing things?
+    /**
+     * Adds a task to the task list.
+     *
+     * @param task the task to be added
+     */
     public void add(String task) {
         super.add(new Todo(task, TaskStatus.UNMARKED));
     }
@@ -58,6 +65,12 @@ public class TaskList extends ArrayList<Task>{
         return sb.toString();
     }
 
+    /**
+     * Finds tasks in the task list that contain the specified keyword.
+     *
+     * @param keyword the keyword to search for in the task descriptions
+     * @return an array of tasks that contain the specified keyword
+     */
     public Task[] find(String keyword) {
         ArrayList<Task> matches = new ArrayList<>();
         for (int i = 0; i < this.size(); i++) {

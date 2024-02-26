@@ -66,6 +66,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a file if it does not already exist.
+     * The file path is "./data/chimp.txt".
+     * If the file already exists, the method does nothing.
+     * If an error occurs during file creation, the error is printed to the standard error stream.
+     */
     public static void createFileIfNotExist() {
         Path filePath = Path.of("./data/chimp.txt");
 
@@ -82,6 +88,11 @@ public class Storage {
         } 
     }
 
+    /**
+     * Reads the output from the file and creates a task list.
+     *
+     * @return The task list containing the tasks read from the file.
+     */
     public static TaskList readOutputFromFile() {
         TaskList taskList = new TaskList();
         Path filePath = Path.of("./data/chimp.txt");

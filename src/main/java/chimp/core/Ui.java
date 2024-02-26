@@ -4,6 +4,10 @@ import java.util.HashMap;
 
 import chimp.task.Task;
 
+/**
+ * The Ui class contains the Ui utility methods for Chimp
+ * It provides methods to display messages and tasks to the user.
+ */
 public class Ui {
     private static final String DIVIDER = "\n";
 
@@ -82,6 +86,14 @@ public class Ui {
         return sb.toString();
     }
 
+    /**
+     * Returns a formatted string containing the specified key, matched tasks, and task list.
+     *
+     * @param key     the key used to retrieve the corresponding phrase from the phrases map
+     * @param matches an array of Task objects representing the matched tasks
+     * @param list    the TaskList object containing all the tasks
+     * @return a formatted string containing the key, matched tasks, and task list
+     */
     public String say(String key, Task[] matches, TaskList list) {
         String phrase = phrases.get(key);
         StringBuilder sb = new StringBuilder();
