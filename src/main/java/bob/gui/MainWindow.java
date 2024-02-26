@@ -48,9 +48,13 @@ public class MainWindow extends VBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
+
             Scene scene = new Scene(this);
             scene.getStylesheets().add(Objects.requireNonNull(
                     MainWindow.class.getResource("/stylesheets/styles.css")).toExternalForm());
+
+            stage.setTitle("Bob");
+            stage.setResizable(false);
             stage.setScene(scene);
             this.stage = stage;
         } catch (IOException e) {
