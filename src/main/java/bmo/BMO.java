@@ -8,7 +8,6 @@ import bmo.util.Storage;
 import bmo.util.TaskList;
 
 import java.io.IOException;
-import java.util.Scanner;
 
 /* BMO is a personal assistant chatbot that helps to keep track of various tasks.
  * It is able to add, delete, mark as done, list and find tasks.
@@ -19,7 +18,6 @@ public class BMO {
     private final Storage storage;
     private TaskList tasks;
     private final Ui ui;
-    private boolean isExit = false;
 
     /**
      * Constructor for BMO.
@@ -35,25 +33,6 @@ public class BMO {
         }
     }
 
-    /**
-     * Runs the BMO chatbot.
-     */
-    public void run() {
-        ui.printTutorial();
-
-        Scanner sc = new Scanner(System.in);
-        do {
-            String input = sc.nextLine().toLowerCase().trim();
-            try {
-                Command c = Parser.parse(input);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-            } catch (IOException e) {
-                ui.printErrInvalidCommand();
-            }
-        } while (!isExit);
-    }
-
     public Storage getStorage() {
         return this.storage;
     }
@@ -66,15 +45,14 @@ public class BMO {
         return this.tasks;
     }
 
-    /**
-     * Main method to run BMO.
-     *
-     * @param args
-     */
-    public static void main(String[] args) {
-        new BMO().run();
-    }
 
+    /**
+     * Gets the response from BMO.
+     *
+     * @param input The input from the user.
+     * @return The response from BMO.
+     * @throws IOException If there is an error reading the file.
+     */
     @FXML
     public String getResponse(String input) throws IOException {
         Command c = Parser.parse(input.trim());

@@ -1,13 +1,11 @@
 package bmo.ui;
 
-import bmo.command.Command;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import bmo.BMO;
@@ -27,6 +25,9 @@ public class MainWindow {
     private final Image userImg = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
     private final Image bmoImg = new Image(getClass().getResourceAsStream("/images/DaBmo.png"));
 
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
