@@ -1,11 +1,13 @@
 package univus;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.Test;
+
 import univus.task.Deadline;
 import univus.task.TaskList;
 
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
 public class StorageTest {
     @Test
     public void loadTest() {
