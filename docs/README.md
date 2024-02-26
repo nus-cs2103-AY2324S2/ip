@@ -19,9 +19,9 @@ Welcome to Eve, your personal chatbot for managing tasks. This guide will help y
     - Marking as Done
     - Marking as UnDone
 3. Viewing of Task
-    -Viewing the List of Task
+    - Viewing the List of Task
 4. Exiting
-    -Exiting the Chatbot
+    - Exiting the Chatbot
 
 ### Adding Task
 There are 3 different types of Tasks, Todo, Deadline and Event
@@ -105,7 +105,9 @@ Expected Output: Nice! I've marked this task as not done yet:
 
 
 ## Tagging a Task
+You are able to add a tag to a tag using the 'Tag' Command
 
+Example input: 
 
 
 ### Listing all the availble task
