@@ -8,7 +8,7 @@ public class Awex {
     private Ui ui;
 
     /**
-     * Constructor for an Awex object
+     * Constructor for Awex object
      */
     public Awex() {
         this.storage = new Storage("./list.txt");

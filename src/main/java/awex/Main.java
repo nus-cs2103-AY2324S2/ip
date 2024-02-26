@@ -11,8 +11,6 @@ public class Main extends Application {
 
     private Awex awex = new Awex();
 
-    //@@author {alex-setyawan}-reused
-    //adapted from https://github.com/nus-cs2103-AY2324S2/ip/pull/4/files
     @Override
     public void start(Stage stage) {
         try {
@@ -28,5 +26,4 @@ public class Main extends Application {
             e.printStackTrace();
         }
     }
-    //@@author
 }

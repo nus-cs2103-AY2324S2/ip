@@ -4,6 +4,15 @@ import java.io.IOException;
 import tasks.*;
 
 public class Parser {
+
+    /**
+     * Parses user input if it is "bye"
+     *
+     * @param s Storage
+     * @param t TaskList
+     * @param ui Ui
+     * @return String of farewell message
+     */
     public static String byeParser(Storage s, TaskList t, Ui ui) {
         try {
             s.store(t);
@@ -13,10 +22,24 @@ public class Parser {
         return ui.farewell();
     }
 
+    /**
+     * Parses user input if it is "help"
+     *
+     * @param ui Ui
+     * @return String of user manual
+     */
     public static String helpParser(Ui ui) {
         return ui.allInstructions();
     }
 
+    /**
+     * Parses user input if it is "list"
+     *
+     * @param arr split String of user input
+     * @param tasks TaskList
+     * @param ui Ui
+     * @return String of relevant response
+     */
     public static String listParser(String[] arr, TaskList tasks, Ui ui) {
         if (arr.length > 1) {
             return ui.helpMessage();
@@ -27,6 +50,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input if it starts with "find"
+     *
+     * @param arr split String array of user input
+     * @param tasks TaskList
+     * @param ui Ui
+     * @return String of relevant response
+     */
     public static String findParser(String[] arr, TaskList tasks, Ui ui) {
         if (arr.length < 2) {
             return ui.helpMessage();
@@ -37,6 +68,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input if it starts with "mark" or "delete"
+     *
+     * @param input String of user input
+     * @param arr split String of user input
+     * @param tasks TaskList
+     * @param ui Ui
+     * @return String of relevant response
+     */
     public static String markAndDeleteParser(String input, String[] arr, TaskList tasks, Ui ui) {
         String[] array = input.split(" ");
         if (array.length != 2) {
@@ -58,6 +98,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses user input if it starts with "todo", "deadline" or "event"
+     *
+     * @param input String of user input
+     * @param arr split String of user input
+     * @param tasks TaskList
+     * @param ui Ui
+     * @return String of relevant response
+     */
     public static String taskParser(String input, String[] arr, TaskList tasks, Ui ui) {
         Task t;
         if (arr[0].equals("todo")) {

@@ -1,6 +1,5 @@
 package awex;
 
-import java.io.IOException;
 import java.util.LinkedList;
 import tasks.Task;
 
@@ -9,7 +8,9 @@ import tasks.Task;
  */
 public class Ui {
     /**
-     * Prints first message when user activates Awex.
+     * Returns String of first message when user activates Awex.
+     *
+     * @return String of greeting message
      */
     public String greeting() {
         return "Hello! I'm AWEX!\n"
@@ -17,14 +18,18 @@ public class Ui {
     }
 
     /**
-     * Prints last message after user deactivates Awex.
+     * Returns String of last message after user deactivates Awex.
+     *
+     * @return String of farewell message
      */
     public String farewell() {
         return "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints explainer message when user gives erroneous inputs.
+     * Returns explainer message with user manual.
+     *
+     * @return String of instructions
      */
     public String allInstructions() {
         return "Input type must be one of:\n"
@@ -39,21 +44,29 @@ public class Ui {
                 + "Type 'bye' to exit.";
     }
 
+    /**
+     * Returns String of uncertainty message when user gives erroneous inputs
+     *
+     * @return String of uncertainty message
+     */
     public String helpMessage() {
         return "Sorry, I didn't understand that.\nType 'help' for instructions!";
     }
 
     /**
-     * Prints error message if list is empty.
+     * Returns String of error message if list is empty.
+     *
+     * @return String of error message
      */
     public String emptyListMessage() {
         return "List is empty.";
     }
 
     /**
-     * Prints tasks saved in list and their details.
+     * Returns String of tasks saved in list and their details
      *
      * @param list TaskList with saved tasks
+     * @return String of all tasks
      */
     public String showListMessage(TaskList list) {
         String str = "Here are the tasks in your list:\n";
@@ -66,10 +79,11 @@ public class Ui {
     }
 
     /**
-     * Prints
+     * Returns String of tasks with a given string as a substring
      *
      * @param tasks TaskList with saved tasks
      * @param str String each task description to be compared to
+     * @return String of tasks resembling substring
      */
     public String showFindMessage(TaskList tasks, String str) {
         String stri = "Here are the matching tasks in your list:\n";
@@ -83,14 +97,21 @@ public class Ui {
     }
 
     /**
-     * Prints explainer message when user gives erroneous inputs when marking, unmarking or deleting tasks.
+     * Returns String of explainer message when user gives erroneous inputs when marking, unmarking or deleting tasks.
+     *
+     * @param str the word "mark", "unmark", or "delete"
+     * @return String of explainer message
      */
     public String wrongMarkDeleteFormatMessage(String str) {
         return "Format should be '" + str + " <task number>'";
     }
 
     /**
-     * Prints explainer message when user provides inaccessible list index.
+     * Returns String of explainer message when user provides inaccessible list index.
+     *
+     * @param i index given by user
+     * @param len length of TaskList
+     * @return String of explainer message
      */
     public String wrongIndexMessage(int i, int len) {
         assert len >= 0;
@@ -102,7 +123,11 @@ public class Ui {
     }
 
     /**
-     * Prints notification message when task deleted successfully.
+     * Returns String of notification message when task deleted successfully.
+     *
+     * @param i index given by user
+     * @param list list of tasks
+     * @return String of notification message
      */
     public String deleteTaskMessage(int i, TaskList list) {
         return "Noted. I've removed this task:\n"
@@ -111,7 +136,11 @@ public class Ui {
     }
 
     /**
-     * Prints notification message when task marked/unmarked successfully.
+     * Returns String of notification message when task marked/unmarked successfully.
+     *
+     * @param str the word "mark" or "unmark"
+     * @param t Task to be marked or unmarked
+     * @return String of notification message
      */
     public String changeStatusMessage(String str, Task t) {
         if (str.equals("mark")) {
@@ -122,7 +151,10 @@ public class Ui {
     }
 
     /**
-     * Prints explainer message when user provides erroneous inputs while making tasks.
+     * Returns explainer message when user provides erroneous inputs while making tasks.
+     *
+     * @param str type of tasks
+     * @return String of explainer message
      */
     public String failedTaskCreationMessage(String str) {
         if (str.equals("todo")) {
@@ -135,7 +167,11 @@ public class Ui {
     }
 
     /**
-     * Prints notification message when task saved successfully.
+     * Returns String of notification message when task saved successfully.
+     *
+     * @param i new length of list
+     * @param t new Task added
+     * @return String of notification message
      */
     public String newTaskAddedMessage(int i, Task t) {
         return "Got it. I've added this task:\n"

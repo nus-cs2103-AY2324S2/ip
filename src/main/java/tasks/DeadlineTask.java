@@ -11,7 +11,7 @@ public class DeadlineTask extends Task {
     private LocalDateTime deadline;
 
     /**
-     * Constructor for tasks.Task object of type "deadline".
+     * Constructor for Task object of type "deadline".
      *
      * @param what description of the task
      * @param status completion status of task
@@ -24,10 +24,10 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Factory method for tasks.DeadlineTask object
+     * Factory method for DeadlineTask object
      *
      * @param str String array with task details
-     * @return tasks.DeadlineTask object with task details in fields
+     * @return DeadlineTask object with task details in fields
      */
     public static DeadlineTask of(String str) {
         String[] hasWhat = str.split("/", 2);
@@ -46,9 +46,9 @@ public class DeadlineTask extends Task {
     }
 
     /**
-     * Returns tasks.DeadlineTask details in table row form
+     * Returns DeadlineTask details in table row form
      *
-     * @return String representation of tasks.DeadlineTask to be saved into txt file
+     * @return String representation of DeadlineTask to be saved into txt file
      */
     @Override
     public String toString() {

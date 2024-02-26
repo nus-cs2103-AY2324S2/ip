@@ -12,7 +12,7 @@ public class EventTask extends Task {
     private LocalDateTime end;
 
     /**
-     * Constructor for tasks.EventTask object of type "event".
+     * Constructor for EventTask object of type "event".
      *
      * @param what description of task
      * @param status completion status of task
@@ -28,10 +28,10 @@ public class EventTask extends Task {
     }
 
     /**
-     * Factory method for tasks.EventTask object
+     * Factory method for EventTask object
      *
      * @param str String array with task details
-     * @return tasks.EventTask object with task details in fields
+     * @return EventTask object with task details in fields
      */
     public static EventTask of(String str) {
         String[] hasWhat = str.split("/", 2);
@@ -55,9 +55,9 @@ public class EventTask extends Task {
     }
 
     /**
-     * Returns tasks.EventTask details in table row form
+     * Returns EventTask details in table row form
      *
-     * @return String representation of tasks.EventTask to be saved into txt file
+     * @return String representation of EventTask to be saved into txt file
      */
     @Override
     public String toString() {

@@ -35,10 +35,21 @@ public class TaskList {
         }
     }
 
+    /**
+     * Adds Task to TaskList
+     *
+     * @param t Task to be added
+     */
     public void add(Task t) {
         this.tasks.add(t);
     }
 
+    /**
+     * Returns LinkedList of tasks that have a given string as a substring
+     *
+     * @param str
+     * @return list of matching tasks
+     */
     public LinkedList<Task> find(String str) {
         LinkedList<Task> list = new LinkedList<>();
         int len = this.tasks.size();
@@ -52,18 +63,40 @@ public class TaskList {
         return list;
     }
 
+    /**
+     * Returns Task of a certain index
+     *
+     * @param i index of requested task
+     * @return requested task
+     */
     public Task get(int i) {
         return this.tasks.get(i);
     }
 
+    /**
+     * Returns whether TaskList is empty
+     *
+     * @return true if empty, false otherwise
+     */
     public boolean isEmpty() {
         return this.tasks.isEmpty();
     }
 
+    /**
+     * Returns Task removed from TaskList
+     *
+     * @param i index of removed task
+     * @return removed Task
+     */
     public Task remove(int i) {
         return this.tasks.remove(i);
     }
 
+    /**
+     * Returns length of TaskList
+     *
+     * @return TaskList length
+     */
     public int size() {
         return this.tasks.size();
     }

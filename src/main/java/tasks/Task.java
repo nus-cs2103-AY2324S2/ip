@@ -9,7 +9,7 @@ public class Task {
     private String type;
 
     /**
-     * Constructor for tasks.Task object.
+     * Constructor for Task object.
      *
      * @param what description of the task
      */
@@ -63,7 +63,7 @@ public class Task {
     /**
      * Returns task details in table row form
      *
-     * @return String representation of tasks.Task to be saved into txt file
+     * @return String representation of Task to be saved into txt file
      */
     @Override
     public String toString() {

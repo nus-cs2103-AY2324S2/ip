@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -36,7 +37,6 @@ public class MainWindow extends AnchorPane {
 
     //@@author {alex-setyawan}-reused
     //adapted from https://github.com/nus-cs2103-AY2324S2/ip/pull/4/files
-
     public void showGreeting(String str) {
         dialogContainer.getChildren().addAll(
                 DialogBox.getAwexDialog(str, dukeImage)

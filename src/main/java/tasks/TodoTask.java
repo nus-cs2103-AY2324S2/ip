@@ -6,7 +6,7 @@ package tasks;
  */
 public class TodoTask extends Task {
     /**
-     * Constructor for tasks.TodoTask object.
+     * Constructor for TodoTask object.
      *
      * @param what description of the task
      * @param status completion status of task
@@ -16,10 +16,10 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Factory method for tasks.TodoTask object
+     * Factory method for TodoTask object
      *
      * @param str String array with task description
-     * @return tasks.TodoTask object with task details in fields
+     * @return TodoTask object with task details in fields
      */
     public static TodoTask of(String str) {
         return new TodoTask(str, "f");
@@ -36,9 +36,9 @@ public class TodoTask extends Task {
     }
 
     /**
-     * Returns tasks.TodoTask details in table row form
+     * Returns TodoTask details in table row form
      *
-     * @return String representation of tasks.TodoTask to be saved into txt file
+     * @return String representation of TodoTask to be saved into txt file
      */
     @Override
     public String toString() {
