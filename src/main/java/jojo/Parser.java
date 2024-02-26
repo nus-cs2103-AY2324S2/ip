@@ -149,7 +149,7 @@ public class Parser {
             return LocalDateTime.parse(formattedDeadline, DateTimeFormatter.ofPattern("d-M-uuuu HH:mm"));
         } catch (DateTimeException ex) {
             throw new JojoException("Oops, seems like the date and time format is invalid. Please follow the " +
-                    "following format: dd/mm/YYYY 2359");
+                    "following format: dd/mm/yyyy 2359");
         } catch (ArrayIndexOutOfBoundsException ex) {
             throw new JojoException("Oops, seems like the deadline's format is invalid. You may follow this e.g.: " +
                     "deadline return book /by 2/12/2019 1800");
