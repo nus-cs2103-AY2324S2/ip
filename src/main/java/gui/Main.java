@@ -2,19 +2,19 @@ package gui;
 
 import java.io.IOException;
 
-import botchat.BotChat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import jerryBot.JerryBot;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for JerryBot using FXML.
  */
 public class Main extends Application {
 
-    private BotChat botchat = new BotChat();
+    private JerryBot jerryBot = new JerryBot();
 
     @Override
     public void start(Stage stage) {
@@ -23,7 +23,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(botchat);
+            fxmlLoader.<MainWindow>getController().setDuke(jerryBot);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

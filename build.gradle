@@ -39,10 +39,13 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
+
+    jvmArgs('-ea')
 }
 
 application {
-    mainClass.set("seedu.duke.Duke")
+    mainClass.set("gui.Main")
+    applicationDefaultJvmArgs = ['-ea']
 }
 
 shadowJar {
@@ -53,4 +56,5 @@ shadowJar {
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
