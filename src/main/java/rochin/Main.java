@@ -9,12 +9,26 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for RochinBot using FXML.
  */
 public class Main extends Application {
 
-    private RochinBot rochin = new RochinBot("./data/rochin.txt", new Response());
+    private RochinBot rochin;
 
+    /**
+     * Constructs a Main object.
+     * @throws RochinException if an error occurs during initialization of RochinBot.
+     */
+    public Main() throws RochinException {
+        rochin = new RochinBot("./data/rochin.txt", new Response());
+    }
+
+    /**
+     * Overrides the start method of the Application class.
+     * This method is called when the application is launched.
+     * It initializes the UI components and sets up the main window.
+     * @param stage The primary stage for the application.
+     */
     @Override
     public void start(Stage stage) {
         try {

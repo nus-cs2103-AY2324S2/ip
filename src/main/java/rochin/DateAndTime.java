@@ -17,7 +17,7 @@ public class DateAndTime {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
             return LocalDateTime.parse(dateTimeString, formatter);
         } catch (Exception e) {
-            throw new RochinException("OOPS!!! Invalid date/time format. Please use yyyy-MM-dd HHmm format.");
+            throw new RochinException("OOPS!!! Invalid datetime format. Please use yyyy-MM-dd HHmm format.");
         }
     }
 

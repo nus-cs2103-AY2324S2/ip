@@ -12,18 +12,38 @@ public class RochinBot {
     private static final String filePath = "./data/rochin.txt";
     private final Ui ui;
     private final Storage storage;
-    private final TaskList tasks;
+    private TaskList tasks;
 
-    public RochinBot() {
+    /**
+     * Constructs a RochinBot with default file path and UI.
+     * @throws RochinException If there is an error initializing the bot.
+     */
+    public RochinBot() throws RochinException {
         ui = new Ui();
         storage = new Storage(filePath);
-        tasks = new TaskList();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (RochinException e) {
+            ui.showError("Error loading tasks: " + e.getMessage());
+            tasks = new TaskList();
+        }
     }
 
-    public RochinBot(String filePath, Ui ui) {
+    /**
+     * Constructs a RochinBot with specified file path and UI.
+     * @param filePath The file path for task storage.
+     * @param ui The user interface.
+     * @throws RochinException If there is an error initializing the bot.
+     */
+    public RochinBot(String filePath, Ui ui) throws RochinException {
         this.ui = ui;
         this.storage = new Storage(filePath);
-        this.tasks = new TaskList();
+        try {
+            tasks = new TaskList(storage.load());
+        } catch (RochinException e) {
+            ui.showError("Error loading tasks: " + e.getMessage());
+            tasks = new TaskList();
+        }
     }
 
     /**
@@ -42,7 +62,7 @@ public class RochinBot {
      *
      * @param args Command-line arguments (not used).
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws RochinException {
         new RochinBot().run();
     }
 
@@ -72,11 +92,12 @@ public class RochinBot {
      */
     public void loadTasks() {
         try {
-            tasks.load(storage.load());
+            tasks = new TaskList(storage.load());
         } catch (RochinException e) {
             ui.showLoadingError();
         }
     }
+
 
     /**
      * Method to save tasks to the storage.
@@ -105,6 +126,10 @@ public class RochinBot {
         return ui.ReplyMessage();
     }
 
+    /**
+     * Displays a welcome message.
+     * @return The welcome message.
+     */
     static String showWelcomeMsg() {
         return "Hello! I'm Rochin.\n"
                 + "What can I do for you?\n";

@@ -49,7 +49,12 @@ class Task {
      * @return The string representation of the task.
      */
     public String toFileString() {
-        return String.format("%s | %d | %s | %s", getTaskType(), isDone ? 1 : 0, description, getAdditionalDetails());
+        return String.format(
+                "%s | %d | %s | %s",
+                getTaskType(),
+                isDone ? 1 : 0,
+                description,
+                getAdditionalDetails());
     }
 
 
@@ -60,7 +65,7 @@ class Task {
      * @return new task
      */
     public static Task createTaskFromFileString(String fileLine) throws RochinException {
-        String[] parts = fileLine.split("\\s* \\| \\s*");
+        String[] parts = fileLine.split(" \\| ");
         if (parts.length >= 3) {
             boolean isDone = Integer.parseInt(parts[1].trim()) == 1;
             String description = parts[2].trim();
@@ -69,7 +74,6 @@ class Task {
                 String dateTimeString = parts[3];
                 dateTime = DateAndTime.parseDateTime(dateTimeString);
             }
-            // Extract additional details based on task type (Todo, Deadline, Event)
             if (parts[0].trim().equals("T")) {
                 TodoTask todoTask = new TodoTask(description);
                 if (isDone) {
@@ -83,27 +87,21 @@ class Task {
                 }
                 return deadlineTask;
             } else if (parts[0].trim().equals("E")) {
-                // Extract 'from' and 'to' datetime parameters
-                String[] eventTimes = parts[3].trim().split(" to ");
-                if (eventTimes.length == 2) {
-                    LocalDateTime fromDateTime = DateAndTime.parseDateTime(eventTimes[0]);
-                    LocalDateTime toDateTime = DateAndTime.parseDateTime(eventTimes[1]);
-                    EventTask eventTask = new EventTask(description, fromDateTime, toDateTime);
-                    if (isDone) {
-                        eventTask.markAsDone();
-                    }
-                    return eventTask;
-                } else {
-                    throw new RochinException("Invalid format for event task: " + description);
+                LocalDateTime fromDateTime = DateAndTime.parseDateTime(parts[3].trim());
+                LocalDateTime toDateTime = DateAndTime.parseDateTime(parts[4].trim());
+                EventTask eventTask = new EventTask(description, fromDateTime, toDateTime);
+                if (isDone) {
+                    eventTask.markAsDone();
                 }
+                return eventTask;
             } else {
                 throw new RochinException("Unknown task type: " + parts[0]);
             }
         } else {
             throw new RochinException("Invalid task format: " + fileLine);
         }
-
     }
+
 
     /**
      * Default implementation of getTaskType, can be overridden by subclasses

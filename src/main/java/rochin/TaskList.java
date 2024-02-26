@@ -71,25 +71,15 @@ public class TaskList {
         return new ArrayList<>(tasks);
     }
 
+    /**
+     * Checks if a given task index is valid.
+     * @param taskIndex The index of the task to be checked.
+     * @return true if the task index is valid, false otherwise.
+     */
     private boolean isValidTaskIndex(int taskIndex) {
         return taskIndex >= 1 && taskIndex <= tasks.size();
     }
 
-    /**
-     * Load tasks from a list of strings.
-     *
-     * @param lines The list of strings representing tasks.
-     * @throws RochinException if there's an error during loading.
-     */
-    public void load(List<String> lines) throws RochinException {
-        for (String line : lines) {
-            Task task = new Task(line);
-            task.createTaskFromFileString(line);
-            if (task != null) {
-                tasks.add(task);
-            }
-        }
-    }
 
     /**
      * Convert all tasks to a list of strings.

@@ -37,29 +37,39 @@ public class MainWindow extends AnchorPane {
     private Image rochinImage = new Image(this.getClass().getResourceAsStream("/images/ga.png"));
     private Image background = new Image("/images/Background.jpg");
 
+    /**
+     * Initializes the MainWindow.
+     * Sets up binding for scrollPane and sets background image.
+     * Displays a welcome message from RochinBot.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        BackgroundSize size = new BackgroundSize(100, 100, true, true, false, true);
+        BackgroundSize size = new BackgroundSize(3600, 3600, true, true, true, true);
         BackgroundImage image = new BackgroundImage(
                 background,
-                BackgroundRepeat.NO_REPEAT,
-                BackgroundRepeat.NO_REPEAT,
+                BackgroundRepeat.REPEAT,
+                BackgroundRepeat.REPEAT,
                 BackgroundPosition.CENTER,
                 size);
         dialogContainer.setBackground(new Background(image));
         dialogContainer.getChildren().add(DialogBox.getRochinDialog(RochinBot.showWelcomeMsg(), rochinImage));
-
     }
 
-
+    /**
+     * Sets the RochinBot instance for this window.
+     * @param r The RochinBot instance to be set.
+     */
     public void setRochin(RochinBot r) {
         rochin = r;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Handles user input.
+     * Echoes user input and displays RochinBot's response in dialog boxes.
+     * Clears the user input after processing.
+     * Exits the application if the user inputs "bye".
+     * @throws RochinException If an error occurs while processing the user input.
      */
     @FXML
     private void handleUserInput() throws RochinException {

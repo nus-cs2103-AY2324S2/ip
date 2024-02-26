@@ -134,6 +134,11 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    /**
+     * Generate the response message.
+     *
+     * @return empty message.
+     */
     public String ReplyMessage() {
         return "";
     }
