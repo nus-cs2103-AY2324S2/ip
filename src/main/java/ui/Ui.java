@@ -29,7 +29,7 @@ public class Ui {
      */
     public String showExitMessage() {
         StringBuilder outputString = new StringBuilder();
-        outputString.append("Bye. Hope to see you again soon!");
+        outputString.append("Woof!! Hope to see you again soon!");
         return outputString.toString();
     }
 
@@ -85,7 +85,7 @@ public class Ui {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
         int len = taskList.getSize();
-        finalString.append(String.format("Here is the sorted list of %d tasks:\n", len));
+        finalString.append(String.format("Woof!! Here is the sorted list of %d tasks:\n", len));
         int counter = 1;
         for (Task c : taskList.getList()) {
             finalString.append(String.format("%d. %s\n", counter, c.toString()));
@@ -143,7 +143,7 @@ public class Ui {
         StringBuilder outputString = new StringBuilder();
         StringBuilder finalString = new StringBuilder();
         if (taskList.isEmpty()) {
-            outputString.append("There are no tasks in your list");
+            outputString.append("Woof!! There are no tasks in your list");
         } else {
             int counter = 1;
             for (Task c : taskList.getList()) {
@@ -151,7 +151,7 @@ public class Ui {
                 counter++;
             }
             int len = taskList.getSize();
-            outputString.append(String.format("Here are the %s tasks in your list:\n", len));
+            outputString.append(String.format("Woof!! Here are the %s tasks in your list:\n", len));
             outputString.append(finalString.toString());
         }
         return outputString.toString();
