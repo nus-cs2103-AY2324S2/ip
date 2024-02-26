@@ -51,7 +51,7 @@ public class Parser {
     /**
      * Parses the user input and executes the corresponding task operation.
      * @param input The user input command.
-     * @return A string representing the result or feedback of the operation.
+     * @return A string representing the result or reply of the operation.
      */
     public String parse(String input) {
         ArrayList<Task> inventory = storage.load();
