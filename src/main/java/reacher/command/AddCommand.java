@@ -23,21 +23,15 @@ public class AddCommand extends Command {
         String name = Parser.getInfo(input, NAME);
         String type = Parser.getInfo(input, TYPE);
 
-        Task t;
+        Task t = null;
         switch (type) {
         case ("todo"):
             t = new Todos(name);
-            tasks.addTask(t);
-            storage.storeList(tasks.getTasks());
-            return ("I've added " + t.toString());
         case ("deadline"):
             String deadlineString = Parser.getInfo(input, DEADLINE);
             LocalDate  deadlineDate = LocalDate.parse(deadlineString);
 
             t = new Deadline(name, deadlineDate);
-            tasks.addTask(t);
-            storage.storeList(tasks.getTasks());
-            return ("I've added " + t.toString());
         case ("event"):
             LocalDate start = LocalDate.parse(Parser.getInfo(input, START));
             LocalDate end = LocalDate.parse(Parser.getInfo(input, END));
@@ -47,12 +41,13 @@ public class AddCommand extends Command {
             }
 
             t = new Events(name, start, end);
-            tasks.addTask(t);
-            storage.storeList(tasks.getTasks());
-            return("I've added " + t.toString());
-        default:
-            throw new ReacherException("That is not a type of task.");
         }
+        if (t == null) {
+            throw new ReacherException("Type of tasks are: todo, deadline and event.");
+        }
+        tasks.addTask(t);
+        storage.storeList(tasks.getTasks());
+        return ("I've added " + t.toString());
     }
 
     /**
