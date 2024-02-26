@@ -30,4 +30,15 @@ public class Ui {
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon! Have a nice day!");
     }
+
+    /**
+     * Displays a list of tasks that match the search keyword.
+     * @param matchingTasks The list of tasks matching the keyword.
+     */
+    public void showMatchingTasks(List<Task> matchingTasks) {
+        System.out.println("Here are the matching tasks in your list:");
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            System.out.println((i + 1) + "." + matchingTasks.get(i));
+        }
+    }
 }

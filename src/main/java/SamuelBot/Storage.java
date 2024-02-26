@@ -22,16 +22,16 @@ class Storage {
                 String[] parts = line.split("\\|");
                 if (parts.length >= 3) {
                     String type = parts[0].trim();
-                    String status = parts[1].trim(); // Updated variable name
+                    String status = parts[1].trim();
                     String description = parts[2].trim();
                     switch (type) {
                         case "T":
-                            tasks.add(new Todo(description)); // SamuelBot.Todo does not take status as parameter
+                            tasks.add(new Todo(description));
                             break;
                         case "D":
                             if (parts.length >= 4) {
                                 String by = parts[3].trim();
-                                tasks.add(new Deadline(description, by)); // Updated constructor
+                                tasks.add(new Deadline(description, by));
                             } else {
                                 System.out.println("Incomplete input for deadline task.");
                             }
