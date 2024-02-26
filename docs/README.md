@@ -2,19 +2,6 @@
 ![Ui.png](Ui.png)
 ### Bit is a **chat bot made to manage your tasks, made simple with a Command Line Interface (CLI)**, while retaining benefits of GUI
 
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
 
 ## Adding todos `todo`
 
