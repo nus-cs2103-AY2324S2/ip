@@ -1,4 +1,5 @@
 package chimp.exception;
+
 /**
  * Exception thrown when an invalid command is encountered.
  */

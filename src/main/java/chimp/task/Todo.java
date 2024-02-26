@@ -1,4 +1,5 @@
 package chimp.task;
+
 /**
  * Represents a todo task.
  * Inherits from the Task class.

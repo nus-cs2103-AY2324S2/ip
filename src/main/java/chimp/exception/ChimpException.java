@@ -1,4 +1,5 @@
 package chimp.exception;
+
 public abstract class ChimpException extends Exception{
     /**
      * Represents an exception specific to the Chimp application.

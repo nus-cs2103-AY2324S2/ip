@@ -1,4 +1,5 @@
 package chimp.core;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.nio.file.FileAlreadyExistsException;
@@ -110,6 +111,8 @@ public class Storage {
     }
 
     private static void parseLineToTask(String line, TaskList taskList) {
+        // Acknowledgement: The code below was written and adapted
+        // with the help of GPT4
         Pattern pattern = Pattern.compile("\\[(T|D|E)] \\[([ X])] (.*?)(?: \\(by: (.*?)\\)| \\(from: (.*?) to: (.*?)\\))?$");
 
         Matcher matcher = pattern.matcher(line);

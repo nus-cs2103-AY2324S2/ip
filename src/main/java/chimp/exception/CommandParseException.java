@@ -1,4 +1,5 @@
 package chimp.exception;
+
 /**
  * Represents an exception that occurs when a command cannot be parsed correctly.
  * This exception is thrown when there is an error in parsing the user input into a valid command.

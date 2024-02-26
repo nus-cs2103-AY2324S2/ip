@@ -1,4 +1,5 @@
 package chimp.task;
+
 /**
  * Represents a task with a text description and status.
  */
