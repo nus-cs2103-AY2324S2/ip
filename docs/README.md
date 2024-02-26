@@ -1,5 +1,7 @@
 # Homie User Guide
 
+![Ui.png](Ui.png)
+
 Welcome to **Homie!**
 
 Are you in need of a task-managing application where you can keep track of all your todo tasks, deadlines and events?
