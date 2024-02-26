@@ -1,24 +1,133 @@
-# Duke project template
+# Eve User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Screenshot of the UI](Ui.png)
 
-## Setting up in Intellij
+Welcome to Eve, your personal chatbot for managing tasks. This guide will help you nagivate through using EVE and utilize her features to organize your tasks effectively.
+### How to Start Using
+1. Download the Jar file from Release
+2. Launch the jar file using the java -jar eve.jar command
+3. Start using EVE !
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Features
+1. Adding of Task
+    - Todo
+    - Event
+    - Deadline
+2. Editing of Task
+    - Deleting
+    - Tagging
+    - Marking as Done
+    - Marking as UnDone
+3. Viewing of Task
+    - Viewing the List of Task
+4. Exiting
+    - Exiting the Chatbot
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Adding Task
+There are 3 different types of Tasks, Todo, Deadline and Event
+
+Notes on formatting:
+- Commands typed are not case senitive (e.g Mark is parsed the same as mark)
+- the first [ ] represents the type of task, 
+    - T for Todo
+    - D for Dealine
+    - E for Event
+- The second [ ] represents whether the task is completed ornot, if it's empty it means the task is not done yet, once it's marked as done it'll be represented with an X.
+
+## Adding Todo
+A Todo is a task that only contains a description.
+
+Example input Todo Submit project
+
+Expected Output: Got it. I've added the task 
+                 [T][ ] Submit project
+                 Now you have 1 task in your list
+
+## Adding Deadline
+A Deadline is a task with a description and a date andtime of which it should be done.
+
+Example input: deadline return book /by 2/12/2019 1800
+
+Expected Output: Got it. I've added the task 
+                 [D][ ] return book (by: 2019-12-02T18:00)
+                 Now you have 2 task in your list
+
+## Adding Event
+A Event is a task with a description with a date and time of the starting and ending
+
+Example input: event project meeting /from 2/12/2019 1800 /to 2/12/2019 2000
+
+Expected Output: Got it. I've added the task 
+                 [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+                 Now you have 3 task in your list
+
+### Task Manipulation
+There are various way to manipulate yout task with eve, there are
+- Task Deletion
+- Task Finding
+- Marking a Task as done/not done
+- Tagging a task 
+## Deleting a Task
+We all make mistake, perhaps the task is is wrongly inputed or you would not like to track it anymore, in this case do delete the task with
+
+Example input: delete 2
+
+Expected Output: Got it. I've removed the task 
+                 [D][ ] return book (by: 2019-12-02T18:00)
+                 Now you have 2 task in your list
+
+## Finding a Task
+To find a task in the list, we can just use the 'Find' Command.
+
+Example input: find meeting
+
+Expected Output: Here are the matching tasks in your list
+                1. [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+
+
+## Updating a Task as Done
+Eve provides the ability to mark a task as done using the 'Mark' command
+
+
+Example input: Mark 1
+
+Expected Output: Nice! I've marked this task as done:
+                [T][X] Submit project
+
+## Updating a Task as not Done
+Eve provides the ability to unmark a task as done using the 'Unmark' command
+
+
+Example input: unmark 1
+
+Expected Output: Nice! I've marked this task as not done yet:
+                [T][ ] Submit project
+
+
+## Tagging a Task
+You are able to add a tag to a tag using the 'Tag' Command
+
+Example input: tag 1 hard
+
+Expected Output: Nice! I've added a tag to this:
+                [T][ ] Submit project # Hard
+
+
+### Listing all the availble task
+Eve provides the ability to unmark a task as done using the 'List' command
+
+
+Example input: list
+
+Expected Output: Here are the tasks in your list:
+                1. [T][ ] Submit project
+                2. [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+
+### Exiting the Chatbot
+To exit the chatbot, use the 'bye' command !
+
+Example input: bye:
+
+Expected Output: Bye. Hope to see you again soon !
+
+// Seems like saving the application is gone, need to find
