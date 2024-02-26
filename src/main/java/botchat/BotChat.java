@@ -1,14 +1,26 @@
+package botchat;
+
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 import exception.InvalidTaskNumberException;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.layout.VBox;
 import parser.Parser;
+import storage.Storage;
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
+import taskList.TaskList;
+import ui.Ui;
 
 /**
  * This class is the chatbot.
@@ -20,6 +32,12 @@ public class BotChat {
     private static Storage storage;
     private static TaskList taskArrayList;
     private static Parser parser;
+
+    public BotChat() {
+        parser = new Parser();
+        storage = new Storage(FILEPATH);
+        taskArrayList = new TaskList(storage.readDataStore());
+    }
 
     /**
      * Adds a new task based on the user input command.
@@ -195,6 +213,17 @@ public class BotChat {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException(requestedDeletion);
         }
+    }
+
+    private Label getDialogLabel(String text) {
+        Label textToAdd = new Label(text);
+        textToAdd.setWrapText(true);
+
+        return textToAdd;
+    }
+
+    public String getResponse(String input) {
+        return response(input);
     }
 
     public static void main(String[] args) {
