@@ -46,9 +46,11 @@ public class Event extends Task {
     @Override
     public String toString() {
         if (this.isDone) {
-            return "[X]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+            return "[X]" + IDENTIFIER + " " + this.name +
+                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         } else {
-            return "[ ]" + IDENTIFIER + " " + this.name + " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
+            return "[ ]" + IDENTIFIER + " " + this.name +
+                    " (from " + dtfoutput.format(from) + " to " + dtfoutput.format(to) + ")";
         }
     }
 

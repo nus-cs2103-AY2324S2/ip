@@ -93,6 +93,12 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Create a new Event task based on user input.
+     * @param input
+     * @return An event Task
+     * @throws DukeException If the format is invalid
+     */
     public static Task eventInputHandler(String input) throws DukeException {
         Task task;
 
@@ -134,6 +140,12 @@ public class Parser {
 
     }
 
+    /**
+     * Creates a new Deadline task based on user input.
+     * @param input
+     * @return A new Deadline task
+     * @throws DukeException If the format is invalid
+     */
     public static Task deadlineInputHandler(String input) throws DukeException {
         Task task;
         String[] dlarr = input.split("/by ", 2);
@@ -163,6 +175,13 @@ public class Parser {
         return task;
     }
 
+    /**
+     * Creates a new Deadline task based on saved data.
+     * @param arr
+     * @param isDone
+     * @return A new Deadline task
+     * @throws DukeException
+     */
     public static Task deadlineDataHandler(String[] arr, boolean isDone) throws DukeException {
         try {
             String name = arr[2];
@@ -175,6 +194,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Creates a new Event task based on saved data
+     * @param arr
+     * @param isDone
+     * @return A new Event task
+     * @throws DukeException
+     */
     public static Task eventDataHandler(String[] arr, boolean isDone) throws DukeException {
         try {
             String name = arr[2];

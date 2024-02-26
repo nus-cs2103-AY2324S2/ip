@@ -80,10 +80,6 @@ public class Ui {
 
     }
 
-    public String getNextLine() {
-        return this.sc.nextLine();
-    }
-
     /**
      * Gets the first word of the user input that should correspond to a command.
      * @param input User input
