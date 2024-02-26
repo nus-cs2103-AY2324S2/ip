@@ -3,11 +3,11 @@ package util;
 import tasks.Task;
 
 import exceptions.ChillChiefException;
+
 /**
  * A TextUi class to represent the user interface for the ChillChief application.
  */
 public class TextUi {
-
     private static final String DIVIDER_DOUBLE = "============================================================\r\n";
     private static final String DIVIDER_SINGLE = "____________________________________________________________\r\n";
     private static final String CHILLCHIEF = "";
@@ -25,6 +25,12 @@ public class TextUi {
             + "event [task name] /from yyyy-mm-dd HHmm /to yyyy-mm-dd HHmm\n"
             + "'bye'\n";
 
+    /**
+     * Generates a find message for the user.
+     *
+     * @param tasksFound The tasks found with matching descriptions.
+     * @return The find message with tasks with matching descriptions.
+     */
     public String showFindMessage(String tasksFound) {
         return DIVIDER_SINGLE + FIND_MESSAGE + tasksFound + DIVIDER_SINGLE;
     }
