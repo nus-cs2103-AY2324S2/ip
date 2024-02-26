@@ -1,5 +1,6 @@
-package Duke;
-abstract class Task {
+package SamuelBot;
+
+public abstract class Task {
     String description;
     boolean isDone;
 
@@ -24,4 +25,10 @@ abstract class Task {
     public String toString() {
         return "[" + getTaskType() + "]" + (isDone ? "[X]" : "[ ]") + " " + description;
     }
+
+    // Abstract method to get the description of the task
+    public abstract String getDescription();
+
+    // Abstract method to check if the task is done
+    public abstract boolean isDone();
 }

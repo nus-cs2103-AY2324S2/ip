@@ -1,4 +1,4 @@
-package Duke;
+package SamuelBot;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
@@ -40,5 +40,15 @@ public class Event extends Task {
     @Override
     public String toFileString() {
         return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, start.format(formatter), end.format(formatter));
+    }
+    @Override
+    public String getDescription(){
+        return description;
+    }
+
+    // Abstract method to check if the task is done
+    @Override
+    public boolean isDone(){
+        return isDone;
     }
 }

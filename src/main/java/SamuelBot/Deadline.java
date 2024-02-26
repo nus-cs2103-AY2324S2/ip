@@ -1,4 +1,5 @@
-package Duke;
+package SamuelBot;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 public class Deadline extends Task {
@@ -30,5 +31,16 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + byDate;
+    }
+
+    @Override
+    public String getDescription(){
+        return description;
+    }
+
+    // Abstract method to check if the task is done
+    @Override
+    public boolean isDone(){
+        return isDone;
     }
 }

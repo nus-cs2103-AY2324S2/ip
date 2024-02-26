@@ -1,4 +1,5 @@
-package Duke;
+package SamuelBot;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,7 +27,7 @@ class Storage {
                 String description = parts[2].trim();
                 switch (type) {
                     case "T":
-                        tasks.add(new Todo(description)); // Todo does not take status as parameter
+                        tasks.add(new Todo(description)); // SamuelBot.Todo does not take status as parameter
                         break;
                     case "D":
                         String by = parts[3].trim();

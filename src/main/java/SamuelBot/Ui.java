@@ -1,4 +1,5 @@
-package Duke;
+package SamuelBot;
+
 import java.util.List;
 import java.util.Scanner;
 
