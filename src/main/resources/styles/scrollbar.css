@@ -1,0 +1,36 @@
+/* scrollbar.css */
+
+/* Thumb */
+.scroll-bar:vertical .thumb {
+    -fx-background-color: #6c8dac; /* Thumb color */
+}
+
+/* Thumb hover */
+.scroll-bar:vertical .thumb:hover {
+    -fx-background-color: #c94a31; /* Thumb hover color */
+}
+
+/* Thumb pressed */
+.scroll-bar:vertical .thumb:pressed {
+    -fx-background-color: #c94a31; /* Thumb pressed color */
+}
+
+/* Track background */
+.scroll-bar:vertical .track {
+    -fx-background-color: #38536b; /* Track background color */
+}
+
+/* Arrows */
+.scroll-bar:vertical .increment-button, .scroll-bar:vertical .decrement-button {
+    -fx-background-color: #38536b; /* Arrows background color */
+}
+
+/* Arrow graphic color (triangle) */
+.scroll-bar:vertical .increment-arrow, .scroll-bar:vertical .decrement-arrow {
+    -fx-background-color: #1b273b; /* Arrow graphic color */
+}
+
+/* Arrow graphic color (box) */
+.scroll-bar:vertical {
+    -fx-background-color: #1b273b;
+}
