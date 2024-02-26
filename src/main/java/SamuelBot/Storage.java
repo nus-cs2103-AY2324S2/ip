@@ -14,6 +14,43 @@ class Storage {
         createNewFile();
     }
 
+    private Task parseTaskFromString(String line) {
+        String[] parts = line.split("\\|");
+        if (parts.length >= 3) {
+            String type = parts[0].trim();
+            boolean isDone = parts[1].trim().equals("1"); // Check if task is marked as done
+            String description = parts[2].trim();
+            switch (type) {
+                case "T":
+                    return new Todo(description);
+                case "D":
+                    if (parts.length >= 4) {
+                        String by = parts[3].trim();
+                        return new Deadline(description, by);
+                    } else {
+                        System.out.println("Incomplete input for deadline task.");
+                    }
+                    break;
+                case "E":
+                    if (parts.length >= 5) {
+                        String from = parts[3].trim();
+                        String to = parts[4].trim();
+                        return new Event(description, from, to);
+                    } else {
+                        System.out.println("Incomplete input for event task.");
+                    }
+                    break;
+                default:
+                    System.out.println("Unknown task type: " + type);
+                    break;
+            }
+        } else {
+            System.out.println("Incomplete input: " + line);
+        }
+        return null;
+    }
+
+
     public List<Task> loadTasksFromFile() {
         List<Task> tasks = new ArrayList<>();
         try (Scanner scanner = new Scanner(new File(filePath))) {
