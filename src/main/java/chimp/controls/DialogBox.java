@@ -8,6 +8,11 @@ import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 
+/**
+ * A custom JavaFX control representing a dialog box.
+ * It consists of a label for displaying text and an image view for displaying an image.
+ * The dialog box can be flipped to change the alignment of the label and image view.
+ */
 public class DialogBox extends HBox {
 
     private Label text;
@@ -36,11 +41,25 @@ public class DialogBox extends HBox {
         this.getChildren().setAll(tmp);
     }
 
+    /**
+     * Returns the dialog box for the user.
+     *
+     * @param l The label to be displayed in the dialog box.
+     * @param iv The image view to be displayed in the dialog box.
+     * @return The dialog box for the user.
+     */
     public static DialogBox getUserDialog(Label l, ImageView iv) {
         return new DialogBox(l, iv);
     }
 
-    public static DialogBox getDukeDialog(Label l, ImageView iv) {
+    /**
+     * Returns the dialog box for Chimp.
+     *
+     * @param l The label for the dialog box.
+     * @param iv The image view for the dialog box.
+     * @return The dialog box for Chimp.
+     */
+    public static DialogBox getChimpDialog(Label l, ImageView iv) {
         var db = new DialogBox(l, iv);
         db.flip();
         return db;

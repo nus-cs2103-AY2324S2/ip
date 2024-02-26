@@ -127,7 +127,7 @@ public class Chimp extends Application {
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userText, new ImageView(user)),
-                DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+                DialogBox.getChimpDialog(dukeText, new ImageView(duke)));
         userInput.clear();
     }
 
