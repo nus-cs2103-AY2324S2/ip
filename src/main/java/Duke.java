@@ -8,8 +8,9 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         String filepath = "./duke.txt";
-        System.out.println("____________________________________________________________");
+
         String greeting = "Hi, I'm Lighthouse.\nHow can I help you?";
+        System.out.println("____________________________________________________________");
         System.out.println(greeting);
         System.out.println("____________________________________________________________");
         Scanner scan = new Scanner(System.in);
@@ -69,7 +70,6 @@ public class Duke {
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:\n");
                 System.out.println(todo.printOutput());
-//                int count = taskList.getCountByType ("T");
                 int count = taskList.getTaskList().size();
                 System.out.println("Now you have "+count+" tasks in the list");
                 System.out.println("____________________________________________________________");
@@ -106,13 +106,14 @@ public class Duke {
             int indfrom = argVal.indexOf("/from");
             String eventname = argVal.substring(0,indfrom);
             String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
+            eventFromStr = eventFromStr.trim();
             int indto = argVal.indexOf("/to");
             String eventToStr = argVal.substring(indto+4);
+            eventToStr = eventToStr.trim();
             todo = new Event(eventname, false, taskList.getTaskList().size() + 1, "E", eventFromStr, eventToStr);
         } else if (info.startsWith("deadline")) {
             int indfrom = argVal.indexOf("/by");
             String eventname = argVal.substring(0,indfrom);
-
             String deadlineStr = argVal.substring(indfrom+4);
             todo = new Deadline(eventname, false, taskList.getTaskList().size() + 1, "D", deadlineStr);
         }

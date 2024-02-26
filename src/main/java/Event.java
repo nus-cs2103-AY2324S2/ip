@@ -1,7 +1,15 @@
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Event extends Task {
     private String taskType = "E";
     private String from = "";
     private String to = "";
+
+    private LocalDateTime fromDate;
+    private LocalDateTime toDate;
+
     Event() {
         super();
     }
@@ -17,8 +25,10 @@ public class Event extends Task {
 
     Event(String taskName, boolean marked, int seqNo, String type, String from, String to) {
         this(taskName, marked, seqNo, type);
-        this.from = from;
-        this.to = to;
+        this.fromDate = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.from = fromDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+        this.to = toDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String getTypeOfTask() { return this.taskType; }

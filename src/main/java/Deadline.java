@@ -1,6 +1,10 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 public class Deadline extends Task {
     private String taskType = "D";
     private String by = "";
+    private LocalDateTime byDate;
     Deadline() {
         super();
     }
@@ -16,7 +20,8 @@ public class Deadline extends Task {
 
     Deadline(String taskName, boolean marked, int seqNo, String type, String by) {
         this(taskName, marked, seqNo, type);
-        this.by = by;
+        this.byDate = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
+        this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
     }
 
     public String getTypeOfTask() { return this.taskType; }
