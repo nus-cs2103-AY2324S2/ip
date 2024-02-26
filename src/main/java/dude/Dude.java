@@ -42,7 +42,8 @@ public class Dude {
         try {
             temp = this.storage.loadTasks();
         } catch (Exception e) { //Thrown when file gets corrupted
-            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with an empty task list.");
+            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with "
+                    + "an empty task list.");
             this.storage.deleteStorage();
             temp = new TaskList();
         }
