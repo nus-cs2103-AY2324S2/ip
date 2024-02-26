@@ -36,7 +36,6 @@ public class Parser {
     public static Command parse(String input) throws IOException {
         String[] inputArr = input.split(" ");
         String keyword = inputArr[0];
-        Command output;
         switch (keyword) {
             case "hi":
                 return new GreetCommand();
@@ -73,6 +72,7 @@ public class Parser {
      */
     private static Command parseDoneCommand(String input) {
         Command output;
+
         String doneFormat = "^done\\s+(\\d+)$";
         Pattern donePattern = Pattern.compile(doneFormat);
         Matcher doneMatcher = donePattern.matcher(input);
@@ -83,6 +83,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(0);
         }
+
         return output;
     }
 
@@ -94,6 +95,7 @@ public class Parser {
      */
     private static Command parseRedoCommand(String input) {
         Command output;
+
         String redoFormat = "^redo\\s+(\\d+)$";
         Pattern redoPattern = Pattern.compile(redoFormat);
         Matcher redoMatcher = redoPattern.matcher(input);
@@ -104,6 +106,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(0);
         }
+
         return output;
     }
 
@@ -115,6 +118,7 @@ public class Parser {
      */
     private static Command parseDeleteCommand(String input) {
         Command output;
+
         String deleteFormat = "^delete\\s+(\\d+)$";
         Pattern deletePattern = Pattern.compile(deleteFormat);
         Matcher deleteMatcher = deletePattern.matcher(input);
@@ -125,6 +129,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(0);
         }
+
         return output;
     }
 
@@ -136,6 +141,7 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) {
         Command output;
+     
         String findFormat = "^find\\s+(\\S+(\\s+\\w+)*)$";
         Pattern findPattern = Pattern.compile(findFormat);
         Matcher findMatcher = findPattern.matcher(input);
@@ -147,6 +153,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(1);
         }
+
         return output;
     }
 
@@ -158,6 +165,7 @@ public class Parser {
      */
     private static Command parseToDoCommand(String input) {
         Command output;
+
         String toDoFormat = "^todo\\s+(\\S+(\\s+\\w+)*)$";
         Pattern toDoPattern = Pattern.compile(toDoFormat);
         Matcher toDoMatcher = toDoPattern.matcher(input);
@@ -168,6 +176,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(1);
         }
+
         return output;
     }
 
@@ -179,6 +188,7 @@ public class Parser {
      */
     private static Command parseDueCommand(String input) {
         Command output;
+
         String dueFormat = "^due\\s+(\\w+(\\s+\\w+)*)\\s+/by\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern duePattern = Pattern.compile(dueFormat);
         Matcher dueMatcher = duePattern.matcher(input);
@@ -188,6 +198,7 @@ public class Parser {
             String by = dueMatcher.group(3);
 
             LocalDateTime byDateTime = formatDateTime(by);
+
             if (byDateTime == null) {
                 output = new DefaultCommand(2);
             } else {
@@ -196,6 +207,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(1);
         }
+
         return output;
     }
 
@@ -207,6 +219,7 @@ public class Parser {
      */
     private static Command parseEventCommand(String input) {
         Command output;
+
         String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+|/)*)\\s+/to\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern eventPattern = Pattern.compile(eventFormat);
         Matcher eventMatcher = eventPattern.matcher(input);
@@ -218,6 +231,7 @@ public class Parser {
 
             LocalDateTime startDateTime = formatDateTime(start);
             LocalDateTime endDateTime = formatDateTime(end);
+
             if (startDateTime == null || endDateTime == null) {
                 output = new DefaultCommand(2);
             } else {
@@ -226,6 +240,7 @@ public class Parser {
         } else {
             output = new DefaultCommand(1);
         }
+
         return output;
     }
 
