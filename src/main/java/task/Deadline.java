@@ -24,4 +24,17 @@ public class Deadline extends Task {
         return String.format("D|%s|%s|%s", super.convertToDataStoreLine(), super.getTaskString(),
                 this.deadline.format(ORIGINAL_FORMATTER));
     }
+
+    private boolean deadlineEquals(Deadline deadline) {
+        return deadline.deadline.equals(this.deadline);
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return super.equals(deadline) && deadlineEquals(deadline);
+        }
+        return false;
+    }
 }

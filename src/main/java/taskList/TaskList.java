@@ -82,4 +82,18 @@ public class TaskList {
         return tasksWithKeyword;
     }
 
+    /**
+     * Returns a boolean indicating if a target task already exists in our data store.
+     * @param targetTask the target task to be searched
+     * @return boolean indicating if a duplicate task exists
+     */
+    public boolean checkDuplicate(Task targetTask) {
+        for (Task task : this.taskArrayList) {
+            if (targetTask.equals(task)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

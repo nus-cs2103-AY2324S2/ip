@@ -3,6 +3,7 @@ package jerryBot;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.DuplicateTaskException;
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 import exception.InvalidTaskNumberException;
@@ -47,8 +48,7 @@ public class JerryBot {
         case "todo":
             taskDescription = parser.extractDescription(s);
             Task newDescriptionTask = new ToDo(taskDescription);
-            storage.addToDataStore(newDescriptionTask);
-            taskArrayList.addTask(newDescriptionTask);
+            safeAddTask(newDescriptionTask);
             break;
         case "deadline":
             taskDescription = parser.extractDescription(s);
@@ -58,8 +58,7 @@ public class JerryBot {
                         + "form of deadline description /by datetime.");
             } else {
                 Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
-                storage.addToDataStore(newDeadlineTask);
-                taskArrayList.addTask(newDeadlineTask);
+                safeAddTask(newDeadlineTask);
             }
             break;
         case "event":
@@ -70,12 +69,24 @@ public class JerryBot {
                         + "form of event description /from datetime /to datetime.");
             } else {
                 Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
-                storage.addToDataStore(newEventTask);
-                taskArrayList.addTask(newEventTask);
+                safeAddTask(newEventTask);
             }
             break;
         default:
             throw new InvalidCommandException(s);
+        }
+    }
+
+    /**
+     * Adds task to data store and task list if there is no existing duplicate.
+     * @param task Task to be added.
+     */
+    private static void safeAddTask(Task task) throws DuplicateTaskException {
+        if (!taskArrayList.checkDuplicate(task)) {
+            storage.addToDataStore(task);
+            taskArrayList.addTask(task);
+        } else {
+            throw new DuplicateTaskException();
         }
     }
 

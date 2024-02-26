@@ -13,4 +13,12 @@ public class ToDo extends Task {
     public String convertToDataStoreLine() {
         return "T|" + super.convertToDataStoreLine() + "|" + super.getTaskString();
     }
+
+    @Override
+    public boolean equals(Task task) {
+        if (task instanceof ToDo) {
+            return super.equals(task);
+        }
+        return false;
+    }
 }

@@ -44,4 +44,8 @@ public class Task {
     public boolean containsKeyword(String keyword) {
         return this.taskString.contains(keyword);
     }
+
+    public boolean equals(Task task) {
+        return this.taskString.equals(task.getTaskString());
+    }
 }
