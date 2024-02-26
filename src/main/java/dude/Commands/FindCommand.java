@@ -51,8 +51,7 @@ public class FindCommand extends Command {
         for (int i = 0; i < tasks.size(); i++) {
             msg += "\t" + (i + 1) + ". " + tasks.get(i).toString() + "\n";
         }
-
-        return msg;
+        return msg.trim();
     }
 
     @Override
