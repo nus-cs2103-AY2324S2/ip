@@ -46,3 +46,6 @@ deadline CS2103T /by 2021-12-31
 priority 3 1
 priority 3 5
 priority 3 2
+deadline eat /by 2021-10-02
+delete 5
+list

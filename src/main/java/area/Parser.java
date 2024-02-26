@@ -68,8 +68,10 @@ public class Parser {
         if (sentence.length == 1) {
             throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
         } else {
-            if(sentence[1].contains(" /by ") == false){
-                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
+            if (sentence[1].contains(" /by ") == false) {
+                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " 
+                + 
+                instruction);
             }
             String[] deadline = sentence[1].split(" /by ");
             return deadline;
@@ -84,10 +86,12 @@ public class Parser {
     public String[] parseEvent(String instruction) {
         String[] sentence = instruction.split(" ", 2);
         if (sentence.length == 1) {
-            throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
+            throw new IllegalArgumentException("Your input is incomplete. Please add more details for " 
+            + instruction);
         } else {
-            if(sentence[1].contains(" /from ") == false){
-                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " + instruction);
+            if (sentence[1].contains(" /from ") == false) {
+                throw new IllegalArgumentException("Your input is incomplete. Please add more details for " 
+                + instruction);
             }
             String[] arr = sentence[1].split(" /from "); // split task into description and deadline
             String[] arr1 = arr[1].split(" /to "); // split deadline into from and to
@@ -111,6 +115,10 @@ public class Parser {
         }
     }
 
+    /**
+     * @param instruction
+     * @return String representation of new priority level.
+     */
     public String parsePriority(String instruction){
         String[] sentence = instruction.split(" ", 3);
         if (sentence.length != 3) {

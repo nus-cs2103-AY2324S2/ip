@@ -1,20 +1,15 @@
 package area;
 
 /**
- *
  * Main class.
  */
 public class Area {
-    public final String Storage = null;
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
 
     /**
      * Constructor for Area object
-     * 
-     *
-     *
      */
     public Area() {
         this.ui = new Ui();
@@ -25,9 +20,11 @@ public class Area {
     }
 
     /**
-     * Takes in an instruction and execute respective command. If instruction is not valid, function throws an exception.
+     * Takes in an instruction and execute respective command. If instruction is not
+     * valid, function throws an exception.
      * @param instruction
-     * @return
+     * @return String  - Message shown on console after executing the
+     *         command.
      */
     public String allotTasks(String instruction) {
         Parser parser = new Parser();
@@ -67,10 +64,10 @@ public class Area {
                 storage.saveTask(instruction);
                 String keyword = parser.parseKeyword(instruction);
                 result = tasks.findTask(keyword);
-            } else if(command.equals("priority")){
+            } else if (command.equals("priority")) {
                 storage.saveTask(instruction);
                 result = tasks.modifyTask(instruction);
-            } else{
+            } else {
                 result = "Area does not understand your command.";
             }
         } catch (Exception e) {
@@ -89,7 +86,8 @@ public class Area {
     }
 
     /**
-     * takes in an input which is an instruction that when run through function allotTasks will return the respective output.
+     * takes in an input which is an instruction that when run through function
+     * allotTasks will return the respective output.
      * @param input
      * @return the respective output based on input
      */

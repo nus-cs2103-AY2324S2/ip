@@ -1,5 +1,6 @@
 package area;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -7,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.io.File;
+
 
 /**
  * Stores the commands by user in a text file. The commands are to be executed
@@ -26,7 +27,6 @@ public class Storage {
      * The Storage class manages files I/O operations for storing and retrieving
      * task data.
      * It handles the interaction with the data files where tasks are located.
-     * 
      * @param tasks
      */
     public Storage(TaskList tasks) {
@@ -38,13 +38,15 @@ public class Storage {
 
     /**
      * Add an instruction to a list of instructions.
-     * 
      * @param instruction the instruction to be added.
      */
     public void addInstruction(String instruction) {
         this.instructions.add(instruction);
     }
 
+    /** 
+     * creates a new directory and file if it does not exist
+     */
     public void createNewFile() {
         if (!folder.exists()) {
             folder.mkdir();
@@ -61,13 +63,15 @@ public class Storage {
 
     /**
      * Get list of tasks
-     * 
-     * @return ArrayList<String>
+     * @return ArrayList<String> taskList
      */
     public static ArrayList<String> getTasks() {
         return taskList;
     }
 
+    /**
+     * Load the existing tasks into a ArrayList.
+     */
     public void loadTasks() {
         Path path = Paths.get("./data/area.txt");
         if (Files.exists(path)) {
@@ -90,6 +94,10 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves all instructions to the data file
+     * @param instruction
+     */
     public void saveTask(String instruction) {
         try {
             FileWriter writer = new FileWriter("./data/area.txt", true);

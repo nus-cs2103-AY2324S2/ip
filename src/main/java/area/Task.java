@@ -11,7 +11,6 @@ public class Task {
     /**
      * Constructs a new task with the given description. The task is not done by
      * default.
-     * 
      * @param description
      */
     public Task(String description) {
@@ -22,7 +21,6 @@ public class Task {
 
     /**
      * Get status of task.
-     * 
      * @return String
      */
     public String getStatusIcon() {
@@ -31,7 +29,6 @@ public class Task {
 
     /**
      * Get description of task.
-     * 
      * @return String
      */
     public String getDescription() {

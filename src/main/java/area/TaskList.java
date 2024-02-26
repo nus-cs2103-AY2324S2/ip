@@ -13,8 +13,6 @@ public class TaskList {
     private Ui ui;
     private Parser parser;
 
-    
-
     public TaskList() {
         this.tasks = new ArrayList<Task>();
         this.taskCount = 0;
@@ -125,10 +123,10 @@ public class TaskList {
             taskCount -= 1;
             assert taskCount >= 0 : "count cannot be negative";
             return ui.deleteTask(deletedTask, this);
-        }else if(command.equals("priority")){
+        } else if (command.equals("priority")) {
             int index = Integer.parseInt(parser.parseModify(instruction));
             int prority = Integer.parseInt(parser.parsePriority(instruction));
-            Task prioritiseTask = tasks.get(index-1);
+            Task prioritiseTask = tasks.get(index - 1);
             prioritiseTask.setPriority(prority);
             return ui.priorityMessage(prioritiseTask);
         }

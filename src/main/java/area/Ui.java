@@ -84,16 +84,6 @@ public class Ui {
         return "Bye. Hope to see you again soon!";
     }
 
-    /**
-     * print out the error caused by an incomplete instruction
-     *
-     * @param instruction
-     */
-    public void instructionError(String instruction) {
-        AreaException error = new AreaException(instruction);
-        System.out.println(error.toString());
-    }
-
     public String priorityMessage(Task task) {
         return "Priority hase been set to " + task.getPriority() + " for " + task.toString();
     }
