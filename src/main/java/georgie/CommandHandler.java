@@ -77,7 +77,7 @@ public class CommandHandler {
 
         if (userInput.length() <= 9) {
             assert false : "Deadline command is incomplete";
-            throw new GeorgieException("Oops! The deadline command is incomplete.");
+            throw new GeorgieException("Oops! Both description and deadline are required for a deadline task.");
         }
 
         String[] descriptionAndDueBy = Parser.parseDeadline(userInput);
@@ -106,13 +106,13 @@ public class CommandHandler {
     private static String handleEventCommand(String userInput, TaskList taskList) throws GeorgieException {
         if (userInput.length() <= 6) {
             assert false : "Event command is incomplete";
-            throw new GeorgieException("Uh oh! The event command is incomplete.");
+            throw new GeorgieException("Uh oh! The event command requires description, start and end details.");
         }
 
         String[] description = Parser.parseEvent(userInput);
 
         if (description.length < 3) {
-            throw new GeorgieException("Uh oh! The event command requires both start and end details.");
+            throw new GeorgieException("Uh oh! The event command requires description, start and end details.");
         }
 
         assert description.length >= 3 : "Invalid event command format";

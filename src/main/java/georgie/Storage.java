@@ -56,14 +56,14 @@ public class Storage {
             if (!Files.exists(filePath)) {
                 Files.createDirectories(filePath.getParent());
                 Files.createFile(filePath);
-            } else {
-                try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(filePath)))) {
-                    String line;
-                    while ((line = reader.readLine()) != null) {
-                        Task task = createTaskFromLine(line);
-                        if (task != null) {
-                            tasks.add(task);
-                        }
+            }
+
+            try (BufferedReader reader = new BufferedReader(new FileReader(String.valueOf(filePath)))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = createTaskFromLine(line);
+                    if (task != null) {
+                        tasks.add(task);
                     }
                 }
             }

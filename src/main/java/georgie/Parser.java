@@ -1,5 +1,7 @@
 package georgie;
 
+import java.time.LocalDate;
+
 /**
  * Parses user input and performs specific parsing operations.
  */
@@ -29,7 +31,11 @@ public class Parser {
 
         String[] descriptionAndDueBy = parts[1].split(" /by ", 2);
         if (descriptionAndDueBy.length < 2) {
-            return new String[]{parts[0], descriptionAndDueBy[0]};
+            if (descriptionAndDueBy[0].isEmpty()) {
+                return new String[]{"", descriptionAndDueBy[1]};
+            } else {
+                return new String[]{descriptionAndDueBy[0]};
+            }
         }
 
         return new String[]{descriptionAndDueBy[0], descriptionAndDueBy[1]};
