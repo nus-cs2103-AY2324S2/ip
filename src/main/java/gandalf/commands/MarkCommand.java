@@ -17,9 +17,8 @@ public class MarkCommand extends Command {
     }
 
     @Override
-    public void execute() throws GandalfException {
-        tasks.mark(taskNumber);
-        ui.mark();
+    public String execute() throws GandalfException {
         storage.store(tasks.getList());
+        return ui.mark() + "\n" + tasks.mark(taskNumber);
     }
 }

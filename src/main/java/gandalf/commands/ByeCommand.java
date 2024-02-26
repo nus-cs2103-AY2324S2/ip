@@ -11,16 +11,13 @@ import java.util.Scanner;
  */
 public class ByeCommand extends Command {
 
-    private Scanner scanner;
-    public ByeCommand(String commandName, TaskList tasks, Storage storage, Ui ui, Scanner scanner) {
+    public ByeCommand(String commandName, TaskList tasks, Storage storage, Ui ui) {
         super(commandName, tasks, storage, ui);
-        this.scanner = scanner;
     }
 
     @Override
-    public void execute() {
-        this.scanner.close();
-        ui.bye();
+    public String execute() {
+        return ui.bye();
     }
 
     @Override

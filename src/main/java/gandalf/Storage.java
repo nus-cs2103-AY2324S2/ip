@@ -28,7 +28,7 @@ public class Storage {
         this.filePathRead = filePathRead;
     }
 
-    public ArrayList<Task> load() throws GandalfException {
+    public ArrayList<Task> load() {
         ArrayList<Task> data = new ArrayList<>(100);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
             Object storedData = ois.readObject();
@@ -47,10 +47,10 @@ public class Storage {
                     Files.createFile(Paths.get(this.filePathMeta));
                 }
             } catch (IOException ex) {
-                throw new GandalfException("Error creating file: " + ex.getMessage());
+                System.out.println(ex.getMessage());
             }
         } catch (IOException | ClassNotFoundException e) {
-            throw new GandalfException("Error with IO or class");
+            return data;
         }
         return data;
     }

@@ -10,104 +10,98 @@ import gandalf.commands.MarkCommand;
 import gandalf.commands.UnmarkCommand;
 import gandalf.commands.SumCommand;
 
-import java.util.Scanner;
+import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * Main class for the Gandalf chatbot
  */
-public class Gandalf {
-    private Storage storage;
-    private TaskList tasks;
-    private Ui ui;
+public class Gandalf extends Application {
+    private Storage storage = new Storage("./data/gandalfMeta.txt", "./data/gandalfRead.txt");
+    private TaskList tasks = new TaskList(storage.load());
+    private Ui ui = new Ui();
 
     public Gandalf() {
 
     }
-    /**
-     * A constructor for the chatbot. It takes in two paths as it uses two files for its store/load feature.
-     * One file is for loading any existing lists, and another file is meant to be readable in a .txt file
-     * @param filePathMeta
-     * @param filePathRead
-     */
 
-    public Gandalf(String filePathMeta, String filePathRead) {
-        ui = new Ui();
-        storage = new Storage(filePathMeta, filePathRead);
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (GandalfException e) {
-            tasks = new TaskList();
-        }
+    @Override
+    public void start(Stage stage) throws Exception {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/view/MainWindow.fxml"));
+        AnchorPane ap = fxmlLoader.load();
+        Scene scene = new Scene(ap);
+        stage.setScene(scene);
+        stage.setTitle("Gandalf");
+        stage.getIcons().add(new javafx.scene.image.Image(
+                this.getClass().getResourceAsStream("/images/daGandalf.jpg")));
+        fxmlLoader.<MainWindow>getController().setGandalf(this);
+        fxmlLoader.<MainWindow>getController().initialize();
+        Button sendButton = fxmlLoader.<MainWindow>getController().getSendButton();
+        sendButton.setOnAction((event) -> {
+            fxmlLoader.<MainWindow>getController().handleUserInput();
+        });
+        TextField userInput = fxmlLoader.<MainWindow>getController().getUserInput();
+        userInput.setOnAction((event) -> {
+            fxmlLoader.<MainWindow>getController().handleUserInput();
+        });
+        stage.setResizable(true);
+        stage.show();
     }
 
-    /**
-     * Function to run the chatbot, uses a while-loop to constantly allow the chatbot to receive new inputs
-     * Also processes inputs to do various things depending on the command
-     */
-    public void run() {
-        ui.welcome();
-        Scanner scanner = new Scanner(System.in);
-        boolean isExit = false;
-        while (!isExit) {
-            String input = scanner.nextLine();
-            if (input.length() == 0) { //ignore accidental new lines from user
-                continue;
-            }
-            ui.showLine();
-            Command c;
-            Parser parser = new Parser(input);
-            parser.interpret();
-            String command = parser.getTaskType();
-            try {
-                switch (command) {
-                case "bye":
-                    c = new ByeCommand(command, tasks, storage, ui, scanner);
-                    break;
-                case "list":
-                    c = new ListCommand(command, tasks, storage, ui);
-                    break;
-                case "delete":
-                    c = new DeleteCommand(command, tasks, storage, ui, parser.getTaskName());
-                    break;
-                case "mark":
-                    int taskNumberMark = Integer.parseInt(parser.getTaskName());
-                    c = new MarkCommand(command, tasks, storage, ui, taskNumberMark);
-                    break;
-                case "unmark":
-                    int taskNumberUnMark = Integer.parseInt(parser.getTaskName());
-                    c = new UnmarkCommand(command, tasks, storage, ui, taskNumberUnMark);
-                    break;
-                case "find":
-                    String keyword = parser.getTaskName();
-                    c = new FindCommand(command, tasks, storage, ui, keyword);
-                    break;
-                case "sum":
-                    String expensesName = parser.getTaskName();
-                    c = new SumCommand(command, tasks, storage, ui, expensesName);
-                    break;
-                case "expenses":
-                case "todo":
-                case "deadline":
-                case "event":
-                    c = new AddCommand(command, tasks, storage, ui, parser.getTaskName(), parser.getFirstInfo(),
-                                        parser.getSecondInfo());
-                    break;
-                default:
-                    ui.showError("I do not recognize this command, I must check with the head of my order.");
-                    ui.showError("If you believe you are right, then check formatting in the user guide.");
-                    continue; // Continue to the next iteration of the loop
-                }
-                c.execute();
-                isExit = c.setExit();
-            } catch (GandalfException e) {
-                ui.showError(e.getMessage());
-            }
-        }
-    }
     public String getResponse(String input) {
-        return "Gandalf heard: " + input;
-    }
-    public static void main(String[] args) {
-        new Gandalf("docs/gandalfMeta.txt", "docs/gandalfRead.txt").run();
+        if (input.length() == 0) { //ignore accidental new lines from user
+            return input;
+        }
+        Command c;
+        Parser parser = new Parser(input);
+        parser.interpret();
+        String command = parser.getTaskType();
+        try {
+            switch (command) {
+            case "bye":
+                c = new ByeCommand(command, tasks, storage, ui);
+                break;
+            case "list":
+                c = new ListCommand(command, tasks, storage, ui);
+                break;
+            case "delete":
+                c = new DeleteCommand(command, tasks, storage, ui, parser.getTaskName());
+                break;
+            case "mark":
+                int taskNumberMark = Integer.parseInt(parser.getTaskName());
+                c = new MarkCommand(command, tasks, storage, ui, taskNumberMark);
+                break;
+            case "unmark":
+                int taskNumberUnMark = Integer.parseInt(parser.getTaskName());
+                c = new UnmarkCommand(command, tasks, storage, ui, taskNumberUnMark);
+                break;
+            case "find":
+                String keyword = parser.getTaskName();
+                c = new FindCommand(command, tasks, storage, ui, keyword);
+                break;
+            case "sum":
+                String expensesName = parser.getTaskName();
+                c = new SumCommand(command, tasks, storage, ui, expensesName);
+                break;
+            case "expenses":
+            case "todo":
+            case "deadline":
+            case "event":
+                c = new AddCommand(command, tasks, storage, ui, parser.getTaskName(), parser.getFirstInfo(),
+                        parser.getSecondInfo());
+                break;
+            default:
+                return "I do not recognize this command, I must check with the head of my order."
+                    + "If you believe you are right, then check formatting in the user guide.";
+            }
+            return c.execute();
+        } catch (GandalfException e) {
+            return e.getMessage();
+        }
     }
 }
