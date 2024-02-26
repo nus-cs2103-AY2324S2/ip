@@ -1,14 +1,16 @@
+package duke.task;
+
 public class Todo extends Task {
     private String taskType = "T";
-    Todo() {
+    public Todo() {
         super();
     }
 
-    Todo(String taskName, boolean marked, int seqNo) {
+    public Todo(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
-    Todo(String taskName, boolean marked, int seqNo, String type) {
+    public Todo(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;
     }

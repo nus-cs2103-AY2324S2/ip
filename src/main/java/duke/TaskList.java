@@ -1,3 +1,7 @@
+package duke;
+
+import duke.task.Task;
+
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.ArrayList;

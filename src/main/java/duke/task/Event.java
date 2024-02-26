@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,20 +13,20 @@ public class Event extends Task {
     private LocalDateTime fromDate;
     private LocalDateTime toDate;
 
-    Event() {
+    public Event() {
         super();
     }
 
-    Event(String taskName, boolean marked, int seqNo) {
+    public Event(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
-    Event(String taskName, boolean marked, int seqNo, String type) {
+    public Event(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;
     }
 
-    Event(String taskName, boolean marked, int seqNo, String type, String from, String to) {
+    public Event(String taskName, boolean marked, int seqNo, String type, String from, String to) {
         this(taskName, marked, seqNo, type);
         this.fromDate = LocalDateTime.parse(from, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         this.toDate = LocalDateTime.parse(to, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));

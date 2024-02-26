@@ -1,3 +1,5 @@
+package duke.task;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -6,20 +8,20 @@ public class Deadline extends Task {
     private String by = "";
     private String byForStorage = "";
     private LocalDateTime byDate;
-    Deadline() {
+    public Deadline() {
         super();
     }
 
-    Deadline(String taskName, boolean marked, int seqNo) {
+    public Deadline(String taskName, boolean marked, int seqNo) {
         super(taskName, marked, seqNo);
     }
 
-    Deadline(String taskName, boolean marked, int seqNo, String type) {
+    public Deadline(String taskName, boolean marked, int seqNo, String type) {
         super(taskName, marked, seqNo);
         this.taskType = type;
     }
 
-    Deadline(String taskName, boolean marked, int seqNo, String type, String by) {
+    public Deadline(String taskName, boolean marked, int seqNo, String type, String by) {
         this(taskName, marked, seqNo, type);
         this.byDate = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm"));
         this.by = byDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));

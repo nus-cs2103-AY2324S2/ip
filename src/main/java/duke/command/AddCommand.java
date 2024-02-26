@@ -1,4 +1,7 @@
-import jdk.jshell.spi.ExecutionControl;
+package duke.command;
+
+import duke.*;
+import duke.task.Task;
 
 public class AddCommand extends Command{
     private Task task;
@@ -8,7 +11,7 @@ public class AddCommand extends Command{
     public AddCommand(Task task){
         this.task = task;
     }
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         taskList.add(this.task);
         storage.Store(taskList.toString());
         int count = taskList.getTaskList().size();

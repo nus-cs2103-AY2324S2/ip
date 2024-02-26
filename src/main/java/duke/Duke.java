@@ -1,9 +1,9 @@
+package duke;
+
+import duke.command.Command;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.util.Scanner;
 
 public class Duke {
     private Storage storage;
@@ -50,6 +50,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("/home/shiva/IdeaProjects/cs2103-t9/duke/duke.txt").run();
+        new Duke("/home/shiva/IdeaProjects/cs2103-t9-p2/duke/duke.txt").run();
     }
 }

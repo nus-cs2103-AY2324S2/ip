@@ -1,3 +1,10 @@
+package duke;
+
+import duke.task.Deadline;
+import duke.task.Event;
+import duke.task.Task;
+import duke.task.Todo;
+
 public class TaskParser {
     private static final String MARKED_TAG="[X]";
     private static final String TODO_TAG="[T]";

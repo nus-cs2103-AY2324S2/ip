@@ -1,9 +1,11 @@
-import java.io.*;
+package duke;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
-
-import static java.nio.file.Files.*;
 
 public class Storage {
     private String filePath="";

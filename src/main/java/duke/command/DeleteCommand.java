@@ -1,4 +1,7 @@
-import javax.lang.model.type.DeclaredType;
+package duke.command;
+
+import duke.*;
+import duke.task.Task;
 
 public class DeleteCommand extends Command{
     private int itemNoToDelete;
@@ -11,7 +14,7 @@ public class DeleteCommand extends Command{
         this.itemNoToDelete = itemNoToDelete;
     }
 
-    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException{
+    public void execute(TaskList taskList, UI ui, Storage storage) throws DukeException {
         int taskIndex = this.itemNoToDelete-1;
         Task taskToDelete = taskList.getItemFromListByIndex(taskIndex);
         taskList.removeItemAtIndex(taskIndex);
