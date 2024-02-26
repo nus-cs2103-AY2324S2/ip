@@ -1,6 +1,15 @@
 package gandalf;
 
-import java.io.*;
+import gandalf.tasktypes.Task;
+
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
+import java.io.BufferedWriter;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -22,7 +31,10 @@ public class Storage {
     public ArrayList<Task> load() throws GandalfException {
         ArrayList<Task> data = new ArrayList<>(100);
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(this.filePathMeta))) {
-            data = (ArrayList<Task>) ois.readObject();
+            Object storedData = ois.readObject();
+            if (storedData instanceof ArrayList<?>) { //handles if user breaks the metadata textfile
+                data = (ArrayList<Task>) storedData;
+            }
         } catch (FileNotFoundException e) {
             try {
                 // Create directory if it doesn't exist
@@ -30,7 +42,6 @@ public class Storage {
                 if (!Files.exists(dirPath)) {
                     Files.createDirectories(dirPath);
                 }
-
                 // Create the file if it doesn't exist
                 if (!Files.exists(Paths.get(this.filePathMeta))) {
                     Files.createFile(Paths.get(this.filePathMeta));

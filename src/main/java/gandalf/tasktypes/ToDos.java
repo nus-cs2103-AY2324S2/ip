@@ -1,4 +1,4 @@
-package gandalf;
+package gandalf.tasktypes;
 
 public class ToDos extends Task {
     public ToDos(String nameOfTask) {

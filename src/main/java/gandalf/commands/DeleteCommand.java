@@ -1,4 +1,9 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.GandalfException;
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 /**
  * Deletes the task at the specified index and stores the modified list.

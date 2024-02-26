@@ -1,5 +1,12 @@
-package gandalf;
+package gandalf.commands;
 
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
+
+/**
+ * SumCommand shows the total amount spent on certain expenses.
+ */
 public class SumCommand extends Command {
     private final String expensesName;
 

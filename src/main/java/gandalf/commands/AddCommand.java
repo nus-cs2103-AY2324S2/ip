@@ -1,4 +1,9 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.GandalfException;
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 /**
  * AddCommand calls the TaskList object's add() method. It also stores the modified list and prints out the total

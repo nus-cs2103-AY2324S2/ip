@@ -6,8 +6,8 @@ package gandalf;
 public class Parser {
     private String taskType;
     private String taskName;
-    private String startDate;
-    private String endDate;
+    private String firstInfo;
+    private String secondInfo;
     private final String userInput;
 
     public Parser(String userInput) {
@@ -21,9 +21,9 @@ public class Parser {
     public void interpret() {
         StringBuilder builderTaskType = new StringBuilder();
         StringBuilder builderTaskName = new StringBuilder();
-        StringBuilder builderStartDate = new StringBuilder();
-        StringBuilder builderEndDate = new StringBuilder();
-        StringBuilder[] parsedInput = {builderTaskType, builderTaskName, builderStartDate, builderEndDate};
+        StringBuilder builderFirstInfo = new StringBuilder();
+        StringBuilder builderSecondInfo = new StringBuilder();
+        StringBuilder[] parsedInput = {builderTaskType, builderTaskName, builderFirstInfo, builderSecondInfo};
         int currInfo = 0;
         for (int i = 0; i < userInput.length(); i++) {
             char currChar = userInput.charAt(i);
@@ -37,8 +37,8 @@ public class Parser {
         }
         this.taskType = builderTaskType.toString().trim().toLowerCase();
         this.taskName = builderTaskName.toString().trim();
-        this.startDate = builderStartDate.toString().trim();
-        this.endDate = builderEndDate.toString().trim();
+        this.firstInfo = builderFirstInfo.toString().trim();
+        this.secondInfo = builderSecondInfo.toString().trim();
     }
 
     public String getTaskType() {
@@ -47,10 +47,10 @@ public class Parser {
     public String getTaskName() {
         return this.taskName;
     }
-    public String getStartDate() {
-        return this.startDate;
+    public String getFirstInfo() {
+        return this.firstInfo;
     }
-    public String getEndDate() {
-        return this.endDate;
+    public String getSecondInfo() {
+        return this.secondInfo;
     }
 }

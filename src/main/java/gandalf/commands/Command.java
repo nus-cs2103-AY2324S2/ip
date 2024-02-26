@@ -1,4 +1,9 @@
-package gandalf;
+package gandalf.commands;
+
+import gandalf.GandalfException;
+import gandalf.Storage;
+import gandalf.TaskList;
+import gandalf.Ui;
 
 /**
  * Command is an abstract class and any classes that inherits this must implement the execute() method.

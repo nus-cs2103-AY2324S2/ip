@@ -1,4 +1,6 @@
-package gandalf;
+package gandalf.tasktypes;
+
+import gandalf.GandalfException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

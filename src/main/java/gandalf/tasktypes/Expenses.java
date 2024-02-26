@@ -1,5 +1,8 @@
-package gandalf;
+package gandalf.tasktypes;
 
+/**
+ * Tasks of type expenses
+ */
 public class Expenses extends Task {
 
     private double price;
