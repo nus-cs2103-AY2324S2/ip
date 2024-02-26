@@ -99,4 +99,18 @@ public class Event extends Task {
     public LocalDateTime getToTime() {
         return to_time;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Event) {
+            Event t = (Event) o;
+
+            boolean isDescriptionEqual = t.getDescription().equals(this.getDescription());
+            boolean isFromTimeEqual = t.getFromTime().equals(this.getFromTime());
+            boolean isToTimeEqual = t.getToTime().equals(this.getToTime());
+
+            return isDescriptionEqual && isFromTimeEqual && isToTimeEqual;
+        }
+        return false;
+    }
 }
