@@ -38,9 +38,13 @@ public class DeleteTask extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException, StorageException {
         String[] userInput = ui.getCommand();
-        int index = Integer.parseInt(userInput[userInput.length - 1].trim()) - 1;
-        taskList.deleteTask(index);
-        return doneExecute(taskList, ui, storage);
+        try {
+            int index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
+            taskList.deleteTask(index);
+            return doneExecute(taskList, ui, storage);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexException();
+        }
     }
 
     @Override

@@ -19,6 +19,6 @@ public class InvalidIndexException extends DukeException{
      * Constructs a new InvalidIndexException with a default message.
      */
     public InvalidIndexException() {
-        super("Index out of bounds. Use list to view all tasks.");
+        super("Index out of bounds or invalid index given. Use list to view all tasks.");
     }
 }

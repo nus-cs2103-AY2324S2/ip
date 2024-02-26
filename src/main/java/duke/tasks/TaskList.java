@@ -78,7 +78,7 @@ public class TaskList extends ArrayList<Task> {
     public void deleteTask(int index) throws InvalidIndexException {
         try {
             this.remove(index);
-        } catch (IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e  ) {
             throw new InvalidIndexException();
         }
     }

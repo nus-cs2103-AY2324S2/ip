@@ -37,9 +37,13 @@ public class MarkTaskDone extends Command {
     @Override
     public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidIndexException, StorageException {
         String[] userInput = ui.getCommand();
-        int index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
-        taskList.getTask(index).markDone();
-        return doneExecute(taskList, ui, storage);
+        try {
+            int index = Integer.parseInt(userInput[userInput.length - 1]) - 1;
+            taskList.getTask(index).markDone();
+            return doneExecute(taskList, ui, storage);
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexException();
+        }
     }
 
     @Override
