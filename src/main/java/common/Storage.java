@@ -30,15 +30,11 @@ public class Storage {
         this.filepath = filepath;
     }
 
-<<<<<<< HEAD
     /**
      * Checks if filepath exist, if not creates one from the current directory.
      * Maximum attempt of 2, else the program will exit with error.
      */
     public void checkForFilePath() {
-=======
-    private void checkForFilePath() {
->>>>>>> branch-A-CodingStandard
         int currentAttempt = 0;
         File file;
 
