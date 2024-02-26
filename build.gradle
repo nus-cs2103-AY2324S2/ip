@@ -50,6 +50,8 @@ shadowJar {
     archiveBaseName = "dino"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'dino.jar'
+    archiveVersion = "0.2"
 }
 
 run{

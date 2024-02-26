@@ -8,7 +8,7 @@ DinoBot is a chatbot designed to assist you with task management. To start inter
 
 1. **Set up**: Ensure that you have Java 11 or above installed in your Computer.
 
-2. **Installation**: Get the most recent version of duke.jar from here and Move the downloaded file to the directory you wish to designate as Dino's home folder.
+2. **Installation**: Get the most recent version of duke.jar from [here](https://github.com/nuyer/ip/releases/tag/A-Release) and Move the downloaded file to the directory you wish to designate as Dino's home folder.
 
 3. **Launch**: Launch a command terminal, navigate (cd) to the directory containing the .jar file, and execute java -jar dino.jar.
 
