@@ -48,6 +48,7 @@ public class TaskList {
         if ((n > 0) && (n <= tasks.size())) {
             Task task = tasks.get(n - 1);
             task.setDone();
+            assert task.getStatusIcon().equals("X");
             return Ui.showMarkTask(task);
         } else {
             return Ui.showNoTaskFound();
@@ -63,6 +64,7 @@ public class TaskList {
         if ((n > 0) && (n <= tasks.size())) {
             Task task = tasks.get(n - 1);
             task.setUndone();
+            assert task.getStatusIcon().equals(" ");
             return Ui.showUnmarkTask(task);
         } else {
             return Ui.showNoTaskFound();
