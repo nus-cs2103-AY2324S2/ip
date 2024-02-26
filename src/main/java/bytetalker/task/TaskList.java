@@ -253,7 +253,7 @@ public class TaskList {
         if (splitMessages.length != 2) {
             return "Please use the correct format";
         }
-        String content = splitMessages[1];
+        String content = Parser.parseFindInput(splitMessages);
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currentTask = this.tasks.get(i);

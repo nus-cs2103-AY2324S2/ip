@@ -221,4 +221,18 @@ public class Parser {
         }
         return parseDateTime(time.strip());
     }
+
+    /**
+     * Extracts words of contents that user wants to find.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @return Words of contents that user wants to find.
+     */
+    public static String parseFindInput(String[] splitMessages) {
+        String temp = "";
+        for (int i = 1; i < splitMessages.length; i++) {
+            temp += splitMessages[i] + " ";
+        }
+        return temp.strip();
+    }
 }
