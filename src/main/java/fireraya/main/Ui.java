@@ -31,10 +31,11 @@ public class Ui {
      */
     public static String startMessage() {
         String a = print("--------------------------------\n" );
-        String b = print("Hello, my name is RONNIE!\n");
+        String b = print("Hello, my name is Fireraya!\n");
+        String b1 = print("My friends call me RONNIE!\n");
         String c = print("What can I do for you today mate?\n");
         String d = print("--------------------------------\n");
-        String combined = a + b + c + d;
+        String combined = a + b + b1 + c + d;
         return combined;
     }
 

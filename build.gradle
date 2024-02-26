@@ -43,11 +43,11 @@ test {
 }
 
 application {
-    mainClass.set("fireraya.main.Fireraya")
+    mainClass.set("fireraya.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "Fireraya"
+    archiveBaseName = "fireraya"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }

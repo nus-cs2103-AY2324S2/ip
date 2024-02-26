@@ -1,7 +1,9 @@
 package fireraya.main;
 
+import fireraya.Ui.Main;
 import fireraya.command.Command;
 import fireraya.exception.FirerayaException;
+import javafx.application.Application;
 import javafx.application.Platform;
 
 /**
@@ -49,5 +51,7 @@ public class Fireraya {
             return e.getMessage();
         }
     }
+
 }
+
 

@@ -38,7 +38,7 @@ public class MarkCommand extends Command{
         }
 
         tasks.markAsDone(index);
-        String a = ui.print("Good job completing these tasks!:\n");
+        String a = ui.print("Good job completing this task!:\n");
         String b = ui.listTaskAt(tasks.getTasks(), index);
         storage.saveToFile(tasks.getTasks());
         return a + b;
