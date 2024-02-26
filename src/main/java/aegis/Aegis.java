@@ -20,7 +20,15 @@ public class Aegis {
      * Constructor for creating an Aegis object.
      */
     public Aegis() {
-        initialSetup();
+        initialSetup("","");
+    }
+
+    /**
+     * Constructor for creating an Aegis object with a custom path
+     * for directory and file access.
+     */
+    public Aegis(String directoryPath, String filePath) {
+        initialSetup(directoryPath, filePath);
     }
 
     /**
@@ -31,7 +39,7 @@ public class Aegis {
      * @param args Default parameter for main method.
      */
     public static void main(String[] args) {
-        initialSetup();
+        initialSetup("","");
 
         while (true) {
             try {
@@ -66,10 +74,20 @@ public class Aegis {
         return response;
     }
 
-    private static void initialSetup() {
+    private static void initialSetup(String dPath, String fPath) {
         parser = new Parser();
-        storage = new Storage("./src/main/data",
-                "./src/main/data/aegis.txt");
+
+        String directoryPath = "";
+        String filePath = "";
+        if (dPath.isBlank() && fPath.isBlank()) {
+            directoryPath = "./src/main/data";
+            filePath = "./src/main/data/aegis.txt";
+        } else {
+            directoryPath = dPath;
+            filePath = fPath;
+        }
+        storage = new Storage(directoryPath, filePath);
+
         taskList = new TaskList();
         ui = new Ui();
 
