@@ -10,9 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
- * Encapsulates the data and behaviour of Fatnom.
- * Fatnom is a chatbot application designed to help users manage their task lists.
- * It provides functionalities to add, delete, mark, unmark, list and find tasks.
+ * Encapsulates the main class of the chatbot application.
  *
  * @author Huang Zhuoyan, Celeste
  * @version CS2103T AY24/25 Semester 1, G07
@@ -26,6 +24,13 @@ public class Duke {
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Constructs a new Duke instance.
+     * Initialises the Ui, Storage, TaskList and Parser objects.
+     * Loads the existing TaskList from the saved file if available, otherwise, initialises an empty one.
+     *
+     * @throws DukeException For initialisation errors.
+     */
     public Duke() throws DukeException {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
@@ -38,18 +43,38 @@ public class Duke {
         parser = new Parser(tasks, ui);
     }
 
+    /**
+     * Retrieves the Parser object associated with this Duke instance.
+     *
+     * @return The Parser object.
+     */
     public Parser getParser() {
         return parser;
     }
 
+    /**
+     * Retrieves the TaskList object associated with this Duke instance.
+     *
+     * @return The TaskList object.
+     */
     public TaskList getTasklist() {
         return tasks;
     }
 
+    /**
+     * Retrieves the Ui object associated with this Duke instance.
+     *
+     * @return The Ui object.
+     */
     public Ui getUi() {
         return ui;
     }
 
+    /**
+     * Starts the Fatnom application.
+     * Initialises a Duke object and runs the application by continuously reading and parsing user input
+     * until the application is terminated.
+     */
     public void run() {
         Scanner sc = new Scanner(System.in);
         Ui.printWelcomeMessage(NAME);
@@ -68,8 +93,8 @@ public class Duke {
     }
 
     /**
-     * Starts the Fatnom application.
-     * Initialises a Duke object and runs the application.
+     * Serves as the entry point for the Fatnom application.
+     * Creates a new Duke instance and invokes the run method.
      *
      * @param args The command-line arguments.
      * @throws DukeException For initialisation errors.

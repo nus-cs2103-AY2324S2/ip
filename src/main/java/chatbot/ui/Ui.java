@@ -10,8 +10,6 @@ import chatbot.task.TaskList;
  * @version CS2103T AY24/25 Semester 1, G07
  */
 public class Ui {
-    private static final int LINE_LENGTH = 60;
-
     /**
      * Returns a String containing the welcome message.
      *
@@ -62,7 +60,7 @@ public class Ui {
     /**
      * Returns a String containing the list of tasks containing the specified keyword.
      *
-     * @param tasks The TaskList object containing the task list to be searched.
+     * @param tasks   The TaskList object containing the task list to be searched.
      * @param keyword The keyword to be found.
      */
     public static String printFindTask(TaskList tasks, String keyword) {
@@ -88,7 +86,7 @@ public class Ui {
     /**
      * Returns a String containing the message for when a task has successfully been marked.
      *
-     * @param tasks The TaskList object containing the user's task list.
+     * @param tasks   The TaskList object containing the user's task list.
      * @param taskNum The number of the task that has been marked.
      */
     public static String printMarkedTask(TaskList tasks, int taskNum) {
@@ -100,7 +98,7 @@ public class Ui {
     /**
      * Returns a String containing the message for when a task has successfully been unmarked.
      *
-     * @param tasks The TaskList object containing the user's task list.
+     * @param tasks   The TaskList object containing the user's task list.
      * @param taskNum The number of the task that has been unmarked.
      */
     public static String printUnmarkedTask(TaskList tasks, int taskNum) {
@@ -112,7 +110,7 @@ public class Ui {
     /**
      * Returns a String containing the message for when a task has successfully been added.
      *
-     * @param taskMessage The message to be printed.
+     * @param taskMessage     The message to be printed.
      * @param totalNumOfTasks The total number of tasks in the task list after the new task has been added.
      */
     public static String printAddedTask(String taskMessage, int totalNumOfTasks) {
@@ -125,7 +123,7 @@ public class Ui {
     /**
      * Returns a String containing the message for when a task has successfully been deleted.
      *
-     * @param taskMessage The message to be printed.
+     * @param taskMessage         The message to be printed.
      * @param remainingNumOfTasks The remaining number of tasks in the task list after the task has been deleted.
      */
     public static String printDeletedTask(String taskMessage, int remainingNumOfTasks) {

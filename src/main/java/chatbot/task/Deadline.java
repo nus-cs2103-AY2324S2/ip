@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Deadline extends Task {
     private LocalDateTime deadline;
-    private static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
+    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("MMM dd yyyy h:mma");
 
     /**
      * Constructs a new chatbot.task.Deadline task with the given name and deadline.
@@ -31,7 +31,7 @@ public class Deadline extends Task {
      * @return The formatted deadline, as a String.
      */
     public String formatDeadline(LocalDateTime time) {
-        return time.format(formatter);
+        return time.format(FORMATTER);
     }
 
     @Override

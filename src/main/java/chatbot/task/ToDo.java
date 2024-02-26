@@ -9,6 +9,7 @@ package chatbot.task;
 public class ToDo extends Task {
     /**
      * Constructs a new chatbot.task.ToDo task with the given name.
+     *
      * @param name The name of the chatbot.task.ToDo task.
      */
     public ToDo(String name) {

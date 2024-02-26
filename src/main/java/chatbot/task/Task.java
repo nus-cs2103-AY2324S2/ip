@@ -8,7 +8,7 @@ package chatbot.task;
  */
 public class Task {
     private String name;
-    private boolean completed;
+    private boolean isCompleted;
 
     /**
      * Constructs a new chatbot.task.Task with the given name.
@@ -17,21 +17,21 @@ public class Task {
      */
     public Task(String name) {
         this.name = name;
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
      * Marks the task as complete.
      */
     public void complete() {
-        this.completed = true;
+        this.isCompleted = true;
     }
 
     /**
      * Marks the task as incomplete.
      */
     public void unmark() {
-        this.completed = false;
+        this.isCompleted = false;
     }
 
     /**
@@ -40,7 +40,7 @@ public class Task {
      * @return A String describing the task name and completion status.
      */
     public String printTask() {
-        String taskMessage = this.completed ? "[X]" : "[ ]";
+        String taskMessage = this.isCompleted ? "[X]" : "[ ]";
         taskMessage += this.name;
         return taskMessage;
     }
@@ -51,7 +51,7 @@ public class Task {
      * @return A String describing the task name and completion status.
      */
     public String saveTask() {
-        String taskMessage = this.completed ? "1" : "0";
+        String taskMessage = this.isCompleted ? "1" : "0";
         taskMessage += " |" + this.name;
         return taskMessage;
     }

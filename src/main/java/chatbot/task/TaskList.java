@@ -139,7 +139,7 @@ public class TaskList {
     /**
      * Adds a new Deadline task with the specified task description and deadline.
      *
-     * @param name The task description of the Deadline task.
+     * @param name     The task description of the Deadline task.
      * @param deadline The LocalDateTime object containing the deadline of the task.
      */
     public String addDeadlineTask(String name, LocalDateTime deadline) {
@@ -154,9 +154,9 @@ public class TaskList {
     /**
      * Adds a new Event task with the specified task description, start and end dates.
      *
-     * @param name The task description of the Event task.
+     * @param name  The task description of the Event task.
      * @param start The LocalDateTime object containing the start date of the task.
-     * @param end The LocalDateTime object containing the end date of the task.
+     * @param end   The LocalDateTime object containing the end date of the task.
      */
     public String addEventTask(String name, LocalDateTime start, LocalDateTime end) {
         assert name != null : "task description should not be empty";
