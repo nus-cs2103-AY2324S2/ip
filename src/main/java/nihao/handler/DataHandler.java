@@ -55,24 +55,18 @@ public class DataHandler {
      * Creates the storage file and/or the directory if not found.
      */
     public static void read() {
-        Path filePath = Paths.get(FILE_PATH);
-        Path directoryPath = Paths.get(DIRECTORY_PATH);
         try {
             readFromJson();
         } catch (IOException e) {
-            if (!Files.exists(directoryPath)) {
+            Path newFilePath = Paths.get(FILE_PATH);
+            try {
+                Files.createFile(newFilePath);
+            } catch (IOException ex) {
                 try {
-                    Files.createDirectories(directoryPath);
+                    Files.createDirectory(Paths.get(DIRECTORY_PATH));
                 } catch (IOException exc) {
                     PrintHandler.printException(exc);
-                    return;
                 }
-            }
-
-            try {
-                Files.createFile(filePath);
-            } catch (IOException ex) {
-                PrintHandler.printException(ex);
             }
         }
     }
@@ -95,6 +89,7 @@ public class DataHandler {
      */
     public static void addTask(Task task) {
         tasks.add(task);
+        // Todo: Exception handling
     }
 
     /**

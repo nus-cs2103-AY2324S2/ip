@@ -1,6 +1,7 @@
 package nihao;
 
 import javafx.application.Application;
+
 import nihao.handler.DataHandler;
 
 
@@ -18,6 +19,7 @@ public class App {
      */
     public static void main(String[] args) {
         DataHandler.read();
+//        nihao.run();
         Application.launch(Nihao.class, args);
     }
 

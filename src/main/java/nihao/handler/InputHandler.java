@@ -15,7 +15,6 @@ import nihao.action.task.EventTask;
 import nihao.action.task.TodoTask;
 import nihao.enums.Command;
 import nihao.exception.IllegalArgumentException;
-import nihao.exception.IncorrectDateTimeFormatException;
 import nihao.exception.UnknownCommandException;
 
 /**
@@ -36,14 +35,8 @@ public class InputHandler {
         String taskName;
         switch (command) {
         case BYE:
-            if (parsedInput.length != 1) {
-                throw new IllegalArgumentException("bye", 0);
-            }
             return new ExitAction();
         case LIST:
-            if (parsedInput.length != 1) {
-                throw new IllegalArgumentException("list", 0);
-            }
             return new ListAction();
         case MARK:
             if (parsedInput.length != 2) {
@@ -73,9 +66,32 @@ public class InputHandler {
             TodoTask todoTask = new TodoTask(taskName);
             return new TaskAction(todoTask);
         case DEADLINE:
-            return deadlineActionBuilder(input, parsedInput);
+            if (countByFlag(parsedInput) != 1) {
+                throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
+            }
+            int byIndex = input.indexOf(" /by ");
+            if (byIndex < 9) {
+                throw new IllegalArgumentException("illegal use of /by flag");
+            }
+            taskName = input.substring(9, byIndex);
+            LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + 5));
+            DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
+            return new TaskAction(deadlineTask);
         case EVENT:
-            return eventActionBuilder(input, parsedInput);
+            if (countFromFlag(parsedInput) != 1 || countToFlag(parsedInput) != 1) {
+                throw new IllegalArgumentException("'event' requires exactly 1 /from flag and 1 /to flag");
+            }
+            int fromIndex = input.indexOf(" /from ");
+            int toIndex = input.indexOf(" /to ");
+            if (fromIndex < 6 || toIndex < fromIndex + 7) {
+                throw new IllegalArgumentException("illegal use of flags");
+                // Todo: define "  " and " " more clearly
+            }
+            taskName = input.substring(6, fromIndex);
+            LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + 7, toIndex));
+            LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + 5));
+            EventTask eventTask = new EventTask(taskName, from, to);
+            return new TaskAction(eventTask);
         default:
             throw new UnknownCommandException(input);
         }
@@ -109,45 +125,5 @@ public class InputHandler {
             }
         }
         return counter;
-    }
-
-    private static TaskAction deadlineActionBuilder(String input, String[] parsedInput)
-            throws IncorrectDateTimeFormatException, IllegalArgumentException {
-        if (countByFlag(parsedInput) != 1) {
-            throw new IllegalArgumentException("deadline requires exactly 1 /by flag");
-        }
-
-        final int deadlineLength = 9;
-        final int byLength = 5;
-        int byIndex = input.indexOf(" /by ");
-        if (byIndex < deadlineLength) {
-            throw new IllegalArgumentException("illegal use of /by flag");
-        }
-        String taskName = input.substring(deadlineLength, byIndex);
-        LocalDateTime by = DateTimeHandler.handleInput(input.substring(byIndex + byLength));
-        DeadlineTask deadlineTask = new DeadlineTask(taskName, by);
-        return new TaskAction(deadlineTask);
-    }
-
-    private static TaskAction eventActionBuilder(String input, String[] parsedInput)
-            throws IncorrectDateTimeFormatException, IllegalArgumentException {
-        if (countFromFlag(parsedInput) != 1 || countToFlag(parsedInput) != 1) {
-            throw new IllegalArgumentException("'event' requires exactly 1 /from flag and 1 /to flag");
-        }
-
-        final int eventLength = 6;
-        final int fromLength = 7;
-        final int toLength = 5;
-        int fromIndex = input.indexOf(" /from ");
-        int toIndex = input.indexOf(" /to ");
-        if (fromIndex < eventLength || toIndex < fromIndex + fromLength) {
-            throw new IllegalArgumentException("illegal use of flags");
-            // Todo: define "  " and " " more clearly
-        }
-        String taskName = input.substring(6, fromIndex);
-        LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + fromLength, toIndex));
-        LocalDateTime to = DateTimeHandler.handleInput(input.substring(toIndex + toLength));
-        EventTask eventTask = new EventTask(taskName, from, to);
-        return new TaskAction(eventTask);
     }
 }
