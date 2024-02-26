@@ -24,9 +24,11 @@ public class Deadline extends Task {
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         try {
             this.dueDateTime = LocalDateTime.parse(dueDate, formatter1);
+            assert this.dueDateTime != null : "Due date is null after parsing in d/M/yyyy HHmm";
         } catch (DateTimeParseException e1) {
             try {
                 this.dueDateTime = LocalDateTime.parse(dueDate, formatter2);
+                assert this.dueDateTime != null : "Due date is null after parsing in MMM dd yyyy HH:mm";
             } catch (DateTimeParseException e2) {
                 throw new BotException(
                         "Invalid date format. Please use 'MMM dd yyyy HH:mm'.");
@@ -44,6 +46,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
+        assert this.dueDateTime != null : "Due date is null";
         return "D" + super.toString() + " | by: " + this.dueDateTime.format(formatter);
     }
 }
