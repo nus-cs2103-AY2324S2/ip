@@ -26,9 +26,9 @@ import java.util.ArrayList;
 public class Storage {
 
     private static TaskList taskList;
-    private static final String HOME = System.getProperty("user.home"); // user's home path
-    private static final Path FILEPATH = Paths.get(HOME, "Downloads", "NUS_CS",
-            "CS2103", "duke.txt"); // file path of local tasklist file
+
+    private static final String USER_DIRECTORY = System.getProperty("user.dir");
+    public static final Path FILEPATH = Paths.get(USER_DIRECTORY, "data", "axolotl.txt");
 
 
     /**
@@ -44,6 +44,7 @@ public class Storage {
      * @throws IOException
      */
     public static TaskList retrieveList() {
+
         if (Files.exists(FILEPATH)) {
             ArrayList<Task> taskList = new ArrayList<>();
             try {
