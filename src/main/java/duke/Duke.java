@@ -38,12 +38,11 @@ public class Duke {
         try {
             ArrayList<Task> temp = new ArrayList<>(storage.loadData());
             tasks = new TaskList(temp);
-            assert tasks.getTasks() != storage.loadData() :
-                    "TaskList and Storage data should not reference the same object for their respective task lists";
+            assert tasks.getTasks() != storage.loadData()
+                    : "TaskList and Storage data should not reference the same object for their respective task lists";
         } catch (IllegalArgumentException e) {
             tasks = new TaskList();
         }
-
     }
 
     /**
@@ -67,5 +66,13 @@ public class Duke {
      */
     protected boolean isExit() {
         return isExit;
+    }
+
+    /**
+     * Returns a welcome message to be displayed to the user.
+     * @return a String representing the welcome message
+     */
+    protected String showWelcome() {
+        return ui.showWelcome();
     }
 }
