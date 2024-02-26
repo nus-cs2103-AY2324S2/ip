@@ -5,6 +5,5 @@
  T | 0 | grocery
  T | 0 | return book
  T | 0 | borrow book
- T | 0 | haha
  T | 0 | hi
  T | 0 | haha
