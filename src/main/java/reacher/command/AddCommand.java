@@ -12,11 +12,11 @@ import static reacher.Parser.Variable.*;
  */
 public class AddCommand extends Command {
     /**
-     * Executes command by asking user for name and type of task and adding to tasks and update storage.
+     * Executes command by asking user for name and type of task and adding to tasks and update storage
+     * and returns String for output.
      *
      * @param tasks   List of tasks.
      * @param storage Local file storage.
-     * @return
      * @throws ReacherException if user input is invalid type of task.
      */
     public String execute(String input, TaskList tasks, Storage storage) throws ReacherException {

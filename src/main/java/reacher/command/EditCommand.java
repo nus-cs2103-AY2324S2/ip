@@ -12,11 +12,11 @@ import static reacher.Parser.Variable.TASK_NO;
  */
 public class EditCommand extends Command{
     /**
-     * Executes command to mark a task in tasks done, undone or delete it ans update storage.
+     * Executes command to mark a task in tasks done, undone or delete it and update storage
+     * and returns String for output.
      *
      * @param tasks   List of tasks
      * @param storage Local file storage
-     * @return
      * @throws ReacherException If user did not specify done, undone or delete.
      */
     @Override

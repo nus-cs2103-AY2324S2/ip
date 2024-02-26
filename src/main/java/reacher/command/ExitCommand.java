@@ -8,11 +8,10 @@ import reacher.TaskList;
  */
 public class ExitCommand extends Command {
     /**
-     * Executes command by printing message.
+     * Executes command by returning message for output.
      *
      * @param tasks   List of tasks.
      * @param storage Local file storage.
-     * @return
      */
     @Override
     public String execute(String input, TaskList tasks, Storage storage){

@@ -8,11 +8,10 @@ import reacher.TaskList;
  */
 public class ListCommand extends Command {
     /**
-     * Execute command by printing the tasks in Tasks.
+     * Execute command by returning String of list for output.
      *
      * @param tasks   List of tasks.
      * @param storage Local file storage.
-     * @return
      */
     @Override
     public String execute(String input, TaskList tasks, Storage storage) {
