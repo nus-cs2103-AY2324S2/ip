@@ -88,9 +88,9 @@ public class Duke {
                 }
             case "delete":
                 try {
-                    handleDeleteCommand(userInputArray);
+                    String status = handleDeleteCommand(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
-                    return deleteMsg();
+                    return deleteMsg(status);
                 } catch (BotException e) {
                     return e.getMessage();
                 }
@@ -132,8 +132,9 @@ public class Duke {
         return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
-    private String deleteMsg() {
-        return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+    private String deleteMsg(String status) {
+        return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
+                + "\n" + TaskCountMsg() + "\n" + status + "\n";
     }
 
     private String findMsg(String tasks) {
@@ -175,7 +176,8 @@ public class Duke {
      * @throws BotException if the user input is invalid or the task number is out
      * of range
      */
-    private void handleDeleteCommand(String[] userInputArray) throws BotException {
+    private String handleDeleteCommand(String[] userInputArray) throws BotException {
+        StringBuilder status = new StringBuilder();
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to delete.");
         }
@@ -188,18 +190,14 @@ public class Duke {
         if (i <= 0 || i > taskList.getTaskCount()) {
             throw new BotException("Task number is out of range.");
         }
-        Ui.printSeparatorLine();
         Task taskToRemove = taskList.getTaskByNum(i);
         taskList.removeTask(i);
-        Bot.printDeleteTaskMsg();
         if (taskList.getTaskCount() > 0) {
-            System.out.println("Removed Task: " + taskToRemove);
-            Ui.printList(taskList.listTasks());
+            status.append("Task removed: ").append(taskToRemove).append("\n");
         } else {
-            System.out.println("All tasks have been removed.");
+            status.append("No more tasks in the list.");
         }
-        TaskCountMsg();
-        Ui.printSeparatorLine();
+        return status.toString();
     }
 
     /**
