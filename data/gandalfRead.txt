@@ -1,5 +1,0 @@
-1. [T][ ] read a book
-2. expenses school 3.5
-3. expenses school 2.5
-4. expenses transport 2.5
-5. [D][ ] return a book (Tuesday, April 2, 2024 6:00PM)
