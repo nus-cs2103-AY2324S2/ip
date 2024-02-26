@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class Ui {
     // Separator line to be used in the terminal
-    private static final String SEPARATOR_LINE = "________________________________________________________________________________";
+    private static final String SEPARATOR_LINE = "____________________________________________________";
 
     /**
      * Prints a separator line to the terminal
