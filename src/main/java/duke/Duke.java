@@ -109,14 +109,14 @@ public class Duke {
                 } catch (BotException e) {
                     return e.getMessage();
                 }
-                // break;
-                // case "event":
-                // try {
-                // handleEventCommand(userInputArray);
-                // taskRepository.saveTasksToFile(taskList);
-                // } catch (BotException e) {
-                // System.out.println(e.getMessage());
-                // }
+            case "event":
+                try {
+                    handleEventCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
                 // break;
                 // case "delete":
                 // try {
@@ -206,23 +206,21 @@ public class Duke {
      *                     arguments
      * @throws BotException if the description and time of an event are empty
      */
-    // private void handleEventCommand(String[] userInputArray) throws BotException
-    // {
-    // if (userInputArray.length < 3) {
-    // throw new BotException("The description and time of an event cannot be
-    // empty.");
-    // }
-    // String eventTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
-    // userInputArray.length))
-    // .split("/from", 2)[0].trim();
-    // int fromIndex = Arrays.asList(userInputArray).indexOf("/from") + 1;
-    // int toIndex = Arrays.asList(userInputArray).indexOf("/to");
-    // String startTime = String.join(" ", Arrays.copyOfRange(userInputArray,
-    // fromIndex, toIndex));
-    // String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex
-    // + 1, userInputArray.length));
-    // taskList.addEvent(eventTask, startTime, endTime);
-    // }
+    private void handleEventCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
+            throw new BotException("The description and time of an event cannot be empty.");
+        }
+        String eventTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
+                userInputArray.length))
+                .split("/from", 2)[0].trim();
+        int fromIndex = Arrays.asList(userInputArray).indexOf("/from") + 1;
+        int toIndex = Arrays.asList(userInputArray).indexOf("/to");
+        String startTime = String.join(" ", Arrays.copyOfRange(userInputArray,
+                fromIndex, toIndex));
+        String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex
+                + 1, userInputArray.length));
+        taskList.addEvent(eventTask, startTime, endTime);
+    }
 
     private String addTaskMsg() {
         return Bot.printAddTaskMsgGui() + "\n" + botListAllTasks(this.taskList) + "\n";
