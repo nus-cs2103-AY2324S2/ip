@@ -1,6 +1,6 @@
 # Cal User Guide
 
-## Quick Start
+## <span style="color:#A366F9">Quick Start</span>
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest version of Cal from [here](https://github.com/ValenciaLim/ip/releases/tag/Level-10).
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the following command to run the application.
@@ -12,32 +12,31 @@
 ## <span style="color:#A366F9">Features</span>
 Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
 
-## <span style="color:#A366F9">Adding Events</span>
-Adds an event to the task list.
-```event <description> /from <datetime> /to <datetime>```\n
-```deadline <description> /by <datetime>```\n
-```todo <description>```
+### Add task
+```todo <description>``` : add to do
+```event <description> /from <datetime> /to <datetime>```: add a task with deadline
+```deadline <description> /by <datetime>```: add an event
 
-## Listing all tasks
+### List all tasks
 Lists all tasks in the task list.
-```list```
+```list```: list all tasks using checkbox
 
-## Marking tasks as done
+### Mark task as done
 Marks a task as done.
 ```mark <task number>```
 
-## Unmarking tasks as not done
+### Unmark task as not done
 Unmarks a task as not done.
 ```unmark <task number>```
 
-## Deleting tasks
+### Delete tasks
 Deletes a task from the task list.
 ```delete <task number>```
 
-## Finding tasks
+### Find tasks
 Finds tasks that match the given keyword.
 ```find <keyword>```
 
-## Exiting the program
+### Exit the program
 Exits the program.
 ```bye```
