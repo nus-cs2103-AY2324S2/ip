@@ -102,6 +102,7 @@ public class Storage {
      * @return The chatbot.task.Task containing the task data.
      */
     private static Task parseTask(String line) {
+        assert line != null : "line should not be empty";
         Matcher todoMatcher = PATTERN_TODO.matcher(line);
         Matcher deadlineMatcher = PATTERN_DEADLINE.matcher(line);
         Matcher eventMatcher = PATTERN_EVENT.matcher(line);

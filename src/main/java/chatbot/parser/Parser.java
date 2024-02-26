@@ -37,6 +37,7 @@ public class Parser {
      * @throws DukeException The error that occurs during parsing or execution of the command.
      */
     public String parseUserInput(String input) throws DukeException {
+        assert input != null : "input should not be null";
         String[] inputTokens = input.split(" ");
         String[] deadlineFormatChecker = input.split("/by");
         String[] eventFormatChecker = input.split("/from");

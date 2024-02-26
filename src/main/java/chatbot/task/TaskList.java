@@ -60,6 +60,8 @@ public class TaskList {
      * @throws DukeException For an invalid task index.
      */
     public String markTask(int taskNum) throws DukeException {
+        assert taskNum > 0 : "task number should be positive";
+        assert taskNum < tasks.size() + 1 : "task number should be lower than total number of tasks";
         if (taskNum == 0) {
             String exceptionMessage = "task 0? how can i mark a task that doesn't exist?!";
             throw new DukeException(exceptionMessage);
@@ -80,6 +82,8 @@ public class TaskList {
      * @throws DukeException For an invalid task index.
      */
     public String unmarkTask(int taskNum) throws DukeException {
+        assert taskNum > 0 : "task number should be positive";
+        assert taskNum < tasks.size() + 1 : "task number should be lower than total number of tasks";
         if (taskNum == 0) {
             String exceptionMessage = "task 0? how can i unmark a task that doesn't exist?!";
             throw new DukeException(exceptionMessage);
@@ -100,6 +104,8 @@ public class TaskList {
      * @throws DukeException For an invalid task index.
      */
     public String deleteTask(int taskNum) throws DukeException {
+        assert taskNum > 0 : "task number should be positive";
+        assert taskNum < tasks.size() + 1 : "task number should be lower than total number of tasks";
         if (taskNum == 0) {
             String exceptionMessage = "error: there's no such thing as task 0!";
             throw new DukeException(exceptionMessage);
@@ -122,6 +128,7 @@ public class TaskList {
      * @param name The task description of the ToDo task.
      */
     public String addTodoTask(String name) {
+        assert name != null : "task description should not be empty";
         ToDo addedTask = new ToDo(name);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
@@ -136,6 +143,7 @@ public class TaskList {
      * @param deadline The LocalDateTime object containing the deadline of the task.
      */
     public String addDeadlineTask(String name, LocalDateTime deadline) {
+        assert name != null : "task description should not be empty";
         Deadline addedTask = new Deadline(name, deadline);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
@@ -151,6 +159,7 @@ public class TaskList {
      * @param end The LocalDateTime object containing the end date of the task.
      */
     public String addEventTask(String name, LocalDateTime start, LocalDateTime end) {
+        assert name != null : "task description should not be empty";
         Event addedTask = new Event(name, start, end);
         tasks.add(addedTask);
         int totalNumOfTasks = tasks.size();
@@ -164,6 +173,7 @@ public class TaskList {
      * @param keyword The keyword to be searched for.
      */
     public String findTask(String keyword) {
+        assert keyword != null : "keyword should be specified";
         ArrayList<Task> tasksWithKeyword = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             if (tasks.get(i).hasKeyword(keyword)) {

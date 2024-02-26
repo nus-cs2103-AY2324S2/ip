@@ -63,6 +63,7 @@ public class Task {
      * @return True if the task description contains the keyword, otherwise false.
      */
     public boolean hasKeyword(String keyword) {
+        assert keyword != null : "keyword should not be empty";
         String lowerCaseName = this.name.toLowerCase();
         return lowerCaseName.contains(keyword);
     }
