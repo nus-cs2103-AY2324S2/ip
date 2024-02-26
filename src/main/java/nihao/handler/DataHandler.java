@@ -93,7 +93,7 @@ public class DataHandler {
     }
 
     /**
-     * Mark the Task at the given index as completed.
+     * Marks the Task at the given index as completed.
      *
      * @param index Index of the task to be marked as completed.
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
@@ -106,7 +106,7 @@ public class DataHandler {
     }
 
     /**
-     * Mark the Task at the given index as uncompleted.
+     * Marks the Task at the given index as uncompleted.
      *
      * @param index Index of the task to be marked as uncompleted.
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
@@ -119,7 +119,7 @@ public class DataHandler {
     }
 
     /**
-     * Delete the Task at the given index.
+     * Deletes the Task at the given index.
      *
      * @param index Index of the task to be deleted.
      * @throws IndexOutOfBoundsException When the index provided is more than the length of tasks.
@@ -132,7 +132,7 @@ public class DataHandler {
     }
 
     /**
-     * Delete all Tasks in tasks.
+     * Deletes all Tasks in tasks.
      */
     public static void deleteAll() {
         tasks = new ArrayList<>();
