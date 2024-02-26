@@ -50,7 +50,7 @@ public class Parser {
             c = 0;
             break;
         case END :
-            c = 3;
+            c = 4;
             break;
         case CHANGE:
             c = 2;
@@ -59,13 +59,13 @@ public class Parser {
             c = 1;
             break;
         case START:
-            c = 2;
+            c = 3;
             break;
         case KEYWORD:
             c = 1;
             break;
         case TYPE:
-            c = 1;
+            c = 2;
             break;
         case DEADLINE:
             c = 2;
