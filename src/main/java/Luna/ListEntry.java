@@ -79,5 +79,9 @@ public class ListEntry {
     public void snoozeEntry(int days) {
 
     }
+
+    public boolean isSnoozable() {
+        return false;
+    }
 }
 

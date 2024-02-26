@@ -97,4 +97,16 @@ public class TaskList {
         assert list.isEmpty() : "List should not contain any elements";
     }
 
+    public boolean isEntrySnoozable(int index) {
+        ListEntry ent = this.getEntry(index);
+        return ent.isSnoozable();
+    }
+
+    public void snoozeEntry(int index, int days) {
+        ListEntry ent = this.getEntry(index);
+        if(ent.isSnoozable()) {
+            ent.snoozeEntry(days);
+        }
+    }
+
 }

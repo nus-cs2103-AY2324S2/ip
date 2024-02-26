@@ -17,4 +17,8 @@ public class ListEntryEvent extends ListEntry {
         this.taskEnd = taskEnd.plusDays(days);
     }
 
+@Override
+    public boolean isSnoozable() {
+        return true;
+    }
 }

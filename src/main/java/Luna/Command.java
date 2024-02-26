@@ -16,6 +16,7 @@ public class Command {
         SAVE,
         LOAD,
         FIND,
+        SNOOZE,
         EXIT,
         INVALID
     }

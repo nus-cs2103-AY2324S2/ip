@@ -17,4 +17,9 @@ public class ListEntryDeadline extends ListEntry {
     public void snoozeEntry(int days) {
         this.taskEnd = taskEnd.plusDays(days);
     }
+
+    @Override
+    public boolean isSnoozable() {
+        return true;
+    }
 }

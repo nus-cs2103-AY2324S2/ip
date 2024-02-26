@@ -79,7 +79,7 @@ public class Parser {
             } else if (isNonInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
             } else {
-                return new UnmarkCommand(Integer.parseInt(strings[1])-1);
+                return new UnmarkCommand(Integer.parseInt(strings[1]) - 1);
             }
         } else if (strings[0].equalsIgnoreCase("delete")) {
             if (strings.length == 1) {
@@ -89,7 +89,7 @@ public class Parser {
             } else if (isNonInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
             } else {
-                return new DeleteCommand(Integer.parseInt(strings[1])-1);
+                return new DeleteCommand(Integer.parseInt(strings[1]) - 1);
             }
         } else if (strings[0].equalsIgnoreCase("save")) {
             if (strings.length != 1) {
@@ -110,6 +110,19 @@ public class Parser {
                 return new InvalidCommand("too many arguments for [find]");
             } else {
                 return new FindCommand(strings[1]);
+            }
+
+        } else if (strings[0].equalsIgnoreCase("snooze")) {
+            if (strings.length < 3) {
+                return new InvalidCommand("too little arguments for [snooze]");
+            } else if (strings.length > 3) {
+                return new InvalidCommand("too many arguments for [snooze]");
+            } else if (isNonInteger(strings[1])) {
+                return new InvalidCommand("Index value must be numeric");
+            } else if (isNonInteger(strings[2])) {
+                return new InvalidCommand("Days for snoozing must be numeric");
+            } else {
+                return new SnoozeCommand(Integer.parseInt(strings[1]) - 1, Integer.parseInt(strings[2]));
             }
         } else if (strings[0].equalsIgnoreCase("exit")) {
             return new ExitCommand();
