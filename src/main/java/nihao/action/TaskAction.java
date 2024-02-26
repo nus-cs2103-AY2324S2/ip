@@ -11,7 +11,7 @@ public class TaskAction implements Action {
     private Task task;
 
     /**
-     * Constructor the specifies the Task to be added.
+     * Constructor that specifies the Task to be added.
      */
     public TaskAction(Task task) {
         this.task = task;
