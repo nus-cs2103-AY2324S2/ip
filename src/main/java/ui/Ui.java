@@ -159,7 +159,7 @@ public class Ui {
     /**
      * Returns a string containing the quote string.
      *
-     * @return a string containing the quote string.
+     * @return a string containing the quote string
      */
     public String quote() {
         return QUOTE_STRING;
