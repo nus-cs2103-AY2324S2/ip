@@ -30,7 +30,7 @@ public class TaskList {
     public String printList() {
         int length = this.todoList.size();
         if (length == 0) {
-            return "There is no task in your list.";
+            return "Great! There is no task in your list.";
         } else {
             String output = "";
             output += "Here are the tasks in your list:\n";
@@ -42,7 +42,7 @@ public class TaskList {
     private String showResult(TaskList result, String keyword) {
         int length = result.todoList.size();
         if (length == 0) {
-            return "There is no task in your list that contains the keyword '" + keyword + "'";
+            return "Huh? Check again! There is no task in your list that contains the keyword '" + keyword + "'";
         } else {
             return printHelper(length);
         }
@@ -68,7 +68,7 @@ public class TaskList {
      */
 
     public String listOverviewAfterAdding(Task t, Storage storage) {
-        String output = "Got it. I've added this task:\n";
+        String output = "Got it. I've added this task to your list:\n";
         output += updateHelper(t, storage);
         return output;
     }
