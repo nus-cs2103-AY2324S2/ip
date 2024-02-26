@@ -1,6 +1,5 @@
 package duke;
 
-import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
@@ -11,29 +10,26 @@ import java.util.List;
  * It's the entry point for the bot
  */
 public class Duke {
-    public static void main(String[] args) throws BotException, IOException {
-        // Initial
-        System.out.println(Ui.wrapWithSepLine(Bot.getGreeting()));
-
-        // Starting parser to work with bot
-        Parser operator = new Parser();
-        operator.startOperator();
-
-    }
-
     private TaskList taskList;
     private TaskRepository taskRepository;
 
-    /*
-     * Constructor for the Parser class It initializes the scanner and taskList
-     * objects
+    /**
+     * Constructor for the Duke class.
+     * It initializes the taskRepository and taskList objects.
+     * 
+     * @throws BotException if there is an error loading tasks from the repository.
      */
     public Duke() throws BotException {
         this.taskRepository = new TaskRepository();
         this.taskList = taskRepository.loadTasks();
     }
 
-    // Handle various user inputs
+    /**
+     * Processes user input and returns a response.
+     * 
+     * @param userInput The user's input as a string.
+     * @return The bot's response as a string.
+     */
     public String processInput(String userInput) {
         String[] userInputArray = userInput.split(" ");
         String command = userInputArray[0];
@@ -120,29 +116,48 @@ public class Duke {
         return tasksMsg.toString();
     }
 
+    /*
+     * @return A string representing the bot's response to the add command
+     */
     private String addTaskMsg() {
         return Bot.printAddTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
+    /*
+     * @return A string representing the bot's response to the mark command
+     */
     private String markMsg() {
         return Bot.printMarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
+    /*
+     * @return A string representing the bot's response to the unmark command
+     */
     private String unmarkMsg() {
         return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
+    /*
+     * @param status The status of the delete operation
+     * 
+     * @return A string representing the bot's response to the delete command
+     */
     private String deleteMsg(String status) {
         return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
                 + "\n" + TaskCountMsg() + "\n" + status + "\n";
     }
 
+    /*
+     * @param The tasks found by the find command
+     * 
+     * @return A string representing the bot's response to the find command
+     */
     private String findMsg(String tasks) {
         return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
     }
 
-    /**
-     * Prints the number of tasks in the task list.
+    /*
+     * @return A string representing the number of tasks in the task list
      */
     private String TaskCountMsg() {
         return "You have " + taskList.getTaskCount() + " tasks in your list.";
@@ -154,6 +169,8 @@ public class Duke {
      *
      * @param userInputArray the array of user input tokens
      * @throws BotException if the keyword is not provided
+     * 
+     * @return A string representing the tasks found
      */
     private String handleFindCommand(String[] userInputArray) throws BotException {
         if (userInputArray.length < 2) {
@@ -175,6 +192,8 @@ public class Duke {
      * 
      * @throws BotException if the user input is invalid or the task number is out
      * of range
+     * 
+     * @return A string representing the status of the delete operation
      */
     private String handleDeleteCommand(String[] userInputArray) throws BotException {
         StringBuilder status = new StringBuilder();
