@@ -12,19 +12,20 @@ public class Deadline extends Task {
     protected LocalDate details;
 
     /**
-     * Create Deadline object
-     * @param description
-     * @param by
+     * Creates Deadline object
+     * 
+     * @param description Description of Deadline
+     * @param by Separator to separate deadline and Description
      */
     public Deadline(String description,
             String by) {
         super(description);
         this.details = LocalDate.parse(by);
-        assert this.details.isAfter(LocalDate.now()) : "Deadline must be in the future";
     }
 
     /**
-     * returns a string that displays the deadline details.
+     * Returns a string that displays the deadline details.
+     * 
      * @return String
      */
     @Override

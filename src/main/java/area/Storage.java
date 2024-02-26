@@ -9,7 +9,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Stores the commands by user in a text file. The commands are to be executed
  * when the user starts a new session to preserve data from previous sessions.
@@ -24,28 +23,30 @@ public class Storage {
     private ArrayList<String> instructions;
 
     /**
-     * The Storage class manages files I/O operations for storing and retrieving
+     * The Storage class manages files operations for storing and retrieving
      * task data.
      * It handles the interaction with the data files where tasks are located.
-     * @param tasks
+     * 
+     * @param tasks List of tasks
      */
     public Storage(TaskList tasks) {
-        file = new File("./data/area.txt");
+        file = new File("./data/duke.txt");
         folder = new File("./data");
         this.tasks = tasks;
         this.instructions = new ArrayList<String>();
     }
 
     /**
-     * Add an instruction to a list of instructions.
+     * Adds an instruction to a list of instructions.
+     * 
      * @param instruction the instruction to be added.
      */
     public void addInstruction(String instruction) {
         this.instructions.add(instruction);
     }
 
-    /** 
-     * creates a new directory and file if it does not exist
+    /**
+     * Creates a new directory and file if it does not exist
      */
     public void createNewFile() {
         if (!folder.exists()) {
@@ -62,15 +63,16 @@ public class Storage {
     }
 
     /**
-     * Get list of tasks
-     * @return ArrayList<String> taskList
+     * Gets list of tasks.
+     * 
+     * @return ArrayList taskList
      */
     public static ArrayList<String> getTasks() {
         return taskList;
     }
 
     /**
-     * Load the existing tasks into a ArrayList.
+     * Loads the existing tasks into a ArrayList.
      */
     public void loadTasks() {
         Path path = Paths.get("./data/area.txt");
@@ -95,8 +97,9 @@ public class Storage {
     }
 
     /**
-     * Saves all instructions to the data file
-     * @param instruction
+     * Saves all instructions to the data file.
+     * 
+     * @param instruction Instruction to be stored.
      */
     public void saveTask(String instruction) {
         try {
@@ -108,6 +111,9 @@ public class Storage {
         }
     }
 
+    /**
+     * Deletes incorrect or incomplete inputs.
+     */
     public void deleteIncorrectInstruction() {
         Path path = Paths.get("./data/area.txt");
         try {

@@ -22,8 +22,9 @@ public class Area {
     /**
      * Takes in an instruction and execute respective command. If instruction is not
      * valid, function throws an exception.
-     * @param instruction
-     * @return String  - Message shown on console after executing the
+     * 
+     * @param instruction  The inputted user instruction.
+     * @return Message shown on console after executing the
      *         command.
      */
     public String allotTasks(String instruction) {
@@ -78,7 +79,8 @@ public class Area {
     }
 
     /**
-     * returns the greeting message as well as the list of tasks if any.
+     * Returns the greeting message as well as the list of tasks if any.
+     * 
      * @return String of greeting
      */
     public String greetUser() {
@@ -86,13 +88,13 @@ public class Area {
     }
 
     /**
-     * takes in an input which is an instruction that when run through function
+     * Takes in an input which is an instruction that when run through function
      * allotTasks will return the respective output.
-     * @param input
-     * @return the respective output based on input
+     * 
+     * @param input The task to be added or checked.
+     * @return The respective output based on input
      */
     String getResponse(String input) {
-        assert input != null : "input cannot be null";
         return allotTasks(input);
     }
 

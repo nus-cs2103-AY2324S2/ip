@@ -8,7 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Area using FXML.
+ * A GUI for Area using FXML
+ * Citation: https://se-education.org/guides/tutorials/javaFxPart4.html.
  */
 public class Main extends Application {
 

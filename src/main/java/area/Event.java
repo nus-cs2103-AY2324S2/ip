@@ -11,10 +11,11 @@ public class Event extends Task {
     protected String to;
 
     /**
-     * create an Event object
-     * @param description
-     * @param from
-     * @param to
+     * Creates an Event object
+     * 
+     * @param description Description of task
+     * @param from Start date or time
+     * @param to End date or time
      */
     public Event(String description,
             String from,
@@ -27,7 +28,8 @@ public class Event extends Task {
     }
 
     /**
-     * Return a String representation of Event details
+     * Returns a String representation of Event details
+     * 
      * @return String
      */
     @Override

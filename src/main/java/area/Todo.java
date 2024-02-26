@@ -7,9 +7,9 @@ package area;
 public class Todo extends Task {
 
     /**
-     * Create an object of type Todo
+     * Creates an object of type Todo
      * 
-     * @param description
+     * @param description Description of task.
      */
     public Todo(String description) {
         super(description);
@@ -18,7 +18,7 @@ public class Todo extends Task {
     /**
      * Displays the object in a readable manner
      * 
-     * @return String
+     * @return String representation of Todo object.
      */
     @Override
     public String toString() {

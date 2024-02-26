@@ -9,39 +9,44 @@ import java.util.ArrayList;
 public class TaskList {
 
     private ArrayList<Task> tasks; // List of all the task objects in this list.
-    private int taskCount;
+    private int count;
     private Ui ui;
     private Parser parser;
 
+    /**
+     * Creates class object of TaskList. 
+     * Initializes an empty list.
+     * Sets the number of tasks to 0.
+     */
     public TaskList() {
         this.tasks = new ArrayList<Task>();
-        this.taskCount = 0;
+        this.count = 0;
         ui = new Ui();
         parser = new Parser();
     }
 
     /**
-     * get number of tasks
+     * Returns number of tasks.
      * 
-     * @return int
+     * @return Number of tasks.
      */
     public int getNumberOfTasks() {
-        return taskCount;
+        return count;
     }
 
     /**
-     * returns list of tasks
+     * Returns list of tasks.
      * 
-     * @return ArrayList<Task>
+     * @return Tasks.
      */
     public ArrayList<Task> getTaskList() {
         return tasks;
     }
 
     /**
-     * assign a list of tasks to this
+     * Assigns a list of tasks to this
      * 
-     * @param t
+     * @param t List of tasks.
      */
     public void setTaskList(ArrayList<Task> t) {
         this.tasks = t;
@@ -52,7 +57,7 @@ public class TaskList {
      * If there are no matching tasks, a line is printed to inform user there
      * is no matching tasks.
      * 
-     * @param keyword
+     * @param keyword Keyword.
      */
     public String findTask(String keyword) {
         ArrayList<Task> result = new ArrayList<Task>();
@@ -70,39 +75,41 @@ public class TaskList {
     }
 
     /**
-     * add the task to the list of tasks. If instruction is incomplete, an error
+     * Adds the task to the list of tasks. If instruction is incomplete, an error
      * will be thrown to inform the user of the issue.
      * 
-     * @param instruction
+     * @param instruction User input.
+     * @return  A string indicating whether or not the addition of the task was successful.
      */
     public String addTask(String instruction) {
         String command = parser.parseCommand(instruction);
         if (command.equals("todo")) {
-            Todo task = new Todo(parser.parseTodo(instruction));
-            tasks.add(task);
-            taskCount++; // keep track of number of tasks
+            Todo todoTask = new Todo(parser.parseTodo(instruction));
+            tasks.add(todoTask);
+            count++; // keep track of number of tasks
             return ui.addTask(this);
         } else if (command.equals("deadline")) {
             String[] description = parser.parseDeadline(instruction);
             Deadline task = new Deadline(description[0], description[1]);
             tasks.add(task);
-            taskCount++; // keep track of number of tasks
+            count++; // keep track of number of tasks
             return ui.addTask(this);
         } else if (command.equals("event")) {
             String[] description = parser.parseEvent(instruction);
             Event task = new Event(description[0], description[1], description[2]);
             tasks.add(task);
-            taskCount++; // keeps track of tasks
+            count++; // keeps track of tasks
             return ui.addTask(this);
         }
         return "";
     }
 
     /**
-     * Modify the task based on instruction. If instruction is incomplete, an error
+     * Modifies the task based on instruction. If instruction is incomplete, an error
      * message will be printed to notify user of the problem.
      * 
-     * @param instruction
+     * @param instruction User input.
+     * @return Message indicating success or failure.
      */
     public String modifyTask(String instruction) {
         String command = parser.parseCommand(instruction);
@@ -120,15 +127,14 @@ public class TaskList {
             int index = Integer.parseInt(parser.parseModify(instruction));
             Task deletedTask = tasks.get(index - 1);
             tasks.remove(index - 1);
-            taskCount -= 1;
-            assert taskCount >= 0 : "count cannot be negative";
+            count -= 1;
             return ui.deleteTask(deletedTask, this);
         } else if (command.equals("priority")) {
             int index = Integer.parseInt(parser.parseModify(instruction));
-            int prority = Integer.parseInt(parser.parsePriority(instruction));
-            Task prioritiseTask = tasks.get(index - 1);
-            prioritiseTask.setPriority(prority);
-            return ui.priorityMessage(prioritiseTask);
+            int priority = Integer.parseInt(parser.parsePriority(instruction));
+            Task prioritisedTask = tasks.get(index - 1);
+            prioritisedTask.setPriority(priority);
+            return ui.priorityMessage(prioritisedTask);
         }
         return "";
     }
