@@ -3,16 +3,6 @@ package fireraya.main;
 import fireraya.command.Command;
 import fireraya.exception.FirerayaException;
 import javafx.application.Platform;
-import fireraya.exception.InvalidNumOfArgsException;
-import fireraya.task.Deadline;
-import fireraya.task.Event;
-import fireraya.task.Task;
-import fireraya.task.Todo;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
-import java.io.IOException;
 
 /**
  * @author Dexter-Wong
@@ -23,7 +13,6 @@ public class Fireraya {
     private TaskList tasks;
     private Storage storage;
     private Ui ui;
-
     private boolean isExit;
 
     /**
@@ -43,7 +32,10 @@ public class Fireraya {
     }
 
     /**
-     * The command to start the program.
+     * The command get a response from a string input.
+     *
+     * @param input input from the user.
+     * @return output string of the program.
      */
     public String getResponse(String input) {
         try{
@@ -56,10 +48,6 @@ public class Fireraya {
             } catch (FirerayaException e) {
             return e.getMessage();
         }
-    }
-
-    public boolean shouldExit() {
-        return this.isExit;
     }
 }
 

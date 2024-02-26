@@ -10,7 +10,7 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Here we have a controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -27,19 +27,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/efren.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/ronnie.png"));
 
+
+    /**
+     * Initializes the GUI's window.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         this.printWelcome();
     }
 
+    /**
+     * Setter for the Fireraya class.
+     */
     public void setFireraya(Fireraya f) {
         fireraya = f;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * Creates two dialog boxes, one echoing user input and one containing Duke's reply.
+     * Then, appends them to the dialog container and clears the user input.
      */
     @FXML
     private void handleUserInput() {
@@ -55,6 +62,9 @@ public class MainWindow extends AnchorPane {
         userInput.clear();
     }
 
+    /**
+     * Prints the pre-determined welcome message.
+     */
     @FXML
     private void printWelcome() {
         dialogContainer.getChildren().addAll(

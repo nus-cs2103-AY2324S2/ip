@@ -18,7 +18,6 @@ public class UnmarkCommand extends Command{
             throw new FirerayaException("That task does not exist!");
         }
 
-
         tasks.unmark(index);
         String a = ui.print("Unmarking task:\n");
         String b = ui.listTaskAt(tasks.getTasks(), index);

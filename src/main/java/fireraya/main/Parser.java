@@ -13,9 +13,20 @@ import java.util.Arrays;
 import java.util.Scanner;
 
 
-
+/**
+ * This class represents the Parser for the program.
+ *
+ * Given a string input from the user, the parser
+ * will classify it into a specific task and return a command.
+ */
 public class Parser {
 
+    /**
+     * The main method of the parser class used to parse strings.
+     *
+     * @param command a String command from the user.
+     * @return A Command of the class specified in the input string.
+     */
     static Command parse(String command) throws FirerayaException {
 
         try {
@@ -74,11 +85,9 @@ public class Parser {
 
                 String description = String.join(" ", Arrays.copyOfRange(all, 1, index));
                 String deadline = String.join(" ", Arrays.copyOfRange(all, index + 1, arrLen));
-                //System.out.println(deadline);
 
                 if (isDateCheck(deadline)) {
                     Date d = parseDate(deadline);
-                    //System.out.println("Is Date!");
                     return new DeadlineCommand(description, d);
 
                 }
@@ -133,6 +142,10 @@ public class Parser {
                 if (all.length > 2) {
                     throw new InvalidNumOfArgsException();
                 }
+                if (!isNumber(all[1])) {
+                    throw new FirerayaException("Error: argument must be a number");
+                }
+                assert isNumber(all[1]);
                 int curr = Integer.parseInt(all[1]) - 1;
 
                 return new DeleteCommand(curr);
@@ -145,11 +158,15 @@ public class Parser {
         }
     }
 
+    /**
+     * Checks if the input string is in a date format.
+     *
+     * @param str input string of the user.
+     * @return Boolean representing if the format is a date.
+     */
     public static boolean isDateCheck(String str) {
 
         String[] dates = str.split("/");
-        //String[] trimmed = trim(dates);
-        //System.out.println(Arrays.toString(dates));
 
         if (!isNumber(dates[0]) || !isNumber(dates[1]) || dates.length != 3) {
             System.out.println("Notdate 1");
@@ -165,11 +182,22 @@ public class Parser {
         return true;
     }
 
+    /**
+     * Checks if the input string is a number.
+     *
+     * @param str input string of the user.
+     * @return Boolean representing if the format is a number.
+     */
     public static boolean isNumber(String str) {
-        //System.out.println(str.matches("-?\\d+(\\.\\d+)?"));
         return str.matches("-?\\d+(\\.\\d+)?");
     }
 
+    /**
+     * Parses the date of the input string into a readable format for the program.
+     *
+     * @param date input string of the user representing the date.
+     * @return A Java utils Date object.
+     */
     private static Date parseDate(String date) throws FirerayaException {
         try {
             SimpleDateFormat d = new SimpleDateFormat("dd/MM/yyyy HHmm");
@@ -179,15 +207,5 @@ public class Parser {
         }
     }
 
-    public static String[] trim(String[] s) {
-        String[] d = s.clone();
-        for (int i = 0; i < d.length; i++) {
-            d[i] = d[i].trim();
-        }
-        System.out.println("Trimmed array");
-        System.out.println(d[1].trim());
-        System.out.println(Arrays.toString(d));
-        return d;
-    }
 }
 
