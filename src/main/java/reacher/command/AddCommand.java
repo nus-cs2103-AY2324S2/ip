@@ -41,6 +41,15 @@ public class AddCommand extends Command {
             }
 
             t = new Events(name, start, end);
+<<<<<<< HEAD
+=======
+            tasks.addTask(t);
+            storage.storeList(tasks.getTasks());
+            return("I've added " + t.toString());
+        default:
+            assert (t == null) : "t should be null";
+            throw new ReacherException("That is not a type of task.");
+>>>>>>> A-Assertions
         }
         if (t == null) {
             throw new ReacherException("Type of tasks are: todo, deadline and event.");
