@@ -1,5 +1,7 @@
 package tasks;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.format.DateTimeFormatter;
 
 /**
@@ -26,7 +28,7 @@ public abstract class Task {
      * @param description The description of the task.
      */
     public Task(String description) {
-        this.description = description;
+        this.description = StringUtils.normalizeSpace(description);
         this.isDone = false;
     }
 
@@ -66,6 +68,15 @@ public abstract class Task {
         this.isDone = status;
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Task task = (Task) obj;
+        return StringUtils.deleteWhitespace(description)
+                .equals(StringUtils.deleteWhitespace(task.description));
+    }
+
     // /**
     //  * Sets the description of the task.
     //  *
@@ -74,7 +85,6 @@ public abstract class Task {
     // public void setDescription(String description) {
     //     this.description = description;
     // }
-
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;

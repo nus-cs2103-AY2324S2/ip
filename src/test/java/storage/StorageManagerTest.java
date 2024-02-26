@@ -10,18 +10,15 @@ import java.util.ArrayList;
 // SPECIAL_IMPORTS group
 import org.junit.jupiter.api.Test;
 
+import exceptions.CalException;
 import tasklist.TaskList;
 import tasks.Todo;
 
 public class StorageManagerTest {
-
-    private static final String TEST_DATA_DIR_PATH = "src/main/resources/data";
-    private static final String TEST_TASK_SAVE_PATH = TEST_DATA_DIR_PATH + "/test.txt";
-
-    private StorageManager storageManager = new StorageManager();
+    private StorageManager storageManager = new StorageManager(StorageManager.TEST_SAVE_PATH);
 
     @Test
-    public void testSaveAndLoad() throws IOException {
+    public void testSaveAndLoad() throws IOException, CalException {
         TaskList taskListToSave = new TaskList(new ArrayList<>());
         taskListToSave.add(new Todo("Task 1"));
         taskListToSave.add(new Todo("Task 2"));

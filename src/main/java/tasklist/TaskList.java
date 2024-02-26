@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import exceptions.CalException;
+import tasks.Event;
 import tasks.Task;
 
 /**
@@ -27,10 +28,44 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task The task to be added.
+     * @throws CalException 
      */
-    public void add(Task task) {
+    public void add(Task task) throws CalException {
+        Task duplicateTaskFound = isDuplicateTask(task);
+        if (duplicateTaskFound != null) {
+            throw new CalException(
+                    String.format("Duplicate task found:\n %s \n", duplicateTaskFound));
+        }
+        if (task instanceof Event) {
+            Task overlapEvtFound = isOverlappingEvent((Event) task);
+            if (overlapEvtFound != null) {
+                throw new CalException("This event clashes with:\n" + overlapEvtFound);
+            }
+        }
+
         tasks.add(task);
         return;
+    }
+
+    private Task isDuplicateTask(Task task) {
+        for (Task t : tasks) {
+            if (t.equals(task)) {
+                return t;
+            }
+        }
+        return null;
+    }
+
+    private Task isOverlappingEvent(Event newEvent) {
+        for (Task t : tasks) {
+            if (t instanceof Event) {
+                Event event = (Event) t;
+                if (newEvent.overlaps(event)) {
+                    return event;
+                }
+            }
+        }
+        return null;
     }
 
     /**

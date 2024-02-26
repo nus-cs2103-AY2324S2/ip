@@ -2,6 +2,7 @@ package commands;
 
 import java.time.LocalDateTime;
 
+import exceptions.CalException;
 import storage.StorageManager;
 import tasklist.TaskList;
 import tasks.Deadline;
@@ -52,8 +53,9 @@ public class AddCommand extends Command {
      * @param tasks          The task list where the task will be added.
      * @param storageManager The storage manager to save the changes.
      * @return String print output.
+     * @throws CalException 
      */
-    public String execute(TaskList tasks, StorageManager storageManager) {
+    public String execute(TaskList tasks, StorageManager storageManager) throws CalException {
         task.setStatus(status);
         tasks.add(task);
         storageManager.save(tasks);
