@@ -23,8 +23,7 @@ public class GUIUi {
      * Prints farewell message for the user.
      */
     public String printByeMessage() {
-        System.out.println("Јебаћу ти бабицу");
-        return "I'm Balkan Bot\n" + "Jebem ti mat";
+        return "Јебаћу ти бабицу";
     }
 
     /**
