@@ -77,6 +77,7 @@ public class Parser {
             assert parts != null && parts.length >= 2 : "Missing components for mark command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
+          
             assert current != null : "No such task";
             taskList.markTask(current);
             ui.printMarkMessage(current);
@@ -86,6 +87,7 @@ public class Parser {
             assert parts != null && parts.length >= 2 : "Missing components for unmark command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
+          
             assert current != null : "No such task";
             taskList.unmarkTask(current);
             ui.printUnmarkMessge(current);
@@ -95,9 +97,11 @@ public class Parser {
             assert parts != null && parts.length >= 2 : "Missing components for delete command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
+          
             assert current != null : "No such task";
             taskList.deleteTask(num-1);
             ui.printDeleteMessage(current, taskList.getArraySize());
+          
         }
 
         public void handleTodoCommand(TaskList taskList, Ui ui, String[] parts) {
@@ -122,6 +126,7 @@ public class Parser {
             try {
                 String task = getTask(parts[1]);
                 String time = getTime(parts[1]);
+              
                 if (task.isEmpty()) {
                         throw new DukeException("Don't forget the description!");
                 } else if (time.isEmpty()) {
@@ -129,6 +134,7 @@ public class Parser {
                 } else {
                         String[] timeparts = time.split("by");
                         LocalDateTime by = parseToLocalDate(timeparts[1].trim());
+                  
                         Task deadline = new Deadline(task, false, by);
                         taskList.addTask(deadline);
                         ui.printAddMessage(deadline, taskList.getArraySize());
@@ -141,28 +147,31 @@ public class Parser {
         public void handleEventCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts !=null : "Input should not be null";
             try {
-                String task = getTask(parts[1]);
-                String time = getTime(parts[1]);
-                String[] timeparts = time.split("from");
-                String[] dateParts = timeparts[1].trim() .split("/to");
-                if (task.isEmpty()) {
-                        throw new DukeException("Don't forget the description!");
-                } else if (time.isEmpty()) {
-                        throw new DukeException("Don't forget the deadline!");
-                } else if (dateParts[0].isEmpty()) {
-                        throw new DukeException("You forgot the start time!");
-                } else if (dateParts[1].isEmpty()) {
-                        throw new DukeException("You forgot the end time!");
-                } else {
-                        LocalDateTime from = parseToLocalDate(dateParts[0].trim());
-                        LocalDateTime to = parseToLocalDate(dateParts[1].trim());
-                        Task event = new Event(task, false, from, to);
-                        taskList.addTask(event);
-                        ui.printAddMessage(event, taskList.getArraySize());
-                }
-            }catch (DukeException e) {
+                  String task = getTask(parts[1]);
+                  String time = getTime(parts[1]);
+                  String[] timeparts = time.split("from");
+                  String[] dateParts = timeparts[1].trim() .split("/to");
+
+                  if (task.isEmpty()) {
+                          throw new DukeException("Don't forget the description!");
+                  } else if (time.isEmpty()) {
+                          throw new DukeException("Don't forget the deadline!");
+                  } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
+                          throw new DukeException("Don't forget to include start and end time!");
+                  } else {
+                          LocalDateTime from = parseToLocalDate(dateParts[0].trim());
+                          LocalDateTime to = parseToLocalDate(dateParts[1].trim());
+
+                          Task event = new Event(task, false, from, to);
+                          taskList.addTask(event);
+
+                          ui.printAddMessage(event, taskList.getArraySize());
+                  }
+            } catch (DukeException e) {
                     ui.printError(e.getMessage());
             }
+
+          
         }
 
         /**

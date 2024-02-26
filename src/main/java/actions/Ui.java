@@ -68,11 +68,13 @@ public class Ui {
         System.out.println(LINE);
         System.out.println("Got it.I've added this task:");
         System.out.println(task.toString());
+
         if(count == 1){
             System.out.println("Now you have " + count + " task in the list.");
         } else {
             System.out.println("Now you have " + count + " tasks in the list.");
         }
+
         System.out.println(LINE);
     }
 
@@ -99,9 +101,11 @@ public class Ui {
     public void printFindList(List<Task> findTasks) {
         System.out.println(LINE);
         System.out.println("Here are some task you could be looking for:");
+
         for (int i = 0; i < findTasks.size(); i++) {
             System.out.println((i + 1) + ". " + findTasks.get(i).toString());
         }
+
         System.out.println(LINE);
     }
 
