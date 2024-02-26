@@ -1,10 +1,7 @@
 package duke;
 
 import duke.command.*;
-import duke.task.Deadline;
-import duke.task.Event;
-import duke.task.Task;
-import duke.task.Todo;
+import duke.task.*;
 
 /**
  * The type Parser.
@@ -37,7 +34,10 @@ public class Parser {
             command = new UpdateCommand(itemNo, isMarked);
         } else if (commandText.equals("list")) {
             command = new ListCommand();
-        } else if (commandText.startsWith("todo") || commandText.startsWith("event") || commandText.startsWith("deadline")) {
+        } else if (commandText.startsWith("todo")
+                || commandText.startsWith("event")
+                || commandText.startsWith("deadline")
+                || commandText.startsWith("fixedduration") ) {
             Task todo = null;
             todo = handleTodoEventDeadline(commandText);
             command = new AddCommand(todo);
@@ -87,6 +87,11 @@ public class Parser {
             String eventname = argVal.substring(0,indfrom);
             String deadlineStr = argVal.substring(indfrom+4);
             todo = new Deadline(eventname, false, -1, "D", deadlineStr);
+        } else if (info.startsWith("fixedduration")) {
+            int indDur = argVal.indexOf("(needs");
+            String eventname = argVal.substring(0,indDur);
+            String durString = argVal.substring(indDur);
+            todo = new FixedDurationTask(eventname, false, -1, "F", durString);
         }
         return todo;
     }
