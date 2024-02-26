@@ -95,7 +95,6 @@ public class DataHandler {
      */
     public static void addTask(Task task) {
         tasks.add(task);
-        // Todo: Exception handling
     }
 
     /**
