@@ -14,8 +14,7 @@ public class DeletedTask extends UI {
      *
      * @param tasks The task list from which the task was deleted.
      * @param task  The task that was deleted.
-     * @return A confirmation message indicating the deleted task and the updated
-     * number of tasks in the list.
+     * @return A confirmation message indicating the deleted task and the updated number of tasks in the list.
      */
     public static String display(TaskList tasks, Task task) {
         return String.format("I've removed this task:\n %s\nYou now have %d tasks left.",

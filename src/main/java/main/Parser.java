@@ -1,13 +1,24 @@
 package main;
 
-import static commands.Constants.*;
 import static utils.InputUtil.getCommandType;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import commands.*;
+import commands.Command;
+import commands.CommandError;
+import commands.Constants;
+import commands.CreateDeadline;
+import commands.CreateEvent;
+import commands.CreateTodo;
+import commands.DeleteTask;
+import commands.Find;
+import commands.Help;
+import commands.ListTasks;
+import commands.MarkTask;
+import commands.Snooze;
+import commands.UnmarkTask;
 import exception.DukeException;
 import exception.InvalidCommandException;
 import exception.InvalidDateException;
@@ -38,44 +49,44 @@ public class Parser {
             assert commandType != null : "Command type cannot be null";
 
             switch (commandType) {
-            case LIST:
+            case Constants.LIST:
                 command = new ListTasks(tasks);
                 break;
 
-            case MARK:
+            case Constants.MARK:
                 command = new MarkTask(tasks, parseIndex(input));
                 break;
 
-            case UNMARK:
+            case Constants.UNMARK:
                 command = new UnmarkTask(tasks, parseIndex(input));
                 break;
 
-            case DELETE:
+            case Constants.DELETE:
                 command = new DeleteTask(tasks, parseIndex(input));
                 break;
 
 
-            case TODO:
+            case Constants.TODO:
                 command = new CreateTodo(tasks, parseToDo(input));
                 break;
 
-            case DEADLINE:
+            case Constants.DEADLINE:
                 command = new CreateDeadline(tasks, parseDeadline(input));
                 break;
 
-            case EVENT:
+            case Constants.EVENT:
                 command = new CreateEvent(tasks, parseEvent(input));
                 break;
 
-            case HELP:
+            case Constants.HELP:
                 command = new Help();
                 break;
 
-            case FIND:
+            case Constants.FIND:
                 command = new Find(tasks, parseName(input));
                 break;
 
-            case SNOOZE:
+            case Constants.SNOOZE:
                 command = new Snooze(tasks, parseIndex(input));
                 break;
 
@@ -128,7 +139,14 @@ public class Parser {
         return details[1].trim();
     }
 
-    public static String parseToDo(String input) throws InvalidTodoException{
+    /**
+     * Parses the input string to extract the details of a ToDo task.
+     *
+     * @param input The input string containing the details of the ToDo task.
+     * @return The details of the ToDo task.
+     * @throws InvalidTodoException If the input string is not in the correct format.
+     */
+    public static String parseToDo(String input) throws InvalidTodoException {
         String[] details = input.split(" ", 2);
         assert details.length >= 2 : "Invalid todo format";
 
