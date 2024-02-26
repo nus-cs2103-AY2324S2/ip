@@ -13,12 +13,16 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.shape.Circle;
 
 /**
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
+    private static final double DISPLAY_PICTURE_SIZE = 100;
+    private static final int DISPLAY_PICTURE_RADIUS = 45;
+
     @FXML
     private Label dialog;
     @FXML
@@ -36,6 +40,9 @@ public class DialogBox extends HBox {
 
         dialog.setText(text);
         displayPicture.setImage(img);
+
+        displayPicture.setClip(new Circle(
+                DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_RADIUS));
     }
 
     private void flip() {
