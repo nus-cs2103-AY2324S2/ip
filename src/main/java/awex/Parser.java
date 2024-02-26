@@ -1,7 +1,6 @@
 package awex;
 
 import java.io.IOException;
-import java.util.Scanner;
 import tasks.*;
 
 public class Parser {
@@ -14,9 +13,13 @@ public class Parser {
         return ui.farewell();
     }
 
+    public static String helpParser(Ui ui) {
+        return ui.allInstructions();
+    }
+
     public static String listParser(String[] arr, TaskList tasks, Ui ui) {
         if (arr.length > 1) {
-            return ui.allInstructions();
+            return ui.helpMessage();
         } else if (tasks.isEmpty()) {
             return ui.emptyListMessage();
         } else {
@@ -26,7 +29,7 @@ public class Parser {
 
     public static String findParser(String[] arr, TaskList tasks, Ui ui) {
         if (arr.length < 2) {
-            return ui.allInstructions();
+            return ui.helpMessage();
         } else if (tasks.isEmpty()) {
             return ui.emptyListMessage();
         } else {
@@ -75,7 +78,7 @@ public class Parser {
             }
             t = EventTask.of(arr[1]);
         } else {
-            return ui.allInstructions();
+            return ui.helpMessage();
         }
         tasks.add(t);
         return ui.newTaskAddedMessage(tasks.size(), t);

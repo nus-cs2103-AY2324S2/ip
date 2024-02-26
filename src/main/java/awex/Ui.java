@@ -39,6 +39,10 @@ public class Ui {
                 + "Type 'bye' to exit.";
     }
 
+    public String helpMessage() {
+        return "Sorry, I didn't understand that.\nType 'help' for instructions!";
+    }
+
     /**
      * Prints error message if list is empty.
      */

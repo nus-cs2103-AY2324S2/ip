@@ -1,10 +1,6 @@
 package awex;
 
 import java.io.IOException;
-import tasks.DeadlineTask;
-import tasks.EventTask;
-import tasks.Task;
-import tasks.TodoTask;
 
 public class Awex {
     private Storage storage;
@@ -33,6 +29,8 @@ public class Awex {
         String[] arr = input.split(" ", 2);
         if (input.equals("bye")) {
             return Parser.byeParser(this.storage, this.tasks, this.ui);
+        } else if (input.equals("help")) {
+            return Parser.helpParser(this.ui);
         } else if (input.equals("list")) {
             return Parser.listParser(arr, this.tasks, this.ui);
         } else if (arr[0].equals("find")) {
