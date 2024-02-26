@@ -15,7 +15,7 @@ If you answered yes to any of the above, then Yarr is perfect for you! Yarr can 
 
 ## Getting Started with Yarr
 To get acquainted with him:
-1. download the most recent release from [here](https://github.com/H4mes/ip/releases/tag/v0.1);
+1. download the most recent release from [here](https://github.com/H4mes/ip/releases);
 2. run `java -jar yarr.jar` from your terminal
 3. add your tasks
 4. get chummy with your new favourite scallywag :pirate_flag:
