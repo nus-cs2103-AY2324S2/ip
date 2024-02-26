@@ -16,13 +16,13 @@ class Parser {
         try {
             if (input.equalsIgnoreCase("list")) {
                 return tasks.listTasks();
-            } else if (input.startsWith("mark ")) {
+            } else if (input.startsWith("mark")) {
                 assert input.length() > 5 : "Invalid 'mark' command format.";
-                int taskIndex = Integer.parseInt(input.substring(5).trim());
+                int taskIndex = Integer.parseInt(input.substring(4).trim());
                 return tasks.markTaskDone(taskIndex);
-            } else if (input.startsWith("unmark ")) {
+            } else if (input.startsWith("unmark")) {
                 assert input.length() > 7 : "Invalid 'unmark' command format.";
-                int taskIndex = Integer.parseInt(input.substring(7).trim());
+                int taskIndex = Integer.parseInt(input.substring(6).trim());
                 return tasks.unmarkTaskDone(taskIndex);
             } else if (input.startsWith("todo")) {
                 assert input.length() > 5 : "Invalid 'todo' command format.";
@@ -33,28 +33,24 @@ class Parser {
             } else if (input.startsWith("event")) {
                 assert input.length() > 6 : "Invalid 'event' command format.";
                 return tasks.addEventTask(input.substring(5).trim());
-            } else if (input.startsWith("check ")) {
-                assert input.length() > 6 : "Invalid 'check' command format.";
-                String dateString = input.substring(6).trim();
+            } else if (input.startsWith("check")) {
+                assert input.length() > 5 : "Invalid 'check' command format.";
+                String dateString = input.substring(5).trim();
                 return tasks.checkTasksOnDate(dateString);
             } else if (input.startsWith("delete")) {
                 assert input.length() > 7 : "Invalid 'delete' command format.";
                 int taskIndex = Integer.parseInt(input.substring(6).trim());
                 return tasks.deleteTask(taskIndex);
-            } else if (input.startsWith("find ")) {
+            } else if (input.startsWith("find")) {
                 assert input.length() > 5 : "Invalid 'find' command format.";
-                String keyword = input.substring(5).trim();
+                String keyword = input.substring(4).trim();
                 return tasks.findTasks(keyword);
-            } else if (input.startsWith("tag ")) {
-                String[] parts = input.substring(4).trim().split(" ");
-                int taskIndex = Integer.parseInt(parts[0]);
-                String tagName = parts[1];
-                return tasks.tagTask(taskIndex, tagName);
-            } else if (input.startsWith("untag ")) {
-                String[] parts = input.substring(6).trim().split(" ");
-                int taskIndex = Integer.parseInt(parts[0]);
-                String tagName = parts[1];
-                return tasks.untagTask(taskIndex, tagName);
+            } else if (input.startsWith("tag")) {
+                String parts = input.substring(3).trim();
+                return tasks.tagTask(parts);
+            } else if (input.startsWith("untag")) {
+                String parts = input.substring(5).trim();
+                return tasks.untagTask(parts);
             } else if (input.equalsIgnoreCase("bye")) {
                 return tasks.exit();
             } else {

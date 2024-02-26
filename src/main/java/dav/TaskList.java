@@ -39,6 +39,10 @@ class TaskList {
      *         that no matching tasks were found.
      */
     public String findTasks(String keyword) {
+        if (keyword.isEmpty()) {
+            return "Invalid find format. Please provide keyword.";
+        }
+
         List<Task> matchingTasks = new ArrayList<>();
         StringBuilder result = new StringBuilder();
 
@@ -70,7 +74,7 @@ class TaskList {
      */
     public String addTodoTask(String taskDescription) {
         if (taskDescription.isEmpty()) {
-            return "Task description is empty.";
+            return "Invalid todo task format. Please provide todo.";
         } else {
             TodoTask newTask = new TodoTask(taskDescription);
             return addTask(newTask);
@@ -88,8 +92,8 @@ class TaskList {
     public String addDeadlineTask(String taskDetails) {
         String[] details = taskDetails.split(" /by ");
 
-        if (details.length != 2) {
-            return "Invalid deadline task format.";
+        if (details.length < 2) {
+            return "Invalid deadline task format. \nPlease provide deadline and due date.";
         }
 
         String description = details[0].trim();
@@ -123,8 +127,8 @@ class TaskList {
     public String addEventTask(String taskDetails) {
         String[] details = taskDetails.split(" /from ");
 
-        if (details.length != 2) {
-            return "Invalid event task format.";
+        if (details.length < 2) {
+            return "Invalid event task format. \nPlease provide event, start and end date.";
         }
 
         String description = details[0].trim();
@@ -135,7 +139,7 @@ class TaskList {
         }
 
         if (timeDetails.length != 2) {
-            return "Invalid event task format.";
+            return "Invalid event task format. \nPlease provide start and end date.";
         }
 
         try {
@@ -195,7 +199,7 @@ class TaskList {
             saveTasks();
             return "OK! I've marked this task as done:\n   " + task;
         } else {
-            return "Invalid task index.";
+            return "Invalid task index. Please provide a valid task index.";
         }
     }
 
@@ -211,7 +215,7 @@ class TaskList {
             saveTasks();
             return "OK! I've marked this task as not done yet:\n   " + task;
         } else {
-            return "Invalid task index.";
+            return "Invalid task index. Please provide a valid task index.";
         }
     }
 
@@ -226,7 +230,7 @@ class TaskList {
             saveTasks();
             return "Task removed:\n   " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
         } else {
-            return "Invalid task index.";
+            return "Invalid task index. Please provide a valid task index.";
         }
     }
 
@@ -274,25 +278,37 @@ class TaskList {
         return result.toString();
     }
 
-    public String tagTask(int taskIndex, String tagName) {
-        if (isValidIndex(taskIndex)) {
-            Task task = tasks.get(taskIndex - 1);
-            task.addTag(tagName);
-            saveTasks();
-            return "Task tagged:\n   " + task;
+    public String tagTask(String parts) {
+        String[] indexAndName = parts.split(" ");
+        if (indexAndName.length >= 2) {
+            int taskIndex = Integer.parseInt(indexAndName[0]);
+            String tagName = indexAndName[1];
+            if (isValidIndex(taskIndex)) {
+                Task task = tasks.get(taskIndex - 1);
+                task.addTag(tagName);
+                saveTasks();
+                return "Task tagged:\n   " + task;
+            } else
+                return "Invalid task index. Please provide a valid task index.";
         } else {
-            return "Invalid task index.";
+            return "Invalid tag format. \nPlease provide tag name and task index.";
         }
     }
 
-    public String untagTask(int taskIndex, String tagName) {
-        if (isValidIndex(taskIndex)) {
-            Task task = tasks.get(taskIndex - 1);
-            task.removeTag(tagName);
-            saveTasks();
-            return "Task untagged:\n   " + task;
+    public String untagTask(String parts) {
+        String[] indexAndName = parts.split(" ");
+        if (indexAndName.length >= 2) {
+            int taskIndex = Integer.parseInt(indexAndName[0]);
+            String tagName = indexAndName[1];
+            if (isValidIndex(taskIndex)) {
+                Task task = tasks.get(taskIndex - 1);
+                task.removeTag(tagName);
+                saveTasks();
+                return "Task tagged:\n   " + task;
+            } else
+                return "Invalid task index. Please provide a valid task index.";
         } else {
-            return "Invalid task index.";
+            return "Invalid untag format. \nPlease provide tag name and task index.";
         }
     }
 
@@ -310,6 +326,6 @@ class TaskList {
     }
 
     public String exit() {
-        return "Goodbye.";
+        return "Happy to help:) \nGoodbye!";
     }
 }
