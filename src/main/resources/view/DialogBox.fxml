@@ -5,14 +5,16 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 
-<!-- Adapted from @Howlong11 -->
+<!-- Adapted from @Windofbitter -->
 
-<fx:root alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="245.0" prefWidth="560.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308"
+         maxWidth="1.7976931348623157E308"
+         prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17">
     <children>
-        <Label fx:id="dialog" prefHeight="227.0" prefWidth="293.0" text="Label" wrapText="true" />
-        <ImageView fx:id="displayPicture" fitHeight="205.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true" />
+        <Label fx:id="dialog" text="Label" wrapText="true" minHeight="-Infinity"/>
+        <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true"/>
     </children>
     <padding>
-        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0"/>
     </padding>
 </fx:root>

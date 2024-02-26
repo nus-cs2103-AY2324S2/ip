@@ -37,7 +37,9 @@ public class MainWindow extends AnchorPane {
     }
 
     public void greet() {
-        String str = "Hello! I'm Linus.\n" + "I'm the mascot of National University of Singapore!";
+        String str = "Hello! I'm Linus.\n" + "I'm the mascot of National University of Singapore!\n" +
+                "Type 'help' to access a help page.\nRemember to give the 'bye' command to save all your updates made" +
+                " before you close or exit the chatbot!";
         dialogContainer.getChildren().add(DialogBox.getLinusDialog(str, linusImage));
     }
 
@@ -50,9 +52,6 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
 
         if (input.equals("terminate")) {
-            String str = "Bye. Hope to see you again, ROOAARRRRRR!";
-            dialogContainer.getChildren().add(DialogBox.getLinusDialog(str, linusImage));
-
             Platform.exit();
         } else {
             String response = linus.getResponse(input);
