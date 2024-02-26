@@ -5,6 +5,9 @@ import liv.container.TaskList;
 import liv.exception.LivException;
 import liv.ui.Ui;
 
+/**
+ * Represents a command that clears the task list.
+ */
 public class ClearCommand extends Command {
     /**
      * Executes this command.

@@ -8,7 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-
 import liv.Liv;
 import liv.exception.LivException;
 
@@ -16,6 +15,8 @@ import liv.exception.LivException;
  * Controller for MainWindow. Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
+    private static final String GREETING_MESSAGE = String.join("\n",
+            "Liv, under your instructions!", "What is your command?");
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -30,10 +31,9 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image livImage = new Image(this.getClass().getResourceAsStream("/images/liv.png"));
 
-    private static final String GREETING_MESSAGE = String.join("\n",
-            "Liv, under your instructions!", "What is your command?");
-
-
+    /**
+     * Initializes the main window.
+     */
     @FXML
     public void initialize() {
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -56,7 +56,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() throws LivException {
         String input = userInput.getText();
-        assert input != null: "Command cannot be empty!";
+        assert input != null : "Command cannot be empty!";
         String response = liv.getResponse(input);
 
         dialogContainer.getChildren().addAll(

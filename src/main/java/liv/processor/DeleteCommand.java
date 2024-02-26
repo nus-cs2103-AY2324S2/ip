@@ -3,10 +3,11 @@ package liv.processor;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+
 import liv.container.Storage;
+import liv.container.TaskList;
 import liv.exception.LivException;
 import liv.task.Task;
-import liv.container.TaskList;
 import liv.ui.Ui;
 
 /**

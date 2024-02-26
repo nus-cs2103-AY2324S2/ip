@@ -1,15 +1,19 @@
 package liv.processor;
 
 import java.util.ArrayList;
+
 import liv.container.Storage;
 import liv.container.TaskList;
 import liv.exception.LivException;
 import liv.ui.Ui;
 
-public class FindCommand  extends Command {
+/**
+ * Represents the command that finds the tasks that contain the specified keyword.
+ */
+public class FindCommand extends Command {
     private String keyword;
 
-    public FindCommand (String keyword) {
+    public FindCommand(String keyword) {
         this.keyword = keyword;
     }
 

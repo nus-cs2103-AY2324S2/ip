@@ -2,13 +2,13 @@ package liv.processor;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import liv.container.TaskList;
 import liv.exception.LivException;
 import liv.task.Deadline;
 import liv.task.Event;
-import liv.container.TaskList;
 import liv.task.TodoTask;
 
 /**
@@ -28,7 +28,7 @@ public class Parser {
      * @throws LivException If the command is not valid.
      */
     public static Command parse(String input) throws LivException {
-        assert input != null: "Input cannot be null!";
+        assert input != null : "Input cannot be null!";
         if (input.equalsIgnoreCase("bye")) {
             return parseByeCommand();
         } else if (input.equalsIgnoreCase("list")) {
@@ -89,7 +89,7 @@ public class Parser {
                 throw new LivException("Please enter a positive integer as the mission number!");
             }
             int index = Integer.parseInt(indexString);
-            assert index > 0: "Input number should be a positive integer!";
+            assert index > 0 : "Input number should be a positive integer!";
 
             if (indicesList.contains(index)) {
                 throw new LivException("Cannot enter duplicate mission number!");
@@ -231,9 +231,9 @@ public class Parser {
         String time1 = timeInterval.substring(0, splitterIndex - 1);
         String time2 = timeInterval.substring(splitterIndex + 4);
 
-        assert time1 != null: "Incorrect time format!";
-        assert time2 != null: "Incorrect time format!";
-      
+        assert time1 != null : "Incorrect time format!";
+        assert time2 != null : "Incorrect time format!";
+
         LocalDateTime from = LocalDateTime.parse(time1, INPUT_PATTERN);
         LocalDateTime to = LocalDateTime.parse(time2, INPUT_PATTERN);
         Event newEvent = new Event(description, from, to);

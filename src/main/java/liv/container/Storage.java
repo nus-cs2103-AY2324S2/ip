@@ -6,13 +6,12 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-
 import java.time.LocalDateTime;
 
-import liv.task.Task;
-import liv.task.TodoTask;
 import liv.task.Deadline;
 import liv.task.Event;
+import liv.task.Task;
+import liv.task.TodoTask;
 
 /**
  * A class to save and load the task list to and from the machine.
@@ -55,8 +54,9 @@ public class Storage {
         }
 
         TaskList.addTask(task);
-        if (isDone)
+        if (isDone) {
             task.changeStatus();
+        }
     }
 
     /**
