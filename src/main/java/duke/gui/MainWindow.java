@@ -12,6 +12,7 @@ import java.io.IOException;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
+ * Reused from https://se-education.org/guides/tutorials/javaFxPart4.html with minor modification.
  */
 public class MainWindow extends AnchorPane {
     @FXML
