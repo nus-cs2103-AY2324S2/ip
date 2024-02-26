@@ -1,6 +1,7 @@
 package ui;
 
 import tasks.Deadline;
+import tasks.Event;
 
 public class Ui {
 
@@ -12,7 +13,7 @@ public class Ui {
                 + "[to record your task(s)/ events]\n"
                 + "- todo <task>\n"
                 + "- deadline <task> /by " + Deadline.DATE_FORMAT + "\n"
-                + "- event <event> /from <date and time> /to <date and time>\n\n"
+                + "- event <event> /from " + Event.DATE_FORMAT + " /to " + Event.DATE_FORMAT + "\n\n"
                 + "[to view your task(s)]\n"
                 + "- list\n\n"
                 + "[to search for tasks containing a keyword]\n"
@@ -24,9 +25,9 @@ public class Ui {
                 + "- delete <task number in list>\n\n"
                 + "[to update a task]\n"
                 + "- update <task number in list> /[task] <task> [details]\n"
-                + "   e.g. - update 1 /deadline/ sleep /by/ 2024-02-03 23:00\n"
-                + "        - update 1 /todo/ sleep\n"
-                + "        - update 3 /event/ sleep /from/ 3pm /to/ 11pm\n"
+                + "   e.g.\n   update 1 /deadline/ sleep /by/ 2024-02-03 23:00\n"
+                + "   update 1 /todo/ sleep\n"
+                + "   update 3 /event/ sleep /from/ 3pm /to/ 11pm\n"
                 + "-------------------------------------\n";
     }
 
