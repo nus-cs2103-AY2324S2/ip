@@ -71,6 +71,8 @@ public class Parser {
         case TASK_NO:
             c = 1;
             break;
+        default:
+            assert false;
         }
         try {
             return input.split(",", 0)[c].trim();
