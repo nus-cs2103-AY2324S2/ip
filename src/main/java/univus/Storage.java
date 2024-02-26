@@ -40,9 +40,10 @@ public class Storage {
         try {
             File file = new File(filePath);
             if (!file.exists()) {
+                file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            try (PrintWriter writer = new PrintWriter(file)) {
+            try (PrintWriter writer = new PrintWriter(filePath)) {
                 ArrayList<Task> store = taskList.getTaskList();
                 for (Task task : store) {
                     writer.println(task.toString());
