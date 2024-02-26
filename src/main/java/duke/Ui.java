@@ -13,6 +13,9 @@ import duke.tasks.Todo;
 import duke.exceptions.UnrecognizedException;
 import duke.exceptions.MissingInputException;
 
+/**
+ * Class that handles inputs given to the chat bot.
+ */
 public class Ui {
     private static final String INDENT = "    ";
     private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
@@ -33,6 +36,8 @@ public class Ui {
     private static final String REMOVE = "remove";
     private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
     private static final String FILE_PATH = "./src/main/java/data/saved_tasks.txt";
+    private static final String FIND = "find";
+    private static final String FOUND_MESSAGE = NEW_LINE + INDENT+ "Here are the tasks I have found!\n";
 
     Storage storage = new Storage(FILE_PATH);
     TaskList taskList;
@@ -40,19 +45,39 @@ public class Ui {
     int idx;
     Task task;
 
+    /**
+     * Constructor for Ui
+     * @throws FileNotFoundException 
+     * @throws IOException
+     */
     public Ui() throws FileNotFoundException, IOException {
         System.out.println(NEW_LINE + GREETING);
         taskList = storage.load();
     }
 
+    /**
+     * Checks if chatbot is no longer in use.
+     * @return false if still in use.
+     */
     public Boolean hasFinished() {
         return isFinished;
     }
 
+    /**
+     * Returns the appropriate reply string based on the input.
+     * @param input Message given to chatbot by user.
+     * @return Reply message based on input.
+     * @throws UnrecognizedException If input contains an invalid command.
+     * @throws MissingInputException If input is missing required inputs.
+     * @throws IOException 
+     */
     public String interact(String input) throws UnrecognizedException, MissingInputException, IOException {
         if (input.contains(LIST)) {
             return NEW_LINE + taskList.showList() + NEW_LINE;
 
+        }  else if (input.contains(FIND)) {
+            String parts[] = input.split(" ");
+            return FOUND_MESSAGE + taskList.findTask(parts[1]) + NEW_LINE;
         } else if (input.contains(UNMARK)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.unmarkTask(idx);
