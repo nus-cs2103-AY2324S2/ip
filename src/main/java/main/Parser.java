@@ -7,7 +7,7 @@ import Objects.Todo;
 import javafx.util.Pair;
 
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 
 /**
@@ -104,20 +104,24 @@ public class Parser {
      * @return Pair of boolean (if list is changed) and response
      */
     public Pair<Boolean, String> addDeadline(String[] splitStr) {
-        if (splitStr.length != 2) {
-            return new Pair<>(false,Ui.error());
+        try {
+            if (splitStr.length != 2) {
+                return new Pair<>(false, Ui.error());
+            }
+
+            String[] splitStrDeadline = splitStr[1].split("/by", 2);
+
+            if (splitStrDeadline.length != 2) {
+                return new Pair<>(false, Ui.deadlineError());
+            }
+
+            Task deadline1 = new Deadline(splitStrDeadline[0], false, LocalDate.parse(splitStrDeadline[1].trim()));
+            taskList.addTask(deadline1);
+
+            return new Pair<>(true, Ui.success(deadline1));
+        } catch (DateTimeException e){
+            return new Pair<>(false, "Wrong date format. Use : yyyy-mm-dd");
         }
-
-        String[] splitStrDeadline = splitStr[1].split("/by", 2);
-
-        if (splitStrDeadline.length != 2) {
-            return new Pair<>(false, Ui.deadlineError());
-        }
-
-        Task deadline1 = new Deadline(splitStrDeadline[0],false, LocalDate.parse(splitStrDeadline[1].trim()));
-        taskList.addTask(deadline1);
-
-        return new Pair<>(true,Ui.success(deadline1));
     }
 
     /**
@@ -127,20 +131,24 @@ public class Parser {
      * @return Pair of boolean (if list is changed) and response
      */
     public Pair<Boolean, String> addEvent(String[] splitStr) {
-        if (splitStr.length != 2) {
-            return new Pair<>(false,Ui.error());
+        try {
+            if (splitStr.length != 2) {
+                return new Pair<>(false, Ui.error());
+            }
+
+            String[] splitStrEvent = splitStr[1].split("/from|/to");
+
+            if (splitStrEvent.length != 3) {
+                return new Pair<>(false, Ui.eventError());
+
+            }
+            Task event1 = new Event(splitStrEvent[0], false, LocalDate.parse(splitStrEvent[1].trim()), LocalDate.parse(splitStrEvent[2].trim()));
+            taskList.getList().add(event1);
+
+            return new Pair<>(true, Ui.success(event1));
+        } catch (DateTimeException e) {
+            return new Pair<>(false, "Wrong date format. Use : yyyy-mm-dd");
         }
-
-        String[] splitStrEvent = splitStr[1].split("/from|/to");
-
-        if (splitStrEvent.length != 3) {
-            return new Pair<>(false,Ui.eventError());
-
-        }
-        Task event1 = new Event(splitStrEvent[0],false, LocalDate.parse(splitStrEvent[1].trim()), LocalDate.parse(splitStrEvent[2].trim()));
-        taskList.getList().add(event1);
-
-        return new Pair<>(true,Ui.success(event1));
     }
 
     /**

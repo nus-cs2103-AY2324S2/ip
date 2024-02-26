@@ -1,7 +1,4 @@
 package main;
-
-import java.io.IOException;
-
 public class Poe {
 
     public static void main(String[] args) {

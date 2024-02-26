@@ -44,16 +44,17 @@ test {
 }
 
 application {
-    mainClass.set("main/Poe")
+    mainClass.set("main/GUi/Launcher")
 }
 
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "poe"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    archiveFileName = 'Poe.jar'
 }
 
 run{
-    enableAssertions = true
+    enableAssertions = false
 }
