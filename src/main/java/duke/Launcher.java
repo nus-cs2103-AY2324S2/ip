@@ -17,7 +17,7 @@ public class Launcher {
         boolean assertsEnabled = false;
         assert assertsEnabled = true; // Intentional side effect!!!
         if (!assertsEnabled) {
-            throw new RuntimeException("Asserts must be enabled!!!");
+            System.out.println("Asserts is not enabled.");
         }
     }
 }
