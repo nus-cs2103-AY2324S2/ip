@@ -15,7 +15,7 @@ public class Ui {
         return "Fret not, for its not about how much we do, but how much we did";
     }
     public String showExpenses(String expensesName, double totalSum) {
-        return "Total expenses for " + expensesName + ": " + totalSum;
+        return "Total expenses for " + expensesName + ": " + totalSum + " dollars";
     }
     public String delete() {
         return "I have removed the task";

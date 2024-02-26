@@ -26,6 +26,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+
         dialogContainer.getChildren().add(DialogBox.getGandalfDialog("Through fire and shadow, I'm Gandalf. "
                                                                         + "What can i do for you?", gandalfImage));
     }

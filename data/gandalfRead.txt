@@ -1,5 +1,4 @@
 1. [T][ ] read a book
-2. [T][ ] eat
-3. expenses transport 4.5
-4. expenses transport 5.0
-5. [E][ ] study (from: Tuesday, April 2, 2024 4:00PM to: Wednesday, April 3, 2024 7:00PM)
+2. expenses school 3.5
+3. expenses school 2.5
+4. expenses transport 2.5

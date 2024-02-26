@@ -42,7 +42,6 @@ public class Gandalf extends Application {
         stage.getIcons().add(new javafx.scene.image.Image(
                 this.getClass().getResourceAsStream("/images/daGandalf.jpg")));
         fxmlLoader.<MainWindow>getController().setGandalf(this);
-        //fxmlLoader.<MainWindow>getController().initialize();
         Button sendButton = fxmlLoader.<MainWindow>getController().getSendButton();
         sendButton.setOnAction((event) -> {
             fxmlLoader.<MainWindow>getController().handleUserInput();
