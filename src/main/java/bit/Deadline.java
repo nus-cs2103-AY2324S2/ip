@@ -16,6 +16,7 @@ public class Deadline extends Task {
     /**
      * Initializes a deadline task. If timing does not follow YYYY-mm-dd format,
      * will print out an error message.
+     *
      * @param description The description of the task
      * @param timing the deadline of the task
      */
@@ -58,9 +59,10 @@ public class Deadline extends Task {
     }
 
     /**
-     * This method returns whether or not the deadline is due in i days
-     * @param i
-     * @return true or false depending on whether it is due in i days
+     * returns whether or not the deadline is due in i days
+     *
+     * @param i number of days tasks due in.
+     * @return true or false depending on whether it is due in i days.
      */
     public boolean isDueIn(int i) {
         ZoneId singaporeZoneId = ZoneId.of("Asia/Singapore");

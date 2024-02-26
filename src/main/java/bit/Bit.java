@@ -24,7 +24,6 @@ public class Bit {
         parser = new Parser();
     }
     public static void main(String[] args) {
-
         UI.greet();
         Tasklist tasklist = new Tasklist();
         Scanner scanner = new Scanner(System.in);
@@ -32,7 +31,6 @@ public class Bit {
         store.loadFile(tasklist);
         store.cleanList();
         Parser parser = new Parser();
-
         while (true) {
             String input = scanner.nextLine();
             String s = parser.parse(input);

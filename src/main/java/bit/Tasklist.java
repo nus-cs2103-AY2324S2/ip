@@ -173,7 +173,7 @@ public class Tasklist {
     }
 
     /**
-     *  adds tasks from harddisk to this list
+     *  Adds tasks from harddisk to this list
      *
      * @param task The task being added from harddisk.
      */
