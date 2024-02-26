@@ -46,7 +46,7 @@ public class Parser {
      * @throws DukeException If an error occurs during the parsing process.
      */
     public Command parse() throws DukeException {
-        String[] commandParts = userInput.split(" ", 2);
+        String[] commandParts = userInput.trim().split(" ", 2);
         Command command;
         switch (commandParts[0]) {
         case ListTaskCommand.COMMAND_WORD:
@@ -96,8 +96,10 @@ public class Parser {
      */
 
     private Command handleMark(String[] commandParts) throws DukeException {
+        assert commandParts.length == 2 : "Invalid mark format";
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
+            assert taskId < taskList.getSize() : "Invalid task index";
             try {
                 return new MarkTaskCommand(taskId, this.taskList);
             } catch (IndexOutOfBoundsException e) {
@@ -118,8 +120,10 @@ public class Parser {
      * @throws DukeException if user entered empty or invalid index.
      */
     private Command handleUnmark(String[] commandParts) throws DukeException {
+        assert commandParts.length == 2 : "Invalid unmark format";
         try {
             int taskId = Integer.parseInt(commandParts[1]) - 1;
+            assert taskId < taskList.getSize() : "Invalid task index";
             try {
                 return new UnmarkTaskCommand(taskId, this.taskList);
             } catch (IndexOutOfBoundsException e) {
@@ -140,6 +144,7 @@ public class Parser {
      * @throws DukeException if user entered empty or invalid index.
      */
     private Command handleDelete(String[] commandParts) throws DukeException {
+        assert commandParts.length == 2 : "Invalid delete format";
         try {
             int taskIndex = Integer.parseInt(commandParts[1].trim()) - 1;
             try {
@@ -161,6 +166,7 @@ public class Parser {
      * @throws DukeException if user left the description empty.
      */
     private static Todo handleTodo(String[] todo) throws DukeException {
+        assert todo.length == 2: "Invalid todo format";
         if (todo.length != 2 || todo[1].isEmpty()) {
             throw new DukeException(" The description of a todo cannot be empty :c \n"
                     + " (Eg format: todo <Description> )");
@@ -175,10 +181,12 @@ public class Parser {
      * @throws DukeException if user left the description empty or entered invalid format.
      */
     private static Deadline handleDeadline(String[] deadline) throws DukeException {
+        assert deadline.length == 2 && deadline[1].contains("/by"): "Invalid deadline format";
         if (deadline.length != 2 || deadline[1].isEmpty()) {
             throw new DukeException(" The description of a deadline cannot be empty.");
         } else {
             String[] parts = deadline[1].split("/by ", 2);
+            assert parts.length == 2 : "Invalid deadline format";
             if (parts.length == 2) {
                 String taskDescription = parts[0].trim();
                 String by = parts[1].trim();
@@ -204,6 +212,7 @@ public class Parser {
      * @throws DukeException if user left the description empty or entered invalid format.
      */
     private static Event handleEvent(String[] event) throws DukeException {
+        assert event.length == 2 && event[1].contains("/from") && event[1].contains("to") : "invalid event format";
         if (event.length != 2 || event[1].isEmpty()) {
             throw new DukeException(" The description of an event cannot be empty.");
         } else {
@@ -242,6 +251,7 @@ public class Parser {
      * @throws DukeException if user left the description empty.
      */
     private FindTaskCommand handleFind(String[] input) throws DukeException {
+        assert input.length == 2 : "Invalid find format.";
         if (input.length != 2 || input[1].isEmpty()) {
             throw new DukeException("The description of find cannot be empty.");
         }
