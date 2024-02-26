@@ -53,7 +53,7 @@ public class AddCommand extends Command {
      * @param tasks          The task list where the task will be added.
      * @param storageManager The storage manager to save the changes.
      * @return String print output.
-     * @throws CalException 
+     * @throws CalException
      */
     public String execute(TaskList tasks, StorageManager storageManager) throws CalException {
         task.setStatus(status);

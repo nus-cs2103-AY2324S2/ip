@@ -27,7 +27,7 @@ public class DeleteCommand extends Command {
      * @param tasks          The task list where the task will be deleted.
      * @param storageManager The storage manager to save the changes.
      * @return String print output.
-     * @throws CalException 
+     * @throws CalException
      */
     public String execute(TaskList tasks, StorageManager storageManager) throws CalException {
         Task t = tasks.delete(taskNum);

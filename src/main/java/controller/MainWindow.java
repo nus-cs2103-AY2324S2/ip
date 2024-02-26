@@ -34,9 +34,14 @@ public class MainWindow {
     private Image errorBotImage = new Image(this.getClass().getResourceAsStream("/images/error-bot.jpg"));
     private Image errorMsgSticker = new Image(this.getClass().getResourceAsStream("/images/error-msg-sticker.png"));
 
+    /**
+     * Initializes the main window.
+     * Adjust dialog container's preferred height and width according to the scroll pane's viewport
+     * to make application user interface responsive.
+     */
     @FXML
     public void initialize() {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        // scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         scrollPane.viewportBoundsProperty().addListener((observable, oldValue, newValue) -> {
             dialogContainer.setPrefHeight(newValue.getHeight());
             dialogContainer.setPrefWidth(newValue.getWidth());
@@ -48,9 +53,16 @@ public class MainWindow {
         this.cal = cal;
     }
 
+    /**
+     * Handles user input.
+     * Parses the user's input, gets a response from the Cal instance, and displays the conversation
+     * in the dialog container. If an exception occurs during processing, displays an error message.
+     *
+     * @throws CalException if an error occurs during processing the user input.
+     */
     @FXML
     private void handleUserInput() throws CalException {
-        String input = userInput.getText();
+        String input = userInput.getText().toLowerCase();
         if (input.isBlank()) {
             return;
         }
@@ -61,7 +73,7 @@ public class MainWindow {
                     DialogBox.getUserDialog(input, userImage, "#EDEDEF"),
                     DialogBox.getCalDialog(response, calImage, "#A366F9")
             );
-        } catch (CalException e) { 
+        } catch (CalException e) {
             ImageView imageView = new ImageView(errorMsgSticker);
             VBox vbox = new VBox();
             vbox.setPadding(new Insets(0, 0, 5, 55));
@@ -75,6 +87,12 @@ public class MainWindow {
         userInput.clear();
     }
 
+    /**
+     * Enable user to chat with Cal using the Enter key.
+     *
+     * @param event The KeyEvent representing the key press event.
+     * @throws CalException if an error occurs during processing the user input.
+     */
     @FXML
     private void handleKeyPress(KeyEvent event) throws CalException {
         if (event.getCode() == KeyCode.ENTER) {

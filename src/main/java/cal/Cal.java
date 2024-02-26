@@ -18,7 +18,7 @@ public class Cal {
 
     /**
      * Constructs a new Cal instance.
-     * @throws CalException 
+     * @throws CalException
      */
     public Cal() throws CalException {
         storageManager = new StorageManager(StorageManager.TASK_SAVE_PATH);
@@ -59,7 +59,7 @@ public class Cal {
      * The entry point of application.
      *
      * @param args the input arguments
-     * @throws CalException 
+     * @throws CalException
      */
     public static void main(String[] args) throws CalException {
         new Cal().run();

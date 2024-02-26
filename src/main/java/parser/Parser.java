@@ -18,12 +18,25 @@ import tasks.Task;
  * contains a static method 'parseCommand' which takes a user input string and returns the appropriate Command object.
  */
 public class Parser {
+    /**
+     * Checks if task number is given for mark, unmark and delete command.
+     *
+     * @param inputLen The length of the input tokens array.
+     * @throws CalException if the task number is not provided.
+     */
     public static void checkNullTaskNum(int inputLen) throws CalException {
         if (inputLen < 2) {
             throw new CalException("Task number not provided!");
         }
     }
 
+    /**
+     * Checks if the field is blank.
+     *
+     * @param field     The field to be checked.
+     * @param fieldName The name of the field to be used in the error message.
+     * @throws CalException if the field is blank.
+     */
     public static void checkBlankField(String field, String fieldName) throws CalException {
         if (field.isBlank()) {
             throw new CalException("Oops! You are missing" + fieldName + ".");

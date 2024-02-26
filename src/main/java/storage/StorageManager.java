@@ -17,8 +17,8 @@ import tasks.Task;
  * Contains methods to save and load tasks.
  */
 public class StorageManager {
-    public final static String TASK_SAVE_PATH = "TASK_SAVE_PATH";
-    public final static String TEST_SAVE_PATH = "TEST_SAVE_PATH";
+    public static final String TASK_SAVE_PATH = "TASK_SAVE_PATH";
+    public static final String TEST_SAVE_PATH = "TEST_SAVE_PATH";
 
     protected String taskSaveLocation;
     /**
@@ -44,7 +44,7 @@ public class StorageManager {
      * Saves the task list to the file system.
      *
      * @param tasks The task list to be saved.
-     * @throws CalException 
+     * @throws CalException
      */
     public void save(TaskList tasks) throws CalException {
         assert taskSaveLocation != null : "Save path should not be empty";
@@ -66,7 +66,7 @@ public class StorageManager {
      * Loads tasks from the file system
      *
      * @return The loaded task list.
-     * @throws CalException 
+     * @throws CalException
      */
 
     public TaskList load() throws CalException {

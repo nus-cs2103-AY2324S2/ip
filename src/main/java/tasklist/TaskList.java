@@ -28,7 +28,7 @@ public class TaskList {
      * Adds a task to the task list.
      *
      * @param task The task to be added.
-     * @throws CalException 
+     * @throws CalException
      */
     public void add(Task task) throws CalException {
         Task duplicateTaskFound = isDuplicateTask(task);

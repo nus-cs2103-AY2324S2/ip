@@ -1,8 +1,8 @@
 package tasks;
 
-import org.apache.commons.lang3.StringUtils;
-
 import java.time.format.DateTimeFormatter;
+
+import org.apache.commons.lang3.StringUtils;
 
 /**
  * represents a task inputted by user.
@@ -70,21 +70,17 @@ public abstract class Task {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (obj == null || getClass() != obj.getClass()) return false;
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null || getClass() != obj.getClass()) {
+            return false;
+        }
         Task task = (Task) obj;
         return StringUtils.deleteWhitespace(description)
                 .equals(StringUtils.deleteWhitespace(task.description));
     }
 
-    // /**
-    //  * Sets the description of the task.
-    //  *
-    //  * @param description The new task description.
-    //  */
-    // public void setDescription(String description) {
-    //     this.description = description;
-    // }
     @Override
     public String toString() {
         return "[" + getStatusIcon() + "] " + this.description;
