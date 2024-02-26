@@ -33,7 +33,7 @@ public class Command {
     }
 
     protected CommandType type;
-    protected int index;
+    protected Integer[] indices;
     protected String description;
     protected VirtueDateTime by;
     protected VirtueDateTime from;
@@ -51,7 +51,7 @@ public class Command {
         this.type = Parser.getCommandType(input);
 
         if (this.type.hasIndex) {
-            this.index = Parser.getIndex(input);
+            this.indices = Parser.getIndices(input);
         }
 
         if (this.type.hasDescription) {

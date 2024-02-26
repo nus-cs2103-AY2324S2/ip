@@ -1,6 +1,9 @@
 package virtue;
 
 import java.time.format.DateTimeParseException;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.stream.IntStream;
 
 /** A parser that parses user inputs to help generate commands. */
 public class Parser {
@@ -44,17 +47,23 @@ public class Parser {
     }
 
     /**
-     * Gets the index input by the user for a mark/unmark/delete command.
+     * Gets the indices input by the user for a mark/unmark/delete command
+     * and sorts them in descending order.
      *
      * @param input The string input by the user.
-     * @return The index for a mark/unmark/delete command.
-     * @throws EmptyIndexException If the index does not exist.
-     * @throws IndexFormatException If the index is not an integer.
+     * @return The array of indices for a mark/unmark/delete command in descending order.
+     * @throws EmptyIndexException If an index does not exist.
+     * @throws IndexFormatException If one of the indices is not an integer.
      */
-    public static int getIndex(String input) throws EmptyIndexException, IndexFormatException {
+    public static Integer[] getIndices(String input) throws EmptyIndexException, IndexFormatException {
         String type = getFirstWord(input);
         try {
-            return Integer.parseInt(removeFirstWord(input));
+            String firstWordRemoved = removeFirstWord(input);
+            String[] stringIndices = firstWordRemoved.split("\\s+");
+            int[] indices = Arrays.stream(stringIndices).mapToInt(s -> Integer.parseInt(s)).toArray();
+            Integer[] integerIndices = IntStream.of(indices).boxed().toArray(Integer[]::new);
+            Arrays.sort(integerIndices, Collections.reverseOrder());
+            return integerIndices;
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyIndexException(type);
         } catch (NumberFormatException e) {

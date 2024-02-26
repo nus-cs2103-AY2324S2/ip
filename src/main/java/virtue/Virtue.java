@@ -19,19 +19,6 @@ public class Virtue {
     }
 
     /**
-<<<<<<< HEAD
-=======
-     * Adds an indention to the string.
-     *
-     * @param str The string to be indented.
-     * @return The indented string.
-     */
-    protected static String indent(String str) {
-        return "    " + str;
-    }
-
-    /**
->>>>>>> master
      * Greets the user.
      *
      * @return The greeting message.
