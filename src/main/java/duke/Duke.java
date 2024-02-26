@@ -31,6 +31,8 @@ public class Duke {
      * @return The bot's response as a string.
      */
     public String processInput(String userInput) {
+        assert userInput != null : "User input should not be null";
+        assert !userInput.trim().isEmpty() : "User input should not be empty";
         String[] userInputArray = userInput.split(" ");
         String command = userInputArray[0];
 
@@ -109,6 +111,8 @@ public class Duke {
      * @return A string representing all tasks in the task list.
      */
     private String listAllMsg(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
+
         StringBuilder tasksMsg = new StringBuilder();
         tasksMsg.append(Bot.botListAllMsgGui()).append("\n");
         tasksMsg.append(this.taskList.toString()).append("\n");
@@ -120,6 +124,7 @@ public class Duke {
      * @return A string representing the bot's response to the add command
      */
     private String addTaskMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printAddTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -127,6 +132,7 @@ public class Duke {
      * @return A string representing the bot's response to the mark command
      */
     private String markMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printMarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -134,6 +140,7 @@ public class Duke {
      * @return A string representing the bot's response to the unmark command
      */
     private String unmarkMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -143,6 +150,8 @@ public class Duke {
      * @return A string representing the bot's response to the delete command
      */
     private String deleteMsg(String status) {
+        assert this.taskList != null : "Task list should not be null";
+        assert status != null : "Status should not be null";
         return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
                 + "\n" + TaskCountMsg() + "\n" + status + "\n";
     }
@@ -153,6 +162,7 @@ public class Duke {
      * @return A string representing the bot's response to the find command
      */
     private String findMsg(String tasks) {
+        assert tasks != null : "Tasks to find should not be null";
         return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -160,6 +170,7 @@ public class Duke {
      * @return A string representing the number of tasks in the task list
      */
     private String TaskCountMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return "You have " + taskList.getTaskCount() + " tasks in your list.";
     }
 
@@ -173,6 +184,9 @@ public class Duke {
      * @return A string representing the tasks found
      */
     private String handleFindCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+        assert userInputArray.length > 0 : "User input array should not be empty";
+
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a keyword to search for.");
         }
