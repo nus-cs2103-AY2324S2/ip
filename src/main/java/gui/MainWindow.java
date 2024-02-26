@@ -1,6 +1,5 @@
 package gui;
 
-import botchat.BotChat;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -8,6 +7,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import jerryBot.JerryBot;
 import ui.Ui;
 
 /**
@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private BotChat botchat;
+    private JerryBot jerryBot;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/tomnjerry2.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/tomnjerry1.png"));
@@ -35,8 +35,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(Ui.hiMessage(), dukeImage));
     }
 
-    public void setDuke(BotChat d) {
-        botchat = d;
+    public void setDuke(JerryBot d) {
+        jerryBot = d;
     }
 
     /**
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = botchat.getResponse(input);
+        String response = jerryBot.response(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage)

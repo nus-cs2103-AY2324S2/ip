@@ -4,7 +4,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Ui {
-    public static final String HI_MESSAGE = "Hello! I'm botchat.BotChat.\n What can I do for you?";
+    public static final String HI_MESSAGE = "Hello! I'm JerryBot.\n What can I do for you?";
     public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
 
     public static String hiMessage() {

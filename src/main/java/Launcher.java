@@ -1,4 +1,3 @@
-import botchat.BotChat;
 import gui.Main;
 import javafx.application.Application;
 
