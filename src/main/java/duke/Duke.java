@@ -1,25 +1,26 @@
 package duke;
 
 import java.io.IOException;
+import java.util.Arrays;
 import java.util.List;
-import java.util.Objects;
-import java.util.Scanner;
+// import java.util.Objects;
+// import java.util.Scanner;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.geometry.Insets;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
+// import javafx.application.Application;
+// import javafx.fxml.FXML;
+// import javafx.geometry.Insets;
+// import javafx.scene.Scene;
+// import javafx.scene.control.Button;
+// import javafx.scene.control.ScrollPane;
+// import javafx.scene.control.TextField;
+// import javafx.scene.layout.*;
+// import javafx.scene.paint.Color;
+// import javafx.scene.text.Font;
 //import javafx.scene.text.Text;
-import javafx.stage.Stage;
-import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
+// import javafx.stage.Stage;
+// import javafx.scene.control.Label;
+// import javafx.scene.image.Image;
+// import javafx.scene.image.ImageView;
 
 /**
  * The Duke class is the main entry point for the bot application itself
@@ -92,41 +93,42 @@ public class Duke {
             // System.out.println(e.getMessage());
             // }
             // break;
-            // case "todo":
-            // try {
-            // handleTodoCommand(userInputArray);
-            // taskRepository.saveTasksToFile(taskList);
-            // } catch (BotException e) {
-            // System.out.println(e.getMessage());
-            // }
-            // break;
-            // case "deadline":
-            // try {
-            // handleDeadlineCommand(userInputArray);
-            // taskRepository.saveTasksToFile(taskList);
-            // } catch (BotException e) {
-            // System.out.println(e.getMessage());
-            // }
-            // break;
-            // case "event":
-            // try {
-            // handleEventCommand(userInputArray);
-            // taskRepository.saveTasksToFile(taskList);
-            // } catch (BotException e) {
-            // System.out.println(e.getMessage());
-            // }
-            // break;
-            // case "delete":
-            // try {
-            // handleDeleteCommand(userInputArray);
-            // taskRepository.saveTasksToFile(taskList);
-            // } catch (BotException e) {
-            // System.out.println(e.getMessage());
-            // }
-            // break;
-            // case "find":
-            // handleFindCommand(userInputArray);
-            // break;
+            case "todo":
+                try {
+                    handleTodoCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "deadline":
+                try {
+                    handleDeadlineCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+                // break;
+                // case "event":
+                // try {
+                // handleEventCommand(userInputArray);
+                // taskRepository.saveTasksToFile(taskList);
+                // } catch (BotException e) {
+                // System.out.println(e.getMessage());
+                // }
+                // break;
+                // case "delete":
+                // try {
+                // handleDeleteCommand(userInputArray);
+                // taskRepository.saveTasksToFile(taskList);
+                // } catch (BotException e) {
+                // System.out.println(e.getMessage());
+                // }
+                // break;
+                // case "find":
+                // handleFindCommand(userInputArray);
+                // break;
             default:
                 return Bot.invalidInputMsgGui();
         }
@@ -159,6 +161,71 @@ public class Duke {
             sb.append(item).append("\n");
         }
         return sb.toString();
+    }
+
+    /**
+     * Handles the "todo" command by adding a new todo task to the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * @throws BotException if the description of the todo is empty
+     */
+    private void handleTodoCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("The description of a todo cannot be empty.");
+        }
+        String todoTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length));
+        this.taskList.addTodo(todoTask);
+    }
+
+    /**
+     * Handles the "deadline" command by adding a deadline task to the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * @throws BotException if the user input is incomplete
+     */
+    private void handleDeadlineCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
+            throw new BotException("Please give some description and due date in deadline");
+        }
+        String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
+                userInputArray.length)).split("/by", 2)[0].trim();
+
+        String dueDate = String.join(" ", Arrays.copyOfRange(userInputArray,
+                Arrays.asList(userInputArray).indexOf("/by") + 1, userInputArray.length));
+
+        taskList.addDeadline(deadlineTask, dueDate);
+    }
+
+    /**
+     * Handles the event command by extracting the event task, start time, and end
+     * time from the user input array
+     * Adds the event task to the task list with the specified start time and end
+     * time
+     *
+     * @param userInputArr the user input array containing the event command and its
+     *                     arguments
+     * @throws BotException if the description and time of an event are empty
+     */
+    // private void handleEventCommand(String[] userInputArray) throws BotException
+    // {
+    // if (userInputArray.length < 3) {
+    // throw new BotException("The description and time of an event cannot be
+    // empty.");
+    // }
+    // String eventTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
+    // userInputArray.length))
+    // .split("/from", 2)[0].trim();
+    // int fromIndex = Arrays.asList(userInputArray).indexOf("/from") + 1;
+    // int toIndex = Arrays.asList(userInputArray).indexOf("/to");
+    // String startTime = String.join(" ", Arrays.copyOfRange(userInputArray,
+    // fromIndex, toIndex));
+    // String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex
+    // + 1, userInputArray.length));
+    // taskList.addEvent(eventTask, startTime, endTime);
+    // }
+
+    private String addTaskMsg() {
+        return Bot.printAddTaskMsgGui() + "\n" + botListAllTasks(this.taskList) + "\n";
     }
 
     /**

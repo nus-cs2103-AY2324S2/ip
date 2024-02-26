@@ -54,6 +54,7 @@ public class TaskRepository {
                         if (isTaskDone) {
                             taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
                         }
+                        // System.out.println("Loaded task: " + description);
                         break;
                     case "D":
                         String dueDate = taskDetails[3].trim();
@@ -62,6 +63,7 @@ public class TaskRepository {
                         if (isTaskDone) {
                             taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
                         }
+                        // System.out.println("Loaded task: " + description + " by " + dueDate);
                         break;
                     case "E":
                         String timeBlock = taskDetails[3].trim();
@@ -74,6 +76,8 @@ public class TaskRepository {
                         if (isTaskDone) {
                             taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
                         }
+                        // System.out.println("Loaded task: " + description + " from " + startTime + "
+                        // to " + endTime);
                         break;
                 }
             }
@@ -101,7 +105,7 @@ public class TaskRepository {
                 String taskWithoutNumber = task.substring(task.indexOf(" ") + 1);
                 fileWriter.write(taskWithoutNumber + "\n");
             }
-            System.out.println("Your tasks have been saved to storage.");
+            // System.out.println("Your tasks have been saved to storage.");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -65,6 +65,10 @@ public class Bot {
         return "Seems like you're too lazy to remember what you have to do. Here's your list:";
     }
 
+    public static String printAddTaskMsgGui() {
+        return "Added. You better do it before I erase your data.";
+    }
+
     // -------------------------- Terminal Interaactions --------------------------
 
     /**
