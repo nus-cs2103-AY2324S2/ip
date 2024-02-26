@@ -33,6 +33,8 @@ public class Parser {
             return new MarkCommand(input, tasklist);
         case "unmark":
             return new UnmarkCommand(input, tasklist);
+        case "find":
+            return new FindCommand(input, tasklist);
         case "help":
             return new HelpCommand(input);
         default:

@@ -17,6 +17,7 @@ public class HelpCommand extends Command {
             "mark: Marks a task as done.",
             "unmark: Marks a task as undone.",
             "delete: Deletes a task from the task list.",
+            "find: Finds tasks with mathing keyword",
             "bye: Exits the program.",
             "help: Provides help on the commands I support."
     };
@@ -103,6 +104,11 @@ public class HelpCommand extends Command {
                     + "\n\tFormat: delete <id>"
                     + "\n\tExample: delete 1"
                     + "\n\t*Note: The id must be a valid integer task id.";
+        case "find":
+            return "find: Finds tasks whose string representation matches with the given keyword."
+                    + "\n\tFormat: find <keyword>"
+                    + "\n\tExample: find book"
+                    + "\n\t*Note: The keyword cannot be empty.";
         case "bye":
             return "bye: Exits the program."
                     + "\n\tFormat: bye"
