@@ -107,9 +107,10 @@ public class HelpCommand extends Command {
             return "bye: Exits the program."
                     + "\n\tFormat: bye"
                     + "\n\tExample: bye";
+        default:
+            return "I'm sorry, I don't know what that command is. Please type 'help' to see the "
+                    + "list of commands I support.";
         }
-
-        return "I'm sorry, I don't know what that command is. Please type 'help' to see the list of commands I support.";
     }
 
     @Override

@@ -21,7 +21,8 @@ public class InvalidFormatException extends DudeException {
      * @param format  The format that should be used.
      */
     public InvalidFormatException(String command, String format) {
-        super("Invalid format for " + command + " command. \nPlease use this format: " + format + ",\n or type help for more information.");
+        super("Invalid format for " + command + " command. \nPlease use this format: " + format
+                + ",\n or type help for more information.");
     }
 
     /**
@@ -32,9 +33,9 @@ public class InvalidFormatException extends DudeException {
      * @param note The note to be added to the exception message.
      */
     public InvalidFormatException(String command, String format, String note) {
-        super("Invalid format for " + command + " command. " +
-                "\nPlease use this format: " + format + "," +
-                "\n or type help for more information."
+        super("Invalid format for " + command + " command. "
+                + "\nPlease use this format: " + format + ","
+                + "\n or type help for more information."
                 + "\nNote: " + note);
     }
 }

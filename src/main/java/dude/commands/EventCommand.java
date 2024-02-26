@@ -9,10 +9,11 @@ import dude.tasks.TaskList;
  * The EventCommand class represents a command that adds an event to the TaskList object.
  */
 public class EventCommand extends Command {
-    private final String input;
-    private final TaskList taskList;
 
     public static final String COMMAND_FORMAT = "event <description> /from <date> /to <date>";
+
+    private final String input;
+    private final TaskList taskList;
 
     /**
      * Constructor for the EventCommand class. Returns a command object to add an event to the TaskList object upon

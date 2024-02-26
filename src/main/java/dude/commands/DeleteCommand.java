@@ -9,10 +9,11 @@ import dude.tasks.TaskList;
  * The DeleteCommand class represents a command to delete a task from the TaskList object.
  */
 public class DeleteCommand extends Command {
+
+    private static final String COMMAND_FORMAT = "delete <id>";
     private final String input;
     private final TaskList taskList;
 
-    private static final String COMMAND_FORMAT = "delete <id>";
 
     /**
      * Constructor for the DeleteCommand class. Returns a command object to delete a task from the TaskList object upon

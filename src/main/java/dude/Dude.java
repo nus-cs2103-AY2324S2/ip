@@ -7,9 +7,9 @@ import dude.commands.Command;
 import dude.commands.CommandTypes;
 import dude.commands.Parser;
 import dude.exceptions.DudeException;
+import dude.tasks.TaskList;
 import dude.utils.Storage;
 import dude.utils.Ui;
-import dude.tasks.TaskList;
 
 
 /**

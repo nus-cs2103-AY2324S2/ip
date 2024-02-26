@@ -29,7 +29,7 @@ public class Deadline extends Task {
 
     /**
      * Static method to create a Deadline object from parsing a string.
-     * Expects a string in the format "deadline <description> /by <deadline_date>".
+     * Expects a string in the format "deadline *description* /by *deadline_date*".
      *
      * @param s The string to be parsed into a Deadline object.
      * @return The Deadline object created from the string.

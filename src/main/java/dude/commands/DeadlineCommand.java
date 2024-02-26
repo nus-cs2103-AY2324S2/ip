@@ -15,8 +15,8 @@ public class DeadlineCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructor for the DeadlineCommand class. Returns a command object to add a deadline task to the TaskList object upon
-     * execution.
+     * Constructor for the DeadlineCommand class. Returns a command object to add a deadline task to
+     * the TaskList object upon execution.
      *
      * @param input    The input string that resulted in the creation of this command.
      * @param tasklist The TaskList object to which the deadline task is to be added.
