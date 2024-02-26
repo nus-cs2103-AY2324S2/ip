@@ -20,7 +20,7 @@ public class MainWindow extends AnchorPane {
 
     private Homie homie;
 
-    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/gojo.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private final Image homieImage = new Image(this.getClass().getResourceAsStream("/images/homie.png"));
 
     /**
