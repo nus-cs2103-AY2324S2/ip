@@ -7,13 +7,12 @@ import java.time.format.DateTimeFormatter;
  * Implements an event as a type of task.
  */
 public class Event extends Task {
-
-    private LocalDateTime from;
-    private LocalDateTime to;
     /**
      * The pattern of DateTime that is printed to the user.
      */
     private static final String OUTPUT_PATTERN = "MMM dd yyyy HH:mm";
+    private LocalDateTime from;
+    private LocalDateTime to;
 
     /**
      * The constructor of the class.

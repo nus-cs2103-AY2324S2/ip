@@ -1,12 +1,12 @@
 package liv.container;
 
-import liv.task.Deadline;
-import liv.task.TodoTask;
-import org.junit.jupiter.api.Test;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import org.junit.jupiter.api.Test;
+
 import liv.task.Task;
+import liv.task.TodoTask;
+
 public class TaskListTest {
     @Test
     public void addTaskTest() {

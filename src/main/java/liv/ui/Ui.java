@@ -4,11 +4,10 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import liv.container.TaskList;
-import liv.exception.LivException;
-import liv.task.Task;
-import liv.task.TodoTask;
 import liv.task.Deadline;
 import liv.task.Event;
+import liv.task.Task;
+import liv.task.TodoTask;
 
 /**
  * Handles the interaction between users and the chatbot.
@@ -175,7 +174,7 @@ public class Ui {
      */
     public static String getFindMessage(ArrayList<String> matchingTasks) {
         String findMessage = "Here are the mission(s) you requested me to find:\n";
-        if (matchingTasks.size() == 0)  {
+        if (matchingTasks.size() == 0) {
             return "No mission found!";
         } else {
             for (int i = 0; i < matchingTasks.size(); i++) {
@@ -186,7 +185,8 @@ public class Ui {
         displayMessage(findMessage);
         return findMessage;
     }
-    /** Prints the error message that was thrown by the Exception class.
+    /**
+     * Prints the error message that was thrown by the Exception class.
      * @param errorMessage The exception message thrown.
      */
     public static void displayErrorMessage(String errorMessage) {

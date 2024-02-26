@@ -7,11 +7,11 @@ import java.time.format.DateTimeFormatter;
  * Implements a deadline as a type of task.
  */
 public class Deadline extends Task {
-    private LocalDateTime by;
     /**
      * The pattern of DateTime that is printed to the user.
      */
     private static final String OUTPUT_PATTERN = "MMM dd yyyy HH:mm";
+    private LocalDateTime by;
 
     /**
      * The constructor of the class.
