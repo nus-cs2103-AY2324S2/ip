@@ -102,6 +102,9 @@ public class Storage {
         return new ArrayList<Task>();
     }
 
+    //@@author ZhiWei1010-reused
+    //Reused from https://stackoverflow.com/questions/24475286/saving-class-objects-to-a-text-file-in-java
+    // with minor modifications
     /**
      * Method to update storage text file whenever there are changes to the task list.
      *
@@ -120,6 +123,4 @@ public class Storage {
             System.out.println("Error updating storage file: " + e);
         }
     }
-
-
 }

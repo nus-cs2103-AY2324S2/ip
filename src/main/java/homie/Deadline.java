@@ -1,5 +1,6 @@
 package homie;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -7,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * The Deadline class that extends the Task class. Handles all deadline related tasks.
  * Can specify the Local Date Time to keep track of when to complete deadline by.
  */
-public class Deadline extends Task {
+public class Deadline extends Task implements Serializable {
 
     protected LocalDateTime dueDateTime;
 
@@ -19,8 +20,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String by) {
         super(description);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MM yyyy HHmm");
-        this.dueDateTime = LocalDateTime.parse(by, formatter);
+        this.dueDateTime = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd MM yyyy HHmm"));
     }
 
     @Override

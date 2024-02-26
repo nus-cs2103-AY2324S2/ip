@@ -1,5 +1,6 @@
 package homie;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -11,7 +12,6 @@ public class Event extends Task {
 
     protected LocalDateTime startDateTime;
     protected LocalDateTime endDateTime;
-    private final DateTimeFormatter outputDateTimeFormat = DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm");
 
     /**
      * Constructor for Event class
@@ -30,7 +30,7 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E][" + this.getStatusIcon() + "] " + super.toString() + " (from: "
-            + this.startDateTime.format(this.outputDateTimeFormat) + " to: "
-                + this.endDateTime.format(this.outputDateTimeFormat) + ")";
+            + this.startDateTime.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm")) + " to: "
+                + this.endDateTime.format(DateTimeFormatter.ofPattern("MM-dd-yyyy HH:mm")) + ")";
     }
 }
