@@ -33,6 +33,9 @@ public class TaskList extends ArrayList<Task> {
     public TaskList(String content, Ui ui, Storage storage) {
         taskLog = new ArrayList<>();
 
+        assert ui != null : "UI should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (content.isBlank()) {
             ui.printEmptyStorage();
             return;
@@ -42,8 +45,10 @@ public class TaskList extends ArrayList<Task> {
         Integer indexCounter = 1;
 
         for (String line : lines) {
+            assert line != null : "Line should not be null";
             System.out.println(line);
             String[] info = line.split("\\|");
+            assert info.length >= 3 : "Info array should have at least 3 elements";
 
             String taskType = info[0].trim();
             boolean isDone = info[1].trim().equals("1");
@@ -88,6 +93,7 @@ public class TaskList extends ArrayList<Task> {
      * Converts tasks in TaskList into a string to be saved as text data.
      */
     public String toSaveData() {
+        assert this != null : "TaskList instance should not be null";
         StringBuilder taskContents = new StringBuilder();
         for (Task task : this) {
             taskContents.append(task.toSaveData());

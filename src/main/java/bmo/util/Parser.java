@@ -14,8 +14,6 @@ import bmo.command.LogCommand;
 import bmo.command.RedoCommand;
 import bmo.command.ToDoCommand;
 
-import bmo.ui.Ui;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -143,7 +141,7 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) {
         Command output;
-
+     
         String findFormat = "^find\\s+(\\S+(\\s+\\w+)*)$";
         Pattern findPattern = Pattern.compile(findFormat);
         Matcher findMatcher = findPattern.matcher(input);
