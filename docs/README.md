@@ -12,7 +12,7 @@ As an example, here's how you might use it:
 3. Add another task called read novel
 4. View your list
 
-To try it out for yourself, download the jar file from [here](https://github.com/soons1/ip/releases/tag/v0.3) and type in your CLI:
+To try it out for yourself, download the jar file from the latest release [here](https://github.com/soons1/ip/releases) and type in your CLI:
 ```
 java -jar duke.jar
 ```

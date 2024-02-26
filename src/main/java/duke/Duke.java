@@ -48,7 +48,7 @@ public class Duke {
             try {
                 dukeResponse = Ui.checkCmd(this.tasks, command);
             } catch (DukeException de) {
-                System.out.println(de.getMessage());
+                return de.getMessage();
             }
         }
         return dukeResponse;
