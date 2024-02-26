@@ -69,4 +69,27 @@ public class Task {
     public boolean contains(String keyword) {
         return this.description.contains(keyword);
     }
+
+    /**
+     * Checks if the task matches the specified task type.
+     *
+     * @param taskType The type of task to check against ("todo", "deadline", or "event").
+     * @return true if the task matches the specified type, false otherwise.
+     */
+    public boolean isMatchingTaskType(String taskType) {
+        switch (taskType) {
+            case "todo":
+                return this instanceof Todo;
+
+            case "deadline":
+                return this instanceof Deadline;
+
+            case "event":
+                return this instanceof Event;
+
+            default:
+                return false;
+        }
+    }
+
 }
