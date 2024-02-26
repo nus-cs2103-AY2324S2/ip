@@ -13,7 +13,7 @@ public abstract class Command {
      *
      * @param tasks   List of tasks.
      * @param storage Local file storage.
-     * @throws ReacherException.
+     * @throws ReacherException
      */
     public String execute(String input, TaskList tasks, Storage storage) throws ReacherException {
         return input;
