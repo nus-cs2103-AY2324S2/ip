@@ -3,7 +3,7 @@
 ## Introduction
 Welcome to RahhBot! RahhBot is your friendly virtual assistant designed to make your life easier. Whether you need help managing your tasks, finding information, or just want to chat, RahhBot is here to assist you. This user guide will walk you through the basic functionalities of RahhBot and how to interact with it effectively.
 
-![UI image of RahhBot](Ui.png)
+<img src="Ui.png" height="400" alt="Ui Image">
 
 ## Getting Started
 To start using RahhBot, simply type your queries or commands into the chat window. RahhBot will respond promptly and provide you with the assistance you need. You can ask RahhBot about tasks, deadlines, events, and more.
