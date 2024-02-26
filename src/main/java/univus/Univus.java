@@ -2,13 +2,6 @@ package univus;
 
 import java.util.Scanner;
 
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import univus.task.TaskList;
 
 /**
@@ -21,13 +14,6 @@ public class Univus {
     private TaskList taskList;
     private Ui ui;
     private Scanner scanner;
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/pikachu.png"));
-    private Image univus = new Image(this.getClass().getResourceAsStream("/images/agumon.png"));
 
     /**
      * Constructs a new instance of the Univus application.
