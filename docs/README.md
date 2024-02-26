@@ -25,7 +25,7 @@ command to run the application.
 
 Notes about command format:
 
-1. words in [] are parameters to be supplied by users.
+1. words in [] are parameters to be supplied by users and cannot be empty.
    
    eg. `todo [content]`, content is a parameter which can be used as `todo read book`
        
