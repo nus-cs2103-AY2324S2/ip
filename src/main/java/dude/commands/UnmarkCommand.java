@@ -49,10 +49,8 @@ public class UnmarkCommand extends Command {
             Task task = taskList.getTask(id);
             this.taskList.mark_as_undone(id);
 
-            String msg = "Nice! I've unmarked this task as done:\n"
+            return "Nice! I've unmarked this task as done:\n"
                     + "\t  " + id + ". " + task.toString();
-
-            return msg;
         } catch (DudeException e) {
             throw new DudeException(e.getMessage());
         }

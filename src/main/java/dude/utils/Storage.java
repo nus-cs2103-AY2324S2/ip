@@ -41,7 +41,7 @@ public class Storage {
 
         //create the directory if it does not exist
         if (!path.exists()) {
-            boolean created = path.mkdirs();
+            path.mkdirs();
         }
 
         File file = new File(this.filepath + this.filename);
@@ -64,7 +64,7 @@ public class Storage {
         boolean fileExists = file.exists();
 
         if (fileExists) {
-            boolean deleted = file.delete();
+            file.delete();
         }
     }
 
@@ -98,7 +98,7 @@ public class Storage {
     public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
         createStorageIfNotExists();
 
-        ArrayList<Task> list = new ArrayList<>();
+        ArrayList<Task> list;
         try {
             FileInputStream fis = new FileInputStream(this.filepath + this.filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
