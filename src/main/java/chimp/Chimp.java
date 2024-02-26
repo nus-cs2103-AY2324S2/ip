@@ -125,22 +125,22 @@ public class Chimp extends Application {
     private void handleUserInput() {
         String input = userInput.getText();
         Label userText = new Label(input);
-        
-        String response = generateResponse();
+
+        String response = generateResponse(input);
         assert response != null : "response should not be null";
 
         Label dukeText = new Label(response);
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke)));
+                DialogBox.getUserDialog(userText, new ImageView(user)),
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
         userInput.clear();
     }
 
-    private String generateResponse(){
-        String input = userInput.getText();
+    private String generateResponse(String input) {
         try {
             Command c = Parser.parse(input);
             String response = c.execute(this.tasks, this.ui, this.storage);
+            Storage.saveOutputToFile(tasks.toString());
             // TODO: This does not belong here
             if (c.isExit()) {
                 try {
