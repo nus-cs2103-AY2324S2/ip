@@ -65,10 +65,20 @@ public class Event extends Task {
         return formattedDateTime;
     }
 
+    /**
+     * Changes from parameter
+     *
+     * @param from New from value to replace.
+     */
     public void updateFrom(LocalDateTime from) {
         this.from = from;
     }
 
+    /**
+     * Changes to parameter
+     *
+     * @param to New to value to replace.
+     */
     public void updateTo(LocalDateTime to) {
         this.to = to;
     }

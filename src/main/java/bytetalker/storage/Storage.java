@@ -16,6 +16,10 @@ import java.util.Scanner;
 
 /**
  * Represents utility class for storing and loading information from a file on the hard disk.
+ *
+ * @author Junseo Kim
+ * @version 0.1
+ * @since 2024-01-28
  */
 public class Storage {
     private static Path filePath;
@@ -43,6 +47,13 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a directory if there is no 'data' directory in home folder.
+     *
+     * @param hasDirectory Boolean value for indicating the directory already exists or not.
+     * @param directoryPath Path for directory to be created.
+     * @throws IOException Error while creating the directory.
+     */
     private void createDirectory(boolean hasDirectory, Path directoryPath) throws IOException {
         if (!hasDirectory) {
             Files.createDirectory(directoryPath);
@@ -52,6 +63,12 @@ public class Storage {
         }
     }
 
+    /**
+     * Creates a file if there is no 'ByteTalker.txt' file in data folder.
+     *
+     * @param hasFile Boolean value for indicating the file already exists or not.
+     * @throws IOException Error while creating the file.
+     */
     private void createFile(boolean hasFile) throws IOException {
         if (!hasFile) {
             Files.createFile(filePath);
@@ -91,7 +108,8 @@ public class Storage {
             temp += " / " + deadlineTask.getDeadline().format(outputFormatter);
         } else if (isEvent) {
             Event eventTask = (Event) currentTask;
-            temp += " / " + eventTask.getFrom().format(outputFormatter) + " / " + eventTask.getTo().format(outputFormatter);
+            temp += " / " + eventTask.getFrom().format(outputFormatter) + " / "
+                    + eventTask.getTo().format(outputFormatter);
         }
         return temp;
     }

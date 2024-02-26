@@ -16,6 +16,8 @@ import java.util.Scanner;
 public class Ui {
     /**
      * Prints out welcome message and command format the user can use to enter the task.
+     *
+     * @return Welcome message.
      */
     public String showWelcome() {
         String welcomeMessage = "Hello! I'm bytetalker.ByteTalker\n" + "What can I do for you?\n" + "Supported tasks " +
@@ -27,6 +29,8 @@ public class Ui {
 
     /**
      * Prints out bye message.
+     *
+     * @return Exit message.
      */
     public String showBye() {
         String byeString =
@@ -35,7 +39,9 @@ public class Ui {
     }
 
     /**
-     * Prints out error message if there is an error while changing the task list.
+     * Prints out error message if there is an error while storing the task list.
+     *
+     * @return Message indicating there is an error while storing the task list
      */
     public String showStoreTaskErrorMessage() {
         String storeTaskErrorMessage = "Error while changing the task list\n" + "Please try again";
@@ -43,19 +49,10 @@ public class Ui {
     }
 
     /**
-     * Accepts user input and returns it.
-     *
-     * @return String User input.
-     */
-    public String storeUserInput() {
-        Scanner sc = new Scanner(System.in);
-        return sc.nextLine();
-    }
-
-    /**
      * Prints out the message that the task user wants is marked as done.
      *
      * @param task Task that user wants to mark as done.
+     * @return Message showing successful execution of marking task as done.
      */
     public String showMarkTaskMsg(Task task) {
         String markedTaskMessage = "Nice! I've marked this task as done:\n" + "      " + task.toString();
@@ -66,6 +63,7 @@ public class Ui {
      * Prints out the message that the task user wants is marked as undone.
      *
      * @param task Task the user wants to mark as undone.
+     * @return Message showing successful execution of marking task as not done.
      */
     public String showUnmarkTaskMsg(Task task) {
         String unmarkedTaskMessage = "OK, I've marked this task as not done yet:\n" + "      " + task.toString();
@@ -78,6 +76,7 @@ public class Ui {
      *
      * @param task Task the user wants to delete from the task list.
      * @param length Length of the task list after deleting the task.
+     * @return Message indicating the task has been removed from the list.
      */
     public String showDeleteTaskMsg(Task task, int length) {
         String deletedTaskMessage = "Got it. I've removed this task:" + "\n" + "        " + task.toString() + "\n" +
@@ -91,6 +90,7 @@ public class Ui {
      *
      * @param task Task that the user wants to add to the lsit.
      * @param length Length of the task list after adding the task.
+     * @return Message indicating the task has been added to the list.
      */
     public String showAddTaskMsg(Task task, int length) {
         String addedTaskMessage = "Got it. I've added this task:" + "\n" + "       " + task.toString() + "\n" + "Now " +
@@ -100,6 +100,8 @@ public class Ui {
 
     /**
      * Prints out the message when a file is not found in the system.
+     *
+     * @return Error message if the ByteTalker.txt file is not found.
      */
     public String showFileNotFoundErrorMsg() {
         return "File is not found";
@@ -109,6 +111,7 @@ public class Ui {
      * Prints out the whole list of tasks in the list.
      *
      * @param tasks Task list that contains all the tasks added.
+     * @return Message containing every task in the list.
      */
     public String returnList(ArrayList<Task> tasks) {
         String taskListMessage = "";
@@ -123,6 +126,7 @@ public class Ui {
      * Prints out the error message when date and time parse cannot be done.
      *
      * @param e Error occured while parsing date and time.
+     * @return Error message for unsupported DateTime format.
      */
     public static void showDateTimeParseErrorMsg(Exception e) {
         System.err.println("Unable to parse the date and time string: " + e.getMessage());
@@ -132,6 +136,7 @@ public class Ui {
      * Prints out the list of tasks found based on the user input.
      *
      * @param foundTasks List of tasks found.
+     * @return Message containing found tasks based on user input.
      */
     public String displayFoundTasks(ArrayList<Task> foundTasks) {
         String foundTasksMessage = "Here are the found tasks:\n";
@@ -144,14 +149,35 @@ public class Ui {
         return foundTasksMessage;
     }
 
-    public String showUpdatedTask(Task task) {
+    /**
+     *  Prints out the updated task information.
+     *
+     * @param task Task to be updated
+     * @return Message containing the task with changes
+     */
+    public String showUpdatedTaskMessage(Task task) {
         String message = "Updated the chosen task! \n   " + task.toString();
         return message;
     }
 
-    public String showWrongFormatUpdate() {
+    /**
+     * Prints out the message if update format is wrong.
+     *
+     * @return Message telling update input format is wrong.
+     */
+    public String showWrongFormatUpdateMessage() {
         String message = "The chosen task does not have the parameter to be updated " +
                 "\nPlease update the correct parameter of the chosen task";
+        return message;
+    }
+
+    /**
+     * Error message if the user enters invalid index.
+     *
+     * @return Message telling the index is invalid.
+     */
+    public String showInvalidIndexMessage() {
+        String message = "Please enter the valid index.";
         return message;
     }
 }

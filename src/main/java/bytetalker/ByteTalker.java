@@ -57,6 +57,14 @@ public class ByteTalker extends Application {
         }
     }
 
+    /**
+     * Determines the response based on the user input.
+     * User input is processed and the chatbot gives a reponse as a message to indicate successful or unsuccessful
+     * execution.
+     *
+     * @param input User input as a string.
+     * @return Message indicating successful or unsuccessful execution of the program.
+     */
     private String getResponse(String input) {
         String[] splitMessages = Parser.parse(input);
         if (input.equals("bye")) {
@@ -79,6 +87,14 @@ public class ByteTalker extends Application {
         }
     }
 
+    /**
+     * Creates a Gui for the chatbot.
+     *
+     * @param stage the primary stage for this application, onto which
+     * the application scene can be set.
+     * Applications may create other stages, if needed, but they will not be
+     * primary stages.
+     */
     @Override
     public void start(Stage stage) {
         scrollPane = new ScrollPane();

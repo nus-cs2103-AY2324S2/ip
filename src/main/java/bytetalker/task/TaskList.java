@@ -29,7 +29,8 @@ public class TaskList {
      *
      * @param splitMessage Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
-     * @param ui Utility object to print out the message to user to inform the process of the method.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
      */
     public String markTask(String[] splitMessage, Storage storage, Ui ui) {
         assert tasks != null;
@@ -37,6 +38,10 @@ public class TaskList {
         assert ui != null;
 
         int index = Integer.parseInt(splitMessage[1]) - 1;
+        if (index < 0 || index > this.tasks.size()) {
+            return ui.showInvalidIndexMessage();
+        }
+
         try {
             this.tasks.get(index).setStatus(true);
             storage.storeTasks(this.tasks);
@@ -52,7 +57,8 @@ public class TaskList {
      *
      * @param splitMessage Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
-     * @param ui Utility object to print out the message to user to inform the process of the method.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
      */
     public String unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
         assert tasks != null;
@@ -61,6 +67,10 @@ public class TaskList {
         assert storage != null;
 
         int index = Integer.parseInt(splitMessage[1]) - 1;
+        if (index < 0 || index > this.tasks.size()) {
+            return ui.showInvalidIndexMessage();
+        }
+
         try {
             this.tasks.get(index).setStatus(false);
             storage.storeTasks(this.tasks);
@@ -78,31 +88,43 @@ public class TaskList {
      *
      * @param messageContainer Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
-     * @param ui Utility object to print out the message to user to inform the process of the method.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
      */
 
     public String addTask(String[] messageContainer, Storage storage, Ui ui) {
         try {
             Task task = determineTaskToBeAdded(messageContainer);
-            try {
-                if (task != null) {
-                    this.tasks.add(task);
-                    storage.storeTasks(this.tasks);
-                    return ui.showAddTaskMsg(task, this.tasks.size());
-                } else {
-                    return "No task added";
-                }
-            } catch (IOException e) {
-                this.tasks.remove(this.tasks.size() - 1);
-                return ui.showStoreTaskErrorMessage();
+            if (task != null) {
+                this.tasks.add(task);
+                storage.storeTasks(this.tasks);
+                return ui.showAddTaskMsg(task, this.tasks.size());
+            } else {
+                return "Please follow the correct format.";
             }
+        } catch (IOException e) {
+            this.tasks.remove(this.tasks.size() - 1);
+            return ui.showStoreTaskErrorMessage();
         } catch (ByteTalkerException.UnsupportedTaskException ex) {
             String errorUnsupportedMessage = ex.getMessage() + ". Please only enter the supported types of task.";
             return errorUnsupportedMessage;
+        } catch (ByteTalkerException.UnsupportedDateTimeException ex) {
+            String errorUnsupportedDateTimeMessage = ex.getMessage() + ".";
+            return errorUnsupportedDateTimeMessage;
         }
     }
 
-    private Task determineTaskToBeAdded(String[] messageContainer) throws ByteTalkerException.UnsupportedTaskException {
+    /**
+     * Determines the type of the task and call the respective methods of that type of task to add the task into the
+     * list.
+     *
+     * @param messageContainer Parsed messages of user input and processed by Parser.
+     * @return Task object ready to be added to the list.
+     * @throws ByteTalkerException.UnsupportedTaskException
+     */
+    private Task determineTaskToBeAdded(String[] messageContainer)
+            throws ByteTalkerException.UnsupportedTaskException,
+            ByteTalkerException.UnsupportedDateTimeException{
         boolean isTodo = messageContainer[0].equals("todo");
         boolean isDeadline = messageContainer[0].equals("deadline");
         boolean isEvent = messageContainer[0].equals("event");
@@ -117,71 +139,73 @@ public class TaskList {
         }
     }
 
-
-
     /**
      * Creates a Todo object based on the user input.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return Todo object that contains the task content specified by user.
      */
-    public Todo addTodo(String[] splitMessage) {
+    public Todo addTodo(String[] splitMessages) {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
 
         Todo task = null;
         try {
-            ArrayList<String> parsedTodoInputs = Parser.parseTodoAddInput(splitMessage);
-            task = new Todo(parsedTodoInputs.get(0));
-        } catch (ByteTalkerException.TodoNoTaskException ex) {
-            System.out.println("    " + ex.getMessage() + ". Please enter the task, too.");
+            String[] parsedTodoInputs = Parser.parseTodoAddInput(splitMessages);
+            task = new Todo(parsedTodoInputs[0]);
+            return task;
         } catch (ByteTalkerException.TodoUnsupportedFormatException e) {
-            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task.");
+            return null;
         }
-        return task;
     }
 
     /**
      * Creates a Deadline object based on the user input.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return Deadline object that contains the task content and deadline of the task specified by the user.
      */
-    public Deadline addDeadline(String[] splitMessage) {
+    public Deadline addDeadline(String[] splitMessages)
+            throws ByteTalkerException.UnsupportedDateTimeException {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
 
         Deadline task = null;
         try {
-            ArrayList<String> parsedDeadlineInput = Parser.parseDeadlineAddInput(splitMessage);
-            task = new Deadline(parsedDeadlineInput.get(0), Parser.parseDateTime(parsedDeadlineInput.get(1)));
-        } catch (ByteTalkerException.DeadlineUnsupportedFormatException e) {
-            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
+            String[] parsedDeadlineInput = Parser.parseDeadlineAddInput(splitMessages);
+            if (Parser.parseDateTime(parsedDeadlineInput[1]) == null) {
+                throw new ByteTalkerException.UnsupportedDateTimeException("Please use the correct format of DateTime");
+            }
+            task = new Deadline(parsedDeadlineInput[0], Parser.parseDateTime(parsedDeadlineInput[1]));
+            return task;
         } catch (ByteTalkerException.DeadlineWrongFormatException e) {
-            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
+            return null;
         }
-        return task;
     }
 
     /**
      * Creates an Event object based on the user input.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return Event object that contains the event information, from when and until when specified by the user.
      */
-    public Event addEvent(String[] splitMessage) {
+    public Event addEvent(String[] splitMessages) throws ByteTalkerException.UnsupportedDateTimeException {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
 
         Event task = null;
         try {
-            ArrayList<String> parsedEventInput = Parser.parseEventAddInput(splitMessage);
-            task = new Event(parsedEventInput.get(0), Parser.parseDateTime(parsedEventInput.get(1)),
-                    Parser.parseDateTime(parsedEventInput.get(2)));
+            String[] parsedEventInput = Parser.parseEventAddInput(splitMessages);
+            if (Parser.parseDateTime(parsedEventInput[1]) == null
+                    || Parser.parseDateTime(parsedEventInput[2]) == null) {
+                throw new ByteTalkerException.UnsupportedDateTimeException("Please use the correct format of DateTime");
+            }
+            task = new Event(parsedEventInput[0], Parser.parseDateTime(parsedEventInput[1]),
+                    Parser.parseDateTime(parsedEventInput[2]));
+            return task;
         } catch (ByteTalkerException.EventWrongFormatException e) {
-            System.out.println("    " + e.getMessage() + ". Please use the correct format for each task");
+            return null;
         }
-        return task;
     }
 
     /**
@@ -189,7 +213,8 @@ public class TaskList {
      *
      * @param splitMessages Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into hard disk.
-     * @param ui Utility object to print out the message to user to inform the process of the method.
+     * @param ui Utility object to print out the message to user to result the process of the method.
+     * @return Message for successful or unsuccessful execution
      */
     public String deleteTask(String[] splitMessages, Storage storage, Ui ui) {
         assert tasks != null;
@@ -198,8 +223,8 @@ public class TaskList {
         int position = Integer.parseInt(splitMessages[1]);
         assert position > 0;
 
-        if (position > this.tasks.size() && position > 0) {
-            return "Please enter valid index";
+        if (position - 1 < 0 || position - 1 > this.tasks.size()) {
+            return ui.showInvalidIndexMessage();
         }
 
         Task task = this.tasks.get(position - 1);
@@ -216,18 +241,19 @@ public class TaskList {
     /**
      * Finds all the tasks with content that contains the user input.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
-     * @param ui Utility object to print out the message to user to inform the process of the method.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
      */
-    public String findTask(String[] splitMessage, Ui ui) {
+    public String findTask(String[] splitMessages, Ui ui) {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
         assert ui != null;
 
-        if (splitMessage.length != 2) {
+        if (splitMessages.length != 2) {
             return "Please use the correct format";
         }
-        String content = splitMessage[1];
+        String content = splitMessages[1];
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
             Task currentTask = this.tasks.get(i);
@@ -238,9 +264,19 @@ public class TaskList {
         return ui.displayFoundTasks(foundTasks);
     }
 
-    // update 2 /content read book || /by 2/10/2019 5:00
+    /**
+     * Updates a parameter of the task based on user input.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param storage Utility object to store the changed list of tasks into hard disk.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
+     */
     public String editTask(String[] splitMessages, Storage storage, Ui ui) {
         int index = Integer.parseInt(splitMessages[1]) - 1;
+        if (index < 0 || index > this.tasks.size()) {
+            return ui.showInvalidIndexMessage();
+        }
 
         Task task = this.tasks.get(index);
         try {
@@ -263,36 +299,68 @@ public class TaskList {
         }
     }
 
+    /**
+     * Updates content parameter of the task.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param task Task object to be updated.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution.
+     */
     public String editContent(String[] splitMessages, Task task, Ui ui) {
         String content = Parser.parseContentUpdateInput(splitMessages);
         task.updateTask(content);
-        return ui.showUpdatedTask(task);
+        return ui.showUpdatedTaskMessage(task);
     }
 
+    /**
+     * Updates deadline parameter of the task.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param task Task object to be updated.
+     * @param ui Utility objet to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution
+     */
     public String editDeadline(String[] splitMessages, Task task, Ui ui) {
         LocalDateTime deadline = Parser.parseDateTimeUpdateInput(splitMessages);
         if (task.getTaskType() == TaskType.DEADLINE) {
             ((Deadline) task).updateDeadline(deadline);
-            return ui.showUpdatedTask(task);
+            return ui.showUpdatedTaskMessage(task);
         }
-        return ui.showWrongFormatUpdate();
+        return ui.showWrongFormatUpdateMessage();
     }
 
+    /**
+     * Updates from parameter of the task.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param task Task object to be updated.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution.
+     */
     public String editFrom(String[] splitMessages, Task task, Ui ui) {
         LocalDateTime time = Parser.parseDateTimeUpdateInput(splitMessages);
         if (task.getTaskType() == TaskType.EVENT) {
             ((Event) task).updateFrom(time);
-            return ui.showUpdatedTask(task);
+            return ui.showUpdatedTaskMessage(task);
         }
-        return ui.showWrongFormatUpdate();
+        return ui.showWrongFormatUpdateMessage();
     }
 
+    /**
+     * Updates to parameter of the task.
+     *
+     * @param splitMessages Parsed messages of user input and processed by Parser.
+     * @param task Task object to be updated.
+     * @param ui Utility object to print out the message to user to inform the result of the method.
+     * @return Message for successful or unsuccessful execution.
+     */
     public String editTo(String[] splitMessages, Task task, Ui ui) {
         LocalDateTime time = Parser.parseDateTimeUpdateInput(splitMessages);
         if (task.getTaskType() == TaskType.EVENT) {
             ((Event) task).updateTo(time);
-            return ui.showUpdatedTask(task);
+            return ui.showUpdatedTaskMessage(task);
         }
-        return ui.showWrongFormatUpdate();
+        return ui.showWrongFormatUpdateMessage();
     }
 }

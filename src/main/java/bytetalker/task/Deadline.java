@@ -46,6 +46,11 @@ public class Deadline extends Task {
         return this.deadline;
     }
 
+    /**
+     * Changes deadline parameter
+     *
+     * @param deadline New deadline value to replace.
+     */
     public void updateDeadline(LocalDateTime deadline) {
         this.deadline = deadline;
     }
