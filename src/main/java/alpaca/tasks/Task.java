@@ -127,13 +127,19 @@ public abstract class Task {
         if (!matcher.find()) {
             return;
         }
-        String result = matcher.group();
-        String tmp = this.name.replaceFirst("^[^/]+", "");
-        if (tmp.equals("")) {
+        String name = matcher.group();
+        String params = this.name.replaceFirst("^[^/]+", "");
+        if (params.equals("")) {
             return;
         }
-        tmp = tmp.replaceAll("(/)([a-zA-Z]+)(\\s|$)", "$2:$3");
-        this.name = result + "(" + tmp + ")";
+        String paramsEdited = params.replaceAll("(/)([a-zA-Z]+)(\\s|$)", "$2:$3");
+        System.out.println(paramsEdited);
+        System.out.println(params);
+        if (params.equals(paramsEdited)) {
+            this.name = name + params;
+        } else {
+            this.name = name + "(" + paramsEdited + ")";
+        }
     }
 
     public String toString() {
