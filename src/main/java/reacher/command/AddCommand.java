@@ -29,7 +29,7 @@ public class AddCommand extends Command {
             t = new Todos(name);
         case ("deadline"):
             String deadlineString = Parser.getInfo(input, DEADLINE);
-            LocalDate  deadlineDate = LocalDate.parse(deadlineString);
+            LocalDate deadlineDate = LocalDate.parse(deadlineString);
 
             t = new Deadline(name, deadlineDate);
         case ("event"):
@@ -41,31 +41,24 @@ public class AddCommand extends Command {
             }
 
             t = new Events(name, start, end);
-<<<<<<< HEAD
-=======
-            tasks.addTask(t);
-            storage.storeList(tasks.getTasks());
-            return("I've added " + t.toString());
-        default:
-            assert (t == null) : "t should be null";
-            throw new ReacherException("That is not a type of task.");
->>>>>>> A-Assertions
         }
+        assert (t == null) : "t should be null";
         if (t == null) {
-            throw new ReacherException("Type of tasks are: todo, deadline and event.");
+            throw new ReacherException("That is not a type of task.");
         }
         tasks.addTask(t);
         storage.storeList(tasks.getTasks());
         return ("I've added " + t.toString());
     }
 
-    /**
-     * Checks if object is an instance of AddCommand class.
-     * @param object
-     * @return
-     */
-    @Override
-    public boolean equals(Object object){
-        return object instanceof AddCommand;
-    }
+        /**
+         * Checks if object is an instance of AddCommand class.
+         * @param object
+         * @return
+         */
+        @Override
+        public boolean equals (Object object){
+            return object instanceof AddCommand;
+        }
+
 }
