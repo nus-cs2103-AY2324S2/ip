@@ -16,7 +16,7 @@ Aegis Assistant comes with the following functions:
 ---
 ## Getting started
 
-To start using Aegis Assistant, download the .jar file from [here]() and follow these steps:
+To start using Aegis Assistant, download the .jar file from [here](https://github.com/JonChong98/ip/releases/tag/A-Release) and follow these steps:
 
 1. Place the aegis.jar file into an empty folder.
 2. Open a command terminal in your operating system and navigate to the folder containing the aegis.jar file.
