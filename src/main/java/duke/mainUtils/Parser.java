@@ -38,6 +38,7 @@ public final class Parser {
      */
     public static Command parseUserInput(String userInput) throws InvalidCommandException {
         String[] splitUserInput = userInput.trim().split("\\s+");
+        assert splitUserInput.length > 0;
         String commandType = splitUserInput[0].toUpperCase();
         Command command;
 
@@ -98,7 +99,6 @@ public final class Parser {
      */
     public static Task parseSaveFile(String taskStringData) throws StorageException, InvalidDateException {
         String[] sections = taskStringData.trim().split("\\|");
-
         // Validate input data
         if (sections.length < 3) {
             throw new StorageException();
@@ -275,6 +275,7 @@ public final class Parser {
     public static EventTask parseEventTask(String[] details) throws InvalidTaskException, InvalidDateException {
         int fromIndex = -1;
         int toIndex = -1;
+        assert false;
         for (int i = 0; i < details.length; i++) {
             if ("/from".equals(details[i])) {
                 fromIndex = i;
