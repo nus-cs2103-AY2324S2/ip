@@ -57,7 +57,10 @@ Example:
 - `list`
 
 Expected output:
-```Sure! Here is the list: ```
+```
+Sure! Here is the list: 
+1. [T][] Task
+```
 
 ## Marking a task `mark`
 Mark a task as complete! Format `mark index`
@@ -101,7 +104,11 @@ Note:
 - It is ok if you do not remember the whole word, a part of the word will do.
 
 Expected output:
-```Sure! Here are the matches: ```
+```
+Sure! Here are the matches: 
+
+1. [T][] Task
+```
 
 ## Reminders `remind`
 Bit can remind you of deadlines approaching in a few days or overdue! Format: `remind index`
@@ -114,7 +121,11 @@ Note:
 - The current day is counted as a day. So if you wish to find assignments due tomorrow, `remind 2`
 
 Expected output:
-```Hmm... This tasks are due soon: ```
+```
+Hmm... This tasks are due soon: 
+
+1. [T][] Task
+ ```
 
 ## Bye `bye`
 This can be used to close the program safely.
