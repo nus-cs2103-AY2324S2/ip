@@ -22,8 +22,8 @@ public class Event extends Task {
     }
 
     @Override
-    public String storeData() {
-        return "event|" +super.storeData() + "|" + this.start + "|" + this.end;
+    public String toFileString() {
+        return "event|" + super.toFileString() + "|" + this.start + "|" + this.end;
     }
 
     @Override

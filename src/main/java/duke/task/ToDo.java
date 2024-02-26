@@ -15,8 +15,8 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String storeData() {
-        return "todo|" + super.storeData();
+    public String toFileString() {
+        return "todo|" + super.toFileString();
     }
 
     @Override

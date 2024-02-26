@@ -23,7 +23,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private DukeFX duke;
+    private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -33,7 +33,7 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(DukeFX d) {
+    public void setDuke(Duke d) {
         duke = d;
         dialogContainer.getChildren().add(
                 DialogBox.getDukeDialog("Hello, I'm Buto!\nWhat can I do for you?", dukeImage)

@@ -18,13 +18,7 @@ public class Parser {
      * Constructs a Parser object.
      *
      * @param userInput User input text.
-     * @param command Command keyword.
      */
-    public Parser(String userInput, String command) {
-        this.userInput = userInput;
-        this.command = command;
-    }
-
     public Parser(String userInput) {
         Scanner sc = new Scanner(userInput);
         this.command = sc.next().trim();
@@ -40,7 +34,7 @@ public class Parser {
     }
 
     /**
-     * Retrieves raw user input.
+     * Returns raw user input.
      *
      * @return User input text.
      */
@@ -83,8 +77,7 @@ public class Parser {
     }
 
     /**
-     * Returns task's due date as string.
-     * Only valid for tasks of type deadline.
+     * Returns task's due date as string for task of type deadline.
      *
      * @return Due date in string format.
      */
@@ -93,8 +86,7 @@ public class Parser {
     }
 
     /**
-     * Returns task's due date and time as a LocalDateTime object.
-     * Only valid for tasks of type deadline.
+     * Returns task's due date and time as a LocalDateTime object for tasks of type deadline.
      *
      * @return Due date as LocalDateTime object.
      */
@@ -113,8 +105,7 @@ public class Parser {
     }
 
     /**
-     * Returns a string of event's start time.
-     * Only valid for tasks of type event.
+     * Returns a string of event's start time for tasks of type event.
      *
      * @return Start of event.
      */
@@ -123,8 +114,7 @@ public class Parser {
     }
 
     /**
-     * Returns a string of event's end time.
-     * Only valid for tasks of type event.
+     * Returns a string of event's end time for tasks of type event.
      *
      * @return End of event.
      */
@@ -133,8 +123,7 @@ public class Parser {
     }
 
     /**
-     * Parses user input as integer.
-     * Only valid for commands 'delete', 'unmark', 'mark'.
+     * Parses user input as integer for commands 'delete', 'unmark', 'mark'.
      *
      * @return User input as integer.
      */

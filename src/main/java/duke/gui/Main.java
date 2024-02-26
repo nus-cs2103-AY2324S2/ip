@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private DukeFX duke = new DukeFX();
+    private Duke duke = new Duke();
 
     public Main() throws IOException {
     }
