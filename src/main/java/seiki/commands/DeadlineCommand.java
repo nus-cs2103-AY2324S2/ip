@@ -29,6 +29,9 @@ public class DeadlineCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+        assert !taskTitle.isEmpty() : "Task name should not be empty";
+        assert dateTime != null : "Date and time should not be empty";
+
         DeadlineTask task = new DeadlineTask(taskTitle, dateTime);
         taskList.addTask(task);
         storage.save(taskList);

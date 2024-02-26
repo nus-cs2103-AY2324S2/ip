@@ -25,6 +25,8 @@ public class MarkCommand extends Command {
         taskList.checkIfListEmpty(MESSAGE_EMPTY_TASKLIST);
         taskList.checkIfNumberValid(taskNumber);
 
+        assert taskNumber >= 0 || taskNumber < taskList.getTaskCount() : "Task number should be within range of task list";
+
         Task task = taskList.getTaskByNumber(taskNumber);
         task.markAsDone();
         storage.save(taskList);

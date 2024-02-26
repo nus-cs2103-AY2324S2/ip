@@ -24,8 +24,15 @@ public class FindCommand extends Command {
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
         taskList.checkIfListEmpty(MESSAGE_EMPTY_TASKLIST);
+
+        assert taskList.getTaskCount() > 0 : "Task list should contain tasks";
+        assert !keyword.isEmpty() : "Keyword should not be empty";
+
         TaskList resultList = taskList.searchByKeyword(keyword);
         resultList.checkIfListEmpty(String.format(MESSAGE_FIND_FAIL, keyword));
+
+        assert resultList.getTaskCount() > 0 : "Result list should contain tasks";
+
         return ui.showFindTask(keyword, resultList);
     }
 

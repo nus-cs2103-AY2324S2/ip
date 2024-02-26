@@ -52,6 +52,8 @@ public class Parser {
         String cmd = matcher.group("command");
         String args = matcher.group("arguments").stripLeading();
 
+        assert !args.isEmpty() : "Argument should not be empty";
+
         switch (cmd) {
         case ListCommand.COMMAND_WORD:
             return parseListCommand(args);

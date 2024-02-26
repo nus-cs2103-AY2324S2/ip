@@ -33,6 +33,10 @@ public class EventCommand extends Command {
 
     @Override
     public String execute(Storage storage, TaskList taskList, Ui ui) throws SeikiException {
+        assert !taskTitle.isEmpty() : "Task name should not be empty";
+        assert startDateTime != null : "Start date and time should not be empty";
+        assert endDateTime != null : "End date and time should not be empty";
+
         EventTask task = new EventTask(taskTitle, startDateTime, endDateTime);
         taskList.addTask(task);
         storage.save(taskList);
