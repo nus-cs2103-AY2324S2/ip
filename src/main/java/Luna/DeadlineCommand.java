@@ -17,12 +17,12 @@ public class DeadlineCommand extends Command {
     }
 
     /**
-     * Attach the reference tasklist, ui and storage to execute the command on.
-     * Adds a new deadline task to the tasklist
+     * Attach the reference task list, ui and storage to execute the command on.
+     * Adds a new deadline task to the task list
      *
-     * @param tl the tasklist
+     * @param tl the task list
      * @param ui the program ui
-     * @param storage listfile storage
+     * @param storage list file storage
      */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {

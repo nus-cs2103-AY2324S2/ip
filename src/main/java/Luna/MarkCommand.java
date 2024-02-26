@@ -1,7 +1,7 @@
 package Luna;
 
 /**
- * Represents a mark command. Marks a task in the tasklist
+ * Represents a mark command. Marks a task in the task list
  */
 public class MarkCommand extends Command{
     int index;
@@ -12,13 +12,13 @@ public class MarkCommand extends Command{
     }
 
     /**
-     * Marks a task as done in the tasklist, settting its check to true
+     * Marks a task as done in the task list, setting its check to true
      * Prompts an InvalidCommand if the referenced index is invalid
      * Then shows the list
      *
-     * @param tl the tasklist
+     * @param tl the task list
      * @param ui the program ui
-     * @param storage listfile storage
+     * @param storage list file storage
      */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {

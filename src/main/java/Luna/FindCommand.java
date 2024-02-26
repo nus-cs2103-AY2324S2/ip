@@ -23,13 +23,12 @@ public class FindCommand extends Command {
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
         TaskList filteredList = new TaskList();
-        for (int i = 0; i < tl.size(); i++) {
-            ListEntry ent = taskList.get(i);
+        for (int i = 0; i < tl.getSize(); i++) {
+            ListEntry ent = taskList.getEntry(i);
             if(ent.hasKeyword(keyword)) {
                 filteredList.add(ent);
             }
         }
-
         ui.showList(filteredList);
     }
 }

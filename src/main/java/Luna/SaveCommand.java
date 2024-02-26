@@ -13,9 +13,9 @@ public class SaveCommand extends Command {
      * Clears any preexisting task in the storage.
      * Copied all the task list to the storage
      *
-     * @param tl the tasklist
+     * @param tl the task list
      * @param ui the program ui
-     * @param storage listfile storage
+     * @param storage list file storage
      */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {

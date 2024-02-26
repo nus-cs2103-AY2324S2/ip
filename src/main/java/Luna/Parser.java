@@ -41,7 +41,7 @@ public class Parser {
                 return new InvalidCommand("too little arguments for [deadline]");
             } else if (strings.length > 3) {
                 return new InvalidCommand("too many arguments for [deadline]");
-            } else if (!isDateValid(strings[2])) {
+            } else if (isDateInvalid(strings[2])) {
                 System.out.println("___" + strings[2]);
 
                 return new InvalidCommand("End Date incorrect format: " + DATE_FORMAT);
@@ -54,9 +54,9 @@ public class Parser {
                 return new InvalidCommand("too little arguments for [event]");
             } else if (strings.length > 4) {
                 return new InvalidCommand("too many arguments for [event]");
-            } else if (!isDateValid(strings[2])) {
+            } else if (isDateInvalid(strings[2])) {
                 return new InvalidCommand("Start Date incorrect format: " + DATE_FORMAT);
-            } else if (!isDateValid(strings[3])) {
+            } else if (isDateInvalid(strings[3])) {
                 return new InvalidCommand("End Date incorrect format: " + DATE_FORMAT);
             } else {
                 return new EventCommand(strings[1], LocalDate.parse(strings[2], dateFormatter), LocalDate.parse(strings[3], dateFormatter));
@@ -66,7 +66,7 @@ public class Parser {
                 return new InvalidCommand("too little arguments for [mark]");
             } else if (strings.length > 2) {
                 return new InvalidCommand("too many arguments for [mark]");
-            } else if (!isInteger(strings[1])) {
+            } else if (isNonInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
             }else {
                 return new MarkCommand(Integer.parseInt(strings[1])-1);
@@ -76,7 +76,7 @@ public class Parser {
                 return new InvalidCommand("too little arguments for [unmark]");
             } else if (strings.length > 2) {
                 return new InvalidCommand("too many arguments for [unmark]");
-            } else if (!isInteger(strings[1])) {
+            } else if (isNonInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
             } else {
                 return new UnmarkCommand(Integer.parseInt(strings[1])-1);
@@ -86,7 +86,7 @@ public class Parser {
                 return new InvalidCommand("too little arguments for [delete]");
             } else if (strings.length > 2) {
                 return new InvalidCommand("too many arguments for [delete]");
-            } else if (!isInteger(strings[1])) {
+            } else if (isNonInteger(strings[1])) {
                 return new InvalidCommand("Index value must be numeric");
             } else {
                 return new DeleteCommand(Integer.parseInt(strings[1])-1);
@@ -125,29 +125,28 @@ public class Parser {
      * @param dateStr the string to check validity.
      * @return boolean whether string is a valid date.
      */
-    public static boolean isDateValid(String dateStr)
-    {
+    public static boolean isDateInvalid(String dateStr) {
         try {
             LocalDate.parse(dateStr, dateFormatter);
-        } catch (DateTimeParseException e) {
             return false;
+        } catch (DateTimeParseException e) {
+            return true;
         }
-        return true;
     }
 
     /**
-     * Returns true if the given string is an integer value.
+     * Returns false if the given string is an integer value.
      *
      * @param str the string to check validity.
-     * @return boolean whether string is an integer.
+     * @return boolean whether string is not an integer.
      *
      */
-    public static boolean isInteger(String str) {
+    public static boolean isNonInteger(String str) {
         try {
             Integer.parseInt(str);
-            return true;
-        } catch(NumberFormatException e){
             return false;
+        } catch(NumberFormatException e){
+            return true;
         }
     }
     

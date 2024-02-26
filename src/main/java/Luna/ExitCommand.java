@@ -19,7 +19,6 @@ public class ExitCommand extends Command{
     public void execute(TaskList tl, Ui ui, Storage storage) {
         ui.exitMessage();
         System.exit(0);
-//        super.execute(tl, ui, storage);
     }
 
 

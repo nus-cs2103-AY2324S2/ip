@@ -10,17 +10,16 @@ public class LoadCommand extends Command {
     }
 
     /**
-     * Clears any preexisiting task in the task list.
+     * Clears any preexisting task in the task list.
      * Adds all the task if any from the storage to the task list
      *
-     * @param tl the tasklist
+     * @param tl the task list
      * @param ui the program ui
-     * @param storage listfile storage
+     * @param storage list file storage
      */
     @Override
     public void execute(TaskList tl, Ui ui, Storage storage) {
         super.execute(tl, ui, storage);
-
         tl.clear();
         storage.loadList(tl);
     }

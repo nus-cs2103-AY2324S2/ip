@@ -84,13 +84,13 @@ public class Storage {
     }
 
     /**
-     * Appends all the entries from a tasklist to the file.
+     * Appends all the entries from a task list to the file.
      *
      * @param tl the tl to save to the file.
      */
     public void appendList(TaskList tl) {
-        for (int i = 0; i < tl.size(); i++) {
-            this.appendEntry(tl.get(i));
+        for (int i = 0; i < tl.getSize(); i++) {
+            this.appendEntry(tl.getEntry(i));
         }
     }
 
@@ -109,7 +109,7 @@ public class Storage {
     }
 
     /**
-     * Loads all the entries in the file to the tasklist
+     * Loads all the entries in the file to the task list
      *
      * @param loadList to load all the entries into .
      */
