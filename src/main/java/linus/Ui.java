@@ -7,6 +7,13 @@ import java.util.ArrayList;
  * Represents all the interactions with the user.
  */
 public class Ui {
+    /**
+     * Returns String representation of all the matching tasks.
+     *
+     * @param taskList TaskList to be traversed for find command.
+     * @param keyword Keyword to find matching tasks.
+     * @return String representation of all the matching tasks.
+     */
     public String findTasks(TaskList taskList, String keyword) {
         ArrayList<Task> matchingTasks = taskList.findMatchingTasks(keyword);
         String returnedStringOfTasks;

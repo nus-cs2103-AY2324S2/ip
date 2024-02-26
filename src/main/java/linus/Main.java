@@ -15,6 +15,11 @@ public class Main extends Application {
     // Adapted from @Howlong11
     private Linus linus = new Linus();
 
+    /**
+     * Starts the setting of scene for GUI to load.
+     *
+     * @param stage the primary stage for this application, onto which the application scene can be set.
+     */
     @Override
     public void start(Stage stage) {
         try {

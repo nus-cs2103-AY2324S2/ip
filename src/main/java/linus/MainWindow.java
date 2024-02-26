@@ -8,6 +8,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -27,15 +28,26 @@ public class MainWindow extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image linusImage = new Image(this.getClass().getResourceAsStream("/images/linus.jpg"));
 
+    /**
+     * Initializes binding of scrollPane.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
+    /**
+     * Sets the current Linus object to the specified Linus object.
+     *
+     * @param linus Linus object to be set.
+     */
     public void setLinus(Linus linus) {
         this.linus = linus;
     }
 
+    /**
+     * Sets the greetings of Linus for the user to see.
+     */
     public void greet() {
         String str = "Hello! I'm Linus.\n" + "I'm the mascot of National University of Singapore!\n" +
                 "Type 'help' to access a help page.\nRemember to give the 'bye' command to save all your updates made" +
@@ -45,7 +57,8 @@ public class MainWindow extends AnchorPane {
 
     /**
      * Creates two dialog boxes, one echoing user input and the other containing Linus's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
+     * the dialog container.
+     * Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {

@@ -13,12 +13,17 @@ public class TaskList {
     private static final String FILE_PATH = "./data/linus.txt";
 
     /**
-     * Constructs a TaskList.
+     * Constructs a TaskList with no argument.
      */
     public TaskList() {
         this.taskList = new ArrayList<>();
     }
 
+    /**
+     * Constructs a TaskList with a specified taskList object.
+     *
+     * @param tasks TaskList to be set.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.taskList = tasks;
     }
@@ -81,6 +86,12 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Finds all tasks that match the keyword and returns a task list containing these tasks.
+     *
+     * @param findKeyword Keyword to be used for find command.
+     * @return Task list containing matching tasks.
+     */
     public ArrayList<Task> findMatchingTasks(String findKeyword) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

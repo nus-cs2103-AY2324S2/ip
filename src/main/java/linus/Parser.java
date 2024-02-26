@@ -12,12 +12,25 @@ public class Parser {
     private final Ui ui;
     private final Storage storage;
 
+    /**
+     * Constructs a Parser object.
+     *
+     * @param taskList TaskList to be set.
+     * @param ui UI to be set.
+     * @param storage Storage to be set.
+     */
     public Parser(TaskList taskList, Ui ui, Storage storage) {
         this.taskList = taskList;
         this.ui = ui;
         this.storage = storage;
     }
 
+    /**
+     * Parses the specified command into a String response.
+     *
+     * @param command Command to be parsed into a String response.
+     * @return String response.
+     */
     public String parseInputCommand(String command) {
         String returnedString;
 
@@ -57,12 +70,24 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the help command.
+     *
+     * @return Linus's response to the command.
+     */
     private static String parseHelpCommand() {
         String returnedString;
         returnedString = "Go to https://github.com/jeong-jaeho/ip/blob/master/README.md for detailed Help info!";
         return returnedString;
     }
 
+    /**
+     * Parses the delete command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     * @throws LinusException Exception thrown when incorrect user input is given.
+     */
     private String parseDeleteCommand(String command) throws LinusException {
         String returnedString;
         if (command.length() <= 7) {
@@ -81,6 +106,13 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the event command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     * @throws LinusException Exception thrown when incorrect user input is given.
+     */
     private String parseEventCommand(String command) throws LinusException {
         String returnedString;
         if (!command.contains(" /from ") || !command.contains(" /to ")) {
@@ -109,6 +141,13 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the deadline command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     * @throws LinusException Exception thrown when incorrect user input is given.
+     */
     private String parseDeadlineCommand(String command) throws LinusException {
         String returnedString;
         String[] substrings = command.split(" /by ");
@@ -141,6 +180,13 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the todo command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     * @throws LinusException Exception thrown when incorrect user input is given.
+     */
     private String parseTodoCommand(String command) throws LinusException {
         String returnedString;
         // Check if the input string is long enough
@@ -164,6 +210,12 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the unmark command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     */
     private String parseUnmarkCommand(String command) {
         String returnedString;
         int indexOfTask = Integer.parseInt(command.substring(7));
@@ -173,6 +225,12 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the mark command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     */
     private String parseMarkCommand(String command) {
         String returnedString;
         int indexOfTask = Integer.parseInt(command.substring(5));
@@ -182,6 +240,12 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the find command.
+     *
+     * @param command Command to be parsed.
+     * @return Linus's response to the command.
+     */
     private String parseFindCommand(String command) {
         String returnedString;
         String keyword = command.substring(5).trim();
@@ -189,6 +253,11 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the list command.
+     *
+     * @return Linus's response to the command.
+     */
     private String parseListCommand() {
         String returnedString;
         returnedString = "Here are the tasks in your list:\n";
@@ -200,6 +269,11 @@ public class Parser {
         return returnedString;
     }
 
+    /**
+     * Parses the bye command.
+     *
+     * @return Linus's response to the command.
+     */
     private String parseByeCommand() {
         String returnedString;
         ArrayList<Task> currUpdatedTaskList = taskList.getAllTasks();

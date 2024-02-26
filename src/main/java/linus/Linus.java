@@ -1,7 +1,7 @@
 package linus;
 
 /**
- * Main class for running Linus chatbot.
+ * Represents the Linus chatbot class.
  */
 public class Linus {
     private Ui ui = new Ui();
@@ -16,9 +16,10 @@ public class Linus {
     }
 
     /**
+     * Returns response parsed from the specified command.
      *
-     * @param command
-     * @return
+     * @param command Command to be parsed into a response.
+     * @return Response parsed from the specified command.
      */
     public String getResponse(String command) {
         Parser parser = new Parser(taskList, ui, storage);
