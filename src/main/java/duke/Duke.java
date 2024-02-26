@@ -20,8 +20,12 @@ public class Duke {
     }
 
 
-
-
+    /**
+     * Get user input and execute respective command.
+     * @param input
+     * @return  String generated from execution of command.
+     * @throws DukeException
+     */
     public String getResponse(String input) throws DukeException {
         try {
             tasks = Storage.load();
