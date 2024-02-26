@@ -9,8 +9,6 @@ import java.time.LocalDate;
 
 import java.util.Scanner;
 
-import java.io.FileWriter;
-
 import duke.tasks.Task;
 import duke.tasks.Deadline;
 import duke.tasks.Event;

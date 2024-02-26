@@ -37,13 +37,13 @@ public class Ui {
     private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
     private static final String FILE_PATH = "./src/main/java/data/saved_tasks.txt";
     private static final String FIND = "find";
-    private static final String FOUND_MESSAGE = NEW_LINE + INDENT+ "Here are the tasks I have found!\n";
+    private static final String FOUND_MESSAGE = NEW_LINE + INDENT + "Here are the tasks I have found!\n";
 
-    Storage storage = new Storage(FILE_PATH);
-    TaskList taskList;
-    Boolean isFinished = false;
-    int idx;
-    Task task;
+    private Storage storage = new Storage(FILE_PATH);
+    private TaskList taskList;
+    private Boolean isFinished = false;
+    private int idx;
+    private Task task;
 
     /**
      * Constructor for Ui
