@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 /**
  * Represents a Task. Is the parent class of Deadline, Event, and Todo.

@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import java.io.FileWriter;
 import java.io.BufferedWriter;
@@ -19,7 +19,7 @@ public class Storage {
      */
     public static void createFile() {
         String directoryPath = "data";
-        String filePath = directoryPath + File.separator + "Duke.txt";
+        String filePath = directoryPath + File.separator + "Patrick.txt";
 
         try {
             File directory = new File(directoryPath);
@@ -43,7 +43,7 @@ public class Storage {
      * @param tasks List of tasks given by user.
      */
     public static void write(TaskList tasks) {
-        String filePath = "data/Duke.txt";
+        String filePath = "data/Patrick.txt";
 
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath, false));
@@ -59,7 +59,7 @@ public class Storage {
      * Deletes everything in file.
      */
     public static void clear() {
-        String filePath = "data/Duke.txt";
+        String filePath = "data/Patrick.txt";
         try {
             BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter(filePath, false));
             bufferedWriter.close();
@@ -73,7 +73,7 @@ public class Storage {
      *
      */
     public static TaskList load() {
-        String filePath = "data/Duke.txt";
+        String filePath = "data/Patrick.txt";
         TaskList tasks = new TaskList();
 
         try {
@@ -85,7 +85,7 @@ public class Storage {
                 try {
                     Task task = Parser.parseFromData(line);
                     tasks.add(task);
-                } catch (DukeException e) {
+                } catch (PatrickException e) {
                     System.out.println(e.getMessage());
                 }
 

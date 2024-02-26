@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -22,37 +22,37 @@ public class MainWindow extends AnchorPane{
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Patrick patrick;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/spongebob.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/patrick.png"));
+    private Image patrickImage = new Image(this.getClass().getResourceAsStream("/images/patrick.png"));
 
     @FXML
     public void initialize() {
         String welcome = "Hello!\nWhat can I do for you?";
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
-        dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(welcome, dukeImage));
+        dialogContainer.getChildren().addAll(DialogBox.getPatrickDialog(welcome, patrickImage));
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setPatrick(Patrick d) {
+        patrick = d;
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing Patrick's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
     private void handleUserInput() {
         try {
             String input = userInput.getText();
-            String response = duke.getResponse(input);
+            String response = patrick.getResponse(input);
             dialogContainer.getChildren().addAll(
                     DialogBox.getUserDialog(input, userImage),
-                    DialogBox.getDukeDialog(response, dukeImage)
+                    DialogBox.getPatrickDialog(response, patrickImage)
             );
             userInput.clear();
-        } catch (DukeException e) {
+        } catch (PatrickException e) {
             System.out.println(e.getMessage());
         }
     }

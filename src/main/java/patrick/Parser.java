@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import java.time.LocalDateTime;
 import java.time.Year;
@@ -23,13 +23,13 @@ public class Parser {
      * Parses the input if it is a command to add a task.
      * @param input Command to add a task, ie todo, event, deadline
      * @return A Task instance corresponding to the command
-     * @throws DukeException If the command format is invalid.
+     * @throws PatrickException If the command format is invalid.
      */
-    public static Task parseFromInput(String input) throws DukeException {
+    public static Task parseFromInput(String input) throws PatrickException {
         Task task = null;
         String[] arr = input.split(" ", 2);
         if (arr.length <= 1) {
-            throw new DukeException("Please use the format: deadline <task> /by <date/time>\n" +
+            throw new PatrickException("Please use the format: deadline <task> /by <date/time>\n" +
                     "todo <task>\n" +
                     "event <task> /from <date/time> /to <date/time>");
         }
@@ -48,7 +48,7 @@ public class Parser {
                 task = eventInputHandler(arr[1]);
                 break;
             default:
-                throw new DukeException("Invalid format");
+                throw new PatrickException("Invalid format");
         }
 
         return task;
@@ -58,9 +58,9 @@ public class Parser {
      * Parses string stored in data file.
      * @param input A line in the data file.
      * @return A task corresponding to the line in the data file.
-     * @throws DukeException If the input is not recognized or corrupted.
+     * @throws PatrickException If the input is not recognized or corrupted.
      */
-    public static Task parseFromData(String input) throws DukeException {
+    public static Task parseFromData(String input) throws PatrickException {
         Task task = null;
         boolean isDone;
         String[] arr = input.split("/", 6);
@@ -74,7 +74,7 @@ public class Parser {
             command = arr[1];
         } catch (ArrayIndexOutOfBoundsException e) {
             Storage.clear();
-            throw new DukeException("Invalid data, data cleared");
+            throw new PatrickException("Invalid data, data cleared");
         }
 
         if (command.equals("todo")) {
@@ -93,7 +93,7 @@ public class Parser {
             task.addTag(tag);
 
         } else {
-            throw new DukeException("I don't know what that means.");
+            throw new PatrickException("I don't know what that means.");
         }
 
         return task;
@@ -103,18 +103,18 @@ public class Parser {
      * Create a new Event task based on user input.
      * @param input
      * @return An event Task
-     * @throws DukeException If the format is invalid
+     * @throws PatrickException If the format is invalid
      */
-    public static Task eventInputHandler(String input) throws DukeException {
+    public static Task eventInputHandler(String input) throws PatrickException {
         Task task;
 
         String[] frarr = input.split("/from ", 2);
         if (frarr.length <= 1) {
-            throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
+            throw new PatrickException("Please use the format: event /from <date/time> /to <date/time>");
         }
         String[] toarr = frarr[1].split("/to ", 2);
         if (toarr.length <= 1) {
-            throw new DukeException("Please use the format: event /from <date/time> /to <date/time>");
+            throw new PatrickException("Please use the format: event /from <date/time> /to <date/time>");
         }
         String name1 = frarr[0];
         String fromStr = toarr[0].trim();
@@ -136,7 +136,7 @@ public class Parser {
                     to = LocalDateTime.parse(toStr + currentYear + DEFAULT_END, dtf);
                     task = new Event(name1, from, to);
                 } catch (DateTimeParseException g) {
-                    throw new DukeException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");
+                    throw new PatrickException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");
                 }
             }
 
@@ -150,13 +150,13 @@ public class Parser {
      * Creates a new Deadline task based on user input.
      * @param input
      * @return A new Deadline task
-     * @throws DukeException If the format is invalid
+     * @throws PatrickException If the format is invalid
      */
-    public static Task deadlineInputHandler(String input) throws DukeException {
+    public static Task deadlineInputHandler(String input) throws PatrickException {
         Task task;
         String[] dlarr = input.split("/by ", 2);
         if (dlarr.length <= 1) {
-            throw new DukeException("Please use the format: deadline <task> /by <date/time>.");
+            throw new PatrickException("Please use the format: deadline <task> /by <date/time>.");
         }
         String name = dlarr[0];
         String byStr = dlarr[1].trim();
@@ -173,7 +173,7 @@ public class Parser {
                     by = LocalDateTime.parse(byStr + currentYear + DEFAULT_END, dtf);
                     task = new Deadline(name, by);
                 } catch (DateTimeParseException g) {
-                    throw new DukeException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");
+                    throw new PatrickException("Invalid time format. Please use ddMM, ddMMyy HHmm, or ddMM HHmm");
                 }
             }
 
@@ -186,9 +186,9 @@ public class Parser {
      * @param arr
      * @param isDone
      * @return A new Deadline task
-     * @throws DukeException
+     * @throws PatrickException
      */
-    public static Task deadlineDataHandler(String[] arr, boolean isDone) throws DukeException {
+    public static Task deadlineDataHandler(String[] arr, boolean isDone) throws PatrickException {
         try {
             String name = arr[2];
             String byStr = arr[3];
@@ -196,7 +196,7 @@ public class Parser {
             Task task = new Deadline(name, by, isDone);
             return task;
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Invalid format in data.");
+            throw new PatrickException("Invalid format in data.");
         }
     }
 
@@ -205,9 +205,9 @@ public class Parser {
      * @param arr
      * @param isDone
      * @return A new Event task
-     * @throws DukeException
+     * @throws PatrickException
      */
-    public static Task eventDataHandler(String[] arr, boolean isDone) throws DukeException {
+    public static Task eventDataHandler(String[] arr, boolean isDone) throws PatrickException {
         try {
             String name = arr[2];
             String fromStr = arr[3];
@@ -217,7 +217,7 @@ public class Parser {
             Task task = new Event(name, from, to, isDone);
             return task;
         } catch (IndexOutOfBoundsException | DateTimeParseException e) {
-            throw new DukeException("Invalid format in data.");
+            throw new PatrickException("Invalid format in data.");
         }
 
     }

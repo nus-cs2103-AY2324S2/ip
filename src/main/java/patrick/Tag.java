@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 /**
  * A class that represents a task's tag.

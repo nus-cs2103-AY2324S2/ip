@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import javafx.application.Platform;
 
@@ -12,7 +12,7 @@ public enum Command {
     HELLO("hello") {
 
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             Storage.createFile();
             String str = "Hello!\nWhat can I do for you?";
             return str;
@@ -25,7 +25,7 @@ public enum Command {
     BYE("bye") {
 
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             String str = "See you soon!";
             Storage.write(tasks);
             Platform.exit();
@@ -38,10 +38,10 @@ public enum Command {
      */
     MARK("mark") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
-                throw new DukeException("Please use the format: mark <index>");
+                throw new PatrickException("Please use the format: mark <index>");
             }
             try {
                 int index = Integer.valueOf(arr[1]);
@@ -51,7 +51,7 @@ public enum Command {
                 String str = String.format("Task have been marked as done.\n%s", target);
                 return str;
             } catch (NumberFormatException e) {
-                throw new DukeException("Please provide an integer for the index.");
+                throw new PatrickException("Please provide an integer for the index.");
             }
 
 
@@ -63,10 +63,10 @@ public enum Command {
      */
     UNMARK("unmark") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
-                throw new DukeException("Please use the format: unmark <index>");
+                throw new PatrickException("Please use the format: unmark <index>");
             }
             try {
                 int index = Integer.valueOf(arr[1]);
@@ -76,7 +76,7 @@ public enum Command {
                 String str = String.format("Task have been unmarked.\n%s", target);
                 return str;
             } catch (NumberFormatException e) {
-                throw new DukeException("Please provide an integer for the index.");
+                throw new PatrickException("Please provide an integer for the index.");
             }
         }
 
@@ -100,10 +100,10 @@ public enum Command {
      */
     DELETE("delete") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             String[] arr = description.split(" ", 2);
             if (arr.length <= 1) {
-                throw new DukeException("Please use the format: delete <index>");
+                throw new PatrickException("Please use the format: delete <index>");
             }
             try {
                 int index = Integer.valueOf(arr[1]);
@@ -114,7 +114,7 @@ public enum Command {
                 String str = String.format("%s\nTask have been removed.\nYou now have %d tasks.", target, n);
                 return str;
             } catch (NumberFormatException e) {
-                throw new DukeException("Please provide an integer for the index.");
+                throw new PatrickException("Please provide an integer for the index.");
             }
         }
 
@@ -125,7 +125,7 @@ public enum Command {
      */
     EVENT("event") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
 
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
@@ -143,7 +143,7 @@ public enum Command {
      */
     DEADLINE("deadline") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
 
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
@@ -162,7 +162,7 @@ public enum Command {
     TODO("todo") {
 
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             Task task = Parser.parseFromInput(description);
             tasks.add(task);
             int n = tasks.size();
@@ -181,8 +181,8 @@ public enum Command {
     UNKNOWN("unknown") {
 
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
-            throw new DukeException("I don't know what that means");
+        public String execute(TaskList tasks, String description) throws PatrickException {
+            throw new PatrickException("I don't know what that means");
         }
 
     },
@@ -192,7 +192,7 @@ public enum Command {
      */
     CLEAR("clear") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             tasks.clear();
             Storage.clear();
             String str = "List cleared.";
@@ -205,7 +205,7 @@ public enum Command {
      */
     FIND("find") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             TaskList found = new TaskList();
             String search = description.split(" ", 2)[1];
             for (int i = 0; i < tasks.size(); i++) {
@@ -222,7 +222,7 @@ public enum Command {
 
     TAG("tag") {
         @Override
-        public String execute(TaskList tasks, String description) throws DukeException {
+        public String execute(TaskList tasks, String description) throws PatrickException {
             try {
                 String[] arr = description.split(" ", 3);
 
@@ -237,7 +237,7 @@ public enum Command {
                 return str;
 
             } catch (IndexOutOfBoundsException | NumberFormatException e) {
-                throw new DukeException("Invalid format. Please use: tag INDEX VALUE");
+                throw new PatrickException("Invalid format. Please use: tag INDEX VALUE");
             }
 
 
@@ -253,9 +253,9 @@ public enum Command {
      *  Executes actions according to specific commands.
      * @param tasks Current list of tasks
      * @param description Input given by user
-     * @throws DukeException If input is invalid
+     * @throws PatrickException If input is invalid
      */
-    public abstract String execute(TaskList tasks, String description) throws DukeException;
+    public abstract String execute(TaskList tasks, String description) throws PatrickException;
 
 
 

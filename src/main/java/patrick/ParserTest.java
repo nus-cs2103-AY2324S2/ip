@@ -1,10 +1,10 @@
-package duke;
+package patrick;
 
 import org.junit.jupiter.api.Test;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import static duke.Parser.parseFromInput;
+import static patrick.Parser.parseFromInput;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 

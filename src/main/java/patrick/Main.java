@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import java.io.IOException;
 
@@ -12,7 +12,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Patrick patrick = new Patrick();
 
     @Override
     public void start(Stage stage) {
@@ -20,8 +20,9 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
+            stage.setTitle("patrick");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setPatrick(patrick);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

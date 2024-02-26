@@ -1,4 +1,4 @@
-package duke;
+package patrick;
 
 import java.io.IOException;
 import java.util.Collections;
@@ -9,7 +9,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -58,7 +57,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getPatrickDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;
