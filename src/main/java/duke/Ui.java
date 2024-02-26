@@ -92,7 +92,7 @@ public class Ui {
      */
     public static String showDeadlineFormat() {
         return "The correct format is:\n" +
-                "deadline <description> /by <deadline time>";
+                "deadline <description> /by <deadline date>";
     }
 
 
@@ -108,7 +108,8 @@ public class Ui {
      */
     public static String showEventFormat() {
         return "The correct format is:\n" +
-                "event <description> /from <start time> /to <end time>";
+                "event <description> /from <start date> /to <end date>"\n +
+                "OR event <description> /to <end date> /from <start date>";
     }
 
     /**

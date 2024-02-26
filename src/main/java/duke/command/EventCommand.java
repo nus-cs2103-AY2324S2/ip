@@ -30,10 +30,19 @@ public class EventCommand extends Command {
     public String execute(TaskList taskList, Storage storage) {
         try {
             String task = message.split(" ", 2)[1];
-            String description = task.split(" /from ", 2)[0];
-            String fromBy = task.split(" /from ", 2)[1];
-            String from = fromBy.split(" /to ", 2)[0];
-            String to = fromBy.split(" /to ", 2)[1];
+            String description = task.split(" /", 2)[0];
+            String fromAndBy = task.split(" /", 2)[1];
+            String from = "";
+            String to = "";
+            String firstPart = fromAndBy.split(" ", 2)[0];
+            String remainingPart = fromAndBy.split(" ", 2)[1];
+            if (firstPart.equalsIgnoreCase("from")) {
+                from = remainingPart.split(" /to ", 2)[0];
+                to = remainingPart.split(" /to ", 2)[1];
+            } else if (firstPart.equalsIgnoreCase("to")) {
+                to = remainingPart.split(" /from ", 2)[0];
+                from = remainingPart.split(" /from ", 2)[1];
+            }
             LocalDate fromDate;
             LocalDate toDate;
             try {
