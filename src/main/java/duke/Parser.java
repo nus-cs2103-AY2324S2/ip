@@ -1,6 +1,12 @@
 package duke;
 
-import duke.command.*;
+import duke.command.Command;
+import duke.command.AddCommand;
+import duke.command.ListCommand;
+import duke.command.DeleteCommand;
+import duke.command.ExitCommand;
+import duke.command.FindCommand;
+import duke.command.UpdateCommand;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -45,6 +51,17 @@ public class Parser {
             String argVal = commandText.substring(index+1);
             int itemNo = Integer.parseInt(argVal);
             command = new DeleteCommand(itemNo);
+        } else if(commandText.startsWith("find")) {
+            int index = commandText.indexOf(" ");
+            if (index <= 0) {
+                throw new DukeException("OMG! Query parameter is empty. Cannot accept.");
+            }
+            String searchString = commandText.substring(index+1);
+            searchString = searchString.trim();
+            if ("".equals(searchString)) {
+                throw new DukeException("OMG! Query parameter is empty. Cannot accept.");
+            }
+            command = new FindCommand(searchString);
         } else {
             throw new DukeException("Oh dear! I do not understand this command! Try again!");
         }
