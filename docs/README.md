@@ -18,43 +18,46 @@ Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks,
 - ```event <description> /from <datetime> /to <datetime>```: add a task with deadline  
 - ```deadline <description> /by <datetime>```: add an event  
 
+`<datetime>` should be in format: day/month/year time(24hr) e.g. 23/2/2019 1800
+
 ### List all tasks
 Lists all tasks in the task list.  
 
 ```list```: list all tasks using checkbox
 
 ### Mark task as done
-Marks a task as done.  
 
-```mark <task number>```
+```mark <task number>```: Marks a task as done.    
+
 - Mark a task that is already checked does nothing
 - Mark the task using TASK NUMBER shown in `list`.
 - The index must be a positive integer 1, 2, 3, …
 
-### Unmark task as not done
-Unmarks a task as not done. 
+### Unmark task as not done 
 
-```unmark <task number>```
+```unmark <task number>```: Unmarks a task as not done.  
+
 - Unmark an unchecked task does nothing
 - Unmark the task using TASK NUMBER shown in `list`.
 - The index must be a positive integer 1, 2, 3, …
 
 ### Delete tasks
-Deletes a task from the task list.  
 
-```delete <task number>```
-- CDletes task one-by-one
+```delete <task number>```: Deletes a task from the task list.  
+
+- Deletes task one-by-one
 - Deletes the task using TASK NUMBER shown in `list`.
 - The index must be a positive integer 1, 2, 3, …
 
-### Find tasks
-Finds tasks that match the given keyword.  
+### Find task
 
-```find <keyword>```
+```find <keyword>```: Finds tasks that match the given keyword.  
+
 - The search is case-insensitive. e.g john will match John
 - Only the task description is searched.
 - Only full words will be matched e.g. read will not match reads
+- Search for tasks using ONE keyword only
 
-### Exit the program
-Exits the program.  
-```bye```
+### Exit the program 
+
+```bye```: Exits the program. 
