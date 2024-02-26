@@ -12,14 +12,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /**
  * The <code>MainWindow</code> control. Provides the layout for the other controls.
  */
-public class MainWindow extends AnchorPane {
+public class MainWindow extends VBox {
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -52,7 +51,7 @@ public class MainWindow extends AnchorPane {
             stage.setScene(new Scene(this));
             this.stage = stage;
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 
