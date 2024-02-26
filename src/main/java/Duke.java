@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class Duke {
     public static void main(String[] args) {
         System.out.println("____________________________________________________________");
-        String greeting = "Hi, I'm Lighthouse.\nHow can I help you?\n";
+        String greeting = "Hi, I'm Lighthouse.\nHow can I help you?";
         System.out.println(greeting);
         System.out.println("____________________________________________________________");
         Scanner scan = new Scanner(System.in);
@@ -44,28 +44,16 @@ public class Duke {
                 }
                 System.out.println("____________________________________________________________");
             } else if (info.startsWith("todo") || info.startsWith("event") || info.startsWith("deadline")) {
-                int index = info.indexOf(" ");
-                String argVal = info.substring(index+1);
                 Task todo = null;
-                if (info.startsWith("todo")) {
-                    todo = new Todo(argVal, false, taskList.size() + 1, "T");
-                    taskList.add(todo);
-                } else if (info.startsWith("event")) {
-                    int indfrom = argVal.indexOf("/from");
-                    String eventname = argVal.substring(0,indfrom);
-                    String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
-                    int indto = argVal.indexOf("/to");
-                    String eventToStr = argVal.substring(indto+4);
-                    todo = new Event(eventname, false, taskList.size() + 1, "E", eventFromStr, eventToStr);
-                    taskList.add(todo);
-                } else if (info.startsWith("deadline")) {
-                    int indfrom = argVal.indexOf("/by");
-                    String eventname = argVal.substring(0,indfrom);
-
-                    String deadlineStr = argVal.substring(indfrom+4);
-                    todo = new Deadline(eventname, false, taskList.size() + 1, "D", deadlineStr);
-                    taskList.add(todo);
+                try {
+                    todo = handleTodoEventDeadline(info, taskList);
+                }catch(DukeException de){
+                    System.out.println("____________________________________________________________");
+                    System.out.println(de.getMessage());
+                    System.out.println("____________________________________________________________");
+                    continue;
                 }
+                taskList.add(todo);
                 System.out.println("____________________________________________________________");
                 System.out.println("Got it. I've added this task:\n");
                 System.out.println(todo.printOutput());
@@ -73,18 +61,39 @@ public class Duke {
                 System.out.println("Now you have "+taskList.size()+" tasks in the list");
                 System.out.println("____________________________________________________________");
             } else {
-                int itemNo;
-                if (taskList.size() > 0) {
-                    itemNo = taskList.size()+1;
-                } else {
-                    itemNo = 1;
-                }
-                Task task = new Task(info, false, taskList.size()+1);
                 System.out.println("____________________________________________________________");
-                taskList.add(task);
-                System.out.println("added: "+info);
+                System.out.println("Oh dear! I do not understand this command! Try again!");
                 System.out.println("____________________________________________________________");
+//                Task4 task = new Task4(info, false, taskList.size()+1);
+//                taskList.add(task);
+//                System.out.println("added: "+info);
             }
         }
+    }
+
+    private static Task handleTodoEventDeadline(String info, ArrayList<Task> taskList) throws DukeException {
+        int index = info.indexOf(" ");
+        if (index <= 0) {
+            throw new DukeException("OMG! Description is empty. Cannot accept.");
+        }
+        String argVal = info.substring(index+1);
+        Task todo = null;
+        if (info.startsWith("todo")) {
+            todo = new Todo(argVal, false, taskList.size() + 1, "T");
+        } else if (info.startsWith("event")) {
+            int indfrom = argVal.indexOf("/from");
+            String eventname = argVal.substring(0,indfrom);
+            String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
+            int indto = argVal.indexOf("/to");
+            String eventToStr = argVal.substring(indto+4);
+            todo = new Event(eventname, false, taskList.size() + 1, "E", eventFromStr, eventToStr);
+        } else if (info.startsWith("deadline")) {
+            int indfrom = argVal.indexOf("/by");
+            String eventname = argVal.substring(0,indfrom);
+
+            String deadlineStr = argVal.substring(indfrom+4);
+            todo = new Deadline(eventname, false, taskList.size() + 1, "D", deadlineStr);
+        }
+        return todo;
     }
 }
