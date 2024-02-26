@@ -84,7 +84,8 @@ To start using RahhBot, simply type your queries or commands into the chat windo
 - ```
   I found some!
      1. [E][ ] Team meeting (from: 2024-02-27 to 2024-03-27)
-  Are these what you're looking for? I hope so. Don't blame me if it's wrong lol.
+  Are these what you're looking for? I hope so. Don't blame me if it's wrong lol. 
+  
   ```
 
 ### 9. Exiting RahhBot:
