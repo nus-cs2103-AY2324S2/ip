@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 
 /**
@@ -21,7 +22,7 @@ import javafx.scene.layout.HBox;
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
  */
-public class DialogBoxController extends HBox {
+public class DialogBoxController extends VBox {
     @FXML
     private Label dialog;
     @FXML
@@ -45,17 +46,27 @@ public class DialogBoxController extends HBox {
      * Flips the dialog box such that the ImageView is on the left and text on the right.
      */
     private void flip() {
-        ObservableList<Node> tmp = FXCollections.observableArrayList(this.getChildren());
-        Collections.reverse(tmp);
-        getChildren().setAll(tmp);
-        setAlignment(Pos.TOP_LEFT);
+        // Find the HBox within the children of this VBox
+        for (Node node : this.getChildren()) {
+            if (node instanceof HBox) {
+                HBox hbox = (HBox) node;
+
+                // Reverse the children of the HBox
+                ObservableList<Node> tmp = FXCollections.observableArrayList(hbox.getChildren());
+                Collections.reverse(tmp);
+                hbox.getChildren().setAll(tmp);
+                hbox.setAlignment(Pos.TOP_LEFT);
+
+                break;
+            }
+        }
     }
 
     public static DialogBoxController getUserDialog(String text, Image img) {
         return new DialogBoxController(text, img);
     }
 
-    public static DialogBoxController getDukeDialog(String text, Image img) {
+    public static DialogBoxController getPaimonDialog(String text, Image img) {
         var db = new DialogBoxController(text, img);
         db.flip();
         return db;

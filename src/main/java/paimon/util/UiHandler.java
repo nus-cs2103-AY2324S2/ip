@@ -52,11 +52,13 @@ public class UiHandler {
         return formatMessage("You can perform the following actions, make sure to follow the syntax!",
                 "list : Lists all your Tasks\n" + "todo <task>: Adds a Task without any deadline\n"
                         + "deadline <task> /by <time>: Adds a task done before a time\n"
-                        + "event<Task> /from <time> /to <time>: Adds a task with a time window\n"
-                        + "mark/unmark <index>: Marks a Task as done. Index must be a number\n"
+                        + "event <task> /from <time> /to <time>: Adds a task with a time window\n"
+                        + "mark <index>: Marks a Task as done. Index must be a number\n"
                         + "unmark <index>: Mark a Task as not done. Index must be a number\n"
                         + "delete <index>: Deletes a Task from your list!. Index must be a number\n"
-                        + "find <keyword>: Lists tasks that contain keyword\n" + "bye : Exits the program");
+                        + "find <keyword>: Lists tasks that contain keyword\n"
+                        + "bye : Exits the program\n"
+                        + "doafter <task> /from <time>: Adds a task that must be done after a certain date");
     }
 
     /**
