@@ -38,8 +38,6 @@ public class MarkCommand extends Command {
         assert !tasks.isOutOfBounds(index) : "Please input a valid number between 1 and " + tasks.size();
 
         tasks.markTask(index);
-
-        return ui.showMarkedTaskMessage() +
-                ui.showTask(tasks, index);
+        return ui.showMarkedTask(tasks, index);
     }
 }

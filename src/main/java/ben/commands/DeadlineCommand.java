@@ -38,8 +38,6 @@ public class DeadlineCommand extends Command {
         Task newDeadline = new Deadline(false, description, deadline);
         tasks.addTask(newDeadline);
 
-        return ui.showAddedTaskMessage() +
-                ui.show(newDeadline.toString()) +
-                ui.showCurrNoOfTasks(tasks);
+        return ui.showAddedTask(tasks, newDeadline);
     }
 }

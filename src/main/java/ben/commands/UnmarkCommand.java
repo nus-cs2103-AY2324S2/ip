@@ -38,8 +38,6 @@ public class UnmarkCommand extends Command {
         assert !tasks.isOutOfBounds(index) : "Please input a valid number between 1 and " + tasks.size();
 
         tasks.unmarkTask(index);
-
-        return ui.showUnmarkedTaskMessage() +
-                ui.showTask(tasks, index);
+        return ui.showUnmarkedTask(tasks, index);
     }
 }

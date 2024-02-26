@@ -1,7 +1,7 @@
 package ben.tasks;
 
 import ben.exceptions.BenException;
-import ben.ui.Ui;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -190,11 +190,11 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      * @return A list of tasks containing the specified keyword.
      */
-    public List<Task> findTasks(String keyword) {
-        List<Task> matchedTasks = new ArrayList<>();
+    public TaskList findTasks(String keyword) {
+        TaskList matchedTasks = new TaskList();
         for (Task currTask : this.tasks) {
             if (currTask.contains(keyword)) {
-                matchedTasks.add(currTask);
+                matchedTasks.addTask(currTask);
             }
         }
 
