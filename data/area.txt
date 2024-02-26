@@ -1,0 +1,48 @@
+
+
+todo dinner
+priority 1 3
+delete 1
+list
+todo dinner
+priority 1 3
+list
+priority 1 2
+priority 1 4
+list
+priority 1 2
+priority 1 5
+todo breakfast
+list
+priority 2 1
+list
+todo lunch
+priority 3 2
+list
+todo brunch
+delete 2
+todo breakfast 
+delete 3
+list
+todo brunch
+delete 3
+todo dinner
+deadline submit work /by 2001-10-02
+event birthday /from Monday /to tuesday
+mark 2
+mark 6
+unmark 6
+list
+delete 2
+delete 5
+find brunch
+list
+find brunch
+priority 3 4
+list
+priority 3 2
+priority 3 2
+deadline CS2103T /by 2021-12-31
+priority 3 1
+priority 3 5
+priority 3 2
