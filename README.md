@@ -27,7 +27,7 @@ Yarr continues to grow more capable each day and is able to:
 - [X] Handle To-dos
 - [X] Handle Deadlines and Events 
 - [X] Be operated with a GUI interface
-- [ ] Accomodate flexible command formats
+- [X] Accomodate flexible command formats
 
 ## Customisability
 For enthusiastic programmers, Yarr is highly customisable with easily extended packages and classes. Here's a snippet of the `Task` class for example:
