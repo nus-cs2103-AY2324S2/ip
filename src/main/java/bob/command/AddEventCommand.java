@@ -33,15 +33,14 @@ public class AddEventCommand extends AddCommand {
     /**
      * Executes the command to add an event with a specified description, start time and end time.
      *
-     * @param ui The UI to display the result of adding the event.
      * @param storage The storage to save the new event in hard disk.
      * @param taskList The task list to store the new event.
      * @throws SavingException If there was an error saving the new event in hard disk.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws SavingException, InvalidEventException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException, InvalidEventException {
         Task task = taskList.addEvent(description, from, to);
-        ui.showAdd(task, taskList.getSize());
         storage.saveTask(task);
+        return Ui.getAddResponse(task, taskList.getSize());
     }
 }

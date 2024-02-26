@@ -29,15 +29,14 @@ public class AddDeadlineCommand extends AddCommand {
     /**
      * Executes the command to add a deadline with a specified description and due time.
      *
-     * @param ui The UI to display the result of adding the deadline.
      * @param storage The storage to save the new deadline in hard disk.
      * @param taskList The task list to store the new deadline.
      * @throws SavingException If there was an error saving the new deadline in hard disk.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws SavingException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException {
         Task task = taskList.addDeadline(description, by);
-        ui.showAdd(task, taskList.getSize());
         storage.saveTask(task);
+        return Ui.getAddResponse(task, taskList.getSize());
     }
 }

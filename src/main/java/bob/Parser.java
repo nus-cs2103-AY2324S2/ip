@@ -28,10 +28,11 @@ import bob.exception.ParameterNotFoundException;
  * Utility class to make sense of the user command.
  */
 public class Parser {
+    public static final String COMMAND_EXIT = "exit";
+
     private static final String COMMAND_DEADLINE = "deadline";
     private static final String COMMAND_DELETE = "delete";
     private static final String COMMAND_EVENT = "event";
-    private static final String COMMAND_EXIT = "exit";
     private static final String COMMAND_FIND = "find";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";

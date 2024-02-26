@@ -1,0 +1,14 @@
+/*Solution below adapted from https://stackoverflow.com/questions/41804373/javafx-scrollpane-styling*/
+.scroll-bar:vertical{
+    -fx-background-color: #125488;
+}
+
+.increment-button, .decrement-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar:vertical .thumb {
+    -fx-background-color: white;
+    -fx-background-radius: 5em;
+}

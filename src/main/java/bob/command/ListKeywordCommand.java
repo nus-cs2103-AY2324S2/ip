@@ -24,12 +24,11 @@ public class ListKeywordCommand extends ListCommand {
     /**
      * Executes the command to list the tasks matching a specified keyword.
      *
-     * @param ui The UI to display the list.
      * @param storage The storage to retrieve the tasks to list.
      * @param taskList The task list that stores the tasks that might be listed.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) {
-        ui.showFind(taskList.listKeyword(keyword));
+    public String execute(Storage storage, TaskList taskList) {
+        return Ui.getFindResponse(taskList.listKeyword(keyword));
     }
 }

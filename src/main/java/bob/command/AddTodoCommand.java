@@ -23,15 +23,14 @@ public class AddTodoCommand extends AddCommand {
     /**
      * Executes the command to add a todo with a specified description.
      *
-     * @param ui The UI to display the result of adding the todo.
      * @param storage The storage to save the new todo in hard disk.
      * @param taskList The task list to store the new todo.
      * @throws SavingException If there was an error saving the new todo in hard disk.
      */
     @Override
-    public void execute(Ui ui, Storage storage, TaskList taskList) throws SavingException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException {
         Task task = taskList.addTodo(description);
-        ui.showAdd(task, taskList.getSize());
         storage.saveTask(task);
+        return Ui.getAddResponse(task, taskList.getSize());
     }
 }
