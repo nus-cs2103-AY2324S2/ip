@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- The code for this fxml file was taken from the tutorial for implementing JavaFX @ https://se-education.org/guides/tutorials/javaFx.html -->
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root id="dialogBox" alignment="TOP_RIGHT" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" stylesheets="@../stylesheets/styles.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+            <Label id="chatBox" fx:id="dialog" stylesheets="@../stylesheets/styles.css" text="Label" wrapText="true" />
+            <ImageView fx:id="displayPicture" fitHeight="34.0" fitWidth="35.0" pickOnBounds="true" preserveRatio="true" />
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
