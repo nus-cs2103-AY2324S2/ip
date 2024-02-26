@@ -7,7 +7,7 @@ It allows you to manage your tasks conveniently.
 
 ## Quick Start
 1. Ensure you have Java 11 or above properly installed in your computer.
-2. Download the latest `linus.jar` from [here](https://github.com/jeong-jaeho/ip/releases/tag/v0.2).
+2. Download the latest `linus.jar` from [here](https://github.com/jeong-jaeho/ip/releases/tag/A-Release).
 3. Copy the file to the folder where you want to use as the _home folder_ for your Linus.
 4. Open a command terminal and enter `cd` command to navigate to the home folder containing Linus.
 5. Run `java -jar linus.jar` command to run the chatbot.
