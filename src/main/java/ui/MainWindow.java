@@ -1,5 +1,7 @@
 package ui;
 
+import java.util.ArrayList;
+
 import duke.Duke;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -8,6 +10,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import parser.Parser;
+import storage.Storage;
+import task.Task;
+import task.TaskList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -43,8 +49,16 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     private void handleUserInput() {
+        Storage storage = new Storage("./data/duke.txt");
+        Storage archived = new Storage("./data/archived.txt");
+        ArrayList<Task> temp = new ArrayList<>();
+        temp = storage.getHistory();
+        TaskList todoList = new TaskList(temp);
+
+        Parser parser = new Parser(todoList, storage, archived);
+
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = duke.getResponse(input, parser);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage));

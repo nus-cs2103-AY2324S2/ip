@@ -22,7 +22,7 @@ public class TaskList {
         String output = "";
         for (int i = 0; i < length; i++) {
             String pos = String.valueOf(i + 1);
-            output += pos + ". " + this.todoList.get(i) + '\n';
+            output += pos + ". " + this.todoList.get(i).toString() + '\n';
         }
         return output;
     }
@@ -33,7 +33,7 @@ public class TaskList {
             return "There is no task in your list.";
         } else {
             String output = "";
-            output += "Here are the tasks in your list:";
+            output += "Here are the tasks in your list:\n";
             output += printHelper(length);
             return output;
         }
@@ -81,16 +81,18 @@ public class TaskList {
      * @param storage
      */
 
-    public void changeMarkingOfTask(String userInput, Storage storage) {
+    public String changeMarkingOfTask(String userInput, Storage storage) {
         String[] words = userInput.split("\\s+");
         int number = Integer.parseInt(words[1]);
         Task t = this.todoList.get(number - 1);
+        String output = "";
         if (words[0].equals("mark")) {
-            t.markAsDone();
+            output = t.markAsDone();
         } else {
-            t.unmark();
+            output = t.unmark();
         }
         storage.autoUpdate(this.todoList);
+        return output;
     }
 
     /**

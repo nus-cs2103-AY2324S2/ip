@@ -27,20 +27,20 @@ public class Parser {
      * If not, pass it to further cases of commands.
      */
 
-    public void parse(String userInput) {
+    public String parse(String userInput) {
         if (userInput.equals("list")) {
-            this.todoList.printList();
+            return this.todoList.printList();
         } else if (userInput.equals("archived")) {
             TaskList archivedTasks = new TaskList(this.archived.getHistory());
-            archivedTasks.printList();
+            return archivedTasks.printList();
         } else if (isMarkTask(userInput)) {
-            this.todoList.changeMarkingOfTask(userInput, storage);
+            return this.todoList.changeMarkingOfTask(userInput, storage);
         } else if (isDeleteTask(userInput)) {
-            this.todoList.deleteTask(userInput, storage, archived);
+            return this.todoList.deleteTask(userInput, storage, archived);
         } else if (isFindTask(userInput)) {
-            this.todoList.findTask(userInput, storage);
+            return this.todoList.findTask(userInput, storage);
         } else {
-            this.echo(userInput);
+            return this.echo(userInput);
         }
     }
 

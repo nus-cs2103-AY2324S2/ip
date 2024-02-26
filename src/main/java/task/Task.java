@@ -15,7 +15,7 @@ public class Task {
     }
 
     public Task(String description, boolean isDone) {
-        assert description != null : this.description = description;
+        this.description = description;
         this.isDone = isDone;
     }
 
