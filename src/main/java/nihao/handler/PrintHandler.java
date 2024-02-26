@@ -3,7 +3,6 @@ package nihao.handler;
 import java.util.ArrayList;
 
 import nihao.action.task.Task;
-import nihao.enums.SavedString;
 
 /**
  * Handles all printing requests.
