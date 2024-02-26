@@ -11,6 +11,6 @@ public class DeleteException extends Exception {
      * @param message The error message.
      */
     public DeleteException(String message) {
-        super("Bruh... " + message + ". \nPlease follow the format: \ndelete {INDEX}");
+        super("Bruh... " + message + "\nPlease follow the format: \ndelete {INDEX}");
     }
 }

@@ -11,7 +11,7 @@ public class DeadlineException extends Exception {
      * @param message The error message.
      */
     public DeadlineException(String message) {
-        super("Bruh... " + message + ". \nPlease follow the format: \ndeadline"
-                + " {DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}");
+        super("Bruh... " + message + "\nPlease follow the format:\ndeadline "
+                + "{DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}");
     }
 }

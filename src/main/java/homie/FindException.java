@@ -11,6 +11,6 @@ public class FindException extends Exception {
      * @param message The error message.
      */
     public FindException(String message) {
-        super("Bruh... " + message + ". \nPlease follow the format: \nfind {KEYWORD}");
+        super("Bruh... " + message + "\nPlease follow the format:\nfind {KEYWORD}");
     }
 }

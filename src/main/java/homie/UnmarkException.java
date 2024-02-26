@@ -11,6 +11,6 @@ public class UnmarkException extends Exception {
      * @param message The error message.
      */
     public UnmarkException(String message) {
-        super("Bruh... " + message + ". \nPlease follow the format: \nunmark {INDEX}");
+        super("Bruh... " + message + "\nPlease follow the format:\nunmark {INDEX}");
     }
 }

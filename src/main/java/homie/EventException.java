@@ -11,7 +11,7 @@ public class EventException extends Exception {
      * @param message The error message.
      */
     public EventException(String message) {
-        super("Bruh... '" + message + "' is invalid format. Please follow the format:\n event {EVENT_DESCRIPTION} "
+        super("Bruh... " + message + "\nPlease follow the format:\n event {EVENT_DESCRIPTION} "
                 + "/from {dd MM yyyy HHmm} /to {dd MM yyyy HHmm}");
     }
 }

@@ -11,6 +11,6 @@ public class MarkException extends Exception {
      * @param message The error message.
      */
     public MarkException(String message) {
-        super("Bruh... " + message + ". \nPlease follow the format: \nmark {INDEX}");
+        super("Bruh... " + message + "\nPlease follow the format:\nmark {INDEX}");
     }
 }

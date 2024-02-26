@@ -83,7 +83,7 @@ public class Storage {
             if (readTasks.available() == 0) {
                 readTasks.close();
                 System.out.println("No tasks in file.");
-                return new ArrayList<Task>();
+                return new ArrayList<>();
             }
 
             ObjectInputStream readStream = new ObjectInputStream(readTasks);
@@ -99,7 +99,7 @@ public class Storage {
         }
 
         System.out.println("Error in loading task!");
-        return new ArrayList<Task>();
+        return new ArrayList<>();
     }
 
     //@@author ZhiWei1010-reused

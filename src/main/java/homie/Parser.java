@@ -158,14 +158,14 @@ public class Parser {
         int startIndexForDeadlineDescription = 9;
         int startIndexForDeadlineDueDate = 3;
         if (commandSplits.length < 2) {
-            throw new DeadlineException("No description is given!");
+            throw new DeadlineException("No description given!");
         }
         // Create new deadline task
         String[] deadlineCommandStringSplits = (fullCommand.trim().substring(startIndexForDeadlineDescription))
                 .split("/");
         String deadlineDescription = deadlineCommandStringSplits[0].trim();
         if (deadlineDescription.isEmpty()) {
-            throw new DeadlineException("No description is given!");
+            throw new DeadlineException("No description given!");
         }
         String deadlineDueDateInString = deadlineCommandStringSplits[1].substring(startIndexForDeadlineDueDate);
         if (!isValidDate(deadlineDueDateInString)) {
