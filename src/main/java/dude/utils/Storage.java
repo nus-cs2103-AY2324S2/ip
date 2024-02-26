@@ -91,7 +91,9 @@ public class Storage {
      * Loads the task list from the storage file. Returns empty task list if no task data is found.
      *
      * @return TaskList
-     * @throws IOException, ClassNotFoundException, SecurityException
+     * @throws IOException If an I/O error occurs.
+     * @throws ClassNotFoundException If the class of the object to be loaded was not found.
+     * @throws SecurityException If a security manager exists and its checkRead method denies read access to the file.
      */
     public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
         createStorageIfNotExists();
