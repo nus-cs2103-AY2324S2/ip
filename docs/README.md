@@ -14,6 +14,25 @@ Aegis Assistant comes with the following functions:
 6. Tagging tasks
 
 ---
+## Getting started
+
+To start using Aegis Assistant, download the .jar file from [here]() and follow these steps:
+
+1. Place the aegis.jar file into an empty folder.
+2. Open a command terminal in your operating system and navigate to the folder containing the aegis.jar file.
+3. Run `java -jar aegis.jar`. Aegis Assistant will start in a chat window and is ready for use.
+
+## Shutting down
+
+When you are done with Aegis Assistant, you can shut it down using the `bye` command.
+
+Command: `bye`
+
+Aegis Assistant will terminate, but the chat window will remain open in case you want to take a look at the chat history. Once you are satisfied, you may close the chat window.
+
+---
+## Aegis Assistant Functions
+
 ## 1. Adding tasks
 
 Aegis can handle 3 different types of tasks, each with their own specific details. 
