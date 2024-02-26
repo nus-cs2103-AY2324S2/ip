@@ -88,3 +88,7 @@ You also performed these actions:
       Marked incomplete 0 times
       Deleted tasks 0 times
 ```
+## Exit
+Bot will automatically close and save your list data.
+
+Command format: ```bye```
