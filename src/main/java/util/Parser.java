@@ -40,20 +40,26 @@ public class Parser {
         case "help":
             return textUi.showCommands();
         case "list":
+        case "li":
             return textUi.showTaskList(tasks);
         case "todo":
+        case "t":
             return handleTodo(tokens, tasks, textUi);
         case "deadline":
+        case "d":
             return handleDeadline(tokens, tasks, textUi);
         case "event":
+        case "e":
             return handleEvent(tokens, tasks, textUi);
         case "unmark":
             return handleUnmark(tokens, tasks, textUi);
         case "mark":
             return handleMark(tokens, tasks, textUi);
         case "delete":
+        case "del":
             return handleDelete(tokens, tasks, textUi);
         case "find":
+        case "f":
             return handleFind(tokens, tasks, textUi);
         default:
             try {
