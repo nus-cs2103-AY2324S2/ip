@@ -1,7 +1,4 @@
 package task;
-
-import task.Task;
-
 public class ToDo extends Task {
     public ToDo(String s) {
         super(s);
@@ -9,11 +6,19 @@ public class ToDo extends Task {
 
     @Override
     public String toString() {
-       return String.format("[T] %s", super.toString());
+        return String.format("[T] %s", super.toString());
     }
 
     @Override
     public String convertToDataStoreLine() {
-        return "T|"+ super.convertToDataStoreLine() + "|" + super.getTaskString();
+        return "T|" + super.convertToDataStoreLine() + "|" + super.getTaskString();
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (task instanceof ToDo) {
+            return super.equals(task);
+        }
+        return false;
     }
 }

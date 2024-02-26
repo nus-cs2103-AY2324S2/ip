@@ -1,20 +1,22 @@
 package storage;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-
-import java.nio.file.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.io.IOException;
-import java.io.BufferedWriter;
-import java.io.BufferedReader;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.util.Objects;
-import java.nio.file.Files;
 
 /**
  * The storage.Storage class manages reading from and writing to a data store txt file.
@@ -24,7 +26,13 @@ public class Storage {
     private String filePath;
     private int lastIdx = 0;
 
+    /**
+     * Constructor to initialise the storage class. It reads the data store if it exists,
+     * else it creates one at the specified file path.
+     * @param filePath String specifying the file path of the data store.
+     */
     public Storage(String filePath) {
+        assert filePath != null : "Storage file path is null.";
         this.filePath = filePath;
         Path path = Paths.get(filePath);
         try {
@@ -120,14 +128,14 @@ public class Storage {
         String[] splitLine = line.split("\\|");
         String taskAlphabet = splitLine[0];
         switch (taskAlphabet) {
-            case "T":
-                return new ToDo(splitLine[2]);
-            case "D":
-                return new Deadline(splitLine[2], splitLine[3]);
-            case "E":
-                return new Event(splitLine[2], splitLine[3], splitLine[4]);
-            default:
-                return null;
+        case "T":
+            return new ToDo(splitLine[2]);
+        case "D":
+            return new Deadline(splitLine[2], splitLine[3]);
+        case "E":
+            return new Event(splitLine[2], splitLine[3], splitLine[4]);
+        default:
+            return null;
         }
     }
 

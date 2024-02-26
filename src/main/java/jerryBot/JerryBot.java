@@ -1,18 +1,12 @@
-package botchat;
+package jerryBot;
 
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import exception.DuplicateTaskException;
 import exception.IncompleteCommandException;
 import exception.InvalidCommandException;
 import exception.InvalidTaskNumberException;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.layout.VBox;
 import parser.Parser;
 import storage.Storage;
 import task.Deadline;
@@ -26,14 +20,17 @@ import ui.Ui;
  * This class is the chatbot.
  *
  */
-public class BotChat {
+public class JerryBot {
     private static boolean isTerminate = false;
-    private static final String FILEPATH = "./././data/botchat.txt";
+    private static final String FILEPATH = "./././data/jerrybot.txt";
     private static Storage storage;
     private static TaskList taskArrayList;
     private static Parser parser;
 
-    public BotChat() {
+    /**
+     * Constructor to initialise the chatbot class.
+     */
+    public JerryBot() {
         parser = new Parser();
         storage = new Storage(FILEPATH);
         taskArrayList = new TaskList(storage.readDataStore());
@@ -51,8 +48,7 @@ public class BotChat {
         case "todo":
             taskDescription = parser.extractDescription(s);
             Task newDescriptionTask = new ToDo(taskDescription);
-            storage.addToDataStore(newDescriptionTask);
-            taskArrayList.addTask(newDescriptionTask);
+            safeAddTask(newDescriptionTask);
             break;
         case "deadline":
             taskDescription = parser.extractDescription(s);
@@ -62,8 +58,7 @@ public class BotChat {
                         + "form of deadline description /by datetime.");
             } else {
                 Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
-                storage.addToDataStore(newDeadlineTask);
-                taskArrayList.addTask(newDeadlineTask);
+                safeAddTask(newDeadlineTask);
             }
             break;
         case "event":
@@ -74,12 +69,24 @@ public class BotChat {
                         + "form of event description /from datetime /to datetime.");
             } else {
                 Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
-                storage.addToDataStore(newEventTask);
-                taskArrayList.addTask(newEventTask);
+                safeAddTask(newEventTask);
             }
             break;
         default:
             throw new InvalidCommandException(s);
+        }
+    }
+
+    /**
+     * Adds task to data store and task list if there is no existing duplicate.
+     * @param task Task to be added.
+     */
+    private static void safeAddTask(Task task) throws DuplicateTaskException {
+        if (!taskArrayList.checkDuplicate(task)) {
+            storage.addToDataStore(task);
+            taskArrayList.addTask(task);
+        } else {
+            throw new DuplicateTaskException();
         }
     }
 
@@ -213,17 +220,6 @@ public class BotChat {
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException(requestedDeletion);
         }
-    }
-
-    private Label getDialogLabel(String text) {
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
-    public String getResponse(String input) {
-        return response(input);
     }
 
     public static void main(String[] args) {

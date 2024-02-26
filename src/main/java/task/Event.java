@@ -1,13 +1,11 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
+    private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
     public Event(String s, String startTimeString, String endTimeString) {
         super(s);
 
@@ -22,6 +20,10 @@ public class Event extends Task {
         this.endTime = endTime;
     }
 
+    private boolean timeEquals(Event event) {
+        return event.startTime.equals(this.startTime) && event.endTime.equals(this.endTime);
+    }
+
     @Override
     public String toString() {
         return String.format("[E] %s (from: %s to: %s)", super.toString(),
@@ -33,5 +35,14 @@ public class Event extends Task {
     public String convertToDataStoreLine() {
         return String.format("E|%s|%s|%s|%s", super.convertToDataStoreLine(),
                 super.getTaskString(), this.startTime, this.endTime);
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (task instanceof Event) {
+            Event event = (Event) task;
+            return super.equals(event) && timeEquals(event);
+        }
+        return false;
     }
 }

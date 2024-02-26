@@ -1,7 +1,5 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -12,7 +10,6 @@ public class Deadline extends Task {
         super(s);
 
         String cleanedString = deadlineString.replaceAll("\\s", "");
-
         LocalDateTime deadline = LocalDateTime.parse(cleanedString, ORIGINAL_FORMATTER);
         this.deadline = deadline;
     }
@@ -26,5 +23,18 @@ public class Deadline extends Task {
     public String convertToDataStoreLine() {
         return String.format("D|%s|%s|%s", super.convertToDataStoreLine(), super.getTaskString(),
                 this.deadline.format(ORIGINAL_FORMATTER));
+    }
+
+    private boolean deadlineEquals(Deadline deadline) {
+        return deadline.deadline.equals(this.deadline);
+    }
+
+    @Override
+    public boolean equals(Task task) {
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            return super.equals(deadline) && deadlineEquals(deadline);
+        }
+        return false;
     }
 }
