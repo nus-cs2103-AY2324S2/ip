@@ -25,15 +25,15 @@ public class DeleteCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
+    public String execute(TaskList taskList, Storage storage) {
         try {
             String number = message.split(" ")[1];
             int integerNumber = Integer.parseInt(number);
             return taskList.delete(integerNumber);
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ui.showForgetTaskNumber() + "\n" + ui.showDeleteFormat();
+            return Ui.showForgetTaskNumber() + "\n" + Ui.showDeleteFormat();
         } catch (NumberFormatException e) {
-            return ui.showWrongFormat() + "\n" + ui.showDeleteFormat();
+            return Ui.showWrongFormat() + "\n" + Ui.showDeleteFormat();
         }
     }
 

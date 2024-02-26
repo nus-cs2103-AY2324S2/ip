@@ -12,14 +12,14 @@ import java.util.ArrayList;
  */
 public class TaskList {
     public ArrayList<Task> tasks;
-    private Ui ui;
+
 
     /**
      * Constructs the class TaskList.
      */
     public TaskList() {
         tasks = new ArrayList<>();
-        ui = new Ui();
+
     }
 
     /**
@@ -49,9 +49,9 @@ public class TaskList {
             Task task = tasks.get(n - 1);
             task.setDone();
             assert task.getStatusIcon().equals("X");
-            return ui.showMarkTask(task);
+            return Ui.showMarkTask(task);
         } else {
-            return ui.showNoTaskFound();
+            return Ui.showNoTaskFound();
         }
     }
 
@@ -65,9 +65,9 @@ public class TaskList {
             Task task = tasks.get(n - 1);
             task.setUndone();
             assert task.getStatusIcon().equals(" ");
-            return ui.showUnmarkTask(task);
+            return Ui.showUnmarkTask(task);
         } else {
-            return ui.showNoTaskFound();
+            return Ui.showNoTaskFound();
         }
     }
 
@@ -79,9 +79,9 @@ public class TaskList {
     public String delete(int n) {
         if ((n > 0) && (n <= tasks.size())) {
             Task removedTask = tasks.remove(n - 1);
-            return ui.showDeleteTask(removedTask, tasks.size());
+            return Ui.showDeleteTask(removedTask, tasks.size());
         } else {
-            return ui.showNoTaskFound();
+            return Ui.showNoTaskFound();
         }
     }
 
@@ -93,7 +93,7 @@ public class TaskList {
     public String createToDo(String description) {
         ToDo todo = new ToDo(description);
         tasks.add(todo);
-        return ui.showCreateTask(todo, tasks.size());
+        return Ui.showCreateTask(todo, tasks.size());
     }
 
     /**
@@ -105,7 +105,7 @@ public class TaskList {
     public String createDeadline(String description, LocalDate by) {
         Deadline deadline = new Deadline(description, by);
         tasks.add(deadline);
-        return ui.showCreateTask(deadline, tasks.size());
+        return Ui.showCreateTask(deadline, tasks.size());
     }
 
     /**
@@ -118,7 +118,7 @@ public class TaskList {
     public String createEvent(String description, LocalDate from, LocalDate to) {
         Event event = new Event(description, from, to);
         tasks.add(event);
-        return ui.showCreateTask(event, tasks.size());
+        return Ui.showCreateTask(event, tasks.size());
     }
 
     /**

@@ -20,8 +20,8 @@ public class ListCommand extends Command {
     /**
      * {@inheritDoc}
      */
-    public String execute(TaskList taskList, Ui ui, Storage storage) {
-        return ui.showTaskList(taskList);
+    public String execute(TaskList taskList, Storage storage) {
+        return Ui.showTaskList(taskList);
     }
 
     /**
