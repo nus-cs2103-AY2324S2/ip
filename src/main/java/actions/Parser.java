@@ -61,6 +61,9 @@ public class Parser {
                 case "event" :
                         handleEventCommand(tasklist, ui, parts);
                         break;
+                case "find" :
+                        handleFindCommand(tasklist, ui, parts);
+                        break;
                 default:
                         ui.printInputError();
 
