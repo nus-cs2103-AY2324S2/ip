@@ -2,7 +2,8 @@
 > "Hi, I am your favaourite friend Lelu! What can I do for you?" - Lelu
 
 Lelu is here to help you with __managing you tasks__!
-> ![Ui](https://github.com/Lalelulilulela/ip/assets/122797951/8c8b36e5-a207-4b70-beaf-7484387d7c5e)
+> ![Ui](https://github.com/Lalelulilulela/ip/assets/122797951/c690a9ea-a919-4c7c-931c-f2a01f3767bb)
+
 
 Dowload [Lelu](https://github.com/Lalelulilulela/ip/releases/tag/A-Release) now!
 ## Features
