@@ -1,12 +1,13 @@
 package chatterpal;
 
-import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import chatterpal.ToDo;
-public class TodosTest {
+import org.junit.jupiter.api.Test;
+
+
+public class TodoTest {
     @Test
-    public void checkToStringTest(){
+    public void checkToStringTest() {
         ToDo t = new ToDo("Read book");
         assertEquals(t.toString(), "[T][ ] Read book");
     }

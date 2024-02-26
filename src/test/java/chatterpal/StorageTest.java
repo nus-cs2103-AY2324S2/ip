@@ -1,18 +1,19 @@
 package chatterpal;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests the functionality of the Storage class, ensuring tasks are correctly added, listed,
  * and found, and that the schedule viewing functionality accurately reflects tasks for specific dates.
+ * This code is inspired by discussions and guidance received from ChatGPT.
  */
+
 public class StorageTest {
 
     private Storage storage;
@@ -33,8 +34,10 @@ public class StorageTest {
     public void testAddToListOutput() {
         Task task = new ToDo("Read book");
         storage.add(task);
-        String expectedOutput = "Got it. I've added this task:\n  [T][ ] Read book\nNow you have 1 tasks in the list.";
-        assertEquals(expectedOutput, storage.addToListOutput(task), "Output does not match expected string after adding task.");
+        String expectedOutput = "Got it. I've added this task:\n  "
+               + "[T][ ] Read book\nNow you have 1 tasks in the list.";
+        assertEquals(expectedOutput, storage.addToListOutput(task),
+                "Output does not match expected string after adding task.");
     }
 
     @Test
@@ -63,11 +66,13 @@ public class StorageTest {
     @Test
     public void testViewScheduleForDeadline() {
         LocalDate today = LocalDate.now();
-        LocalDateTime deadlineDateTime = LocalDateTime.of(today.getYear(), today.getMonth(), today.getDayOfMonth(), 23, 59);
+        LocalDateTime deadlineDateTime = LocalDateTime.of(today.getYear(),
+                today.getMonth(), today.getDayOfMonth(), 23, 59);
         Deadline deadlineTask = new Deadline("Submit assignment", deadlineDateTime);
         storage.add(deadlineTask);
         String expectedOutput = "Submit assignment\n";
-        assertEquals(expectedOutput, storage.viewSchedule(today), "View schedule should list tasks due on the specified date.");
+        assertEquals(expectedOutput, storage.viewSchedule(today),
+                "View schedule should list tasks due on the specified date.");
     }
 
     @Test
@@ -75,10 +80,12 @@ public class StorageTest {
         LocalDate today = LocalDate.now();
         LocalDate startDate = today.minusDays(1);
         LocalDate endDate = today.plusDays(1);
-        Event eventTask = new Event("Team meeting", startDate.atStartOfDay(), endDate.atTime(23, 59));
+        Event eventTask = new Event("Team meeting",
+                startDate.atStartOfDay(), endDate.atTime(23, 59));
         storage.add(eventTask);
 
         String expectedOutput = "Team meeting\n";
-        assertEquals(expectedOutput, storage.viewSchedule(today), "View schedule should list events happening on the specified date.");
+        assertEquals(expectedOutput, storage.viewSchedule(today),
+                "View schedule should list events happening on the specified date.");
     }
 }

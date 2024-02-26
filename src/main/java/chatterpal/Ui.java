@@ -84,6 +84,12 @@ public class Ui {
                 + "take care and stay awesome!\n";
     }
 
+    /**
+     * Generates a message displaying the daily schedule.
+     *
+     * @param s The schedule for the day.
+     * @return A message indicating the schedule. If empty, returns "Your schedule is free!".
+     */
     public String onView(String s) {
         if (s.isEmpty()) {
             return "Your schedule is free!";

@@ -1,11 +1,16 @@
 package chatterpal;
 
-import java.io.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
  * The Save class manages the saving and loading of task data to and from a file.
+ * This code is inspired by discussions and guidance received from ChatGPT.
  */
 public class Save {
 
@@ -42,7 +47,9 @@ public class Save {
     }
 
     /**
-     * Serializes a task object into a string representation.
+     * Serializes a task object into a string representation suitable for file storage.
+     * The serialization format includes task type indicators (T, D, E) followed by
+     * task details such as status, description, and dates where applicable.
      *
      * @param t The task to be serialized.
      * @return A string representation of the task.
@@ -61,12 +68,14 @@ public class Save {
         }
     }
 
+
     private String serializeDeadline(Deadline d, String isDone, String desc) {
         // Assuming Deadline class has a method to get its deadline in the desired format
         String deadline = formatDateTime(d.getDeadline());
         return "D | " + isDone + " | " + desc + " | " + deadline;
     }
 
+    // Additional private helper methods for serialization
     private String serializeEvent(Event e, String isDone, String desc) {
         // Assuming Event class has methods to get its start and end times in the desired format
         String from = formatDateTime(e.getFrom());

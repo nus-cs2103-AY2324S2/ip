@@ -113,8 +113,6 @@ public class Storage {
         return output.toString();
     }
 
-
-    
     /**
      * Creates a formatted string representing the output when a task is added to the storage.
      *
@@ -127,6 +125,18 @@ public class Storage {
     }
 
 
+    /**
+     * Generates a string representation of all scheduled deadlines and events for a given date.
+     * This method iterates through a storage list, checking each stored item to see if it matches
+     * the target date. For deadlines, it compares the deadline date directly with the target.
+     * For events, it checks if the target date falls within the event's duration (inclusive of start and end dates).
+     * The descriptions of all matching items are appended to the output.
+     *
+     * @param target The {@link LocalDate} representing the date for which the schedule is to be viewed.
+     * @return A string containing a newline-separated list of descriptions for all deadlines and
+     *         events occurring on the target date. If no items are scheduled for that date or an exception occurs,
+     *         an empty string is returned.
+     */
     public String viewSchedule(LocalDate target) {
         StringBuilder output = new StringBuilder();
         try {
@@ -139,19 +149,15 @@ public class Storage {
                 } else if (this.storage.get(i) instanceof Event) {
                     LocalDate toDate = ((Event) this.storage.get(i)).getTo().toLocalDate();
                     LocalDate fromDate = ((Event) this.storage.get(i)).getFrom().toLocalDate();
-                    // from > target > to
                     if (target.isAfter(fromDate) && target.isBefore(toDate)
                             || target.equals(toDate) || target.equals(fromDate)) {
                         output.append(this.storage.get(i).description + "\n");
                     }
                 }
-
             }
             return output.toString();
         } catch (Exception e) {
-            return "";
+            return e.toString();
         }
     }
-
-
 }

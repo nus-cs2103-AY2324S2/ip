@@ -12,7 +12,15 @@ import chatterpal.Event;
 import chatterpal.Storage;
 import chatterpal.Task;
 import chatterpal.ToDo;
-import exceptions.*;
+import exceptions.ChatterExceptions;
+import exceptions.EmptyDateException;
+import exceptions.EmptyStringException;
+import exceptions.EmptyTaskException;
+import exceptions.OutOfIndexException;
+import exceptions.ParseDateException;
+import exceptions.ParseDayException;
+import exceptions.WrongDeadlineFormatException;
+import exceptions.WrongEventFormatException;
 
 /**
  * Contains methods to handle different commands for the Duke application.
@@ -203,6 +211,15 @@ public class Commands {
         }
     }
 
+    /**
+     * Parses and executes a view command to retrieve and display a schedule for a specified date.
+     *
+     * @param input   The input command containing the view keyword followed by a date.
+     * @param storage The storage object used to retrieve schedule data.
+     * @return A string representing the schedule for the specified date.
+     * @throws ParseDayException   If the date provided in the input command is invalid or cannot be parsed.
+     * @throws EmptyDateException If the input command does not contain a valid date.
+     */
     public static String viewCommand(String input, Storage storage) throws ParseDayException, EmptyDateException {
         String[] inputs = input.split(" ");
         if (inputs.length != 2) {
@@ -217,7 +234,5 @@ public class Commands {
         } catch (DateTimeParseException e) {
             throw new ParseDayException();
         }
-
     }
-
 }
