@@ -9,6 +9,7 @@ import task.Todo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Parses the user input and uses appropriate handle functions to deal with the user input
@@ -190,6 +191,16 @@ public class Parser {
                 } catch (Exception e)  {
                         throw new DukeException("Please make sure your date and time are formatted as 'd/M/yyyy HHmm'.");
                 }
+        }
+
+        public void handleFindCommand(TaskList taskList, Ui ui, String[] parts) {
+                if(parts.length < 2 ) {
+                        ui.printError("Oops what keyword are you searching for?");
+                } else {
+                        List<Task> findTasks = taskList.find(parts[1]);
+                        ui.printFindList(findTasks);
+                }
+
         }
 
 }

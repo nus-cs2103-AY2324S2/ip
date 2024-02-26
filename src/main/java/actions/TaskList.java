@@ -6,6 +6,9 @@ import java.util.ArrayList;
 /**
  * Tasklist is a class that handles the possible actions on a list of tasks
  */
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class TaskList {
     protected ArrayList<Task> tasks;
     public TaskList(ArrayList<Task> tasks) {
@@ -38,6 +41,12 @@ public class TaskList {
 
     public void unmarkTask(Task task) {
         task.unmark();
+    }
+
+    public List<Task> find(String input) {
+        return this.tasks.stream()
+                .filter(task-> task.toString().toLowerCase().contains(input.toLowerCase()))
+                .collect(Collectors.toList());
     }
 
 

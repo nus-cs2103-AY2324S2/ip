@@ -3,6 +3,7 @@ package actions;
 import task.Task;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Handles the user interface of the application
@@ -93,6 +94,15 @@ public class Ui {
 
     public void printInputError(){
         System.out.println(InputError);
+    }
+
+    public void printFindList(List<Task> findTasks) {
+        System.out.println(LINE);
+        System.out.println("Here are some task you could be looking for:");
+        for (int i = 0; i < findTasks.size(); i++) {
+            System.out.println((i + 1) + ". " + findTasks.get(i).toString());
+        }
+        System.out.println(LINE);
     }
 
 
