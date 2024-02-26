@@ -35,20 +35,20 @@ Luna is a desktop application for managing your tasks, optimized for usage via a
 
 #### View all your task entries: `list`
 Shows all your entries in the list.\
---> Format: list\
+--> Format: `list`
 
 #### Add a to-do task: `todo`
 Add a task named `<TASK_NAME>` with the **todo** task type.\
---> Format: `todo` `<TASK_NAME>` \
+--> Format: `todo` `<TASK_NAME>` 
 
 
 #### Add a task with a deadline: `deadline`
 Add a task named `<TASK_NAME>` with the **deadline** task type and set its end date to be `<END_DATE>`.\
---> Format: `deadline` `<TASK_NAME>` `<END_DATE>`\
+--> Format: `deadline` `<TASK_NAME>` `<END_DATE>`
 
 #### Add an event: `event`
 Add a task named `<TASK_NAME>` with the **event** task type and set its start date to `<START_DATE>` and its end date to be `<END_DATE>`.\
---> Format: `event` `<TASK_NAME>` `<START_DATE>` `<END_DATE>` \
+--> Format: `event` `<TASK_NAME>` `<START_DATE>` `<END_DATE>` 
 
 #### Mark a task as done: `mark`
 Mark a task in the list using its `index` in the list to show that a task is _done_.\
