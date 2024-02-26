@@ -18,6 +18,7 @@ public class ClearCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) throws LivException {
         tasks.clearTasks();
         String message = Ui.getClearMessage();
+        storage.saveTaskToFile();
         return message;
     }
 }
