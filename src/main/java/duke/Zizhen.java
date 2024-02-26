@@ -42,10 +42,10 @@ public class Zizhen extends Application {
     }
 
     public static void main(String[] args) {
-        Ui duke = new Ui("Zizhen");
+        Ui Zizhen = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
         Storage archived = new Storage("./data/archived.txt");
-        duke.greeting();
+        Zizhen.greeting();
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
@@ -65,7 +65,7 @@ public class Zizhen extends Application {
         }
         scanner.close();
 
-        duke.exit();
+        Zizhen.exit();
     }
 
     /**
@@ -97,6 +97,12 @@ public class Zizhen extends Application {
         userInput.clear();
     }
 
+    private void greet(Ui Zizhen) {
+        Label dukeText = getDialogLabel(Zizhen.greeting());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+    }
+
     /**
      * Passes in the user input and returns what the parser will return.
      */
@@ -106,29 +112,16 @@ public class Zizhen extends Application {
 
     @Override
     public void start(Stage stage) {
-        Ui duke = new Ui("Zizhen");
+        Ui Zizhen = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
         Storage archived = new Storage("./data/archived.txt");
-        duke.greeting();
+        greet(Zizhen);
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
         TaskList todoList = new TaskList(temp);
 
         Parser parser = new Parser(todoList, storage, archived);
-
-        boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
-        while ((!isExit) && scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                isExit = true;
-            }
-            parser.parse(userInput);
-        }
-        scanner.close();
-
-        duke.exit();
 
         // Step 1. Setting up required components
 
@@ -186,5 +179,18 @@ public class Zizhen extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            }
+            parser.parse(userInput);
+        }
+        scanner.close();
+
+        Zizhen.exit();
     }
 }

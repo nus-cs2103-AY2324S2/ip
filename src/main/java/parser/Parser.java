@@ -5,6 +5,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import ui.Ui;
 import task.TaskList;
 
 /**
@@ -28,7 +29,12 @@ public class Parser {
      */
 
     public String parse(String userInput) {
-        if (userInput.equals("list")) {
+        if (userInput.equals("bye")) {
+            return "Bye bye!";
+        } else if (userInput.equals("hi")) {
+            Ui zizhen = new Ui("Zizhen");
+            return zizhen.greeting();
+        } else if (userInput.equals("list")) {
             return this.todoList.printList();
         } else if (userInput.equals("archived")) {
             TaskList archivedTasks = new TaskList(this.archived.getHistory());
