@@ -62,7 +62,7 @@ public class Parser {
     }
 
     private Command parseEditNumber(String[] split, String commandName) throws InvalidCommandException {
-        if (split.length == 1) {
+        if (split.length == 1 || split[1].equals("")) {
             throw new InvalidCommandException(
                     "Wrong format! Please include the number that you want me to unmark >:(");
         }
