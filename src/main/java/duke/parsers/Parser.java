@@ -4,7 +4,19 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
-import duke.commands.*;
+import duke.commands.Command;
+import duke.commands.CreateDeadlineCommand;
+import duke.commands.CreateEventCommand;
+import duke.commands.CreateTodoCommand;
+import duke.commands.DeleteCommand;
+import duke.commands.ErrorCommand;
+import duke.commands.ExitCommand;
+import duke.commands.FindCommand;
+import duke.commands.HelpCommand;
+import duke.commands.ListCommand;
+import duke.commands.MarkTaskCommand;
+import duke.commands.UnmarkTaskCommand;
+import duke.commands.ViewSchedulesCommand;
 import duke.exceptions.DukeException;
 import duke.utils.Utils;
 
@@ -42,8 +54,6 @@ public class Parser {
             return handleAddEvent(commandArguments);
         case "delete":
             return handleDelete(commandArguments);
-        case "save":
-            return new SaveCommand();
         case "find":
             return new FindCommand(commandArguments);
         case "view":

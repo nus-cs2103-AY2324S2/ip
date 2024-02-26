@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import duke.utils.Utils;
 
 /**
  * Represents a command to mark a task as done.
@@ -23,6 +24,8 @@ public class MarkTaskCommand extends Command {
         if (index >= tasks.size() || index < 0) {
             return "Please look carefully. This task is not inside the task list.";
         }
-        return tasks.get(index).markDone(ui);
+        String output = tasks.get(index).markDone(ui);
+        Utils.save(tasks);
+        return output;
     }
 }

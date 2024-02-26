@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import duke.utils.Utils;
 
 /**
  * Represents a command to delete a task.
@@ -25,6 +26,7 @@ public class DeleteCommand extends Command {
         }
         String taskStr = tasks.get(index).toString();
         tasks.deleteTask(this.index);
+        Utils.save(tasks);
         return "Noted. I've removed this task:\n  " + taskStr + "\nNow you have "
                 + tasks.size() + " tasks in the list.";
     }

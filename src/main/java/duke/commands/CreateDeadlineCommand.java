@@ -8,6 +8,8 @@ import duke.tasks.Deadline;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import duke.utils.Utils;
+
 /**
  * Represents a command to create a deadline task.
  */
@@ -32,6 +34,7 @@ public class CreateDeadlineCommand extends Command {
         Task newTask = null;
         newTask = new Deadline(description, deadline, DATE_TIME_FORMATTER_FOR_PRINT);
         tasks.addTask(newTask);
+        Utils.save(tasks);
         return newTask.displayTask(tasks.size());
     }
 }

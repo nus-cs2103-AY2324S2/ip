@@ -2,6 +2,7 @@ package duke.commands;
 
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import duke.utils.Utils;
 
 /**
  * Represents a command to unmark a task.
@@ -23,7 +24,9 @@ public class UnmarkTaskCommand extends Command {
         if (index >= tasks.size() || index < 0) {
             return "Please look carefully. This task is not inside the task list.";
         }
-        return tasks.get(index).unmark(ui);
+        String output = tasks.get(index).unmark(ui);
+        Utils.save(tasks);
+        return output;
     }
 }
 

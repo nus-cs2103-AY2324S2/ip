@@ -8,6 +8,7 @@ import duke.tasks.Event;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.Ui;
+import duke.utils.Utils;
 
 /**
  * Represents a command to create an event task.
@@ -35,6 +36,7 @@ public class CreateEventCommand extends Command {
         Task newTask = null;
         newTask = new Event(description, start, end, DATE_TIME_FORMATTER_FOR_PRINT);
         tasks.addTask(newTask);
+        Utils.save(tasks);
         return newTask.displayTask(tasks.size());
     }
 }
