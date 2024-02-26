@@ -80,15 +80,6 @@ To start using RahhBot, simply type your queries or commands into the chat windo
 - To search for tasks containing a specific keyword, use the command: find **keyword**.
 - Example: find meeting.
 - It's case-insensitive, so you can use any combination of uppercase and lowercase letters or even partial keywords!
-- **_Expected output_**
-
-```
-  I found some!
-     1. [E][ ] Team meeting (from: 2024-02-27 to 2024-03-27)
-  Are these what you're looking for? I hope so. Don't blame me if it's wrong lol. 
-
-```
-
 
 ### 9. Exiting RahhBot:
 - To exit RahhBot, simply type: bye.
