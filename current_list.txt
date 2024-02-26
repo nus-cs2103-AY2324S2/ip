@@ -1,1 +1,4 @@
 A|0|a|b
+T|0|read book
+T|0|buy food
+D|0|homework|Next monday

@@ -28,6 +28,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
+            stage.setTitle("Fireraya Ronnie Chatbot");
             fxmlLoader.<MainWindow>getController().setFireraya(fireraya);
             stage.show();
         } catch (IOException e) {
