@@ -5,6 +5,8 @@ package eve.tasks;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected String tag;
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -42,5 +44,9 @@ public class Task {
 
     public String getTask() {
         return description;
+    }
+
+    public void addTag(String tag) {
+        this.tag = tag;
     }
 }

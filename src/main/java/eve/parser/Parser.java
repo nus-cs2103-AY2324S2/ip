@@ -17,7 +17,7 @@ public class Parser {
     }
 
     public String parseAndExecute(String input) throws EveExceptions {
-        String[] tempyArr = input.split(" ", 2);
+        String[] tempyArr = input.split(" ");
         String commandCheck = tempyArr[0].toUpperCase();
 
         assert tempyArr.length > 0 : "Input is empty";
@@ -44,6 +44,8 @@ public class Parser {
                     return TaskList.commandEvent(tempyArr, list);
                 case "FIND":
                     return TaskList.commandFind(tempyArr, list);
+                case "TAG":
+                    return TaskList.commandTag(tempyArr, list);
 
                 default:
                     return "OOPS!!! I'm sorry, but I don't know what that means, please try again";
