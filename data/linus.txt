@@ -1,7 +1,14 @@
-T | 0 | read booooks
-T | 0 | run
 D | 0 | return book | 2019-10-15
 E | 0 | team meeting | 2019-10-15 | 2019-10-16
-T | 0 | borrow book
-D | 0 | return book | 2019-10-15
-E | 0 | team meeting | 2019-10-15 | 2019-10-16
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books
+T | 0 | read books

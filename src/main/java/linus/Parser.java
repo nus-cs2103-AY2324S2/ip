@@ -44,14 +44,54 @@ public class Parser {
                 returnedString = parseEventCommand(command);
             } else if (command.startsWith("delete")) {
                 returnedString = parseDeleteCommand(command);
+            } else if (command.equals("help")) {
+                returnedString = parseHelpCommand();
             } else {
                 throw new LinusException("Please give commands that start with any of the following:" +
-                        " [todo, deadline, event, mark, unmark, list, bye, delete]");
+                        " [help, todo, deadline, event, mark, unmark, list, delete, find, bye, terminate]");
             }
         } catch (LinusException e) {
             return e.getMessage();
         }
 
+        return returnedString;
+    }
+
+    private static String parseHelpCommand() {
+        String returnedString;
+        returnedString = "We have the following available commands: \n" +
+                "todo, deadline, event, mark, unmark, list, bye, delete, find, terminate, help.\n\n" +
+
+                "Below are the example formats and purpose of each command:\n\n" +
+
+                "help: help (open up the help page dialog box)\n" +
+
+                "todo: todo borrow book (create a todo task)\n" +
+
+                "deadline: deadline return book /by 2019-10-15 (create a deadline task, " +
+                "indicating the date you want to complete the task by)\n" +
+
+                "event: event team meeting /from 2019-10-15 /to 2019-10-16 " +
+                "(create an event task, indicating the dates the event starts and ends at)\n" +
+
+                "list: list (list all the tasks updated so far)\n" +
+
+                "find: find books (find using a keyword/ this eample's keyword is 'books')\n" +
+
+                "mark: mark 1 (mark a task as completed/ the number that follows is the index of the task/" +
+                " to see the index of the task you want to mark, input the 'list' command)\n" +
+
+                "unmark: mark 1 (mark a task as not completed/ " +
+                "the number that follows is the index of the task/" +
+                " to see the index of the task you want to unmark, input the 'list' command)\n" +
+
+                "delete: delete 1 (delete a task from your current updated task list/ " +
+                "the number that follows is the index of the task/" +
+                " to see the index of the task you want to delete, input the 'list' command)\n" +
+
+                "bye: bye (let the chatbot know you want to exit)\n" +
+
+                "terminate: terminate (close the chatbot app)";
         return returnedString;
     }
 
