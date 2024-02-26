@@ -100,4 +100,10 @@ public class Response {
     public String getGoodbye() {
         return getMessage("Bye. Hope to see you again soon!");
     }
+
+    public String getTagMessage(String taskWithTag) {
+        assert !taskWithTag.isEmpty() : "Empty Task";
+        return getMessage("OK, I've tagged this task:")
+                + getMessage(TAB + taskWithTag);
+    }
 }

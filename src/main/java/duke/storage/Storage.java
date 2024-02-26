@@ -6,15 +6,13 @@ import duke.task.ToDo;
 import duke.task.TaskList;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import java.util.Arrays;
 import java.util.Scanner;
 
 /**
@@ -44,13 +42,12 @@ public class Storage {
         Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String[] taskDescriptions = sc.nextLine().split("\\|");
-            boolean done = Boolean.parseBoolean(taskDescriptions[2]);
             String taskName = taskDescriptions[1];
-            switch (taskDescriptions[0]) {
-            case "todo" :
+            boolean done = Boolean.parseBoolean(taskDescriptions[2]);
+            if (taskDescriptions[0].equals("todo")) {
                 tasks.addTask(new ToDo(taskName, done));
-                break;
-            case "deadline" :
+            }
+            else if (taskDescriptions[0].equals("deadline")) {
                 if (taskDescriptions[3].split("T").length > 1) {
                     LocalDateTime time = LocalDateTime.parse(taskDescriptions[3]);
                     tasks.addTask(new Deadline(taskName, done, time));
@@ -58,18 +55,17 @@ public class Storage {
                     LocalDate time = LocalDate.parse(taskDescriptions[3]);
                     tasks.addTask(new Deadline(taskName, done, time));
                 }
-                break;
-            case "event" :
+            } else {
+                assert taskDescriptions[0].equals("event");
                 tasks.addTask(new Event(taskName, done, taskDescriptions[3], taskDescriptions[4]));
-                break;
-            default:
-                break;
             }
+            String[] tags = taskDescriptions[taskDescriptions.length - 1].split("#");
+            Arrays.stream(tags).filter(t -> !t.isEmpty()).forEach(t -> tasks.tagTask(tasks.getSize(), t.trim()));
         }
     }
 
     /**
-     * Store the tasks in the task list into the specified file.
+     * Stores the tasks in the task list into the specified file.
      *
      * @param tasks List of tasks to be stored.
      * @throws IOException If error occurred when writing to the file.

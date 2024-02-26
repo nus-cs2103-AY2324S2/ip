@@ -38,9 +38,9 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         if (this.dueDate == null) {
-            return "deadline|" + super.toFileString() + "|" + this.dueTime;
+            return "deadline|" + super.toFileString() + "|" + this.dueTime + "|" + super.tagToString();
         } else {
-            return "deadline|" + super.toFileString() + "|" + this.dueDate;
+            return "deadline|" + super.toFileString() + "|" + this.dueDate + "|" + super.tagToString();
         }
     }
 
@@ -49,11 +49,13 @@ public class Deadline extends Task {
         if (this.dueDate == null) {
             String timeFormat = this.dueTime.format(DateTimeFormatter.ofPattern("MMM d yyyy KK.mm a"));
             return "[D]" + super.toString()
-                    + String.format(" (by: %s)", timeFormat);
+                    + String.format(" (by: %s)", timeFormat)
+                    + super.tagToString();
         } else {
             String timeFormat = this.dueDate.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
             return "[D]" + super.toString()
-                    + String.format(" (by: %s)", timeFormat);
+                    + String.format(" (by: %s)", timeFormat)
+                    + super.tagToString();
         }
     }
 }

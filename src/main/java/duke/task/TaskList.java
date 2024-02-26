@@ -73,7 +73,7 @@ public class TaskList {
     }
 
     /**
-     * Find tasks having names matching the given keyword.
+     * Finds tasks having names matching the given keyword.
      * Returns a string representation of the list of tasks.
      *
      * @param keyword Keyword to search in task name.
@@ -111,5 +111,9 @@ public class TaskList {
                     .append(tasks.get(i - 1).toString()).append("\n");
         }
         return tasksStr.toString();
+    }
+
+    public String tagTask(int index, String tag) {
+        return tasks.get(index - 1).addTag(tag);
     }
 }

@@ -16,11 +16,11 @@ public class ToDo extends Task {
 
     @Override
     public String toFileString() {
-        return "todo|" + super.toFileString();
+        return "todo|" + super.toFileString() + "|" + tagToString();
     }
 
     @Override
     public String toString() {
-        return "[T]" + super.toString();
+        return "[T]" + super.toString() + super.tagToString();
     }
 }

@@ -1,11 +1,14 @@
 package duke.task;
 
+import java.util.ArrayList;
+
 /**
  * Represents a task the user wants to be reminded of.
  */
 public class Task {
     private String taskName;
     private boolean isDone;
+    private ArrayList<String> tags;
 
     /**
      * Constructs a task object.
@@ -16,6 +19,22 @@ public class Task {
     public Task(String taskName, boolean isDone) {
         this.taskName = taskName;
         this.isDone = isDone;
+        this.tags = new ArrayList<>();
+    }
+
+    public String addTag(String tag) {
+        this.tags.add(tag);
+        return this.toString();
+    }
+
+    public String tagToString() {
+        StringBuilder result = new StringBuilder();
+        for (String t : tags) {
+            if (!t.isEmpty()) {
+                result.append(" #").append(t);
+            }
+        }
+        return result.toString();
     }
 
     /**
