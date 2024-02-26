@@ -1,30 +1,32 @@
-# Duke User Guide
-
-// Update the title above to match the actual product name
+# Eve User Guide
 
 // Product screenshot goes here
 
-// Product intro goes here
+Welcome to Eve, your personal chatbot for managing tasks. This guide will help you nagivate through using EVE and utilize her features to organize your tasks effectively.
 
-## Adding deadlines
+## Features
 
-// Describe the action and its outcome.
+### Adding Task
 
-// Give examples of usage
+## Adding todo
 
-Example: `keyword (optional arguments)`
+## Adding Event
 
-// A description of the expected outcome goes here
+## Adding Deadline
 
-```
-expected output
-```
+### Task Manipulation
 
-## Feature ABC
+## Deleting a Task
 
-// Feature details
+## Finding a Task
+
+## Updating a Task as Done/Not Done
+
+## Tagging a Task
+
+## Listing all the availble task
+
+## Exiting the Chatbot
 
 
-## Feature XYZ
-
-// Feature details
+// Seems like saving the application is gone, need to find
