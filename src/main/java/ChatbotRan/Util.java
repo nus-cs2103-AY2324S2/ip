@@ -4,14 +4,6 @@ class Util {
     private Util() {
     }
 
-    static Integer parseNumber(String line, int spacePos) {
-        try {
-            return Integer.parseInt(line.substring(spacePos + 1));
-        } catch (NumberFormatException e) {
-            return null;
-        }
-    }
-
     public static String[] parse(String line, int space, String... delims) {
         if (space == -1) {
             throw new TaskException("You've forgotten to write the contents of your task.");

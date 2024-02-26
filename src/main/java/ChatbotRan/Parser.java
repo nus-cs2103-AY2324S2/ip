@@ -33,26 +33,33 @@ public class Parser {
 
         int space = line.indexOf(' ');
         String command = space == -1 ? line : line.substring(0, space);
-        Task task;
+        Task taskRetrieved;
+        Task[] tasksRetrieved;
         switch (command) {
         case "mark":
-            task = this.handleTaskNo(line, space, taskList);
-            ui.mark(task.isCompleted());
-            task.setCompleted(true);
-            taskList.updateTasks();
-            ui.printTask(task);
+            tasksRetrieved = this.handleTaskNos(line, taskList);
+            for (Task t: tasksRetrieved) {
+                ui.mark(t.isCompleted());
+                t.setCompleted(true);
+                taskList.updateTasks();
+                ui.printTask(t);
+            }
             break;
         case "unmark":
-            task = this.handleTaskNo(line, space, taskList);
-            ui.unmark(task.isCompleted());
-            task.setCompleted(false);
-            taskList.updateTasks();
-            ui.printTask(task);
+            tasksRetrieved = this.handleTaskNos(line, taskList);
+            for (Task t: tasksRetrieved) {
+                ui.unmark(t.isCompleted());
+                t.setCompleted(false);
+                taskList.updateTasks();
+                ui.printTask(t);
+            }
             break;
         case "delete":
-            task = this.handleTaskNo(line, space, taskList);
-            taskList.remove(task);
-            ui.delete(task);
+            tasksRetrieved = this.handleTaskNos(line, taskList);
+            for (Task t: tasksRetrieved) {
+                taskList.remove(t);
+                ui.delete(t);
+            }
             ui.printNumber(taskList.size());
             break;
         case "deadline":
@@ -91,19 +98,24 @@ public class Parser {
         ui.displayBuiltOutput();
     }
 
-    private Task handleTaskNo(String line, int posOfSpace, TaskList taskList) throws TaskException {
-        if (posOfSpace == -1) {
+    private Task[] handleTaskNos(String line, TaskList taskList) throws TaskException {
+        String[] args = line.split(" ");
+        if (args.length < 2) {
             throw new TaskException("Missing task number.");
         }
-        Integer taskNo = Util.parseNumber(line, posOfSpace);
-        if (taskNo == null || taskNo < 1) {
-            throw new TaskException("Invalid task number.");
-        } else if (taskNo > taskList.size()) {
-            throw new TaskException("No task by that number.");
-        } else {
-            assert taskList.get(taskNo - 1) != null;
-            return taskList.get(taskNo - 1);
+        Task[] tasks = new Task[args.length-1];
+        for (int i = 1; i < args.length; i++) {
+            try {
+                int currTask = Integer.parseInt(args[i]);
+                if (currTask < 1 || currTask > taskList.size()) {
+                    throw new TaskException("No task by that number: " + args[i]);
+                }
+                tasks[i-1] = taskList.get(currTask);
+            } catch (NumberFormatException exception) {
+                throw new TaskException("Invalid task number: " + args[i]);
+            }
         }
+        return tasks;
     }
 
     private void addTask(Task task, TaskList taskList, RanUi ui) {
