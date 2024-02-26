@@ -35,13 +35,17 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
+        String response = "";
         if (isUnmarkCommand) {
             markInCompleteCount++;
-            return tasks.unmarkTask(number);
+            response = tasks.unmarkTask(number);
         } else {
             markCompleteCount++;
-            return tasks.markTask(number);
+            response = tasks.markTask(number);
         }
+        storage.resetSave();
+        storage.storeData(tasks);
+        return response;
     }
 
     public static int getMarkCompleteCount() {

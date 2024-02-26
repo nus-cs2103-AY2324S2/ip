@@ -50,7 +50,10 @@ public class CreateTaskCommand extends Command {
         }
         assert newTask != null : "New task created should not be null";
         totalCreated++;
-        return tasks.addNewTask(newTask);
+        tasks.addNewTask(newTask);
+        storage.resetSave();
+        storage.storeData(tasks);
+        return ui.addTaskRespond(newTask, tasks.getList().size());
     }
 
     public static int getTotalCreated() {

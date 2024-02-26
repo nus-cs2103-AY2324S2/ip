@@ -25,7 +25,10 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws InvalidCommandException {
         deleteCount++;
-        return tasks.deleteTask(this.deleteNumber);
+        String response = tasks.deleteTask(this.deleteNumber);
+        storage.resetSave();
+        storage.storeData(tasks);
+        return response;
     }
 
     public static int getDeleteCount() {

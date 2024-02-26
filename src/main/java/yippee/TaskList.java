@@ -44,9 +44,8 @@ public class TaskList {
      * Adds new task to active list.
      * @param task Task to be added to active list.
      */
-    public String addNewTask(Task task) {
+    public void addNewTask(Task task) {
         this.tasks.add(task);
-        return ui.addTaskRespond(task, this.tasks.size());
     }
 
     /**
