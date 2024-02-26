@@ -94,6 +94,32 @@ public class Parser {
                 return new DeadlineCommand(description, deadline);
             }
 
+            if (keyword.equals("do")) {
+                int index = -1;
+                int i = 0;
+                String breakpoint = "/after";
+                for (String element : all) {
+                    if (element.equals(breakpoint)) {
+                        index = i;
+                        break;
+                    }
+                    i++;
+                }
+                if (index == -1) {
+                    throw new FirerayaException("No /after detected in deadline");
+                }
+
+                String description = String.join(" ", Arrays.copyOfRange(all, 1, index));
+                String after = String.join(" ", Arrays.copyOfRange(all, index + 1, arrLen));
+
+                if (isDateCheck(after)) {
+                    Date d = parseDate(after);
+                    return new DoAfterCommand(description, d);
+
+                }
+                return new DoAfterCommand(description, after);
+            }
+
             if (keyword.equals("find")) {
                 if (all.length > 2) {
                     throw new InvalidNumOfArgsException();

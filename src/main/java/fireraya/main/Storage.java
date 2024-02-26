@@ -1,10 +1,7 @@
 package fireraya.main;
 
 import fireraya.exception.FirerayaException;
-import fireraya.task.Deadline;
-import fireraya.task.Event;
-import fireraya.task.Task;
-import fireraya.task.Todo;
+import fireraya.task.*;
 
 import java.io.*;
 
@@ -84,6 +81,10 @@ public class Storage {
 
                 if (keyword.equals("E")) {
                     nextTask = new Event(all[2], all[3], all[4]);
+                }
+
+                if (keyword.equals("A")) {
+                    nextTask = new DoAfter(all[2], all[3]);
                 }
 
                 if (all[1].equals("1")) {
