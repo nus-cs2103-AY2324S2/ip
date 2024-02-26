@@ -1,6 +1,6 @@
 # BotBot User Guide
 
-![Screenshot](/docs/Ui.png)
+![Screenshot]((https://owenong1.github.io/ip/Ui.png)
 
 A Bot to manage events
 
