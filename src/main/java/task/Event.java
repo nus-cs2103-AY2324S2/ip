@@ -1,13 +1,11 @@
 package task;
 
-import task.Task;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 public class Event extends Task {
+    private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
-    private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
     public Event(String s, String startTimeString, String endTimeString) {
         super(s);
 

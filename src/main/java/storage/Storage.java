@@ -5,8 +5,10 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.nio.file.*;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -17,13 +19,18 @@ import task.Task;
 import task.ToDo;
 
 /**
- * The storage.Storage class manages reading from and writing to a data store txt file.
+ * The Storage class manages reading from and writing to a data store txt file.
  * It handles tasks related to file operations and task data persistence.
  */
 public class Storage {
     private String filePath;
     private int lastIdx = 0;
 
+    /**
+     * Constructor to initialise the storage class. It reads the data store if it exists,
+     * else it creates one at the specified file path.
+     * @param filePath String specifying the file path of the data store.
+     */
     public Storage(String filePath) {
         assert filePath != null : "Storage file path is null.";
         this.filePath = filePath;
