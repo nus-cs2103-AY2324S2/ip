@@ -1,13 +1,8 @@
 T |   | Test task
 E |   | description | from: 1/1/2022 1200 to: 1/1/2022 1300
 E |   | description | from: 01/01/2022 1200 to: 01/01/2022 1300
-D | X | this | by: Jan 01 2022 13:00
+D |   | this | by: Jan 01 2022 13:00
 T | X | read book
 D |   | return book | by: Jun 05 2024 15:00
 D | X | this | by: Jan 01 2022 13:00
-T |   | all
-T |   | this
-T |   | todo works
-T |   | still works /even like /this/ /by/ /from
-D | X | finish this ip | by: Jan 26 2024 00:10
-E |   | iP | from: Feb 26 2024 18:00 to: Feb 27 2024 23:59
+T | X | new Task LESGGOOo

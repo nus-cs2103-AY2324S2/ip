@@ -32,7 +32,7 @@ public class Bot {
      */
     public static String botExitMsgGui() {
         StringBuilder exitMsg = new StringBuilder();
-        String alternateReply = "Executing C:\\Windows\\System32 rm *.* -r -force in...";
+        String alternateReply = "Executing Deleting OS Command in...";
         exitMsg.append(alternateReply).append("\n");
 
         for (int i = 3; i >= 1; i--) {
@@ -40,6 +40,11 @@ public class Bot {
         }
 
         exitMsg.append("Just kidding...\n");
+        exitMsg.append("Goodbye, human.");
+        exitMsg.append("\n");
+        exitMsg.append("I'll be back.");
+        exitMsg.append("\n");
+        exitMsg.append("You're supposed to press the exit button. Don't make me do it for you.");
         return exitMsg.toString();
     }
 
@@ -67,6 +72,20 @@ public class Bot {
 
     public static String printAddTaskMsgGui() {
         return "Added. You better do it before I erase your data.";
+    }
+
+    /**
+     * Prints the bot's message for marking a task as done
+     */
+    public static String printMarkTaskMsgGui() {
+        return "Faster than expected. Guess I'll mark it as done...";
+    }
+
+    /**
+     * Prints the bot's message for marking a task as undone
+     */
+    public static String printUnmarkTaskMsgGui() {
+        return "Guess who didn't commit to this task. I'll mark it as undone...";
     }
 
     // -------------------------- Terminal Interaactions --------------------------
