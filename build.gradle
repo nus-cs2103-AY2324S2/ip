@@ -43,7 +43,7 @@ test {
 }
 
 application {
-    mainClass.set("awex.Awex")
+    mainClass.set("awex.Launcher")
 }
 
 shadowJar {
