@@ -44,4 +44,4 @@ Find a task by keyword with the command: `find <keyword>`. Replace `<keyword>` w
 
 **Deleting a Task**
 
-To remove a task from your list, use: `delete <task>`. Make sure `<task>` specifies the task you intend to delete.
+To remove a task from your list, use: `delete <task>`.Make sure `<task>` specifies the task you intend to delete.
