@@ -59,8 +59,13 @@ public class Parser {
         String type = getFirstWord(input);
         try {
             String firstWordRemoved = removeFirstWord(input);
+            // Solution below adapted from
+            // https://stackoverflow.com/questions/4674850/converting-a-sentence-string-to-a-string-array-of-words-in-java
             String[] stringIndices = firstWordRemoved.split("\\s+");
+            // Solution below adapted from
+            // https://www.baeldung.com/java-convert-string-array-to-int-array#:~:text=parseInt()%20does%20the%20main,%3D%200%3B%20i%20%3C%20stringArray.
             int[] indices = Arrays.stream(stringIndices).mapToInt(s -> Integer.parseInt(s)).toArray();
+            // Solution below adapted from https://stackoverflow.com/questions/880581/how-can-i-convert-int-to-integer-in-java
             Integer[] integerIndices = IntStream.of(indices).boxed().toArray(Integer[]::new);
             Arrays.sort(integerIndices, Collections.reverseOrder());
             return integerIndices;
