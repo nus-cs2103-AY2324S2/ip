@@ -112,7 +112,7 @@ class TaskList {
             return addTask(newTask);
 
         } catch (DateTimeParseException | ArrayIndexOutOfBoundsException e) {
-            return "Invalid date or time format. Please use yyyy-MM-dd HHmm.";
+            return "Invalid date or time format. \nPlease use yyyy-MM-dd HHmm.";
         }
     }
 
@@ -151,7 +151,7 @@ class TaskList {
             EventTask newTask = new EventTask(description, fromDateTime, toDateTime);
             return addTask(newTask);
         } catch (DateTimeParseException e) {
-            return "Invalid date or time format. Please use yyyy-MM-dd HHmm.";
+            return "Invalid date or time format. \nPlease use yyyy-MM-dd HHmm.";
         }
     }
 
@@ -199,7 +199,7 @@ class TaskList {
             saveTasks();
             return "OK! I've marked this task as done:\n   " + task;
         } else {
-            return "Invalid task index. Please provide a valid task index.";
+            return "Invalid task index. \nPlease provide a valid task index.";
         }
     }
 
@@ -215,7 +215,7 @@ class TaskList {
             saveTasks();
             return "OK! I've marked this task as not done yet:\n   " + task;
         } else {
-            return "Invalid task index. Please provide a valid task index.";
+            return "Invalid task index. \nPlease provide a valid task index.";
         }
     }
 
@@ -230,7 +230,7 @@ class TaskList {
             saveTasks();
             return "Task removed:\n   " + removedTask + "\nNow you have " + tasks.size() + " tasks in the list.";
         } else {
-            return "Invalid task index. Please provide a valid task index.";
+            return "Invalid task index. \nPlease provide a valid task index.";
         }
     }
 
@@ -272,7 +272,7 @@ class TaskList {
                 }
             }
         } catch (DateTimeParseException e) {
-            result.append("Invalid date format. Please use yyyy-MM-dd.");
+            result.append("Invalid date format. \nPlease use yyyy-MM-dd.");
         }
 
         return result.toString();
@@ -283,13 +283,16 @@ class TaskList {
         if (indexAndName.length >= 2) {
             int taskIndex = Integer.parseInt(indexAndName[0]);
             String tagName = indexAndName[1];
+
             if (isValidIndex(taskIndex)) {
                 Task task = tasks.get(taskIndex - 1);
                 task.addTag(tagName);
                 saveTasks();
                 return "Task tagged:\n   " + task;
-            } else
-                return "Invalid task index. Please provide a valid task index.";
+            } else {
+                return "Invalid task index. \nPlease provide a valid task index.";
+            }
+
         } else {
             return "Invalid tag format. \nPlease provide tag name and task index.";
         }
@@ -300,13 +303,16 @@ class TaskList {
         if (indexAndName.length >= 2) {
             int taskIndex = Integer.parseInt(indexAndName[0]);
             String tagName = indexAndName[1];
+
             if (isValidIndex(taskIndex)) {
                 Task task = tasks.get(taskIndex - 1);
                 task.removeTag(tagName);
                 saveTasks();
                 return "Task tagged:\n   " + task;
-            } else
-                return "Invalid task index. Please provide a valid task index.";
+            } else {
+                return "Invalid task index. \nPlease provide a valid task index.";
+            }
+
         } else {
             return "Invalid untag format. \nPlease provide tag name and task index.";
         }
