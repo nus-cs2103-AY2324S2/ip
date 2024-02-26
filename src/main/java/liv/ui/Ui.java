@@ -44,13 +44,14 @@ public class Ui {
      * Prints the goodbye message.
      */
     public static String getByeMessage() {
-        String byeMessage = ("Farewell, see you next time!");
+        String byeMessage = String.join("\n", "Thank you for your hard work.",
+                "Please take a good rest!");
         displayMessage(byeMessage);
         return byeMessage;
     }
 
     public static String getClearMessage() {
-        String clearMessage = "Your mission list has been cleared.";
+        String clearMessage = "Got it! I have cleared your mission list.";
         displayMessage(clearMessage);
         return clearMessage;
     }
@@ -59,7 +60,7 @@ public class Ui {
      * Prints the list of tasks to the user.
      */
     public static String getListMessage() {
-        String listMessage = "Here are the missions you added:\n";
+        String listMessage = "Here are the missions for you:\n";
 
         for (int i = 0; i < TaskList.getListSize(); i++) {
             Task task = TaskList.getTask(i);
@@ -121,7 +122,7 @@ public class Ui {
      */
     public static String getDeleteMessage(ArrayList<Integer> indices, ArrayList<Task> deletedTasks) {
         assert indices.size() == deletedTasks.size();
-        String deleteMessage = "Mission(s) deleted from list:\n";
+        String deleteMessage = "Mission(s) removed from list:\n";
 
         for (int i = 0; i < deletedTasks.size(); i++) {
             int displayedIndex = indices.get(i) + 1;
