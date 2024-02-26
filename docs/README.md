@@ -1,18 +1,16 @@
 # Cal User Guide
 
 ## Quick Start
-
-Description of the feature.
 1. Ensure you have Java `11` or above installed in your Computer.
 2. Download the latest version of Cal from [here](https://github.com/ValenciaLim/ip/releases/tag/Level-10).
 3. Open a command terminal, `cd` into the folder you put the jar file in, and use the following command to run the application.
    ```
    java -jar cal.jar
    ```
-4. Refer to the Features[here](#features) below for details of each command.
+4. Refer to the [Features](#features) below for details of each command.
 
-## Features 
-Cal is a chatbot that helps you manage your tasks. It is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
+<span style="color: #A366F9">## Features</span>
+Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
 
 ## Adding events
 Adds an event to the task list.
