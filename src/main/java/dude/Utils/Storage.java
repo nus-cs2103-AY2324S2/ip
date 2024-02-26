@@ -4,20 +4,29 @@ import dude.Tasks.*;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * The Storage class handles the loading and saving of task data to a storage file.
+ */
 public class Storage {
 
     private final String filepath;
     private final String filename;
 
+    /**
+     * Constructor for the Storage class.
+     *
+     * @param fileLocation The file path to the storage file.
+     */
     public Storage(String fileLocation) {
-
         this.filepath = extractFilePath(fileLocation);
         this.filename = extractFileName(fileLocation);
     }
 
     /**
      * Creates a storage file if it does not exist.
-     * @throws IOException, SecurityException
+     *
+     * @throws IOException if an I/O error occurs
+     * @throws SecurityException if a security manager exists and its checkWrite method denies write access to the file.
      */
     private void createStorageIfNotExists() throws IOException, SecurityException {
         File path = new File(this.filepath);
@@ -38,7 +47,8 @@ public class Storage {
 
     /**
      * Deletes the storage file if it exists.
-     * @throws SecurityException
+     *
+     * @throws SecurityException if a security manager exists and its checkWrite method denies write access to the file.
      */
     public void deleteStorage() throws SecurityException {
         File file = new File(this.filepath + this.filename);
@@ -50,26 +60,31 @@ public class Storage {
         }
     }
 
-
+    /**
+     * Saves the task list to the storage file.
+     *
+     * @param taskList The task list to be saved.
+     * @throws IOException       if an I/O error occurs
+     * @throws SecurityException if a security manager exists and its checkWrite method denies write access to the file.
+     */
     public void saveTasks(TaskList taskList) throws IOException, SecurityException {
-        try{
+        try {
             FileOutputStream fos = new FileOutputStream(this.filepath + this.filename);
-            java.io.ObjectOutputStream oos = new java.io.ObjectOutputStream(fos);
+            ObjectOutputStream oos = new ObjectOutputStream(fos);
             oos.writeObject(taskList.getList());
             oos.close();
             fos.close();
-        }
-        catch (IOException e){
+        } catch (IOException e) {
             throw new IOException("An error occurred while saving the task list.");
         }
     }
 
     /**
      * Loads the task list from the storage file. Returns empty task list if no task data is found.
+     *
      * @return TaskList
      * @throws IOException, ClassNotFoundException, SecurityException
      */
-    @SuppressWarnings("unchecked") //safe as only ArrayList<Task> is written to the file
     public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
         createStorageIfNotExists();
 
@@ -78,6 +93,7 @@ public class Storage {
             FileInputStream fis = new FileInputStream(this.filepath + this.filename);
             ObjectInputStream ois = new ObjectInputStream(fis);
 
+            //noinspection unchecked
             list = (ArrayList<Task>) ois.readObject();
             ois.close();
             fis.close();
