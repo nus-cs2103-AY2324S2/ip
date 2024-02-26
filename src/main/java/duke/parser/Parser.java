@@ -66,9 +66,8 @@ public class Parser {
             case "deadline":
             case "event":
                 return createTask(input, words);
-            case "save":
-                return saveToMemory();
             case "close":
+                saveToMemory();
                 return terminateSession();
             case "list":
                 return listTasks();

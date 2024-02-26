@@ -1,3 +1,2 @@
-D | 0 | Eat Dinner00 | 260224T2100
+D | 0 | Eat Dinner000 | 260224T2100
 E | 0 | Career Fair | 270224T1200 | 270224T1400
-T | 0 | Submit CS2103T iP
