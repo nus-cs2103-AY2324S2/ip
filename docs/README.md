@@ -7,7 +7,7 @@ If you can type fast, DylanBot can get your task management done faster than tra
 - [Quick Start](#quick-start)
 - [Features](#features)
   - [Listing all tasks: `list`](#listing-all-tasks-list)
-  - [Adding a task: `todo`, `deadline`, `event`](#adding-a-task-todo-deadline-event
+  - [Adding a task: `todo`, `deadline`, `event`](#adding-a-task-todo-deadline-event)
   - [Marking a task as complete/incomplete: `mark`/`unmark`](#marking-a-task-as-completeincomplete-markunmark)
   - [Tagging a task: `tag`](#tagging-a-task-tag)
   - [Deleting a task: `delete`](#deleting-a-task-delete)
