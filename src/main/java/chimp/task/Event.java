@@ -20,6 +20,6 @@ public class Event extends Task {
                 + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
                 + " to: "
                 + to.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " )";
+                + ")";
     }
 }

@@ -16,6 +16,6 @@ public class Deadline extends Task {
                 + super.toString()
                 + " (by: "
                 + by.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
-                + " )";
+                + ")";
     }
 }
