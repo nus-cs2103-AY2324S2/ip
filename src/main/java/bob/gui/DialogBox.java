@@ -28,8 +28,8 @@ public class DialogBox extends HBox {
     private static final double DISPLAY_PICTURE_SIZE = 100;
     private static final int DISPLAY_PICTURE_RADIUS = 45;
 
-    private static final Color USER_BACKGROUND_COLOR = Color.web("#3DD9D6");
-    private static final Color BOB_BACKGROUND_COLOR = Color.web("#37CAEC");
+    private static final Color USER_BACKGROUND_COLOR = Color.web("#37CAEC");
+    private static final Color BOB_BACKGROUND_COLOR = Color.web("#2A93D5");
 
     @FXML
     private Label dialog;
