@@ -14,8 +14,6 @@ import bmo.command.LogCommand;
 import bmo.command.RedoCommand;
 import bmo.command.ToDoCommand;
 
-import bmo.ui.Ui;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -238,7 +236,6 @@ public class Parser {
      * @return LocalDateTime object containing the date and time.
      */
     public static LocalDateTime formatDateTime(String input) {
-        Ui ui = new Ui();
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             return LocalDateTime.parse(input, formatter);
