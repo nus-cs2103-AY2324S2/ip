@@ -1,1 +1,2 @@
-T | 0 | Light the lamp
+T | 1 | Study for midterms
+D | 1 | Finish the CS2103T iP  | 2024-02-26T23:59:59
