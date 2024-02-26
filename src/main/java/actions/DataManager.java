@@ -45,10 +45,12 @@ public class DataManager {
             File dataFile = new File(path);
             dataFile.getParentFile().mkdirs();
             FileWriter writer = new FileWriter(dataFile, false);
+
             for (Task task : tasks) {
                 writer.write(task.toFileString() + "\n");
             }
             writer.close();
+
         } catch (IOException e) {
             System.out.println("Unable to save tasks.");
         }
@@ -60,6 +62,7 @@ public class DataManager {
      */
     public ArrayList<Task> retrieveTasks () {
         ArrayList<Task> tasks = new ArrayList<>();
+
         try{
             File file = new File(path);
             if (file.exists()) {

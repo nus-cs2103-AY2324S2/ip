@@ -26,23 +26,28 @@ public class Duke {
     public Duke() {
         this.dataManager = new DataManager(FILE_PATH);
         ArrayList<Task> tasks = dataManager.retrieveTasks();
+
         this.taskList = new TaskList(tasks);
+
         this.ui = new Ui();
-        this.dataManager = new DataManager(FILE_PATH);
     }
 
     public void run() {
         ui.printWelcome();
         boolean isExit = false;
+
         Scanner input = new Scanner(System.in);
         System.out.println("Enter Message");
+
         while(!isExit) {
             try {
                 String message = input.nextLine();
                 Parser parser =  new Parser(message);
-                ArrayList<Task> tasks = taskList.getTasks(); // Retrieve the current list of tasks
+
+                ArrayList<Task> tasks = taskList.getTasks();
                 dataManager.saveTasks(tasks);
                 isExit = parser.parse(taskList, ui);
+
                 if(isExit) {
                     ui.printOutro();
                 }
@@ -55,8 +60,5 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
-
-
-
 
 }

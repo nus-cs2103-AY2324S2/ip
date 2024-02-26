@@ -75,6 +75,7 @@ public class Parser {
         public void handleMarkCommand(TaskList taskList, Ui ui, String[] parts) {
                 int num = Integer.parseInt(parts[1]);
                 Task current = taskList.getTask(num -1);
+
                 taskList.markTask(current);
                 ui.printMarkMessage(current);
         }
@@ -82,6 +83,7 @@ public class Parser {
         public void handleUnmarkCommand(TaskList taskList, Ui ui, String[] parts) {
                 int num = Integer.parseInt(parts[1]);
                 Task current = taskList.getTask(num -1);
+
                 taskList.unmarkTask(current);
                 ui.printUnmarkMessge(current);
         }
@@ -89,6 +91,7 @@ public class Parser {
         public void handleDeleteCommand(TaskList taskList, Ui ui, String[] parts) {
                 int num = Integer.parseInt(parts[1]);
                 Task current = taskList.getTask(num -1);
+
                 taskList.deleteTask(num-1);
                 ui.printDeleteMessage(current, taskList.getArraySize());
         }
@@ -120,8 +123,10 @@ public class Parser {
                         } else {
                                 String[] timeparts = time.split("by");
                                 LocalDateTime by = parseToLocalDate(timeparts[1].trim());
+
                                 Task deadline = new Deadline(task, false, by);
                                 taskList.addTask(deadline);
+
                                 ui.printAddMessage(deadline, taskList.getArraySize());
                         }
                 } catch (DukeException e) {
@@ -139,15 +144,15 @@ public class Parser {
                                 throw new DukeException("Don't forget the description!");
                         } else if (time.isEmpty()) {
                                 throw new DukeException("Don't forget the deadline!");
-                        } else if (dateParts[0].isEmpty()) {
-                                throw new DukeException("You forgot the start time!");
-                        } else if (dateParts[1].isEmpty()) {
-                                throw new DukeException("You forgot the end time!");
+                        } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
+                                throw new DukeException("Don't forget to include start and end time!");
                         } else {
                                 LocalDateTime from = parseToLocalDate(dateParts[0].trim());
                                 LocalDateTime to = parseToLocalDate(dateParts[1].trim());
+
                                 Task event = new Event(task, false, from, to);
                                 taskList.addTask(event);
+
                                 ui.printAddMessage(event, taskList.getArraySize());
                         }
                 }catch (DukeException e) {
