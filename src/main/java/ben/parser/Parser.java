@@ -50,6 +50,9 @@ public class Parser {
             case "find":
                 return parseFindCommand(tokens);
 
+            case "findin":
+                return parseFindinCommand(tokens);
+
             default:
                 throw new BenException("   OOPS!!! I'm sorry, but I don't know what that means :-(");
         }
@@ -213,5 +216,24 @@ public class Parser {
         checkEmptyField(tokens, "   Key in a value!");
         String keyword = tokens[1];
         return new FindCommand(keyword);
+    }
+
+    /**
+     * Parses the "findin" command and returns a FindinCommand object.
+     *
+     * @param tokens The array of tokens containing the command and keyword.
+     * @return A FindinCommand object.
+     * @throws BenException If the tokens array is empty.
+     */
+    public static FindinCommand parseFindinCommand(String[] tokens) throws BenException {
+        checkEmptyField(tokens, "   Key in a value!");
+
+        // delimiting string
+        String information = tokens[1];
+        String[] descTokens = information.split(" /");
+        String keyword = descTokens[0];
+        String taskType = descTokens[1];
+
+        return new FindinCommand(keyword, taskType);
     }
 }

@@ -41,8 +41,6 @@ public class EventCommand extends Command {
         Task newEvent = new Event(false, description, startDate, endDate);
         tasks.addTask(newEvent);
 
-        return ui.showAddedTaskMessage() +
-                ui.show(newEvent.toString()) +
-                ui.showCurrNoOfTasks(tasks);
+        return ui.showAddedTask(tasks, newEvent);
     }
 }

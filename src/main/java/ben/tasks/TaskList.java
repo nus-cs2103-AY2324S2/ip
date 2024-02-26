@@ -1,7 +1,7 @@
 package ben.tasks;
 
 import ben.exceptions.BenException;
-import ben.ui.Ui;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.time.LocalDate;
@@ -190,14 +190,45 @@ public class TaskList {
      * @param keyword The keyword to search for in task descriptions.
      * @return A list of tasks containing the specified keyword.
      */
-    public List<Task> findTasks(String keyword) {
-        List<Task> matchedTasks = new ArrayList<>();
+    public TaskList findTasks(String keyword) {
+        TaskList matchedTasks = new TaskList();
         for (Task currTask : this.tasks) {
             if (currTask.contains(keyword)) {
-                matchedTasks.add(currTask);
+                matchedTasks.addTask(currTask);
             }
         }
 
         return matchedTasks;
     }
+
+    /**
+     * Filters tasks based on the specified task type.
+     *
+     * @param taskType The type of tasks to filter.
+     * @return A new TaskList containing tasks of the specified type.
+     */
+    public TaskList filter(String taskType) {
+        TaskList matchedTasks = new TaskList();
+        for (Task currTask : this.tasks) {
+            if (currTask.isMatchingTaskType(taskType)) {
+                matchedTasks.addTask(currTask);
+            }
+        }
+
+        return matchedTasks;
+    }
+
+    /**
+     * Finds tasks containing the specified keyword and filters them based on task type.
+     *
+     * @param keyword The keyword to search for in tasks.
+     * @param taskType The type of tasks to filter.
+     * @return A new TaskList containing tasks with the specified keyword and type.
+     */
+    public TaskList findinTasks(String keyword, String taskType) {
+        TaskList matchedTasks = findTasks(keyword);
+        TaskList filteredTasks = matchedTasks.filter(taskType);
+        return filteredTasks;
+    }
+
 }

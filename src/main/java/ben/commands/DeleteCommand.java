@@ -39,8 +39,6 @@ public class DeleteCommand extends Command {
         assert !tasks.isOutOfBounds(index) : "Please input a valid number between 1 and " + tasks.size();
 
         Task deletedTask = tasks.removeTask(index);
-
-        return ui.showDeletedTaskMessage() +
-                ui.showTask(deletedTask);
+        return ui.showDeletedTask(deletedTask);
     }
 }

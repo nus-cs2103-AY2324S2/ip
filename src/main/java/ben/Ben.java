@@ -38,28 +38,6 @@ public class Ben {
     }
 
     /**
-     * Runs the Ben task management application.
-     */
-    public void run() {
-        ui.showWelcome();
-        boolean isExit = false;
-        while (!isExit) {
-            try {
-                String fullCommand = ui.readCommand();
-                ui.showLine(); // show the divider line ("_______")
-                Command c = Parser.parse(fullCommand);
-                c.execute(tasks, ui, storage);
-                isExit = c.isExit();
-                storage.save(tasks.formatSave());
-            } catch (BenException e) {
-                ui.showError(e.getMessage());
-            } finally {
-                ui.showLine();
-            }
-        }
-    }
-
-    /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
      */
@@ -68,14 +46,11 @@ public class Ben {
         String output = "";
 
         try {
-            output += ui.showLine(); // show the divider line ("_______")
             Command c = Parser.parse(input);
             output += c.execute(tasks, ui, storage);
             storage.save(tasks.formatSave());
         } catch (BenException e) {
             output += ui.showError(e.getMessage());
-        } finally {
-            output += ui.showLine();
         }
 
         return output;

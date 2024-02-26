@@ -35,8 +35,6 @@ public class TodoCommand extends Command {
         Task newTodo = new Todo(false, description);
         tasks.addTask(newTodo);
 
-        return ui.showAddedTaskMessage() +
-                ui.show(newTodo.toString()) +
-                ui.showCurrNoOfTasks(tasks);
+        return ui.showAddedTask(tasks, newTodo);
     }
 }
