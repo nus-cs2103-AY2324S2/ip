@@ -5,7 +5,6 @@ import duke.exceptions.StorageException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -14,6 +13,7 @@ public class Main extends Application{
     private final Duke duke = new Duke();
 
     public Main() throws StorageException {
+        //empty constructor to add throws StorageException to the constructor
     }
 
     @Override
