@@ -1,29 +1,95 @@
-# User Guide
+# TALKTOMEORILLDIE User Guide
 
-## Features 
+![Screenshot of Ui.](Ui.png)
 
-### Feature-ABC
+TALKTOMEORILLDIE is your friendly and reliable chatbot that helps you to keep track of your tasks!
 
-Description of the feature.
+## Feature list
 
-### Feature-XYZ
+### Getting help: `help`
 
-Description of the feature.
+Get help on how to use the chatbot.
 
-## Usage
+Example: `help`
 
-### `Keyword` - Describe action
+A list of commands and their descriptions will be displayed.
 
-Describe the action and its outcome.
+### Adding a Todo task: `todo <description>`
 
-Example of usage: 
+Add a deadline task to your list of tasks.
 
-`keyword (optional arguments)`
+Example: `todo math homework`
 
-Expected outcome:
+A task with the description "math homework" will be added to your task list.
 
-Description of the outcome.
+### Adding a Deadline task: `deadline <description> /by <date in the format dd/mm/yyyy> <time in the format hhmm>`
 
-```
-expected output
-```
+Add a task with a deadline to your list of tasks.
+
+Example: `deadline math assignment /by 23/02/2024 2359`
+
+A task with the description "math assignment" and the deadline "by: 23/02/2024, 11:59PM" will be added to the list.
+
+### Adding an Event task: `event <description> /from <day> <time in the format hhmm> /to <time in the format hhmm>`
+
+Add an event to your list of tasks.
+
+Example: `event math exam /from Mon 1400 /to 1600`
+
+An event with the description "math exam" and the date "from: Mon 2:00pm to 4:00pm" will be added to the list.
+
+### Listing all tasks: `list`
+
+List all tasks in your task list.
+
+Example: `list`
+
+All tasks in your task list will be displayed.
+
+### Marking a task as done: `mark <task number>`
+
+Mark a task as done in your task list.
+
+Example: `mark 1`
+
+The first task in your task list will be marked with an X.
+
+### Unmarking a task as done: `unmark <task number>`
+
+Unmark a task as done in your task list.
+
+Example: `unmark 1`
+
+The first task in your task list will be unmarked.
+
+### Deleting a task: `delete <task number>`
+
+Delete a task from your task list.
+
+Example: `delete 1`
+
+The first task in your task list will be deleted.
+
+### Finding a task: `find <keyword>`
+
+Find a task in your task list using a keyword.
+
+Example: `find math`
+
+All tasks with the keyword "math" will be displayed.
+
+### Searching for tasks on a specific date: `on <date in the format dd/mm/yyyy>`
+
+Find all tasks on a specific date.
+
+Example: `on 23/02/2024`
+
+All tasks on the date "23/02/2024" will be displayed.
+
+### Exiting the program: `bye`
+
+Exit the program.
+
+Example: `bye`
+
+The program will save and close.
