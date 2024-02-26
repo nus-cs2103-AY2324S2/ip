@@ -57,7 +57,7 @@ public class TaskList {
      * @return boolean whether the index is valid for the task list
      */
     public boolean isValidIndex(int index) {
-        return ((index < this.size()) && (index >= 0));
+        return ((index < this.getSize()) && (index >= 0));
     }
 
     /**
@@ -65,7 +65,7 @@ public class TaskList {
      *
      * @return task list size
      */
-    public int size() {
+    public int getSize() {
         return list.size();
     }
 
@@ -75,7 +75,7 @@ public class TaskList {
      * @param index of the task in the list
      * @return the entry at a given index of the list
      */
-    public ListEntry get(int index) {
+    public ListEntry getEntry(int index) {
         return list.get(index);
     }
 

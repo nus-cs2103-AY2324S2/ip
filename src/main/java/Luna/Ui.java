@@ -137,8 +137,8 @@ public class Ui {
             text.append("List is Empty");
         } else {
             text.append("These are your outstanding tasks\n");
-            for (int i = 0; i < tl.size(); i++) {
-                ListEntry ent = tl.get(i);
+            for (int i = 0; i < tl.getSize(); i++) {
+                ListEntry ent = tl.getEntry(i);
                 text.append((i + 1)).append(".").append(ent.toString()).append("\n");
             }
         }

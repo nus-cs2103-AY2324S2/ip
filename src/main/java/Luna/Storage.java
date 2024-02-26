@@ -89,8 +89,8 @@ public class Storage {
      * @param tl the tl to save to the file.
      */
     public void appendList(TaskList tl) {
-        for (int i = 0; i < tl.size(); i++) {
-            this.appendEntry(tl.get(i));
+        for (int i = 0; i < tl.getSize(); i++) {
+            this.appendEntry(tl.getEntry(i));
         }
     }
 
