@@ -9,12 +9,17 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * Main class for the Duke application.
+ * This class serves as the entry point for the application and sets up the GUI.
  */
 public class Main extends Application {
 
     private Duke duke;
 
+    /**
+     * Constructor for the Main class.
+     * It initializes the Duke instance.
+     */
     public Main() {
         try {
             duke = new Duke();
@@ -24,6 +29,14 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * The main entry point for all JavaFX applications.
+     * The start method is called after the init method has returned, and after the
+     * system is ready for the application to begin running.
+     * 
+     * @param stage the primary stage for this application, onto which the
+     *              application scene can be set
+     */
     @Override
     public void start(Stage stage) {
         try {
