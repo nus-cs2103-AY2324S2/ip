@@ -11,4 +11,18 @@ public class TodoTest {
         String result = new Todo("test", TaskStatus.UNMARKED).toString();
         assertEquals(expected, result);
     }
+
+    @Test
+    public void todoMarkedToStringTest() {
+        String expected = "[T] [X] Finish assignment";
+        String result = new Todo("Finish assignment", TaskStatus.MARKED).toString();
+        assertEquals(expected, result);
+    }
+
+    @Test
+    public void todoWithLongDescriptionToStringTest() {
+        String expected = "[T] [ ] Read and summarize research papers on AI";
+        String result = new Todo("Read and summarize research papers on AI", TaskStatus.UNMARKED).toString();
+        assertEquals(expected, result);
+    }
 }
