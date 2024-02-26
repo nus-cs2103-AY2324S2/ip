@@ -1,2 +1,2 @@
-T/ /create a resume
-D/ /CS2103T individual project/2024-02-23
+D/ /CS2103T homework/2024-02-26
+E/ /Competition/2024-04-01/2024-04-02

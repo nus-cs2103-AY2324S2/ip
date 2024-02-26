@@ -169,7 +169,7 @@ public class Ui {
      */
     public static String showDeleteTask(Task task, int taskListSize) {
         return "Noted. I've removed this task:\n" + task +
-                "Now you have " + taskListSize + " tasks in the list.";
+                "\nNow you have " + taskListSize + " tasks in the list.";
     }
 
     /**
