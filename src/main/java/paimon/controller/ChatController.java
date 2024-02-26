@@ -24,9 +24,12 @@ public class ChatController extends AnchorPane {
 
     private DialogHandler dialogHandler;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Traveller.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Paimon.png"));
-
+    private Image travellerImage = new Image(this.getClass().getResourceAsStream("/images/Traveller.png"));
+    private Image paimonImage = new Image(this.getClass().getResourceAsStream("/images/Paimon.png"));
+    /**
+     * Initializes the chat controller.
+     * Makes the view automatically jump to latest text.
+     */
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
@@ -45,8 +48,8 @@ public class ChatController extends AnchorPane {
         String input = userInput.getText();
         String response = dialogHandler.getResponse(input);
         dialogContainer.getChildren().addAll(
-                DialogBoxController.getUserDialog(input, userImage),
-                DialogBoxController.getDukeDialog(response, dukeImage)
+                DialogBoxController.getUserDialog(input, travellerImage),
+                DialogBoxController.getPaimonDialog(response, paimonImage)
         );
         userInput.clear();
     }

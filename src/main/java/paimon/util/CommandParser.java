@@ -8,6 +8,7 @@ import paimon.ChatException;
 import paimon.command.Command;
 import paimon.command.DeadlineCommand;
 import paimon.command.DeleteCommand;
+import paimon.command.DoAfterCommand;
 import paimon.command.EventCommand;
 import paimon.command.ExitCommand;
 import paimon.command.FindCommand;
@@ -76,6 +77,8 @@ public class CommandParser {
             return parseDeadlineCommand();
         case "event":
             return parseEventCommand();
+        case "doafter":
+            return parseDoAfterCommand();
         case "mark":
             return parseMarkCommand();
         case "unmark":
@@ -103,6 +106,11 @@ public class CommandParser {
         Matcher matcher = matchCommand("^(\\w+) (.+?) \\/from (.+?) \\/to (.+)$",
                 input, "event <task> /from <time> /to <time>");
         return new EventCommand(matcher.group(2), matcher.group(3), matcher.group(4));
+    }
+
+    private Command parseDoAfterCommand() throws ChatException {
+        Matcher matcher = matchCommand("^(\\w+) (.+?)\\/from (.+)$", input, "doafter <task> /from <time>");
+        return new DoAfterCommand(matcher.group(2), matcher.group(3));
     }
 
     private Command parseMarkCommand() throws ChatException {

@@ -10,9 +10,9 @@
 
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="paimon.controller.ChatController">
   <children>
-    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" minHeight="352.0" minWidth="600.0" vvalue="1.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" minHeight="347.0" minWidth="600.0" vvalue="1.0" AnchorPane.bottomAnchor="48.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <content>
-        <VBox fx:id="dialogContainer" alignment="CENTER" prefHeight="342.0" prefWidth="591.0" />
+        <VBox fx:id="dialogContainer" alignment="CENTER" prefHeight="337.0" prefWidth="591.0" />
       </content>
     </ScrollPane>
       <HBox layoutY="346.0" minHeight="48.0" minWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
