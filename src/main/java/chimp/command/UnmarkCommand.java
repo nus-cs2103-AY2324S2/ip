@@ -12,11 +12,25 @@ public class UnmarkCommand extends Command {
         this.num = num;
     }
 
+    /**
+     * Checks if the command is an exit command.
+     *
+     * @return true if the command is an exit command, false otherwise.
+     */
     @Override
     public boolean isExit() {
         return false;
     }
 
+    /**
+     * Executes the unmark command, which removes the mark from a task in the task list.
+     * 
+     * @param tasks The task list containing the tasks.
+     * @param ui The user interface for displaying messages.
+     * @param storage The storage for saving the task list.
+     * @return The message to be displayed after executing the command.
+     * @throws CommandExecuteException If the number argument is invalid.
+     */
     @Override
     public String execute(TaskList tasks, Ui ui, Storage storage) throws CommandExecuteException {
         if (num < 1 || num > tasks.size()) {
