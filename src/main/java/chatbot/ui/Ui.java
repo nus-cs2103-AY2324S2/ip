@@ -27,7 +27,11 @@ public class Ui {
      * Returns a String containing the exit message.
      */
     public static String printByeMessage() {
-        return "bye!! come visit me again! :D";
+        String byeMessage = "bye!! come visit me again! :D\n"
+                + "   ∧,,,∧\n"
+                + "(  ̳• · • ̳)\n"
+                + "/    づ♡";
+        return byeMessage;
     }
 
     /**

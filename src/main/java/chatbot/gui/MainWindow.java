@@ -83,7 +83,7 @@ public class MainWindow extends AnchorPane {
         displayUserMessage(input);
         if (input.toLowerCase().equals("bye")) {
             displayBotMessage(Ui.printByeMessage());
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.75), event -> Platform.exit()));
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(2), event -> Platform.exit()));
             timeline.play();
         } else {
             String response = getResponse(input);
