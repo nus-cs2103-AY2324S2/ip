@@ -27,6 +27,8 @@ public class MainWindow extends AnchorPane {
             .getResourceAsStream("/images/trainer.png")));
     private final Image dukeImage = new Image(Objects.requireNonNull(this.getClass()
             .getResourceAsStream("/images/snorlax.png")));
+    private final Image ziyiImage = new Image(Objects.requireNonNull(this.getClass()
+            .getResourceAsStream("/images/monalisa.jpg")));
 
     /**
      * Initializes the main window.
@@ -59,10 +61,17 @@ public class MainWindow extends AnchorPane {
         String input = userInput.getText();
         String response = Objects.equals(input, "bye") ? exitApp() : duke.getResponse(input);
 
-        dialogContainer.getChildren().addAll(
-                DialogBox.getDialog(input, userImage, true),
-                DialogBox.getDialog(response, dukeImage, false)
-        );
+        if (input.equals("ziyi")) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDialog(input, userImage, true),
+                    DialogBox.getDialog("Hello I'm ziyi!!!! weiiiii~~~", ziyiImage, false)
+            );
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getDialog(input, userImage, true),
+                    DialogBox.getDialog(response, dukeImage, false)
+            );
+        }
 
         userInput.clear();
     }
