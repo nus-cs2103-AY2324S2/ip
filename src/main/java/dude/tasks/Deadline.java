@@ -6,7 +6,7 @@ import java.time.format.DateTimeParseException;
 import dude.exceptions.InvalidArgumentException;
 import dude.exceptions.InvalidDescriptionException;
 import dude.exceptions.InvalidFormatException;
-import dude.utils.utils;
+import dude.utils.Utils;
 
 
 /**
@@ -42,11 +42,11 @@ public class Deadline extends Task {
         //Expects a string in the format "deadline <description> /by <deadline_date>"
 
         //get rid of the command
-        String rest = utils.discardFirstWord(s.trim()).trim();
+        String rest = Utils.discardFirstWord(s.trim()).trim();
 
         String[] arr = rest.split(" ");
 
-        int byOccurences = utils.countOccurrences(arr, "/by");
+        int byOccurences = Utils.countOccurrences(arr, "/by");
 
         if (byOccurences == 0 || byOccurences > 1) {
             throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. "
@@ -54,7 +54,7 @@ public class Deadline extends Task {
         }
 
         //they will not be -1 as I have already checked for their occurences
-        int byIndex = utils.findIndex(arr, "/by");
+        int byIndex = Utils.findIndex(arr, "/by");
 
         //description is from 0 to byIndex
         String description = "";

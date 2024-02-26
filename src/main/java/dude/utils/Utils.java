@@ -3,7 +3,7 @@ package dude.utils;
 /**
  * The utils class contains utility methods that are used throughout the application.
  */
-public class utils {
+public class Utils {
 
 
     // From chat GPT https://chat.openai.com/share/1848f5d2-1197-418e-86a9-bccdf69fc790

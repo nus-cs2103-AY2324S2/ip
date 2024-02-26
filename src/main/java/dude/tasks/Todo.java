@@ -1,7 +1,7 @@
 package dude.tasks;
 
 import dude.exceptions.InvalidDescriptionException;
-import dude.utils.utils;
+import dude.utils.Utils;
 
 /**
  * The Todo class represents a task with a description.
@@ -28,7 +28,7 @@ public class Todo extends Task {
     public static Todo from(String s) throws InvalidDescriptionException {
 
         //get rid of the command
-        String description = utils.discardFirstWord(s.trim()).trim();
+        String description = Utils.discardFirstWord(s.trim()).trim();
 
         if (!description.isEmpty()) {
             return new Todo(description);

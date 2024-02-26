@@ -7,7 +7,7 @@ import dude.commands.EventCommand;
 import dude.exceptions.InvalidArgumentException;
 import dude.exceptions.InvalidDescriptionException;
 import dude.exceptions.InvalidFormatException;
-import dude.utils.utils;
+import dude.utils.Utils;
 
 
 /**
@@ -44,17 +44,17 @@ public class Event extends Task {
     public static Event from(String input) throws InvalidArgumentException,
             InvalidFormatException, InvalidDescriptionException {
 
-        String rest = utils.discardFirstWord(input.trim()).trim();
+        String rest = Utils.discardFirstWord(input.trim()).trim();
         String[] arr = rest.split(" ");
 
-        int fromOccurences = utils.countOccurrences(arr, "/from");
+        int fromOccurences = Utils.countOccurrences(arr, "/from");
 
         if (fromOccurences == 0 || fromOccurences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT
                     + ". Provide one and only one '/from'.");
         }
 
-        int toOccurrences = utils.countOccurrences(arr, "/to");
+        int toOccurrences = Utils.countOccurrences(arr, "/to");
 
         if (toOccurrences == 0 || toOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT
@@ -62,8 +62,8 @@ public class Event extends Task {
         }
 
         //they will not be -1 as I have already checked for their occurences
-        int fromIndex = utils.findIndex(arr, "/from");
-        int toIndex = utils.findIndex(arr, "/to");
+        int fromIndex = Utils.findIndex(arr, "/from");
+        int toIndex = Utils.findIndex(arr, "/to");
 
         if (fromIndex > toIndex) {
             throw new InvalidFormatException("The 'from time' of an event cannot be after the 'to time'.");
