@@ -1,5 +1,6 @@
-T | 0 |  Purchase Birthday Gift
+T | 1 |  Purchase Birthday Gift
 D | 1 | Problem Set 4 | Feb 28 2024
-E | 0 | Hack Bash | Mar 1 2024 - Mar 16 2024
+E | 1 | Hack Bash | Mar 1 2024 - Mar 16 2024
 E | 0 | Floofy's Birthday Vacation | Feb 28 2024 - Feb 29 2024
 D | 0 | Individual Assignment | Mar 1 2024
+D | 0 | CS2103T iP | Feb 26 2024

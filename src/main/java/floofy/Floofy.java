@@ -90,13 +90,21 @@ public class Floofy extends Application {
      *
      * @param input The user input command pre-processed by the parser.
      * @return The ui to display the result of this command in the form of a String.
+     * @throws FloofyException If the input index does not exist.
      */
-    public String handleMarkCommand(String[] input) {
-        int idx = parseIdx(input[1]);
-        // To verify assumption that task number is greater than 0
-        assert idx > -1 : "Task number should be greater than 0!";
-        tasks.markTaskAsDone(idx);
-        return ui.showMarkedTask(this.tasks.getTask(idx));
+    public String handleMarkCommand(String[] input) throws FloofyException {
+        try {
+            int idx = parseIdx(input[1]);
+            if (!isValidIdx(idx)) {
+                throw new FloofyException("Input index does not exist! " +
+                        "You can only mark an existing task. Try again :)");
+            }
+            assert idx > -1 : "Task number should be greater than 0!";
+            tasks.markTaskAsDone(idx);
+            return ui.showMarkedTask(this.tasks.getTask(idx));
+        } catch (FloofyException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -104,13 +112,21 @@ public class Floofy extends Application {
      *
      * @param input The user input command pre-processed by the parser.
      * @return The ui to display the result of this command in the form of a String.
+     * @throws FloofyException If the input index does not exist.
      */
-    public String handleUnmarkCommand(String[] input) {
-        int unmarkIdx = parseIdx(input[1]);
-        // To verify assumption that task number is greater than 0
-        assert unmarkIdx > -1 : "Task number should be greater than 0!";
-        tasks.markTaskAsUndone(unmarkIdx);
-        return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
+    public String handleUnmarkCommand(String[] input) throws FloofyException {
+        try {
+            int unmarkIdx = parseIdx(input[1]);
+            if (!isValidIdx(unmarkIdx)) {
+                throw new FloofyException("Input index does not exist! " +
+                        "You can only unmark an existing task. Try again :)");
+            }
+            assert unmarkIdx > -1 : "Task number should be greater than 0!";
+            tasks.markTaskAsUndone(unmarkIdx);
+            return ui.showUnmarkedTask(this.tasks.getTask(unmarkIdx));
+        } catch (FloofyException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -118,10 +134,18 @@ public class Floofy extends Application {
      *
      * @param input The user input command pre-processed by the parser.
      * @return The ui to display the matching tasks found, in the form of a String.
+     * @throws FloofyException If no matching tasks are found.
      */
-    public String handleFindCommand(String[] input) {
-        TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
-        return ui.showMatchingTasks(matchingTasks);
+    public String handleFindCommand(String[] input) throws FloofyException {
+        try {
+            TaskList matchingTasks = tasks.findMatchingTasks(input[1]);
+            if (isEmptyList(matchingTasks)) {
+                throw new FloofyException("No matching tasks found! Try again :)");
+            }
+            return ui.showMatchingTasks(matchingTasks);
+        } catch (FloofyException e) {
+            return e.getMessage();
+        }
     }
 
     /**
@@ -191,6 +215,13 @@ public class Floofy extends Application {
         return ui.showGoodbyeMsg();
     }
 
+    public boolean isValidIdx(int idx) throws FloofyException {
+        return idx > -1 && idx <= tasks.getSize();
+    }
+
+    public boolean isEmptyList(TaskList tasks) {
+        return tasks.getSize() == 0;
+    }
 
     /**
      * Parses the index of the task from the user input.
