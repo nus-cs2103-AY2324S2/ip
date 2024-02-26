@@ -24,27 +24,11 @@ public class Nihao extends Application{
     public Nihao() {}
 
     /**
-     * Reads user input and executes the main logic.
+     * Starts the application.
+     *
+     * @param stage the primary stage for this application, onto which
+     *              the application scene can be set.
      */
-    public void run() {
-        PrintHandler.printInit();
-
-        Scanner scanner = new Scanner(System.in);
-        while (true) {
-            String input = scanner.nextLine();
-            try {
-                Action action = InputHandler.handleInput(input);
-                action.execute();
-                if (action instanceof ExitAction) {
-                    break;
-                }
-            } catch (Exception e) {
-                PrintHandler.printException(e);
-            }
-        }
-        scanner.close();
-    }
-
     public void start(Stage stage) {
         try {
             stage.setTitle("Nihao");
@@ -66,6 +50,11 @@ public class Nihao extends Application{
         }
     }
 
+    /**
+     * Gets the response from the app based on the user input.
+     * @param text the input text from the user
+     * @return the response from the app
+     */
     public String getResponse(String text) {
         try {
             Action action = InputHandler.handleInput(text);
