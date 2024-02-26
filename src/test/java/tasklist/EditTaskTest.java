@@ -4,10 +4,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import exceptions.TaylorException;
 import org.junit.jupiter.api.Test;
+import tasks.Event;
 import tasks.Task;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class EditTaskTest {
     @Test
@@ -30,8 +34,13 @@ public class EditTaskTest {
         for (int i = 0; i < 3; i++) {
             taskList.add(new ArrayList<>());
         }
-        String commandInsert = "event The Eras Tour Singapore /from 2024-03-02 1900 /to 2024-03-09 2200";
-        InsertTask.execInsertTask(commandInsert, taskList).toString();
+
+        List<Task> eventList = taskList.get(1);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm",
+                Locale.ENGLISH);
+        eventList.add(new Event("The Eras Tour Singapore ",
+                LocalDateTime.parse("2024-03-02 1900", formatter),
+                LocalDateTime.parse("2024-03-09 2200", formatter)));
 
         String commandDelete = "delete event 1";
         String result = DeleteTask.execDeleteTask(commandDelete, taskList).toString();

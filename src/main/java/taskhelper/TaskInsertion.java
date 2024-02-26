@@ -98,8 +98,6 @@ public class TaskInsertion {
                 LocalDateTime formattedFromTime = dateConversion(fromTime.trim());
                 LocalDateTime formattedToTime = dateConversion(toTime.trim());
 
-                System.out.println(formattedFromTime);
-                System.out.println(formattedToTime);
                 CheckValid.checkTime(formattedFromTime, formattedToTime);
 
                 Event eve = new Event(action, formattedFromTime, formattedToTime);
@@ -137,7 +135,7 @@ public class TaskInsertion {
             return LocalDateTime.parse(inputDate, formatter);
         } catch (Exception e) {
             throw new TaylorException("\n"
-                    + "For in the stillnes, I'll find my way,\n"
+                    + "For in the stillness, I'll find my way,\n"
                     + "Through the darkness, to the light of day.\n"
                     + "==============================\n"
                     + "Please include <time> as: YYYY-MM-DD HHmm");
