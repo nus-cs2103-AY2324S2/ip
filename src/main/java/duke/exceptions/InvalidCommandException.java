@@ -19,6 +19,6 @@ public class InvalidCommandException extends DukeException {
      * Constructs a new InvalidCommandException with a default message.
      */
     public InvalidCommandException() {
-        super("Invalid command. Use help to for more info");
+        super("Invalid command. Use help for more info");
     }
 }

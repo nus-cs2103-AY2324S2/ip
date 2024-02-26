@@ -36,8 +36,9 @@ public final class Parser {
      * @return a Command object corresponding to the user input command.
      * @throws InvalidCommandException if the user input command is invalid.
      */
-    public static Command parseUserInput(String[] userInput) throws InvalidCommandException {
-        String commandType = userInput[0].toUpperCase();
+    public static Command parseUserInput(String userInput) throws InvalidCommandException {
+        String[] splitUserInput = userInput.trim().split("\\s+");
+        String commandType = splitUserInput[0].toUpperCase();
         Command command;
 
         switch (commandType) {

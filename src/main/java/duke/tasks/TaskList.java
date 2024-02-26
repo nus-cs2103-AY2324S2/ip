@@ -4,7 +4,6 @@ import duke.exceptions.InvalidIndexException;
 import duke.exceptions.TaskNotFoundException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * The TaskList class represents a list of tasks.
@@ -33,9 +32,6 @@ public class TaskList extends ArrayList<Task> {
      */
     public void addTask(Task task) {
         add(task);
-        System.out.println("     Got it. I've added this task:");
-        System.out.println("         " + task.toString());
-        getCurTotalTasks();
     }
 
     /**
@@ -58,16 +54,19 @@ public class TaskList extends ArrayList<Task> {
      *
      * @throws InvalidIndexException if there are no tasks in the list.
      */
-    public void displayTasks() throws InvalidIndexException {
+    public String displayTasks() throws InvalidIndexException {
+        StringBuilder result = new StringBuilder();
+
         if (isEmpty()) {
-            System.out.println("     No pending duke.tasks, congrats!");
+            result.append("No pending duke.tasks, congrats!");
         } else {
-            System.out.println("     Here are the tasks in your list:");
+            result.append("So much to do dude,\n");
             for (int i = 0; i < size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + getTask(i));
+                result.append("     ").append((i + 1)).append(". ").append(getTask(i)).append("\n");
             }
-            getCurTotalTasks();
+            result.append(getCurTotalTasks());
         }
+        return result.toString();
     }
 
     /**
@@ -78,11 +77,7 @@ public class TaskList extends ArrayList<Task> {
      */
     public void deleteTask(int index) throws InvalidIndexException {
         try {
-            Task task = this.get(index);
-            System.out.println("     OK! I've removed this task:");
-            System.out.println("         " + task.toString());
             this.remove(index);
-            getCurTotalTasks();
         } catch (IndexOutOfBoundsException e) {
             throw new InvalidIndexException();
         }
@@ -95,9 +90,9 @@ public class TaskList extends ArrayList<Task> {
      * the result to the standard output.
      * </p>
      */
-    public void getCurTotalTasks() {
+    public String getCurTotalTasks() {
         int numTask = this.size();
-        System.out.println("     Total number of tasks: " + numTask);
+        return String.format("Total number of tasks: %d", numTask);
     }
 
     /**
@@ -111,8 +106,9 @@ public class TaskList extends ArrayList<Task> {
      * @throws TaskNotFoundException if no tasks match the search term.
      * @throws InvalidIndexException if the index is invalid (out of bounds).
      */
-    public void findTasks(String searchTerm) throws TaskNotFoundException, InvalidIndexException {
+    public StringBuilder findTasks(String searchTerm) throws TaskNotFoundException, InvalidIndexException {
         TaskList foundTasks = new TaskList();
+        StringBuilder result = new StringBuilder();
         for (Task task : this) {
             if (task.getDescription().contains(searchTerm)) {
                 foundTasks.add(task);
@@ -121,11 +117,12 @@ public class TaskList extends ArrayList<Task> {
         if (searchTerm.isEmpty() || foundTasks.isEmpty()) {
             throw new TaskNotFoundException();
         } else {
-            System.out.println("     Here are the matching tasks in your list:");
+            result.append("I found some!\n");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println("     " + (i + 1) + ". " + foundTasks.getTask(i));
+                result.append("     ").append((i + 1)).append(". ").append(foundTasks.getTask(i)).append("\n");
             }
         }
+        return result;
     }
 
 }

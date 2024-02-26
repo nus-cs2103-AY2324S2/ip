@@ -44,5 +44,7 @@ public abstract class Command {
      * @throws StorageException if there is an error accessing the storage.
      * @throws TaskNotFoundException if the task is not found.
      */
-    public abstract void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException, TaskNotFoundException;
+    public abstract String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException, TaskNotFoundException;
+
+    public abstract String doneExecute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException, TaskNotFoundException;
 }

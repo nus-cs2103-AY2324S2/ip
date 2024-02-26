@@ -1,10 +1,10 @@
 package duke.commands;
 
-import duke.exceptions.InvalidTaskException;
-import duke.exceptions.StorageException;
+import duke.exceptions.*;
 import duke.mainUtils.Parser;
 import duke.mainUtils.Storage;
 import duke.mainUtils.Ui;
+import duke.tasks.Task;
 import duke.tasks.TaskList;
 
 /**
@@ -27,6 +27,7 @@ import duke.tasks.TaskList;
  * @see duke.exceptions.InvalidDateException
  */
 public class CreateTodoTask extends Command {
+    private Task task;
 
     /**
      * Executes the command to create an event task.
@@ -38,8 +39,16 @@ public class CreateTodoTask extends Command {
      * @throws StorageException if there is an error accessing the storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, StorageException {
-        taskList.addTask(Parser.parseTodoTask(ui.getCommand()));
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, StorageException {
+        this.task = Parser.parseTodoTask(ui.getCommand());
+        taskList.addTask(task);
+        return doneExecute(taskList, ui, storage);
+    }
+
+    @Override
+    public String doneExecute(TaskList taskList, Ui ui, Storage storage) {
+        return String.format("More tasks? Someone's being very ambitious here. I like. Added:%n %s %nYou now have %d tasks total!",
+                this.task.toString(), taskList.size());
     }
 
 }
