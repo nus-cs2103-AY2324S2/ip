@@ -39,7 +39,7 @@ public class Ui {
         result += " Here are the tasks in your list:";
         int counter = 1;
         for (Task i : list) {
-            result += "\n" + counter + "." + (i.toString());
+            result += "\n" + counter + ". " + (i.toString());
             counter++;
         }
         return result;
