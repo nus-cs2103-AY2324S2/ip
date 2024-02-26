@@ -2,6 +2,7 @@ package duke.mainUtils;
 
 import duke.exceptions.InvalidDateException;
 import duke.exceptions.StorageException;
+import duke.fileUtils.FilePaths;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 
@@ -32,17 +33,15 @@ import java.io.FileWriter;
  * @see duke.exceptions.InvalidDateException
  */
 public class Storage {
-    private final String filePath;
+    private static final String filePath = FilePaths.SAVE_FILE;
     private final TaskList taskList;
 
     /**
      * Constructs a Storage object with the specified file path and task list.
      *
-     * @param filePath the file path to store tasks.
      * @param taskList the task list to manage tasks.
      */
-    public Storage(String filePath, TaskList taskList) {
-        this.filePath = filePath;
+    public Storage(TaskList taskList) {
         this.taskList = taskList;
     }
 
@@ -91,12 +90,8 @@ public class Storage {
         try {
             File file = new File(filePath);
             File directory = file.getParentFile();
-            if (directory.mkdirs()) {
-                System.out.println("Directory created: " + directory.getAbsolutePath());
-            }
-            if (file.createNewFile()) {
-                System.out.println("File created: " + filePath);
-            }
+            directory.mkdirs();
+            file.createNewFile();
         } catch (IOException e) {
             throw new StorageException();
         }

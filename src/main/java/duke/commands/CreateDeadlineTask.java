@@ -1,11 +1,11 @@
 package duke.commands;
 
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.InvalidTaskException;
-import duke.exceptions.StorageException;
+import duke.exceptions.*;
+import duke.fileUtils.FileUtil;
 import duke.mainUtils.Parser;
 import duke.mainUtils.Storage;
 import duke.mainUtils.Ui;
+import duke.tasks.Task;
 import duke.tasks.TaskList;
 
 /**
@@ -29,6 +29,7 @@ import duke.tasks.TaskList;
  * @see duke.exceptions.StorageException
  */
 public class CreateDeadlineTask extends Command {
+    private Task task;
 
     /**
      * Executes the command to create a deadline task.
@@ -41,7 +42,15 @@ public class CreateDeadlineTask extends Command {
      * @throws StorageException if there is an error accessing the storage.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, StorageException {
-        taskList.addTask(Parser.parseDeadlineTask(ui.getCommand()));
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, StorageException, InvalidIndexException, TaskNotFoundException {
+        this.task = Parser.parseDeadlineTask(ui.getCommand());
+        taskList.addTask(task);
+        return doneExecute(taskList, ui, storage);
+    }
+
+    @Override
+    public String doneExecute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, StorageException, TaskNotFoundException {
+        return String.format("More tasks? Someone's being very ambitious here. I like. Added:%n %s %nYou now have %d tasks total!",
+                this.task.toString(), taskList.size());
     }
 }

@@ -25,8 +25,6 @@ public class Ui {
     public final void displayStart() throws StorageException {
         displayLine();
         displayLogo();
-        System.out.println("      Hello! I'm RahhBot. RAHHHH!!\n");
-        System.out.println("      What can I do for you today?\n");
         displayLine();
     }
 
@@ -37,7 +35,7 @@ public class Ui {
      * @throws StorageException if there is an error loading graphical resources.
      */
     public final void displayLine() throws StorageException {
-        FileUtil.displayFile(FilePaths.HORIZONTAL_LINE_PATH);
+        FileUtil.displayFile(FilePaths.HORIZONTAL_LINE);
     }
 
     /**
@@ -47,7 +45,7 @@ public class Ui {
      * @throws StorageException if there is an error loading graphical resources.
      */
     public final void displayLogo() throws StorageException {
-        FileUtil.displayFile(FilePaths.LOGO_PATH);
+        FileUtil.displayFile(FilePaths.LOGO);
     }
 
     /**
@@ -56,9 +54,9 @@ public class Ui {
      * @param errorMessage the error message to display.
      * @throws StorageException if there is an error loading graphical resources.
      */
-    public final void displayErrorGraphic(String errorMessage) throws StorageException {
-        FileUtil.displayFile(FilePaths.ERROR_GRAPHIC_PATH);
-        System.out.println(errorMessage);
+    public final String displayErrorGraphic(String errorMessage) throws StorageException {
+        return FileUtil.displayFile(FilePaths.ERROR) + "\n" + errorMessage;
+
     }
 
     /**

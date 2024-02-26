@@ -1,10 +1,11 @@
 package duke.commands;
 
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.InvalidTaskException;
+import duke.exceptions.*;
 import duke.mainUtils.Parser;
 import duke.mainUtils.Storage;
 import duke.mainUtils.Ui;
+import duke.tasks.EventTask;
+import duke.tasks.Task;
 import duke.tasks.TaskList;
 
 /**
@@ -28,6 +29,7 @@ import duke.tasks.TaskList;
  */
 public class CreateEventTask extends Command {
 
+    private Task task;
     /**
      * Executes the command to create an event task.
      *
@@ -38,7 +40,15 @@ public class CreateEventTask extends Command {
      * @throws InvalidDateException if the date format is invalid.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException {
-        taskList.addTask(Parser.parseEventTask(ui.getCommand()));
+    public String execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException, InvalidIndexException, TaskNotFoundException, StorageException {
+        this.task = Parser.parseEventTask(ui.getCommand());
+        taskList.addTask(task);
+        return doneExecute(taskList, ui, storage);
+    }
+
+    @Override
+    public String doneExecute(TaskList taskList, Ui ui, Storage storage) {
+        return String.format("More tasks? Someone's being very ambitious here. I like. Added:%n %s %nYou now have %d tasks total!",
+                this.task.toString(), taskList.size());
     }
 }

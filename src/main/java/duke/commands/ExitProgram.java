@@ -1,7 +1,6 @@
 package duke.commands;
 
-import duke.exceptions.InvalidDateException;
-import duke.exceptions.InvalidTaskException;
+import duke.exceptions.*;
 import duke.mainUtils.Storage;
 import duke.mainUtils.Ui;
 import duke.tasks.TaskList;
@@ -30,13 +29,17 @@ public class ExitProgram extends Command {
      * Executes the command to exit the program.
      *
      * @param taskList the task list.
-     * @param ui the user interface.
-     * @param storage the storage.
-     * @throws InvalidTaskException if there is an error with tasks.
-     * @throws InvalidDateException if there is an error with dates.
+     * @param ui       the user interface.
+     * @param storage  the storage.
+     * @return the exit message.
      */
     @Override
-    public void execute(TaskList taskList, Ui ui, Storage storage) throws InvalidTaskException, InvalidDateException {
-        System.out.println("     Thanks for using, see you again! RAHHH");
+    public String execute(TaskList taskList, Ui ui, Storage storage) {
+        return doneExecute(taskList, ui, storage);
+    }
+
+    @Override
+    public String doneExecute(TaskList taskList, Ui ui, Storage storage) {
+        return "Gbye mate. See you soon! RAHHH";
     }
 }

@@ -19,6 +19,6 @@ public class InvalidDateException extends DukeException{
      * Constructs a new InvalidDateException with a default message.
      */
     public InvalidDateException() {
-        super("Invalid date format. Please use dd-MM-yyyy");
+        super("Invalid date format. Please use yyyy-mm-dd.");
     }
 }
