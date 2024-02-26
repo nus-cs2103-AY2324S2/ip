@@ -150,7 +150,7 @@ public class Ui {
     }
 
     /**
-     *  Prints out the updated task information.
+     * Prints out the updated task information.
      *
      * @param task Task to be updated
      * @return Message containing the task with changes
@@ -172,12 +172,22 @@ public class Ui {
     }
 
     /**
-     * Error message if the user enters invalid index.
+     * Returns error message if the user enters invalid index.
      *
      * @return Message telling the index is invalid.
      */
     public String showInvalidIndexMessage() {
         String message = "Please enter the valid index.";
+        return message;
+    }
+
+    /**
+     * Returns error message when the index for command is not provided.
+     *
+     * @return Error message indicating missing index.
+     */
+    public String showMissingIndexMessage() {
+        String message = "Please enter the index.";
         return message;
     }
 }

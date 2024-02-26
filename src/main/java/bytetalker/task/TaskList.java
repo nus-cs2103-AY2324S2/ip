@@ -37,7 +37,14 @@ public class TaskList {
         assert splitMessage != null;
         assert ui != null;
 
-        int index = Integer.parseInt(splitMessage[1]) - 1;
+
+
+        int index = 0;
+        try {
+            index = Integer.parseInt(splitMessage[1]) - 1;
+        } catch (NumberFormatException e) {
+            return ui.showMissingIndexMessage();
+        }
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
         }
@@ -66,7 +73,12 @@ public class TaskList {
         assert ui != null;
         assert storage != null;
 
-        int index = Integer.parseInt(splitMessage[1]) - 1;
+        int index = 0;
+        try {
+            index = Integer.parseInt(splitMessage[1]) - 1;
+        }catch (NumberFormatException e) {
+            return ui.showMissingIndexMessage();
+        }
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
         }
@@ -220,7 +232,12 @@ public class TaskList {
         assert tasks != null;
         assert ui != null;
         assert storage != null;
-        int position = Integer.parseInt(splitMessages[1]);
+        int position = 0;
+        try {
+            position = Integer.parseInt(splitMessages[1]);
+        } catch (NumberFormatException e) {
+            return ui.showMissingIndexMessage();
+        }
         assert position > 0;
 
         if (position - 1 < 0 || position - 1 > this.tasks.size()) {
@@ -273,7 +290,12 @@ public class TaskList {
      * @return Message for successful or unsuccessful execution
      */
     public String editTask(String[] splitMessages, Storage storage, Ui ui) {
-        int index = Integer.parseInt(splitMessages[1]) - 1;
+        int index = 0;
+        try {
+            index = Integer.parseInt(splitMessages[1]) - 1;
+        } catch (NumberFormatException e) {
+            return ui.showMissingIndexMessage();
+        }
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
         }
