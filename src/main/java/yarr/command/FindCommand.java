@@ -1,10 +1,10 @@
-package duke.command;
+package yarr.command;
 
 import java.util.NoSuchElementException;
 
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 /**
  * Represents a command to find all tasks with a matching keyword in the current task list.

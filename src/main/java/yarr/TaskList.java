@@ -1,9 +1,9 @@
-package duke;
+package yarr;
 
 import java.util.ArrayList;
 import java.util.NoSuchElementException;
 
-import duke.task.Task;
+import yarr.task.Task;
 
 /**
  * The TaskList class represents a collection of tasks and provides methods
@@ -115,7 +115,7 @@ public class TaskList {
     public ArrayList<Task> findTasks(String keyword) throws NoSuchElementException {
         ArrayList<Task> matches = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.toString().toLowerCase().contains(keyword)) {
+            if (task.toString().toLowerCase().contains(keyword.toLowerCase())) {
                 matches.add(task);
             }
         }

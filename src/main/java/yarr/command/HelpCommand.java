@@ -1,9 +1,9 @@
-package duke.command;
+package yarr.command;
 
-import duke.Parser;
-import duke.Storage;
-import duke.TaskList;
-import duke.Ui;
+import yarr.Parser;
+import yarr.Storage;
+import yarr.TaskList;
+import yarr.Ui;
 
 
 /**
