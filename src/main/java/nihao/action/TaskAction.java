@@ -22,6 +22,7 @@ public class TaskAction implements Action {
      */
     @Override
     public String execute() {
+        assert task != null : "task should not be null";
         DataHandler.addTask(task);
         int noOfTasks = DataHandler.size();
         return PrintHandler.printWithDivider("Ok.. I've added this task to your list:\n"
