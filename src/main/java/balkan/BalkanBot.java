@@ -21,6 +21,8 @@ public class BalkanBot {
      * Initialises Balkan Bot
      */
 
+    private String urmomgay;
+
     public BalkanBot() {
         guiUi = new GUIUi();
         storage = new Storage();
