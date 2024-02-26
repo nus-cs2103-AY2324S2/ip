@@ -65,5 +65,9 @@ public class Task {
     public String toData() {
         return (isDone ? "1" : "0") + " | " + taskName;
     }
+
+    public boolean hasKeyword(String keyword) {
+        return taskName.contains(keyword);
+    }
 }
 

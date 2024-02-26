@@ -7,6 +7,7 @@ import command.AddCommand;
 import command.Command;
 import command.DeleteCommand;
 import command.ExitCommand;
+import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
 import command.UnmarkCommand;
@@ -73,6 +74,10 @@ public class Parser {
             cmd = new AddCommand(command, tasks, st);
             return cmd;
 
+        case "find":
+            cmd = new FindCommand(tasks, st);
+            return cmd;
+            
         case "bye":
             cmd = new ExitCommand();
             return cmd;
