@@ -32,39 +32,51 @@ Luna is a desktop application for managing your tasks, optimized for usage via a
 ## Features
 
 ### View all your task entries: `list`
+Shows all your entries in the list.\
 --> Format: list
 
 #### Add a to-do task: `todo`
---> Format: todo <TASK_NAME>
+Add a task named `<TASK_NAME>` with the **todo** task type.\
+--> Format: `todo` `<TASK_NAME>`
 
 #### Add a task with a deadline: `deadline`
---> Format: todo <TASK_NAME> <DATE> 
+Add a task named `<TASK_NAME>` with the **deadline** task type and set its end date to be `<END_DATE>`.\
+--> Format: `deadline` `<TASK_NAME>` `<END_DATE>`
 
 #### Add an event: `event`
---> Format: todo <TASK_NAME> <START_DATE> <END_DATE> 
+Add a task named `<TASK_NAME>` with the **event** task type and set its start date to `<START_DATE>` and its end date to be `<END_DATE>`.\
+--> Format: `event` `<TASK_NAME>` `<START_DATE>` `<END_DATE>`
 
 #### Mark a task as done: `mark`
---> Format: mark <INDEX_IN_LIST>
+Mark a task in the list using its `index` in the list to show that a task is _done_.\
+--> Format: `mark` **<INDEX>**
 
 #### Unmark a task as undone: `unmark`
---> Format: unmark <INDEX_IN_LIST>
+Unmark a task in the list using its `index` in the list to show that a task is _undone_.\
+--> Format: `unmark` **<INDEX>**
 
 #### Delete a task from the list: `delete`
---> Format: delete <INDEX_IN_LIST>
+Remove the entry using its `index` in the list.\
+--> Format: `delete` **<INDEX>**
 
 #### Save any changes made: `save`
---> Format: ```save```
+Save the current list into the device you are running the program.\
+--> Format: `save`
 
 #### Load saved tasks: `load`
---> Format: ```load```
+Load the current list from the device you are running the program.\
+--> Format: `load`
 
 #### Find a task using a keyword: `find`
---> Format: ```find``` `<KEY_WORD>` 
+Show only the task from the list that contains the `keyword` in its task name.\
+--> Format: `find` **<KEY_WORD>**
 
 #### Snooze a _deadline_ or _event_ task: `snooze`
---> Format: `snooze ` *<INDEX_IN_LIST>*  *<DAYS_TO_SNOOZE>*
+Snooze a _deadline_ or _event_  using its `index` in the list by the `<DAYS_TO_SNOOZE>` number of days.\
+--> Format: `snooze` **<INDEX_IN_LIST> <DAYS_TO_SNOOZE>**
 
 #### Exit the program: `exit`
+Closes the window and ends the program.\
 --> Format: exit
 
 ## FAQ
@@ -74,27 +86,3 @@ Luna is a desktop application for managing your tasks, optimized for usage via a
 (none at the moment)
 
 ## Command Summary
-
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
