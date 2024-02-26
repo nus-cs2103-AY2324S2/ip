@@ -41,6 +41,10 @@ public class Event extends Task {
         return this.endDate;
     }
 
+    public boolean overlaps(Event other) {
+        return this.startDate.isBefore(other.endDate) || other.startDate.isBefore(this.endDate);
+    }
+
     @Override
     public String toString() {
         return String.format("[E]%s (from: %s to: %s)",

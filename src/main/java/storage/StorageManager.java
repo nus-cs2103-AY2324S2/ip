@@ -5,10 +5,10 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 
+import exceptions.CalException;
 import tasklist.TaskList;
 import tasks.Task;
 
@@ -17,13 +17,15 @@ import tasks.Task;
  * Contains methods to save and load tasks.
  */
 public class StorageManager {
-    protected String taskSaveLocation;
+    public final static String TASK_SAVE_PATH = "TASK_SAVE_PATH";
+    public final static String TEST_SAVE_PATH = "TEST_SAVE_PATH";
 
+    protected String taskSaveLocation;
     /**
      * Constructs a StorageManager object.
      * creates the necessary directories and initializes the file path for saving tasks.
      */
-    public StorageManager() {
+    public StorageManager(String savePath) {
         // have to add src/main/resources folder the Java Source Code
         ResourceBundle rb = ResourceBundle.getBundle("config");
         File dataDir = new File(rb.getString("DATA_DIR_PATH"));
@@ -35,15 +37,16 @@ public class StorageManager {
                 throw new RuntimeException(e);
             }
         }
-        this.taskSaveLocation = rb.getString("TASK_SAVE_PATH");
+        this.taskSaveLocation = rb.getString(savePath);
     }
 
     /**
      * Saves the task list to the file system.
      *
      * @param tasks The task list to be saved.
+     * @throws CalException 
      */
-    public void save(TaskList tasks) {
+    public void save(TaskList tasks) throws CalException {
         assert taskSaveLocation != null : "Save path should not be empty";
         StringBuilder sb = new StringBuilder();
         String serializedTask;
@@ -55,7 +58,7 @@ public class StorageManager {
         try (FileWriter writer = new FileWriter(this.taskSaveLocation)) {
             writer.write(sb.toString());
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CalException("Failed to save to database.");
         }
     }
 
@@ -63,15 +66,16 @@ public class StorageManager {
      * Loads tasks from the file system
      *
      * @return The loaded task list.
+     * @throws CalException 
      */
 
-    public TaskList load() {
+    public TaskList load() throws CalException {
         assert taskSaveLocation != null : "Save path should not be empty";
         File dataFile = new File(this.taskSaveLocation);
-        List<Task> tasks = new ArrayList<>();
+        TaskList tasks = new TaskList(new ArrayList<>());
 
         if (!dataFile.exists()) {
-            return new TaskList(tasks);
+            return tasks;
         }
 
         try (Scanner sc = new Scanner(dataFile)) {
@@ -81,9 +85,9 @@ public class StorageManager {
                 tasks.add(t);
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new CalException("Failed to load database.");
         }
 
-        return new TaskList(tasks);
+        return tasks;
     }
 }
