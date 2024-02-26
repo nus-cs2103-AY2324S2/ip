@@ -2,6 +2,8 @@
 
 James Bot is a task planner designed to help you keep track of your todos, deadlines, and events, inspired by the Duke project. With a simple and intuitive command line interface, James makes managing your tasks easy and efficient.
 
+![User Interface](../docs/Ui.png)
+
 ## Features
 
 ### 1. Add Tasks
