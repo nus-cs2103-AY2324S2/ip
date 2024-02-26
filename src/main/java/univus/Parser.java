@@ -28,6 +28,7 @@ public class Parser {
             if (index > taskList.size() || index < 1) {
                 throw new UnivusException("OOPS!!! Wrong Index!");
             }
+
             Task task = taskList.getTask(index);
             if (task.isDone()) {
                 throw new UnivusException("Already Marked!");
@@ -51,9 +52,11 @@ public class Parser {
     public static void parseUnmark(TaskList taskList, String message, StringBuilder responses) {
         try {
             int index = Integer.parseInt(message.split(" ")[1]);
+
             if (index > taskList.size() || index < 1) {
                 throw new UnivusException("OOPS!!! Wrong Index!");
             }
+
             Task task = taskList.getTask(index);
             if (!task.isDone()) {
                 throw new UnivusException("Already Unmarked!");
