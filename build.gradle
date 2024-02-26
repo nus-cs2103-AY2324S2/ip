@@ -39,7 +39,9 @@ application {
 }
 
 shadowJar {
-    archiveFileName = 'jojo.jar'
+    archiveBaseName = "jojo"
+    archiveClassifier = null
+    dependsOn("distZip", "distTar")
 }
 
 run{
