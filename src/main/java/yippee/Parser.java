@@ -85,6 +85,10 @@ public class Parser {
     }
 
     private Command parseCreate(String[] split) throws InvalidCommandException {
+        if (split.length == 1 || split[1].equals("")) {
+            throw new InvalidCommandException(
+                    "Wrong format! Please include the details of the new task >:(");
+        }
         String taskType = split[0].toLowerCase().trim();
         String taskName = split[1].toLowerCase().trim();
         return new CreateTaskCommand(taskType, taskName);

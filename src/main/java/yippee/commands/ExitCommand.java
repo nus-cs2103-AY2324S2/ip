@@ -1,4 +1,6 @@
 package yippee.commands;
+import javafx.animation.PauseTransition;
+import javafx.util.Duration;
 import yippee.Storage;
 import yippee.TaskList;
 import yippee.Ui;
@@ -28,10 +30,14 @@ public class ExitCommand extends Command {
         try {
             savedData = storage.load();
             assert savedData == tasks : "Saved data not the same as tasklist";
-            return ui.endCommands();
         } catch (YippeeException e) {
             return ui.printError(e);
         }
+
+        PauseTransition pause = new PauseTransition(Duration.seconds(1));
+        pause.setOnFinished(event -> System.exit(0));
+        pause.play();
+        return ui.endCommands();
 
     }
 }

@@ -3,6 +3,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -114,10 +115,13 @@ public class Storage {
      * Resets saved data to make way for new data.
      */
     public void resetSave() {
-        try {
-            Files.delete(Paths.get(this.filePath));
-        } catch (IOException e) {
-            System.err.println("Error deleting last saved file: " + e.getMessage());
+        Path path = Paths.get(this.filePath);
+        if (Files.exists(path)) {
+            try {
+                Files.delete(path);
+            } catch (IOException e) {
+                System.err.println("Error deleting last saved file: " + e.getMessage());
+            }
         }
     }
 
