@@ -8,6 +8,9 @@ import java.util.HashMap;
 import java.util.List;
 
 
+/**
+ * Parse the user input into a Command to be executed if the input is valid
+ */
 public class Parser {
     /*
     @@author Lim Zheng Ting,
@@ -31,7 +34,7 @@ public class Parser {
 
     /**
      * Takes in a user query and performs the necessary reading and writing to a file on the drive.
-     * The file should exist, and is by default handled by BadPingGuo
+     * The file should exist, and is handled by BadPingGuo
      * @param s the query the user would like to make
      */
     public static Command ProcessQuery(String s) throws IOException, BadAppleException {

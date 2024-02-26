@@ -5,7 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 /**
- * Handles Keep Track of tasks that are in the program.
+ * Handles tasks that are in the program.
  * Able to list out what tasks exist currently in the Drive.
  */
 public class TaskList {
@@ -39,6 +39,11 @@ public class TaskList {
         return stringBuilder.toString();
     }
 
+    /**
+     * Filters Tasks to those that contains the query.
+     * @param filter the description to filter by
+     * @return task descriptions that match (contains) the filter
+     */
     public static String filterTasks(String filter) {
         StringBuilder stringBuilder = new StringBuilder();
         for (Task t : tasks) {
@@ -73,19 +78,30 @@ public class TaskList {
         return markTask(b, actualIndex);
     }
 
+    /**
+     * Add a Task to the tasklist.
+     * @param task to add
+     * @return indication of status of adding a Task
+     */
     public static String addTask(Task task) {
         String reply = "";
         int before = tasks.size();
         TaskList.tasks.add(task);
         int after = tasks.size();
         assert (after == before + 1);
-        if (!Tracker.isSuppressingMsgs) {
-            reply = Tracker.CustomMessages.randomMsg(task) + "\n" + task;
+        if (!Messenger.isSuppressingMessages) {
+            reply = Messenger.CustomMessages.randomMsg(task) + "\n" + task;
             System.out.println(reply);
         }
         return reply;
     }
 
+    /**
+     * Add a task whose types depends on the command. Interfaces with user input
+     * @param command represents type of task
+     * @param query the entire query for their respective Task to fill in relevant fields
+     * @return indication of status of adding such a task
+     */
     public static String addTask(String command, String query) {
         switch (command.toLowerCase()) {
             case "todo":
@@ -99,6 +115,11 @@ public class TaskList {
         }
     }
 
+    /**
+     * remove a Task from tasks
+     * @param i index of Task to remove
+     * @return status of removal
+     */
     public static String removeTask(int i) {
         assert (!tasks.isEmpty());
         int before = tasks.size();
@@ -122,6 +143,11 @@ public class TaskList {
         return removeTask(actualIndex);
     }
 
+    /**
+     * Tries to update a task given the user input
+     * @param args the parameters the user wishes to change
+     * @return status of updating a task
+     */
     public static String updateTask(String args) {
         String[] tokens = args.split(" ");
         if (tokens.length < 2) {

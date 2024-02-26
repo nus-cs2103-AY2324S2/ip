@@ -24,6 +24,7 @@ public class Main extends Application {
             stage.setScene(scene);
             fxmlLoader.<MainWindow>getController().setBadApple(badApple);
             stage.show();
+            stage.setTitle("BadApple");
         } catch (IOException e) {
             e.printStackTrace();
         }

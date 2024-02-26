@@ -2,6 +2,7 @@ package BadApple.task;
 
 import BadApple.main.BadAppleException;
 
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -88,6 +89,13 @@ public class Event extends Task {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));
     }
 
+    /**
+     * Updates this depending on the User input. Users can update the
+     * description, /from and /to values of this Event
+     * @param s the parameters to which Deadline should use to update itself
+     * @return an indication of the parameters changed
+     * @throws DateTimeParseException if the user enters an incorrect Date format
+     */
     public String update(String s) {
         String[] desc; // stores description and the rest.
         String[] range; // stores either from and to or Nothing.

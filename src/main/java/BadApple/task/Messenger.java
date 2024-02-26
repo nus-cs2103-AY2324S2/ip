@@ -2,7 +2,12 @@ package BadApple.task;
 
 import java.util.Random;
 
+/**
+ * This class is to add personality to the chatbot
+ * Do add extra enums to customise the replies Mari can give
+ */
 public class Messenger {
+    public static boolean isSuppressingMessages;
     public static boolean suppressMessages = false;
     /**
      * When a user adds a task, a response of PrependMessages + task is rendered
@@ -31,9 +36,14 @@ public class Messenger {
             return msg.append;
         }
 
+        /**
+         * Used to give Mari a personality by attaching a random msg to the task added
+         * @param task the Task to be added
+         * @return a random message to go with the Task description
+         */
         public static String randomMsg(Task task) {
             CustomMessages[] pm = values();
-            int msgIndex = RNG.nextInt(pm.length);
+            int msgIndex = RNG.nextInt(pm.length - 1);
             return getPrepend(pm[msgIndex]) + task.brief() + getAppend(pm[msgIndex]);
         }
     }

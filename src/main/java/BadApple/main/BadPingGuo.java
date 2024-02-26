@@ -23,6 +23,10 @@ public class BadPingGuo {
     private boolean isMakingFile = false;
     private final Image Mari = new Image(this.getClass().getResourceAsStream("/images/MARI.png"));
 
+    /**
+     * Shows the user their tasks to do when the app is first booted up
+     * @return the initial TaskList when booting up
+     */
     public DialogBox getInitialList() {
         try {
             File file = new File("../data/whiteSpace.txt");
@@ -44,6 +48,10 @@ public class BadPingGuo {
         return DialogBox.getDukeDialog(Ui.noWhiteSpaceFile(), Mari);
     }
 
+    /**
+     * Attempt to make files and inform the user (Sunny) of its status
+     * @return an indication of whether the file creation was successful
+     */
     public static String makeFile() {
         try {
             File f1 = new File("../data");
@@ -57,8 +65,9 @@ public class BadPingGuo {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * An entry point for the response Duke (Mari) gives
+     * @param input the text the user types into the text box
+     * @return the Response for javaFX Mari to respond with
      */
     protected String getResponse(String input){
         String reply;

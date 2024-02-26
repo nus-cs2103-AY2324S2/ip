@@ -84,6 +84,14 @@ public class Deadline extends Task {
     public static Deadline extractDetails(String s) {
         return extractDetails(new ArrayList<>(Arrays.asList(s.split(" "))));
     }
+
+    /**
+     * Updates this depending on the User input. Users can update the
+     * description and /by value of this Deadline
+     * @param s the parameters to which Deadline should use to update itself
+     * @return an indication of the parameters changed
+     * @throws DateTimeParseException if the user enters an incorrect Date format
+     */
     @Override
     public String update(String s) throws DateTimeParseException {
         boolean hasByParam = s.contains("/by ");

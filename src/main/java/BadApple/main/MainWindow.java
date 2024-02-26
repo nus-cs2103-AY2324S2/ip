@@ -47,12 +47,18 @@ public class MainWindow extends AnchorPane {
         showInitialList();
     }
 
+    /**
+     * Greet the user
+     */
     public void showWelcomeMessage() {
         dialogContainer.getChildren().addAll(DialogBox.getDukeDialog(
                 Ui.showWelcome(), dukeImage
         ));
     }
 
+    /**
+     * Show the user their tasks
+     */
     public void showInitialList() {
         dialogContainer.getChildren().addAll(badApple.getInitialList());
     }

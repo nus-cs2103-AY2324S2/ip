@@ -20,7 +20,7 @@ public class Task {
                 return "You don't have that task silly!";
             }
             this.isComplete = b;
-            if (!Tracker.isSuppressingMsgs) {
+            if (!Messenger.isSuppressingMessages) {
                 return "I've " + MARK + " task " + (taskIndex+1) + "\n" + this;
             }
         } catch(NumberFormatException | IndexOutOfBoundsException  e) {

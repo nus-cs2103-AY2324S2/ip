@@ -6,6 +6,9 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * Class to handle updates and initial reading of whiteSpace
+ */
 public class Storage {
     /**
      * After each request by the user, erases previous contents of the file
