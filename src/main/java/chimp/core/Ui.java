@@ -5,7 +5,7 @@ import java.util.HashMap;
 import chimp.task.Task;
 
 public class Ui {
-    private static final String DIVIDER = "____________________________________________________________\n";
+    private static final String DIVIDER = "\n";
 
     static HashMap<String, String> phrases = new HashMap<>();
     {
