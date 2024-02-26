@@ -40,7 +40,7 @@ public class Ui {
      * @return The error message as a string.
      */
     public String showErrorMessage(XiaoBaiException e) {
-        return e.toString();
+        return e.getMessage();
     }
 
     /**
@@ -186,7 +186,7 @@ public class Ui {
      */
     public void showLoadingError(XiaoBaiException e) {
         StringBuilder outputString = new StringBuilder();
-        outputString.append(e.toString() + "\n");
+        outputString.append(e.getMessage() + "\n");
         System.out.println(outputString.toString());
     }
 }

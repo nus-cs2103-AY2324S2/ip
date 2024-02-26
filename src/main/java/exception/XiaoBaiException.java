@@ -22,4 +22,15 @@ public class XiaoBaiException extends Exception {
     public XiaoBaiException(String message) {
         super(message);
     }
+
+    /**
+     * Overrides the getMessage() method to return only the error message
+     * without the exception class name.
+     * 
+     * @return The error message.
+     */
+    @Override
+    public String getMessage() {
+        return super.getMessage();
+    }
 }
