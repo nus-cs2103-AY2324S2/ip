@@ -7,12 +7,17 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
 /**
@@ -22,6 +27,9 @@ import javafx.scene.shape.Circle;
 public class DialogBox extends HBox {
     private static final double DISPLAY_PICTURE_SIZE = 100;
     private static final int DISPLAY_PICTURE_RADIUS = 45;
+
+    private static final Color USER_BACKGROUND_COLOR = Color.web("#3DD9D6");
+    private static final Color BOB_BACKGROUND_COLOR = Color.web("#37CAEC");
 
     @FXML
     private Label dialog;
@@ -52,12 +60,19 @@ public class DialogBox extends HBox {
         setAlignment(Pos.TOP_LEFT);
     }
 
+    private void setBackgroundColor(Color color) {
+        setBackground(new Background(new BackgroundFill(color, new CornerRadii(0), new Insets(0))));
+    }
+
     public static DialogBox getUserDialog(String text, Image img) {
-        return new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.setBackgroundColor(USER_BACKGROUND_COLOR);
+        return db;
     }
 
     public static DialogBox getBobDialog(String text, Image img) {
-        var db = new DialogBox(text, img);
+        DialogBox db = new DialogBox(text, img);
+        db.setBackgroundColor(BOB_BACKGROUND_COLOR);
         db.flip();
         return db;
     }
