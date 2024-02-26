@@ -32,6 +32,8 @@ public class DialogBox extends HBox {
      * @param img  The image to be displayed in the dialog box
      */
     private DialogBox(String text, Image img) {
+        assert text != null : "Text is null";
+        assert img != null : "Image is null";
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainWindow.class.getResource("/view/DialogBox.fxml"));
             fxmlLoader.setController(this);
@@ -78,6 +80,9 @@ public class DialogBox extends HBox {
      * @return A new DialogBox with the given text and image.
      */
     public static DialogBox getUserDialog(String text, Image img) {
+        assert text != null : "Text is null";
+        assert img != null : "Image is null";
+
         return new DialogBox(text, img);
     }
 
@@ -91,6 +96,8 @@ public class DialogBox extends HBox {
      * @return A new DialogBox with the given text and image, flipped.
      */
     public static DialogBox getDukeDialog(String text, Image img) {
+        assert text != null : "Text is null";
+        assert img != null : "Image is null";
         var db = new DialogBox(text, img);
         db.flip();
         return db;
