@@ -15,8 +15,8 @@ public class MarkCommand extends Command {
     private final TaskList taskList;
 
     /**
-     * Constructor for the MarkCommand class. Returns a command object to mark a task as done in the TaskList object upon
-     * execution.
+     * Constructor for the MarkCommand class. Returns a command object to mark a task as done in the TaskList
+     * object upon execution.
      *
      * @param input    The input string that resulted in the creation of this command.
      * @param tasklist The TaskList object in which the task is to be marked as done.
@@ -43,16 +43,12 @@ public class MarkCommand extends Command {
         }
 
         int id = Integer.parseInt(this.input.split(" ")[1]);
-
-        //re-thow exception if task does not exist
         try {
             Task task = this.taskList.getTask(id);
             this.taskList.mark_as_done(id);
 
-            String msg = "Nice! I've marked this task as done:\n"
+            return "Nice! I've marked this task as done:\n"
                     + "\t  " + id + ". " + task.toString();
-
-            return msg;
         } catch (DudeException e) {
             throw new DudeException(e.getMessage());
         }
