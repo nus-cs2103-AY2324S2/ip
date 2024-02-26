@@ -2,12 +2,10 @@ public class Task {
     private String taskName = "";
     private boolean marked = false;
     private int seqNo = -1;
-
     private String taskType = "";
-
-    Task(){
+    public Task() {
     }
-    Task(String name, boolean marked, int seq) {
+    public Task(String name, boolean marked, int seq) {
         this.setTaskName(name);
         this.setMarked(marked);
         this.setSeqNo(seq);
