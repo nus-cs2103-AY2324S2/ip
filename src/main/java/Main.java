@@ -2,6 +2,7 @@ import java.io.IOException;
 
 import cal.Cal;
 import controller.MainWindow;
+import exceptions.CalException;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -12,6 +13,10 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     private Cal cal = new Cal();
+
+    public Main() throws CalException {
+
+    }
 
     @Override
     public void start(Stage stage) {

@@ -3,10 +3,12 @@ package controller;
 import cal.Cal;
 import exceptions.CalException;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
@@ -29,10 +31,17 @@ public class MainWindow {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
     private Image calImage = new Image(this.getClass().getResourceAsStream("/images/cal.jpg"));
+    private Image errorBotImage = new Image(this.getClass().getResourceAsStream("/images/error-bot.jpg"));
+    private Image errorMsgSticker = new Image(this.getClass().getResourceAsStream("/images/error-msg-sticker.png"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.viewportBoundsProperty().addListener((observable, oldValue, newValue) -> {
+            dialogContainer.setPrefHeight(newValue.getHeight());
+            dialogContainer.setPrefWidth(newValue.getWidth());
+        });
+        dialogContainer.setPadding(new Insets(15, 10, 15, 10));
     }
 
     public void setCal(Cal cal) {
@@ -49,12 +58,17 @@ public class MainWindow {
         try {
             String response = cal.getResponse(input);
             dialogContainer.getChildren().addAll(
-                    DialogBox.getUserDialog(input, userImage, "#FCEBA6"),
-                    DialogBox.getCalDialog(response, calImage, "#DDC9F5")
+                    DialogBox.getUserDialog(input, userImage, "#EDEDEF"),
+                    DialogBox.getCalDialog(response, calImage, "#A366F9")
             );
-        } catch (CalException e) {
-            dialogContainer.getChildren().add(
-                    DialogBox.getCalDialog("Error: " + e.getMessage(), calImage, "#DDC9F5")
+        } catch (CalException e) { 
+            ImageView imageView = new ImageView(errorMsgSticker);
+            VBox vbox = new VBox();
+            vbox.setPadding(new Insets(0, 0, 5, 55));
+            vbox.getChildren().add(imageView);
+            dialogContainer.getChildren().addAll(
+                    vbox,
+                    DialogBox.getCalDialog(e.getMessage(), errorBotImage, "#FDBE44")
             );
         }
 

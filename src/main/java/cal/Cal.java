@@ -18,9 +18,10 @@ public class Cal {
 
     /**
      * Constructs a new Cal instance.
+     * @throws CalException 
      */
-    public Cal() {
-        storageManager = new StorageManager();
+    public Cal() throws CalException {
+        storageManager = new StorageManager(StorageManager.TASK_SAVE_PATH);
         tasks = storageManager.load();
         ui = new Ui();
     }
@@ -38,7 +39,7 @@ public class Cal {
                 String fullCommand = ui.readCommand(sc);
                 ui.showLine();
                 Command c = Parser.parseCommand(fullCommand);
-                c.execute(tasks, storageManager);
+                System.out.println(c.execute(tasks, storageManager));
                 isExit = c.isExit();
             } catch (Exception e) {
                 ui.showErrorMsg(e);
@@ -58,8 +59,9 @@ public class Cal {
      * The entry point of application.
      *
      * @param args the input arguments
+     * @throws CalException 
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws CalException {
         new Cal().run();
     }
 }
