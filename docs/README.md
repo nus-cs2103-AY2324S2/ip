@@ -19,9 +19,12 @@ Here we explore all the features of **Homie!**
 **Important notes about the features:**
 - Words in curly braces `{}` and `UPPER_CASE` are the parameters to be supplied by the user. e.g. in `todo
 {TODO_DESCRIPTION}`, `{TODO_DESCRIPTION}` is a parameter which can be used as `todo read book`.
+- Date Time formats specified in curly braces `{}` will not be in `UPPER_CASE` as they have their specified format. e.g.
+`{dd MM yyyy HHmm}` as MM represents Month but mm represents minutes.
 - Commands are **case-insensitive** but parameters are **case-sensitive**. e.g. both `todo read book` and `TODO read 
 book` will add a new todo task named 'read book' while `todo read BOOK` will add a new todo task named 'read BOOK'.
 - After adding or deleting a task, **Homie** will remind you of the number of tasks remaining in your task list.
+- If the command requires a parameter, the parameter **CANNOT** be empty, and format has to be followed closely.
 
 ### Adding todo
 
@@ -41,11 +44,9 @@ created.
 
 **Expected outcome**
 ```
-_______________________________________
 Got it. I've added this task:
   [T][] read book
 Now you have 1 tasks in the list.
-_______________________________________
 ```
 
 ### Adding deadlines
@@ -69,11 +70,9 @@ will be created.
 
 **Expected outcome:**
 ```
-_______________________________________
 Got it. I've added this task:
   [D][] CS2103 Quiz 3 (by: 02-24-2024 23:59)
 Now you have 1 tasks in the list.
-_______________________________________
 ```
 
 ### Adding event
@@ -97,11 +96,9 @@ created.
 
 Expected outcome:
 ```
-_______________________________________
 Got it. I've added this task:
   [E][] CS2103 Briefing (from: 02-24-2024 16:00 to: 02-24-2024 18:00)
 Now you have 1 tasks in the list.
-_______________________________________
 ```
 
 ### Listing all tasks
@@ -118,11 +115,9 @@ Lists all existing tasks in the task list.
 
 Expected outcome:
 ```
-_______________________________________
 Here are the tasks in your list:
   1.[D][] CS2103 Quiz 3 (by: 02-24-2024 23:59)
   2.[T][] read book
-_______________________________________
 ```
 
 ### Deleting tasks
@@ -146,11 +141,9 @@ displayed task list **after** using the `list` command.
 
 Expected outcome:
 ```
-_______________________________________
 Noted. I've removed this task:
   [D][] CS2103 Quiz 3 (by: 02-24-2024 23:59)
 Now you have 1 tasks in this list.
-_______________________________________
 ```
 
 ### Marking task
@@ -173,10 +166,8 @@ task list after using the `list` command.
 
 Expected outcome:
 ```
-_______________________________________
 Nice! I've marked this task as done:
   [E][X] CS2103 Briefing (from: 02-24-2024 16:00 to: 02-24-2024 18:00)
-_______________________________________
 ```
 
 ### Unmarking task
@@ -199,10 +190,8 @@ displayed task list after using the `list` command.
 
 Expected outcome:
 ```
-_______________________________________
 Ok, I've marked this task as not done yet:
 [E][] CS2103 Briefing (from: 02-24-2024 16:00 to: 02-24-2024 18:00)
-_______________________________________
 ```
 
 ### Find task
@@ -223,9 +212,7 @@ Examples:
 
 Expected outcome:
 ```
-_______________________________________
 Here are the matching tasks in your list:
   1. [T][] read book
   2. [T][] read CS2103 lecture notes
-_______________________________________
 ```
