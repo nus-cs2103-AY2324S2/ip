@@ -67,6 +67,7 @@ public class Nihao extends Application{
     }
 
     public String getResponse(String text) {
+        assert text != null : "text should not be null";
         try {
             Action action = InputHandler.handleInput(text);
             if (action instanceof ExitAction) {

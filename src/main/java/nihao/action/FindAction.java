@@ -16,6 +16,7 @@ public class FindAction implements Action {
     }
     @Override
     public String execute() throws Exception {
+        assert keyword != null : "keyword should not be null";
         ArrayList<Task> result = DataHandler.findTasks(keyword);
         return PrintHandler.printNumberedDivider(result);
     }
