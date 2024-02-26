@@ -19,7 +19,7 @@ import task.Task;
 import task.ToDo;
 
 /**
- * The storage.Storage class manages reading from and writing to a data store txt file.
+ * The Storage class manages reading from and writing to a data store txt file.
  * It handles tasks related to file operations and task data persistence.
  */
 public class Storage {
