@@ -27,7 +27,16 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {
-        return "Bye! Please click the \"X\" on the upper right to exit. I'm happy to answer to your" +
-                " requests if you keep typing in!\n";
+        return "Bye! The window will close in 3 seconds. Thank you for for your usage!";
+    }
+
+    /**
+     * Verifies if it is the command to exit program execution.
+     *
+     * @return True if it the exit command, and false otherwise;
+     */
+    @Override
+    public boolean isExit() {
+        return true;
     }
 }

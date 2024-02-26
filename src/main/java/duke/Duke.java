@@ -1,7 +1,7 @@
 package duke;
 
 import command.Command;
-import javafx.fxml.FXML;
+import javafx.util.Pair;
 
 /**
  * Represents the whole program that handles the user interaction, user prompt parsing, task list and file management,
@@ -39,12 +39,12 @@ public class Duke {
      *
      * @return A string that represents the answer
      */
-    public String getResponse(String input) {
+    public Pair<String, Boolean> getResponse(String input) {
         try {
             Command command = Parser.parse(input);
-            return command.execute(storage, taskList);
+            return new Pair<>(command.execute(storage, taskList), command.isExit());
         } catch (DukeException e) {
-            return e.toString();
+            return new Pair<>(e.toString(), false);
         }
     }
 }

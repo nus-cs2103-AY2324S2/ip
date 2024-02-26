@@ -68,6 +68,7 @@ abstract class Parser {
                 throw e;
             }
         case "view":
+        case "schedule":
             try {
                 assert order.length <= 2;
             } catch (AssertionError e1) {

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a starting time and ending time
  */
-public class Event extends Task implements TaskWithTime{
+public class Event extends Task implements TaskWithTime {
     private final LocalDateTime startTime;
     private final LocalDateTime endTime;
 

@@ -36,13 +36,13 @@ public class TaskList {
      */
     public String print() {
         if (tasks.isEmpty()) {
-            return "No tasks yet...\n";
+            return "No tasks yet...";
         } else {
             String result = "The tasks as as follows:\n";
             for (int i = 0; i < tasks.size(); i++) {
                 result += (i + 1) + "." + tasks.get(i) + "\n";
             }
-            return result;
+            return result.substring(0, result.length() - 1);
         }
     }
 
@@ -85,9 +85,9 @@ public class TaskList {
      */
     public String countSize() {
         if (tasks.size() == 1) {
-            return "Now you have 1 task in the list\n";
+            return "Now you have 1 task in the list";
         } else {
-            return String.format("Now you have %d tasks in the list\n", tasks.size());
+            return String.format("Now you have %d tasks in the list", tasks.size());
         }
     }
 
@@ -158,13 +158,13 @@ public class TaskList {
         }
         result.addAll(temp);
         if (result.isEmpty()) {
-            return "Sorry! No tasks can satisfy your query conditions...\n";
+            return "Sorry! No tasks can satisfy your query conditions...";
         } else {
             String output = "OK! The search results are as follows:\n";
             for (int i = 1; i <= result.size(); i++) {
                 output += String.format("  %d. %s\n", i, result.get(i - 1));
             }
-            return output;
+            return output.substring(0, output.length() - 1);
         }
     }
 
@@ -182,13 +182,13 @@ public class TaskList {
             }
         }
         if (result.isEmpty()) {
-            return "Sorry! No tasks can satisfy your query conditions...\n";
+            return "Sorry! No tasks can satisfy your query conditions...";
         } else {
             String output = "OK! The search results are as follows:\n";
             for (int i = 1; i <= result.size(); i++) {
                 output += String.format("  %d. %s\n", i, result.get(i - 1));
             }
-            return output;
+            return output.substring(output.length() - 1);
         }
     }
 

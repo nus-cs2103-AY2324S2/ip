@@ -46,7 +46,7 @@ public class MarkCommand extends Command {
     public String execute(Storage storage, TaskList taskList) throws DukeException {
         Task task = taskList.retrieve(num);
         if (task.isDone()) {
-            return "Already done. No need to mark again.\n";
+            return "Already done. No need to mark again.";
         } else {
             task.mark();
             String result = "Nice! I've marked this task as done:\n";

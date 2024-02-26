@@ -20,4 +20,13 @@ public abstract class Command {
      * @throws DukeException
      */
     public abstract String execute(Storage storage, TaskList taskList) throws DukeException;
+
+    /**
+     * Verifies if it is the command to exit program execution.
+     *
+     * @return True if it the exit command, and false otherwise;
+     */
+    public boolean isExit() {
+        return false;
+    }
 }

@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task with a deadline
  */
-public class Deadline extends Task implements TaskWithTime{
+public class Deadline extends Task implements TaskWithTime {
     private final LocalDateTime deadline;
 
     /**
