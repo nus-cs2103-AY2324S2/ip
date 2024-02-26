@@ -43,14 +43,13 @@ test {
 }
 
 application {
-    mainClass.set("Main")
+    mainClass.set("Launcher")
 }
 
 shadowJar {
     archiveFileName = "blawg.jar"
     archiveBaseName = "blawg"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
 }
 
 run{
