@@ -42,7 +42,7 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
-        dialog.setPadding(new Insets(5,10,5,10));
+        dialog.setPadding(new Insets(5, 10, 5, 10));
         dialog.setMinSize(Label.USE_PREF_SIZE, Label.USE_PREF_SIZE);
 
         displayPicture.setImage(img);
