@@ -50,6 +50,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("/home/shiva/IdeaProjects/cs2103-t9-p2/duke/duke.txt").run();
+        new Duke("/home/shiva/IdeaProjects/cs2103-t9p2-gradle/duke/duke.txt").run();
     }
 }
