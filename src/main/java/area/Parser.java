@@ -113,7 +113,7 @@ public class Parser {
 
     public String parsePriority(String instruction){
         String[] sentence = instruction.split(" ", 3);
-        if (sentence.length == 1) {
+        if (sentence.length != 3) {
             throw new IllegalArgumentException("Your input is incomplete. I need a priority for this task.");
         } else {
             return sentence[2];
