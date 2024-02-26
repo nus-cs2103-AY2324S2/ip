@@ -1,7 +1,9 @@
 # Liv User Guide
+__Disclaimer__: this user guide is inspired by [wongkj12](https://github.com/wongkj12)'s [user guide](https://wongkj12.github.io/ip/) for his chatbot *[Mr Wong](https://github.com/wongkj12/ip)*
 ## General Introduction
 __*Liv*__ is an Chinese Dragon Lunar New Year themed Chatbot. His main purpose is to track tasks inputted by the user.
 
+![Ui screenshot](Ui.png)
 ## Commands 
 ### Add Tasks
 You can add *todo*, *deadline* and *event* to your task list.
