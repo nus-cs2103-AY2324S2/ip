@@ -1,101 +1,59 @@
 package duke.parsers;
 
-import duke.commands.Command;
-import duke.tasks.TaskList;
-import duke.ui.Ui;
-import org.junit.jupiter.api.Test;
-
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import static org.junit.jupiter.api.Assertions.*;
 
+import org.junit.jupiter.api.Test;
+
+import duke.tasks.TaskList;
+import duke.ui.Ui;
+
 public class ParserTest {
-//    @Test
-//    public void testEmptyMarkTaskNumber() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Parser.parse("mark").execute();
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("Please state which task you want to mark.", output);
-//    }
-//    @Test
-//    public void testInvalidMarkTaskNumber() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Parser.parse("mark a").execute();
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("Unable to parse the input as an integer. Please put a number after mark.", output);
-//    }
-//
-//    @Test
-//    public void testOutOfBoundMarkTaskNumber() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Ui ui = new Ui();
-//        TaskList tasks = new TaskList();
-//        Parser.parse("mark 1").execute(ui, tasks);
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("Please look carefully. This task is not inside the task list.", output);
-//        assertFalse(Parser.parse("mark 1").execute(ui, tasks));
-//    }
-//
-//    @Test
-//    public void testMissingDescriptionForDeadline() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Ui ui = new Ui();
-//        TaskList tasks = new TaskList();
-//        Parser.parse("deadline").execute(ui, tasks);
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("OOPS! The description of a deadline cannot be empty.", output);
-//    }
-//
-//    @Test
-//    public void testMissingDescription2ForDeadline() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Ui ui = new Ui();
-//        TaskList tasks = new TaskList();
-//        Parser.parse("deadline by").execute(ui, tasks);
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("OOPS! You forget to write the task description. Please follow this format: " +
-//                "'<task_description> by <deadline>' in yyyy-mm-dd HHmm 24-hr format", output);
-//    }
-//
-//    @Test
-//    public void testMissingKeywordForDeadline() {
-//        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-//        System.setErr(new PrintStream(outContent));
-//        // Method to test
-//        Ui ui = new Ui();
-//        TaskList tasks = new TaskList();
-//        Parser.parse("deadline return book").execute(ui, tasks);
-//        // Get the output of the method
-//        String output = outContent.toString().trim();
-//
-//        System.setErr(System.err);
-//        assertEquals("OOPS! 'by' keyword is missing. You are required to state the deadline " +
-//                "using the 'by' keyword.", output);
-//    }
+    @Test
+    public void testEmptyMarkTaskNumber() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("mark").execute(ui, tasks);
+        assertEquals("Please state which task you want to mark.", output);
+    }
+    @Test
+    public void testInvalidMarkTaskNumber() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("mark a").execute(ui, tasks);
+        assertEquals("Unable to parse the input as an integer. Please put a number after mark.", output);
+    }
+
+    @Test
+    public void testOutOfBoundMarkTaskNumber() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("mark 1").execute(ui, tasks);
+        assertEquals("Please look carefully. This task is not inside the task list.", output);
+    }
+
+    @Test
+    public void testMissingDescriptionForDeadline() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("deadline").execute(ui, tasks);
+        assertEquals("OOPS! The description of a deadline cannot be empty.", output);
+    }
+
+    @Test
+    public void testMissingDescription2ForDeadline() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("deadline by").execute(ui, tasks);
+        assertEquals("OOPS! You forget to write the task description. Please follow this format: "
+                + "'<task_description> by <deadline>' in yyyy-mm-dd HHmm 24-hr format", output);
+    }
+
+    @Test
+    public void testMissingKeywordForDeadline() {
+        Ui ui = new Ui();
+        TaskList tasks = new TaskList();
+        String output = Parser.parse("deadline return book").execute(ui, tasks);
+        assertEquals("OOPS! 'by' keyword is missing. You are required to state the deadline "
+                + "using the 'by' keyword.", output);
+    }
 }
