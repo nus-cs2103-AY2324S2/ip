@@ -36,7 +36,7 @@ Examples:
 - `event family dinner /from 1900 /to 2130`
 
 Expected output:
-```I have added this event: Task /from start /to end```
+```I have added this event: Task from start to end```
 
 ## Listing `list`
 list out all tasks you have entered in your tasklist. Format: `list`
@@ -63,8 +63,8 @@ Expected output:
 Unmark a previously completed task as incomplete. Format: `unmark index`
 
 Example:
-- `mark 1`
-- `mark 2`
+- `unmark 1`
+- `unmark 2`
 
 Expected output:
 ```Alright. Let me uncheck that for you. [T][] Task```
