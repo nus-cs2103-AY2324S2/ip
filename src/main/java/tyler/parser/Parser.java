@@ -2,6 +2,7 @@ package tyler.parser;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 import tyler.command.Command;
 import tyler.command.DeadlineCommand;
@@ -13,10 +14,13 @@ import tyler.command.ListCommand;
 import tyler.command.MarkCommand;
 import tyler.command.TodoCommand;
 import tyler.command.UnmarkCommand;
+import tyler.command.HelpCommand;
 import tyler.exception.EmptyNameException;
+import tyler.exception.InvalidDateTimeFormatException;
 import tyler.exception.InvalidTaskException;
 import tyler.exception.TylerException;
 import tyler.exception.UndefinedActionException;
+import tyler.exception.WrongInputFormatException;
 
 /**
  * This parser class is required to parse the line from System.in.
@@ -61,24 +65,36 @@ public class Parser {
             return new TodoCommand(name);
         }
         case "deadline": {
-            if (input.length < 2) {
-                throw new EmptyNameException();
+            try {
+                if (input.length < 2) {
+                    throw new EmptyNameException();
+                }
+                String[] info = line.split(" ", 2)[1].split("/by ");
+                String name = info[0];
+                LocalDateTime end = LocalDateTime.parse(info[1], INPUT_DATE_FORMAT);
+                return new DeadlineCommand(name, end);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeFormatException();
+            } catch (IndexOutOfBoundsException e) {
+                throw new WrongInputFormatException();
             }
-            String[] info = line.split(" ", 2)[1].split("/by ");
-            String name = info[0];
-            LocalDateTime end = LocalDateTime.parse(info[1], INPUT_DATE_FORMAT);
-            return new DeadlineCommand(name, end);
         }
         case "event": {
-            if (input.length < 2) {
-                throw new EmptyNameException();
+            try {
+                if (input.length < 2) {
+                    throw new EmptyNameException();
+                }
+                String[] info = line.split(" ", 2)[1].split("/from ");
+                String name = info[0];
+                String[] startToEnd = info[1].split(" /to ");
+                LocalDateTime start = LocalDateTime.parse(startToEnd[0], INPUT_DATE_FORMAT);
+                LocalDateTime end = LocalDateTime.parse(startToEnd[1], INPUT_DATE_FORMAT);
+                return new EventCommand(name, start, end);
+            } catch (DateTimeParseException e) {
+                throw new InvalidDateTimeFormatException();
+            } catch (IndexOutOfBoundsException e) {
+                throw new WrongInputFormatException();
             }
-            String[] info = line.split(" ", 2)[1].split("/from ");
-            String name = info[0];
-            String[] startToEnd = info[1].split(" /to ");
-            LocalDateTime start = LocalDateTime.parse(startToEnd[0], INPUT_DATE_FORMAT);
-            LocalDateTime end = LocalDateTime.parse(startToEnd[1], INPUT_DATE_FORMAT);
-            return new EventCommand(name, start, end);
         }
         case "delete": {
             if (input.length < 2) {
@@ -94,6 +110,8 @@ public class Parser {
             String name = line.split(" ", 2)[1];
             return new FindCommand(name);
         }
+        case "help":
+            return new HelpCommand();
         default:
             throw new UndefinedActionException();
         }

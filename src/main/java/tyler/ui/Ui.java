@@ -61,15 +61,6 @@ public class Ui {
     }
 
     /**
-     * Read a line from System.in.
-     *
-     * @return A line of String
-     */
-    public String readCommand() {
-        return sc.nextLine();
-    }
-
-    /**
      * Prints the current taskList.
      *
      * @param tasks The taskList class that hold the taskList
@@ -88,17 +79,20 @@ public class Ui {
     }
 
     /**
-     * Prints error message.
-     * @param message The message to be printed.
+     * Provide an In-app guidance to the user to use this chatbot.
+     *
+     * @return The line of all command and its format.
      */
-    public String showError(String message) {
-        return message;
-    }
-
-    /**
-     * Prints dividing line.
-     */
-    public String showLine() {
-        return "    --------------------------------------------------\n";
+    public static String help() {
+        return "Below here is some function you can use and the format of each:\n"
+                + "list\n"
+                + "todo <name>\n"
+                + "deadline <name> /by <end>\n"
+                + "event <name> /from <start> /to <end>"
+                + "mark <index>\n"
+                + "unmark <index>\n"
+                + "delete <index>\n"
+                + "find <keyword>\n"
+                + "bye";
     }
 }
