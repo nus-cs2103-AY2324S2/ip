@@ -1,6 +1,6 @@
 # JerryGPT User Guide
 
-![Product Screenshot](/docs/Ui.png)
+![](/docs/Ui.png)
 
 Although not as powerful as ChatGPT, this application does manage your tasks with ease and unlike other programs which
 have a strict limit on input format, users have the freedom of input format to some extent.
