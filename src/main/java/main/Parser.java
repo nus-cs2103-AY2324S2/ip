@@ -19,13 +19,7 @@ import commands.ListTasks;
 import commands.MarkTask;
 import commands.Snooze;
 import commands.UnmarkTask;
-import exception.DukeException;
-import exception.InvalidCommandException;
-import exception.InvalidDateException;
-import exception.InvalidDeadlineException;
-import exception.InvalidEventException;
-import exception.InvalidIndexException;
-import exception.InvalidTodoException;
+import exception.*;
 import objects.TaskList;
 
 /**
@@ -108,15 +102,18 @@ public class Parser {
      * @return The parsed index.
      * @throws InvalidIndexException If the index is invalid or missing.
      */
-    public static int parseIndex(String input) throws InvalidIndexException {
+    public static int parseIndex(String input) throws InvalidIndexException, InvalidIndexInputException {
         String[] parts = input.split("\\s+");
 
-        if (parts.length >= 2) {
+        if (parts.length < 2) {
+            throw new InvalidIndexException();
+        }
+
+        try {
             return Integer.parseInt(parts[1]) - 1;
 
-        } else {
-            throw new InvalidIndexException();
-
+        } catch (NumberFormatException e) {
+            throw new InvalidIndexInputException();
         }
     }
 
