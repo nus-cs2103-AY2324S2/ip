@@ -16,10 +16,10 @@ Jojo can help you to:
 Note: Any words in <> (e.g. `<DESCRIPTION>`) below are placeholder text for the parameters to be supplied by the user.
 
 ## Adding a todo
-Command: `todo <DESCRIPTION>`
+Command: `todo <DESCRIPTION>`<br>
 What it does: Adds a todo task with the description provided to the list of tasks.
 
-Example: `todo math homework`
+Example: `todo math homework` 
 This adds a todo task with the description "math homework" to the list of tasks.
 Expected output: 
 ```
