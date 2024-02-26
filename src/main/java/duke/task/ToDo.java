@@ -60,6 +60,9 @@ public class ToDo extends Task {
         return TYPE_STRING;
     }
 
+    /**
+     * Compare tasks of the same type.
+     */
     public int compareToSameType(Task task) {
         assert(task.type == TaskType.TODO) : "not an todo";
         ToDo todo = (ToDo) task;

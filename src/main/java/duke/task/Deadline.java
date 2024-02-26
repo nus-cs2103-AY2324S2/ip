@@ -69,6 +69,9 @@ public class Deadline extends Task {
         return TYPE_STRING;
     }
 
+    /**
+     * Compare tasks of the same type.
+     */
     public int compareToSameType(Task task) {
         assert(task.type == TaskType.DEADLINE) : "not a deadline";
         Deadline deadline = (Deadline) task;

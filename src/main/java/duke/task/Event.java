@@ -76,6 +76,9 @@ public class Event extends Task {
         return TYPE_STRING;
     }
 
+    /**
+     * Compare tasks.
+     */
     public int compareToSameType(Task task) {
         assert(task.type == TaskType.EVENT) : "not an event";
         Event event = (Event) task;

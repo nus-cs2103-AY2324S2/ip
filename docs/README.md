@@ -1,141 +1,64 @@
-Initial planning for the implementation of the dukeGUI.Duke project Chatbot
+#Liv User Guide
+##General Introduction
+*Liv* is an Chinese Dragon Lunar New Year themed Chatbot. His main purpose is to track tasks inputted by the user.
 
-date: 25 Jan 2024
+##Commands 
+###Add Tasks
+You can add *todo*, *deadline* and *event* to your task list.
+Command format: 'todo NAME', 'deadline NAME /by TIME', 'event NAME /from TIME /to TIME'
+Note: TIME should be specified in DDMMYY-T-HHMinMin: e.g. 260224T0900 for 26th Feb 2024 9am, 270224T1600 for 27th Feb 2024 4pm
+Sample commands:
+- 'todo Submit iP'
+- 'deadline Submit iP /by 270224T0000'
+- 'event Workshop /from 270224T1200 /to 270224T1400'
 
-Overall Description:
+###List Tasks
+You can list the tasks saved.
+Command format: 'list'
 
-The project aims to build a Personal Assistant Chatbot that helps a person to keep track of various things
+###Find Tasks
+You can filter tasks based on case-sensitive keywords. Multiple keywords can also be used at once. (the order of keywords does not affect the search result)
+Command format: 'find String...'
+Sample commands:
+- 'find Submit'
+- 'find Submit iP' (equivalent with 'find iP Submit'')
 
+###Delete Tasks
+You can delete tasks by their indices in the list.
+Command format: 'delete INDEX'
+Note: INDEX should be a positive integer
+Sample commands:
+- 'delete 1'
 
-_____________________________________________________
+###Mark Tasks
+You can mark a task as done with its index.
+Command format: 'mark INDEX'
+Note: INDEX should be a positive integer
+Sample commands:
+- 'mark 1'
 
-Level 0
+###Unmark Tasks
+You can mark a task as undone with its index.
+Command format: 'unmark INDEX'
+Note: INDEX should be a positive integer
+Sample commands:
+- 'unmark 1'
 
-Requirements:
-- rename: Liv
-- Greet the user once launched
-- Exits after the conversation is finished
+###Unmark Tasks
+You can mark a task as undone with its index.
+Command format: 'unmark INDEX'
+Note: INDEX should be a positive integer
+Sample commands:
+- 'unmark 1'
 
-Design:
-- Try to adhere to singleton principle by keeping only one Liv active
-- abstract greet() and exit() behaviour
-- store lines locally in functions, simply as strings. 
-	- rationale: given the purpose of the bot being to track various things, it is likely not to need many lines
+###Sort Tasks
+You can sort tasks. (based on the alphabetical order of type-description-time)
+Command format: 'sort'
 
-_____________________________________________________
+###Remove Duplicated Tasks
+You can remove duplicated tasks. (tasks are duplicates of each other if their types, descriptions and other time properties are the same)
+Command format: 'distinct'
 
-Level 1
-
-Requirements:
-- echo the user input when it is not "bye"
-- exits when the input is "bye"
-
-Design:
-- uses enum for states
-- implement a ProcessInput function to handle inputs
-
-
-_____________________________________________________
-
-Level 2
-
-Requirements:
-- add: add items to the agenda
-- list: list the items added, in chronological order
-	- the index by which it is listed must provide access to the item when searching/deleting
-
-Design:
-- item: implement as class dukeGUI.task.Task
-- list: implement with LinkedList
-	- rationale: to allow ease of access and update
-
-
-_____________________________________________________
-
-Level 3:
-
-Requirements:
-- mark task as done
-- mark task as not done
-
-Design:
-- add isDone boolean field to dukeGUI.task.Task class and implement relevant functions
-
-
-
-_____________________________________________________
-
-Level 4:
-
-Requirements:
-- split task into three types:
-	- todo: basically a task
-	- deadline: a task with a deadline
-		- additional param: /by
-	- events: a task with a start and end time
-		- additional param: /from /to
-- when adding a task, finish by giving the number of tasks in the list
-
-Implementation:
-- make task an abstract class with the method 
-
-Challenges:
-- the different parsing delimiter for different tasks
-	- observation: the information can be processed and stored by individual classes
-
-
-
-_____________________________________________________
-
-Level 5:
-
-Requirements:
-- error handling
-
-Design:
-- introduced various exception classes
-
-
-
-_____________________________________________________
-
-Level 6:
-
-Requirement:
-- delete task
-
-Design:
-- use delete method of LinkedList
-
-DEFAULT README.md:
-
-# Duke User Guide
-
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
-
-// Product intro goes here
-
-## Adding deadlines
-
-// Describe the action and its outcome.
-
-// Give examples of usage
-
-Example: `keyword (optional arguments)`
-
-// A description of the expected outcome goes here
-
-```
-expected output
-```
-
-## Feature ABC
-
-// Feature details
-
-
-## Feature XYZ
-
-// Feature details
+###Undo Actions
+You can undo actions. (at most 1 action in the past can be undone)
+Command format: 'undo'

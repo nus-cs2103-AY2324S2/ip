@@ -1,10 +1,14 @@
 package duke.task;
 
-import duke.parser.MissingInputFieldException;
-import org.junit.jupiter.api.Assertions;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.fail;
+
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import duke.parser.MissingInputFieldException;
+
+
 
 class TaskTest {
     @Test
