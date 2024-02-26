@@ -98,7 +98,7 @@ public class TaskList {
     public String storeTasks() {
         StringBuilder savedTask = new StringBuilder();
         for (int i = 0; i < tasks.size(); i++) {
-            savedTask.append(tasks.get(i).storeData()).append("\n");
+            savedTask.append(tasks.get(i).toFileString()).append("\n");
         }
         return savedTask.toString();
     }

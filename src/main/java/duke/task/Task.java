@@ -47,7 +47,7 @@ public class Task {
      *
      * @return String representation of task for data storage.
      */
-    public String storeData() {
+    public String toFileString() {
         return this.taskName + "|" + this.isDone;
     }
 

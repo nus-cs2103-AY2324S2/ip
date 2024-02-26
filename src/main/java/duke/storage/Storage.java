@@ -6,9 +6,12 @@ import duke.task.ToDo;
 import duke.task.TaskList;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -19,28 +22,12 @@ import java.util.Scanner;
  * Handles loading and writing tasks data to a file.
  */
 public class Storage {
-    private String filePath = "./src/main/";
-    private String directoryPath = "./src/main/";
+    private final String FILEPATH = "./src/main/data/tasks.txt";
 
     /**
      * Constructs Storage object.
-     *
-     * @param filePath File path to store and read data.
      */
-    public Storage(String filePath) {
-        this.directoryPath += filePath.substring(0, filePath.lastIndexOf("/"));
-        this.filePath += filePath;
-    }
-
-    /**
-     * Returns the directory of the file.
-     * Used if the directory of the file is not initialized.
-     *
-     * @return Directory path.
-     */
-    public String getDirectoryPath() {
-        return this.directoryPath;
-    }
+    public Storage() { }
 
     /**
      * Loads the tasks from the specified filepath into the task list.
@@ -49,12 +36,16 @@ public class Storage {
      * @throws IOException If error occur when reading the file.
      */
     public void loadFile(TaskList tasks) throws IOException {
-        File f = new File(filePath);
-        Scanner sc = new Scanner(f);
+        File file = new File(FILEPATH);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
+            file.createNewFile();
+        }
+        Scanner sc = new Scanner(file);
         while (sc.hasNext()) {
             String[] taskDescriptions = sc.nextLine().split("\\|");
-            String taskName = taskDescriptions[1];
             boolean done = Boolean.parseBoolean(taskDescriptions[2]);
+            String taskName = taskDescriptions[1];
             switch (taskDescriptions[0]) {
             case "todo" :
                 tasks.addTask(new ToDo(taskName, done));
@@ -84,8 +75,9 @@ public class Storage {
      * @throws IOException If error occurred when writing to the file.
      */
     public void writeFile(TaskList tasks) throws IOException {
-        File f = new File(this.filePath);
+        File f = new File(this.FILEPATH);
         FileWriter writer = new FileWriter(f);
+
         writer.write(tasks.storeTasks());
         writer.close();
     }

@@ -12,17 +12,13 @@ import duke.task.Event;
 import duke.task.ToDo;
 import duke.task.TaskList;
 
-import duke.ui.Ui;
+import duke.response.Response;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.util.Duration;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import java.nio.file.Files;
-import java.nio.file.Paths;
 
 import java.time.format.DateTimeParseException;
 
@@ -30,8 +26,8 @@ import java.time.format.DateTimeParseException;
 /**
  * Handles the logic of GUI version of Duke.
  */
-public class DukeFX {
-    private static Ui ui;
+public class Duke {
+    private static Response response;
     private static Storage storage;
     private static TaskList taskList;
 
@@ -40,18 +36,13 @@ public class DukeFX {
      *
      * @throws IOException If an I/O error occurs.
      */
-    public  DukeFX() throws IOException {
-        ui = new Ui();
-        storage = new Storage("data/tasks.txt");
+    public  Duke() throws IOException {
+        response = new Response();
+        storage = new Storage();
         taskList = new TaskList();
 
-        try {
-            //loads tasks from file to task list.
-            storage.loadFile(taskList);
-        } catch (FileNotFoundException e) {
-            //creates directory if the given directory path doesn't exist.
-            Files.createDirectories(Paths.get(storage.getDirectoryPath()));
-        }
+        //load data from the file into the task list.
+        storage.loadFile(taskList);
     }
 
     /**
@@ -64,14 +55,14 @@ public class DukeFX {
     public String getResponse(String input) throws IOException {
         Parser parser = new Parser(input);
         String command = parser.getCommand();
-        String task = "";
-        String message = "";
+        String task;
+        String message;
         switch(command) {
         case "todo":
             try {
                 parser.checkEmptyTask();
                 task = taskList.addTask(new ToDo(parser.getTaskName(), false));
-                message = ui.getAddTaskMessage(task);
+                message = response.getAddTaskMessage(task);
             } catch (EmptyTaskNameException e) {
                 message = e.getMessage();
             }
@@ -82,12 +73,11 @@ public class DukeFX {
                 if (parser.getDue().split(" ").length == 2) {
                     task = taskList.addTask(
                             new Deadline(parser.getTaskName(), false, parser.parseDueTime()));
-                    message = ui.getAddTaskMessage(task);
                 } else {
                     task = taskList.addTask(new Deadline(
                             parser.getTaskName().trim(), false, parser.parseDueDate()));
-                    message = ui.getAddTaskMessage(task);
                 }
+                message = response.getAddTaskMessage(task);
             } catch (EmptyTaskNameException e) {
                 message = e.getMessage();
             } catch (DateTimeParseException e) {
@@ -104,32 +94,30 @@ public class DukeFX {
                                 false,
                                 parser.getEventStart(),
                                 parser.getEventEnd()));
-                message = ui.getAddTaskMessage(task);
+                message = response.getAddTaskMessage(task);
             } catch (EmptyTaskNameException e) {
                 message = e.getMessage();
             }
             break;
         case "list":
-            message = ui.getLists(taskList);
+            message = response.getListMessage(taskList);
             break;
         case "mark":
-            message = ui.getMarkMessage(taskList.markTask(parser.parseIndex()));
+            message = response.getMarkMessage(taskList.markTask(parser.parseIndex()));
             break;
         case "unmark":
-            message = ui.getUnmarkMessage(taskList.unmarkTask(parser.parseIndex()));
+            message = response.getUnmarkMessage(taskList.unmarkTask(parser.parseIndex()));
             break;
         case "delete":
-            message = ui.getDeleteMessage(taskList.deleteTask(parser.parseIndex()), taskList.getSize());
+            message = response.getDeleteMessage(taskList.deleteTask(parser.parseIndex()), taskList.getSize());
             break;
         case "find":
-            message = ui.getFindMessage(taskList.find(parser.getUserInput()));
+            message = response.getFindMessage(taskList.find(parser.getUserInput()));
             break;
         case "bye":
             storage.writeFile(taskList);
-            message = ui.getGoodbye();
-            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(3), event -> {
-                Platform.exit();
-            }));
+            message = response.getGoodbye();
+            Timeline timeline = new Timeline(new KeyFrame(Duration.seconds(1.5), event -> Platform.exit()));
             timeline.play();
             break;
         default:

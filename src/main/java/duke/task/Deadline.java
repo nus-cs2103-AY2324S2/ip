@@ -36,11 +36,11 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String storeData() {
+    public String toFileString() {
         if (this.dueDate == null) {
-            return "deadline|" + super.storeData() + "|" + this.dueTime;
+            return "deadline|" + super.toFileString() + "|" + this.dueTime;
         } else {
-            return "deadline|" + super.storeData() + "|" + this.dueDate;
+            return "deadline|" + super.toFileString() + "|" + this.dueDate;
         }
     }
 
