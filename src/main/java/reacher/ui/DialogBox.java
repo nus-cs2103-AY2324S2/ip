@@ -32,14 +32,14 @@ public class DialogBox extends HBox {
             fxmlLoader.setController(this);
             fxmlLoader.setRoot(this);
             fxmlLoader.load();
-            Circle clip = new Circle(50, 50, 45);
-            displayPicture.setClip(clip);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         dialog.setText(text);
         displayPicture.setImage(img);
+        Circle clip = new Circle(50, 50, 45);
+        displayPicture.setClip(clip);
     }
 
     /**
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
         return new DialogBox(text, img);
     }
 
-    public static DialogBox getDukeDialog(String text, Image img) {
+    public static DialogBox getReacherDialog(String text, Image img) {
         var db = new DialogBox(text, img);
         db.flip();
         return db;

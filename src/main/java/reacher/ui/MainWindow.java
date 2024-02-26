@@ -1,6 +1,5 @@
 package reacher.ui;
 
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -10,9 +9,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import reacher.Reacher;
-import reacher.task.Task;
-
-import java.util.ArrayList;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -34,6 +30,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
+        showIntro();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
@@ -48,15 +45,29 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = reacher.handleInput(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
-        );
+        String response = reacher.getResponse(input);
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox reacherDialog = DialogBox.getReacherDialog(response, dukeImage);
+
+        dialogContainer.getChildren().addAll(userDialog, reacherDialog);
+
+        userInput.clear();
+
         if (response.equals("Bye!")) {
             Platform.exit();
         }
-        userInput.clear();
+    }
+
+    /**
+     * Adds welcome message to DialogBox.
+     */
+    private void showIntro() {
+        String message = "Welcome!\n" +
+                "Commands are:\n" +
+                "find, add, edit, list, edit, bye";
+        DialogBox reacherDialog = DialogBox.getReacherDialog(message, dukeImage);
+        dialogContainer.getChildren().addAll(reacherDialog);
     }
 
 }
