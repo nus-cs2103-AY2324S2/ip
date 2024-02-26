@@ -35,7 +35,7 @@ public class FindCommand extends Command {
         super.storage = storage;
         super.ui = ui;
         try {
-            return super.ui.displayList("Land ho! I've spied these tasks over yonder!",
+            return super.ui.displaySearchedList("Land ho! I've spied these tasks over yonder!",
                     super.tasks.findTasks(this.keyword));
         } catch (NoSuchElementException e) {
             return super.ui.printMessage(e.getMessage());

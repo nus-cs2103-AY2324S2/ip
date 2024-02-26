@@ -49,51 +49,64 @@ public class HelpCommand extends Command {
         switch (command) {
         case TODO:
             return ui.printMessage("Adds a todo task to the list.\n"
-                    + "Format: todo <description>"
-                    + "Alternative Formats: 'td' instead of 'todo'\n"
-                    + "Examples: todo read book, td read book");
+                    + "Format: todo <description>\n"
+                    + "Aliases: 'td'\n"
+                    + "Examples: 'todo read book', 'td read book'");
         case DEADLINE:
             return ui.printMessage("Adds a deadline task to the list.\n"
-                    + "Usage: deadline <description> /by <date> <time>\n"
-                    + "Date/Time Formats: dd/MM/yyyy HHmm, dd-MM-yyyy HHmm, ddMMyyyy HHmm\n"
-                    + "Alternative Formats: 'dl' instead of 'deadline', '/b', '/at' or '/a' instead of '/by'\n"
-                    + "Examples: deadline return book /by 12/12/2019 1800, dl return book /b 12-12-2019 1800");
+                    + "Format: deadline <description> /by <date> <time>\n"
+                    + "Date/Time Formats:\n"
+                    + "- 'dd/MM/yyyy HHmm' (01/01/2024 2300)\n"
+                    + "- 'dd-MM-yyyy HHmm' (01-01-2024 2300)\n"
+                    + "- 'ddMMyyyy HHmm' (01012024 2300\n"
+                    + "Aliases:\n"
+                    + "- For 'deadline': 'dl'\n"
+                    + "- For '/by': '/b', '/at' or '/a'\n"
+                    + "Examples:\n"
+                    + "- 'deadline return book /by 12/12/2019 1800'\n"
+                    + "- 'dl return book /b 12-12-2019 1800'");
         case EVENT:
             return ui.printMessage("Adds an event task to the list.\n"
-                    + "Usage: event <description> /from <date> <time> /to <date> <time>\n"
-                    + "Date/Time Formats: dd/MM/yyyy HHmm, dd-MM-yyyy HHmm, ddMMyyyy HHmm\n"
-                    + "Alternative Formats: 'ev' instead of 'event', '/f', '/start' or '/s' instead of '/from', "
-                    + "'/t' or '/to' instead of '/to'\n"
-                    + "Examples: event project meeting /from 12/12/2019 1800 /to 12/12/2019 2000, "
-                    + "ev project meeting /f 12-12-2019 1800 /t 12-12-2019 2000");
+                    + "Format: event <description> /from <date> <time> /to <date> <time>\n"
+                    + "Date/Time Formats:\n"
+                    + "- 'dd/MM/yyyy HHmm' (01/01/2024 2300)\n"
+                    + "- 'dd-MM-yyyy HHmm' (01-01-2024 2300)\n"
+                    + "- 'ddMMyyyy HHmm' (01012024 2300\n"
+                    + "Aliases:\n"
+                    + "- For 'event': 'ev'\n"
+                    + "- For '/from': '/f', '/start' or '/s'\n"
+                    + "- For '/to': '/t', '/end', '/e'\n"
+                    + "Examples:\n"
+                    + "- 'event project meeting /from 12/12/2019 1800 /to 12/12/2019 2000'\n"
+                    + "- 'ev project meeting /f 12-12-2019 1800 /t 12-12-2019 2000'");
         case LIST:
             return ui.printMessage("Lists all tasks in the list.\n"
                     + "Format: list\n"
-                    + "Alternative Formats: 'l' or 'ls' instead of 'list'");
+                    + "Aliases: 'l' or 'ls'");
         case MARK:
             return ui.printMessage("Marks a task as done.\n"
                     + "Format: mark <index>\n"
-                    + "Alternative Formats: 'm' or 'done' instead of 'mark'\n"
-                    + "Examples: mark 1, m 1, done 1");
+                    + "Aliases: 'm' or 'done'\n"
+                    + "Examples: 'mark 1', 'm 1', 'done 1'");
         case UNMARK:
             return ui.printMessage("Unmarks a task as not done.\n"
                     + "Format: unmark <index>\n"
-                    + "Alternative Formats: 'u', 'um' or 'undone' instead of 'unmark'\n"
-                    + "Examples: unmark 1, um 1, undone 1");
+                    + "Aliases: 'u', 'um' or 'undone'\n"
+                    + "Examples: 'unmark 1', 'u 1', 'um 1', 'undone 1'");
         case DELETE:
             return ui.printMessage("Deletes a task from the list.\n"
                     + "Format: delete <index>\n"
-                    + "Alternative Formats: 'del' or 'rm' instead of 'delete'\n"
-                    + "Examples: delete 1, del 1, rm 1");
+                    + "Aliases: 'del' or 'rm'\n"
+                    + "Examples: 'delete 1', 'del 1', 'rm 1'");
         case FIND:
             return ui.printMessage("Finds tasks containing the specified keyword.\n"
                     + "Format: find <keyword>\n"
-                    + "Alternative Formats: 'f' or 'search' instead of 'find'\n"
-                    + "Examples: find book, f book, search book");
+                    + "Aliases: 'f' or 'search'\n"
+                    + "Examples: 'find book', 'f book', 'search book'");
         case BYE:
             return ui.printMessage("Exits the program.\n"
                     + "Format: bye\n"
-                    + "Alternative Formats: 'exit' or 'quit' instead of 'bye'");
+                    + "Aliases: 'exit' or 'quit' instead of 'bye'");
         default:
             if (input == "") {
                 return ui.printMessage("Here be ye valid commands:\n"
@@ -109,7 +122,7 @@ public class HelpCommand extends Command {
                         + "10. bye\n"
                         + "Type 'help <command>' to find out more about a specific command.");
             } else {
-                return ui.printMessage("I'm sorry, I don't know what that means."
+                return ui.printMessage("Avast ye! I cannot fathom that command."
                         + "Type 'help' to see a list of commands.\n"
                         + "Type 'help <command>' to find out more about a specific command.");
             }

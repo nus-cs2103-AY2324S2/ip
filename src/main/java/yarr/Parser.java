@@ -65,7 +65,7 @@ public class Parser {
     public enum DateSpecifiers {
         BY("/by", "/at", "/b", "/a"),
         FROM("/from", "/start", "/f", "/s"),
-        TO("/to", "/end ", "/t", "/e");
+        TO("/to", "/end", "/t", "/e");
 
         /** Array of regex patterns for each specifier. */
         private final String[] patterns;
