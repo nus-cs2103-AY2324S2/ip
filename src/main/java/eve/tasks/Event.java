@@ -14,7 +14,7 @@ public class Event extends Task {
     public Event(String description, String start, String end) {
         super(description);
         this.startString = Parser.stringToDateTime(start);
-        this.endString = Parser.stringToDateTime(start);
+        this.endString = Parser.stringToDateTime(end);
     }
 
     public Event(String description, String start, String end, String isDone) {
