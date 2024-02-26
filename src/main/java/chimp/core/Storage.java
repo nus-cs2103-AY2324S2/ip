@@ -41,7 +41,7 @@ public class Storage {
      *
      * @param output the output to be saved
      */
-    public static void saveOutputToFile(String output) {
+    public static void saveOutputToFile(TaskList output) {
         Path filePath = Path.of("./data/chimp.txt");
 
         // Create file if it does not exist
@@ -60,7 +60,7 @@ public class Storage {
         // Write to file
         try {
             Files.newBufferedWriter(filePath, StandardOpenOption.TRUNCATE_EXISTING);
-            Files.write(filePath, output.getBytes(), StandardOpenOption.APPEND);
+            Files.write(filePath, output.toString().getBytes(), StandardOpenOption.APPEND);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -85,8 +85,6 @@ public class Storage {
     public static TaskList readOutputFromFile() {
         TaskList taskList = new TaskList();
         Path filePath = Path.of("./data/chimp.txt");
-
-        createFileIfNotExist();
 
         try (BufferedReader reader = Files.newBufferedReader(filePath)) {
             String line;

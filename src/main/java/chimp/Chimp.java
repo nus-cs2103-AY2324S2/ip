@@ -35,22 +35,19 @@ public class Chimp extends Application {
 
     public Chimp() {
         this.ui = new Ui();
-        this.tasks = new TaskList();
         this.storage = new Storage();
+        Storage.createFileIfNotExist();
+        this.tasks = Storage.readOutputFromFile();
     }
 
     @Override
     public void start(Stage stage) {
         AnchorPane mainLayout = getMainLayout(stage);
-
         formatWindow(stage, mainLayout);
-
         addFunctionality();
-
     }
 
     private void addFunctionality() {
-        // Part 3. Add functionality to handle user input.
         sendButton.setOnMouseClicked((event) -> {
             handleUserInput();
         });
@@ -61,7 +58,6 @@ public class Chimp extends Application {
     }
 
     private void formatWindow(Stage stage, AnchorPane mainLayout) {
-        // Step 2. Formatting the window to look as expected
         stage.setTitle("Chimp");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -76,7 +72,6 @@ public class Chimp extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        // You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
@@ -96,9 +91,6 @@ public class Chimp extends Application {
     }
 
     private AnchorPane getMainLayout(Stage stage) {
-        // Step 1. Setting up required components
-
-        // The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -116,12 +108,6 @@ public class Chimp extends Application {
         return mainLayout;
     }
 
-    /**
-     * Iteration 2:
-     * Creates two dialog boxes, one echoing user input and the other containing
-     * Chimp's reply and then appends them to
-     * the dialog container. Clears the user input after processing.
-     */
     private void handleUserInput() {
         String input = userInput.getText();
         Label userText = new Label(input);
@@ -140,22 +126,26 @@ public class Chimp extends Application {
         try {
             Command c = Parser.parse(input);
             String response = c.execute(this.tasks, this.ui, this.storage);
-            Storage.saveOutputToFile(tasks.toString());
-            // TODO: This does not belong here
             if (c.isExit()) {
-                try {
-                    Thread.sleep(2000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                System.exit(0);
+                exitChimp();
             }
+            Storage.saveOutputToFile(this.tasks);
             return response;
-        } catch (InvalidCommandException | CommandParseException | CommandExecuteException e) {
-            return ui.say("hoo");
-        } catch (IndexOutOfBoundsException e) {
+        } catch (InvalidCommandException
+                | CommandParseException 
+                | CommandExecuteException
+                | IndexOutOfBoundsException e) {
             return ui.say("hoo");
         }
+    }
+
+    private void exitChimp() {
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.exit(0);
     }
 
     /**
@@ -173,9 +163,11 @@ public class Chimp extends Application {
      */
     public static void main(String[] args) throws InvalidParameterException {
         Ui ui = new Ui();
-        TaskList tasks = new TaskList();
         Storage storage = new Storage();
+        Storage.createFileIfNotExist();
+        TaskList tasks = Storage.readOutputFromFile();
         ui.say("greet");
+
 
         Scanner sc = new Scanner(System.in);
         boolean isExit = false;
@@ -185,7 +177,7 @@ public class Chimp extends Application {
                 Command c = Parser.parse(inp);
                 c.execute(tasks, ui, storage);
                 isExit = c.isExit();
-                Storage.saveOutputToFile(tasks.toString());
+                Storage.saveOutputToFile(tasks);
             } catch (InvalidCommandException
                     | CommandParseException
                     | CommandExecuteException e) {
