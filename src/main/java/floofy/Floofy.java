@@ -215,10 +215,23 @@ public class Floofy extends Application {
         return ui.showGoodbyeMsg();
     }
 
+    /**
+     * Checks if the index is valid.
+     *
+     * @param idx The index of the task in the list.
+     * @return True if the index is valid, false otherwise.
+     * @throws FloofyException If the index is invalid.
+     */
     public boolean isValidIdx(int idx) throws FloofyException {
         return idx > -1 && idx <= tasks.getSize();
     }
 
+    /**
+     * Checks if the list of tasks is empty.
+     *
+     * @param tasks The list of tasks.
+     * @return True if the list of tasks is empty, false otherwise.
+     */
     public boolean isEmptyList(TaskList tasks) {
         return tasks.getSize() == 0;
     }
