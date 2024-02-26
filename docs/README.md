@@ -9,7 +9,7 @@
    ```
 4. Refer to the [Features](#features) below for details of each command.
 
-<span style="color: #A366F9">## Features</span>
+## <span style="color:#A366F9">Features</span>
 Cal is a simple and easy-to-use chatbot that helps you keep track of your tasks, deadlines and events.
 
 ## Adding events
