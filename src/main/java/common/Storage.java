@@ -13,14 +13,26 @@ import task.Deadline;
 import task.Event;
 import task.ToDo;
 
+/**
+ * Loads and saves the list of tasks to a file.
+ */
 public class Storage {
     private static int MAX_ATTEMPT = 2;
     private String filepath;
 
+    /**
+     * Returns an instance of Storage that will load/save to the given filepath.
+     *
+     * @param filepath The filepath of the file to load/saves the tasks.
+     */
     public Storage(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * Checks if filepath exist, if not creates one from the current directory.
+     * Maximum attempt of 2, else the program will exit with error.
+     */
     public void checkForFilePath() {
         int currentAttempt = 0;
         File file;
@@ -60,6 +72,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns the list of tasks loaded from the storage file. 
+     * 
+     * @return The list of tasks loaded in a LinkedList.
+     */
     public LinkedList<Task> loadData() {
         checkForFilePath();
         LinkedList<Task> tasks = new LinkedList<>();
@@ -111,6 +128,11 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the current list of tasks to the storage file.
+     *
+     * @param tasks The list of tasks to save.
+     */
     public void saveDataAndExit(TaskList tasks) {
         try {
             System.out.println("Saving data ...");

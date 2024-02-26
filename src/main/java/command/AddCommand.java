@@ -9,17 +9,30 @@ import task.Event;
 import task.TaskList;
 import task.ToDo;
 
+/**
+ * {@inheritDocs}
+ * Adds a task into a tasklist.
+ */
 public class AddCommand extends Command {
     private String command;
     private TaskList taskList;
     private StringTokenizer st;
 
+    /**
+     * Creates an instance of AddCommand.
+     */
     public AddCommand(String command, TaskList taskList, StringTokenizer st) {
         this.command = command;
         this.taskList = taskList;
         this.st = st;
     }
 
+    /**
+     * {@inheritDocs}
+     * Adds a task into a tasklist.
+     * 
+     * @throws DukeException If the command cannot be executed.
+     */
     @Override
     public void execute() throws DukeException {
         try {
@@ -96,6 +109,11 @@ public class AddCommand extends Command {
 
     }
 
+    /**
+     * {@inheritDoc}
+     *
+     * @return True if program will exit.
+     */
     @Override
     public boolean isExit() {
         return false;

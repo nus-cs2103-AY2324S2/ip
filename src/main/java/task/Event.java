@@ -6,12 +6,18 @@ import java.time.format.DateTimeParseException;
 
 import common.DukeException;
 
+/**
+ * {@inheritDoc}
+ */
 public class Event extends Task {
     protected LocalDateTime startTime;
     protected LocalDateTime endTime;
-    DateTimeFormatter receivingFormatter = DateTimeFormatter.ofPattern("d/M/yyyy-HHmm");
-    DateTimeFormatter printingFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
+    private DateTimeFormatter receivingFormatter = DateTimeFormatter.ofPattern("d/M/yyyy-HHmm");
+    private DateTimeFormatter printingFormatter = DateTimeFormatter.ofPattern("MMM dd yyyy, HH:mm");
 
+    /**
+     * {@inheritDoc}
+     */
     public Event(String taskName, String startTime, String endTime) throws DukeException {
         super(taskName);
         try {
@@ -33,6 +39,9 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     public Event(boolean isDone, String taskName, String time) throws DukeException {
         super(isDone, taskName);
         try {
@@ -47,12 +56,18 @@ public class Event extends Task {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toString() {
         return "[E]" + super.toString() + " (from: " + startTime.format(printingFormatter)
                 + " to: " + endTime.format(printingFormatter) + ")";
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public String toData() {
         return "E | " + super.toData() + " | " + startTime.format(printingFormatter)
