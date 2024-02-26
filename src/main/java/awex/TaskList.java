@@ -42,6 +42,7 @@ public class TaskList {
     public LinkedList<Task> find(String str) {
         LinkedList<Task> list = new LinkedList<>();
         int len = this.tasks.size();
+        assert len >= 0;
         for (int i = 0; i < len; i++) {
             Task t = this.tasks.get(i);
             if (t.isPartOfDesc(str)) {

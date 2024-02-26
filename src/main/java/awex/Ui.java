@@ -54,6 +54,7 @@ public class Ui {
     public String showListMessage(TaskList list) {
         String str = "Here are the tasks in your list:\n";
         int len = list.size();
+        assert len >= 0;
         for (int i = 1; i <= len; i++) {
             str += i + "." + list.get(i - 1).showAll() + "\n";
         }
@@ -70,6 +71,7 @@ public class Ui {
         String stri = "Here are the matching tasks in your list:\n";
         LinkedList<Task> list = tasks.find(str);
         int len = list.size();
+        assert len >= 0;
         for (int i = 1; i <= len; i++) {
             stri += i + "." + list.get(i - 1).showAll() + "\n";
         }
@@ -87,6 +89,7 @@ public class Ui {
      * Prints explainer message when user provides inaccessible list index.
      */
     public String wrongIndexMessage(int i, int len) {
+        assert len >= 0;
         if (i == 0) {
             return "Pick a value between 1 and " + len + ".";
         } else {
