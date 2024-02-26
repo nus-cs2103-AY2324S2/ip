@@ -1,6 +1,7 @@
 package duke;
 
-import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * The Duke class is the main entry point for the bot application itself
@@ -9,17 +10,317 @@ import java.io.IOException;
  * It's the entry point for the bot
  */
 public class Duke {
-    /**
-     * The main method to start the bot.
-     * It initializes the bot, prints a greeting, and starts the operator to parse
-     * user input
-     */
-    public static void main(String[] args) throws BotException, IOException {
-        // Initial
-        System.out.println(Ui.wrapWithSepLine(Bot.getGreeting()));
+    private TaskList taskList;
+    private TaskRepository taskRepository;
 
-        // Starting parser to work with bot
-        Parser operator = new Parser();
-        operator.startOperator();
+    /**
+     * Constructor for the Duke class.
+     * It initializes the taskRepository and taskList objects.
+     * 
+     * @throws BotException if there is an error loading tasks from the repository.
+     */
+    public Duke() throws BotException {
+        this.taskRepository = new TaskRepository();
+        this.taskList = taskRepository.loadTasks();
+    }
+
+    /**
+     * Processes user input and returns a response.
+     * 
+     * @param userInput The user's input as a string.
+     * @return The bot's response as a string.
+     */
+    public String processInput(String userInput) {
+        String[] userInputArray = userInput.split(" ");
+        String command = userInputArray[0];
+
+        switch (command) {
+            case "bye":
+                return Bot.botExitMsgGui();
+            case "help":
+                return Bot.botHelpMsgGui();
+            case "list":
+                return listAllMsg(taskList);
+            case "mark":
+                try {
+                    markTaskHandler(userInputArray);
+                    // save to file
+                    taskRepository.saveTasksToFile(taskList);
+                    return markMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "unmark":
+                try {
+                    unmarkTaskHandler(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return unmarkMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "todo":
+                try {
+                    handleTodoCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "deadline":
+                try {
+                    handleDeadlineCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "event":
+                try {
+                    handleEventCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return addTaskMsg();
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "delete":
+                try {
+                    String status = handleDeleteCommand(userInputArray);
+                    taskRepository.saveTasksToFile(taskList);
+                    return deleteMsg(status);
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            case "find":
+                try {
+                    String tasksFound = handleFindCommand(userInputArray);
+                    return findMsg(tasksFound);
+                } catch (BotException e) {
+                    return e.getMessage();
+                }
+            default:
+                return Bot.invalidInputMsgGui();
+        }
+    }
+
+    /**
+     * Returns a string representing all tasks in the task list.
+     *
+     * @param taskList The task list to be listed.
+     * @return A string representing all tasks in the task list.
+     */
+    private String listAllMsg(TaskList taskList) {
+        StringBuilder tasksMsg = new StringBuilder();
+        tasksMsg.append(Bot.botListAllMsgGui()).append("\n");
+        tasksMsg.append(this.taskList.toString()).append("\n");
+        tasksMsg.append(TaskCountMsg()).append("\n");
+        return tasksMsg.toString();
+    }
+
+    /*
+     * @return A string representing the bot's response to the add command
+     */
+    private String addTaskMsg() {
+        return Bot.printAddTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+    }
+
+    /*
+     * @return A string representing the bot's response to the mark command
+     */
+    private String markMsg() {
+        return Bot.printMarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+    }
+
+    /*
+     * @return A string representing the bot's response to the unmark command
+     */
+    private String unmarkMsg() {
+        return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+    }
+
+    /*
+     * @param status The status of the delete operation
+     * 
+     * @return A string representing the bot's response to the delete command
+     */
+    private String deleteMsg(String status) {
+        return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
+                + "\n" + TaskCountMsg() + "\n" + status + "\n";
+    }
+
+    /*
+     * @param The tasks found by the find command
+     * 
+     * @return A string representing the bot's response to the find command
+     */
+    private String findMsg(String tasks) {
+        return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
+    }
+
+    /*
+     * @return A string representing the number of tasks in the task list
+     */
+    private String TaskCountMsg() {
+        return "You have " + taskList.getTaskCount() + " tasks in your list.";
+    }
+
+    /**
+     * Handles the "find" command by searching for tasks that contain a specified
+     * keyword
+     *
+     * @param userInputArray the array of user input tokens
+     * @throws BotException if the keyword is not provided
+     * 
+     * @return A string representing the tasks found
+     */
+    private String handleFindCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a keyword to search for.");
+        }
+        String keyword = userInputArray[1];
+        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < matchingTasks.size(); i++) {
+            sb.append((i + 1) + "." + matchingTasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
+
+    /*
+     * Handles the delete command by removing a task from the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * 
+     * @throws BotException if the user input is invalid or the task number is out
+     * of range
+     * 
+     * @return A string representing the status of the delete operation
+     */
+    private String handleDeleteCommand(String[] userInputArray) throws BotException {
+        StringBuilder status = new StringBuilder();
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a task number to delete.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(userInputArray[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
+        Task taskToRemove = taskList.getTaskByNum(i);
+        taskList.removeTask(i);
+        if (taskList.getTaskCount() > 0) {
+            status.append("Task removed: ").append(taskToRemove).append("\n");
+        } else {
+            status.append("No more tasks in the list.");
+        }
+        return status.toString();
+    }
+
+    /**
+     * Handles the marking of a task as done
+     *
+     * @param inputs The user inputs
+     * @throws BotException If the task number is missing, not numeric, or out of
+     *                      range
+     */
+    private void markTaskHandler(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a task number to mark.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(userInputArray[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
+        taskList.markTaskAsDone(i);
+    }
+
+    /**
+     * Handles the command to unmark a task
+     *
+     * @param inputs The array of inputs containing the task number to unmark
+     * @throws BotException If the task number is not provided, is not numeric, or
+     *                      is out of range
+     */
+    private void unmarkTaskHandler(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("Please enter a task number to unmark.");
+        }
+        int i;
+        try {
+            i = Integer.parseInt(userInputArray[1]);
+        } catch (NumberFormatException e) {
+            throw new BotException("Task number should be numeric.");
+        }
+        if (i <= 0 || i > taskList.getTaskCount()) {
+            throw new BotException("Task number is out of range.");
+        }
+        taskList.markTaskAsUndone(i);
+    }
+
+    /**
+     * Handles the "todo" command by adding a new todo task to the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * @throws BotException if the description of the todo is empty
+     */
+    private void handleTodoCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 2) {
+            throw new BotException("The description of a todo cannot be empty.");
+        }
+        String todoTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length));
+        this.taskList.addTodo(todoTask);
+    }
+
+    /**
+     * Handles the "deadline" command by adding a deadline task to the task list
+     * 
+     * @param userInputArr the array containing the user input
+     * @throws BotException if the user input is incomplete
+     */
+    private void handleDeadlineCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
+            throw new BotException("Please give some description and due date in deadline");
+        }
+        String deadlineTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
+                userInputArray.length)).split("/by", 2)[0].trim();
+
+        String dueDate = String.join(" ", Arrays.copyOfRange(userInputArray,
+                Arrays.asList(userInputArray).indexOf("/by") + 1, userInputArray.length));
+
+        taskList.addDeadline(deadlineTask, dueDate);
+    }
+
+    /**
+     * Handles the event command by extracting the event task, start time, and end
+     * time from the user input array
+     * Adds the event task to the task list with the specified start time and end
+     * time
+     *
+     * @param userInputArr the user input array containing the event command and its
+     *                     arguments
+     * @throws BotException if the description and time of an event are empty
+     */
+    private void handleEventCommand(String[] userInputArray) throws BotException {
+        if (userInputArray.length < 3) {
+            throw new BotException("The description and time of an event cannot be empty.");
+        }
+        String eventTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1,
+                userInputArray.length))
+                .split("/from", 2)[0].trim();
+        int fromIndex = Arrays.asList(userInputArray).indexOf("/from") + 1;
+        int toIndex = Arrays.asList(userInputArray).indexOf("/to");
+        String startTime = String.join(" ", Arrays.copyOfRange(userInputArray,
+                fromIndex, toIndex));
+        String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex
+                + 1, userInputArray.length));
+        taskList.addEvent(eventTask, startTime, endTime);
     }
 }

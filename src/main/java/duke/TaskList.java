@@ -98,7 +98,9 @@ public class TaskList {
     public List<Task> findTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
+            // convert all to lower case for case-insensitive search
+            String temp = task.getDescription().toLowerCase();
+            if (temp.contains(keyword)) {
                 matchingTasks.add(task);
             }
         }
@@ -143,5 +145,19 @@ public class TaskList {
      */
     public List<Task> getTaskList() {
         return tasks;
+    }
+
+    /*
+     * Method to return the string representation of the task list
+     * 
+     * @return The string representation of the task list
+     */
+    @Override
+    public String toString() {
+        StringBuilder tasksMsg = new StringBuilder();
+        for (int i = 0; i < tasks.size(); i++) {
+            tasksMsg.append((i + 1) + ". " + tasks.get(i).toString() + "\n");
+        }
+        return tasksMsg.toString();
     }
 }

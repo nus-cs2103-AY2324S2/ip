@@ -23,7 +23,7 @@ public class TaskRepository {
                 file.getParentFile().mkdirs();
                 file.createNewFile();
             }
-            // init taskList
+            // Initialize an empty TaskList
             this.taskList = new TaskList();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,7 +77,6 @@ public class TaskRepository {
                         break;
                 }
             }
-            // System.out.println("Your tasks have been loaded from storage.");
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -91,18 +90,15 @@ public class TaskRepository {
      * The task number is removed before writing to the file as it is not needed
      *
      * @param taskList The TaskList containing the tasks to be saved to the file
-     * 
-     * @return void
+     *
      */
     public void saveTasksToFile(TaskList taskList) {
-        // TODO: Maybe try using buffered writer
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
             for (String task : taskList.listTasks()) {
                 String taskWithoutNumber = task.substring(task.indexOf(" ") + 1);
                 fileWriter.write(taskWithoutNumber + "\n");
             }
-            System.out.println("Your tasks have been saved to storage.");
             fileWriter.close();
         } catch (IOException e) {
             e.printStackTrace();

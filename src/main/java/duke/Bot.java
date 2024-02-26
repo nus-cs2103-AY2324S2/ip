@@ -23,6 +23,86 @@ public class Bot {
         return greeting.toString();
     }
 
+    // ---------------------------- GUI Interactions ----------------------------
+
+    public static String botDeleteMessageGui() {
+        return "Bet. I'll remove it from your list. You weren't gonna do it anyways...";
+    }
+
+    public static String botFindMessageGui() {
+        return "Here's what I found. You're welcome.";
+    }
+
+    /**
+     * @return A string representing the bot's exit message.
+     */
+    public static String botExitMsgGui() {
+        StringBuilder exitMsg = new StringBuilder();
+        String alternateReply = "Deleting operating system in...";
+        exitMsg.append(alternateReply).append("\n");
+
+        for (int i = 3; i >= 1; i--) {
+            exitMsg.append(i).append("...\n");
+        }
+
+        exitMsg.append("Just kidding...\n");
+        exitMsg.append("Goodbye, human.");
+        exitMsg.append("\n");
+        exitMsg.append("I'll be back.");
+        exitMsg.append("\n");
+        exitMsg.append("You're supposed to press the exit button. Don't make me do it for you.");
+        return exitMsg.toString();
+    }
+
+    /**
+     * @return A string representing the bot's help message.
+     */
+    public static String botHelpMsgGui() {
+        StringBuilder helpMsg = new StringBuilder();
+        helpMsg.append("Wasn't I clear earlier? I'm an extremely intelligent AI. But anyways...\n");
+        helpMsg.append("You were probably looking for this:\n");
+        helpMsg.append(
+                "Commands: \n\t- todo \n\t- deadline \n\t- event \n\t- list \n\t- mark \n\t- unmark \n\t- bye \n\t- help\n");
+        return helpMsg.toString();
+    }
+
+    /*
+     * @return A string representing the bot's message for invalid input
+     */
+    public static String invalidInputMsgGui() {
+        return "Eh, invalid command. I get what you're saying but I'm not gonna do it. Try again?";
+    }
+
+    /*
+     * @return A string representing the bot's message for listing all tasks
+     */
+    public static String botListAllMsgGui() {
+        return "Seems like you're too lazy to remember what you have to do. Here's your list:";
+    }
+
+    /*
+     * @return A string representing the bot's message for adding a task
+     */
+    public static String printAddTaskMsgGui() {
+        return "Added. You better do it before I erase your data.";
+    }
+
+    /*
+     * @return A string representing the bot's message for marking a task as done
+     */
+    public static String printMarkTaskMsgGui() {
+        return "Faster than expected. Guess I'll mark it as done...";
+    }
+
+    /**
+     * @return A string representing the bot's message for marking a task as undone
+     */
+    public static String printUnmarkTaskMsgGui() {
+        return "Guess who didn't commit to this task. I'll mark it as undone...";
+    }
+
+    // -------------------------- Terminal Interaactions --------------------------
+
     /**
      * Prints the bot's exit message
      */
@@ -90,7 +170,7 @@ public class Bot {
     public static void printUnmarkTaskMsg() {
         System.out.println("Guess who didn't commit to this task. I'll mark it as undone...");
     }
-  
+
     /**
      * Prints the bot's message for finding a task
      */

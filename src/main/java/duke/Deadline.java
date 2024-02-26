@@ -29,7 +29,7 @@ public class Deadline extends Task {
                 this.dueDateTime = LocalDateTime.parse(dueDate, formatter2);
             } catch (DateTimeParseException e2) {
                 throw new BotException(
-                        "Invalid date format. Please use either 'd/M/yyyy HHmm' or 'MMM dd yyyy HH:mm'.");
+                        "Invalid date format. Please use 'MMM dd yyyy HH:mm'.");
             }
         }
     }
