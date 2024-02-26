@@ -36,6 +36,8 @@ public class Storage {
      * @return the list of Strings
      */
     public List<String> load(){
+        assert filePath != null;
+        assert !filePath.equals("");
         List<String> lines;
         try {
             File file = new File(filePath);

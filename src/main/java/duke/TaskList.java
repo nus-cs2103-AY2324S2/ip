@@ -133,10 +133,12 @@ public class TaskList {
      * @return true or false based on success of update
      */
     public boolean updateTaskInList(int index, Task task) {
+        assert index >= 0;
+        assert task != null;
+
         if (taskList.contains(task)) {
             taskList.set(index, task);
             pcs.firePropertyChange("UPDATE", null, taskList);
-            System.out.println("tasklist:update:task: "+task.getStringRepresentation());
             return true;
         }
         return false;
@@ -149,6 +151,9 @@ public class TaskList {
      * @return true or false indicating removal result
      */
     public boolean removeItemAtIndex(int index) {
+        assert index >= 0;
+        assert taskList.size() > 0;
+
         if (index >= 0 && index < taskList.size()) {
             Task obj = taskList.get(index);
             taskList.remove(obj);
@@ -165,6 +170,7 @@ public class TaskList {
      * @return true or false indicating removal result
      */
     public boolean remove(Task task) {
+        assert task != null;
         if (taskList.contains(task)) {
             int index = taskList.indexOf(task);
             Task obj = taskList.get(index);
@@ -181,6 +187,7 @@ public class TaskList {
      * @return the string
      */
     public String printOutput() {
+
         StringBuilder sb = new StringBuilder();
         int count = 1;
         for (Task task : taskList) {
@@ -196,6 +203,7 @@ public class TaskList {
     }
 
     public String toString(){
+
         StringBuilder sb = new StringBuilder();
         int count = 1;
         for (Task task : taskList) {

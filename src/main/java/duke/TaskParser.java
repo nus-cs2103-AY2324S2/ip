@@ -28,6 +28,9 @@ public class TaskParser {
      * @return the task
      */
     public static Task parse(String taskstring){
+        assert taskstring != null;
+        assert !taskstring.equals("");
+
         Task task;
         String startString = taskstring.substring(taskstring.indexOf("["),3);
         switch (startString) {
@@ -43,6 +46,8 @@ public class TaskParser {
             default:
                 task = parseOthers(taskstring);
         }
+        assert task != null;
+
         return task;
     }
 

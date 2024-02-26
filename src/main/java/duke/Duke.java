@@ -155,7 +155,10 @@ public class Duke extends Application {
             filePath = "./duke.txt";
         }
         storage = new Storage(filePath);
+        assert storage != null;
+
         taskList = new TaskList(storage.load());
+        assert taskList != null;
     }
 
 }

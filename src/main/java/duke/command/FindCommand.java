@@ -28,6 +28,9 @@ public class FindCommand extends Command{
      * @param searchStr the search str
      */
     public FindCommand(String searchStr) {
+        assert searchStr != null;
+        assert !searchStr.equals("");
+
         this.searchString = searchStr;
     }
 

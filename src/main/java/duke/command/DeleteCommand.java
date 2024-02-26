@@ -24,6 +24,7 @@ public class DeleteCommand extends Command{
      * @param itemNoToDelete the item no to delete
      */
     public DeleteCommand(int itemNoToDelete) {
+        assert itemNoToDelete > 0;
         //this itemNo is what user sees
         //have to decrease by 1 to derive index no in taskList
         this.itemNoToDelete = itemNoToDelete;

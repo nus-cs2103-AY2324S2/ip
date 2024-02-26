@@ -26,6 +26,7 @@ public class UpdateCommand extends Command{
      * @param isMarked  the is marked
      */
     public UpdateCommand(int taskSeqNo, boolean isMarked) {
+        assert taskSeqNo > 0;
         //taskSeqNo is the item no entered by user
         //decrease by 1 to get index no
         this.taskSeqNo = taskSeqNo;
