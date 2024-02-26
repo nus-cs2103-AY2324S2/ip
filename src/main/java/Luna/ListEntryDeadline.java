@@ -12,4 +12,9 @@ public class ListEntryDeadline extends ListEntry {
     public String toString() {
             return super.toString() + " (by: "+ this.taskEnd.format(DateTimeFormatter.ofPattern("d MMM yyyy")) + ")";
     }
+
+    @Override
+    public void snoozeEntry(int days) {
+        this.taskEnd = taskEnd.plusDays(days);
+    }
 }

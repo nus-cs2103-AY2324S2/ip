@@ -75,5 +75,9 @@ public class ListEntry {
     public String toString() {
         return ("[" + this.type + "]" + (this.isDone ? "[X] " : "[ ] ") + this.task);
     }
+
+    public void snoozeEntry(int days) {
+
+    }
 }
 

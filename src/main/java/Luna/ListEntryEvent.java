@@ -11,4 +11,10 @@ public class ListEntryEvent extends ListEntry {
     public String toString() {
         return super.toString() + " (from: "+ this.taskStart + " to: " + this.taskEnd + ")";
     }
+
+    @Override
+    public void snoozeEntry(int days) {
+        this.taskEnd = taskEnd.plusDays(days);
+    }
+
 }
