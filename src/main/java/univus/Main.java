@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Univus univus = new Univus("./data/Univus.txt");
+    private Univus univus = new Univus("data/Univus.txt");
 
     @Override
     public void start(Stage stage) {

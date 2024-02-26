@@ -2,6 +2,7 @@ package univus;
 
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -36,12 +37,18 @@ public class Storage {
      * @param taskList The TaskList containing the tasks to be saved.
      */
     public void saveToFile(TaskList taskList) {
-        try (PrintWriter writer = new PrintWriter(filePath)) {
-            ArrayList<Task> store = taskList.getTaskList();
-            for (Task task : store) {
-                writer.println(task.toString());
+        try {
+            File file = new File(filePath);
+            if (!file.exists()) {
+                file.createNewFile();
             }
-        } catch (FileNotFoundException e) {
+            try (PrintWriter writer = new PrintWriter(file)) {
+                ArrayList<Task> store = taskList.getTaskList();
+                for (Task task : store) {
+                    writer.println(task.toString());
+                }
+            }
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
