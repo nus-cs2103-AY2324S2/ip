@@ -6,7 +6,19 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * The type Parser.
+ * This class parses the commands entered by user.
+ */
 public class Parser {
+    /**
+     * Parse command.
+     *
+     * @param commandText the command text entered by user
+     * @return the command object of type Command containing parsed details of tasjs
+     * @throws DukeException when the parser cannot parse user input into appropriate command objects
+     *
+     */
     public static Command parse(String commandText) throws DukeException{
         Command command;
         if (commandText.equals("bye")) {

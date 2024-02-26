@@ -5,6 +5,10 @@ import duke.task.Event;
 import duke.task.Task;
 import duke.task.Todo;
 
+/**
+ * The type Task parser.
+ * Used for parsing task details in text format to Task Objects
+ */
 public class TaskParser {
     private static final String MARKED_TAG="[X]";
     private static final String TODO_TAG="[T]";
@@ -16,6 +20,13 @@ public class TaskParser {
     private static final String FROM="(from: ";
     private static final String TO=" to:";
     private static final String BY="(by: ";
+
+    /**
+     * Parse task in String to Task objects.
+     *
+     * @param taskstring the taskstring
+     * @return the task
+     */
     public static Task parse(String taskstring){
         Task task;
         String startString = taskstring.substring(taskstring.indexOf("["),3);

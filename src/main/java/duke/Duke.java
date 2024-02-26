@@ -5,11 +5,20 @@ import duke.command.Command;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 
+/**
+ * Duke is the main class for Task maintenance application Duke
+ */
 public class Duke {
     private Storage storage;
     private TaskList taskList;
     private UI ui;
 
+    /**
+     * Instantiates a new Duke.
+     *
+     * @param filepath path for storing tasks in plain text format
+     *                 If filepath is empty a default location will be used.
+     */
     public Duke(String filepath) {
         ui = new UI();
         storage = new Storage(filepath);
@@ -32,6 +41,11 @@ public class Duke {
         }
     }
 
+    /**
+     * Run method displays welcome message.
+     * Displays command line interface for user interaction.
+     *
+     */
     public void run(){
         ui.showWelcome();
         boolean isExit = false;
@@ -49,6 +63,11 @@ public class Duke {
         }
     }
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
         new Duke("/home/shiva/IdeaProjects/cs2103-t9p2-gradle/duke/duke.txt").run();
     }
