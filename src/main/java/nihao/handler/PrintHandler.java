@@ -3,6 +3,7 @@ package nihao.handler;
 import java.util.ArrayList;
 
 import nihao.action.task.Task;
+import nihao.enums.SavedString;
 
 /**
  * Handles all printing requests.
@@ -51,5 +52,12 @@ public final class PrintHandler {
      */
     public static String printException(Exception e) {
         return printWithDivider(e.getMessage());
+    }
+
+    /**
+     * Prints the app logo and the greeting line.
+     */
+    public static String printInit() {
+        return printWithDivider(SavedString.LOGO.getContent()) + printWithDivider(SavedString.GREETINGS.getContent());
     }
 }

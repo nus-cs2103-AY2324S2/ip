@@ -9,12 +9,6 @@ import nihao.handler.PrintHandler;
  */
 public class MarkAction implements Action {
     private int index;
-
-    /**
-     * Constructor that specifies the index of the task to be marked as completed.
-     *
-     * @param index The index of the task to be marked as completed.
-     */
     public MarkAction(String index) {
         this.index = Integer.parseInt(index);
     }
