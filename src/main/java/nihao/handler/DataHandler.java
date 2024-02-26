@@ -55,18 +55,24 @@ public class DataHandler {
      * Creates the storage file and/or the directory if not found.
      */
     public static void read() {
+        Path filePath = Paths.get(FILE_PATH);
+        Path directoryPath = Paths.get(DIRECTORY_PATH);
         try {
             readFromJson();
         } catch (IOException e) {
-            Path newFilePath = Paths.get(FILE_PATH);
-            try {
-                Files.createFile(newFilePath);
-            } catch (IOException ex) {
+            if (!Files.exists(directoryPath)) {
                 try {
-                    Files.createDirectory(Paths.get(DIRECTORY_PATH));
+                    Files.createDirectories(directoryPath);
                 } catch (IOException exc) {
                     PrintHandler.printException(exc);
+                    return;
                 }
+            }
+
+            try {
+                Files.createFile(filePath);
+            } catch (IOException ex) {
+                PrintHandler.printException(ex);
             }
         }
     }
