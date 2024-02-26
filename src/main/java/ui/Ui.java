@@ -97,21 +97,15 @@ public class Ui {
      * @return the response.
      */
     public String getResponse(String userInput, Parser parser) {
-        // Save the original output stream
         PrintStream originalOut = System.out;
-        // Create a stream to hold the output
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         PrintStream newOut = new PrintStream(baos);
-        // Set the new output stream
         System.setOut(newOut);
-        // Run the command
-        // Assuming that the runCommand method runs the command and prints the output to the console
         try {
             parser.parse(userInput);
         } catch (IOException e) {
             e.printStackTrace();
         }
-        // Reset the output stream
         System.setOut(originalOut);
         // Get the output printed to the console
         String response = new String(baos.toByteArray(), StandardCharsets.UTF_8);
@@ -164,7 +158,4 @@ public class Ui {
     public String quote() {
         return QUOTE_STRING;
     }
-
-
-
 }
