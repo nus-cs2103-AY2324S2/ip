@@ -15,12 +15,11 @@ public class AddCommand extends Command {
      * Executes command by asking user for name and type of task and adding to tasks and update storage.
      *
      * @param tasks   List of tasks.
-     * @param ui      User interface.
      * @param storage Local file storage.
      * @return
      * @throws ReacherException if user input is invalid type of task.
      */
-    public String execute(String input, TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+    public String execute(String input, TaskList tasks, Storage storage) throws ReacherException {
         String name = Parser.getInfo(input, NAME);
         String type = Parser.getInfo(input, TYPE);
 

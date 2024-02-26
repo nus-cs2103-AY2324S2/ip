@@ -13,15 +13,17 @@ public class Parser {
         END,
         KEYWORD,
         TYPE,
-        CHANGE,
-         TASK_NO, DEADLINE
+        CHANGE, 
+         TASK_NO,
+         DEADLINE
     }
     /**
      * Makes sense of user input and returns the command.
      * @throws ReacherException If input is not a valid command.
      */
-    public static Command parse(String input) throws ReacherException {
+    public static Command getCommand(String input) throws ReacherException {
         String command = getInfo(input, COMMAND);
+
         switch (command) {
         case ("find"):
             return new FindCommand();

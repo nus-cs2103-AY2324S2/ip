@@ -15,13 +15,12 @@ public class EditCommand extends Command{
      * Executes command to mark a task in tasks done, undone or delete it ans update storage.
      *
      * @param tasks   List of tasks
-     * @param ui      User interface
      * @param storage Local file storage
      * @return
      * @throws ReacherException If user did not specify done, undone or delete.
      */
     @Override
-    public String execute(String input, TaskList tasks, Ui ui, Storage storage) throws ReacherException {
+    public String execute(String input, TaskList tasks, Storage storage) throws ReacherException {
         int num = 0;
         try {
             num = Integer.parseInt(Parser.getInfo(input, TASK_NO));
