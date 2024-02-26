@@ -14,7 +14,7 @@
                 -fx-spacing: 10px;
                 -fx-padding: 10px;
             </style>
-            <Text fx:id="dialog" lineSpacing="1.0" style="-fx-padding: 40 40 40 40;" text="Label" wrappingWidth="289.599974155426"/>
+            <Text fx:id="dialog" lineSpacing="1.0" style="-fx-padding: 40 40 40 40;" text="Label" wrappingWidth="350.599974155426"/>
             <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" >
                 <Image url="@../images/DaDuke.png" />
             </ImageView>

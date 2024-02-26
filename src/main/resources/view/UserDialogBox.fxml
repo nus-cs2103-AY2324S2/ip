@@ -18,7 +18,7 @@
             <ImageView fx:id="displayPicture" fitHeight="99.0" fitWidth="99.0" pickOnBounds="true" preserveRatio="true" >
                 <Image url="@../images/DaUser.png" />
             </ImageView>
-            <Text fx:id="dialog" lineSpacing="1.0" style="-fx-padding: 40 40 40 40;" text="Label" wrappingWidth="289.599974155426" HBox.hgrow="ALWAYS"/>
+            <Text fx:id="dialog" lineSpacing="1.0" style="-fx-padding: 40 40 40 40;" text="Label" wrappingWidth="350.599974155426" HBox.hgrow="ALWAYS"/>
         </HBox>
     </children>
     <padding>

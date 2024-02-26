@@ -53,7 +53,7 @@ public class Help extends Command {
         String formattedCommands = "Command's all here, REMEMBER THIS!\n" +
                         "|  help                                              \n" +
                         "|  todo <task>                                       \n" +
-                        "|  deadline <task> /by <yyyy/MM/dd>                  \n" +
+                        "|  deadline <task> /by <yyyy-MM-dd>                  \n" +
                         "|  event <task> /from <yyyy-MM-dd> /to <yyyy-MM-dd>  \n" +
                         "|  list                                              \n" +
                         "|  mark <task index>                                 \n" +
