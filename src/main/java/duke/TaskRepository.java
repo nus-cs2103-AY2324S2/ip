@@ -41,9 +41,11 @@ public class TaskRepository {
     public TaskList loadTasks() throws BotException {
         try {
             BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            assert reader != null : "Reader should be initialized";
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] taskDetails = line.split("\\|");
+                assert taskDetails.length >= 3 : "Task details are incomplete";
                 String isDone = taskDetails[1].trim();
                 Boolean isTaskDone = isDone.equals("X");
                 String taskType = taskDetails[0].trim();
@@ -56,6 +58,7 @@ public class TaskRepository {
                         }
                         break;
                     case "D":
+                        assert taskDetails.length >= 4 : "Deadline task details are incomplete";
                         String dueDate = taskDetails[3].trim();
                         dueDate = dueDate.substring(3).trim();
                         taskList.addDeadline(description, dueDate);
@@ -64,8 +67,10 @@ public class TaskRepository {
                         }
                         break;
                     case "E":
+                        assert taskDetails.length >= 4 : "Event task details are incomplete";
                         String timeBlock = taskDetails[3].trim();
                         String[] parts = timeBlock.split("to:");
+                        assert parts.length == 2 : "Time block is incomplete";
                         String fromPart = parts[0];
                         String toPart = parts[1];
                         String startTime = fromPart.replace("from:", "").trim();
