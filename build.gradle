@@ -51,10 +51,12 @@ application {
     mainClass.set("liv.Launcher")
 }
 
+mainClassName = "liv.Launcher"
+
 shadowJar {
     archiveFileName = "Liv.jar"
     archiveBaseName = "Liv"
-
+    archiveVersion = "v0.2"
 }
 
 run{
