@@ -64,8 +64,22 @@ public class Duke extends Application {
 
     }
 
+    public String getResponse(String input) throws FileNotFoundException, IOException {
+        Ui Chatty = new Ui();
+        String message;
+        try {
+            message = Chatty.interact(input);
+        } catch (UnrecognizedException e) {
+            message = "Apologies Sir! I am not equipped to handle such a command!";
+        } catch (MissingInputException e) {
+            message = "Apologies Sir! You did not include the name of the item!";
+        }
+
+        return message;
+    }
+
     @Override
-    public void start(Stage stage) {
+    public void start(Stage stage) throws FileNotFoundException, IOException  {
          scrollPane = new ScrollPane();
          dialogContainer = new VBox();
          scrollPane.setContent(dialogContainer);
@@ -123,11 +137,23 @@ public class Duke extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
 
         sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (FileNotFoundException e) {
+
+            } catch (IOException e) {
+
+            }
         });
     
         userInput.setOnAction((event) -> {
-            handleUserInput();
+            try {
+                handleUserInput();
+            } catch (FileNotFoundException e) {
+
+            } catch (IOException e) {
+                
+            }
         });
     }
 
@@ -139,17 +165,17 @@ public class Duke extends Application {
         return textToAdd;
     }
 
-    private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label dukeText = new Label(getResponse(userInput.getText()));
+    private void handleUserInput() throws FileNotFoundException, IOException  {
+        // Label userText = new Label(userInput.getText());
+        // Label dukeText = new Label(getResponse(userInput.getText()));
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(dukeText, new ImageView(duke))
+                DialogBox.getUserDialog(userInput.getText(), user),
+                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
         );
         userInput.clear();
     }
 
-    private String getResponse(String input) {
-        return "Duke heard: " + input;
-    }
+    // public String getResponse(String input) {
+    //     return "Duke heard: " + input;
+    // }
 }
