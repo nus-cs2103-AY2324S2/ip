@@ -21,7 +21,6 @@ public class SortCommand extends Command {
      * @return String containing the result of the command.
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
-        tasks.sortTaskList();
-        return ui.printSortLog();
+        return tasks.sortTaskList();
     }
 }

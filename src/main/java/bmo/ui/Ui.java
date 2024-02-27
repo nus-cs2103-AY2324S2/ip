@@ -60,6 +60,12 @@ public class Ui {
         return sortLogPrint;
     }
 
+    public String printSortEmptyLog() {
+        String sortEmptyLogPrint = "BMO cannot sort an empty log (⊙_☉)\n"
+                + "please add some tasks to your log first";
+        return sortEmptyLogPrint;
+    }
+
     public String printEmptyStorage() {
         String emptyStoragePrint = "BMO cache has no saved tasks\n"
                 + "your log is currently empty ᕦ(ò_óˇ)ᕤ";

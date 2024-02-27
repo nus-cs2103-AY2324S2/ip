@@ -92,8 +92,13 @@ public class TaskList extends ArrayList<Task> {
     /**
      * Sorts the TaskList.
      */
-    public void sortTaskList() {
+    public String sortTaskList() {
+        Ui ui = new Ui();
+        if (this.taskLog.isEmpty()) {
+            return ui.printSortEmptyLog();
+        }
         Collections.sort(this);
+        return ui.printSortLog();
     }
 
     /**
