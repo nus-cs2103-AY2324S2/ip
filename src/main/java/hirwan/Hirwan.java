@@ -91,7 +91,6 @@ public class Hirwan {
                 output = "Error: I am sorry but I do not recognise this command";
             } else {
                 output = "Bye. Hope to see you again soon!";
-
             }
         } catch (Exception e) {
             output = e.getMessage();
