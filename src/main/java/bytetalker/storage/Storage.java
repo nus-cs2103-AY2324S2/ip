@@ -33,8 +33,9 @@ public class Storage {
     }
 
     /**
-     * Sets up directory and file to store list in hard disk. If there is no directory or file, it will create the
-     * msising one.
+     * Sets up directory and file to store list in hard disk.
+     * If there is no directory or file, it will create the
+     * missing one.
      */
     public void setupDirectoryAndFile() {
         assert filePath != null;
@@ -105,7 +106,8 @@ public class Storage {
         boolean isDeadline = currentTask.getTaskType() == TaskType.DEADLINE;
         boolean isEvent = currentTask.getTaskType() == TaskType.EVENT;
         String done = currentTask.getStatus() ? "1" : "0";
-        String temp = currentTask.getTaskType().getIcon() + " / " + done + " / " + currentTask.getTask();
+        String temp = currentTask.getTaskType().getIcon()
+                + " / " + done + " / " + currentTask.getTask();
         DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy Hmm");
         if (isDeadline) {
             Deadline deadlineTask = (Deadline) currentTask;
@@ -155,10 +157,11 @@ public class Storage {
         if (isTodo) {
             return new Todo(splitMessage[2], isDone);
         } else if (isDeadline) {
-            return new Deadline(splitMessage[2], Parser.parseDateTime(splitMessage[3]), isDone);
+            return new Deadline(splitMessage[2],
+                    Parser.parseDateTime(splitMessage[3]),
+                    isDone);
         }
         return new Event(splitMessage[2], Parser.parseDateTime(splitMessage[3]),
                     Parser.parseDateTime(splitMessage[4]), isDone);
-
     }
 }

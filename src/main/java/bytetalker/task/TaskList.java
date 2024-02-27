@@ -111,7 +111,8 @@ public class TaskList {
         try {
             Task task = determineTaskToBeAdded(messageContainer);
             if (task == null) {
-                throw new CommandWrongFormatExcpetion("Wrong command format. Please follow the correct format.");
+                throw new CommandWrongFormatExcpetion(
+                        "Wrong command format. Please follow the correct format.");
             }
             this.tasks.add(task);
             storage.storeTasks(this.tasks);
@@ -120,7 +121,8 @@ public class TaskList {
             this.tasks.remove(this.tasks.size() - 1);
             return ui.showStoreTaskErrorMessage();
         } catch (UnsupportedCommandException ex) {
-            String errorUnsupportedMessage = ex.getMessage() + ". Please only enter the supported types of task.";
+            String errorUnsupportedMessage = ex.getMessage()
+                    + ". Please only enter the supported types of task.";
             return errorUnsupportedMessage;
         } catch (UnsupportedDateTimeFormatException ex) {
             String errorUnsupportedDateTimeMessage = ex.getMessage() + ".";
@@ -131,7 +133,8 @@ public class TaskList {
     }
 
     /**
-     * Determines the type of the task and call the respective methods of that type of task to add the task into the
+     * Determines the type of the task and call the respective
+     * methods of that type of task to add the task into the
      * list.
      *
      * @param messageContainer Parsed messages of user input and processed by Parser.
@@ -190,9 +193,11 @@ public class TaskList {
         try {
             String[] parsedDeadlineInput = Parser.parseDeadlineAddInput(splitMessages);
             if (Parser.parseDateTime(parsedDeadlineInput[1]) == null) {
-                throw new UnsupportedDateTimeFormatException("Please use the correct format of DateTime");
+                throw new UnsupportedDateTimeFormatException(
+                        "Please use the correct format of DateTime");
             }
-            task = new Deadline(parsedDeadlineInput[0], Parser.parseDateTime(parsedDeadlineInput[1]));
+            task = new Deadline(parsedDeadlineInput[0],
+                    Parser.parseDateTime(parsedDeadlineInput[1]));
             return task;
         } catch (DeadlineUnsupportedFormatException e) {
             return null;
@@ -302,17 +307,10 @@ public class TaskList {
         try {
             Parser.checkCommand(splitMessages);
             index = Integer.parseInt(splitMessages[1]) - 1;
-        } catch (NumberFormatException e) {
-            return ui.showMissingIndexMessage();
-        } catch (CommandWrongFormatExcpetion e) {
-            return e.getMessage();
-        }
-        if (index < 0 || index > this.tasks.size()) {
-            return ui.showInvalidIndexMessage();
-        }
-
-        Task task = this.tasks.get(index);
-        try {
+            if (index < 0 || index >= this.tasks.size()) {
+                return ui.showInvalidIndexMessage();
+            }
+            Task task = this.tasks.get(index);
             String message = "";
             if (splitMessages[2].equals("/content")) {
                 message = editContent(splitMessages, task, ui);
@@ -327,6 +325,10 @@ public class TaskList {
             }
             storage.storeTasks(this.tasks);
             return message;
+        } catch (NumberFormatException e) {
+            return ui.showMissingIndexMessage();
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         } catch (IOException e) {
             return "Failed saving changes into the file. Please restart the program";
         }

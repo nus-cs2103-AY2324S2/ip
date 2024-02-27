@@ -240,7 +240,8 @@ public class Parser {
 
     public static void checkCommand(String[] splitMessages) throws CommandWrongFormatExcpetion {
         if (splitMessages.length <= 1) {
-            throw new CommandWrongFormatExcpetion("Wrong command format. Please follow the correct format.");
+            throw new CommandWrongFormatExcpetion(
+                    "Wrong command format. Please follow the correct format.");
         }
     }
 }

@@ -19,10 +19,15 @@ public class Ui {
      * @return Welcome message.
      */
     public String showWelcome() {
-        String welcomeMessage = "Hello! I'm bytetalker.ByteTalker\n" + "What can I do for you?\n" + "Supported tasks " +
-                "are todo, deadline, and event\n" + "todo {task}\n" + "deadline {task} /by {date and time}\n" +
-                "event {task} /from {date and time} /to {date and time}\n" + "Supported date and time format are " +
-                "yyyy-MM-dd HHmm, and dd/MM/yyyy HHmm";
+        String welcomeMessage = "Hello! I'm bytetalker.ByteTalker\n"
+                + "What can I do for you?\n"
+                + "Supported tasks "
+                + "are todo, deadline, and event\n"
+                + "todo {task}\n"
+                + "deadline {task} /by {date and time}\n"
+                + "event {task} /from {date and time} /to {date and time}\n"
+                + "Supported date and time format are "
+                + "yyyy-MM-dd HHmm, and dd/MM/yyyy HHmm";
         return welcomeMessage;
     }
 
@@ -32,8 +37,7 @@ public class Ui {
      * @return Exit message.
      */
     public String showBye() {
-        String byeString =
-                "    Bye. Hope to see you again soon!";
+        String byeString = "    Bye. Hope to see you again soon!";
         return byeString;
     }
 
@@ -65,7 +69,8 @@ public class Ui {
      * @return Message showing successful execution of marking task as not done.
      */
     public String showUnmarkTaskMsg(Task task) {
-        String unmarkedTaskMessage = "OK, I've marked this task as not done yet:\n" + "      " + task.toString();
+        String unmarkedTaskMessage = "OK, I've marked this task as not done yet:\n"
+                + "      " + task.toString();
         return unmarkedTaskMessage;
     }
 
@@ -78,8 +83,9 @@ public class Ui {
      * @return Message indicating the task has been removed from the list.
      */
     public String showDeleteTaskMsg(Task task, int length) {
-        String deletedTaskMessage = "Got it. I've removed this task:" + "\n" + "        " + task.toString() + "\n" +
-                "Now you have " + length + " task in the list.";
+        String deletedTaskMessage = "Got it. I've removed this task:" + "\n" + "        "
+                + task.toString() + "\n"
+                + "Now you have " + length + " task in the list.";
         return deletedTaskMessage;
     }
 
@@ -92,8 +98,9 @@ public class Ui {
      * @return Message indicating the task has been added to the list.
      */
     public String showAddTaskMsg(Task task, int length) {
-        String addedTaskMessage = "Got it. I've added this task:" + "\n" + "       " + task.toString() + "\n" + "Now " +
-                "you have " + length + " tasks in the list.";
+        String addedTaskMessage = "Got it. I've added this task:" + "\n"
+                + "       " + task.toString() + "\n" + "Now "
+                + "you have " + length + " tasks in the list.";
         return addedTaskMessage;
     }
 
