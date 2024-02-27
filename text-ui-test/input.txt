@@ -1,0 +1,26 @@
+blah
+unmark
+mark
+delete
+todo
+deadline
+event
+todo read book
+todo go for a run
+deadline homework
+deadline homework /by Sunday
+event project meeting
+event project meeting /from Sunday /to Tuesday
+list
+mark 2
+list
+delete 3
+list
+delete 4
+delete 2
+list
+mark 2
+list
+unmark 2
+list
+bye
