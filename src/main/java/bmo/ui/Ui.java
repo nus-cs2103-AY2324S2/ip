@@ -55,6 +55,11 @@ public class Ui {
         return logPrint.toString();
     }
 
+    public String printSortLog() {
+        String sortLogPrint = "BMO has sorted your log (•̀ᴗ•́)و ̑̑";
+        return sortLogPrint;
+    }
+
     public String printEmptyStorage() {
         String emptyStoragePrint = "BMO cache has no saved tasks\n"
                 + "your log is currently empty ᕦ(ò_óˇ)ᕤ";

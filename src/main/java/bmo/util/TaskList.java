@@ -6,6 +6,7 @@ import bmo.task.Task;
 import bmo.ui.Ui;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * TaskList class to store and manage the list of tasks.
@@ -84,9 +85,15 @@ public class TaskList extends ArrayList<Task> {
             } catch (Exception e) {
                 ui.printErrInvalidTask();
             }
-
             indexCounter++;
         }
+    }
+
+    /**
+     * Sorts the TaskList.
+     */
+    public void sortTaskList() {
+        Collections.sort(this);
     }
 
     /**

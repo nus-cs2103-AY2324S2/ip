@@ -3,7 +3,7 @@ package bmo.task;
 /**
  * Represents a task.
  */
-public class Task {
+public class Task implements Comparable<Task> {
     protected String description;
     protected Boolean isDone;
 
@@ -38,6 +38,13 @@ public class Task {
         String done = this.getStatus() ? "1" : "0";
         return "T | " + done + " | " + super.toString() + "\n";
     }
+
+    /**
+     * Returns the type priority of the task.
+     *
+     * @return Integer representing the type priority of the task.
+     */
+    public int getTypePriority() { return Integer.MAX_VALUE; }
 
     /**
      * Returns the comparison of the description of the tasks, used for sorting.

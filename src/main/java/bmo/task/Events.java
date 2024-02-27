@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that is an event.
  */
-public class Events extends Task {
+public class Events extends Task implements Comparable<Task> {
 
     protected LocalDateTime start;
     protected LocalDateTime end;
@@ -50,6 +50,16 @@ public class Events extends Task {
     }
 
     /**
+     * Returns the type priority of the task.
+     *
+     * @return Integer representing the type priority of the task.
+     */
+    @Override
+    public int getTypePriority() {
+        return 0;
+    }
+
+    /**
      * Returns the comparison of the start time of the events, used for sorting.
      *
      * @return Integer representing the comparison of the start time of the events.
@@ -60,7 +70,7 @@ public class Events extends Task {
             Events e = (Events) t;
             return this.start.compareTo(e.start);
         } else {
-            return super.compareTo(t);
+            return this.getTypePriority() - t.getTypePriority();
         }
     }
 

@@ -6,7 +6,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * Represents a task that is a deadline.
  */
-public class Deadlines extends Task {
+public class Deadlines extends Task implements Comparable<Task> {
 
     protected LocalDateTime deadline;
 
@@ -40,6 +40,16 @@ public class Deadlines extends Task {
     }
 
     /**
+     * Returns the type priority of the task.
+     *
+     * @return Integer representing the type priority of the task.
+     */
+    @Override
+    public int getTypePriority() {
+        return 1;
+    }
+
+    /**
      * Returns the comparison of the deadline of the tasks, used for sorting.
      *
      * @return Integer representing the comparison of the deadline of the tasks.
@@ -50,7 +60,7 @@ public class Deadlines extends Task {
             Deadlines d = (Deadlines) t;
             return this.deadline.compareTo(d.deadline);
         } else {
-            return super.compareTo(t);
+            return this.getTypePriority() - t.getTypePriority();
         }
     }
 
