@@ -180,6 +180,7 @@ public class Duke extends Application {
                 case("unmark"):
                     try {
                         idx = Parser.parse_unmark(input);
+                        assert idx != 0;
                         task = todo.unmark(idx);
                         responseString.append("\tI've unmarked this task as done:");
                         responseString.append(String.format("\t\t%s\n", task));
@@ -239,6 +240,7 @@ public class Duke extends Application {
                 case("delete"):
                     try {
                         idx = Parser.parse_delete(input);
+                        assert idx != 0;
                         responseString.append("\tNoted. I've removed this task:");
                         responseString.append(String.format("\t\t%s\n", todo.deleteTask(idx)));
                         responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
