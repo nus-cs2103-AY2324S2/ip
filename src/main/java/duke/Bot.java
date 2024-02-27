@@ -25,10 +25,23 @@ public class Bot {
 
     // ---------------------------- GUI Interactions ----------------------------
 
+    /**
+     * @return A string representing the bot's response to an empty input
+     */
+    public static String emptyInputMsgGui() {
+        return "So, do nothing? Got it.";
+    }
+
+    /*
+     * @return A string representing the bot's message for deleting a task
+     */
     public static String botDeleteMessageGui() {
         return "Bet. I'll remove it from your list. You weren't gonna do it anyways...";
     }
 
+    /*
+     * @return A string representing the bot's message for finding a task
+     */
     public static String botFindMessageGui() {
         return "Here's what I found. You're welcome.";
     }
