@@ -9,9 +9,9 @@ Leo is a simple and intuitive task management application designed to assist you
 
 Leo allows you to add tasks with deadlines. Follow the steps below to add a deadline to your tasks.
 
-**Action:** 'deadline <task_description> /by <deadline_date>'
-- **<task_description>** : Description of the task.
-- **<deadline_date>**: Deadline date in the format dd/MM/yyyy or MMM dd yyyy.
+**Action:** 'deadline &lt;task_description&gt; /by &lt;deadline_date&gt;'
+- **&lt;task_description&gt;** : Description of the task.
+- **&lt;deadline_date&gt;**:  Deadline date in the format dd/MM/yyyy or MMM dd yyyy.
 
 
 ```
