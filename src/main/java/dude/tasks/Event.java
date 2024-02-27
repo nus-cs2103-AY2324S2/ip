@@ -47,15 +47,13 @@ public class Event extends Task {
         String rest = Utils.discardFirstWord(input.trim()).trim();
         String[] arr = rest.split(" ");
 
-        int fromOccurences = Utils.countOccurrences(arr, "/from");
-
-        if (fromOccurences == 0 || fromOccurences > 1) {
+        int fromOccurrences = Utils.countOccurrences(arr, "/from");
+        if (fromOccurrences == 0 || fromOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT
                     + ". Provide one and only one '/from'.");
         }
 
         int toOccurrences = Utils.countOccurrences(arr, "/to");
-
         if (toOccurrences == 0 || toOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT
                     + ". Provide one and only one '/to'.");
