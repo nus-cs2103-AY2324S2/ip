@@ -14,7 +14,7 @@
     <children>
       <VBox spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-              <ScrollPane fx:id="dialoguePane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" pannable="true" prefWidth="385.0" vvalue="1.0" VBox.vgrow="ALWAYS">
+              <ScrollPane fx:id="dialoguePane" fitToWidth="true" hbarPolicy="NEVER" hvalue="1.0" prefWidth="385.0" vvalue="1.0" VBox.vgrow="ALWAYS">
                   <content>
                       <VBox fx:id="dialogueContainer" spacing="10.0" styleClass="scrollable-content">
                      <padding>

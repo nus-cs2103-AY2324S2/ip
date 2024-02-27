@@ -11,7 +11,7 @@ public enum SavedString {
             + "+#+  +#+#+#     +#+     +#+    +#+ +#+     +#+ +#+    +#+ \n"
             + "#+#   #+#+#     #+#     #+#    #+# #+#     #+# #+#    #+# \n"
             + "###    #### ########### ###    ### ###     ###  ########  "),
-    GREETINGS("Hello! I'm nihao.Nihao.\nI'm lazy and I don't want to do anything for you."),
+    GREETINGS("Hello! I'm Nihao.\nI'm lazy and I don't want to do anything for you."),
     GOODBYE("Hope to never see you again. Goodbye!");
 
     private final String content;

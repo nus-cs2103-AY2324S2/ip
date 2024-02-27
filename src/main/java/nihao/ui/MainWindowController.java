@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import nihao.Nihao;
+import nihao.enums.SavedString;
 
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
@@ -34,6 +35,8 @@ public class MainWindowController extends AnchorPane {
     @FXML
     public void initialize() {
         dialoguePane.vvalueProperty().bind(dialogueContainer.heightProperty());
+        String greetings = SavedString.GREETINGS.getContent();
+        dialogueContainer.getChildren().add(DialogueBoxController.getNihaoDialogue(greetings, nihaoImage));
     }
 
     public void setNihao(Nihao nihao) {

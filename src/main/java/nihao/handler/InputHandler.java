@@ -142,7 +142,7 @@ public class InputHandler {
         int toIndex = input.indexOf(" /to ");
         if (fromIndex < eventLength || toIndex < fromIndex + fromLength) {
             throw new IllegalArgumentException("illegal use of flags");
-            // Todo: define "  " and " " more clearly
+            // Todo: define allowable separation in tP
         }
         String taskName = input.substring(6, fromIndex);
         LocalDateTime from = DateTimeHandler.handleInput(input.substring(fromIndex + fromLength, toIndex));
