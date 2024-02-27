@@ -30,6 +30,7 @@ HAASNT is a chatbot that allows you to keep your tasks recorded
 Example: event t 10:00 am to 12:00 am
 
 expected output:
+
 ![expected output](https://github.com/ThitipatC/ip/blob/master/docs/output.png?raw=true)
 
 
