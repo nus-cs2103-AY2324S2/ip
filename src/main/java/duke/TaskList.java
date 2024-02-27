@@ -8,8 +8,12 @@ import duke.tasks.Task;
  * Class used to store tasks
  */
 public class TaskList {
-    private static ArrayList<Task> taskList = new ArrayList<Task>();
+    private static ArrayList<Task> taskList;
     String indent = "    ";
+
+    public TaskList() {
+        taskList = new ArrayList<Task>();
+    }
 
     /**
      * Add task to taskList.
