@@ -1,6 +1,6 @@
 # HAASNT User Guide
 
-![expected output](./Screen Shot 2567-02-24 at 11.15.12.png)
+![expected output](https://github.com/ThitipatC/ip/blob/master/docs/Screen%20Shot%202567-02-24%20at%2011.04.24.png?raw=true))
 
 **If you always forgot what you have to do, HASSNT is here to help you record such tasks.**
 HAASNT is a chatbot that allows you to keep your tasks recorded
@@ -30,7 +30,8 @@ HAASNT is a chatbot that allows you to keep your tasks recorded
 Example: event t 10:00 am to 12:00 am
 
 expected output:
-![expected output](./Screen Shot 2567-02-24 at 11.04.24.png)
+![expected output](https://github.com/ThitipatC/ip/blob/master/docs/Screen%20Shot%202567-02-24%20at%2011.04.24.png?raw=true))
+
 
 ## Todo Lists Commands
 
