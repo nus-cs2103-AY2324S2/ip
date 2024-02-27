@@ -47,6 +47,7 @@ public class TimeBlock extends Task {
                 }
             }
         }
+        assert this.fromTime != null : "fromTime is null";
         try {
             LocalDateTime.parse(toTime, formatter1);
             this.toTime = toTime;
@@ -64,6 +65,7 @@ public class TimeBlock extends Task {
                 }
             }
         }
+        assert this.toTime != null : "toTime is null";
     }
 
     /**
