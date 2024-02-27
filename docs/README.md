@@ -122,7 +122,7 @@ Command input format: `delete [index]`
 _**Note that after deleting, index for the rest of tasks can change; hence, execute `list` to check 
 the index of task you would like to remove.**_
 
-Example input: delete 1
+Example input: `delete 1`
 
 Successful execution output: considering you've executed the above input with the list in List section
 ```
