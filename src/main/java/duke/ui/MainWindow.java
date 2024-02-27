@@ -6,12 +6,12 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Represents the main window of the bot.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -25,15 +25,17 @@ public class MainWindow extends AnchorPane {
 
     private Duke duke;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Coat.png"));
+    private final Image userImage = new Image(this.getClass().getResourceAsStream("/image/User.png"));
+    private final Image dukeImage = new Image(this.getClass().getResourceAsStream("/image/Coat.png"));
+    private final Image sendIcon = new Image(this.getClass().getResourceAsStream("/icon/send.png"));
 
     /**
-     * Initializes the DialogBox and display the welcome message.
+     * Initializes the main window.
      */
-    @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        sendButton.getStylesheets().add(getClass().getResource("/css/MainWindow.css").toExternalForm());
+        sendButton.setGraphic(new ImageView(sendIcon));
     }
 
     public void setDuke(Duke d) {
@@ -53,7 +55,5 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getDukeDialog(response, dukeImage)
         );
         userInput.clear();
-
-        // To-do: Exit command
     }
 }
