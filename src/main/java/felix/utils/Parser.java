@@ -82,6 +82,9 @@ public class Parser {
         Task task;
         if (words[0].equals("todo")) {
             try {
+                if (words[1].isEmpty()) {
+                    throw new FelixException("The description of a todo cannot be empty");
+                }
                 task = new ToDo(words[1]);
             } catch (IndexOutOfBoundsException e) {
                 throw new FelixException("The description of a todo cannot be empty");

@@ -62,7 +62,6 @@ public class Felix {
 
     public String getResponse(String input) {
         try {
-            tasks = storage.getTasksFromFile();
             Command command = parser.getCommand(input);
             return command.execute(tasks, ui, storage);
         } catch (Exception e) {

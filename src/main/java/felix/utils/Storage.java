@@ -62,6 +62,8 @@ public class Storage {
             throw new FelixException("Cannot read from file");
         } catch (DateTimeParseException err) {
             throw new FelixException("datetime not in the format \"yyyy-MM-dd HHmm\"");
+        } catch (IndexOutOfBoundsException err) {
+            throw new FelixException("file line is in wrong format");
         }
     }
 

@@ -61,7 +61,7 @@ public abstract class Task {
      *
      * @return task represented by file line.
      */
-    public static Task createTaskFromFileLine(String line) {
+    public static Task createTaskFromFileLine(String line) throws IndexOutOfBoundsException {
         String[] words = line.split(" \\| ");
         Task task;
         if (words[0].equals("T")) {
