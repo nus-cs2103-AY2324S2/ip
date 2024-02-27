@@ -78,6 +78,7 @@ public class Ui {
         } else if (input.contains(FIND)) {
             String[] parts = input.split(" ");
             return FOUND_MESSAGE + taskList.findTask(parts[1]) + NEW_LINE;
+
         } else if (input.contains(UNMARK)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.unmarkTask(idx);
@@ -124,7 +125,6 @@ public class Ui {
             } else if (input.contains(EVENT)) {
                 try {
                     // event takes in the name and the deadline
-
                     String[] parts = input.split(" by "); // part 0 is todo [name], part 1 is [date]
                     LocalDate date = LocalDate.parse(parts[1].trim());
                     task = new Event(parts[0].substring(DEADLINE.length() + 1), date);

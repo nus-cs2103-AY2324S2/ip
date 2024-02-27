@@ -38,6 +38,7 @@ public class Storage {
      */
     public TaskList load() throws FileNotFoundException, IOException {
         TaskList taskList = new TaskList();
+        assert taskList.getLength() == 0: "taskList should be empty";
         Task task;
         File file = new File(path);
         if (file.exists() == false) {
