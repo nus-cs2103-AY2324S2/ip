@@ -4,6 +4,7 @@ import java.util.List;
 
 import duke.task.Task;
 import duke.task.TaskList;
+import duke.ui.Messages;
 import duke.ui.Ui;
 
 /**
@@ -42,9 +43,7 @@ public class AddCommand extends Command {
         tasks.addTask(task);
         Integer count = tasks.getNoOfTasks();
 
-        String message = String.format(
-            "\n        ~~~ >^o_o^< ~~~\nGot it! I've added this task:\n"
-            + "- %s\n\nYou have %d task(s) in the list.\n",
+        String message = String.format(Messages.ADD_SUCCESS.getMessage(),
             task, count);
 
         ui.appendResponse(message);

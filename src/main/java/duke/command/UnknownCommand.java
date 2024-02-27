@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Messages;
 import duke.ui.Ui;
 
 /**
@@ -24,8 +25,7 @@ public class UnknownCommand extends Command {
      * @return       Tasks.
      */
     public TaskList execute(TaskList tasks, Ui ui) {
-        ui.appendResponse("Sorry.. I don't know what that means!"
-                    + " If you want to leave, just say 'bye'! :(");
+        ui.appendResponse(Messages.INPUT_ERROR.getMessage());
         return tasks;
     }
 }

@@ -3,6 +3,7 @@ package duke.command;
 import java.util.List;
 
 import duke.task.TaskList;
+import duke.ui.Messages;
 import duke.ui.Ui;
 
 /**
@@ -24,7 +25,7 @@ public class ByeCommand extends Command {
      * Prints out bye.
      */
     public TaskList execute(TaskList tasks, Ui ui) {
-        ui.appendResponse("Bye! BYEMESSAGE@ByeCommand.java");
+        ui.appendResponse(Messages.EXIT.getMessage());
         return tasks;
     }
 }
