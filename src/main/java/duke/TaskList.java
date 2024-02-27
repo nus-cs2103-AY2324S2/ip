@@ -17,6 +17,7 @@ public class TaskList {
      */
     public TaskList() {
         this.tasks = new ArrayList<>();
+        assert tasks != null : "Task list should be initialized as an empty list";
     }
 
     /**
@@ -68,8 +69,10 @@ public class TaskList {
      * @param taskNumber The index of the task to remove
      */
     public void removeTask(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Task number should be within the valid range";
         tasks.remove(taskNumber - 1);
         taskCount--;
+        assert taskCount == tasks.size() : "Task count should be equal to the size of the task list";
     }
 
     /**
@@ -115,6 +118,7 @@ public class TaskList {
      * @param taskNumber The number of the task to mark as done
      */
     public void markTaskAsDone(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Task number should be within the valid range";
         tasks.get(taskNumber - 1).markAsDone();
     }
 
@@ -126,6 +130,7 @@ public class TaskList {
      * @param taskNumber The number of the task to mark as undone
      */
     public void markTaskAsUndone(int taskNumber) {
+        assert taskNumber > 0 && taskNumber <= tasks.size() : "Task number should be within the valid range";
         tasks.get(taskNumber - 1).markAsUndone();
     }
 
