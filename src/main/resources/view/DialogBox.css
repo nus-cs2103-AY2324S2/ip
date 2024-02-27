@@ -1,0 +1,20 @@
+#dialogBox {
+    background-color: #333333; /* Dark grey background */
+    border-color: white; /* Slightly lighter grey border */
+    border-radius: 40; /* Rounded corners */
+    padding: 15; /* Padding around the content */
+    font-size: 14px; /* Font size */
+    -fx-background-color: #333333; /* Dark grey background */
+    -fx-border-color: white; /* Slightly lighter grey border */
+    -fx-border-radius: 10; /* Rounded corners */
+    -fx-padding: 15; /* Padding around the content */
+    -fx-font-size: 14px; /* Font size */
+}
+
+#dialogBox .label {
+    font-weight: bold; /* Bold text for the label */
+    padding: 0 10;
+    -fx-text-fill: white;
+    -fx-font-weight: bold; /* Bold text for the label */
+    -fx-padding: 0 10;
+}
