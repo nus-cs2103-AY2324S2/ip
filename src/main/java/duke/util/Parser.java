@@ -37,14 +37,14 @@ public class Parser {
      */
     public static TodoTask parse_todo(String input) throws DukeException {
 
-        String task_name;
+        String taskName;
         TodoTask task;
 
-        task_name = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
-        if (!task_name.isBlank()) {
-            System.out.println(task_name);
+        taskName = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
+        if (!taskName.isBlank()) {
+            System.out.println(taskName);
             // calling the method
-            task = new TodoTask(task_name, input);
+            task = new TodoTask(taskName, input);
             return task;
         } else {
             throw new DukeException("\tTodo description cannot be empty!\n\tEx: todo return book\n");
