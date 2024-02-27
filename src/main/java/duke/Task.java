@@ -13,6 +13,7 @@ public class Task {
      * @param description The description of the task
      */
     public Task(String description) {
+        assert description != null : "Task description should not be null";
         this.description = description;
         this.isComplete = false;
     }
@@ -29,6 +30,7 @@ public class Task {
      */
     public void markAsDone() {
         this.isComplete = true;
+        assert isComplete : "Task should be marked as done";
     }
 
     /**
@@ -36,6 +38,7 @@ public class Task {
      */
     public void markAsUndone() {
         this.isComplete = false;
+        assert !isComplete : "Task should be marked as undone";
     }
 
     /**

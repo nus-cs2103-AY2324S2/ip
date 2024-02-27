@@ -85,7 +85,7 @@ public class TaskListTest {
     @Test
     public void removeNonExistentTaskTest() {
         TaskList taskList = new TaskList();
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             taskList.removeTask(1);
         });
     }
@@ -96,7 +96,7 @@ public class TaskListTest {
     @Test
     public void markNonExistentTaskAsDoneTest() {
         TaskList taskList = new TaskList();
-        assertThrows(IndexOutOfBoundsException.class, () -> {
+        assertThrows(AssertionError.class, () -> {
             taskList.markTaskAsDone(1);
         });
     }

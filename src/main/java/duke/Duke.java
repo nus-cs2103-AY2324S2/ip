@@ -31,6 +31,8 @@ public class Duke {
      * @return The bot's response as a string.
      */
     public String processInput(String userInput) {
+        assert userInput != null : "User input should not be null";
+        assert !userInput.trim().isEmpty() : "User input should not be empty";
         String[] userInputArray = userInput.split(" ");
         String command = userInputArray[0];
 
@@ -97,6 +99,8 @@ public class Duke {
                 } catch (BotException e) {
                     return e.getMessage();
                 }
+            case "":
+                return Bot.emptyInputMsgGui();
             default:
                 return Bot.invalidInputMsgGui();
         }
@@ -109,6 +113,8 @@ public class Duke {
      * @return A string representing all tasks in the task list.
      */
     private String listAllMsg(TaskList taskList) {
+        assert taskList != null : "Task list should not be null";
+
         StringBuilder tasksMsg = new StringBuilder();
         tasksMsg.append(Bot.botListAllMsgGui()).append("\n");
         tasksMsg.append(this.taskList.toString()).append("\n");
@@ -120,6 +126,7 @@ public class Duke {
      * @return A string representing the bot's response to the add command
      */
     private String addTaskMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printAddTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -127,6 +134,7 @@ public class Duke {
      * @return A string representing the bot's response to the mark command
      */
     private String markMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printMarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -134,6 +142,7 @@ public class Duke {
      * @return A string representing the bot's response to the unmark command
      */
     private String unmarkMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -143,6 +152,8 @@ public class Duke {
      * @return A string representing the bot's response to the delete command
      */
     private String deleteMsg(String status) {
+        assert this.taskList != null : "Task list should not be null";
+        assert status != null : "Status should not be null";
         return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
                 + "\n" + TaskCountMsg() + "\n" + status + "\n";
     }
@@ -153,6 +164,7 @@ public class Duke {
      * @return A string representing the bot's response to the find command
      */
     private String findMsg(String tasks) {
+        assert tasks != null : "Tasks to find should not be null";
         return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
     }
 
@@ -160,6 +172,7 @@ public class Duke {
      * @return A string representing the number of tasks in the task list
      */
     private String TaskCountMsg() {
+        assert this.taskList != null : "Task list should not be null";
         return "You have " + taskList.getTaskCount() + " tasks in your list.";
     }
 
@@ -173,6 +186,9 @@ public class Duke {
      * @return A string representing the tasks found
      */
     private String handleFindCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+        assert userInputArray.length > 0 : "User input array should not be empty";
+
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a keyword to search for.");
         }
@@ -196,6 +212,9 @@ public class Duke {
      * @return A string representing the status of the delete operation
      */
     private String handleDeleteCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+        assert userInputArray.length > 0 : "User input array should not be empty";
+
         StringBuilder status = new StringBuilder();
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to delete.");
@@ -203,6 +222,7 @@ public class Duke {
         int i;
         try {
             i = Integer.parseInt(userInputArray[1]);
+            assert i > 0 : "Task number should be greater than 0";
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
@@ -227,12 +247,16 @@ public class Duke {
      *                      range
      */
     private void markTaskHandler(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+        assert userInputArray.length > 0 : "User input array should not be empty";
+
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to mark.");
         }
         int i;
         try {
             i = Integer.parseInt(userInputArray[1]);
+            assert i > 0 : "Task number should be greater than 0";
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
@@ -250,12 +274,16 @@ public class Duke {
      *                      is out of range
      */
     private void unmarkTaskHandler(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+        assert userInputArray.length > 0 : "User input array should not be empty";
+
         if (userInputArray.length < 2) {
             throw new BotException("Please enter a task number to unmark.");
         }
         int i;
         try {
             i = Integer.parseInt(userInputArray[1]);
+            assert i > 0 : "Task number should be greater than 0";
         } catch (NumberFormatException e) {
             throw new BotException("Task number should be numeric.");
         }
@@ -272,6 +300,8 @@ public class Duke {
      * @throws BotException if the description of the todo is empty
      */
     private void handleTodoCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+
         if (userInputArray.length < 2) {
             throw new BotException("The description of a todo cannot be empty.");
         }
@@ -286,6 +316,8 @@ public class Duke {
      * @throws BotException if the user input is incomplete
      */
     private void handleDeadlineCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+
         if (userInputArray.length < 3) {
             throw new BotException("Please give some description and due date in deadline");
         }
@@ -309,6 +341,8 @@ public class Duke {
      * @throws BotException if the description and time of an event are empty
      */
     private void handleEventCommand(String[] userInputArray) throws BotException {
+        assert userInputArray != null : "User input array should not be null";
+
         if (userInputArray.length < 3) {
             throw new BotException("The description and time of an event cannot be empty.");
         }
