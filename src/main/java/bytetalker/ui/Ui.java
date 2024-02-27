@@ -3,7 +3,6 @@ package bytetalker.ui;
 import bytetalker.task.Task;
 
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Deals with interactions with the user. Mainly the print statements are included in this class to control the

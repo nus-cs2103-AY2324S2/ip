@@ -1,7 +1,11 @@
 package bytetalker.storage;
 
 import bytetalker.parser.Parser;
-import bytetalker.task.*;
+import bytetalker.task.Task;
+import bytetalker.task.Todo;
+import bytetalker.task.Deadline;
+import bytetalker.task.Event;
+import bytetalker.task.TaskType;
 
 import java.nio.file.Path;
 import java.nio.file.Files;

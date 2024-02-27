@@ -8,7 +8,6 @@ import bytetalker.parser.Parser;
 import graphics.DialogBox;
 
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 
 import javafx.application.Application;
 import javafx.application.Platform;
