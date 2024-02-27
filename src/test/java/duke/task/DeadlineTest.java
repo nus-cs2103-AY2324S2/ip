@@ -14,6 +14,6 @@ public class DeadlineTest {
 
     @Test
     public void deadline_fileString_success() throws Exception {
-        assertEquals("D | 0 | read book | Feb", new Deadline("read book", "Feb").fileString());
+        assertEquals("D | 0 | read book |  | Feb", new Deadline("read book", "Feb").fileString());
     }
 }
