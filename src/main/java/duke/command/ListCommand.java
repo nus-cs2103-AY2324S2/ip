@@ -13,7 +13,7 @@ import duke.ui.Ui;
  * class and implements the behavior specific to listing tasks.</p>
  */
 public class ListCommand extends Command {
-    private static final String TASKS_MESSAGE = "\nHere's your list! ~~(^-^)\n";
+    private static final String TASKS_MESSAGE = "Here's your list!";
 
     public ListCommand() {
         super("list", List.of());
@@ -23,7 +23,7 @@ public class ListCommand extends Command {
     public TaskList execute(TaskList tasks, Ui ui) {
         ui.appendResponse(TASKS_MESSAGE);
         for (int i = 0; i < tasks.getNoOfTasks(); i++) {
-            ui.appendResponse(String.format("%d. %s\n", i + 1, tasks.getTask(i)));
+            ui.appendResponse(String.format("\n%d. %s", i + 1, tasks.getTask(i)));
         }
         return tasks;
     }
