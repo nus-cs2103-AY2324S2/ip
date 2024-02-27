@@ -59,15 +59,15 @@ public class Parser {
      * throws DukeException if input not correct DeadLine format
      */
     public static DeadlineTask parse_deadline(String input) throws DukeException {
-        String task_name, start, end, first_string, second_string;
+        String taskName, start, end, first_string, second_string;
         first_string = input.split(" /")[0];
         second_string = input.split(" /")[1];
-        task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
+        taskName = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
-        if (!task_name.isBlank() && !first_string.isBlank() && !second_string.isBlank()) {
+        if (!taskName.isBlank() && !first_string.isBlank() && !second_string.isBlank()) {
             LocalDateTime end_time = LocalDateTime.parse(end, formatter);
-            return new DeadlineTask(task_name, end_time, input);
+            return new DeadlineTask(taskName, end_time, input);
         } else {
             throw new DukeException("\tInvalid deadline command");
         }
