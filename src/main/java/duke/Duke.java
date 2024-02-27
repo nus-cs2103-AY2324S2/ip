@@ -52,7 +52,8 @@ public class Duke {
             command.execute(this.tasks, this.ui);
             storage.save(tasks);
 
-            System.out.printf("\nInput: %s\n + %s", input, this.ui.getResponse());
+            // For debugging purposes.
+            System.out.printf("\n------------\nInput: %s\nOutput: %s\n-----------", input, this.ui.getResponse());
             return this.ui.getResponse();
 
         } catch (IOException e) {

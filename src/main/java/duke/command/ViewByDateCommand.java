@@ -45,6 +45,23 @@ public class ViewByDateCommand extends Command {
     }
 
     private String formatDate(LocalDate date) {
-        return date.format(DateTimeFormatter.ofPattern("MM dd yyyy"));
+        return date.format(DateTimeFormatter.ofPattern("d'"
+            + getDayOfMonthSuffix(date.getDayOfMonth()) + "' MMMM, yyyy"));
+    }
+
+    private String getDayOfMonthSuffix(int day) {
+        if (day >= 11 && day <= 13) {
+            return "th";
+        }
+        switch (day % 10) {
+        case 1:
+            return "st";
+        case 2:
+            return "nd";
+        case 3:
+            return "rd";
+        default:
+            return "th";
+        }
     }
 }

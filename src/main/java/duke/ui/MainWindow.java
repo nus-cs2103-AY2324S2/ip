@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
@@ -27,6 +28,8 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/Coat.png"));
+    private Image sendIcon = new Image(this.getClass().getResourceAsStream("/images/send.png"));
+
 
     /**
      * Initializes the DialogBox and display the welcome message.
@@ -34,6 +37,8 @@ public class MainWindow extends AnchorPane {
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        sendButton.getStylesheets().add(getClass().getResource("/css/MainWindow.css").toExternalForm());
+        sendButton.setGraphic(new ImageView(sendIcon));
     }
 
     public void setDuke(Duke d) {
@@ -47,6 +52,11 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+
+        if (input.isEmpty()) {
+            return;
+        }
+
         String response = duke.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
