@@ -45,13 +45,14 @@ test {
 }
 
 application {
-    mainClass.set("Gops.Gops")
+    mainClass.set("Gops.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "Gops"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
+    mainClassName = "Gops.Launcher"
 }
 
 run{
