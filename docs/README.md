@@ -34,9 +34,9 @@ Notes about command format:
 3. Extraneous parameters for commands that do not take in parameters (such as `bye`, and `list`) will be ignored.
    
    e.g. if the command specifies `list 123`, it will be interpreted as `help`.
-4. Accepted DateTime format would be `YYYY-M-D Hmm` and `d/M/yyyy Hmm`.
+4. Accepted DateTime format would be `yyyy-M-d Hmm` and `d/M/yyyy Hmm`.
 
-   eg.`2024-2-25 1500` and `25-2-2024 1500` are accepted by the chatbot.
+   eg.`2024-2-25 1500` and `25/2/2024 1500` are accepted by the chatbot.
 5. If the date passes the maximum date in that month, the largest date will be taken.
 6. Index parameter follows the index in list. If you would like to know the index of the task
 you would like operate on check using `list`
