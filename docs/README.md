@@ -25,21 +25,18 @@ command to run the application.
 
 Notes about command format:
 
-1. words in [] are parameters to be supplied by users and cannot be empty.
+1. words in [] are parameters to be input by users and must be empty.
    
    eg. `todo [content]`, content is a parameter which can be used as `todo read book`
        
 2. Parameters have to be in the specified order.
-    
-3. Extraneous parameters for commands that do not take in parameters (such as `bye`, and `list`) will be ignored.
-   
-   e.g. if the command specifies `list 123`, it will be interpreted as `help`.
-4. Accepted DateTime format would be `yyyy-M-d Hmm` and `d/M/yyyy Hmm`.
+
+3. Accepted DateTime format would be `yyyy-M-d Hmm` and `d/M/yyyy Hmm`.
 
    eg.`2024-2-25 1500` and `25/2/2024 1500` are accepted by the chatbot.
-5. If the date passes the maximum date in that month, the largest date will be taken.
-6. Index parameter follows the index in list. If you would like to know the index of the task
-you would like operate on check using `list`
+4. If the date passes the maximum date in that month, the largest date will be taken.
+5. Index parameter follows the index in list. If you would like to know the index of the task
+you would need to operate on check using `list`
 
 
 ## Adding Tasks
@@ -73,7 +70,7 @@ Now you have 1 tasks in the list.
 
 Command input format: `deadline [content] /by [DateTime]`
 
-*supported DateTime formats are `YYYY-M-D Hmm` and `d/M/yyyy Hmm`*
+*supported DateTime formats are `yyyy-M-d Hmm` and `d/M/yyyy Hmm`*
 
 Example input: `deadline read book /by 2024-2-25 1525`
 
@@ -91,7 +88,7 @@ Now you have 1 tasks in the list.
 
 Command input format: `event [content] /from [DateTime] /to [DateTime]`
 
-*supported DateTime formats are `YYYY-M-D Hmm` and `d/M/yyyy Hmm`*
+*supported DateTime formats are `yyyy-M-d Hmm` and `d/M/yyyy Hmm`*
 
 Example input: `event midterm /from 2024-3-5 800 /to 8/3/2024 1500`
 
