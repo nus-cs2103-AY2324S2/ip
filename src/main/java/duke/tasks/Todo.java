@@ -4,10 +4,10 @@ package duke.tasks;
  * Class representing todo class.
  */
 public class Todo extends Task {
-    private static String TASK_TYPE = "[T] ";
-    private static String COMPLETED_MESSAGE_END = " is complete!";
-    private static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
-    private static String TODO = "todo";
+    private static final String TASK_TYPE = "[T] ";
+    private static final String COMPLETED_MESSAGE_END = " is complete!";
+    private static final String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
+    private static final String TODO = "todo";
 
     /**
      * Constructor for new todo tasks.
@@ -24,7 +24,7 @@ public class Todo extends Task {
      */
     public Todo(String name, String isDone) {
         super(name, isDone);
-    }    
+    }
 
     @Override
     public String checkStatus() {
@@ -35,18 +35,18 @@ public class Todo extends Task {
         }
     }
 
-        /**
+    /**
      * Returns string representing the current attributes of the todo task.
      * @return String representing the current attributes of the todo task.
      */
     public String getAttributes() {
         String isDoneString = "";
-        if (this.isDone) {
+        if (this.checkDone()) {
             isDoneString = "true";
         } else {
             isDoneString = "false";
         }
 
-        return TODO + " " + isDoneString + " " + this.name;
+        return TODO + " " + isDoneString + " " + this.getName();
     }
 }

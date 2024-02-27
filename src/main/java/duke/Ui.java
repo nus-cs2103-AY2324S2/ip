@@ -2,16 +2,14 @@ package duke;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
 import java.time.LocalDate;
-
-import duke.tasks.Task;
-import duke.tasks.Deadline;
-import duke.tasks.Event;
-import duke.tasks.Todo;
 
 import duke.exceptions.UnrecognizedException;
 import duke.exceptions.MissingInputException;
+import duke.tasks.Deadline;
+import duke.tasks.Event;
+import duke.tasks.Task;
+import duke.tasks.Todo;
 
 /**
  * Class that handles inputs given to the chat bot.
@@ -19,7 +17,8 @@ import duke.exceptions.MissingInputException;
 public class Ui {
     private static final String INDENT = "    ";
     private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
-    private static final String GREETING = INDENT + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
+    private static final String GREETING = INDENT
+            + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
     private static final String BYE = "bye";
     private static final String LIST = "list";
     private static final String UNMARK = "unmark";
@@ -34,7 +33,8 @@ public class Ui {
     private static final String EVENT = "event";
     private static final String ADD_TASK = " has been accounted for! \n" + NEW_LINE;
     private static final String REMOVE = "remove";
-    private static final String TASK_REMOVED = NEW_LINE + INDENT + "I have removed the task from the list Sir! \n" + NEW_LINE;
+    private static final String TASK_REMOVED = NEW_LINE + INDENT
+            + "I have removed the task from the list Sir! \n" + NEW_LINE;
     private static final String FILE_PATH = "./src/main/java/data/saved_tasks.txt";
     private static final String FIND = "find";
     private static final String FOUND_MESSAGE = NEW_LINE + INDENT + "Here are the tasks I have found!\n";
@@ -47,7 +47,7 @@ public class Ui {
 
     /**
      * Constructor for Ui
-     * @throws FileNotFoundException 
+     * @throws FileNotFoundException
      * @throws IOException
      */
     public Ui() throws FileNotFoundException, IOException {
@@ -69,14 +69,14 @@ public class Ui {
      * @return Reply message based on input.
      * @throws UnrecognizedException If input contains an invalid command.
      * @throws MissingInputException If input is missing required inputs.
-     * @throws IOException 
+     * @throws IOException
      */
     public String interact(String input) throws UnrecognizedException, MissingInputException, IOException {
         if (input.contains(LIST)) {
             return NEW_LINE + taskList.showList() + NEW_LINE;
 
-        }  else if (input.contains(FIND)) {
-            String parts[] = input.split(" ");
+        } else if (input.contains(FIND)) {
+            String[] parts = input.split(" ");
             return FOUND_MESSAGE + taskList.findTask(parts[1]) + NEW_LINE;
 
         } else if (input.contains(UNMARK)) {
@@ -108,14 +108,14 @@ public class Ui {
 
                     task = new Todo(input.substring(TODO.length() + 1));
                 } catch (StringIndexOutOfBoundsException e) {
-                     throw new MissingInputException("Life is liddat");
+                    throw new MissingInputException("Life is liddat");
                 }
             } else if (input.contains(DEADLINE)) {
                 try {
                     // deadline takes in the name and the deadline
                     // Need to split the input into name and deadline split by "by"
 
-                    String parts[] = input.split(" by "); // part 0 is todo [name], part 1 is [date]
+                    String[] parts = input.split(" by "); // part 0 is todo [name], part 1 is [date]
                     LocalDate date = LocalDate.parse(parts[1].trim());
                     task = new Deadline(parts[0].substring(DEADLINE.length() + 1), date);
 
@@ -125,10 +125,10 @@ public class Ui {
             } else if (input.contains(EVENT)) {
                 try {
                     // event takes in the name and the deadline
-                    String parts[] = input.split(" by "); // part 0 is todo [name], part 1 is [date]
+                    String[] parts = input.split(" by "); // part 0 is todo [name], part 1 is [date]
                     LocalDate date = LocalDate.parse(parts[1].trim());
                     task = new Event(parts[0].substring(DEADLINE.length() + 1), date);
-                    
+
                 } catch (StringIndexOutOfBoundsException e) {
                     throw new MissingInputException("Haiz");
                 }

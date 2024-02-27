@@ -9,8 +9,11 @@ import duke.tasks.Task;
  */
 public class TaskList {
     private static ArrayList<Task> taskList;
-    String indent = "    ";
+    private static final String INDENT = "    ";
 
+    /**
+     * Constructor for TaskList class
+     */
     public TaskList() {
         taskList = new ArrayList<Task>();
     }
@@ -19,7 +22,7 @@ public class TaskList {
      * Add task to taskList.
      * @param task .
      */
-    public void addTask(Task task)  {
+    public void addTask(Task task) {
         taskList.add(task);
     }
 
@@ -53,7 +56,7 @@ public class TaskList {
         for (int i = 0; i < taskList.size(); i++) {
             task = taskList.get(i);
             status = task.checkStatus();
-            finalOutput = finalOutput + indent + Integer.toString(i + 1) + "." + status + "\n";
+            finalOutput = finalOutput + INDENT + Integer.toString(i + 1) + "." + status + "\n";
         }
         return finalOutput;
     }
@@ -93,9 +96,9 @@ public class TaskList {
             task = taskList.get(i);
             status = task.checkStatus();
             if (task.correctKeyword(keyword)) {
-                finalOutput = finalOutput + indent + Integer.toString(i + 1) + "." + status + "\n";
+                finalOutput = finalOutput + INDENT + Integer.toString(i + 1) + "." + status + "\n";
             }
-        }        
+        }
         return finalOutput;
     }
 
