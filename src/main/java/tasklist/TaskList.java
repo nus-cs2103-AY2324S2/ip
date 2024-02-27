@@ -1,17 +1,21 @@
-package taskList;
+package tasklist;
 
 import java.util.ArrayList;
 
 import task.Task;
 
 /**
- * The taskList.TaskList class represents a list of tasks.
+ * The TaskList class represents a list of tasks.
  * It provides methods for adding, removing, and accessing tasks.
  */
 public class TaskList {
     private ArrayList<Task> taskArrayList = new ArrayList<>();
     private int lastIdx = 0;
 
+    /**
+     * Constructor that initialises the task list from the data read from the data store.
+     * @param taskArrayList ArrayList of tasks read from the data store
+     */
     public TaskList(ArrayList<Task> taskArrayList) {
         assert taskArrayList != null : "Error reading from data store.";
         this.taskArrayList = taskArrayList;

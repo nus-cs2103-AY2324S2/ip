@@ -2,10 +2,21 @@ package task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+
+/**
+ * The Event class takes in a task string, start time of the event and end time of the event has fields.
+ */
 public class Event extends Task {
     private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
     private LocalDateTime startTime;
     private LocalDateTime endTime;
+
+    /**
+     * Constructor that initialises the task string, start time and end time of the event.
+     * @param s Task string of the event
+     * @param startTimeString Start time string to be converted to datetime format
+     * @param endTimeString End time string to be converted to datetime format
+     */
     public Event(String s, String startTimeString, String endTimeString) {
         super(s);
 

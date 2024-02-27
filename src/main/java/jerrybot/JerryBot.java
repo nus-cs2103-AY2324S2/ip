@@ -1,4 +1,4 @@
-package jerryBot;
+package jerrybot;
 
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -13,7 +13,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**

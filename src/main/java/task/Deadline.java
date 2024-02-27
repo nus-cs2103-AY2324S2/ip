@@ -3,9 +3,18 @@ package task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * The Deadline Class which has a task string and deadline datetime as fields.
+ */
 public class Deadline extends Task {
-    private LocalDateTime deadline;
     private static final DateTimeFormatter ORIGINAL_FORMATTER = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
+    private LocalDateTime deadline;
+
+    /**
+     * Constructor that initialises the task string and deadline datetime.
+     * @param s Deadline task string
+     * @param deadlineString Deadline string to be converted to datetime
+     */
     public Deadline(String s, String deadlineString) {
         super(s);
 

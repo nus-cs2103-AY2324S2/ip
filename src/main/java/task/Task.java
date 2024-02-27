@@ -25,6 +25,7 @@ public class Task {
         return this.taskString;
     }
 
+    @Override
     public String toString() {
         if (this.getDoneStatus()) {
             return String.format("[X] %s", this.taskString);

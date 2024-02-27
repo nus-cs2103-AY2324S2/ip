@@ -1,4 +1,8 @@
 package task;
+
+/**
+ * The ToDo Class which has a todo string as a field.
+ */
 public class ToDo extends Task {
     public ToDo(String s) {
         super(s);

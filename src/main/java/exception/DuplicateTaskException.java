@@ -1,5 +1,8 @@
 package exception;
 
+/**
+ * This class is an exception for when a duplicate task is attempted to be added.
+ */
 public class DuplicateTaskException extends Exception {
 
     public DuplicateTaskException() {

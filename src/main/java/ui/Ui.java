@@ -1,5 +1,8 @@
 package ui;
 
+/**
+ * The Ui class provides messages returned by JerryBot that will interact with the user.
+ */
 public class Ui {
     public static final String HI_MESSAGE = "Hello! I'm JerryBot.\n What can I do for you?";
     public static final String BYE_MESSAGE = "Bye. Hope to see you again soon!";
