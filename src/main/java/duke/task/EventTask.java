@@ -33,7 +33,7 @@ public class EventTask extends Task {
     @Override
     public String toString() {
         String output;
-        if (!done) {
+        if (!isDone) {
             output = "[" + this.type + "]" + "[ ] " + this.name + " (from: " + this.start_time + " to: " + this.end_time + ")\n";
         } else {
             output = "[" + this.type + "]" + "[X] " + this.name + " (from: " + this.start_time + " to: " + this.end_time + ")\n";

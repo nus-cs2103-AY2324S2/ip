@@ -17,7 +17,7 @@ public class TodoTask extends Task {
     @Override
     public String toString() {
         String output;
-        if (done) {
+        if (isDone) {
             output = "[" + this.type + "]" + "[X] " + this.name + "\n";
         } else {
             output = "[" + this.type + "]" + "[ ] " + this.name + "\n";

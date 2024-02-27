@@ -5,7 +5,7 @@ package duke.task;
  */
 public abstract class Task {
 
-    protected Boolean done;
+    protected Boolean isDone;
     protected final String name;
     protected Type type;
     protected String fileFormat;
@@ -35,7 +35,7 @@ public abstract class Task {
      * @param file_format File format for the task
      */
     Task(String name, Type type, String fileFormat) {
-        this.done = false;
+        this.isDone = false;
         this.name = name;
         this.type = type;
         this.fileFormat = fileFormat;
@@ -45,14 +45,14 @@ public abstract class Task {
      * Mark tasks as done
      */
     public void mark() {
-        this.done = true;
+        this.isDone = true;
     }
 
     /**
      * Unmark tasks as done
      */
     public void unmark() {
-        this.done = false;
+        this.isDone = false;
     }
 
     /**

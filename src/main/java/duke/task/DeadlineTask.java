@@ -32,7 +32,7 @@ public class DeadlineTask extends Task {
     public String toString() {
         String output;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        if (done) {
+        if (isDone) {
             output = "[" + this.type + "]" + "[X] " + this.name + " (by: " + this.endTime.format(formatter) + ")\n";
         } else {
             output = "[" + this.type + "]" + "[ ] " + this.name + " (by: " + this.endTime.format(formatter) + ")\n";
