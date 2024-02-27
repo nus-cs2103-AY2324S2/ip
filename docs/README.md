@@ -1,6 +1,6 @@
 # HAASNT User Guide
 
-![expected output](https://github.com/ThitipatC/ip/blob/master/docs/Screen%20Shot%202567-02-24%20at%2011.04.24.png?raw=true))
+![expected output](https://github.com/ThitipatC/ip/blob/master/docs/Ui.png)
 
 **If you always forgot what you have to do, HASSNT is here to help you record such tasks.**
 HAASNT is a chatbot that allows you to keep your tasks recorded
