@@ -1,12 +1,12 @@
 package bytetalker.parser;
 
-import bytetalker.exception.ByteTalkerException;
+import bytetalker.exception.*;
+
 import bytetalker.ui.Ui;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 
 
 /**
@@ -35,10 +35,10 @@ public class Parser {
      *
      * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return ArrayList containing content of the task.
-     * @throws ByteTalkerException.TodoUnsupportedFormatException
+     * @throws TodoUnsupportedFormatException
      */
     public static String[] parseTodoAddInput(String[] splitMessages)
-            throws ByteTalkerException.TodoUnsupportedFormatException {
+            throws TodoUnsupportedFormatException {
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
             determineSupportedTodoTask(splitMessages[i]);
@@ -51,17 +51,16 @@ public class Parser {
     }
 
     private static void determineSupportedTodoTask(String message)
-            throws ByteTalkerException.TodoUnsupportedFormatException {
+            throws TodoUnsupportedFormatException {
         if (message.equals("/by") || message.equals("/from") || message.equals("to")) {
-            throw new ByteTalkerException.TodoUnsupportedFormatException("This format is not supported for " +
-                    "Todo");
+            throw new TodoUnsupportedFormatException();
         }
     }
 
     private static void determineTodoTaskContent(String[] parsedTodoInputs)
-            throws ByteTalkerException.TodoUnsupportedFormatException {
+            throws TodoUnsupportedFormatException {
         if (parsedTodoInputs[0] == null || parsedTodoInputs[0].isEmpty()) {
-            throw new ByteTalkerException.TodoUnsupportedFormatException("Task content cannot be left blank");
+            throw new TodoUnsupportedFormatException();
         }
     }
 
@@ -72,10 +71,10 @@ public class Parser {
      *
      * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return ArrayList containing content and deadline of the task.
-     * @throws ByteTalkerException.DeadlineWrongFormatException
+     * @throws DeadlineUnsupportedFormatException
      */
     public static String[] parseDeadlineAddInput(String[] splitMessages)
-            throws ByteTalkerException.DeadlineWrongFormatException {
+            throws DeadlineUnsupportedFormatException {
         String[] messageContainer = new String[2];
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
@@ -94,17 +93,17 @@ public class Parser {
     }
 
     private static void determineSupportedDeadlineTask(String message)
-            throws ByteTalkerException.DeadlineWrongFormatException {
+            throws DeadlineUnsupportedFormatException {
         if (message.equals("/from") || message.equals("/to")) {
-            throw new ByteTalkerException.DeadlineWrongFormatException();
+            throw new DeadlineUnsupportedFormatException();
         }
     }
 
     private static void determineDeadlineTaskContent(String[] parsedDeadlineInputs)
-            throws ByteTalkerException.DeadlineWrongFormatException {
+            throws DeadlineUnsupportedFormatException {
         if (parsedDeadlineInputs[0] == null || parsedDeadlineInputs[0].isEmpty()
                 || parsedDeadlineInputs[1] == null || parsedDeadlineInputs[1].isEmpty()) {
-            throw new ByteTalkerException.DeadlineWrongFormatException();
+            throw new DeadlineUnsupportedFormatException();
         }
     }
 
@@ -116,10 +115,10 @@ public class Parser {
      *
      * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return ArrayList containing content, from and to of the task.
-     * @throws ByteTalkerException.EventWrongFormatException
+     * @throws EventUnsupportedFormatException
      */
     public static String[] parseEventAddInput(String[] splitMessages)
-            throws ByteTalkerException.EventWrongFormatException {
+            throws EventUnsupportedFormatException {
         String[] messageContainer = new String[3];
         String tempMessage = "";
         for (int i = 1; i < splitMessages.length; i++) {
@@ -143,18 +142,18 @@ public class Parser {
     }
 
     private static void determineSupportedEventTask(String message)
-            throws ByteTalkerException.EventWrongFormatException {
+            throws EventUnsupportedFormatException {
         if (message.equals("/by")) {
-            throw new ByteTalkerException.EventWrongFormatException();
+            throw new EventUnsupportedFormatException();
         }
     }
 
     private static void determineEventTaskContentAndTime(String[] parsedEventInputs)
-            throws ByteTalkerException.EventWrongFormatException {
+            throws EventUnsupportedFormatException {
         if (parsedEventInputs[0] == null || parsedEventInputs[0].isEmpty()
                 || parsedEventInputs[1] == null || parsedEventInputs[1].isEmpty()
                 || parsedEventInputs[2] == null || parsedEventInputs[2].isEmpty()) {
-            throw new ByteTalkerException.EventWrongFormatException();
+            throw new EventUnsupportedFormatException();
         }
     }
 
@@ -234,5 +233,11 @@ public class Parser {
             temp += splitMessages[i] + " ";
         }
         return temp.strip();
+    }
+
+    public static void checkCommand(String[] splitMessages) throws CommandWrongFormatExcpetion {
+        if (splitMessages.length <= 1) {
+            throw new CommandWrongFormatExcpetion("Wrong command format. Please follow the correct format.");
+        }
     }
 }

@@ -1,11 +1,11 @@
 package bytetalker.task;
 
-import bytetalker.exception.ByteTalkerException;
+import bytetalker.exception.*;
+
 import bytetalker.parser.Parser;
 import bytetalker.storage.Storage;
 import bytetalker.ui.Ui;
 
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,24 +27,26 @@ public class TaskList {
     /**
      * Changes the status of the specified task as done.
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the result of the method.
      * @return Message for successful or unsuccessful execution
      */
-    public String markTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String markTask(String[] splitMessages, Storage storage, Ui ui) {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
         assert ui != null;
-
-
 
         int index = 0;
         try {
-            index = Integer.parseInt(splitMessage[1]) - 1;
+            Parser.checkCommand(splitMessages);
+            index = Integer.parseInt(splitMessages[1]) - 1;
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
+
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
         }
@@ -62,22 +64,25 @@ public class TaskList {
     /**
      * Changes the status of the specified task as undone
      *
-     * @param splitMessage Parsed messages of user input and processed by Parser.
+     * @param splitMessages Parsed messages of user input and processed by Parser.
      * @param storage Utility object to store the changed list of tasks into the hard disk.
      * @param ui Utility object to print out the message to user to inform the result of the method.
      * @return Message for successful or unsuccessful execution
      */
-    public String unmarkTask(String[] splitMessage, Storage storage, Ui ui) {
+    public String unmarkTask(String[] splitMessages, Storage storage, Ui ui) {
         assert tasks != null;
-        assert splitMessage != null;
+        assert splitMessages != null;
         assert ui != null;
         assert storage != null;
 
         int index = 0;
         try {
-            index = Integer.parseInt(splitMessage[1]) - 1;
-        }catch (NumberFormatException e) {
+            Parser.checkCommand(splitMessages);
+            index = Integer.parseInt(splitMessages[1]) - 1;
+        } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
@@ -117,10 +122,10 @@ public class TaskList {
         } catch (IOException e) {
             this.tasks.remove(this.tasks.size() - 1);
             return ui.showStoreTaskErrorMessage();
-        } catch (ByteTalkerException.UnsupportedTaskException ex) {
+        } catch (UnsupportedCommandException ex) {
             String errorUnsupportedMessage = ex.getMessage() + ". Please only enter the supported types of task.";
             return errorUnsupportedMessage;
-        } catch (ByteTalkerException.UnsupportedDateTimeException ex) {
+        } catch (UnsupportedDateTimeFormatException ex) {
             String errorUnsupportedDateTimeMessage = ex.getMessage() + ".";
             return errorUnsupportedDateTimeMessage;
         }
@@ -132,11 +137,11 @@ public class TaskList {
      *
      * @param messageContainer Parsed messages of user input and processed by Parser.
      * @return Task object ready to be added to the list.
-     * @throws ByteTalkerException.UnsupportedTaskException
+     * @throws UnsupportedCommandException
      */
     private Task determineTaskToBeAdded(String[] messageContainer)
-            throws ByteTalkerException.UnsupportedTaskException,
-            ByteTalkerException.UnsupportedDateTimeException{
+            throws UnsupportedCommandException,
+            UnsupportedDateTimeFormatException{
         boolean isTodo = messageContainer[0].equals("todo");
         boolean isDeadline = messageContainer[0].equals("deadline");
         boolean isEvent = messageContainer[0].equals("event");
@@ -147,7 +152,7 @@ public class TaskList {
         } else if (isEvent) {
             return addEvent(messageContainer);
         } else {
-            throw new ByteTalkerException.UnsupportedTaskException("This is unsupported task");
+            throw new UnsupportedCommandException("This is unsupported task");
         }
     }
 
@@ -166,7 +171,7 @@ public class TaskList {
             String[] parsedTodoInputs = Parser.parseTodoAddInput(splitMessages);
             task = new Todo(parsedTodoInputs[0]);
             return task;
-        } catch (ByteTalkerException.TodoUnsupportedFormatException e) {
+        } catch (TodoUnsupportedFormatException e) {
             return null;
         }
     }
@@ -178,7 +183,7 @@ public class TaskList {
      * @return Deadline object that contains the task content and deadline of the task specified by the user.
      */
     public Deadline addDeadline(String[] splitMessages)
-            throws ByteTalkerException.UnsupportedDateTimeException {
+            throws UnsupportedDateTimeFormatException {
         assert tasks != null;
         assert splitMessages != null;
 
@@ -186,11 +191,11 @@ public class TaskList {
         try {
             String[] parsedDeadlineInput = Parser.parseDeadlineAddInput(splitMessages);
             if (Parser.parseDateTime(parsedDeadlineInput[1]) == null) {
-                throw new ByteTalkerException.UnsupportedDateTimeException("Please use the correct format of DateTime");
+                throw new UnsupportedDateTimeFormatException("Please use the correct format of DateTime");
             }
             task = new Deadline(parsedDeadlineInput[0], Parser.parseDateTime(parsedDeadlineInput[1]));
             return task;
-        } catch (ByteTalkerException.DeadlineWrongFormatException e) {
+        } catch (DeadlineUnsupportedFormatException e) {
             return null;
         }
     }
@@ -201,7 +206,7 @@ public class TaskList {
      * @param splitMessages Parsed messages of user input and processed by Parser.
      * @return Event object that contains the event information, from when and until when specified by the user.
      */
-    public Event addEvent(String[] splitMessages) throws ByteTalkerException.UnsupportedDateTimeException {
+    public Event addEvent(String[] splitMessages) throws UnsupportedDateTimeFormatException {
         assert tasks != null;
         assert splitMessages != null;
 
@@ -210,12 +215,12 @@ public class TaskList {
             String[] parsedEventInput = Parser.parseEventAddInput(splitMessages);
             if (Parser.parseDateTime(parsedEventInput[1]) == null
                     || Parser.parseDateTime(parsedEventInput[2]) == null) {
-                throw new ByteTalkerException.UnsupportedDateTimeException("Please use the correct format of DateTime");
+                throw new UnsupportedDateTimeFormatException("Please use the correct format of DateTime");
             }
             task = new Event(parsedEventInput[0], Parser.parseDateTime(parsedEventInput[1]),
                     Parser.parseDateTime(parsedEventInput[2]));
             return task;
-        } catch (ByteTalkerException.EventWrongFormatException e) {
+        } catch (EventUnsupportedFormatException e) {
             return null;
         }
     }
@@ -234,11 +239,13 @@ public class TaskList {
         assert storage != null;
         int position = 0;
         try {
+            Parser.checkCommand(splitMessages);
             position = Integer.parseInt(splitMessages[1]);
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
-        assert position > 0;
 
         if (position - 1 < 0 || position - 1 > this.tasks.size()) {
             return ui.showInvalidIndexMessage();
@@ -267,9 +274,12 @@ public class TaskList {
         assert splitMessages != null;
         assert ui != null;
 
-        if (splitMessages.length < 2) {
-            return "Please use the correct format";
+        try {
+            Parser.checkCommand(splitMessages);
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
+
         String content = Parser.parseFindInput(splitMessages);
         ArrayList<Task> foundTasks = new ArrayList<>();
         for (int i = 0; i < this.tasks.size(); i++) {
@@ -292,9 +302,12 @@ public class TaskList {
     public String editTask(String[] splitMessages, Storage storage, Ui ui) {
         int index = 0;
         try {
+            Parser.checkCommand(splitMessages);
             index = Integer.parseInt(splitMessages[1]) - 1;
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
         if (index < 0 || index > this.tasks.size()) {
             return ui.showInvalidIndexMessage();

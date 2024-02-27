@@ -1,6 +1,6 @@
 package bytetalker.task;
 
-import bytetalker.exception.ByteTalkerException;
+import bytetalker.exception.UnsupportedDateTimeFormatException;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -40,7 +40,7 @@ public class TaskListTest {
         String[] sampleMsg = {"deadline", "read", "book", "/by", "5/2/2019", "1800"};
         try {
             assertEquals("[D][ ] read book (by: Feb 05 2019 6:00PM)", tasks.addDeadline(sampleMsg).toString());
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -51,7 +51,7 @@ public class TaskListTest {
         String[] sampleMsg = {"deadline"};
         try {
             assertEquals(null, tasks.addDeadline(sampleMsg));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -64,7 +64,7 @@ public class TaskListTest {
         String[] sampleMsg = {"deadline", "read", "book", "/by", "5/2/2019", "1800", "/from", "2/3/2019"};
         try {
             assertEquals(null, tasks.addDeadline(sampleMsg));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -76,7 +76,7 @@ public class TaskListTest {
         try {
             assertEquals("[E][ ] midterm exam (from: Feb 08 2024 3:00PM to: Feb 08 2024 6:00PM)",
                     tasks.addEvent(splitMessages).toString());
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -87,7 +87,7 @@ public class TaskListTest {
         String[] splitMessages = {"event"};
         try {
             assertEquals(null, tasks.addEvent(splitMessages));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -98,7 +98,7 @@ public class TaskListTest {
         String[] splitMessages = {"event", "midterm", "exam", "/by", "Sunday"};
         try {
             assertEquals(null, tasks.addEvent(splitMessages));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -109,7 +109,7 @@ public class TaskListTest {
         String[] splitMessages = {"event", "midterm", "exam"};
         try {
             assertEquals(null, tasks.addEvent(splitMessages));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
@@ -120,7 +120,7 @@ public class TaskListTest {
         String[] splitMessages = {"event", "mideterm", "exam", "/from", "5-2-2024"};
         try {
             assertEquals(null, tasks.addEvent(splitMessages));
-        } catch (ByteTalkerException.UnsupportedDateTimeException e) {
+        } catch (UnsupportedDateTimeFormatException e) {
             assertEquals(true, false);
         }
     }
