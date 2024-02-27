@@ -25,7 +25,7 @@ public class UnknownCommand extends Command {
      */
     public TaskList execute(TaskList tasks, Ui ui) {
         ui.appendResponse("Sorry.. I don't know what that means!"
-                    + " If you want to leave, just say 'bye'! :(\n");
+                    + " If you want to leave, just say 'bye'! :(");
         return tasks;
     }
 }

@@ -22,7 +22,7 @@ public class HelpCommand extends Command {
     @Override
     public TaskList execute(TaskList tasks, Ui ui) {
         List<String> helpMessages = Arrays.asList(
-                "Here's all the things I can do for you! ~(^o.o^)",
+                "Here's all the things I can do for you!",
                 "1. todo <description> - Add a reminder to do something!",
                 "2. deadline <description> /by <deadline> - Add a reminder.. with a deadline!",
                 "3. event <description> /from <start> /to <end> - Add an event to your calendar",
