@@ -41,20 +41,16 @@ public class TaskList {
         try {
             Parser.checkCommand(splitMessages);
             index = Integer.parseInt(splitMessages[1]) - 1;
+            if (index < 0 || index >= this.tasks.size()) {
+                return ui.showInvalidIndexMessage();
+            }
+            this.tasks.get(index).setStatus(true);
+            storage.storeTasks(this.tasks);
+            return ui.showMarkTaskMsg(this.tasks.get(index));
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
         } catch (CommandWrongFormatExcpetion e) {
             return e.getMessage();
-        }
-
-        if (index < 0 || index > this.tasks.size()) {
-            return ui.showInvalidIndexMessage();
-        }
-
-        try {
-            this.tasks.get(index).setStatus(true);
-            storage.storeTasks(this.tasks);
-            return ui.showMarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
             this.tasks.get(index).setStatus(false);
             return ui.showStoreTaskErrorMessage();
@@ -79,19 +75,16 @@ public class TaskList {
         try {
             Parser.checkCommand(splitMessages);
             index = Integer.parseInt(splitMessages[1]) - 1;
+            if (index < 0 || index >= this.tasks.size()) {
+                return ui.showInvalidIndexMessage();
+            }
+            this.tasks.get(index).setStatus(false);
+            storage.storeTasks(this.tasks);
+            return ui.showUnmarkTaskMsg(this.tasks.get(index));
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
         } catch (CommandWrongFormatExcpetion e) {
             return e.getMessage();
-        }
-        if (index < 0 || index > this.tasks.size()) {
-            return ui.showInvalidIndexMessage();
-        }
-
-        try {
-            this.tasks.get(index).setStatus(false);
-            storage.storeTasks(this.tasks);
-            return ui.showUnmarkTaskMsg(this.tasks.get(index));
         } catch (IOException e) {
             this.tasks.get(index).setStatus(true);
             return ui.showStoreTaskErrorMessage();
@@ -112,13 +105,12 @@ public class TaskList {
     public String addTask(String[] messageContainer, Storage storage, Ui ui) {
         try {
             Task task = determineTaskToBeAdded(messageContainer);
-            if (task != null) {
-                this.tasks.add(task);
-                storage.storeTasks(this.tasks);
-                return ui.showAddTaskMsg(task, this.tasks.size());
-            } else {
-                return "Please follow the correct format.";
+            if (task == null) {
+                throw new CommandWrongFormatExcpetion("Wrong command format. Please follow the correct format.");
             }
+            this.tasks.add(task);
+            storage.storeTasks(this.tasks);
+            return ui.showAddTaskMsg(task, this.tasks.size());
         } catch (IOException e) {
             this.tasks.remove(this.tasks.size() - 1);
             return ui.showStoreTaskErrorMessage();
@@ -128,6 +120,8 @@ public class TaskList {
         } catch (UnsupportedDateTimeFormatException ex) {
             String errorUnsupportedDateTimeMessage = ex.getMessage() + ".";
             return errorUnsupportedDateTimeMessage;
+        } catch (CommandWrongFormatExcpetion e) {
+            return e.getMessage();
         }
     }
 
@@ -241,14 +235,13 @@ public class TaskList {
         try {
             Parser.checkCommand(splitMessages);
             position = Integer.parseInt(splitMessages[1]);
+            if (position - 1 < 0 || position - 1 >= this.tasks.size()) {
+                return ui.showInvalidIndexMessage();
+            }
         } catch (NumberFormatException e) {
             return ui.showMissingIndexMessage();
         } catch (CommandWrongFormatExcpetion e) {
             return e.getMessage();
-        }
-
-        if (position - 1 < 0 || position - 1 > this.tasks.size()) {
-            return ui.showInvalidIndexMessage();
         }
 
         Task task = this.tasks.get(position - 1);
