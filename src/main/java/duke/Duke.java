@@ -251,7 +251,7 @@ public class Duke extends Application {
                     }
                 case("find"):
                     try {
-                        keyword = Parser.parse_find(input);
+                        keyword = Parser.parseFind(input);
                         for (int i = 0; i < todo.size(); i++) {
                             if (todo.getList().get(i).getName().contains(keyword)) {
                                 responseString.append(String.format("\t%d. %s", i + 1, todo.getList().get(i)));

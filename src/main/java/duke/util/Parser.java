@@ -142,7 +142,7 @@ public class Parser {
         }
     }
 
-    public static String parse_find(String input) throws DukeException {
+    public static String parseFind(String input) throws DukeException {
         if (input.split(" ").length > 1) {
             return String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
         } else {
