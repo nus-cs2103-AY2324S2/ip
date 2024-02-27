@@ -23,16 +23,16 @@ public class DeleteCommand extends Command {
     public TaskList execute(TaskList tasks, Ui ui) throws DukeException {
         try {
             if (arguments.isEmpty()) {
-                throw new DukeException(Messages.DELETE_ERROR_MESSAGE);
+                throw new DukeException(Messages.DELETE_ERROR.getMessage());
             }
 
             int index = Integer.parseInt(arguments.get(0)) - 1;
 
             if (index >= 0 && index < tasks.getNoOfTasks()) {
                 tasks.deleteTask(index);
-                ui.appendResponse(String.format(Messages.SUCCESS_DELETE_MESSAGE, index + 1));
+                ui.appendResponse(String.format(Messages.DELETE_SUCCESS.getMessage(), index + 1));
             } else {
-                throw new DukeException(String.format(Messages.INDEX_ERROR_MESSAGE,
+                throw new DukeException(String.format(Messages.INDEX_ERROR.getMessage(),
                     arguments.get(0)));
             }
         } catch (DukeException e) {
@@ -40,7 +40,7 @@ public class DeleteCommand extends Command {
             ui.appendResponse(message);
             return tasks;
         } catch (NumberFormatException e) {
-            ui.appendResponse(Messages.DELETE_INVALID_INDEX_ERROR_MESSAGE);
+            ui.appendResponse(Messages.DELETE_INVALID_INDEX_ERROR.getMessage());
             return tasks;
         }
 
