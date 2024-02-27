@@ -5,9 +5,9 @@ package duke.tasks;
  */
 public abstract class Task {
     /* Task is a class, what does it do??? */
-    public String name; 
-    public boolean isDone;
-    public char taskType;
+    private String name;
+    private boolean isDone;
+    private char taskType;
     // static String COMPLETED_MESSAGE_END = " is complete!";
     // static String INCOMPLETE_MESSAGE_END = " has yet to be completed.";
 
@@ -34,13 +34,17 @@ public abstract class Task {
             this.isDone = true;
         }
     }
-    
+
     public Boolean checkDone() {
         return this.isDone;
     }
 
     public String getName() {
         return this.name;
+    }
+
+    public char getTaskType() {
+        return this.taskType;
     }
 
     /**
@@ -74,7 +78,7 @@ public abstract class Task {
     public void revertStatus() {
         this.isDone = false;
     }
-    
+
     public boolean correctKeyword(String keyword) {
         return this.name.contains(keyword);
     }

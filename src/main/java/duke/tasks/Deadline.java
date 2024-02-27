@@ -7,12 +7,12 @@ import java.time.format.DateTimeFormatter;
  * Represents deadline tasks.
  */
 public class Deadline extends Task {
-    private static String TASK_TYPE = "[D] ";
-    private static String DEADLINE = "deadline";
+    private static final String TASK_TYPE = "[D] ";
+    private static final String DEADLINE = "deadline";
+    private static final String COMPLETED_MESSAGE_END = " is complete!";
+    private static final String INCOMPLETE_MESSAGE_END = " by ";
     private LocalDate date;
-    static String COMPLETED_MESSAGE_END = " is complete!";
-    static String INCOMPLETE_MESSAGE_END = " by ";
-    
+
     /**
      * Constructor for new deadlines.
      * @param name Description or name of the given task.
@@ -32,14 +32,15 @@ public class Deadline extends Task {
     public Deadline(String name, String isDone, LocalDate date) {
         super(name, isDone);
         this.date = date;
-    }    
+    }
 
     @Override
     public String checkStatus() {
         if (this.checkDone()) {
             return TASK_TYPE + this.getName() + COMPLETED_MESSAGE_END;
         } else {
-            return TASK_TYPE + this.getName() + INCOMPLETE_MESSAGE_END + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
+            return TASK_TYPE + this.getName() + INCOMPLETE_MESSAGE_END
+                    + this.date.format(DateTimeFormatter.ofPattern("MMM d yyyy"));
         }
     }
 
@@ -49,12 +50,12 @@ public class Deadline extends Task {
      */
     public String getAttributes() {
         String isDoneString = "";
-        if (this.isDone) {
+        if (this.checkDone()) {
             isDoneString = "true";
         } else {
             isDoneString = "false";
         }
 
-        return DEADLINE + " " + isDoneString + " " + this.date + " " + this.name;
+        return DEADLINE + " " + isDoneString + " " + this.date + " " + this.getName();
     }
 }

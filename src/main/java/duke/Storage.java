@@ -4,9 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.FileWriter;
-
 import java.time.LocalDate;
-
 import java.util.Scanner;
 
 import duke.tasks.Task;
@@ -33,7 +31,7 @@ public class Storage {
 
     /**
      * Returns tasklist after reading external txt file according to path.
-     * 
+     *
      * @return taskList based on external txt file
      * @throws FileNotFoundException If path does not lead to the correct file.
      * @throws IOException If the file cannot be created if not found.
@@ -55,7 +53,7 @@ public class Storage {
             while (sc.hasNextLine()) {
                 // Split by first space
 
-                String parts[] = sc.nextLine().split(" ", 2);
+                String[] parts = sc.nextLine().split(" ", 2);
                 if (parts[0].equals(TODO)) {
                     parts = parts[1].split(" ", 2);
                     task = new Todo(parts[1], parts[0]);
@@ -70,9 +68,8 @@ public class Storage {
                     LocalDate date = LocalDate.parse(parts[1].trim());
                     task = new Event(parts[2], parts[0], date);
 
-                } 
+                }
                 taskList.addTask(task);
-            
             }
             sc.close();
             return taskList;
@@ -84,7 +81,7 @@ public class Storage {
 
     /**
      * Saves task list into a txt file
-     * 
+     *
      * @param taskList to be saved
      * @throws IOException If file cannot be created.
      */
