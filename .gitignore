@@ -13,10 +13,12 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Cli testing
 /text-cli-test/ACTUAL.TXT
 text-cli-test/EXPECTED-UNIX.TXT
 
 # Data files
 /data/
 
+# Jekyll related stuff
 /docs/vendor
