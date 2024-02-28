@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Ui {
     Scanner input = new Scanner(System.in);
-    static String greetings = "Hello！ I'm NetGoblin\n"
+    static String greetings = "Hello, I'm NetGoblin\n"
             + "What can I do for you?";
     static String bye = "Bye. Hope to see you again soon!\n";
 
