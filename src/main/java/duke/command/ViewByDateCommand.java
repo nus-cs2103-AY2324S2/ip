@@ -34,11 +34,11 @@ public class ViewByDateCommand extends Command {
         List<Task> tasksByDate = tasks.getTasksByDate(date);
 
         // Displaying the date header
-        ui.appendResponse(String.format("Here are your tasks on %s:\n", formatDate(date)));
+        ui.appendResponse(String.format("Here are your tasks on %s:", formatDate(date)));
 
         // Displaying tasks
         for (int i = 0; i < tasksByDate.size(); i++) {
-            ui.appendResponse((i + 1) + ". " + tasksByDate.get(i));
+            ui.appendResponse("\n" + (i + 1) + ". " + tasksByDate.get(i));
         }
 
         return new TaskList(tasksByDate);
