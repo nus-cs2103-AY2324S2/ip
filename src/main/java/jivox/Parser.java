@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import jivox.exception.JivoxInvalidArgumentException;
 import jivox.exception.JivoxInvalidDateException;
 import jivox.exception.JivoxUnknownCommandException;
 
@@ -73,6 +74,21 @@ public class Parser {
             return LocalDateTime.parse(input, formatter);
         } catch (DateTimeParseException e) {
             throw new JivoxInvalidDateException();
+        }
+    }
+
+    /**
+     * Parse the Input to Task Number
+     *
+     * @param input The input to parse.
+     * @return the Task number to perform commands (delete, mark,unmark)
+     * @throws JivoxInvalidArgumentException if input can't be parsed
+     */
+    public int parseNumber(String input) throws JivoxInvalidArgumentException {
+        try {
+            return Integer.parseInt(input);
+        } catch (NumberFormatException e) {
+            throw new JivoxInvalidArgumentException();
         }
     }
 

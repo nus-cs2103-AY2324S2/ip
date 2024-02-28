@@ -270,11 +270,11 @@ public class Jivox {
         case TODO:
             return this.add("todo", input[1]);
         case MARK:
-            return this.mark(Integer.parseInt(input[1]));
+            return this.mark(this.parser.parseNumber(input[1]));
         case UNMARK:
-            return this.unmark(Integer.parseInt(input[1]));
+            return this.unmark(this.parser.parseNumber(input[1]));
         case DELETE:
-            return this.delete(Integer.parseInt(input[1]));
+            return this.delete(this.parser.parseNumber(input[1]));
         case LIST:
             return this.ui.showTasks(tasks);
         case SHOW:
