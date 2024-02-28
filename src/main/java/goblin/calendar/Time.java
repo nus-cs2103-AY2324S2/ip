@@ -1,9 +1,13 @@
+package goblin.calendar;
+
+import goblin.exception.OrkException;
+
 public class Time {
     protected String unprocessed;
     protected String processed;
     protected boolean isAfternoon = false;
 
-    public Time(String unprocessedTime) throws OrkException{
+    public Time(String unprocessedTime) throws OrkException {
         this.unprocessed = unprocessedTime;
         processTime();
     }

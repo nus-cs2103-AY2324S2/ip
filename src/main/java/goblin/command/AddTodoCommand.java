@@ -1,4 +1,13 @@
-public class AddTodoCommand extends Command{
+package goblin.command;
+
+import goblin.Storage;
+import goblin.TaskList;
+import goblin.Ui;
+import goblin.exception.OrkException;
+import goblin.task.ToDos;
+import goblin.task.Task;
+
+public class AddTodoCommand extends Command {
     protected String description;
 
     public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {

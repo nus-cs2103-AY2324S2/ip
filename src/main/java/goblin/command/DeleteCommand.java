@@ -1,4 +1,12 @@
-public class DeleteCommand extends Command{
+package goblin.command;
+
+import goblin.Storage;
+import goblin.TaskList;
+import goblin.Ui;
+import goblin.task.Task;
+import goblin.exception.OrkException;
+
+public class DeleteCommand extends Command {
     protected int index;
 
     public DeleteCommand(int index) {

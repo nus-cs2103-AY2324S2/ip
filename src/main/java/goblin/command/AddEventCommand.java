@@ -1,4 +1,13 @@
-public class AddEventCommand extends Command{
+package goblin.command;
+
+import goblin.Storage;
+import goblin.TaskList;
+import goblin.Ui;
+import goblin.exception.OrkException;
+import goblin.task.Events;
+import goblin.task.Task;
+
+public class AddEventCommand extends Command {
     protected String description;
 
     public AddEventCommand(String description) {

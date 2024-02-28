@@ -1,4 +1,8 @@
-import java.util.Scanner;
+package goblin;
+
+import goblin.task.Task;
+import goblin.command.Command;
+import goblin.exception.OrkException;
 import java.util.ArrayList;
 
 public class Goblin {
@@ -37,6 +41,6 @@ public class Goblin {
     }
 
     public static void main(String[] args) {
-        new Goblin("src/main/java/data.txt").run();
+        new Goblin("src/main/java/goblin/data.txt").run();
     }
 }

@@ -1,4 +1,13 @@
-public class AddDeadlineCommand extends Command{
+package goblin.command;
+
+import goblin.Storage;
+import goblin.TaskList;
+import goblin.Ui;
+import goblin.exception.OrkException;
+import goblin.task.Deadlines;
+import goblin.task.Task;
+
+public class AddDeadlineCommand extends Command {
     protected String description;
 
     public AddDeadlineCommand(String description) {

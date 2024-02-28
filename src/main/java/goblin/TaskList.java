@@ -1,7 +1,11 @@
+package goblin;
+
+import goblin.task.Task;
+
 import java.util.ArrayList;
 
 public class TaskList {
-    protected static ArrayList<Task> list = new ArrayList<>();
+    public static ArrayList<Task> list = new ArrayList<>();
 
     public TaskList(ArrayList<Task> list) {
         this.list = list;

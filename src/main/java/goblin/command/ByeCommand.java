@@ -1,4 +1,10 @@
-public class ByeCommand extends Command{
+package goblin.command;
+
+import goblin.Storage;
+import goblin.TaskList;
+import goblin.Ui;
+
+public class ByeCommand extends Command {
     public ByeCommand() {
         super();
     }

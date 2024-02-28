@@ -1,7 +1,17 @@
-public class MarkCommand extends Command{
+package goblin.command;
+
+import goblin.command.Command;
+
+import goblin.Storage;
+import goblin.Ui;
+import goblin.task.Task;
+import goblin.TaskList;
+import goblin.exception.OrkException;
+
+public class UnmarkCommand extends Command {
     protected int index;
 
-    public MarkCommand(int index) {
+    public UnmarkCommand(int index) {
         super();
         this.index = index;
     }
@@ -12,8 +22,8 @@ public class MarkCommand extends Command{
             if (index + 1 > TaskList.list.size()) {
                 throw new OrkException("No such task");
             }
-            task.done();
-            ui.printDoneMessage(task);
+            task.undone();
+            Ui.printDoneMessage(task);
             Storage.writeToDisk(tasks);
         } catch (OrkException exception) {
             ui.printException(exception);

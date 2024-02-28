@@ -1,3 +1,10 @@
+package goblin.task;
+
+import goblin.calendar.Date;
+import goblin.calendar.Time;
+import goblin.exception.OrkException;
+import goblin.task.Task;
+
 public class Events extends Task {
 
     protected Date startDate;

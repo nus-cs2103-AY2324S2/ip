@@ -1,4 +1,11 @@
-public class Deadlines extends Task{
+package goblin.task;
+
+import goblin.calendar.Date;
+import goblin.calendar.Time;
+import goblin.exception.OrkException;
+import goblin.task.Task;
+
+public class Deadlines extends Task {
     protected Date date;
     protected Time time;
 

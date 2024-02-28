@@ -1,3 +1,5 @@
+package goblin.exception;
+
 public class OrkException extends Exception{
     protected String message;
 
