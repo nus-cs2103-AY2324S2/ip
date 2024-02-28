@@ -69,11 +69,12 @@ public class TaskList {
 
     public List<Task> getTasksByDate(LocalDate date) {
         return tasks.stream()
-                .filter(task -> task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date))
-                .filter(task -> task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
-                        || ((Event) task).getTo().toLocalDate().equals(date)))
+                .filter(task -> (task instanceof Deadline && ((Deadline) task).getBy().toLocalDate().equals(date))
+                        || (task instanceof Event && (((Event) task).getFrom().toLocalDate().equals(date)
+                        || ((Event) task).getTo().toLocalDate().equals(date))))
                 .collect(Collectors.toList());
     }
+
 
 
 
