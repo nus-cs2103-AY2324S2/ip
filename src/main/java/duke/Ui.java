@@ -38,6 +38,7 @@ public class Ui {
     private static final String FILE_PATH = "./src/main/java/data/saved_tasks.txt";
     private static final String FIND = "find";
     private static final String FOUND_MESSAGE = NEW_LINE + INDENT + "Here are the tasks I have found!\n";
+    private static final String CHECK_DUPLICATE = "dupe";
 
     private Storage storage = new Storage(FILE_PATH);
     private TaskList taskList;
@@ -95,6 +96,11 @@ public class Ui {
             this.isFinished = true;
             return EXIT;
 
+        } else if (input.contains(CHECK_DUPLICATE)) {
+            taskList.deleteDuplicate();
+            this.storage.save(taskList);
+            return NEW_LINE + taskList.showList() + NEW_LINE;
+            
         } else if (input.contains(REMOVE)) {
             idx = Integer.valueOf(input.substring(SEVEN));
             taskList.removeTask(idx - 1);
