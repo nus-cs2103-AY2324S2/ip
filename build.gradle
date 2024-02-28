@@ -48,8 +48,7 @@ application {
 }
 
 shadowJar {
-    archiveBaseName = "tam"
-    archiveVersion = "1.1"
+    archiveBaseName = "Tam"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
