@@ -26,7 +26,7 @@ public class SortTaskProcessor extends Processor {
         String[] parts = userInput.split(" ");
         if (parts.length != 2) {
             System.out.println(chatbotUi.dividerWrapper(
-                    "Ya better sort it properly ya like you sorted me up that time\n"
+                    "Ya better sort it properly ya\n"
                             + " Please enter one of 'alphabetical',"
                             + " 'start_date', 'end_date', 'task_type', 'mark'."));
             return;

@@ -40,7 +40,7 @@ public class DeleteTaskProcessor extends Processor {
             taskList.deleteAtIndex(number - 1);
 
             assert previousSize == taskList.size() + 1 : "Task list size should have decreased";
-            System.out.println(chatbotUi.dividerWrapper("Noted. I've destroyed this task like you've dethtroyed my...:\n"
+            System.out.println(chatbotUi.dividerWrapper("Noted. I've destroyed this task:\n"
                     + temp + "\nNow you have " + taskList.size() + " tasks in the list"));
             storage.writeToFile(taskList);
         } catch (NumberFormatException e) {
