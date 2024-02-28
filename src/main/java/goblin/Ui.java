@@ -2,7 +2,6 @@ package goblin;
 
 import goblin.task.Task;
 import goblin.exception.OrkException;
-
 import java.util.Scanner;
 
 public class Ui {
@@ -54,7 +53,10 @@ public class Ui {
         System.out.println("\t " + task.notPrint());
     }
 
-    public void showLoadingError() {
-        System.out.println("I don't know what that means :-(");
+    public void showLoadingError() { System.out.println("I don't know what that means");
+    }
+
+    public static String forTest() {
+        return "haha";
     }
 }
