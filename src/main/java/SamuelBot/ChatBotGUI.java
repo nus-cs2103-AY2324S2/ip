@@ -117,14 +117,23 @@ public class ChatBotGUI extends Application {
     }
 
     private void handleUserInput() {
-        Label userText = new Label(userInput.getText());
-        Label SamuelText = new Label(getResponse(userInput.getText()));
-        dialogContainer.getChildren().addAll(
-                new DialogBox(userText, new ImageView(user)),
-                new DialogBox(SamuelText, new ImageView(Samuel))
-        );
+        String userInputText = userInput.getText();
+        String samuelResponse = getResponse(userInputText);
+
+        // Create DialogBox for user input
+        DialogBox userDialog = DialogBox.getUserDialog(userInputText, user);
+
+        // Create DialogBox for Samuel's response
+        DialogBox samuelDialog = DialogBox.getDukeDialog(samuelResponse, Samuel);
+
+        // Add both DialogBoxes to the dialog container
+        dialogContainer.getChildren().addAll(userDialog, samuelDialog);
+
+        // Clear the user input field
         userInput.clear();
     }
+
+
 
     private String getResponse(String input) {
         return "SamuelBot heard: " + input;

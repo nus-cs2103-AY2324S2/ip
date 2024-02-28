@@ -267,6 +267,14 @@ public class Samuelbot {
         ui.showMatchingTasks(matchingTasks);
     }
 
+    public String getResponse(String userInput) {
+        String response = "";
+        processInput(userInput);
+        response = "Command executed: " + userInput;
+        return response;
+    }
+
+
     /**
      * The main method to start the Samuelbot application.
      * @param args The command-line arguments.
