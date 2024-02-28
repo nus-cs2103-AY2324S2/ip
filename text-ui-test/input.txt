@@ -1,0 +1,15 @@
+list
+bruh
+todo
+todo hello
+deadline
+deadline /by
+deadline /by 2pm
+event
+event /from 2
+event /from 2 /to
+event /to 2 /from 3
+event /from 2 /to 3
+list
+delete 10
+delete 1
