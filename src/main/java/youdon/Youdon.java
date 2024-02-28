@@ -21,7 +21,7 @@ public class Youdon {
 
     /**
      * The main method of the application.
-     * This method is currently empty as the Youdon application is not meant to be run via the main method directly.
+     * This method is empty as YoudonBot has switched from CLI to GUI.
      *
      * @param args The command-line arguments passed to the application.
      */
