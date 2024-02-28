@@ -8,7 +8,7 @@ import luna.Ui;
  * Represents a unmark command. Unmarks a task in the tasklist
  */
 public class UnmarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Construct a Command to have invalid command type and assign its default error default

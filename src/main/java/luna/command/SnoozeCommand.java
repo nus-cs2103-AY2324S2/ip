@@ -8,8 +8,8 @@ import luna.Ui;
  * Represents a snooze command which snooze a task from the task list
  */
 public class SnoozeCommand extends Command {
-    private int index;
-    private int days;
+    private final int index;
+    private final int days;
 
     /**
      * Construct a Command to have snooze command type and assign its task name and end date
