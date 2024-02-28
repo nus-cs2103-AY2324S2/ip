@@ -15,7 +15,7 @@ public enum Messages {
     DELETE_INVALID_INDEX_ERROR("Sigh.. That's not a valid number! Try 'delete <NUMBER>'."),
     DELETE_SUCCESS("Deleted task %d"),
 
-    FIND_SUCCESS("Here are the matching tasks in your list:"),
+    FIND_SUCCESS("Here are the matching tasks in your list:\n"),
 
     HELP_SUCCESS(
             "Here's all the things I can do for you!\n"
@@ -50,7 +50,6 @@ public enum Messages {
     PARSER_EVENT_DATE_TIME_ERROR("Error: Both start and end times are required for the event command. "
             + "Correct format: /from <start> /to <end>"),
     PARSER_VIEW_DATE_ERROR("Please specify a date for viewing tasks!"),
-    PARSER_INVALID_DATE_FORMAT("Invalid date format! Please enter the date in YYYY-MM-DD format."),
     PARSER_INVALID_DATE_TIME_FORMAT("Invalid date/time format. Please use yyyy-MM-dd HH:mm format."),
     PARSER_MISSING_KEYWORD_ERROR("Error: Missing %s after command.");
 
