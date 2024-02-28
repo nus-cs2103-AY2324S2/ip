@@ -1,3 +1,0 @@
-todo false Read book
-deadline false 1999-12-03 Return book
-deadline false 2024-03-01 Homework

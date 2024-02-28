@@ -19,6 +19,7 @@ public class Storage {
     // Parses file and outputs it as a list
     private static final String TODO = "todo";
     private static final String DEADLINE = "deadline";
+    private static final String FILE_NAME = "/saved_tasks.txt";
     private String path;
 
     /**
@@ -40,7 +41,11 @@ public class Storage {
         TaskList taskList = new TaskList();
         assert taskList.getLength() == 0: "taskList should be empty";
         Task task;
-        File file = new File(path);
+        File directory = new File(path);
+        if (!directory.exists()) {
+            directory.mkdir();
+        }
+        File file = new File(path + FILE_NAME);
         if (file.exists() == false) {
             try {
                 file.createNewFile();
@@ -53,12 +58,10 @@ public class Storage {
             Scanner sc = new Scanner(file);
             while (sc.hasNextLine()) {
                 // Split by first space
-
                 String[] parts = sc.nextLine().split(" ", 2);
                 if (parts[0].equals(TODO)) {
                     parts = parts[1].split(" ", 2);
                     task = new Todo(parts[1], parts[0]);
-
                 } else if (parts[0].equals(DEADLINE)) {
                     parts = parts[1].split(" ", 3);
                     LocalDate date = LocalDate.parse(parts[1].trim());
@@ -72,6 +75,7 @@ public class Storage {
                 }
                 taskList.addTask(task);
             }
+            System.out.println("Here 3");
             sc.close();
             return taskList;
         } catch (FileNotFoundException e) {
@@ -89,7 +93,7 @@ public class Storage {
     public void save(TaskList taskList) throws IOException {
         int length = taskList.getLength();
         String finalOutput = "";
-        File file = new File(path);
+        File file = new File(path + FILE_NAME);
 
         for (int i = 0; i < length; i++) {
             finalOutput = finalOutput + taskList.getTask(i).getAttributes() + "\n";
@@ -98,7 +102,7 @@ public class Storage {
         file.delete();
         file.createNewFile();
 
-        FileWriter fileWriter = new FileWriter(path, false);
+        FileWriter fileWriter = new FileWriter(path + FILE_NAME, false);
         fileWriter.write(finalOutput);
         fileWriter.close();
     }

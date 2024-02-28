@@ -1,3 +1,2 @@
 todo true Read
-deadline true 1999-12-03 Return book 
-deadline false 2022-03-03 Eat book 
+deadline false 1999-10-02 Homework
