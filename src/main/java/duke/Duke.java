@@ -45,32 +45,19 @@ public class Duke {
                 case "list":
                     return listAllMsg(taskList);
                 case "mark":
-                    handleMarkTask(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return markMsg();
+                    return handleMarkTask(userInputArray);
                 case "unmark":
-                    handleUnmarkTask(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return unmarkMsg();
+                    return handleUnmarkTask(userInputArray);
                 case "todo":
-                    handleTodoCommand(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return addTaskMsg();
+                    return handleTodoCommand(userInputArray);
                 case "deadline":
-                    handleDeadlineCommand(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return addTaskMsg();
+                    return handleDeadlineCommand(userInputArray);
                 case "event":
-                    handleEventCommand(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return addTaskMsg();
+                    return handleEventCommand(userInputArray);
                 case "delete":
-                    String status = handleDeleteCommand(userInputArray);
-                    taskRepository.saveTasksToFile(taskList);
-                    return deleteMsg(status);
+                    return handleDeleteCommand(userInputArray);
                 case "find":
-                    String tasksFound = handleFindCommand(userInputArray);
-                    return findMsg(tasksFound);
+                    return handleFindCommand(userInputArray);
                 case "":
                     return Bot.getEmptyInputMsg();
                 default:
@@ -176,7 +163,7 @@ public class Duke {
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append((i + 1) + "." + matchingTasks.get(i)).append("\n");
         }
-        return sb.toString();
+        return findMsg(sb.toString());
     }
 
     /*
@@ -214,7 +201,8 @@ public class Duke {
         } else {
             status.append("No more tasks in the list.");
         }
-        return status.toString();
+        taskRepository.saveTasksToFile(taskList);
+        return deleteMsg(status.toString());
     }
 
     /**
@@ -224,7 +212,7 @@ public class Duke {
      * @throws BotException If the task number is missing, not numeric, or out of
      *                      range
      */
-    private void handleMarkTask(String[] userInputArray) throws BotException {
+    private String handleMarkTask(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
         assert userInputArray.length > 0 : "User input array should not be empty";
 
@@ -242,6 +230,8 @@ public class Duke {
             throw new BotException("Task number is out of range.");
         }
         taskList.markTaskAsDone(i);
+        taskRepository.saveTasksToFile(taskList);
+        return markMsg();
     }
 
     /**
@@ -251,7 +241,7 @@ public class Duke {
      * @throws BotException If the task number is not provided, is not numeric, or
      *                      is out of range
      */
-    private void handleUnmarkTask(String[] userInputArray) throws BotException {
+    private String handleUnmarkTask(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
         assert userInputArray.length > 0 : "User input array should not be empty";
 
@@ -269,6 +259,8 @@ public class Duke {
             throw new BotException("Task number is out of range.");
         }
         taskList.unmarkTaskAsDone(i);
+        taskRepository.saveTasksToFile(taskList);
+        return unmarkMsg();
     }
 
     /**
@@ -277,7 +269,7 @@ public class Duke {
      * @param userInputArr the array containing the user input
      * @throws BotException if the description of the todo is empty
      */
-    private void handleTodoCommand(String[] userInputArray) throws BotException {
+    private String handleTodoCommand(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
 
         if (userInputArray.length < 2) {
@@ -285,6 +277,8 @@ public class Duke {
         }
         String todoTask = String.join(" ", Arrays.copyOfRange(userInputArray, 1, userInputArray.length));
         this.taskList.addTodo(todoTask);
+        taskRepository.saveTasksToFile(taskList);
+        return addTaskMsg();
     }
 
     /**
@@ -293,7 +287,7 @@ public class Duke {
      * @param userInputArr the array containing the user input
      * @throws BotException if the user input is incomplete
      */
-    private void handleDeadlineCommand(String[] userInputArray) throws BotException {
+    private String handleDeadlineCommand(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
 
         if (userInputArray.length < 3) {
@@ -306,6 +300,8 @@ public class Duke {
                 Arrays.asList(userInputArray).indexOf("/by") + 1, userInputArray.length));
 
         taskList.addDeadline(deadlineTask, dueDate);
+        taskRepository.saveTasksToFile(taskList);
+        return addTaskMsg();
     }
 
     /**
@@ -318,7 +314,7 @@ public class Duke {
      *                     arguments
      * @throws BotException if the description and time of an event are empty
      */
-    private void handleEventCommand(String[] userInputArray) throws BotException {
+    private String handleEventCommand(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
 
         if (userInputArray.length < 3) {
@@ -334,5 +330,7 @@ public class Duke {
         String endTime = String.join(" ", Arrays.copyOfRange(userInputArray, toIndex
                 + 1, userInputArray.length));
         taskList.addEvent(eventTask, startTime, endTime);
+        taskRepository.saveTasksToFile(taskList);
+        return addTaskMsg();
     }
 }

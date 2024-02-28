@@ -66,7 +66,7 @@ public class Bot {
         exitMsg.append("\n");
         exitMsg.append("I'll be back.");
         exitMsg.append("\n");
-        exitMsg.append("You're supposed to press the exit button. Don't make me do it for you.");
+        exitMsg.append("You're supposed to press the exit button or type \"exit\" \n Don't make me do it for you.");
         return exitMsg.toString();
     }
 
