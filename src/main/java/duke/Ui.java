@@ -16,7 +16,7 @@ import duke.tasks.Todo;
  */
 public class Ui {
     private static final String INDENT = "    ";
-    private static final String NEW_LINE = INDENT + "____________________________________________________________ \n";
+    private static final String NEW_LINE = INDENT + "________________________________________________________ \n";
     private static final String GREETING = INDENT
             + "Good day good sir! I am Chatimous Maximous, here to help you with your every need!\n";
     private static final String BYE = "bye";
