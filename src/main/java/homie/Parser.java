@@ -79,7 +79,7 @@ public class Parser {
             break;
         case "f":
         case "find":
-            outputResponse = this.processFindCommand(fullCommand, inputStringSplits);
+            outputResponse = this.processFindCommand(inputStringSplits);
             break;
         case "t":
         case "todo":
@@ -130,12 +130,15 @@ public class Parser {
      * @param fullCommand The full command of the user input.
      * @return String message to show that task has been added.
      */
-    private String processTodoCommand(String fullCommand, String[] commandSplits) throws TodoException {
+    private String processTodoCommand(String fullCommand, String[] inputStringSplits) throws TodoException {
         // Get Description for new to-do tasks
-        if (commandSplits.length < 2) {
+        if (inputStringSplits.length < 2) {
             throw new TodoException("No description given!");
         }
         int startIndexForTodoDescription = 5;
+        if (inputStringSplits[0].equals("t")) {
+            startIndexForTodoDescription = 2;
+        }
         String todoDescription = fullCommand.trim().substring(startIndexForTodoDescription);
         // Create to-do task
         Todo currTodo = new Todo(todoDescription);
@@ -154,15 +157,21 @@ public class Parser {
      * @param fullCommand The full user input command.
      * @return String message showing that selected deadline task has been added into the task list.
      */
-    private String processDeadlineCommand(String fullCommand, String[] commandSplits) throws DeadlineException {
+    private String processDeadlineCommand(String fullCommand, String[] inputStringSplits) throws DeadlineException {
+        if (inputStringSplits.length < 2) {
+            throw new DeadlineException("No description given!");
+        }
         int startIndexForDeadlineDescription = 9;
         int startIndexForDeadlineDueDate = 3;
-        if (commandSplits.length < 2) {
-            throw new DeadlineException("No description given!");
+        if (inputStringSplits[0].equals("dead")) {
+            startIndexForDeadlineDescription = 5;
         }
         // Create new deadline task
         String[] deadlineCommandStringSplits = (fullCommand.trim().substring(startIndexForDeadlineDescription))
                 .split("/");
+        if (deadlineCommandStringSplits.length != 2) {
+            throw new DeadlineException("Invalid format!");
+        }
         String deadlineDescription = deadlineCommandStringSplits[0].trim();
         if (deadlineDescription.isEmpty()) {
             throw new DeadlineException("No description given!");
@@ -187,8 +196,8 @@ public class Parser {
      * @param fullCommand The full user input command.
      * @return String message showing that selected event task has been added into the task list.
      */
-    private String processEventCommand(String fullCommand, String[] commandSplits) throws EventException {
-        if (commandSplits.length < 2) {
+    private String processEventCommand(String fullCommand, String[] inputStringSplits) throws EventException {
+        if (inputStringSplits.length < 2) {
             throw new EventException("No description given!");
         }
         int startIndexForEventDescription = 6;
@@ -196,12 +205,18 @@ public class Parser {
         int startIndexForEndDateTime = 3;
         int endIndexForStartDateTime = 20;
         int endIndexForEndDateTime = 18;
+        if (inputStringSplits[0].equals("e")) {
+            startIndexForEventDescription = 2;
+        }
         // Create new event task
         String[] eventCommandStringSplits = (fullCommand.trim()
                 .substring(startIndexForEventDescription)).split("/");
         String eventDescription = eventCommandStringSplits[0].trim();
         if (eventDescription.isEmpty()) {
             throw new EventException("No description given!");
+        }
+        if (eventCommandStringSplits.length != 3) {
+            throw new EventException("Invalid format!");
         }
         String eventStartDateTimeInString = eventCommandStringSplits[1].substring(startIndexForStartDateTime,
                 endIndexForStartDateTime);
@@ -236,6 +251,9 @@ public class Parser {
         if (inputStringSplits.length < 2) {
             throw new DeleteException("No index given!");
         }
+        if (inputStringSplits.length != 2) {
+            throw new DeleteException("Invalid Format!");
+        }
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
         if (taskIndex < 1 || taskIndex > this.taskList.getSize()) {
             throw new DeleteException("Invalid index.");
@@ -259,6 +277,9 @@ public class Parser {
         // Mark task as done (execute command)
         if (inputStringSplits.length < 2) {
             throw new MarkException("No index given!");
+        }
+        if (inputStringSplits.length != 2) {
+            throw new MarkException("Invalid format!");
         }
         Task currTask;
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
@@ -286,12 +307,15 @@ public class Parser {
         if (inputStringSplits.length < 2) {
             throw new UnmarkException("No index given!");
         }
+        if (inputStringSplits.length != 2) {
+            throw new UnmarkException("Invalid format!");
+        }
         Task currTask;
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
-        this.taskList.unMarkTask(taskIndex);
         if (taskIndex < 1 || taskIndex > this.taskList.getSize()) {
             throw new UnmarkException("Invalid index.");
         }
+        this.taskList.unMarkTask(taskIndex);
         // Update Storage
         this.storage.updateStorageFile(this.taskList);
         // Get response message
@@ -305,11 +329,11 @@ public class Parser {
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return A String of tasks that has the matching keyword.
      */
-    private String processFindCommand(String fullCommand, String[] inputStringSplits) throws FindException {
+    private String processFindCommand(String[] inputStringSplits) throws FindException {
         if (inputStringSplits.length < 2) {
             throw new FindException("No keyword given!");
         }
-        if (inputStringSplits.length != 3) {
+        if (inputStringSplits.length != 2) {
             throw new FindException("Keyword can only be 1 word!");
         }
         String keywordToFind = inputStringSplits[1].trim();
