@@ -39,12 +39,12 @@ test {
 }
 
 application {
-    mainClassName = "duke.ui.Launcher"
-    mainClass.set("duke.ui.Launcher")
+    mainClassName = "coat.ui.Launcher"
+    mainClass.set("coat.ui.Launcher")
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'coat.jar'
 }
 
 sourceCompatibility = 11
