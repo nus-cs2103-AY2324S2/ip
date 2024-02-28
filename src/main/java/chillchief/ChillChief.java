@@ -25,12 +25,15 @@ public class ChillChief {
      * Displays an error is initialization of components fails.
      *
      * @param filePath The file path where tasks are saved and loaded from.
-     * @throws IOException If an error occurs in initialization of components.
      */
-    public ChillChief(String filePath) throws IOException {
+    public ChillChief(String filePath) {
         ui = new TextUi();
-        storage = new Storage(filePath);
-        taskList = new TaskList(storage.load());
+        try {
+            storage = new Storage(filePath);
+            taskList = new TaskList(storage.load());
+        } catch (IOException e) {
+            System.out.println("There was an error starting ChillChief!");
+        }
     }
 
     /**
@@ -55,7 +58,7 @@ public class ChillChief {
         }
     }
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         new ChillChief("./data/chillchief.txt").run();
     }
 }
