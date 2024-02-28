@@ -1,5 +1,6 @@
 package damon.command;
 
+import damon.response.Response;
 import damon.storage.Storage;
 import damon.tasklist.TaskList;
 import damon.ui.Ui;
@@ -19,8 +20,9 @@ public class ExitCommand extends Command {
      * @param ui Ui object of Damon object.
      * @param storage Storage object of Damon object.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Response response) {
         ui.showExitCommand();
+        response.showExitCommand();
     }
 
     @Override

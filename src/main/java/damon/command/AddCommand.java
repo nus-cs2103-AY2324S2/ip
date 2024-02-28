@@ -1,5 +1,6 @@
 package damon.command;
 
+import damon.response.Response;
 import damon.storage.Storage;
 import damon.task.Deadline;
 import damon.task.Event;
@@ -25,20 +26,14 @@ public class AddCommand extends Command {
      * @param ui Ui object of Damon object.
      * @param storage Storage object of Damon object.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
-        Task newTask;
-
-        if (this.command.startsWith("todo")) {
-            newTask = addToDo(this.command);
-        } else if (this.command.startsWith("deadline")) {
-            newTask = addDeadline(this.command);
-        } else {
-            newTask = addEvent(this.command);
-        }
+    public void execute(TaskList tasks, Ui ui, Storage storage, Response response) {
+        Task newTask = this.getNewTask();
 
         tasks.addTask(newTask);
         ui.showAddCommand(newTask, tasks);
         storage.writeFile(tasks);
+
+        response.showAddCommand(newTask, tasks);
     }
 
     private Task addToDo(String inputString) {
@@ -67,4 +62,24 @@ public class AddCommand extends Command {
 
         return new Event(description, startTime, endTime);
     }
+
+    private Task getNewTask() {
+        Task newTask;
+
+        if (this.command.startsWith("todo")) {
+            newTask = addToDo(this.command);
+        } else if (this.command.startsWith("deadline")) {
+            newTask = addDeadline(this.command);
+        } else {
+            newTask = addEvent(this.command);
+        }
+
+        return newTask;
+    }
+
+    public String getResponse() {
+        return this.response.getResponseMessage();
+    }
+
+
 }

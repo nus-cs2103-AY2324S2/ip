@@ -94,8 +94,8 @@ public class TaskList {
     public TaskList findTasks(String keyword) {
         TaskList searchedTaskList = new TaskList();
 
-        for (int i = 0; i < this.size(); i++) {
-            Task currentTask = this.get(i);
+        for (int i = 0; i < this.getSize(); i++) {
+            Task currentTask = this.getTask(i);
             if (currentTask.isContainKeyword(keyword)) {
                 searchedTaskList.addTask(currentTask);
             }

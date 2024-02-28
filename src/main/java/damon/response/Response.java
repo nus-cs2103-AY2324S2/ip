@@ -1,62 +1,32 @@
-package damon.ui;
+package damon.response;
 
-
+import damon.exceptions.StorageFileLoadingException;
 import damon.task.Task;
 import damon.tasklist.TaskList;
-import damon.exceptions.StorageFileLoadingException;
 
-import java.util.Scanner;
+public class Response {
+    private String responseMessage = "hi";
 
-/**
- * Creates an Ui object to show welcome message
- * and other corresponding message to each user's input.
- */
-public class Ui {
-    private final Scanner scanner;
-
-    /**
-     * Constructs a new Ui object
-     */
-    public Ui() {
-        //Solution below adapted from https://stackoverflow.com/a/16252290
-        this.scanner = new Scanner(System.in);
+    public Response() {
+        //...
     }
-
-
     /**
      * Prints welcome message.
      */
     public void showWelcome() {
-        String logo = " ____\n"
+        this.responseMessage = " ____\n"
                 + "|  _  \\\n"
                 + "| | | |\n"
                 + "| |_| |\n"
                 + "|____/ \n";
-        System.out.println("Hello from\n" + logo);
     }
 
-
-    /**
-     * Returns user's input String.
-     *
-     * @return User's input.
-     */
-    public String readCommand() {
-        return scanner.nextLine();
-    }
 
     /**
      * Prints message of loading error.
      */
     public void showLoadingError() {
-        System.out.println(new StorageFileLoadingException().getMessage());
-    }
-
-    /**
-     * Prints divider line "____________________________________________________________".
-     */
-    public void showLine() {
-        System.out.println("____________________________________________________________");
+        this.responseMessage = new StorageFileLoadingException().getMessage();
     }
 
     /**
@@ -66,9 +36,9 @@ public class Ui {
      * @param tasks Current TaskList.
      */
     public void showAddCommand(Task newTask, TaskList tasks) {
-        System.out.println("Got it. I've added this task:\n"
+        this.responseMessage = "Got it. I've added this task:\n"
                 + newTask + "\n"
-                + "Now you have " + tasks.getSize() + " tasks in the list.");
+                + "Now you have " + tasks.getSize() + " tasks in the list.";
     }
 
     /**
@@ -78,16 +48,16 @@ public class Ui {
      * @param tasks Current TaskList.
      */
     public void showDeleteCommand(int index, TaskList tasks) {
-        System.out.println("Noted. I've removed this task:\n"
+        this.responseMessage = "Noted. I've removed this task:\n"
                 + tasks.getTask(index).toString() + "\n"
-                + "Now you have " + (tasks.getSize() - 1) + " tasks in the list.");
+                + "Now you have " + (tasks.getSize() - 1) + " tasks in the list";
     }
 
     /**
      * Prints exiting message.
      */
     public void showExitCommand() {
-        System.out.println("Bye. Hope to see you again soon!");
+        this.responseMessage = "Bye. Hope to see you again soon!";
     }
 
     /**
@@ -99,8 +69,8 @@ public class Ui {
      * @param tasks Current TaskList.
      */
     public void showMarkCommand(TaskList tasks, int index) {
-        System.out.println("Nice! I've marked this task as done:\n"
-                + tasks.getTask(index).toString());
+        this.responseMessage = "Nice! I've marked this task as done:\n"
+                + tasks.getTask(index).toString();
     }
 
     /**
@@ -112,8 +82,8 @@ public class Ui {
      * @param tasks Current TaskList.
      */
     public void showUnMarkCommand(TaskList tasks, int index) {
-        System.out.println("OK, I've marked this task as not done yet:\n"
-                + tasks.getTask(index).toString());
+        this.responseMessage = "OK, I've marked this task as not done yet:\n"
+                + tasks.getTask(index).toString();
     }
 
     /**
@@ -122,12 +92,13 @@ public class Ui {
      * @param tasks Current TaskList (the TaskList to be printed).
      */
     public void showShowTaskListCommand(TaskList tasks) {
+        StringBuilder newResponseMessage = new StringBuilder();
         int n = tasks.getSize();
-        System.out.println("Here are the tasks in your list:");
         for (int i = 0; i < n; i++) {
             Task currentTask = tasks.getTask(i);
-            System.out.println((i + 1) + "." + currentTask.toString());
+            newResponseMessage.append(i + 1).append(".").append(currentTask.toString()).append("\n");
         }
+        this.responseMessage = newResponseMessage.toString();
     }
 
     /**
@@ -136,16 +107,17 @@ public class Ui {
      * @param errorMessage Error message to be printed.
      */
     public void showError(String errorMessage) {
-        System.out.println(errorMessage);
+        this.responseMessage = errorMessage;
     }
 
     public void showFindCommand(TaskList tasks) {
+        StringBuilder newResponseMessage = new StringBuilder();
         int n = tasks.getSize();
-        System.out.println("Here are the matching tasks in your list:");
         for (int i = 0; i < n; i++) {
             Task currentTask = tasks.getTask(i);
-            System.out.println((i + 1) + "." + currentTask.toString());
+            newResponseMessage.append(i + 1).append(".").append(currentTask.toString()).append("\n");
         }
+        this.responseMessage = newResponseMessage.toString();
     }
 
     /**
@@ -154,6 +126,19 @@ public class Ui {
      * @param inputString User's input String which is to be echoed.
      */
     public void showEchoCommand(String inputString) {
-        System.out.println(inputString);
+        this.responseMessage = inputString;
     }
+
+    public String getResponseMessage() {
+        return this.responseMessage;
+    }
+
+    public String getWelcomeMessage() {
+        return "Hello from\n" + " ____\n"
+                + "|  _  \\\n"
+                + "| | | |\n"
+                + "| |_| |\n"
+                + "|____/ \n";
+    }
+
 }

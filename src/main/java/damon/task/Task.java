@@ -10,7 +10,7 @@ public class Task {
     protected boolean isDone;
 
     /**
-     * Constructs a new Task object with only String description parameter..
+     * Constructs a new Task object with only String description parameter.
      *
      * @param description Description of Task.
      */
