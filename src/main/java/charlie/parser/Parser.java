@@ -8,42 +8,63 @@ import charlie.commands.FindCommand;
 import charlie.commands.ListCommand;
 import charlie.commands.MarkCommand;
 import charlie.exceptions.CharlieException;
+
 public class Parser {
 
-    /**
-     * takes in the user full command, and returns the appropriate type of command based on user input
-     * @param fullCommand the user command in its full string form
-     * @return the command to be executed
-     * @throws CharlieException
-     */
     public static Command parse(String fullCommand) throws CharlieException {
-
+        boolean addCommand = fullCommand.startsWith("todo") || fullCommand.startsWith("event")
+                || fullCommand.startsWith("deadline")
         if (fullCommand.startsWith("delete")) {
-            String[] words = fullCommand.split(" ");
-            assert words.length > 1 : "Delete command format is incorrect";
-            return new DeleteCommand(Integer.valueOf(words[1]));
-        } else if (fullCommand.startsWith("todo") || fullCommand.startsWith("event")
-                || fullCommand.startsWith("deadline")) {
-            return new AddCommand(fullCommand);
+            return initiateDelete(fullCommand);
+        } else if (addCommand) {
+            return initiateAddCommand(fullCommand);
         } else if (fullCommand.startsWith("list")) {
-            return new ListCommand();
+            return initiateList();
         } else if (fullCommand.startsWith("bye")) {
-            return new ExitCommand();
+            return initiateExit();
         } else if (fullCommand.startsWith("mark")) {
-            String[] words = fullCommand.split(" ");
-            assert words.length > 1 : "Mark command format is incorrect";
-            return new MarkCommand(Integer.valueOf(words[1]));
+            return initiateMark(fullCommand);
         } else if (fullCommand.startsWith("unmark")) {
-            String[] words = fullCommand.split(" ");
-            assert words.length > 1 : "Unmark command format is incorrect";
-            return new UnmarkCommand(Integer.valueOf(words[1]));
+            return initiateUnmark(fullCommand);
         } else if (fullCommand.startsWith("find")) {
-            String[] words = fullCommand.split(" ");
-            assert words.length > 1 : "Find command format is incorrect";
-            return new FindCommand(words[1]);
-        }
-        else {
+            return initiateFind(fullCommand);
+        } else {
             throw new CharlieException("Sorry, unknown command, try again!");
         }
+    }
+
+    private static Command initiateDelete(String fullCommand) throws CharlieException {
+        String[] words = fullCommand.split(" ");
+        assert words.length > 1 : "Delete command format is incorrect";
+        return new DeleteCommand(Integer.valueOf(words[1]));
+    }
+
+    private static Command initiateAddCommand(String fullCommand) {
+        return new AddCommand(fullCommand);
+    }
+    private static Command initiateList() {
+        return new ListCommand();
+    }
+
+    private static Command initiateExit() {
+        return new ExitCommand();
+    }
+
+    private static Command initiateMark(String fullCommand) throws CharlieException {
+        String[] words = fullCommand.split(" ");
+        assert words.length > 1 : "Mark command format is incorrect";
+        return new MarkCommand(Integer.valueOf(words[1]));
+    }
+
+    private static Command initiateUnmark(String fullCommand) throws CharlieException {
+        String[] words = fullCommand.split(" ");
+        assert words.length > 1 : "Unmark command format is incorrect";
+        return new UnmarkCommand(Integer.valueOf(words[1]));
+    }
+
+    private static Command initiateFind(String fullCommand) throws CharlieException {
+        String[] words = fullCommand.split(" ");
+        assert words.length > 1 : "Find command format is incorrect";
+        return new FindCommand(words[1]);
     }
 }

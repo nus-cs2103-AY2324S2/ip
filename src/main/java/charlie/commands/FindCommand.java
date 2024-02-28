@@ -29,13 +29,7 @@ public class FindCommand extends Command {
     public String execute(TaskList taskList, Storage storage) throws CharlieException {
         assert taskList != null && storage != null : "TaskList and Storage must not be null";
         ArrayList<Task> tasks = taskList.getTasks();
-        ArrayList<Task> matchingTasks = new ArrayList<>();
-
-        for (Task task : tasks) {
-            if (task.getDescription().contains(keyword)) {
-                matchingTasks.add(task);
-            }
-        }
+        ArrayList<Task> matchingTasks = findMatchingTasks(taskList.getTasks(), keyword);
 
         if (matchingTasks.isEmpty()) {
             String response = "No tasks found with the keyword: " + keyword;
@@ -49,6 +43,14 @@ public class FindCommand extends Command {
             return responseBuild.toString();
         }
     }
-
+    private ArrayList<Task> findMatchingTasks(ArrayList<Task> tasks, String keyword) {
+        ArrayList<Task> matchingTasks = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.getDescription().contains(keyword)) {
+                matchingTasks.add(task);
+            }
+        }
+        return matchingTasks;
+    }
 
 }

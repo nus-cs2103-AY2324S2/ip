@@ -60,9 +60,7 @@ public class AddCommand extends Command {
         String description = input.substring(5);
         Todo todo = new Todo(description);
         taskList.add(todo);
-        String responseTodo =  "Got it. I've added this task:\n  "
-                + todo + "Now you have " + taskList.size() + " tasks in the list.";
-        return responseTodo;
+        return generateResponse(todo, taskList.size())
     }
 
     /**
@@ -80,9 +78,7 @@ public class AddCommand extends Command {
         }
         Deadline deadline = new Deadline(parts[0], parts[1]);
         taskList.add(deadline);
-        String responseDeadline = "Got it. I've added this task:\n  " + deadline
-                + "Now you have " + taskList.size() + " tasks in the list.";
-        return responseDeadline;
+        return generateResponse(deadline, taskList.size())
     }
 
     /**
@@ -101,9 +97,11 @@ public class AddCommand extends Command {
         String[] timeParts = parts[1].split(" /to ");
         Event event = new Event(parts[0], timeParts[0], timeParts[1]);
         taskList.add(event);
-        String responseEvent = "Got it. I've added this task:\n  "
-                + event + "Now you have " + taskList.size() + " tasks in the list.";
-        return responseEvent;
+        return generateResponse(Event, taskList.size())
+    }
+
+    private String generateResponse(Task task, int size) {
+        return "Got it. I've added this task:\n  " + task + "Now you have " + size + " tasks in the list.";
     }
 
 }
