@@ -24,48 +24,44 @@ public class TimeBlock extends Task {
      */
     public TimeBlock(String description, String fromTime, String toTime) throws BotException {
         super(description);
-        // The various formats that the time can be in
+        this.fromTime = parseTime(fromTime);
+        this.toTime = parseTime(toTime);
+    }
+
+    /**
+     * Parses the given time string into a LocalDateTime or LocalTime object.
+     * The time string should be in one of the following formats:
+     * 'd/M/yyyy HHmm', 'MMM dd yyyy HH:mm', or 'HHmm'.
+     *
+     * @param time The time string to parse.
+     * @return The original time string if it is in a valid format.
+     * @throws BotException If the time string is not in a valid format.
+     */
+    private String parseTime(String time) throws BotException {
+        assert time != null : "Time should not be null";
         DateTimeFormatter formatter1 = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
         DateTimeFormatter formatter2 = DateTimeFormatter.ofPattern("MMM dd yyyy HH:mm");
         DateTimeFormatter formatter3 = DateTimeFormatter.ofPattern("HHmm");
 
-        // Check if the time is in the correct format
         try {
-            LocalDateTime.parse(fromTime, formatter1);
-            this.fromTime = fromTime;
+            LocalDateTime.parse(time, formatter1);
+            return time;
         } catch (DateTimeParseException e1) {
             try {
-                LocalDateTime.parse(fromTime, formatter2);
-                this.fromTime = fromTime;
+                LocalDateTime.parse(time, formatter2);
+                return time;
             } catch (DateTimeParseException e2) {
                 try {
-                    LocalTime.parse(fromTime, formatter3);
-                    this.fromTime = fromTime;
+                    LocalTime.parse(time, formatter3);
+                    return time;
                 } catch (DateTimeParseException e3) {
                     throw new BotException(
-                            "Invalid fromTime format. Please use either 'd/M/yyyy HHmm', 'MMM dd yyyy HH:mm' or 'HHmm'.");
+                            "Invalid time format." +
+                                    "\nPlease use either 'd/M/yyyy HHmm', 'MMM dd yyyy HH:mm' or 'HHmm'."
+                                    + "\n For example, '2/12/2020 1800', 'Dec 2 2025 18:00' or '1800'.");
                 }
             }
         }
-        assert this.fromTime != null : "fromTime is null";
-        try {
-            LocalDateTime.parse(toTime, formatter1);
-            this.toTime = toTime;
-        } catch (DateTimeParseException e1) {
-            try {
-                LocalDateTime.parse(toTime, formatter2);
-                this.toTime = toTime;
-            } catch (DateTimeParseException e2) {
-                try {
-                    LocalTime.parse(toTime, formatter3);
-                    this.toTime = toTime;
-                } catch (DateTimeParseException e3) {
-                    throw new BotException(
-                            "Invalid toTime format. Please use either 'd/M/yyyy HHmm', 'MMM dd yyyy HH:mm' or 'HHmm'.");
-                }
-            }
-        }
-        assert this.toTime != null : "toTime is null";
     }
 
     /**

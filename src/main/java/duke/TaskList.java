@@ -80,7 +80,7 @@ public class TaskList {
      * 
      * @return A list of all task descriptions
      */
-    public List<String> listTasks() {
+    public List<String> getTasksAsList() {
         List<String> taskDescriptions = new ArrayList<>();
         for (int i = 0; i < tasks.size(); i++) {
             Task task = tasks.get(i);
@@ -98,7 +98,7 @@ public class TaskList {
      * @return a list of tasks that contain the specified keyword in their
      *         description
      */
-    public List<Task> findTasksByKeyword(String keyword) {
+    public List<Task> getTasksByKeyword(String keyword) {
         List<Task> matchingTasks = new ArrayList<>();
         for (Task task : tasks) {
             // convert all to lower case for case-insensitive search
@@ -129,7 +129,7 @@ public class TaskList {
      * 
      * @param taskNumber The number of the task to mark as undone
      */
-    public void markTaskAsUndone(int taskNumber) {
+    public void unmarkTaskAsDone(int taskNumber) {
         assert taskNumber > 0 && taskNumber <= tasks.size() : "Task number should be within the valid range";
         tasks.get(taskNumber - 1).markAsUndone();
     }
