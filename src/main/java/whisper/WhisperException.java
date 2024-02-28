@@ -21,9 +21,10 @@ public class WhisperException extends Exception {
      * @return A WhisperException indicating an invalid command.
      */
     public static WhisperException unknownCommand() {
-        return new WhisperException("\nInvalid Command, please try again.\nWe only support commands such as:" +
-                "\n- todo [description]\n- event [description] /from [start] /to [end]" +
-                "\n- deadline [description] /by[time]\n- mark [taskID]\n- unmark [taskID]\n- delete [taskID]\n");
+        return new WhisperException("\nCommands available: \n - todo [description]\n - deadline /by[dd/mm/yyyy HH:mm]\n"
+                + " - event /from[dd/mm/yyyy HH:mm] /to[dd/mm/yyyy HH:mm]\n - mark [task number]\n "
+                + "- unmark [task number]\n - delete [task number]\n - list\n - find [keyword]\n "
+                + "- help (to see user guide)\n - bye (to exit program)");
     }
 
     /**
