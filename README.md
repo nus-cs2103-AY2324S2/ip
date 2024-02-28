@@ -1,7 +1,7 @@
-# Luna ☾ 
-Luna is your trusty friend to make sure you are always on track and do not miss any important activities.
+# luna ☾ 
+luna is your trusty friend to make sure you are always on track and do not miss any important activities.
 
-Luna is
+luna is
 * User-friendly
 * Cute
 * ~~a Virus~~ Safe
