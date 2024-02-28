@@ -15,10 +15,15 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
+    private static Stage stage;
+
     private final Duke duke = new Duke();
+
+
 
     @Override
     public void start(Stage stage) {
+        this.stage = stage;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
@@ -33,5 +38,9 @@ public class Main extends Application {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public static Stage getStage() {
+        return stage;
     }
 }
