@@ -22,7 +22,6 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 import duke.ui.Messages;
-import duke.ui.Ui;
 
 /**
  * A utility class for parsing user input and generating corresponding commands.
@@ -57,14 +56,16 @@ public class Parser {
             case "help":
                 return new HelpCommand();
             case "l":
+            case "ls":
             case "list":
                 return new ListCommand();
             case "m":
             case "mark":
                 return new MarkCommand(arguments);
-            case "b":
             case "bye":
             case "exit":
+            case "close":
+            case "leave":
                 return new ByeCommand();
             case "u":
             case "un":
