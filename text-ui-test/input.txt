@@ -1,0 +1,9 @@
+deadline cs2103 /by today
+event concert /from today /to tomorrow
+todo homework
+list
+mark 3
+delete 2
+list
+unmark 2
+bye

@@ -1,0 +1,5 @@
+Deadlines|0|cs2103 ip |2024-02-23 2359
+Events|0|concert |from 2024-03-02 0000 |to 2024-03-05 0000
+ToDo|0|homework
+ToDo|0|homework
+ToDo|0|put money in bank
