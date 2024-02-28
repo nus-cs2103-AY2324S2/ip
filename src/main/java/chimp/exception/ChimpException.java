@@ -1,13 +1,19 @@
 package chimp.exception;
 
-public abstract class ChimpException extends Exception{
+/**
+ * The base class for all Chimp exceptions.
+ */
+public abstract class ChimpException extends Exception {
+
     /**
-     * Represents an exception specific to the Chimp application.
-     * This exception is thrown when an error occurs during the execution of Chimp.
+     * Constructs a new ChimpException with the specified detail message.
+     *
+     * @param message the detail message.
      */
     ChimpException(String message) {
         super(message);
     }
+
     /**
      * Returns a string representation of the object.
      *

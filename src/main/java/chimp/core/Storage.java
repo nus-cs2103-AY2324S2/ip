@@ -13,11 +13,15 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import chimp.task.TaskStatus;
-import chimp.task.Todo;
+import chimp.exception.CommandParseException;
 import chimp.task.Deadline;
 import chimp.task.Event;
+import chimp.task.TaskStatus;
+import chimp.task.Todo;
 
+/**
+ * Encapsulates all storage utilities for Chimp data.
+ */
 public class Storage {
     /**
      * Checks if the given command is a save command.
@@ -86,7 +90,7 @@ public class Storage {
             // Ignore this error
         } catch (IOException e) {
             e.printStackTrace();
-        } 
+        }
     }
 
     /**
@@ -103,44 +107,52 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 parseLineToTask(line, taskList);
             }
-        } catch (IOException e) {
+        } catch (IOException | CommandParseException e) {
             System.err.println("Error reading from file: " + e.getMessage());
         }
 
         return taskList;
     }
 
-    private static void parseLineToTask(String line, TaskList taskList) {
+    private static void parseLineToTask(String line, TaskList taskList) throws CommandParseException {
         // Acknowledgement: The code below was written and adapted
         // with the help of GPT4
-        Pattern pattern = Pattern.compile("\\[(T|D|E)] \\[([ X])] (.*?)(?: \\(by: (.*?)\\)| \\(from: (.*?) to: (.*?)\\))?$");
+        Pattern pattern = Pattern.compile(
+            "\\[(T|D|E)] \\[([ X])] (.*?)(?: \\(by: (.*?)\\)| \\(from: (.*?) to: (.*?)\\))?$"
+        );
 
         Matcher matcher = pattern.matcher(line);
 
-        
+
         if (matcher.find()) {
             String type = matcher.group(1);
             boolean isMarked = matcher.group(2).trim().equals("X");
             String description = matcher.group(3).trim();
             TaskStatus status = isMarked ? TaskStatus.MARKED : TaskStatus.UNMARKED;
-        
+
             switch (type) {
-                case "T":
-                    taskList.add(new Todo(description, status));
-                    break;
-                case "D":
-                    if (matcher.group(4) != null && !matcher.group(4).isEmpty()) {
-                        LocalDate byDate = LocalDate.parse(matcher.group(4), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                        taskList.add(new Deadline(description, status, byDate));
-                    }
-                    break;
-                case "E":
-                    if (matcher.group(5) != null && !matcher.group(5).isEmpty() && matcher.group(6) != null && !matcher.group(6).isEmpty()) {
-                        LocalDate fromDate = LocalDate.parse(matcher.group(5), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                        LocalDate toDate = LocalDate.parse(matcher.group(6), DateTimeFormatter.ofPattern("MMM d yyyy"));
-                        taskList.add(new Event(description, status, fromDate, toDate));
-                    }
-                    break;
+            case "T":
+                taskList.add(new Todo(description, status));
+                break;
+            case "D":
+                if (matcher.group(4) != null && !matcher.group(4).isEmpty()) {
+                    LocalDate byDate = LocalDate.parse(matcher.group(4), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    taskList.add(new Deadline(description, status, byDate));
+                }
+                break;
+            case "E":
+                boolean isMatchedEvent = matcher.group(5) != null
+                                    && !matcher.group(5).isEmpty()
+                                    && matcher.group(6) != null
+                                    && !matcher.group(6).isEmpty();
+                if (isMatchedEvent) {
+                    LocalDate fromDate = LocalDate.parse(matcher.group(5), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    LocalDate toDate = LocalDate.parse(matcher.group(6), DateTimeFormatter.ofPattern("MMM d yyyy"));
+                    taskList.add(new Event(description, status, fromDate, toDate));
+                }
+                break;
+            default:
+                throw new CommandParseException("error parsing storage");
             }
         }
     }

@@ -4,12 +4,12 @@ package chimp.task;
  * Represents a task with a text description and status.
  */
 public class Task {
-    String text;
-    TaskStatus status;
+    private String text;
+    private TaskStatus status;
 
     /**
      * Constructs a task with the given text and status.
-     * 
+     *
      * @param text   the text description of the task
      * @param status the status of the task
      */
@@ -34,7 +34,7 @@ public class Task {
 
     /**
      * Returns a string representation of the task.
-     * 
+     *
      * @return a string representation of the task
      */
     @Override

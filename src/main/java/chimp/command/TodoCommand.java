@@ -10,7 +10,7 @@ import chimp.exception.CommandExecuteException;
  * Inherits from the Command class.
  */
 public class TodoCommand extends Command {
-    String text;
+    private String text;
 
     /**
      * Constructs a TodoCommand object with the given text.

@@ -12,9 +12,9 @@ import chimp.task.Todo;
 /**
  * Represents a list of tasks.
  */
-public class TaskList extends ArrayList<Task>{
+public class TaskList extends ArrayList<Task> {
 
-    
+
     /**
      * Represents a list of tasks.
      */
@@ -33,7 +33,7 @@ public class TaskList extends ArrayList<Task>{
 
     /**
      * Adds a task with a deadline to the task list.
-     * 
+     *
      * @param task the description of the task
      * @param by the deadline of the task
      */

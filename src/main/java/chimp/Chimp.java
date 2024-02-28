@@ -2,8 +2,13 @@ package chimp;
 
 import chimp.command.Command;
 import chimp.controls.DialogBox;
-import chimp.core.*;
-import chimp.exception.*;
+import chimp.core.Parser;
+import chimp.core.Storage;
+import chimp.core.TaskList;
+import chimp.core.Ui;
+import chimp.exception.CommandExecuteException;
+import chimp.exception.CommandParseException;
+import chimp.exception.InvalidCommandException;
 import javafx.animation.PauseTransition;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -12,13 +17,13 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 
 /**
  * The Chimp class represents the main application class for the Chimp chatbot.
@@ -39,6 +44,10 @@ public class Chimp extends Application {
     private TaskList tasks;
     private Storage storage;
 
+    /**
+     * Constructs a Chimp object.
+     * Initializes the user interface, storage, and tasks.
+     */
     public Chimp() {
         this.ui = new Ui();
         this.storage = new Storage();
@@ -144,7 +153,7 @@ public class Chimp extends Application {
             Storage.saveOutputToFile(this.tasks);
             return response;
         } catch (InvalidCommandException
-                | CommandParseException 
+                | CommandParseException
                 | CommandExecuteException
                 | IndexOutOfBoundsException e) {
             return ui.say("hoo");

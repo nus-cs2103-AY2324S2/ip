@@ -1,7 +1,7 @@
 # Chimp User Guide
 
 ## Features & Commands
-Chimp stores your tasks in a human-readable format under 
+Chimp stores your tasks in a human-readable format under
 /data/chimp.txt, allowing exportability to other/custom tools.
 
 Chimp provides the following commands

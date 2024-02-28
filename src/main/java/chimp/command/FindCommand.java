@@ -10,8 +10,8 @@ import chimp.task.Task;
  * Represents a command to find tasks that match a given keyword.
  * Inherits from the Command class.
  */
-public class FindCommand extends Command{
-    String arg;
+public class FindCommand extends Command {
+    private String arg;
 
     /**
      * Constructs a FindCommand object with the specified keyword.
@@ -43,5 +43,5 @@ public class FindCommand extends Command{
     public boolean isExit() {
         return false;
     }
-    
+
 }

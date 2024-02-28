@@ -1,16 +1,16 @@
 package chimp.command;
 
-import chimp.task.Task;
 import chimp.core.Storage;
 import chimp.core.TaskList;
 import chimp.core.Ui;
 import chimp.exception.CommandExecuteException;
+import chimp.task.Task;
 
 /**
  * Represents a command to delete a task from the task list.
  */
 public class DeleteCommand extends Command {
-    int index;
+    private int index;
 
     /**
      * Constructs a DeleteCommand object with the specified index.

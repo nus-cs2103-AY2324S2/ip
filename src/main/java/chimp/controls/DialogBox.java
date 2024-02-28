@@ -18,6 +18,13 @@ public class DialogBox extends HBox {
     private Label text;
     private ImageView displayPicture;
 
+    /**
+     * Represents a dialog box for the user/chimp.
+     * It displays a label and an image.
+     *
+     * @param l The label to be displayed in the dialog box.
+     * @param iv The image to be displayed in the dialog box.
+     */
     public DialogBox(Label l, ImageView iv) {
         text = l;
         displayPicture = iv;

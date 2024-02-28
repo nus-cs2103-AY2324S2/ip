@@ -5,11 +5,14 @@ import chimp.core.TaskList;
 import chimp.core.Ui;
 import chimp.exception.CommandExecuteException;
 
+/**
+ * The base class for all Chimp Commands.
+ */
 public abstract class Command {
     /**
      * Executes the command.
      *
-     * @param list the task list to be modified
+     * @param tasks the task list to be modified
      * @param ui the user interface for displaying messages
      * @param storage the storage for saving and loading tasks
      * @throws CommandExecuteException if there is an error executing the command

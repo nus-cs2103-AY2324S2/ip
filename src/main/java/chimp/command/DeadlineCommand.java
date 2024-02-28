@@ -12,8 +12,8 @@ import chimp.exception.CommandExecuteException;
  * Inherits from the Command class.
  */
 public class DeadlineCommand extends Command {
-    String text;
-    LocalDate date;
+    private String text;
+    private LocalDate date;
 
     /**
      * Constructs a DeadlineCommand object with the given text and date.
