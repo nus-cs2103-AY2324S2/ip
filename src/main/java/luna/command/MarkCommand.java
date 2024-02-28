@@ -1,10 +1,14 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
 
 /**
  * Represents a mark command. Marks a task in the task list
  */
 public class MarkCommand extends Command {
-    private int index;
+    private final int index;
 
     /**
      * Construct a Command to have Mark command type and assign an index

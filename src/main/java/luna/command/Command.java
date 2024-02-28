@@ -1,4 +1,8 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
 
 /**
  * Represents a command. The command object has different types and can be executed

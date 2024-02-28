@@ -1,4 +1,8 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
 
 /**
  * Represents a invalid command which will shows the user what it the error they have committed

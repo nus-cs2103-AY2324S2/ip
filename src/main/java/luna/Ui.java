@@ -3,6 +3,8 @@ package luna;
 import java.io.BufferedReader;
 import java.io.StringReader;
 
+import luna.entry.ListEntry;
+
 /**
  * Handles the interaction between the user and the program. A UI handles the input and output of the program.
  */

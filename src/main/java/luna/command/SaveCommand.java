@@ -1,4 +1,8 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
 
 /**
  * Represents a save command. Saves all the task from the task list to the storage

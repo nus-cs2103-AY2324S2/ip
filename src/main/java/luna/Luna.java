@@ -1,5 +1,7 @@
 package luna;
 
+import luna.command.Command;
+
 /**
  * A Luna object represent the application character and attributes.
  */

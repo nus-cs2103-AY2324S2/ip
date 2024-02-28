@@ -1,6 +1,11 @@
-package luna;
+package luna.command;
 
 import java.time.LocalDate;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
+import luna.entry.ListEntryEvent;
 
 /**
  * Represents an event command which to add an event task to the task list

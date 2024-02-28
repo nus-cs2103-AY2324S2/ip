@@ -1,4 +1,8 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
 
 /**
  * Represents a delete command which deletes a task from the task list

@@ -1,4 +1,9 @@
-package luna;
+package luna.command;
+
+import luna.Storage;
+import luna.TaskList;
+import luna.Ui;
+import luna.entry.ListEntryTodo;
 
 /**
  * Represents a to do command which adds a to-do task to the task list

@@ -2,6 +2,9 @@ package luna;
 
 import java.util.ArrayList;
 
+import luna.entry.ListEntry;
+
+
 /**
  * Represents a list to track tasks. A task list contains listEntry to represent the tasks.
  */

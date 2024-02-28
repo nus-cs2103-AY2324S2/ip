@@ -1,4 +1,4 @@
-package luna;
+package luna.entry;
 
 /**
  * Represent a list entry for a to-do task.
