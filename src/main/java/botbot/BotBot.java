@@ -8,7 +8,7 @@ import botbot.task.TaskList;
 
 
 public class BotBot  {
-    public static final String LIST_PATH = "data/list.txt";
+    public static final String LIST_PATH = "./data/list.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
