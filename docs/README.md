@@ -1,5 +1,3 @@
----
-
 # EchoPilot User Guide
 
 EchoPilot is a desktop application for managing tasks, optimized for use via a Graphical User Interface (GUI). Designed with simplicity and efficiency in mind, EchoPilot allows users to keep track of their daily tasks, deadlines, and events with ease.
@@ -83,5 +81,3 @@ A: Install the app on the other computer and overwrite the empty data file with 
 - **Exit:** `bye`
 
 For any updates or detailed documentation, please click [here](https://github.com/reetmitra/ip).
-
----
