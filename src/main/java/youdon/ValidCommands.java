@@ -1,7 +1,7 @@
 package youdon;
 
 /**
- * Enum representing valid commands recognized by the YoudonBot.
+ * Enum representing valid commands recognized by YoudonBot.
  */
 public enum ValidCommands {
     TODO("todo"),
