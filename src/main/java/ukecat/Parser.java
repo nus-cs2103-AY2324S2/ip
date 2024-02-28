@@ -12,7 +12,7 @@ public class Parser {
     private static final Scanner sc = new Scanner(System.in);
 
     /**
-     * Parse user input and stores the input and words array into the Storage class.
+     * Parses user input and stores the input and words array into the Storage class.
      * Leading and trailing whitespaces are also trimmed from the words array.
      */
     public static void parse(String input) {
