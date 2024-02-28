@@ -8,12 +8,14 @@ import java.util.List;
 
 import duke.command.AddCommand;
 import duke.command.ByeCommand;
+import duke.command.ClearCommand;
 import duke.command.Command;
 import duke.command.DeleteCommand;
 import duke.command.FindCommand;
 import duke.command.HelpCommand;
 import duke.command.ListCommand;
 import duke.command.MarkCommand;
+import duke.command.NoopCommand;
 import duke.command.UnknownCommand;
 import duke.command.UnmarkCommand;
 import duke.command.ViewByDateCommand;
@@ -22,6 +24,7 @@ import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.ToDo;
 import duke.ui.Messages;
+import duke.ui.Ui;
 
 /**
  * A utility class for parsing user input and generating corresponding commands.
@@ -32,6 +35,11 @@ import duke.ui.Messages;
  * listing tasks, and more.</p>
  */
 public class Parser {
+    private static Ui ui;
+
+    public Parser(Ui ui) {
+        this.ui = ui;
+    }
 
     /**
      * Parses the user input string and generates the corresponding command object.
@@ -175,9 +183,17 @@ public class Parser {
     private static String getDateTimeString(List<String> arguments, String keyword) throws DukeException {
         int index = arguments.indexOf(keyword);
         if (index != -1 && index < arguments.size() - 1) {
-            return String.join(" ", arguments.subList(index + 1, arguments.size()));
+            try {
+                return String.join(" ", arguments.subList(index + 1, index + 3));
+            } catch (IndexOutOfBoundsException e) {
+                String errorMessage = Messages.PARSER_INVALID_DATE_TIME_FORMAT.getMessage();
+                ui.appendResponse(errorMessage);
+                throw new DukeException(errorMessage);
+            }
         } else {
-            throw new DukeException(String.format(Messages.PARSER_MISSING_KEYWORD_ERROR.getMessage(), keyword));
+            String errorMessage = String.format(Messages.PARSER_MISSING_KEYWORD_ERROR.getMessage(), keyword);
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
     }
 
