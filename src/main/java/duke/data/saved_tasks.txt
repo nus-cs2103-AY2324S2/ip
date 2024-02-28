@@ -1,2 +1,0 @@
-todo true Read
-deadline false 1999-10-02 Homework

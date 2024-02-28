@@ -35,7 +35,7 @@ public class Ui {
     private static final String REMOVE = "remove";
     private static final String TASK_REMOVED = NEW_LINE + INDENT
             + "I have removed the task from the list Sir! \n" + NEW_LINE;
-    private static final String FILE_PATH = "./src/main/java/duke/data";
+    private static final String FILE_PATH = "./data";
     private static final String FIND = "find";
     private static final String FOUND_MESSAGE = NEW_LINE + INDENT + "Here are the tasks I have found!\n";
     private static final String CHECK_DUPLICATE = "dupe";
