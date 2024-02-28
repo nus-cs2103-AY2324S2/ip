@@ -147,11 +147,8 @@ public class Parser {
 
     private void handleEvent(TaskList tasks, String description, Ui ui, String[] dateFormats,
                              String[] elems, String line) {
-        //String[] fromto = elems[1].split("/", 3);
         String[] fromto = elems[1].trim().split("/from", 2);
         String[] from = fromto[1].trim().split("\\s*/to\\s*", 2);
-
-        //String[] to = from[1];
         LocalDate fromDate = null;
         LocalDate toDate = null;
         for (String format : dateFormats) {
