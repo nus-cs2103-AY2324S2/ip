@@ -1,9 +1,9 @@
 package SamuelBot;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -20,18 +20,19 @@ public class ChatBotGUI extends Application {
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
+    private Samuelbot samuelbot;
+
     private Image user = new Image(this.getClass().getResourceAsStream("/images/Mario.png"));
     private Image Samuel = new Image(this.getClass().getResourceAsStream("/images/Luigi.png"));
 
     public static void main(String[] args) {
-        // ...
+        launch(args);
     }
 
     @Override
     public void start(Stage stage) {
-        //Step 1. Setting up required components
+        // Setting up required components
 
-        //The container for the content of the chat to scroll.
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -47,7 +48,6 @@ public class ChatBotGUI extends Application {
         stage.setScene(scene);
         stage.show();
 
-        //More code to be added here later
         stage.setTitle("SamuelBot");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -62,11 +62,9 @@ public class ChatBotGUI extends Application {
         scrollPane.setVvalue(1.0);
         scrollPane.setFitToWidth(true);
 
-        //You will need to import `javafx.scene.layout.Region` for this.
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
 
         userInput.setPrefWidth(325.0);
-
         sendButton.setPrefWidth(55.0);
 
         AnchorPane.setTopAnchor(scrollPane, 1.0);
@@ -76,49 +74,35 @@ public class ChatBotGUI extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
-        sendButton.setOnMouseClicked((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
 
-        userInput.setOnAction((event) -> {
-            dialogContainer.getChildren().add(getDialogLabel(userInput.getText()));
-            userInput.clear();
-        });
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
+        sendButton.setOnMouseClicked((event) -> handleUserInput());
+        userInput.setOnAction((event) -> handleUserInput());
 
-        userInput.setOnAction((event) -> {
-            handleUserInput();
-        });
-        sendButton.setOnMouseClicked((event) -> {
-            handleUserInput();
-        });
+        // Initialize Samuelbot instance
+        samuelbot = new Samuelbot();
 
-        userInput.setOnAction((event) -> {
-            handleUserInput();
+        // Display welcome message
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog("Hello from SamuelBot! What can I do for you?", Samuel));
+
+        // Set the action for closing the stage
+        stage.setOnCloseRequest(event -> {
+            // Handle the close event
+            // For example, you can exit the application
+            Platform.exit();
+            System.exit(0);
         });
     }
+
 
     /**
-     * Iteration 1:
-     * Creates a label with the specified text and adds it to the dialog container.
-     * @param text String containing text to add
-     * @return a label with the specified text that has word wrap enabled.
+     * Handles user input and displays SamuelBot's response in the dialog container.
      */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-
-        return textToAdd;
-    }
-
+    /**
+     * Handles user input and displays SamuelBot's response in the dialog container.
+     */
     private void handleUserInput() {
         String userInputText = userInput.getText();
-        String samuelResponse = getResponse(userInputText);
+        String samuelResponse = samuelbot.getResponse(userInputText);
 
         // Create DialogBox for user input
         DialogBox userDialog = DialogBox.getUserDialog(userInputText, user);
@@ -131,11 +115,22 @@ public class ChatBotGUI extends Application {
 
         // Clear the user input field
         userInput.clear();
+
+        // Check if the user input is "bye"
+        if (userInputText.equalsIgnoreCase("bye")) {
+            // Save tasks before closing the application
+            samuelbot.saveTasksToFile();
+
+            new Thread(() -> {
+                try {
+                    Thread.sleep(3000); // Wait for 3 seconds
+                    Platform.exit(); // Close the JavaFX application
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }).start();
+        }
     }
 
 
-
-    private String getResponse(String input) {
-        return "SamuelBot heard: " + input;
-    }
 }

@@ -1,5 +1,7 @@
 package SamuelBot;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +32,7 @@ public class Samuelbot {
     /**
      * Saves the tasks to the storage file.
      */
-    private void saveTasksToFile() {
+    void saveTasksToFile() {
         storage.saveTasksToFile(taskList);
     }
 
@@ -268,11 +270,32 @@ public class Samuelbot {
     }
 
     public String getResponse(String userInput) {
-        String response = "";
+        if(userInput.equals("bye")){
+            return "Bye! Samuelbot hopes to see you again soon!";
+        }
+        // Save the current standard output
+        PrintStream originalOut = System.out;
+
+        // Create a new stream to capture the output
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        PrintStream newOut = new PrintStream(outputStream);
+
+        // Set the new output stream
+        System.setOut(newOut);
+
+        // Process the input, which will print output to the console
         processInput(userInput);
-        response = "Command executed: " + userInput;
+
+        // Reset the standard output
+        System.setOut(originalOut);
+
+        // Convert the captured output to a string
+        String response = outputStream.toString();
+
+        // Return the response
         return response;
     }
+
 
 
     /**

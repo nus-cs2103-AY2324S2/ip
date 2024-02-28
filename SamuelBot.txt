@@ -1,5 +1,4 @@
 T |   | a
-T |   | a
 T |   | homework
 T |   | a
 D | 0 | b | 2004-10-22
@@ -8,3 +7,8 @@ T |   | dohomework
 T |   | a
 T |   | eat
 T |   | sleep
+T |   | a
+T |   | a
+T |   | aa
+T |   | abc
+T |   | abcd
