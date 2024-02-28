@@ -20,7 +20,7 @@ deadline Complete report /by 28/02/2024
 ```
 expected output:
 ```
-Got it. I've added this task:
+Got it. I've added this task:ch
 [D] Complete report (by: Feb 28, 2024)
 Now you have 1 task(s) in your list!
 ------------------------------
@@ -28,71 +28,68 @@ Now you have 1 task(s) in your list!
 
 ## Adding Events
 
-    To add an event to your tasks, use the following command:
+## Adding Events
 
-    **Command:** `event <event_description> /from <start_date> /to <end_date>`
+Leo allows you to add events to your tasks. Follow the steps below to add an event.
 
-    - **<event_description>**: Description of the event.
-    - **<start_date>**: Start date of the event in the format `dd/MM/yyyy` or `MMM dd yyyy`.
-    - **<end_date>**: End date of the event in the format `dd/MM/yyyy` or `MMM dd yyyy`.
+**Command:** `event &lt;event_description&gt; /from &lt;start_date&gt; /to &lt;end_date&gt;`
+- **&lt;event_description&gt;**: Description of the event.
+- **&lt;start_date&gt;**: Start date of the event in the format `dd/MM/yyyy` or `MMM dd yyyy`.
+- **&lt;end_date&gt;**: End date of the event in the format `dd/MM/yyyy` or `MMM dd yyyy`.
 
-    **Example:**
+**Example:**
 
-    ```plaintext
-    event Team meeting /from 28/02/2024 /to 29/02/2024
-    ```
+```plaintext
+event Team meeting /from 28/02/2024 /to 29/02/2024
+```
+**Expected Output:**
 
-    **Expected Output:**
-
-    ```
-    Got it. I've added this task:
-    [E] Team meeting (from: Feb 28, 2024, to: Feb 29, 2024)
-    Now you have 2 task(s) in your list!
-    ------------------------------
-    ```
+```
+Got it. I've added this task:
+[E] Team meeting (from: Feb 28, 2024, to: Feb 29, 2024)
+Now you have 2 task(s) in your list!
+------------------------------
+```
 ## Deleting a Task
 
-    To delete a task, use the following command:
+To delete a task, use the following command:
 
-    **Command:** `delete <task_number>`
+**Command:** `delete &lt;task_number&gt;`
+- **&lt;task_number&gt;**: The number associated with the task in the list.
 
-    - **<task_number>**: The number associated with the task in the list.
+**Example:**
 
-    **Example:**
+```plaintext
+delete 1
+```
 
-    ```plaintext
-    delete 1
-    ```
+**Expected Output:**
 
-    **Expected Output:**
-
-    ```
-    Noted. I've removed this task:
-    [D] Complete report (by: Feb 28, 2024)
-    Now you have 1 task(s) in the list.
-    ------------------------------
-    ```
+```
+Noted. I've removed this task:
+[D] Complete report (by: Feb 28, 2024)
+Now you have 1 task(s) in the list.
+------------------------------
+```
 ## Finding Tasks
 
-    To find tasks containing a specific keyword, use the following command:
+To find tasks containing a specific keyword, use the following command:
 
-    **Command:** `find <keyword>`
+**Command:** `find &lt;keyword&gt;`
+- **&lt;keyword&gt;**: The keyword to search for in task descriptions.
 
-    - **<keyword>**: The keyword to search for in task descriptions.
+**Example:**
 
-    **Example:**
+```plaintext
+find meeting
+```
+**Expected Output:**
 
-    ```plaintext
-    find meeting
-    ```
-
-    **Expected Output:**
-
-    ```
-    Here are the matching tasks in your list:
-    1. [E] Team meeting (from: Feb 28, 2024, to: Feb 29, 2024)
-    ------------------------------
-    ```
+```
+Here are the matching tasks in your list:
+1. [E] Team meeting (from: Feb 28, 2024, to: Feb 29, 2024)
+------------------------------
+```
 
 ## Chronologically sorted deadlines!
 
