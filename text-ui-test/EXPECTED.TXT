@@ -1,7 +1,51 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Welcome to Nicole Mark II. New conversation at 28/01/2024
+----------------------------- x ------------------------------
+Nicole: Good afternoon zzz...how's it going
+Nicole: No tasks yet. Let's make some moves BD
+Nicole: I'm your task/deadline/event manager! I'm down with these requests,
+1. todo [task]
+2. deadline [task] by YYYY-MM-DD
+3. event [name] from YYYY-MM-DD at HH-MM-SS to YYY-MM-DD at HH-MM-SS
+4. list
+5. priority
+6. bye
+7. help
+Nicole: ERROR. What exactly do you want me to note...tell me in the form of: todo [task]
+Nicole: ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD
+Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS
+Nicole: ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD
+Nicole: ERROR. Describe your deadline like this: deadline [task] by YYYY-MM-DD
+Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS
+Nicole: ERROR. Describe your event like this: event [name] from YYYY-MM-DD at HH-MM-SS to YYYY-MM-DD at HH-MM-SS
+Nicole: ERROR. What does this mean? Send 'help' if you want to know what commands I can help you with
+Nicole: Oki I added "borrow book"
+Nicole: Oki I added "read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00"
+Nicole: Oki I added "return book by 2024-01-29"
+Nicole: Here's the tasks I saved so far,
+1. [T][I] borrow book
+2. [E][I] read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00
+3. [D][I] return book by 2024-01-29
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: Marked as completed! Good job :3
+Nicole: ERROR. That is already marked complete -_-
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: ERROR. Huh? That's not a valid item number :')
+Nicole: Marked as completed! Good job :3
+Nicole: Here's the tasks I saved so far,
+1. [T][C] borrow book
+2. [E][C] read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00
+3. [D][I] return book by 2024-01-29
+Nicole: ERROR. That is already marked complete -_-
+Nicole: Marked as incomplete. We'll get em next time
+Nicole: ERROR. That is already marked incomplete -_-
+Nicole: Phew...deleted  :>
+Nicole: Here's the tasks I saved so far,
+1. [E][C] read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00
+2. [D][I] return book by 2024-01-29
+Nicole: Here's the tasks I saved so far,
+1. [D][I] return book by 2024-01-29
+2. [E][C] read book from 2024-01-30 at 16:00:00 to 2024-01-30 at 18:00:00
+Bye, for now ;) Let's catch up again soon.
