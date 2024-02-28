@@ -1,6 +1,8 @@
 package duke;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.HashSet;
 
 import duke.tasks.Task;
 
@@ -100,6 +102,29 @@ public class TaskList {
             }
         }
         return finalOutput;
+    }
+
+    public void deleteDuplicate() {
+        Set<String> set = new HashSet<>();
+        Task task;
+        String output;
+        ArrayList<Integer> dupeList = new ArrayList<>();
+        String idxList = "";
+
+        for (int i = 0; i < taskList.size(); i++) {
+            task = taskList.get(i);
+            output = task.getAttributes();
+            if (set.contains(output)) {
+                dupeList.add(i + 1);
+                idxList = idxList + String.valueOf(i + 1);
+            } else {
+                set.add(output);
+            }
+        }
+        for (int i = dupeList.size() - 1; i >= 0; i--) {
+        //    System.out.println(String.valueOf(dupeList.size()));
+            taskList.remove(dupeList.get(i).intValue() - 1);
+        }
     }
 
 }

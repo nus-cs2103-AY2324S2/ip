@@ -82,4 +82,12 @@ public abstract class Task {
     public boolean correctKeyword(String keyword) {
         return this.name.contains(keyword);
     }
+
+    public boolean equals(Task task) {
+        if (task.getAttributes().equals(this.getAttributes())) {
+            return true;
+        }   else {
+            return false;
+        }
+    }
 }
