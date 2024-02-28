@@ -35,4 +35,8 @@ public class Task {
     public String type(){
         return type;
     }//...
+
+    public  boolean isDone() {
+        return isDone;
+    }
 }

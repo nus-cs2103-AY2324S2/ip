@@ -1,5 +1,4 @@
-public class Events extends Task{
-    protected String dateTime;
+public class Events extends Task {
 
     protected Date startDate;
 
@@ -10,7 +9,7 @@ public class Events extends Task{
     protected Time startTime;
 
     public String start;
-    public  String end;
+    public String end;
 
     public Events(String description, String start, String end) {
         super(description);
@@ -23,13 +22,17 @@ public class Events extends Task{
     public void processs(String time) {
         String[] splitTD = time.split(" ");
         try {
+            if (splitTD.length == 2) {
+                this.startTime = new Time(splitTD[1]);
+            } else if (splitTD.length > 2) {
+                throw new OrkException("Follow the format!");
+            }
             this.startDate = new Date(splitTD[0]);
             this.startTime = new Time(splitTD[1]);
         } catch (OrkException e) {
 
         }
     }
-
     public void processe(String time) {
         String[] splitTD = time.split(" ");
         try {
@@ -39,25 +42,26 @@ public class Events extends Task{
 
         }
     }
+
     @Override
-    public void print() {
+    public void print () {
         System.out.println("\t" + "[E]" + getStatusIcon() + getDescription() + "(from:" + startDate.toString()
-                + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() +")");
+                + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() + ")");
     }
 
     @Override
-    public String notPrint() {
+    public String notPrint () {
         return "\t" + "[E]" + getStatusIcon() + getDescription() + "(from:" + startDate.toString()
-                + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() +")";
+                + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() + ")";
     }
 
     @Override
-    public String toString() {
-        return isDone + " event " + getDescription() + "/from " + start + " /to " + end;
+    public String toString () {
+        return isDone + " event " + getDescription() + " /from " + start + " /to " + end;
     }
 
     @Override
-    public String type() {
+    public String type () {
         return ("[E]");
     }
 }

@@ -11,10 +11,20 @@ public class Deadlines extends Task{
     }
 
     public void process(String deadline) {
-        String[] splitTD = deadline.split(" ");
+        String[] dateAndTime = deadline.split(" ");
         try {
-            this.date = new Date(splitTD[0]);
-            this.time = new Time(splitTD[1]);
+            String date = dateAndTime[0];
+            Date deadlineDate = new Date(date);
+            Time deadlineTime;
+            if (dateAndTime.length == 1) {
+                deadlineTime = new Time("");
+            } else if (dateAndTime.length == 2){
+                deadlineTime = new Time(dateAndTime[1]);
+            } else {
+                throw new OrkException("What's the time? Can't believe you can't even do that right");
+            }
+            this.date = new Date(dateAndTime[0]);
+            this.time = new Time(dateAndTime[1]);
         } catch (OrkException e) {
 
         }
@@ -34,7 +44,7 @@ public class Deadlines extends Task{
 
     @Override
     public String toString() {
-        return isDone + " deadline " + getDescription() + "/by " + deadline;
+        return isDone + " deadline " + getDescription() + " /by " + deadline;
     }
 
     @Override
