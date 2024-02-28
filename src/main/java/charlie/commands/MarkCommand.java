@@ -16,6 +16,7 @@ public class MarkCommand extends Command {
      * @param index index of list item to be marked or unmarked
      */
     public MarkCommand(int index) {
+        assert index != null : "Task number to be marked has to be specified";
         this.index = index;
     }
 
@@ -27,6 +28,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws CharlieException {
+        assert taskList != null && storage != null : "TaskList and Storage must not be null";
         Task taskToBeMarked = taskList.getTasks().get(index - 1);
         taskToBeMarked.markAsDone();
         String response = "Marked task: '" + taskToBeMarked.getDescription();

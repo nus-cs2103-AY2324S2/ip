@@ -5,22 +5,23 @@ import charlie.models.Task;
 import charlie.storage.Storage;
 import charlie.storage.TaskList;
 
-public class DeleteCommand extends Command {
+// unmark command
+
+public class UnmarkCommand extends Command {
 
     private int index;
 
     /**
-     * constructor for DeleteCommand
-     * @param index index of list item to be removed
+     * constructor for MarkCommand
+     * @param index index of list item to be marked or unmarked
      */
-    public DeleteCommand(int index) {
-        assert index != null : "Task number to be deleted has to be specified";
+    public UnmarkCommand(int index) {
+        assert index != null : "Task number to be marked has to be specified";
         this.index = index;
     }
 
     /**
-     * executes a delete command, the finds the task to be deleted within taskList, deletes the
-     * task and saves the new taskList to storage
+     * executes the mark command which effectively marks tasks as completed or uncompleted
      * @param taskList - task list loaded at the start of the program.
      * @param storage  - class responsible for adding and loading tasks from and into the file
      * @throws CharlieException
@@ -28,9 +29,9 @@ public class DeleteCommand extends Command {
     @Override
     public String execute(TaskList taskList, Storage storage) throws CharlieException {
         assert taskList != null && storage != null : "TaskList and Storage must not be null";
-        Task taskToBeDeleted = taskList.getTasks().get(index - 1);
-        taskList.getTasks().remove(index - 1);
-        String response = "Deleted task: '" + taskToBeDeleted.getDescription();
+        Task taskToBeUnmarked = taskList.getTasks().get(index - 1);
+        taskToBeUnmarked.markAsNotDone();
+        String response = "Unmarked task: '" + taskToBeUnmarked.getDescription();
         storage.saveTasks(taskList.getTasks());
         isExit = false;
         return response;

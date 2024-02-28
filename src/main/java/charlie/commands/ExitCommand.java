@@ -12,6 +12,7 @@ public class ExitCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null && storage != null : "TaskList and Storage must not be null";
         isExit = true;
         return "See you later!";
     }

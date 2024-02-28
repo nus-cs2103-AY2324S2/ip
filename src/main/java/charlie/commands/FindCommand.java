@@ -27,6 +27,7 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws CharlieException {
+        assert taskList != null && storage != null : "TaskList and Storage must not be null";
         ArrayList<Task> tasks = taskList.getTasks();
         ArrayList<Task> matchingTasks = new ArrayList<>();
 

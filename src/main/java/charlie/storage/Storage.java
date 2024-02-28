@@ -24,6 +24,7 @@ public class Storage {
      * @param filePath path within the current directory by which the storage file should be saved
      */
     public Storage(String filePath) {
+        assert filePath != null && !filePath.trim().isEmpty() : "filePath cannot be null or empty";
         this.filePath = filePath;
     }
 

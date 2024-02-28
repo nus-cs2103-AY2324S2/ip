@@ -8,6 +8,7 @@ public class Task {
      * @param description contains information in the form of a string about the task
      */
     public Task(String description) {
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         this.description = description;
         this.isDone = false;
     }
@@ -25,6 +26,7 @@ public class Task {
      */
     public void markAsDone() {
         isDone = true;
+        assert isDone : "Task should be marked as done";
     }
 
     /**
@@ -32,6 +34,7 @@ public class Task {
      */
     public void markAsNotDone() {
         isDone = false;
+        assert !isDone : "Task should be marked as not done";
     }
 
     /**

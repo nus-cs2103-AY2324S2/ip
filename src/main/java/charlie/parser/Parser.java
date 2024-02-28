@@ -20,6 +20,7 @@ public class Parser {
 
         if (fullCommand.startsWith("delete")) {
             String[] words = fullCommand.split(" ");
+            assert words.length > 1 : "Delete command format is incorrect";
             return new DeleteCommand(Integer.valueOf(words[1]));
         } else if (fullCommand.startsWith("todo") || fullCommand.startsWith("event")
                 || fullCommand.startsWith("deadline")) {
@@ -30,9 +31,15 @@ public class Parser {
             return new ExitCommand();
         } else if (fullCommand.startsWith("mark")) {
             String[] words = fullCommand.split(" ");
+            assert words.length > 1 : "Mark command format is incorrect";
             return new MarkCommand(Integer.valueOf(words[1]));
+        } else if (fullCommand.startsWith("unmark")) {
+            String[] words = fullCommand.split(" ");
+            assert words.length > 1 : "Unmark command format is incorrect";
+            return new UnmarkCommand(Integer.valueOf(words[1]));
         } else if (fullCommand.startsWith("find")) {
             String[] words = fullCommand.split(" ");
+            assert words.length > 1 : "Find command format is incorrect";
             return new FindCommand(words[1]);
         }
         else {

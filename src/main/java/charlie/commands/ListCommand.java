@@ -11,6 +11,7 @@ public class ListCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) {
+        assert taskList != null && storage != null : "TaskList and Storage must not be null";
         StringBuilder responseBuild = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < taskList.getTasks().size(); i++) {
             responseBuild.append(i + 1).append(".").append(taskList.getTasks().get(i)).append("\n");

@@ -13,9 +13,20 @@ public class Deadline extends Task {
      */
     public Deadline(String description, String byString) {
         super(description);
+
+        // Assert that description is not null or empty
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        // Assert that byString is not null
+        assert byString != null : "byString cannot be null";
         // handle the case where it's not a date
-        this.by = LocalDate.parse(byString); // Assumes input is in ISO_LOCAL_DATE format (yyyy-MM-dd)
-        this.byString = byString;
+
+        String datePattern = "\\d{4}-\\d{2}-\\d{2}";
+        if (byString.matches(datePattern)) {
+            this.by = LocalDate.parse(byString); // Assumes input is in ISO_LOCAL_DATE format (yyyy-MM-dd)
+            assert this.by != null : "Date parsing failed when it should have succeeded";
+        } else {
+            this.byString = byString;
+        }
     }
 
     /**
@@ -23,7 +34,14 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        if (by != null) {
+            // `by` is set, so format it using DateTimeFormatter
+            return "[D]" + super.toString() + " (by: " + by.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+        } else {
+            // `by` is not set, meaning `byString` did not represent a date in the expected format
+            // In this case, simply return the `byString` without attempting to format it as a date
+            return "[D]" + super.toString() + " (by: " + byString + ")";
+        }
     }
     public String getBy() {
         return this.byString;

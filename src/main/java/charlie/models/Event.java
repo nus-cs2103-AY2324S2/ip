@@ -12,6 +12,12 @@ public class Event extends Task {
      */
     public Event(String description, String startsAt, String endsAt) {
         super(description);
+
+        // Assert that description, startsAt, and endsAt are not null
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        assert startsAt != null && !startsAt.trim().isEmpty() : "Start time cannot be null or empty";
+        assert endsAt != null && !endsAt.trim().isEmpty() : "End time cannot be null or empty";
+
         this.startsAt = startsAt;
         this.endsAt = endsAt;
     }

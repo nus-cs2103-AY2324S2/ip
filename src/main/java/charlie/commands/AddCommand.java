@@ -20,6 +20,7 @@ public class AddCommand extends Command {
      * @param fullCommand the user command in its full string form
      */
     public AddCommand(String fullCommand) {
+        assert fullCommand != null && !fullCommand.trim().isEmpty() : "Full command must not be null or empty";
         this.fullCommand = fullCommand;
     }
 
@@ -32,6 +33,7 @@ public class AddCommand extends Command {
      */
     @Override
     public String execute(TaskList taskList, Storage storage) throws CharlieException {
+        assert taskList != null && storage != null : "TaskList and Storage must not be null";
         if (fullCommand.startsWith("todo")) {
             this.response = handleTodo(taskList.getTasks(), fullCommand);
         } else if (fullCommand.startsWith("event")) {
@@ -51,6 +53,7 @@ public class AddCommand extends Command {
      * @throws CharlieException
      */
     private String handleTodo(ArrayList<Task> taskList, String input) throws CharlieException {
+        assert input != null && !input.trim().equals("todo") : "Input for todo must not be empty";
         if (input.trim().equals("todo")) {
             throw new CharlieException("Sorry, the description of a todo cannot be empty.");
         }
@@ -69,6 +72,7 @@ public class AddCommand extends Command {
      * @throws CharlieException
      */
     private String handleDeadline(ArrayList<Task> taskList, String input) throws CharlieException {
+        assert input != null && input.trim().length() > 9 : "Input for deadline must be properly formatted";
         String[] parts = input.substring(9).split(" /by ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
             throw new CharlieException("Sorry, the description of a deadline "
@@ -88,6 +92,7 @@ public class AddCommand extends Command {
      * @throws CharlieException
      */
     private String handleEvent(ArrayList<Task> taskList, String input) throws CharlieException {
+        assert input != null && input.trim().length() > 6 : "Input for event must be properly formatted";
         String[] parts = input.substring(6).split(" /from ");
         if (parts.length < 2 || parts[0].trim().isEmpty() || !parts[1].contains(" /to ")) {
             throw new CharlieException("Sorry, the description of an event cannot be empty "
