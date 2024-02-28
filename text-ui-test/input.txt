@@ -1,0 +1,13 @@
+todo apple
+deadline pear /by 2000-01-01
+event orange /from 2020-01-01 /to 2020-01-02
+list
+done 0
+list
+done 1
+list
+done 2
+list
+delete 0
+list
+bye
