@@ -57,7 +57,7 @@ public class Duke {
             storage.save(tasks);
 
             if (command instanceof ByeCommand) {
-                Main.getStage().close();
+                System.exit.(0);
             }
 
             // For debugging purposes.
