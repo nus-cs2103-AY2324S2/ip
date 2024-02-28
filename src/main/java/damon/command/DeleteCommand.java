@@ -1,5 +1,6 @@
 package damon.command;
 
+import damon.response.Response;
 import damon.storage.Storage;
 import damon.tasklist.TaskList;
 import damon.ui.Ui;
@@ -20,11 +21,15 @@ public class DeleteCommand extends Command {
      * @param ui Ui object of Damon object.
      * @param storage Storage object of Damon object.
      */
-    public void execute(TaskList tasks, Ui ui, Storage storage) {
+    public void execute(TaskList tasks, Ui ui, Storage storage, Response response) {
         int index = Integer.parseInt(this.command.split(" ")[1]) - 1;
 
         ui.showDeleteCommand(index, tasks);
+        response.showDeleteCommand(index, tasks);
+
         tasks.deleteTask(index);
         storage.writeFile(tasks);
+
+
     }
 }

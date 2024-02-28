@@ -1,5 +1,6 @@
 package damon.command;
 
+import damon.response.Response;
 import damon.storage.Storage;
 import damon.tasklist.TaskList;
 import damon.ui.Ui;
@@ -9,6 +10,7 @@ import damon.ui.Ui;
  */
 public abstract class Command {
     protected final String command;
+    protected Response response = new Response();
 
     /**
      * Constructs a new Command object with only String description parameter.
@@ -19,7 +21,7 @@ public abstract class Command {
         this.command = command;
     }
 
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage);
+    public abstract void execute(TaskList tasks, Ui ui, Storage storage, Response response);
 
     public boolean isExit() {
         return false;
@@ -28,4 +30,6 @@ public abstract class Command {
     public String toString() {
         return "Command";
     }
+
+    public String getResponse() {return "";};
 }

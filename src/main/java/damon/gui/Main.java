@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import damon.Damon;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -14,7 +15,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Damon damon = new Damon();
+    private Damon damon = new Damon("..\\Damon.txt");
 
     @Override
     public void start(Stage stage) {
