@@ -36,7 +36,7 @@ public class Event extends Task {
     }
     @Override
     public String toString() {
-        return "[E]" + super.toString() + Ui.from() + this.startTime + Ui.to() + this.endTime + ")";
+        return "[E]" + super.toString() + "(from: " + this.startTime + " to: " + this.endTime + ")";
     }
     @Override
     public String toStorageFormat() {

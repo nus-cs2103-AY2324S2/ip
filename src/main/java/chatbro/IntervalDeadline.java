@@ -35,7 +35,7 @@ public class IntervalDeadline extends Task {
         this.endInterval = endInterval;
     }
     public String toString() {
-        return "[I]" + super.toString() + Ui.dueByInterval() + this.startInterval + Ui.to() + this.endInterval + ")";
+        return "[I]" + super.toString() + "(due by interval: " + this.startInterval + " to: " + this.endInterval + ")";
     }
     @Override
     public String toStorageFormat() {

@@ -7,7 +7,7 @@ ChatBro is a simple to use task manager application that allows you to add tasks
 
 Let ChatBro remember and handle your tasks for you!
 <p align="center">
-<img width="304" height="460" src="https://cdn.discordapp.com/attachments/523125126540165121/1210528706335084605/image.png?ex=65eae3b6&is=65d86eb6&hm=d29262b5c72377baa671bf2f791b7e6ece1815c068594a06b177e4f318e8f103&">
+<img width="304" height="460" src="https://cdn.discordapp.com/attachments/523125126540165121/1212420395316023317/image.png?ex=65f1c57b&is=65df507b&hm=0163641fe6250b403967de4c6f2884567b5bc70e2898ecff709047571caaceaf&">
 </p>
 
 ## Features:
@@ -15,7 +15,7 @@ Let ChatBro remember and handle your tasks for you!
 Click on the underlined features to jump to the respective section!
 
 1. [Adding Tasks](#exit):
-[To-Do](#todo)  |  [Deadline](#deadline)  |  [Interval Deadline](#interval)  |  [Event](#event)
+   [To-Do](#todo)  |  [Deadline](#deadline)  |  [Interval Deadline](#interval)  |  [Event](#event)
 2. [Viewing your task list](#view-list)
 3. [Marking / Unmarking tasks as "done"](#mark)
 4. [Deleting tasks](#delete)
@@ -79,20 +79,18 @@ To view your list of tasks, use the 'list' command.
 
 **Command format:** `list`
 
-ChatBro replies with a list of your tasks, including task type, status, description, and any other task information:
-<p align="center">
-<img width="304" height="460" src="https://cdn.discordapp.com/attachments/523125126540165121/1210528706335084605/image.png?ex=65eae3b6&is=65d86eb6&hm=d29262b5c72377baa671bf2f791b7e6ece1815c068594a06b177e4f318e8f103&">
-</p>
+ChatBro replies with a list of your tasks, including task type, status, description, and any other task information.
 
 ## 3. Marking and unmarking tasks as "done" <a id="mark"></a>
 
 Now that we know how to view our task list, we can mark some tasks as "done"! First, you'll need to know the task number of the task to be marked, which you can find using the 'list' command. Then, type `mark <task number>` to mark the task. To unmark the task, type `unmark <task number>`. This will be reflected in the task list.
 
-For example, if the task "buy new shoes" is done but the task "(CS2100) Complete Tutorial 3 worksheet" is not done yet:
+For example, if the task "buy new shoes" is done but the task "(CS2100) Complete Tutorial 3 worksheet" is not done yet, using the list command:
 
 <p align="center">
-<img width="350" height="223" src="https://cdn.discordapp.com/attachments/523125126540165121/1210558551366303795/image.png?ex=65eaff81&is=65d88a81&hm=6d04c475ac38d2649d046fdc37969d63f9eba37f1768a8eb5aeddb4d3231997f&">
+<img width="350" height="223" src="https://cdn.discordapp.com/attachments/523125126540165121/1212419963344789564/image.png?ex=65f1c514&is=65df5014&hm=62be53e1e451adba792a1aec8f27a8f59be6b2d114e8f818ed1cb3f578d89b71&">
 </p>
+we can see that "buy new shoes" has the status marked as "X", i.e. it is done.
 
 **Command format:** `mark <task number>` or  `unmark <task number>`
 
@@ -123,12 +121,12 @@ To illustrate how 'find' can help filter the list effectively, assume we are fin
 
 Using 'list':
 <p align="center">
-<img width="270" height="380" src="https://cdn.discordapp.com/attachments/523125126540165121/1210543083066884186/image.png?ex=65eaf119&is=65d87c19&hm=f79bef19645c94e4df35d80f0d277abcab75856a350fa470567a6109c5cd196f&">
+<img width="270" height="380" src="https://cdn.discordapp.com/attachments/523125126540165121/1212420395316023317/image.png?ex=65f1c57b&is=65df507b&hm=0163641fe6250b403967de4c6f2884567b5bc70e2898ecff709047571caaceaf&">
 </p>
 
 Using 'find':
 <p align="center">
-<img width="334" height="260" src="https://cdn.discordapp.com/attachments/523125126540165121/1210528960354717738/image.png?ex=65eae3f2&is=65d86ef2&hm=740d2902ad2fe16e69ab67090e671564a753b9a14d28517ed1c5be1525b15d5d&">
+<img width="320" height="250" src="https://cdn.discordapp.com/attachments/523125126540165121/1212420651000926228/image.png?ex=65f1c5b8&is=65df50b8&hm=6465cefb05cfd271475c0f4c592f17b8de09f1dc310ed534772e76b0fa3d8b51&">
 </p>
 
 ## 6. Exiting program and saving your tasks  <a id="exit"></a>
@@ -146,4 +144,4 @@ If `savedTasks.txt` is in the wrong format, you will see this pop-up alert when 
 </p>
 
 Simply follow the instructions given and delete `savedTasks.txt`, then start ChatBro again.
-**(NOTE: Your saved task list will be *deleted*, and you will have to add your tasks in again 😔)**
+**(NOTE: Your saved task list will be *deleted*, and you will have to add your tasks into the list again)**

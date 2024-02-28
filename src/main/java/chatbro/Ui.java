@@ -4,6 +4,10 @@ package chatbro;
  * Represents the user interface of ChatBro.
  */
 public class Ui {
+    /**
+     * Returns a welcome message.
+     * @return Welcome message.
+     */
     public static String welcomeMessage() {
         return " __  __       __\n"
                 + " \\ \\/ /__    / /\n"
@@ -12,6 +16,10 @@ public class Ui {
                 + "I'm ChatBro! What can I do for you bro?\n"
                 + "Type 'help' to see the list of available commands!";
     }
+    /**
+     * Returns a help message.
+     * @return Help message.
+     */
     public static String helpMessage() {
         return "Here are the available commands bro:\n"
                 + "1. list (view your list of tasks)\n"
@@ -38,10 +46,20 @@ public class Ui {
     public static String formatErrorMessage(String format) {
         return "Hey bro, make sure to follow the format:\n" + format;
     }
+    /**
+     * Returns a message of adding a task and updated task count.
+     * @param task Task that was added.
+     * @return Message containing added task and updated task count.
+     */
     public static String addMessage(Task task) {
         return "Got it bro. I've added this task:\n" + task.toString()
                 + "\nNow you have " + TaskManager.getTaskCount() + " tasks in the list.";
     }
+    /**
+     * Returns a message of deleting a task and updated task count.
+     * @param task Task that was deleted.
+     * @return Message containing deleted task and updated task count.
+     */
     public static String deleteMessage(Task task) {
         return "Noted bro. I've removed this task:\n" + task.toString()
                 + "\nNow you have " + TaskManager.getTaskCount() + " tasks in the list.";
@@ -77,18 +95,5 @@ public class Ui {
     }
     public static String endTimeEmptyMessage() {
         return "Hey bro, end time cannot be empty.";
-    }
-    public static String dueByInterval() { // returns String "(due by interval: " in bold and italics
-        return " (\uD835\uDC85\uD835\uDC96\uD835\uDC86 \uD835\uDC83\uD835\uDC9A"
-            + " \uD835\uDC8A\uD835\uDC8F\uD835\uDC95\uD835\uDC86\uD835\uDC93\uD835\uDC97\uD835\uDC82\uD835\uDC8D: ";
-    }
-    public static String to() { // Returns String " to: " in bold and italics
-        return " \uD835\uDC95\uD835\uDC90: ";
-    }
-    public static String from() { // Returns String " (from: " in bold and italics
-        return " (\uD835\uDC87\uD835\uDC93\uD835\uDC90\uD835\uDC8E: ";
-    }
-    public static String by() { // Returns String " (by: " in bold and italics
-        return " (\uD835\uDC83\uD835\uDC9A: ";
     }
 }
