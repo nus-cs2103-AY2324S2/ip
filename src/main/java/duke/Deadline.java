@@ -44,7 +44,9 @@ public class Deadline extends Task {
                 continue;
             }
         }
-        throw new BotException("Invalid date format. Please use 'MMM dd yyyy HH:mm'.");
+        throw new BotException("Invalid date format."
+                + "Please use 'MMM dd yyyy HH:mm'."
+                + "E.g. 'Sep 30 2029 18:00'");
     }
 
     /**
