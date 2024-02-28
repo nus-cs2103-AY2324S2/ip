@@ -57,5 +57,3 @@ Coat the Catbot automatically saves your tasks after each command, so you never 
 ## About Us
 
 Coat the Catbot is developed by our team of passionate developers who are dedicated to creating useful and intuitive software solutions. We strive to continuously improve Coat the Catbot and welcome your feedback and suggestions.
-
-```
