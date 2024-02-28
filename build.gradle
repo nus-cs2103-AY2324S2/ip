@@ -46,3 +46,6 @@ application {
 shadowJar {
     archiveFileName = 'duke.jar'
 }
+
+sourceCompatibility = 11
+targetCompatibility = 11
