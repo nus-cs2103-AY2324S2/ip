@@ -89,12 +89,14 @@ public class Parser {
             case "view":
             case "viewbydate":
                 return parseViewByDate(arguments);
+            case "clear":
+                return new ClearCommand();
             default:
                 return new UnknownCommand();
             }
         } catch (DukeException e) {
             System.out.printf("\n%s", e.getMessage());
-            return new UnknownCommand();
+            return new NoopCommand();
         }
     }
 
@@ -103,40 +105,62 @@ public class Parser {
         LocalDateTime deadlineDateTime = parseDateTime(getDateTimeString(arguments, "/by"));
 
         if (taskDescription.isEmpty()) {
-            throw new DukeException(Messages.PARSER_DEADLINE_DESCRIPTION_ERROR.getMessage());
+            String errorMessage = Messages.PARSER_DEADLINE_DESCRIPTION_ERROR.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
         if (deadlineDateTime == null) {
-            throw new DukeException(Messages.PARSER_DEADLINE_DATE_TIME_ERROR.getMessage());
+            String errorMessage = Messages.PARSER_DEADLINE_DATE_TIME_ERROR.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
 
         return new AddCommand(new Deadline(taskDescription, deadlineDateTime));
     }
 
     private static Command parseEvent(List<String> arguments) throws DukeException {
-        String taskDescription = extractTaskDescription(arguments, "/from", "/to");
-        LocalDateTime startDateTime = parseDateTime(getDateTimeString(arguments, "/from"));
-        LocalDateTime endDateTime = parseDateTime(getDateTimeString(arguments, "/to"));
+        String taskDescription = extractTaskDescription(arguments, "/from");
+        String startDateTimeString = getDateTimeString(arguments, "/from");
+        String endDateTimeString = getDateTimeString(arguments, "/to");
+
+        LocalDateTime startDateTime = parseDateTime(startDateTimeString);
+        LocalDateTime endDateTime = parseDateTime(endDateTimeString);
 
         if (taskDescription.isEmpty()) {
-            throw new DukeException(Messages.PARSER_EVENT_DESCRIPTION_ERROR.getMessage());
+            String errorMessage = Messages.PARSER_EVENT_DESCRIPTION_ERROR.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
         if (startDateTime == null || endDateTime == null) {
-            throw new DukeException(Messages.PARSER_EVENT_DATE_TIME_ERROR.getMessage());
+            String errorMessage = Messages.PARSER_EVENT_DATE_TIME_ERROR.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
 
         return new AddCommand(new Event(taskDescription, startDateTime, endDateTime));
     }
 
+
     private static Command parseViewByDate(List<String> arguments) throws DukeException {
-        LocalDate viewDate = LocalDate.parse(extractTaskDescription(arguments), DateTimeFormatter.ISO_LOCAL_DATE);
+        if (arguments.isEmpty()) {
+            String errorMessage = Messages.PARSER_VIEW_DATE_ERROR.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
+        }
+
+        String dateString = arguments.get(0); // Extracting the date string from the first argument
+        LocalDate viewDate = LocalDate.parse(dateString, DateTimeFormatter.ISO_LOCAL_DATE);
         return new ViewByDateCommand(viewDate);
     }
+
 
     private static LocalDateTime parseDateTime(String dateTimeString) throws DukeException {
         try {
             return LocalDateTime.parse(dateTimeString, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
         } catch (DateTimeParseException e) {
-            throw new DukeException(Messages.PARSER_INVALID_DATE_TIME_FORMAT.getMessage());
+            String errorMessage = Messages.PARSER_INVALID_DATE_TIME_FORMAT.getMessage();
+            ui.appendResponse(errorMessage);
+            throw new DukeException(errorMessage);
         }
     }
 
