@@ -51,9 +51,9 @@ public class TaskList {
      * @return Task removed.
      */
     public Task remove(int i) {
+        Task task = this.list.remove(i);
         this.taskCount--;
-        Storage.saveTasks(this);
-        return this.list.remove(i);
+        return task;
     }
 
     public Task removeLast() {
