@@ -1,7 +1,7 @@
 package youdon;
 
 /**
- * The main class that starts the Youdon chatbot application.
+ * The main class for YoudonBot.
  */
 public class Youdon {
 
