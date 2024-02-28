@@ -21,7 +21,7 @@ public class Duke {
      */
     public Duke() throws BotException {
         this.taskRepository = new TaskRepository();
-        this.taskList = taskRepository.loadTasks();
+        this.taskList = taskRepository.loadTasksFromFile();
     }
 
     /**
@@ -36,73 +36,48 @@ public class Duke {
         String[] userInputArray = userInput.split(" ");
         String command = userInputArray[0];
 
-        switch (command) {
-            case "bye":
-                return Bot.botExitMsgGui();
-            case "help":
-                return Bot.botHelpMsgGui();
-            case "list":
-                return listAllMsg(taskList);
-            case "mark":
-                try {
-                    markTaskHandler(userInputArray);
-                    // save to file
+        try {
+            switch (command) {
+                case "bye":
+                    return Bot.getBotExitMsg();
+                case "help":
+                    return Bot.getBotHelpMsg();
+                case "list":
+                    return listAllMsg(taskList);
+                case "mark":
+                    handleMarkTask(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return markMsg();
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "unmark":
-                try {
-                    unmarkTaskHandler(userInputArray);
+                case "unmark":
+                    handleUnmarkTask(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return unmarkMsg();
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "todo":
-                try {
+                case "todo":
                     handleTodoCommand(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return addTaskMsg();
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "deadline":
-                try {
+                case "deadline":
                     handleDeadlineCommand(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return addTaskMsg();
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "event":
-                try {
+                case "event":
                     handleEventCommand(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return addTaskMsg();
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "delete":
-                try {
+                case "delete":
                     String status = handleDeleteCommand(userInputArray);
                     taskRepository.saveTasksToFile(taskList);
                     return deleteMsg(status);
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "find":
-                try {
+                case "find":
                     String tasksFound = handleFindCommand(userInputArray);
                     return findMsg(tasksFound);
-                } catch (BotException e) {
-                    return e.getMessage();
-                }
-            case "":
-                return Bot.emptyInputMsgGui();
-            default:
-                return Bot.invalidInputMsgGui();
+                case "":
+                    return Bot.getEmptyInputMsg();
+                default:
+                    return Bot.getInvalidInputMsg();
+            }
+        } catch (BotException e) {
+            return e.getMessage();
         }
     }
 
@@ -116,9 +91,12 @@ public class Duke {
         assert taskList != null : "Task list should not be null";
 
         StringBuilder tasksMsg = new StringBuilder();
-        tasksMsg.append(Bot.botListAllMsgGui()).append("\n");
-        tasksMsg.append(this.taskList.toString()).append("\n");
-        tasksMsg.append(TaskCountMsg()).append("\n");
+        tasksMsg.append(Bot.getBotListAllMsg())
+                .append("\n");
+        tasksMsg.append(this.taskList.toString())
+                .append("\n");
+        tasksMsg.append(TaskCountMsg())
+                .append("\n");
         return tasksMsg.toString();
     }
 
@@ -127,7 +105,7 @@ public class Duke {
      */
     private String addTaskMsg() {
         assert this.taskList != null : "Task list should not be null";
-        return Bot.printAddTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+        return Bot.getAddTaskMsg() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
     /*
@@ -135,7 +113,7 @@ public class Duke {
      */
     private String markMsg() {
         assert this.taskList != null : "Task list should not be null";
-        return Bot.printMarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+        return Bot.getMarkTaskMsg() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
     /*
@@ -143,7 +121,7 @@ public class Duke {
      */
     private String unmarkMsg() {
         assert this.taskList != null : "Task list should not be null";
-        return Bot.printUnmarkTaskMsgGui() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
+        return Bot.getUnmarkTaskMsg() + "\n" + this.taskList.toString() + "\n" + TaskCountMsg() + "\n";
     }
 
     /*
@@ -154,7 +132,7 @@ public class Duke {
     private String deleteMsg(String status) {
         assert this.taskList != null : "Task list should not be null";
         assert status != null : "Status should not be null";
-        return Bot.botDeleteMessageGui() + "\n" + this.taskList.toString()
+        return Bot.getBotDeleteMsg() + "\n" + this.taskList.toString()
                 + "\n" + TaskCountMsg() + "\n" + status + "\n";
     }
 
@@ -165,7 +143,7 @@ public class Duke {
      */
     private String findMsg(String tasks) {
         assert tasks != null : "Tasks to find should not be null";
-        return Bot.botFindMessageGui() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
+        return Bot.getBotFindMsg() + "\n" + tasks + "\n" + TaskCountMsg() + "\n";
     }
 
     /*
@@ -193,7 +171,7 @@ public class Duke {
             throw new BotException("Please enter a keyword to search for.");
         }
         String keyword = userInputArray[1];
-        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        List<Task> matchingTasks = taskList.getTasksByKeyword(keyword);
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < matchingTasks.size(); i++) {
             sb.append((i + 1) + "." + matchingTasks.get(i)).append("\n");
@@ -246,7 +224,7 @@ public class Duke {
      * @throws BotException If the task number is missing, not numeric, or out of
      *                      range
      */
-    private void markTaskHandler(String[] userInputArray) throws BotException {
+    private void handleMarkTask(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
         assert userInputArray.length > 0 : "User input array should not be empty";
 
@@ -273,7 +251,7 @@ public class Duke {
      * @throws BotException If the task number is not provided, is not numeric, or
      *                      is out of range
      */
-    private void unmarkTaskHandler(String[] userInputArray) throws BotException {
+    private void handleUnmarkTask(String[] userInputArray) throws BotException {
         assert userInputArray != null : "User input array should not be null";
         assert userInputArray.length > 0 : "User input array should not be empty";
 
@@ -290,7 +268,7 @@ public class Duke {
         if (i <= 0 || i > taskList.getTaskCount()) {
             throw new BotException("Task number is out of range.");
         }
-        taskList.markTaskAsUndone(i);
+        taskList.unmarkTaskAsDone(i);
     }
 
     /**

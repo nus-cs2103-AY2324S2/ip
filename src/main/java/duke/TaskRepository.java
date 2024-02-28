@@ -31,16 +31,17 @@ public class TaskRepository {
     }
 
     /**
-     * Loads tasks from a file into a TaskList and
-     * populates the taskList with tasks from the file
-     * Tasks are read line by line, with details split by '|'
-     * Task type (T, D, E) determines how each task is added to the TaskList
-     *
-     * @return The populated TaskList object
+     * Loads tasks from the file at FILE_PATH into the TaskList.
+     * Process the string from file and delegates the task creation
+     * to respective methods based on the task type.
+     * 
+     * @return The TaskList containing the loaded tasks.
+     * @throws BotException If there is an error while processing the tasks.
      */
-    public TaskList loadTasks() throws BotException {
+    public TaskList loadTasksFromFile() throws BotException {
+        BufferedReader reader = null;
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH));
+            reader = new BufferedReader(new FileReader(FILE_PATH));
             assert reader != null : "Reader should be initialized";
             String line;
             while ((line = reader.readLine()) != null) {
@@ -50,43 +51,101 @@ public class TaskRepository {
                 Boolean isTaskDone = isDone.equals("X");
                 String taskType = taskDetails[0].trim();
                 String description = taskDetails[2].trim();
-                switch (taskType) {
-                    case "T":
-                        taskList.addTodo(description);
-                        if (isTaskDone) {
-                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
-                        }
-                        break;
-                    case "D":
-                        assert taskDetails.length >= 4 : "Deadline task details are incomplete";
-                        String dueDate = taskDetails[3].trim();
-                        dueDate = dueDate.substring(3).trim();
-                        taskList.addDeadline(description, dueDate);
-                        if (isTaskDone) {
-                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
-                        }
-                        break;
-                    case "E":
-                        assert taskDetails.length >= 4 : "Event task details are incomplete";
-                        String timeBlock = taskDetails[3].trim();
-                        String[] parts = timeBlock.split("to:");
-                        assert parts.length == 2 : "Time block is incomplete";
-                        String fromPart = parts[0];
-                        String toPart = parts[1];
-                        String startTime = fromPart.replace("from:", "").trim();
-                        String endTime = toPart.trim();
-                        taskList.addEvent(description, startTime, endTime);
-                        if (isTaskDone) {
-                            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
-                        }
-                        break;
-                }
+                processTask(taskDetails, isTaskDone, taskType, description);
             }
-            reader.close();
         } catch (IOException e) {
             e.printStackTrace();
+        } finally {
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
         return taskList;
+    }
+
+    /**
+     * Processes a task's details and adds it to the TaskList.
+     * The task type determines how the task is processed.
+     * 
+     * @param taskDetails The details of the task.
+     * @param isTaskDone  Whether the task is done.
+     * @param taskType    The type of the task.
+     * @param description The description of the task.
+     * @throws BotException If there is an error while processing the task.
+     */
+    private void processTask(String[] taskDetails, Boolean isTaskDone, String taskType, String description)
+            throws BotException {
+        switch (taskType) {
+            case "T":
+                processTodoTask(taskDetails, isTaskDone, description);
+                break;
+            case "D":
+                processDeadlineTask(taskDetails, isTaskDone, description);
+                break;
+            case "E":
+                processEventTask(taskDetails, isTaskDone, description);
+                break;
+        }
+    }
+
+    /**
+     * Processes a Todo task's details and adds it to the TaskList.
+     * 
+     * @param taskDetails The details of the task.
+     * @param isTaskDone  Whether the task is done.
+     * @param description The description of the task.
+     * @throws BotException If there is an error while processing the task.
+     */
+    private void processTodoTask(String[] taskDetails, Boolean isTaskDone, String description) throws BotException {
+        taskList.addTodo(description);
+        if (isTaskDone) {
+            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+        }
+    }
+
+    /**
+     * Processes a Deadline task's details and adds it to the TaskList.
+     * 
+     * @param taskDetails The details of the task.
+     * @param isTaskDone  Whether the task is done.
+     * @param description The description of the task.
+     * @throws BotException If there is an error while processing the task.
+     */
+    private void processDeadlineTask(String[] taskDetails, Boolean isTaskDone, String description) throws BotException {
+        assert taskDetails.length >= 4 : "Deadline task details are incomplete";
+        String dueDate = taskDetails[3].trim();
+        dueDate = dueDate.substring(3).trim();
+        taskList.addDeadline(description, dueDate);
+        if (isTaskDone) {
+            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+        }
+    }
+
+    /**
+     * Processes an Event task's details and adds it to the TaskList.
+     * 
+     * @param taskDetails The details of the task.
+     * @param isTaskDone  Whether the task is done.
+     * @param description The description of the task.
+     * @throws BotException If there is an error while processing the task.
+     */
+    private void processEventTask(String[] taskDetails, Boolean isTaskDone, String description) throws BotException {
+        assert taskDetails.length >= 4 : "Event task details are incomplete";
+        String timeBlock = taskDetails[3].trim();
+        String[] parts = timeBlock.split("to:");
+        assert parts.length == 2 : "Time block is incomplete";
+        String fromPart = parts[0];
+        String toPart = parts[1];
+        String startTime = fromPart.replace("from:", "").trim();
+        String endTime = toPart.trim();
+        taskList.addEvent(description, startTime, endTime);
+        if (isTaskDone) {
+            taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();
+        }
     }
 
     /**
@@ -100,7 +159,7 @@ public class TaskRepository {
     public void saveTasksToFile(TaskList taskList) {
         try {
             FileWriter fileWriter = new FileWriter(FILE_PATH);
-            for (String task : taskList.listTasks()) {
+            for (String task : taskList.getTasksAsList()) {
                 String taskWithoutNumber = task.substring(task.indexOf(" ") + 1);
                 fileWriter.write(taskWithoutNumber + "\n");
             }

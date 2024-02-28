@@ -21,7 +21,7 @@ public class Parser {
     public Parser() throws IOException, BotException {
         this.scanner = new Scanner(System.in);
         this.taskRepository = new TaskRepository();
-        this.taskList = taskRepository.loadTasks();
+        this.taskList = taskRepository.loadTasksFromFile();
     }
 
     /**
@@ -41,18 +41,17 @@ public class Parser {
 
             switch (command) {
                 case "bye":
-                    Bot.botExitMsg();
+                    Bot.printBotExitMsg();
                     return;
                 case "list":
                     botListAllTasks();
                     break;
                 case "help":
-                    Bot.botHelpMsg();
+                    Bot.printBotHelpMsg();
                     break;
                 case "mark":
                     try {
                         markTaskHandler(userInputArray);
-                        // save to file
                         taskRepository.saveTasksToFile(taskList);
                     } catch (BotException e) {
                         System.out.println(e.getMessage());
@@ -139,7 +138,7 @@ public class Parser {
             throw new BotException("Please enter a keyword to search for.");
         }
         String keyword = userInputArray[1];
-        List<Task> matchingTasks = taskList.findTasksByKeyword(keyword);
+        List<Task> matchingTasks = taskList.getTasksByKeyword(keyword);
         Bot.printFindTaskMsg();
         for (int i = 0; i < matchingTasks.size(); i++) {
             System.out.println((i + 1) + "." + matchingTasks.get(i));
@@ -173,7 +172,7 @@ public class Parser {
         Bot.printDeleteTaskMsg();
         if (taskList.getTaskCount() > 0) {
             System.out.println("Removed Task: " + taskToRemove);
-            Ui.printList(taskList.listTasks());
+            Ui.printList(taskList.getTasksAsList());
         } else {
             System.out.println("All tasks have been removed.");
         }
@@ -245,7 +244,7 @@ public class Parser {
     private void addTaskMsg() {
         Ui.printSeparatorLine();
         Bot.printAddTaskMsg();
-        Ui.printList(taskList.listTasks());
+        Ui.printList(taskList.getTasksAsList());
         TaskCountMsg();
         Ui.printSeparatorLine();
     }
@@ -273,7 +272,7 @@ public class Parser {
         Ui.printSeparatorLine();
         taskList.markTaskAsDone(i);
         Bot.printMarkTaskMsg();
-        Ui.printList(taskList.listTasks());
+        Ui.printList(taskList.getTasksAsList());
         TaskCountMsg();
         Ui.printSeparatorLine();
     }
@@ -299,9 +298,9 @@ public class Parser {
             throw new BotException("Task number is out of range.");
         }
         Ui.printSeparatorLine();
-        taskList.markTaskAsUndone(i);
+        taskList.unmarkTaskAsDone(i);
         Bot.printUnmarkTaskMsg();
-        Ui.printList(taskList.listTasks());
+        Ui.printList(taskList.getTasksAsList());
         TaskCountMsg();
         Ui.printSeparatorLine();
     }
@@ -311,8 +310,8 @@ public class Parser {
      */
     private void botListAllTasks() {
         Ui.printSeparatorLine();
-        Bot.botListAllMsg();
-        Ui.printList(taskList.listTasks());
+        Bot.printBotListAllMsg();
+        Ui.printList(taskList.getTasksAsList());
         TaskCountMsg();
         Ui.printSeparatorLine();
     }
