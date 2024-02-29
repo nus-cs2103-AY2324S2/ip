@@ -138,11 +138,9 @@ public class Storage {
         }
     }
 
-    private void writeFile(FileWriter fw, Task task) throws IOException {
-        try (BufferedWriter bw = new BufferedWriter(fw)) {
-            bw.write(task.getStorageFormat());
-            bw.newLine();
-        }
+    private void writeTask(BufferedWriter bw, Task task) throws IOException {
+        bw.write(task.getStorageFormat());
+        bw.newLine();
     }
 
     /**
@@ -154,10 +152,19 @@ public class Storage {
     public void saveTask(Task task) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
-            writeFile(fw, task);
+            try (BufferedWriter bw = new BufferedWriter(fw)) {
+                writeTask(bw, task);
+            }
         } catch (IOException e) {
             throw new SavingException(e.getMessage());
         }
+    }
+
+    private void rewriteFile(BufferedWriter bw, ArrayList<Task> tasks) throws IOException {
+        for (Task task : tasks) {
+            writeTask(bw, task);
+        }
+        bw.flush();
     }
 
     /**
@@ -170,11 +177,7 @@ public class Storage {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile());
             try (BufferedWriter bw = new BufferedWriter(fw)) {
-                for (Task task : tasks) {
-                    bw.write(task.getStorageFormat());
-                    bw.newLine();
-                }
-                bw.flush();
+                rewriteFile(bw, tasks);
             }
         } catch (IOException e) {
             // Any exception caught here should just be displayed as a server-side error
