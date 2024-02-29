@@ -37,6 +37,9 @@ public class Parser {
             return new DeleteCommand(index);
         } else if (input.equals("bye")) {
             return new ByeCommand();
+        } else if (input.startsWith("find")) {
+            String description = input.replaceFirst("find", "");
+            return new FindCommand(description.trim());
         } else {
             throw new OrkException("You think you are smart? You fresh meat!");
         }
