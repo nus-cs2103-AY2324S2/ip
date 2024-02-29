@@ -61,7 +61,8 @@ public class Parser {
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
      * @return A string representing the result or feedback of adding the todo task.
-     * @throws DukeException If the input is incomplete or duplicates an existing task.
+     * @throws DukeException If the input is incomplete or duplicates an existing
+     *                       task.
      */
     public static String addTodoTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 5) {
@@ -83,7 +84,6 @@ public class Parser {
 
         taskList.getTasks().add(newTask);
 
-
         String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.getTasks().size()
                 + " tasks in the list.";
         storage.writeTasks(taskList.getTasks());
@@ -96,8 +96,10 @@ public class Parser {
      * @param input    The user input command for adding a deadline task.
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
-     * @return A string representing the result or feedback of adding the deadline task.
-     * @throws DukeException If the input is incomplete or duplicates an existing task.
+     * @return A string representing the result or feedback of adding the deadline
+     *         task.
+     * @throws DukeException If the input is incomplete or duplicates an existing
+     *                       task.
      */
     public static String addDeadlineTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 9) {
@@ -136,8 +138,10 @@ public class Parser {
      * @param input    The user input command for adding an event task.
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
-     * @return A string representing the result or feedback of adding the event task.
-     * @throws DukeException If the input is incomplete or duplicates an existing task.
+     * @return A string representing the result or feedback of adding the event
+     *         task.
+     * @throws DukeException If the input is incomplete or duplicates an existing
+     *                       task.
      */
     private static String addEventTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 6) {

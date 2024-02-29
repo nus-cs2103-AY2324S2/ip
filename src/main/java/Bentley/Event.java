@@ -12,12 +12,13 @@ public class Event extends Task {
     private LocalDateTime dateTimeFrom;
     private LocalDateTime dateTimeTo;
 
-     /**
-     * Constructs an Event object with the given description, start date/time, and end date/time.
+    /**
+     * Constructs an Event object with the given description, start date/time, and
+     * end date/time.
      *
-     * @param description   The description of the event.
-     * @param dateTimeFrom  The date and time when the event starts.
-     * @param dateTimeTo    The date and time when the event ends.
+     * @param description  The description of the event.
+     * @param dateTimeFrom The date and time when the event starts.
+     * @param dateTimeTo   The date and time when the event ends.
      */
     public Event(String description, LocalDateTime dateTimeFrom, LocalDateTime dateTimeTo) {
         super(" (E) " + description + " | From " +
@@ -28,7 +29,8 @@ public class Event extends Task {
     }
 
     /**
-     * Overrides the doneOrNot method in the Task class to provide specific logic for events.
+     * Overrides the doneOrNot method in the Task class to provide specific logic
+     * for events.
      *
      * @return The status of the event, indicating whether it is done or not.
      */
@@ -43,7 +45,8 @@ public class Event extends Task {
      * Returns a string representation of the Event object.
      * Overrides the toString method in the Task class.
      *
-     * @return A formatted string containing the event description, start date/time, and end date/time.
+     * @return A formatted string containing the event description, start date/time,
+     *         and end date/time.
      */
     @Override
     public String toString() {
