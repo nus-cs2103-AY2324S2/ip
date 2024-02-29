@@ -1,0 +1,28 @@
+todo Do CS2103T ip work
+list
+todo
+deadline CS2101 CA1 /by Monday
+list
+deadline some other task
+list
+deadline /by Monday
+list
+event CS2103T tutorial /from 9am /to 11am
+list
+event /from 9am /to 11am
+list
+event CS2103T tutorial /to 11am
+list
+event CS2103T tutorial /from 9am
+list
+event CS2103T tutorial
+list
+event
+list
+delete 1
+list
+delete
+delete x
+list
+bye
+```
