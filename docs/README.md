@@ -61,7 +61,7 @@ To view the grand list of your tasks:
 To search for tasks containing a specific keyword:
 
 - Use: `find` or `f <keyword>`
-- Example: `f work`
+- Example: `f something`
 - This is case-insensitive.
 
 ### 3. Managing Tasks
