@@ -125,7 +125,6 @@ public class Ui {
             lines[i + 1] = (i + 1) + ". " + tasks.get(i);
         }
 
-        // Display the lines
         return getResponse(lines);
     }
 

@@ -66,9 +66,7 @@ public class Parser {
      */
     private static String[] extractParameters(
             String parametersString, String[] parameters) throws ParameterNotFoundException {
-        // TODO: generalise the method to any given parametersString, desiredParameters and separator
-        // TODO: perform ParameterNotFoundException checks correctly
-        // TODO: return a HashMap that maps each desiredParameter to its value
+        // TODO: this method is a cruft and might be rewritten
         int n = parameters.length;
         String[] result = new String[n + 1];
 
@@ -116,7 +114,7 @@ public class Parser {
         if (commandArgs.length == 1) {
             return new ListCommand();
         }
-        // TODO: use extractParameters once it has been generalised
+        // TODO: use extractParameters once it has been rewritten
         String remaining = commandArgs[1];
 
         // Try to extract "on" and "due_in" from the remaining portion of the command
@@ -198,9 +196,8 @@ public class Parser {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
 
-        // TODO: map each task type to a list of parameters
+        // TODO: can be improved by mapping each task type to a list of parameters
         // Undefined behaviour when there are multiple instances of the same parameter
-        // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
         String taskType = commandArgs[0];
 
         // Return the corresponding Command depending on the type of task to be added
@@ -240,7 +237,6 @@ public class Parser {
      * @throws BobException If there is an error parsing the given user command.
      */
     public static Command parse(String input) throws BobException {
-        // TODO: Use regex
         String[] commandArgs = input.trim().split(" ", 2);
 
         // Set command to be the command entered by the user, rather than the entire line of string

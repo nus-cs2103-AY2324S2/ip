@@ -19,6 +19,7 @@ public class Bob {
      */
     public Bob(String dataPath) {
         storage = new Storage();
+
         try {
             tasks = new TaskList(storage.load(dataPath));
         } catch (BobException e) {

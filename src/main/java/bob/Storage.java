@@ -49,6 +49,13 @@ public class Storage {
         return path.toFile();
     }
 
+    private static boolean getDone(String parameter) throws LoadingException {
+        if (!parameter.equals("true") && !parameter.equals("false")) {
+            throw new LoadingException("invalid value for isDone detected");
+        }
+        return Boolean.parseBoolean(parameter);
+    }
+
     /**
      * Makes sense of a line in the data file to be converted into a task.
      *
@@ -56,26 +63,23 @@ public class Storage {
      * @return The task represented by the given line.
      * @throws LoadingException If the given line is of incorrect format and does not represent any task.
      */
-    // TODO: Once extractParameter is more generalised, we can move this to Parser
+    // TODO: Once extractParameter is rewritten, we can move this to Parser
     private static Task parseStorageLine(String line) throws LoadingException {
-        // Split the line with  " | " as separator
         String[] parameters = line.split(" \\| ");
 
         // The first part of the split indicates the task type
         String taskType = parameters[0];
 
-        // The second part of the split indicates whether the task is done, and therefore should only be true or false
-        if (!parameters[1].equals("true") && !parameters[1].equals("false")) {
-            throw new LoadingException("invalid value for isDone detected");
-        }
+        // The second part of the split indicates whether the task is done
+        boolean isDone = getDone(parameters[1]);
 
-        // Store the second part of the split
-        boolean isDone = Boolean.parseBoolean(parameters[1]);
-        return getTask(parameters, taskType, isDone);
+        Task task = getTask(parameters, taskType);
+        task.setDone(isDone);
+
+        return task;
     }
 
-    private static Task getTask(String[] parameters, String taskType, boolean isDone) throws LoadingException {
-        // TODO: Add JavaDoc header comment
+    private static Task getTask(String[] parameters, String taskType) throws LoadingException {
         // The third part of the split indicates the task description
         String description = parameters[2];
 
@@ -97,7 +101,6 @@ public class Storage {
         default:
             throw new LoadingException("invalid storage indicator detected");
         }
-        task.setDone(isDone);
         return task;
     }
 
@@ -180,7 +183,6 @@ public class Storage {
                 rewriteFile(bw, tasks);
             }
         } catch (IOException e) {
-            // Any exception caught here should just be displayed as a server-side error
             throw new SavingException(e.getMessage());
         }
     }
