@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import bob.exception.InvalidEventException;
 import bob.exception.InvalidTaskIndexException;
@@ -51,13 +52,7 @@ public class TaskList {
      * @return The filtered list of tasks.
      */
     private ArrayList<Task> listWithFilter(Predicate<Task> filter) {
-        ArrayList<Task> filteredTasks = new ArrayList<>();
-        for (Task task : tasks) {
-            if (filter.test(task)) {
-                filteredTasks.add(task);
-            }
-        }
-        return filteredTasks;
+        return tasks.parallelStream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
     }
 
     /**
