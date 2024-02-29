@@ -153,6 +153,31 @@ public class Parser {
         }
     }
 
+    private static Command parseAddDeadline(
+            String commandArgs) throws ParameterNotFoundException, InvalidDateTimeException {
+        try {
+            String[] parameters = Parser.extractParameters(commandArgs, new String[]{ "by" });
+            String description = parameters[0];
+            LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+            return new AddDeadlineCommand(description, by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        }
+    }
+
+    private static Command parseAddEvent(
+            String commandArgs) throws ParameterNotFoundException, InvalidDateTimeException {
+        try {
+            String[] parameters = Parser.extractParameters(commandArgs, new String[] { "from", "to" });
+            String description = parameters[0];
+            LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+            LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
+            return new AddEventCommand(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        }
+    }
+
     /**
      * Makes sense of the given user command that is either a "todo", "deadline" or "event".
      *
@@ -174,30 +199,15 @@ public class Parser {
         // Undefined behaviour when there are multiple instances of the same parameter
         // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
         String taskType = commandArgs[0];
-        String[] parameters;
-        String description;
 
         // Return the corresponding Command depending on the type of task to be added
-        try {
-            switch (taskType) {
-            case COMMAND_TODO:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{});
-                description = parameters[0];
-                return new AddTodoCommand(description);
-            case COMMAND_DEADLINE:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
-                description = parameters[0];
-                LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
-                return new AddDeadlineCommand(description, by);
-            default:
-                parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
-                description = parameters[0];
-                LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
-                LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
-                return new AddEventCommand(description, from, to);
-            }
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        switch (taskType) {
+        case COMMAND_TODO:
+            return new AddTodoCommand(commandArgs[1]);
+        case COMMAND_DEADLINE:
+            return parseAddDeadline(commandArgs[1]);
+        default:
+            return parseAddEvent(commandArgs[1]);
         }
     }
 
