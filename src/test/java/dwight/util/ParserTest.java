@@ -1,8 +1,8 @@
-package duke.util;
-import duke.task.TodoTask;
+package dwight.util;
+import dwight.task.TodoTask;
 import org.junit.jupiter.api.Test;
-import duke.exceptions.DukeException;
-import duke.task.DeadlineTask;
+import dwight.exceptions.DukeException;
+import dwight.task.DeadlineTask;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

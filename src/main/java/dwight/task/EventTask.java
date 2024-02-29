@@ -1,6 +1,4 @@
-package duke.task;
-
-import duke.exceptions.DukeException;
+package dwight.task;
 
 /**
  * Class for event tasks

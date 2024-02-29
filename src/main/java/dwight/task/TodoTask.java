@@ -1,8 +1,6 @@
-package duke.task;
+package dwight.task;
 
-import duke.exceptions.DukeException;
-
-import duke.task.Task;
+import dwight.exceptions.DukeException;
 
 public class TodoTask extends Task {
 

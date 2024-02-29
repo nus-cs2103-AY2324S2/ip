@@ -1,14 +1,13 @@
-package duke;
+package dwight;
 
-import duke.exceptions.DukeException;
-import duke.task.Task;
-import duke.util.Parser;
-import duke.util.Storage;
-import duke.task.TaskList;
-import duke.util.Ui;
+import dwight.exceptions.DukeException;
+import dwight.task.Task;
+import dwight.util.Parser;
+import dwight.util.Storage;
+import dwight.task.TaskList;
+import dwight.util.Ui;
 
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -23,7 +22,7 @@ import javafx.stage.Stage;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-public class Duke extends Application {
+public class Dwight extends Application {
 
     private Storage storage;
     private TaskList todo;
@@ -38,7 +37,7 @@ public class Duke extends Application {
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/Michael_Scott.png"));
 
     // Duke Constructor
-    public Duke() {
+    public Dwight() {
         ui = new Ui();
         storage = new Storage("./data/duke.txt");
         try {
@@ -68,7 +67,7 @@ public class Duke extends Application {
         scene = new Scene(mainLayout);
 
         // Step 2.
-        stage.setTitle("Duke");
+        stage.setTitle("Dwight");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);

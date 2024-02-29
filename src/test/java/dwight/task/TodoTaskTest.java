@@ -1,10 +1,9 @@
-package duke.task;
+package dwight.task;
 
-import duke.task.TodoTask;
-import duke.util.Parser;
+import dwight.util.Parser;
 import org.junit.jupiter.api.Test;
-import duke.exceptions.DukeException;
-import duke.task.DeadlineTask;
+import dwight.exceptions.DukeException;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class TodoTaskTest {

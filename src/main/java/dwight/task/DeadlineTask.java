@@ -1,8 +1,7 @@
-package duke.task;
+package dwight.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import duke.exceptions.DukeException;
 
 
 /**

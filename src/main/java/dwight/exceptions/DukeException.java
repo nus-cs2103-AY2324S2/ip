@@ -1,4 +1,4 @@
-package duke.exceptions;
+package dwight.exceptions;
 
 /**
  * Customized exception class for Duke project

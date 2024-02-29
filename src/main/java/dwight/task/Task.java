@@ -1,4 +1,4 @@
-package duke.task;
+package dwight.task;
 
 /**
  * Abstract parent class for todo, deadline, and event tasks

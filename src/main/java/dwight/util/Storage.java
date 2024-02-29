@@ -1,4 +1,4 @@
-package duke.util;
+package dwight.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -6,15 +6,14 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 import java.io.FileWriter;
 import java.io.IOException;
-import duke.task.Task;
-import duke.task.TodoTask;
-import duke.task.DeadlineTask;
-import duke.task.EventTask;
-import duke.exceptions.DukeException;
+import dwight.task.Task;
+import dwight.task.TodoTask;
+import dwight.task.DeadlineTask;
+import dwight.task.EventTask;
+import dwight.exceptions.DukeException;
 
 public class Storage {
     private final File FILE;

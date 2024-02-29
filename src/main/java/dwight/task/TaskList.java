@@ -1,6 +1,4 @@
-package duke.task;
-
-import duke.task.Task;
+package dwight.task;
 
 import java.util.List;
 import java.util.ArrayList;

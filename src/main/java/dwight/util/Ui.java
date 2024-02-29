@@ -1,4 +1,4 @@
-package duke.util;
+package dwight.util;
 
 /**
  * The Ui class is a utility class in charge of display

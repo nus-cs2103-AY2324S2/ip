@@ -1,16 +1,13 @@
-package duke.util;
+package dwight.util;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 import java.util.Arrays;
-import java.util.List;
-import java.util.Scanner;
-import duke.task.DeadlineTask;
-import duke.task.EventTask;
-import duke.task.TaskList;
-import duke.task.TodoTask;
-import duke.exceptions.DukeException;
+
+import dwight.task.DeadlineTask;
+import dwight.task.EventTask;
+import dwight.task.TodoTask;
+import dwight.exceptions.DukeException;
 
 
 public class Parser {
