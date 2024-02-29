@@ -4,33 +4,26 @@ import damon.exceptions.StorageFileLoadingException;
 import damon.task.Task;
 import damon.tasklist.TaskList;
 
+/**
+ * Creates a Response object to generate welcome message
+ * and other corresponding message to each user's input.
+ */
 public class Response {
     private String responseMessage = "hi";
 
     public Response() {
         //...
     }
-    /**
-     * Prints welcome message.
-     */
-    public void showWelcome() {
-        this.responseMessage = " ____\n"
-                + "|  _  \\\n"
-                + "| | | |\n"
-                + "| |_| |\n"
-                + "|____/ \n";
-    }
-
 
     /**
-     * Prints message of loading error.
+     * Shows message of loading error.
      */
     public void showLoadingError() {
         this.responseMessage = new StorageFileLoadingException().getMessage();
     }
 
     /**
-     * Prints message of adding a new Task to the current TaskList.
+     * Shows message of adding a new Task to the current TaskList.
      *
      * @param newTask New Task to be added.
      * @param tasks Current TaskList.
@@ -42,7 +35,7 @@ public class Response {
     }
 
     /**
-     * Prints message of deleting a Task of a specific index in the current TaskList.
+     * Shows message of deleting a Task of a specific index in the current TaskList.
      *
      * @param index Index of the Task which is to be deleted in the current TaskList.
      * @param tasks Current TaskList.
@@ -54,14 +47,14 @@ public class Response {
     }
 
     /**
-     * Prints exiting message.
+     * Shows exiting message.
      */
     public void showExitCommand() {
         this.responseMessage = "Bye. Hope to see you again soon!";
     }
 
     /**
-     * Prints message of marking a Task of a specific index in the current TaskList
+     * Shows message of marking a Task of a specific index in the current TaskList
      * as done status.
      *
      * @param index Index of the Task to be marked
@@ -74,7 +67,7 @@ public class Response {
     }
 
     /**
-     * Prints message of un-marking a Task of a specific index in the current TaskList
+     * Shows message of un-marking a Task of a specific index in the current TaskList
      * to not done status.
      *
      * @param index Index of the Task to be un-marked
@@ -87,7 +80,7 @@ public class Response {
     }
 
     /**
-     * Prints the whole TaskList
+     * Shows the whole TaskList
      *
      * @param tasks Current TaskList (the TaskList to be printed).
      */
@@ -102,7 +95,7 @@ public class Response {
     }
 
     /**
-     * Prints message of the threw error.
+     * Shows message of the threw error.
      *
      * @param errorMessage Error message to be printed.
      */
@@ -110,6 +103,11 @@ public class Response {
         this.responseMessage = errorMessage;
     }
 
+    /**
+     * Shows message of finding target Tasks.
+     *
+     * @param tasks Current TaskList which to be found target Tasks in.
+     */
     public void showFindCommand(TaskList tasks) {
         StringBuilder newResponseMessage = new StringBuilder();
         int n = tasks.getSize();
@@ -121,7 +119,7 @@ public class Response {
     }
 
     /**
-     * Prints echo.
+     * Shows echo.
      *
      * @param inputString User's input String which is to be echoed.
      */
@@ -129,10 +127,18 @@ public class Response {
         this.responseMessage = inputString;
     }
 
+    /**
+     * Returns Response object's response message.
+     *
+     * @return Response's responseMessage.
+     */
     public String getResponseMessage() {
         return this.responseMessage;
     }
 
+    /**
+     * Shows welcome message.
+     */
     public String getWelcomeMessage() {
         return "Hello from\n" + " ____\n"
                 + "|  _  \\\n"
@@ -140,5 +146,4 @@ public class Response {
                 + "| |_| |\n"
                 + "|____/ \n";
     }
-
 }

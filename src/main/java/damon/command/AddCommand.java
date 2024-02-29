@@ -2,10 +2,12 @@ package damon.command;
 
 import damon.response.Response;
 import damon.storage.Storage;
+
 import damon.task.Deadline;
 import damon.task.Event;
 import damon.task.Task;
 import damon.task.ToDo;
+
 import damon.tasklist.TaskList;
 import damon.ui.Ui;
 
@@ -25,6 +27,7 @@ public class AddCommand extends Command {
      * @param tasks Current TaskList.
      * @param ui Ui object of Damon object.
      * @param storage Storage object of Damon object.
+     * @param response Response object of Damon object.
      */
     public void execute(TaskList tasks, Ui ui, Storage storage, Response response) {
         Task newTask = this.getNewTask();
@@ -76,10 +79,4 @@ public class AddCommand extends Command {
 
         return newTask;
     }
-
-    public String getResponse() {
-        return this.response.getResponseMessage();
-    }
-
-
 }
