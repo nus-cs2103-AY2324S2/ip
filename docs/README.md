@@ -107,7 +107,7 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Description:** Adds a task that must be started after a specific time.
 
-**Usage Example:** `doafter Email professor /from 2022-01-01`
+**Usage Example:** `doafter Email professor /after 2022-01-01`
 
 **Expected Outcome:**
 

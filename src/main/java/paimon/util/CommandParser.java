@@ -109,7 +109,7 @@ public class CommandParser {
     }
 
     private Command parseDoAfterCommand() throws ChatException {
-        Matcher matcher = matchCommand("^(\\w+) (.+?)\\/from (.+)$", input, "doafter <task> /from <time>");
+        Matcher matcher = matchCommand("^(\\w+) (.+?)\\/after (.+)$", input, "doafter <task> /after <time>");
         return new DoAfterCommand(matcher.group(2), matcher.group(3));
     }
 
