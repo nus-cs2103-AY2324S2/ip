@@ -22,7 +22,7 @@ import ui.Ui;
  */
 public class JerryBot {
     private static boolean isTerminate = false;
-    private static final String FILEPATH = "./././data/jerrybot.txt";
+    private static final String FILEPATH = "./data/jerrybot.txt";
     private static Storage storage;
     private static TaskList taskArrayList;
     private static Parser parser;
@@ -54,7 +54,7 @@ public class JerryBot {
             taskDescription = parser.extractDescription(s);
             String[] deadlineStringParts = taskDescription.split("/by ");
             if (deadlineStringParts.length < 2) {
-                throw new IncompleteCommandException("task.Deadline command incomplete. It should be in the "
+                throw new IncompleteCommandException("Deadline command incomplete. It should be in the "
                         + "form of deadline description /by datetime.");
             } else {
                 Task newDeadlineTask = new Deadline(deadlineStringParts[0], deadlineStringParts[1]);
@@ -65,7 +65,7 @@ public class JerryBot {
             taskDescription = parser.extractDescription(s);
             String[] eventStringParts = taskDescription.split("/from |/to ");
             if (eventStringParts.length < 3) {
-                throw new IncompleteCommandException("task.Event command incomplete. It should be in the "
+                throw new IncompleteCommandException("Event command incomplete. It should be in the "
                         + "form of event description /from datetime /to datetime.");
             } else {
                 Task newEventTask = new Event(eventStringParts[0], eventStringParts[1], eventStringParts[2]);
@@ -103,23 +103,23 @@ public class JerryBot {
             isTerminate = true;
             return Ui.byeMessage();
         case "list":
-            StringBuilder listStringBuilder = new StringBuilder("Here are the tasks in your list: \n");
+            StringBuilder listStringBuilder = new StringBuilder("Here are the tasks in your list:\n");
             for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
                 listStringBuilder.append(i);
                 listStringBuilder.append(". ");
                 listStringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
-                listStringBuilder.append("\n ");
+                listStringBuilder.append("\n");
             }
             return listStringBuilder.toString();
         case "find":
             try {
                 ArrayList<Task> tasksWithKeyword = taskArrayList.getTasksWithKeyword(parser.extractDescription(s));
-                StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list: \n");
+                StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
                 for (int i = 0; i < tasksWithKeyword.size(); i++) {
                     findStringBuilder.append(i + 1);
                     findStringBuilder.append(". ");
                     findStringBuilder.append(tasksWithKeyword.get(i).toString());
-                    findStringBuilder.append("\n ");
+                    findStringBuilder.append("\n");
                 }
                 return findStringBuilder.toString();
             } catch (IncompleteCommandException e) {

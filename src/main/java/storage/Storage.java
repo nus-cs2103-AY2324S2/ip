@@ -1,5 +1,9 @@
 package storage;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -126,14 +130,16 @@ public class Storage {
      */
     private Task convertTaskLineToTask(String line) {
         String[] splitLine = line.split("\\|");
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm");
         String taskAlphabet = splitLine[0];
         switch (taskAlphabet) {
         case "T":
             return new ToDo(splitLine[2]);
         case "D":
-            return new Deadline(splitLine[2], splitLine[3]);
+            return new Deadline(splitLine[2], LocalDateTime.parse(splitLine[3], formatter));
         case "E":
-            return new Event(splitLine[2], splitLine[3], splitLine[4]);
+            return new Event(splitLine[2], LocalDateTime.parse(splitLine[3], formatter),
+                    LocalDateTime.parse(splitLine[4], formatter));
         default:
             return null;
         }
@@ -167,7 +173,9 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 currentLineNumber++;
                 if (currentLineNumber == i) {
-                    line = line.replace("0", "1");
+                    if (line.substring(2, 3) == "0") {
+                        line = line.substring(0, 2) + "1" + line.substring(3);
+                    }
                 }
                 content.append(line);
                 content.append("\n");
@@ -200,7 +208,9 @@ public class Storage {
             while ((line = reader.readLine()) != null) {
                 currentLineNumber++;
                 if (currentLineNumber == i) {
-                    line = line.replace("1", "0");
+                    if (line.substring(2, 3) == "1") {
+                        line = line.substring(0, 2) + "0" + line.substring(3);
+                    }
                 }
                 content.append(line);
                 content.append("\n");

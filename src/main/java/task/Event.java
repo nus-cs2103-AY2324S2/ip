@@ -21,12 +21,23 @@ public class Event extends Task {
         super(s);
 
         startTimeString = startTimeString.replaceAll("\\s", "");
-        DateTimeFormatter originalFormatter = DateTimeFormatter.ofPattern("d/M/yyyyHHmm");
-        LocalDateTime startTime = LocalDateTime.parse(startTimeString, originalFormatter);
+        LocalDateTime startTime = LocalDateTime.parse(startTimeString, ORIGINAL_FORMATTER);
 
         endTimeString = endTimeString.replaceAll("\\s", "");
-        LocalDateTime endTime = LocalDateTime.parse(endTimeString, originalFormatter);
+        LocalDateTime endTime = LocalDateTime.parse(endTimeString, ORIGINAL_FORMATTER);
 
+        this.startTime = startTime;
+        this.endTime = endTime;
+    }
+
+    /**
+     * Constructor that initialises the task string, start time and end time of the event.
+     * @param s Task string of the event
+     * @param startTime Start time in datetime format
+     * @param endTime End time in datetime format
+     */
+    public Event(String s, LocalDateTime startTime, LocalDateTime endTime) {
+        super(s);
         this.startTime = startTime;
         this.endTime = endTime;
     }

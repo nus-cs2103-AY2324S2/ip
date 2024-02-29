@@ -2,13 +2,14 @@ erm
 todo
 todo borrow book
 deadline return book
-deadline return book /by Sunday
+deadline return book /by 29/2/2024 1400
+todo borrow book
 mark 1
 mark 2
 mark 3
 unmark 1
 event /from Mon 2pm
-event project meeting /from Mon 2pm /to 4pm
+event project meeting /from 1/3/2024 1400 /to 1/3/2024 1600
 list
 delete 1
 delete 3

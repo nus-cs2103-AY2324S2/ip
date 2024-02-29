@@ -23,15 +23,25 @@ public class Deadline extends Task {
         this.deadline = deadline;
     }
 
+    /**
+     * Constructor that initialises the task string and deadline datetime.
+     * @param s Deadline task string
+     * @param deadline Deadline in datetime
+     */
+    public Deadline(String s, LocalDateTime deadline) {
+        super(s);
+        this.deadline = deadline;
+    }
+
     @Override
     public String toString() {
-        return String.format("[D] %s (by: %s)", super.toString(), this.deadline);
+        return String.format("[D] %s (by: %s)", super.toString(), this.deadline.format(ORIGINAL_FORMATTER));
     }
 
     @Override
     public String convertToDataStoreLine() {
         return String.format("D|%s|%s|%s", super.convertToDataStoreLine(), super.getTaskString(),
-                this.deadline.format(ORIGINAL_FORMATTER));
+                this.deadline);
     }
 
     private boolean deadlineEquals(Deadline deadline) {

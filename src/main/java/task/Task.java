@@ -5,7 +5,7 @@ public class Task {
     private String taskString;
 
     public Task(String s) {
-        this.taskString = s;
+        this.taskString = s.strip();
         this.isDone = false;
     }
 
