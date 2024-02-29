@@ -227,10 +227,10 @@ public class Parser {
         String[] commandArgs = input.trim().split(" ", 2);
 
         // Set command to be the command entered by the user, rather than the entire line of string
-        input = commandArgs[0];
+        String command = commandArgs[0];
 
         // Parse the command differently depending on the type of command encountered
-        switch (input) {
+        switch (command) {
         case COMMAND_LIST:
             return parseList(commandArgs);
         case COMMAND_DELETE:
