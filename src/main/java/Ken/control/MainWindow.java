@@ -1,17 +1,11 @@
 package ken.control;
 
 import javafx.fxml.FXML;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import ken.Ken;
 import ken.ui.Ui;
 
@@ -25,9 +19,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-
     private Ken ken;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/barbie.png"));
@@ -61,7 +52,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void sayHi() {
-        String kenText = ui.welcomeMessage().getMessage();
+        String kenText = ui.getWelcomeMessage().getMessage();
         dialogContainer.getChildren().addAll(
                 DialogBox.getKenDialog(kenText, kenImage)
         );

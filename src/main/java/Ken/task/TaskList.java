@@ -55,10 +55,10 @@ public class TaskList {
     public Response addTask(Task task) {
         if (tasks.size() < MAX_TASKS) {
             tasks.add(task);
-            return ui.addTaskMessage(task, tasks.size());
+            return ui.getAddTaskMessage(task, tasks.size());
 
         } else {
-            return ui.tooManyTaskMessage();
+            return ui.getTooManyTaskMessage();
 
         }
     }
@@ -95,7 +95,7 @@ public class TaskList {
                 Deadline deadline = new Deadline(deadlineDescription, by);
                 return addTask(deadline);
             } else {
-                ui.invalidDeadlineMessage();
+                ui.getInvalidDeadlineMessage();
                 throw new KenException("\nInvalid deadline command :( \nneed help?");
             }
         } catch (Exception e) {
@@ -123,7 +123,7 @@ public class TaskList {
                 Event event = new Event(eventDescription, from, to);
                 return addTask(event);
             } else {
-                ui.invalidEventMessage();
+                ui.getInvalidEventMessage();
                 throw new KenException("\nInvalid event command :( \nneed help?");
             }
         } catch (Exception e) {
@@ -140,9 +140,9 @@ public class TaskList {
     public Response deleteTask(int index) {
         if (index >= 1 && index <= tasks.size()) {
             Task removedTask = tasks.remove(index - 1);
-            return ui.deleteMessage(removedTask, tasks.size());
+            return ui.getDeleteMessage(removedTask, tasks.size());
         } else {
-            return ui.invalidTaskMessage(index);
+            return ui.getInvalidTaskMessage(index);
         }
     }
 
@@ -156,9 +156,9 @@ public class TaskList {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.markAsDone();
-            return ui.markTaskMessage(index, task.toString());
+            return ui.getMarkTaskMessage(index, task.toString());
         } else {
-            return ui.invalidTaskMessage(index);
+            return ui.getInvalidTaskMessage(index);
         }
     }
 
@@ -172,10 +172,10 @@ public class TaskList {
         if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.unmarkAsDone();
-            return ui.unmarkTaskMessage(index, task.toString());
+            return ui.getUnmarkTaskMessage(index, task.toString());
 
         } else {
-            return ui.invalidTaskMessage(index);
+            return ui.getInvalidTaskMessage(index);
         }
     }
 
@@ -186,7 +186,7 @@ public class TaskList {
      * @returns Response with information of commands.
      */
     public Response giveHelp() {
-        return ui.helpMessage();
+        return ui.getHelpMessage();
     }
 
     /**
@@ -195,7 +195,7 @@ public class TaskList {
      * @returns Response with information of all tasks in list.
      */
     public Response listTasks() {
-        return ui.listTasksMessage(tasks.isEmpty(), tasks);
+        return ui.getListTasksMessage(tasks.isEmpty(), tasks);
     }
 
     /**
@@ -209,7 +209,7 @@ public class TaskList {
                 .filter(task -> task.getDescription().contains(keyword))
                 .collect(Collectors.toList());
 
-        return ui.displayMatchingTasksMessage(keyword, matchingTasks);
+        return ui.getDisplayMatchingTasksMessage(keyword, matchingTasks);
     }
     
 }
