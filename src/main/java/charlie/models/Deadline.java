@@ -11,8 +11,8 @@ public class Deadline extends Task {
      * @param description description of task deadline in string form
      * @param byString time by which the task deadline is due, is in ISO_LOCAL_DATE format (yyyy-MM-dd)
      */
-    public Deadline(String description, String byString) {
-        super(description);
+    public Deadline(String description, Integer priorityNumber, String byString) {
+        super(description, priorityNumber);
 
         // Assert that description is not null or empty
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";

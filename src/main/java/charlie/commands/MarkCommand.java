@@ -9,13 +9,13 @@ import charlie.storage.TaskList;
 
 public class MarkCommand extends Command {
 
-    private int index;
+    private Integer index;
 
     /**
      * constructor for MarkCommand
      * @param index index of list item to be marked or unmarked
      */
-    public MarkCommand(int index) {
+    public MarkCommand(Integer index) {
         assert index != null : "Task number to be marked has to be specified";
         this.index = index;
     }

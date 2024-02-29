@@ -7,13 +7,13 @@ import charlie.storage.TaskList;
 
 public class DeleteCommand extends Command {
 
-    private int index;
+    private Integer index;
 
     /**
      * constructor for DeleteCommand
      * @param index index of list item to be removed
      */
-    public DeleteCommand(int index) {
+    public DeleteCommand(Integer index) {
         assert index != null : "Task number to be deleted has to be specified";
         this.index = index;
     }

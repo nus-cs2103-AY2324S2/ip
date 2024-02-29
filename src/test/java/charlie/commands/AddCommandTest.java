@@ -34,8 +34,8 @@ public class AddCommandTest {
     @Test
     public void testAddTodoTask() throws CharlieException {
 
-        Command command = new AddCommand("todo borrow book");
-        Task todoTask = new Todo("todo borrow book");
+        Command command = new AddCommand("todo borrow book", 2);
+        Task todoTask = new Todo("todo borrow book", 3);
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(todoTask);
         TaskList tasklist = new TaskList(tasks);
@@ -55,8 +55,8 @@ public class AddCommandTest {
     @Test
     public void testAddDeadlineTask() throws CharlieException {
 
-        Command command = new AddCommand("deadline return book /by 2019-10-15");
-        Task deadlineTask = new Deadline("return book", "2019-10-15");
+        Command command = new AddCommand("deadline return book /by 2019-10-15", 3);
+        Task deadlineTask = new Deadline("return book", 5, "2019-10-15");
         ArrayList<Task> tasks = new ArrayList<>();
         tasks.add(deadlineTask);
         TaskList tasklist = new TaskList(tasks);

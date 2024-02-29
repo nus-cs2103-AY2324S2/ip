@@ -10,8 +10,8 @@ public class Event extends Task {
      * @param startsAt time by which the event starts
      * @param endsAt time by which the event ends
      */
-    public Event(String description, String startsAt, String endsAt) {
-        super(description);
+    public Event(String description, Integer priorityNumber,String startsAt, String endsAt) {
+        super(description, priorityNumber);
 
         // Assert that description, startsAt, and endsAt are not null
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
