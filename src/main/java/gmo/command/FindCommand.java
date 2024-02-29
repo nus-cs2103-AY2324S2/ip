@@ -32,7 +32,6 @@ public class FindCommand extends Command {
         StringBuilder output = new StringBuilder();
         StringBuilder tasksFound = new StringBuilder();
         int idx_counter = 1;
-        output.append("----------------------------------------------------------------------------------");
         for (Task currTask : tasks) {
             if (currTask.toString().contains(keyword)) {
                 tasksFound.append(idx_counter).append(". ").append(currTask.getStatusIcon()).append(" ").append(currTask).append("\n");
@@ -41,13 +40,11 @@ public class FindCommand extends Command {
         }
 
         if (tasksFound.length() == 0) {
-            output.append("BMO could not find any tasks with the keyword: ").append(keyword).append("\n");
+            output.append("GMO could not find any tasks with the keyword: ").append(keyword).append("\n");
         } else {
-            output.append("BMO has found the following tasks with the keyword: ").append(keyword).append("\n");
+            output.append("GMO has found the following tasks with the keyword: ").append(keyword).append("\n");
             output.append(tasksFound);
         }
-
-        output.append("----------------------------------------------------------------------------------");
 
         return output.toString();
     }

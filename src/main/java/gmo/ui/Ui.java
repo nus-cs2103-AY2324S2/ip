@@ -76,7 +76,7 @@ public class Ui {
     public String printAddTask(Task task, int size) {
         String taskAddPrint = "GMO has added the task (づ￣ ³￣)づ\n"
                 + "added: " + task + "\n"
-                + "you now have " + size + " tasks in the list";
+                + "you now have " + size + " tasks in the log";
         return taskAddPrint;
     }
 
@@ -95,7 +95,7 @@ public class Ui {
     public String printDeleteTask(String desc, int index) {
         String taskDeletePrint = "GMO has deleted the task (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧\n"
                 + "deleted: " + desc + "\n"
-                + "you now have " + index + " tasks in the list";
+                + "you now have " + index + " tasks in the log";
         return taskDeletePrint;
     }
 
