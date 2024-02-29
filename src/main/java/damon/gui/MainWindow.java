@@ -55,6 +55,7 @@ public class MainWindow extends AnchorPane {
     private void handleUserInput() {
         String input = userInput.getText();
         damon.run(input);
+        assert !damon.getResponse().equals(null);
         String response = damon.getResponse();
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),

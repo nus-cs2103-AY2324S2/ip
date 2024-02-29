@@ -9,7 +9,7 @@ import damon.tasklist.TaskList;
  * and other corresponding message to each user's input.
  */
 public class Response {
-    private String responseMessage = "hi";
+    private String responseMessage;
 
     public Response() {
         //...

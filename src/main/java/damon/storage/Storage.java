@@ -97,6 +97,8 @@ public class Storage {
 
     private Task creatTask(String existingString) {
         char character = existingString.charAt(1);
+        assert character == 'T' || character == 'D' || character == 'E';
+        assert existingString.length() >= 5;
         boolean isDone = existingString.charAt(4) == 'X';
 
         if (character == 'T') {
