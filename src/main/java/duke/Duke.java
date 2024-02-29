@@ -142,6 +142,72 @@ public class Duke extends Application {
         userInput.clear();
     }
 
+    private StringBuilder handleMark(int idx) {
+        Task task;
+        StringBuilder responseString = new StringBuilder();
+        task = todo.mark(idx);
+        responseString.append("\tNice! I've marked this task as done:");
+        responseString.append(String.format("\t\t%s\n", task));
+        return responseString;
+    }
+
+    private StringBuilder handleUnmark(int idx) {
+        Task task;
+        StringBuilder responseString = new StringBuilder();
+        task = todo.unmark(idx);
+        responseString.append("\tI've unmarked this task as done:");
+        responseString.append(String.format("\t\t%s\n", task));
+        return responseString;
+    }
+
+    private StringBuilder handleTodo(Task task) {
+        StringBuilder responseString = new StringBuilder();
+        todo.addTask(task);
+        responseString.append("\tGot it. I've added this task:");
+        responseString.append(String.format("\t\t%s\n", task));
+        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+        return responseString;
+    }
+
+    private StringBuilder handleDeadline(Task task) {
+        StringBuilder responseString = new StringBuilder();
+        todo.addTask(task);
+        responseString.append("\tGot it. I've added this task:");
+        responseString.append(String.format("\t\t%s\n", task));
+        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+        return responseString;
+    }
+
+    private StringBuilder handleEvent(Task task) {
+        StringBuilder responseString = new StringBuilder();
+        todo.addTask(task);
+        responseString.append("\tGot it. I've added this task:");
+        responseString.append(String.format("\t\t%s\n", task));
+        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+        return responseString;
+    }
+
+
+    private StringBuilder handleDelete(int idx) {
+        StringBuilder responseString = new StringBuilder();
+        responseString.append("\tNoted. I've removed this task:");
+        responseString.append(String.format("\t\t%s\n", todo.deleteTask(idx)));
+        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
+        return responseString;
+    }
+
+    private StringBuilder handleFind(String keyword) {
+        StringBuilder responseString = new StringBuilder();
+        for (int i = 0; i < todo.size(); i++) {
+            if (todo.getList().get(i).getName().contains(keyword)) {
+                responseString.append(String.format("\t%d. %s", i + 1, todo.getList().get(i)));
+            }
+        }
+        responseString.append("\tHere are the matching tasks in your list:");
+        return responseString;
+    }
+
+
     /**
      * You should have your own function to generate a response to user input.
      * Replace this stub with your completed method.
@@ -152,9 +218,7 @@ public class Duke extends Application {
         String keyword;
         Task task;
         int idx;
-
         try {
-
             command = Parser.parse(input);
             switch (command) {
                 case ("bye"):
@@ -167,102 +231,47 @@ public class Duke extends Application {
                     }
                     break;
                 case("mark"):
-                    try {
-                        idx = Parser.parse_mark(input);
-                        task = todo.mark(idx);
-                        responseString.append("\tNice! I've marked this task as done:");
-                        responseString.append(String.format("\t\t%s\n", task));
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
+                    idx = Parser.parseMark(input);
+                    responseString = handleMark(idx);
+                    break;
                 case("unmark"):
-                    try {
-                        idx = Parser.parse_unmark(input);
-                        assert idx != 0;
-                        task = todo.unmark(idx);
-                        responseString.append("\tI've unmarked this task as done:");
-                        responseString.append(String.format("\t\t%s\n", task));
-
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
+                    idx = Parser.parseUnmark(input);
+                    assert idx != 0;
+                    responseString = handleUnmark(idx);
+                    break;
                 case ("todo"):
-
-                    try {
-                        // calling the method
-                        task = Parser.parse_todo(input);
-                        todo.addTask(task);
-                        responseString.append("\tGot it. I've added this task:");
-                        responseString.append(String.format("\t\t%s\n", task));
-                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
-
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
-
+                    task = Parser.parseTodo(input);
+                    todo.addTask(task);
+                    responseString = handleTodo(task);
+                    break;
                 case ("deadline"):
-
                     try {
-                        task = Parser.parse_deadline(input);
-                        todo.addTask(task);
-                        responseString.append("\tGot it. I've added this task:");
-                        responseString.append(String.format("\t\t%s\n", task));
-                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
-
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
+                        task = Parser.parseDeadline(input);
+                        responseString = handleDeadline(task);
                         break;
                     } catch (DateTimeParseException err) {
                         responseString.append("\tPlease write your data in d/m/yyyy T format");
                         break;
                     }
                 case ("event"):
+                    task = Parser.parseEvent(input);
+                    responseString = handleEvent(task);
+                    break;
 
-                    try {
-                        task = Parser.parse_event(input);
-                        todo.addTask(task);
-                        responseString.append("\tGot it. I've added this task:");
-                        responseString.append(String.format("\t\t%s\n", task));
-                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
 
                 case("delete"):
-                    try {
-                        idx = Parser.parse_delete(input);
-                        assert idx != 0;
-                        responseString.append("\tNoted. I've removed this task:");
-                        responseString.append(String.format("\t\t%s\n", todo.deleteTask(idx)));
-                        responseString.append(String.format("\tNow you have %d tasks in the list.\n", todo.size()));
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
+
+                    idx = Parser.parseDelete(input);
+                    assert idx != 0;
+                    responseString = handleDelete(idx);
+                    break;
+
                 case("find"):
-                    try {
-                        keyword = Parser.parseFind(input);
-                        for (int i = 0; i < todo.size(); i++) {
-                            if (todo.getList().get(i).getName().contains(keyword)) {
-                                responseString.append(String.format("\t%d. %s", i + 1, todo.getList().get(i)));
-                            }
-                        }
-                        responseString.append("\tHere are the matching tasks in your list:");
-                        break;
-                    } catch (DukeException err) {
-                        responseString.append(err.getMessage());
-                        break;
-                    }
+
+                    keyword = Parser.parseFind(input);
+                    responseString = handleFind(keyword);
+                    break;
+
 
                 default:
                     throw new DukeException("\tSorry, I did not understand the command!");
@@ -276,7 +285,4 @@ public class Duke extends Application {
         }
         return responseString.toString();
     }
-//    public static void main(String[] args) throws IOException, DukeException {
-//        new Duke().run();
-//    }
 }

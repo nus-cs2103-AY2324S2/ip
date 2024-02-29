@@ -13,7 +13,7 @@ public class ParserTest {
     @Test
     public void invalid_todo() {
         try {
-            assertEquals(new TodoTask("", ""), Parser.parse_todo("todo"));
+            assertEquals(new TodoTask("", ""), Parser.parseTodo("todo"));
         } catch (Exception e) {
             assertEquals("\tTodo description cannot be empty!\n\tEx: todo return book\n", e.getMessage());
         }
@@ -23,7 +23,7 @@ public class ParserTest {
     public void deadline_success() {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-            assertEquals(new DeadlineTask("eat", LocalDateTime.parse("7/2/2024 1800", formatter), "deadline eat /by 7/2/2024 1800").toString(), Parser.parse_deadline("deadline eat /by 7/2/2024 1800").toString());
+            assertEquals(new DeadlineTask("eat", LocalDateTime.parse("7/2/2024 1800", formatter), "deadline eat /by 7/2/2024 1800").toString(), Parser.parseDeadline("deadline eat /by 7/2/2024 1800").toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }

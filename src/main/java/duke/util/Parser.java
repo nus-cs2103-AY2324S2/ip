@@ -35,7 +35,7 @@ public class Parser {
      * @return TodoTask instance
      * throws DukeException if input not correct TodoTask format
      */
-    public static TodoTask parse_todo(String input) throws DukeException {
+    public static TodoTask parseTodo(String input) throws DukeException {
 
         String taskName;
         TodoTask task;
@@ -58,14 +58,14 @@ public class Parser {
      * @return DeadlineTask instance
      * throws DukeException if input not correct DeadLine format
      */
-    public static DeadlineTask parse_deadline(String input) throws DukeException {
-        String taskName, start, end, first_string, second_string;
-        first_string = input.split(" /")[0];
-        second_string = input.split(" /")[1];
-        taskName = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
+    public static DeadlineTask parseDeadline(String input) throws DukeException {
+        String taskName, start, end, firstString, secondString;
+        firstString = input.split(" /")[0];
+        secondString = input.split(" /")[1];
+        taskName = String.join(" ", Arrays.copyOfRange(firstString.split(" "), 1, firstString.split(" ").length));
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        end = String.join(" ", Arrays.copyOfRange(second_string.split("by "), 1, second_string.split("by ").length));
-        if (!taskName.isBlank() && !first_string.isBlank() && !second_string.isBlank()) {
+        end = String.join(" ", Arrays.copyOfRange(secondString.split("by "), 1, secondString.split("by ").length));
+        if (!taskName.isBlank() && !firstString.isBlank() && !secondString.isBlank()) {
             LocalDateTime end_time = LocalDateTime.parse(end, formatter);
             return new DeadlineTask(taskName, end_time, input);
         } else {
@@ -82,16 +82,16 @@ public class Parser {
      * @return EventTask instance
      * throws DukeException if input not correct EventTask format
      */
-    public static EventTask parse_event(String input) throws DukeException {
+    public static EventTask parseEvent(String input) throws DukeException {
         if (input.split(" /").length == 3) {
-            String first_string, second_string, third_string, task_name, start, end;
-            first_string = input.split(" /")[0];
-            second_string = input.split(" /")[1];
-            third_string = input.split(" /")[2];
-            task_name = String.join(" ", Arrays.copyOfRange(first_string.split(" "), 1, first_string.split(" ").length));
-            start = String.join(" ", Arrays.copyOfRange(second_string.split(" "), 1, second_string.split(" ").length));
-            end = String.join(" ", Arrays.copyOfRange(third_string.split(" "), 1, third_string.split(" ").length));
-            return new EventTask(task_name, start, end, input);
+            String firstString, secondString, thirdString, taskName, start, end;
+            firstString = input.split(" /")[0];
+            secondString = input.split(" /")[1];
+            thirdString = input.split(" /")[2];
+            taskName = String.join(" ", Arrays.copyOfRange(firstString.split(" "), 1, firstString.split(" ").length));
+            start = String.join(" ", Arrays.copyOfRange(secondString.split(" "), 1, secondString.split(" ").length));
+            end = String.join(" ", Arrays.copyOfRange(thirdString.split(" "), 1, thirdString.split(" ").length));
+            return new EventTask(taskName, start, end, input);
         } else {
             throw new DukeException("\tInvalid event command");
         }
@@ -104,7 +104,7 @@ public class Parser {
      * @return Index of item to be deleted
      * throws DukeException if input not correct delete command format
      */
-    public static int parse_delete(String input) throws DukeException {
+    public static int parseDelete(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
         } else {
@@ -119,7 +119,7 @@ public class Parser {
      * @return Index of item to be marked
      * throws DukeException if input not correct mark command format
      */
-    public static int parse_mark(String input) throws DukeException {
+    public static int parseMark(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
         } else {
@@ -134,7 +134,7 @@ public class Parser {
      * @return Index of item to be unmarked
      * throws DukeException if input not correct unmark command format
      */
-    public static int parse_unmark(String input) throws DukeException {
+    public static int parseUnmark(String input) throws DukeException {
         if (input.split(" ").length == 2) {
             return Integer.parseInt(input.split(" ")[1]);
         } else {
@@ -142,6 +142,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Parses keyword for find command
+     *
+     * @param input User inputted find command
+     * @return Keyword that user wants to find
+     * throws DukeException if input not correct find command format
+     */
     public static String parseFind(String input) throws DukeException {
         if (input.split(" ").length > 1) {
             return String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));

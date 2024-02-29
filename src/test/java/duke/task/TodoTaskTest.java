@@ -11,7 +11,7 @@ public class TodoTaskTest {
     @Test
     public void invalid_constructor() {
         try {
-            assertEquals(new TodoTask("", ""), Parser.parse_todo("todo"));
+            assertEquals(new TodoTask("", ""), Parser.parseTodo("todo"));
         } catch (Exception e) {
             assertEquals("\tTodo description cannot be empty!\n\tEx: todo return book\n", e.getMessage());
         }
@@ -20,7 +20,7 @@ public class TodoTaskTest {
     @Test
     public void success_instance() {
         try {
-            assertEquals(new TodoTask("read", "todo read").toString(), Parser.parse_todo("todo read").toString());
+            assertEquals(new TodoTask("read", "todo read").toString(), Parser.parseTodo("todo read").toString());
         } catch (DukeException e) {
             System.out.println(e.getMessage());
         }
