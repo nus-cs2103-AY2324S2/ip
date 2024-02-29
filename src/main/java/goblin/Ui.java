@@ -13,6 +13,7 @@ public class Ui {
     public String readCommand() {
         return input.nextLine();
     }
+
     public static void sayHello() {
         line();
         System.out.println(greetings);

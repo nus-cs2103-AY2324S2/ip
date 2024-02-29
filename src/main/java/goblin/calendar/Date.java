@@ -47,27 +47,17 @@ public class Date {
             case 8:
             case 10:
             case 12:
-                if (day >= 1 && day <= 31) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (day >= 1 && day <= 31);
             case 4:
             case 6:
             case 9:
             case 11:
-                if (day >= 1 && day <= 30) {
-                    return true;
-                } else {
-                    return false;
-                }
+                return (day >= 1 && day <= 30);
             case 2:
                 if (isLeapYear(year) && day >= 1 && day <= 29) {
                     return true;
-                } else if (day >= 1 && day <= 28) {
-                    return true;
                 } else {
-                    return false;
+                    return (day >= 1 && day <= 28);
                 }
             default:
                 return false;
@@ -79,23 +69,9 @@ public class Date {
             return true;
         } else if (year % 100 == 0) {
             return false;
-        } else if (year % 4 == 0) {
-            return true;
         } else {
-            return false;
+            return (year % 4 == 0);
         }
-    }
-
-    public int getDay() {
-        return day;
-    }
-
-    public Month getMonth() {
-        return month;
-    }
-
-    public int getYear() {
-        return year;
     }
 
     @Override

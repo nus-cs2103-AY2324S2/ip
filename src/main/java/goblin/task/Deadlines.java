@@ -8,7 +8,6 @@ import goblin.task.Task;
 public class Deadlines extends Task {
     protected Date date;
     protected Time time;
-
     protected String deadline;
 
     public Deadlines(String description, String deadline) {

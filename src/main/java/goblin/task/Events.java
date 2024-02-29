@@ -6,15 +6,10 @@ import goblin.exception.OrkException;
 import goblin.task.Task;
 
 public class Events extends Task {
-
     protected Date startDate;
-
     protected Date endDate;
-
     protected Time endTime;
-
     protected Time startTime;
-
     public String start;
     public String end;
 
@@ -40,6 +35,7 @@ public class Events extends Task {
 
         }
     }
+
     public void processe(String time) {
         String[] splitTD = time.split(" ");
         try {

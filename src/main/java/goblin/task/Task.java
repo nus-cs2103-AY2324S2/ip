@@ -3,8 +3,8 @@ package goblin.task;
 public class Task {
     protected String description;
     protected boolean isDone;
-
     protected String type = "";
+
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -26,9 +26,7 @@ public class Task {
         isDone = false;
     }
 
-    public void print() {
-
-    }
+    public void print() {}
 
     public String notPrint() {
         return "";

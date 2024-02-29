@@ -13,7 +13,7 @@ public class Time {
     }
 
     public void processTime() throws OrkException {
-        if (unprocessed.equals("")) {
+        if (unprocessed.isEmpty()) {
             return;
         }
         if (unprocessed.length() == 4) {
@@ -21,7 +21,7 @@ public class Time {
             int hour = time / 100;
             int minute = time % 100;
             if (hour > 23 || minute > 59) {
-                throw new OrkException("\u2639 OOPS!!! Please input a valid time.");
+                throw new OrkException("PLEASE input a valid time.");
             }
             if (hour > 11) {
                 hour = hour % 12;
@@ -34,7 +34,7 @@ public class Time {
             timing.append(hour);
             if (minute != 0) {
                 if (minute < 10) {
-                    timing.append(":" + "0" + minute);
+                    timing.append(":0" + minute);
                 } else {
                     timing.append(":" + minute);
                 }
