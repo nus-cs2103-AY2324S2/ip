@@ -1,5 +1,4 @@
 package SamuelBot;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.time.format.DateTimeParseException;
@@ -13,10 +12,10 @@ import java.util.Scanner;
  * Users can add tasks, mark tasks as done, list all tasks, delete tasks, and find tasks by keyword.
  */
 public class Samuelbot {
-    private static final String file_path = "./SamuelBot.txt";
-    private List<Task> taskList;
-    private Ui ui;
-    private Storage storage;
+    static final String file_path = "./SamuelBot.txt";
+    List<Task> taskList;
+    Ui ui;
+    Storage storage;
 
     /**
      * Constructs a new Samuelbot object.
@@ -27,6 +26,10 @@ public class Samuelbot {
         this.ui = new Ui();
         this.storage = new Storage(file_path);
         loadTasksFromFile();
+//        Assertions.assertTaskListNotNull(this);
+//        Assertions.assertUiNotNull(this);
+//        Assertions.assertStorageNotNull(this);
+//        Assertions.assertFilePathValid(this);
     }
 
     /**
