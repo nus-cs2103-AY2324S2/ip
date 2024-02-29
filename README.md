@@ -1,4 +1,6 @@
-# WannaBeSkynet User Guide (https://pyromancerboom.github.io/ip/)
+# WannaBeSkynet
+
+View the user guide [here](https://pyromancerboom.github.io/ip/)
 
 ## Introduction
 
