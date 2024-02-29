@@ -91,7 +91,8 @@ public class Response {
             Task currentTask = tasks.getTask(i);
             newResponseMessage.append(i + 1).append(".").append(currentTask.toString()).append("\n");
         }
-        this.responseMessage = newResponseMessage.toString();
+        this.responseMessage = "Here are the tasks in your list:\n"
+                + newResponseMessage.toString();
     }
 
     /**
@@ -115,7 +116,8 @@ public class Response {
             Task currentTask = tasks.getTask(i);
             newResponseMessage.append(i + 1).append(".").append(currentTask.toString()).append("\n");
         }
-        this.responseMessage = newResponseMessage.toString();
+        this.responseMessage = "Here are the matching tasks in your list:\n"
+                + newResponseMessage.toString();
     }
 
     /**
