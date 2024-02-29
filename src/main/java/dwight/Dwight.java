@@ -1,6 +1,6 @@
 package dwight;
 
-import dwight.exceptions.DukeException;
+import dwight.exceptions.DwightException;
 import dwight.task.Task;
 import dwight.util.Parser;
 import dwight.util.Storage;
@@ -272,12 +272,12 @@ public class Dwight extends Application {
 
 
                 default:
-                    throw new DukeException("\tSorry, I did not understand the command!");
+                    throw new DwightException("\tSorry, I did not understand the command!");
 
             }
 
             storage.writeFile(todo.getList());
-        } catch (DukeException | IOException err) {
+        } catch (DwightException | IOException err) {
             responseString.append(err.getMessage());
 
         }

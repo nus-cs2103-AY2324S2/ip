@@ -5,6 +5,9 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+sourceCompatibility = 11
+targetCompatibility = 11
+
 repositories {
     mavenCentral()
 }
@@ -43,17 +46,18 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("dwight.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "dwight"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
 checkstyle {

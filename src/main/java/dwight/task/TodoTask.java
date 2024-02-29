@@ -1,14 +1,14 @@
 package dwight.task;
 
-import dwight.exceptions.DukeException;
+import dwight.exceptions.DwightException;
 
 public class TodoTask extends Task {
 
-    public TodoTask(String name, String file_format) throws DukeException {
+    public TodoTask(String name, String file_format) throws DwightException {
         super(name, Type.T, file_format);
         if (this.name.isBlank()) {
             String error_message = "\tTodo description cannot be empty!\n\tEx: todo return book\n";
-            throw new DukeException(error_message);
+            throw new DwightException(error_message);
         }
     }
 

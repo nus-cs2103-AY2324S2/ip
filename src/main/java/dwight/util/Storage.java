@@ -13,7 +13,7 @@ import dwight.task.Task;
 import dwight.task.TodoTask;
 import dwight.task.DeadlineTask;
 import dwight.task.EventTask;
-import dwight.exceptions.DukeException;
+import dwight.exceptions.DwightException;
 
 public class Storage {
     private final File FILE;
@@ -43,7 +43,7 @@ public class Storage {
                             task = new TodoTask(task_name, input);
                             todo.add(task);
                             break;
-                        } catch (DukeException err) {
+                        } catch (DwightException err) {
                             System.out.println(err.getMessage());
                             break;
                         }

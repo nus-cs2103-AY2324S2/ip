@@ -1,7 +1,7 @@
 package dwight.util;
 import dwight.task.TodoTask;
 import org.junit.jupiter.api.Test;
-import dwight.exceptions.DukeException;
+import dwight.exceptions.DwightException;
 import dwight.task.DeadlineTask;
 
 import java.time.LocalDateTime;
@@ -24,7 +24,7 @@ public class ParserTest {
         try {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
             assertEquals(new DeadlineTask("eat", LocalDateTime.parse("7/2/2024 1800", formatter), "deadline eat /by 7/2/2024 1800").toString(), Parser.parseDeadline("deadline eat /by 7/2/2024 1800").toString());
-        } catch (DukeException e) {
+        } catch (DwightException e) {
             System.out.println(e.getMessage());
         }
     }

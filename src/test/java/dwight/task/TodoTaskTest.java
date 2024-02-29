@@ -2,7 +2,7 @@ package dwight.task;
 
 import dwight.util.Parser;
 import org.junit.jupiter.api.Test;
-import dwight.exceptions.DukeException;
+import dwight.exceptions.DwightException;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -20,7 +20,7 @@ public class TodoTaskTest {
     public void success_instance() {
         try {
             assertEquals(new TodoTask("read", "todo read").toString(), Parser.parseTodo("todo read").toString());
-        } catch (DukeException e) {
+        } catch (DwightException e) {
             System.out.println(e.getMessage());
         }
     }
