@@ -59,6 +59,7 @@ public class Storage {
                     }
                     tasks.add(todo);
                 } else {
+                    assert type.equals("[E]") : "task is not an event";
                     String[] split = apple.split(" /from ");
                     String description = split[0];
                     String StartAndEnd = split[1];
@@ -102,6 +103,7 @@ public class Storage {
                     ToDos todo = (ToDos) task;
                     taskInfo = todo.toString();
                 } else {
+                    assert type.equals("[E]") : "task is not an event";
                     Events event = (Events) task;
                     taskInfo = event.toString();
                 }
