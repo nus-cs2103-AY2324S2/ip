@@ -28,10 +28,12 @@ public class Storage {
         if (!storageDirectory.exists()) {
             createStorageDirectory(STORAGE_DIRECTORY_PATH);
         }
+        assert storageDirectory.exists() : "Storage Directory does not exists!";
         File storageFile = new File(STORAGE_FILE_PATH.toString());
         if (!storageFile.exists()) {
             createStorageFile(STORAGE_FILE_PATH);
         }
+        assert storageFile.exists() : "Storage File Does not Exists";
         this.myStorageFile = storageFile;
     }
 
@@ -47,8 +49,10 @@ public class Storage {
             if (!f.exists()) {
                 Files.createDirectory(STORAGE_DIRECTORY_PATH);
                 System.out.println("directory created!");
+                assert f.exists() : "Directory does not Exists!";
             } else {
                 System.out.println("create directory fail!");
+                assert !f.exists() : "Directory exists!";
             }
         } catch (Exception e) {
             throw e;
@@ -62,8 +66,10 @@ public class Storage {
         try {
             if (f.createNewFile()) {
                 System.out.println("file created!");
+                assert f.exists() : "File is not created!";
             } else {
                 System.out.println("create file fail!");
+                assert !f.exists() : "File exists!";
             }
         } catch (IOException e) {
             e.printStackTrace();

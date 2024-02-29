@@ -44,7 +44,7 @@ test {
 }
 
 application {
-    mainClassName = "homie.Launcher"
+    mainClass.set("homie.Launcher")
 }
 
 shadowJar {
