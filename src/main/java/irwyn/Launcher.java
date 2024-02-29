@@ -3,7 +3,7 @@ package irwyn;
 import javafx.application.Application;
 
 /**
- * A launcher class to workaround classpath issues. git standard
+ * A launcher class to workaround classpath issues.
  */
 public class Launcher {
 

@@ -9,14 +9,14 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Irwyn chatbot using FXML. git standard
+ * A GUI for Irwyn chatbot using FXML.
  */
 public class Main extends Application {
 
     private final Irwyn irwyn = new Irwyn();
 
     /**
-     * Starts the GUI. git standard
+     * Starts the GUI.
      *
      * @param stage Stage to be taken in for display on the GUI.
      */
