@@ -1,0 +1,6 @@
+//testcases for GUI
+todo todoTest
+deadline return book /by 2019-10-15 1800
+event work /from 2019-10-15 1800 /to 2019-10-15 2300
+list
+find book
