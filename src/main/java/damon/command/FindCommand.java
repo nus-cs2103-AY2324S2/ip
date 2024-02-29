@@ -25,6 +25,6 @@ public class FindCommand extends Command {
         TaskList serchedTaskList = tasks.findTasks(keyword);
         ui.showFindCommand(serchedTaskList);
 
-        response.showFindCommand(tasks);
+        response.showFindCommand(serchedTaskList);
     }
 }

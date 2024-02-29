@@ -8,36 +8,36 @@
 
 - Add a new Task to current TaskList.
 - Command:
-  - Command to add ToDo Task: todo {description}
-  - Command to add Deadline Task: deadline {description} /by {due date}
-    *due date should be in yyyy-mm-dd format*
-  - Command to add Event Task: event {description} /from {starttime} /to {endtime)
-  - Command to add FixedDuration Task: fixedduration {description} /needs {duration}
+  - Command to add ToDo Task: <code style="color : Blue">todo *DESCRIPTION*</code>
+  - Command to add Deadline Task: deadline *DESCRIPTION* /by *DUE_DATE*
+      *(DUE_DATE should be in yyyy-mm-dd format)*
+  - Command to add Event Task: event *DESCRIPTION* /from *START_TIME* /to *END_TIME*
+  - Command to add FixedDuration Task: fixedduration *DESCRIPTION* /needs *DURATION*
 
 
 ## <code style="color : Orange">Feature 2 - Delete a Task</code>
 
 - Delete the Task of given index
-- Command: delete {Task index}
+- Command: delete *TASK_INDEX*
 
 
 ## <code style="color : Orange">Feature 3 - Mark a Task as done</code>
 
 - Mark the Task of given index as done
-- Command: mark {Task index}
+- Command: mark *TASK_INDEX*
 
 
 ## <code style="color : Orange">Feature 4 - Unmark a Task to not done</code>
 
 
 - Unmark the Task of given index to not done
-- Command: unmark {Task index}
+- Command: unmark *TASK_INDEX*
 
 
 ## <code style="color : Orange">Feature 5 - Find Task by keyword</code>
 
 - Find Tasks including given keywords in description
-- Command: find {keyword}
+- Command: find *KEYWORD*
 
 
 ## <code style="color : Orange">Feature 6 - Exit Damon</code>
