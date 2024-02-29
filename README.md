@@ -2,9 +2,9 @@
 
 ## User Setup Instructions
 
-1. Download the JAR file from [releases](https://github.com/chiaryan/ip/releases/download/A-Release/louie.jar).
+1. Download the JAR file from [releases](https://github.com/chiaryan/ip/releases/tag/A-Release2).
 2. Move the JAR File to any directory and run it.
-    1. GUI: Double click the JAR file.
+    1. GUI: Doubleclick the JAR file.
     2. Open a terminal in the JAR File's directory and run it
 
         ```shell
