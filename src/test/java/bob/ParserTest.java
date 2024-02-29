@@ -10,7 +10,6 @@ import bob.exception.BobException;
 public class ParserTest {
     // These tests are essentially testing extractParameters and are thus redundant.
     // Will be removed and replaced by only a few tests once extractParameters are rewritten.
-    
     @Test
     public void parse_listWithDescription_exceptionThrown() {
         try {
