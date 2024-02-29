@@ -229,11 +229,6 @@ public class Parser {
         // Set command to be the command entered by the user, rather than the entire line of string
         input = commandArgs[0];
 
-        // Return an ExitCommand if we encounter an exit command
-        if (input.equals(COMMAND_EXIT)) {
-            return new ExitCommand();
-        }
-
         // Parse the command differently depending on the type of command encountered
         switch (input) {
         case COMMAND_LIST:
@@ -252,6 +247,8 @@ public class Parser {
             return parseAdd(commandArgs);
         case COMMAND_FIND:
             return parseFind(commandArgs);
+        case COMMAND_EXIT:
+            return new ExitCommand();
         default:
             throw new InvalidCommandException();
         }
