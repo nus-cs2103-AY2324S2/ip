@@ -47,6 +47,15 @@ public class Parser {
     private static final DateTimeFormatter FORMATTER_DATE_TIME =
             DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
+    private static String extractParameter(String[] splitString, String parameter) throws ParameterNotFoundException {
+        splitString = splitString[0].split(" /" + parameter + ' ', 2);
+        if (splitString.length == 1) {
+            // This implies the last missing parameter will be displayed, rather than the first
+            throw new ParameterNotFoundException(parameter);
+        }
+        return splitString[1];
+    }
+
     /**
      * Extracts the description and parameters from a given command.
      *
@@ -66,12 +75,7 @@ public class Parser {
         // Split the string repeatedly to extract the rightmost parameter
         String[] splitString = new String[] { parametersString };
         for (int i = n - 1; i >= 0; i--) {
-            splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
-            if (splitString.length == 1) {
-                // This implies the last missing parameter will be displayed, rather than the first
-                throw new ParameterNotFoundException(parameters[i]);
-            }
-            result[i + 1] = splitString[1];
+            result[i + 1] = extractParameter(splitString, parameters[i]);
         }
 
         // Assign result[0] to be the description before returning result
