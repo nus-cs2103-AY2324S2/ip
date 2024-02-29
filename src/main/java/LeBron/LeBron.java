@@ -1,16 +1,11 @@
-package Duke;
-
-import task.Task;
-
-import java.util.ArrayList;
-import java.util.Scanner;
+package LeBron;
 
 import actions.Parser;
 import actions.Ui;
 import actions.TaskList;
 import actions.DataManager;
 ;
-public class Duke {
+public class LeBron {
 
     /**
      * Duke is a command line interface application that helps to keep track of tasks
@@ -25,15 +20,17 @@ public class Duke {
      * instantiates a duke object
      * with TaskList, Ui and DataManager objects
      */
-    public Duke() {
+    public LeBron() {
         this.taskList = new TaskList(dataManager.retrieveTasks());
     }
 
     public String getResponse(String input) {
         try {
             Parser parser = new Parser(input, taskList, ui);
-            return parser.parse(input);
-        } catch (DukeException e) {
+            String response =  parser.parse(input);
+            dataManager.saveTasks(taskList.getTasks());
+            return response;
+        } catch (LeBronException e) {
             return e.getMessage();
         }
     }

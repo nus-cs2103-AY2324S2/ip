@@ -1,6 +1,6 @@
 package actions;
 
-import Duke.DukeException;
+import LeBron.LeBronException;
 import task.Deadline;
 import task.Event;
 import task.Task;
@@ -35,7 +35,7 @@ public class Parser {
          * @param ui a ui object
          * @return returns isExit boolean that indicates if the program has reach termination
          */
-        public String parse(String input) throws DukeException{
+        public String parse(String input) throws LeBronException{
             String[] parts = input.split(" ", 2);
             String command = parts[0].toLowerCase();
             boolean isExit = false;
@@ -105,12 +105,12 @@ public class Parser {
             Task todo = new Todo(task, false);
             try {
                if (task.isEmpty()) {
-                       throw new DukeException("Don't forget the description!");
+                       throw new LeBronException("Don't forget the description!");
                } else {
                        taskList.addTask(todo);
                }
 
-           } catch (DukeException e) {
+           } catch (LeBronException e) {
                    System.out.println(ui.printError(e.getMessage()));
            }
             return ui.printAddMessage(todo, taskList.getArraySize());
@@ -121,19 +121,19 @@ public class Parser {
             try {
                 String task = parts[1];
                 if (task.isEmpty()) {
-                    throw new DukeException("Don't forget the description!");
+                    throw new LeBronException("Don't forget the description!");
                 } else {
                     Task todo = new Todo(task, false);
                     taskList.setTask(todo, index);
                 }
 
-            } catch (DukeException e) {
+            } catch (LeBronException e) {
                 System.out.println(ui.printError(e.getMessage()));
             }
             return ui.printUpdate();
         }
 
-        public String handleDeadlineCommand(TaskList taskList, Ui ui, String[] parts) throws DukeException{
+        public String handleDeadlineCommand(TaskList taskList, Ui ui, String[] parts) throws LeBronException{
             assert parts !=null : "Input should not be null";
             String task = getTask(parts[1]);
             String time = getTime(parts[1]);
@@ -144,13 +144,13 @@ public class Parser {
 
             try {
                 if (task.isEmpty()) {
-                        throw new DukeException("Don't forget the description!");
+                        throw new LeBronException("Don't forget the description!");
                 } else if (time.isEmpty()) {
-                        throw new DukeException("Don't forget the deadline!");
+                        throw new LeBronException("Don't forget the deadline!");
                 } else {
                         taskList.addTask(deadline);
                 }
-            } catch (DukeException e) {
+            } catch (LeBronException e) {
                     System.out.println(ui.printError(e.getMessage()));
             }
             return  ui.printAddMessage(deadline, taskList.getArraySize());
@@ -163,9 +163,9 @@ public class Parser {
                 String time = getTime(parts[1]);
 
                 if (task.isEmpty()) {
-                    throw new DukeException("Don't forget the description!");
+                    throw new LeBronException("Don't forget the description!");
                 } else if (time.isEmpty()) {
-                    throw new DukeException("Don't forget the deadline!");
+                    throw new LeBronException("Don't forget the deadline!");
                 } else {
                     String[] timeparts = time.split("by");
                     LocalDateTime by = parseToLocalDate(timeparts[1].trim());
@@ -173,13 +173,13 @@ public class Parser {
                     Task deadline = new Deadline(task, false, by);
                     taskList.setTask(deadline, index);
                 }
-            } catch (DukeException e) {
+            } catch (LeBronException e) {
                 ui.printError(e.getMessage());
             }
             return ui.printUpdate();
         }
 
-        public String handleEventCommand(TaskList taskList, Ui ui, String[] parts) throws DukeException{
+        public String handleEventCommand(TaskList taskList, Ui ui, String[] parts) throws LeBronException{
             assert parts !=null : "Input should not be null";
             String task = getTask(parts[1]);
             String time = getTime(parts[1]);
@@ -193,17 +193,17 @@ public class Parser {
 
             try {
                   if (task.isEmpty()) {
-                          throw new DukeException("Don't forget the description!");
+                          throw new LeBronException("Don't forget the description!");
                   } else if (time.isEmpty()) {
-                          throw new DukeException("Don't forget the deadline!");
+                          throw new LeBronException("Don't forget the deadline!");
                   } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
-                          throw new DukeException("Don't forget to include start and end time!");
+                          throw new LeBronException("Don't forget to include start and end time!");
                   } else {
                           taskList.addTask(event);
 
                           ui.printAddMessage(event, taskList.getArraySize());
                   }
-            } catch (DukeException e) {
+            } catch (LeBronException e) {
                     System.out.println(ui.printError(e.getMessage()));
             }
             return ui.printAddMessage(event, taskList.getArraySize());
@@ -218,11 +218,11 @@ public class Parser {
                 String[] dateParts = timeparts[1].trim() .split("/to");
 
                 if (task.isEmpty()) {
-                    throw new DukeException("Don't forget the description!");
+                    throw new LeBronException("Don't forget the description!");
                 } else if (time.isEmpty()) {
-                    throw new DukeException("Don't forget the deadline!");
+                    throw new LeBronException("Don't forget the deadline!");
                 } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
-                    throw new DukeException("Don't forget to include start and end time!");
+                    throw new LeBronException("Don't forget to include start and end time!");
                 } else {
                     LocalDateTime from = parseToLocalDate(dateParts[0].trim());
                     LocalDateTime to = parseToLocalDate(dateParts[1].trim());
@@ -232,7 +232,7 @@ public class Parser {
 
                     ui.printUpdate();
                 }
-            } catch (DukeException e) {
+            } catch (LeBronException e) {
                 System.out.println(ui.printError(e.getMessage()));
             }
             return ui.printUpdate();
@@ -285,14 +285,14 @@ public class Parser {
          * Parses a string format of the date and time of a task
          * @param time the string representation of the date and time
          * @return A local date time object of the date and time
-         * @throws DukeException
+         * @throws LeBronException
          */
-        public static LocalDateTime parseToLocalDate(String time) throws DukeException {
+        public static LocalDateTime parseToLocalDate(String time) throws LeBronException {
             try {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
                     return LocalDateTime.parse(time, formatter);
             } catch (Exception e)  {
-                    throw new DukeException("Please make sure your date and time are formatted as 'd/M/yyyy HHmm'.");
+                    throw new LeBronException("Please make sure your date and time are formatted as 'd/M/yyyy HHmm'.");
             }
         }
 

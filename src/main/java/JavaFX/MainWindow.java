@@ -1,4 +1,5 @@
 package JavaFX;
+import LeBron.LeBron;
 import actions.Ui;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -7,7 +8,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import Duke.Duke;
 import javafx.stage.Stage;
 
 
@@ -21,7 +21,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private LeBron leBron;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/ugly.png"));
     private Image LeBronImage = new Image(this.getClass().getResourceAsStream("/images/monkey.png"));
@@ -35,8 +35,8 @@ public class MainWindow extends AnchorPane {
         dialogContainer.getChildren().add(DialogBox.getLeBronDialog(intro, LeBronImage));
     }
 
-    public void setDuke(Duke d) {
-        this.duke = d;
+    public void setLeBron(LeBron d) {
+        this.leBron = d;
     }
 
     /**
@@ -46,7 +46,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
-        String response = duke.getResponse(input);
+        String response = leBron.getResponse(input);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getLeBronDialog(response, LeBronImage)

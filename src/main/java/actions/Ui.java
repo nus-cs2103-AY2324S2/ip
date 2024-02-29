@@ -1,6 +1,6 @@
 package actions;
 
-import Duke.DukeException;
+import LeBron.LeBronException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -32,7 +32,7 @@ public class Ui {
     }
     
 
-    public String printList(ArrayList<Task> tasks) throws DukeException{
+    public String printList(ArrayList<Task> tasks) throws LeBronException{
         try {
             if (tasks.size() == 0) {
                 return "You have no tasks yet";
@@ -45,7 +45,7 @@ public class Ui {
                 return "Here are the tasks in your list:\n" + result;
             }
         } catch (Exception e) {
-            throw new DukeException("Error loading tasks");
+            throw new LeBronException("Error loading tasks");
         }
     }
 

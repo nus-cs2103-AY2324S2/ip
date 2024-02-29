@@ -6,10 +6,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import Duke.Duke;
+import LeBron.LeBron;
 
 public class Main extends Application {
-    private Duke duke = new Duke();
+    private LeBron leBron = new LeBron();
 
     @Override
     public void start(Stage stage) {
@@ -19,7 +19,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setTitle("LeBron");
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(duke);
+            fxmlLoader.<MainWindow>getController().setLeBron(leBron);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
