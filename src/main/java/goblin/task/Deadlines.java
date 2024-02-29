@@ -3,7 +3,6 @@ package goblin.task;
 import goblin.calendar.Date;
 import goblin.calendar.Time;
 import goblin.exception.OrkException;
-import goblin.task.Task;
 
 //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
 public class Deadlines extends Task {
@@ -29,8 +28,6 @@ public class Deadlines extends Task {
     public void process(String deadline) {
         String[] dateAndTime = deadline.split(" ");
         try {
-            String date = dateAndTime[0];
-            Date deadlineDate = new Date(date);
             Time deadlineTime;
             if (dateAndTime.length == 1) {
                 deadlineTime = new Time("");
@@ -42,7 +39,7 @@ public class Deadlines extends Task {
             this.date = new Date(dateAndTime[0]);
             this.time = new Time(dateAndTime[1]);
         } catch (OrkException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 
@@ -57,7 +54,7 @@ public class Deadlines extends Task {
 
     /**
      * return a string representing the deadline object
-     * @return
+     * @return a String
      */
     @Override
     public String notPrint() {

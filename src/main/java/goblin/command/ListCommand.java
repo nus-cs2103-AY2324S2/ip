@@ -3,7 +3,6 @@ package goblin.command;
 import goblin.Storage;
 import goblin.Ui;
 import goblin.TaskList;
-import goblin.exception.OrkException;
 
 public class ListCommand extends Command {
     /**

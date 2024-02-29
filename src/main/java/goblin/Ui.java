@@ -19,7 +19,6 @@ public class Ui {
         return input.nextLine();
     }
 
-
     /**
      * print the greetings message on the screen
      */

@@ -45,13 +45,6 @@ public class Task {
     }
 
     /**
-     * print the task
-     */
-    public void print() {
-
-    }
-
-    /**
      * a string representation
      * @return a string
      */
@@ -73,5 +66,12 @@ public class Task {
      */
     public  boolean isDone() {
         return isDone;
+    }
+
+    /**
+     * print
+     */
+    public void print() {
+
     }
 }

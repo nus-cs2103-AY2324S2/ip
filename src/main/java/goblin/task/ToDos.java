@@ -19,7 +19,7 @@ public class ToDos extends Task {
     }
 
     /**
-     * a geeter for the type
+     * a getter for the type
      * @return the type
      */
     @Override

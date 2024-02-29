@@ -1,9 +1,8 @@
 package goblin;
 
-import goblin.task.Task;
 import goblin.command.Command;
 import goblin.exception.OrkException;
-import java.util.ArrayList;
+
 //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
 public class Goblin {
     private Storage storage;
@@ -13,7 +12,6 @@ public class Goblin {
     /**
      * Create a Goblin object.
      * Initiate ui, storage and taskList.
-     *
      * @param filePath the local path to the storage file.
      */
     public Goblin(String filePath) {

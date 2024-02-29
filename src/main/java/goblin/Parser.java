@@ -8,7 +8,6 @@ import goblin.exception.OrkException;
 public class Parser {
     /**
      * Translate user's input and return corresponding command
-     *
      * @param input A line of user's input
      * @return A command to be executed
      * @throws OrkException when the input is empty or not complete
