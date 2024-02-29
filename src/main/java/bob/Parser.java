@@ -218,24 +218,24 @@ public class Parser {
     /**
      * Makes sense of the given user command.
      *
-     * @param command The given user command.
+     * @param input The given user command.
      * @return A <code>Command</code> object corresponding to the parsed command.
      * @throws BobException If there is an error parsing the given user command.
      */
-    public static Command parse(String command) throws BobException {
+    public static Command parse(String input) throws BobException {
         // TODO: Use regex
-        String[] commandArgs = command.trim().split(" ", 2);
+        String[] commandArgs = input.trim().split(" ", 2);
 
         // Set command to be the command entered by the user, rather than the entire line of string
-        command = commandArgs[0];
+        input = commandArgs[0];
 
         // Return an ExitCommand if we encounter an exit command
-        if (command.equals(COMMAND_EXIT)) {
+        if (input.equals(COMMAND_EXIT)) {
             return new ExitCommand();
         }
 
         // Parse the command differently depending on the type of command encountered
-        switch (command) {
+        switch (input) {
         case COMMAND_LIST:
             return parseList(commandArgs);
         case COMMAND_DELETE:
