@@ -13,8 +13,8 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 **Expected Outcome:**
 
     1. [T][ ] Read a book
-    2. [D][X] Submit assignment (by: Mar 10)
-    3. [E][ ] Project meeting (from: Mar 11, 10am to: Mar 11, 11am)
+    2. [D][X] Submit assignment (by: 2022-01-01)
+    3. [E][ ] Project meeting (from: 2022-01-01 to: 2022-01-01)
 
 ## Add a Todo Task
 
@@ -30,21 +30,21 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Description:** Adds a task with a deadline.
 
-**Usage Example:** `deadline Submit assignment /by Mar 10`
+**Usage Example:** `deadline Submit assignment /by 2022-03-04`
 
 **Expected Outcome:**
 
-    Added: [D][ ] Submit assignment (by: Mar 10)
+    Added: [D][ ] Submit assignment (by: 2022-03-04)
 
 ## Add an Event
 
 **Description:** Adds a task with a start and end time.
 
-**Usage Example:** `event Project meeting /from Mar 11, 10am /to Mar 11, 11am`
+**Usage Example:** `event Project meeting /from 2022-04-04 /to 2022-04-05`
 
 **Expected Outcome:**
 
-    Added: [E][ ] Project meeting (from: Mar 11, 10am to: Mar 11, 11am)
+    Added: [E][ ] Project meeting (from: 2022-04-03 to: 2022-04-05)
 
 ## Mark a Task as Done
 
@@ -55,7 +55,7 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 **Expected Outcome:**
 
     Okay Traveller, I've marked the task as done:
-    [D][X] Submit assignment (by: Mar 10)
+    [D][X] Submit assignment (by: 2023-03-02)
 
 ## Unmark a Task
 
@@ -66,7 +66,7 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 **Expected Outcome:**
 
     Okay Traveller, I've marked the task as not done
-    Marked as not done: [D][ ] Submit assignment (by: Mar 10)
+    Marked as not done: [D][ ] Submit assignment (by: 2023-03-02)
 
 
 ## Delete a Task
@@ -88,7 +88,9 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Expected Outcome:**
 
-    [T][ ] Read a book
+    Okay Traveller, here are the matching tasks
+    [D][X] Finish Project (by: 2022-01-04)
+    [T][ ] Do Project
 
 
 ## Exit the Program
@@ -105,11 +107,11 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Description:** Adds a task that must be started after a specific time.
 
-**Usage Example:** `doafter Email professor /from Mar 12`
+**Usage Example:** `doafter Email professor /from 2022-01-01`
 
 **Expected Outcome:**
 
-    Added: [T][ ] Email professor (after: Mar 12)
+    Added: [T][ ] Email professor (after: 2022-01-01)
 
 
 This user guide aims to make your experience with Paimon as smooth and productive as possible. Whether you're managing daily tasks or planning for future events, Paimon is here to assist you every step of the way.
