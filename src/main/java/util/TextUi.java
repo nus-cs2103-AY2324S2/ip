@@ -8,8 +8,6 @@ import exceptions.ChillChiefException;
  * A TextUi class to represent the user interface for the ChillChief application.
  */
 public class TextUi {
-    private static final String DIVIDER_DOUBLE = "============================================================\r\n";
-    private static final String DIVIDER_SINGLE = "____________________________________________________________\r\n";
     private static final String CHILLCHIEF = "";
     private static final String GREETING = "    G'day mate! ChillChief here\n" + "    What can I do for ya?\n";
     private static final String BYE = " Aye mate, hit me up if u need anything more yea\n";
@@ -33,7 +31,7 @@ public class TextUi {
      * @return The find message with tasks with matching descriptions.
      */
     public String showFindMessage(String tasksFound) {
-        return DIVIDER_SINGLE + FIND_MESSAGE + tasksFound + DIVIDER_SINGLE;
+        return FIND_MESSAGE + tasksFound;
     }
 
     /**
@@ -55,24 +53,20 @@ public class TextUi {
      */
     public String showTaskAdded(Task task, int n) {
         if (n == 1) {
-            return DIVIDER_DOUBLE +
-                    " Got it, I have added this task:\n"
+            return " Got it, I have added this task:\n"
                     + "    "
                     + task
                     + "\n"
                     + " Now you have " + n
-                    + " task in the list.\n"
-                    + DIVIDER_DOUBLE;
+                    + " task in the list.\n";
         }
-        return DIVIDER_DOUBLE +
-                " Got it, I have added this task:\n"
+        return " Got it, I have added this task:\n"
                 + "    "
                 + task
                 + "\n"
                 + " Now you have "
                 + n
-                + " tasks in the list.\n"
-                + DIVIDER_DOUBLE;
+                + " tasks in the list.\n";
     }
 
 
@@ -86,13 +80,13 @@ public class TextUi {
     public String showTaskList(TaskList taskList) throws ChillChiefException {
         try {
             String taskMessage = " Here are the tasks in your list:\n";
-            String message = DIVIDER_DOUBLE + taskMessage;
+            String message = taskMessage;
             String result = "";
             for (int i = 0; i < taskList.getTaskListLength(); i++ ) {
                 int number = i + 1;
                 result += "   " + number + ". " + taskList.getTask(i) + "\n";
             }
-            return message + result + DIVIDER_DOUBLE;
+            return message + result;
         } catch (Exception e) {
             throw new ChillChiefException("Tasks could not be retrieved!");
         }
@@ -107,13 +101,9 @@ public class TextUi {
     public String showMarkedOrUnmarkMessage(Task task) {
         String message;
         if (task.getDone()) {
-            message = DIVIDER_SINGLE
-                    + " Nice! I have marked this task as done:\n" + "   " + task + "\n"
-                    + DIVIDER_SINGLE;
+            message = " Nice! I have marked this task as done:\n" + "   " + task + "\n";
         } else {
-            message = DIVIDER_SINGLE
-                    + " OK, I have marked this task as not done yet:\n" + "   " + task + "\n"
-                    + DIVIDER_SINGLE;
+            message = " OK, I have marked this task as not done yet:\n" + "   " + task + "\n";
         }
         return message;
     }
@@ -124,7 +114,7 @@ public class TextUi {
      * @return A welcome message for the user.
      */
     public String showIntroMessage() {
-        return DIVIDER_DOUBLE + CHILLCHIEF + GREETING + HELP_MESSAGE + DIVIDER_DOUBLE;
+        return CHILLCHIEF + GREETING + HELP_MESSAGE;
     }
 
     /**
@@ -142,7 +132,7 @@ public class TextUi {
      * @return A farewell message for the user.
      */
     public String showOutroMessage() {
-        return DIVIDER_DOUBLE + BYE + DIVIDER_DOUBLE;
+        return  BYE;
     }
 
     /**
@@ -153,9 +143,7 @@ public class TextUi {
      * @return A message to show that a task has been removed from the task list.
      */
     public String showDeletedTask(Task task, int count) {
-        return DIVIDER_DOUBLE +
-                " Noted. I have removed this task:\n" + "   " + task + "\n" + "Now you have " +
-                count + " tasks in the list.\n" +
-                DIVIDER_DOUBLE;
+        return " Noted. I have removed this task:\n" + "   " + task + "\n" + "Now you have " +
+                count + " tasks in the list.\n";
     }
 }
