@@ -1,6 +1,6 @@
 # GMO User Guide 🤖
 
-// Product screenshot goes here
+![Screenshot of gmo ui](Ui.png)
 
 Are you an avid gamer that is tied down by work or school? Do you find it hard to keep track of your tasks and deadlines? 
 Look no further! GMO is here to help _MANAGE_ and _WHINE_ at you to get your dues done!
