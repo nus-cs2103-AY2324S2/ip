@@ -1,6 +1,6 @@
 # Damon User Guide
 
-![\Ui.png]
+![iP\docs\Ui.png]
 
 
 
@@ -15,7 +15,7 @@
   - Command to add FixedDuration Task: fixedduration {description} /needs {duration}
 
 
-## <code style="color : Skyblue">Feature 2 - Delete a Task</code>
+## <code style="color : Cyan">Feature 2 - Delete a Task</code>
 
 - Delete the Task of given index
 - Command: delete {Task index}
