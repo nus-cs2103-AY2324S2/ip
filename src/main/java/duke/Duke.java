@@ -3,6 +3,8 @@ package duke;
 import java.util.Arrays;
 import java.util.List;
 
+import duke.Commands.Command;
+
 /**
  * The Duke class is the main entry point for the bot application itself
  * It uses an Operator to connect the user to the bot
@@ -35,31 +37,33 @@ public class Duke {
         assert !userInput.trim().isEmpty() : "User input should not be empty";
         String[] userInputArray = userInput.split(" ");
         String command = userInputArray[0];
+        Command commandEnum = Commands.getCommand(command);
 
         try {
-            switch (command) {
-                case "bye":
+            switch (commandEnum) {
+                case BYE:
                     return Bot.getBotExitMsg();
-                case "help":
+                case HELP:
                     return Bot.getBotHelpMsg();
-                case "list":
+                case LIST:
                     return listAllMsg(taskList);
-                case "mark":
+                case MARK:
                     return handleMarkTask(userInputArray);
-                case "unmark":
+                case UNMARK:
                     return handleUnmarkTask(userInputArray);
-                case "todo":
+                case TODO:
                     return handleTodoCommand(userInputArray);
-                case "deadline":
+                case DEADLINE:
                     return handleDeadlineCommand(userInputArray);
-                case "event":
+                case EVENT:
                     return handleEventCommand(userInputArray);
-                case "delete":
+                case DELETE:
                     return handleDeleteCommand(userInputArray);
-                case "find":
+                case FIND:
                     return handleFindCommand(userInputArray);
-                case "":
+                case EMPTY:
                     return Bot.getEmptyInputMsg();
+                case INVALID:
                 default:
                     return Bot.getInvalidInputMsg();
             }
