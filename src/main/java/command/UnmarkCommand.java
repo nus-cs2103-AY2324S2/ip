@@ -24,12 +24,16 @@ public class UnmarkCommand extends Command {
      * Marks a task as undone.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Task t = taskList.get(taskIndex);
         t.unmark();
 
-        System.out.println("OK, I've marked this task as not done yet:");
-        System.out.println(" " + t.toString());
+        String s = "OK, I've marked this task as not done yet:\n"
+                + " " + t.toString();
+
+        System.out.println(s);
+
+        return s;
     }
 
     /**

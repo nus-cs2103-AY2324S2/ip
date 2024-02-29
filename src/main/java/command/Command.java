@@ -11,7 +11,7 @@ public abstract class Command {
      *
      * @throws DukeException If command cannot be executed.
      */
-    public abstract void execute() throws DukeException;
+    public abstract String execute() throws DukeException;
 
     /**
      * Returns true if the command executed exits the program.
