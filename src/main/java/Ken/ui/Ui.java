@@ -118,8 +118,12 @@ public class Ui {
      * @return Response with matching tasks message.
      */
     public Response getDisplayMatchingTasksMessage(String keyword, List<Task> matchingTasks) {
-        StringBuilder response = new StringBuilder("seeking...\n\nThese are all the ")
-                .append(keyword).append("s in your list:\n");
+        StringBuilder response = new StringBuilder("seeking...\n\n");
+        if (matchingTasks.isEmpty()) {
+            response.append("there are no ").append(keyword).append("s in your list\n");
+        } else {
+            response.append("These are all the ").append(keyword).append("s in your list:\n");
+        }
         for (int i = 0; i < matchingTasks.size(); i++) {
             response.append((i + 1)).append(". ").append(matchingTasks.get(i)).append("\n");
         }
