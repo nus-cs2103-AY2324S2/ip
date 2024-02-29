@@ -1,5 +1,4 @@
 package SamuelBot;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Scene;
@@ -131,6 +130,4 @@ public class ChatBotGUI extends Application {
             }).start();
         }
     }
-
-
 }
