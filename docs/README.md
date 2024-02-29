@@ -48,7 +48,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
     ```
     Got it. I've added this task: {task name}
     ```
-> Note: the following eg for each command will be using the output of the above prompt
+> Note: the following e.g. for each command will be using the output of the above prompt
 
 ## Listing all tasks
 ### Prompt
@@ -74,7 +74,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
     ```
     delete 3
     ```
-    ### Expected output
+### Expected output
     ```
     Noted. I've removed this task: {task number}
     ```
