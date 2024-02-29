@@ -8,6 +8,9 @@ import org.junit.jupiter.api.Test;
 import bob.exception.BobException;
 
 public class ParserTest {
+    // These tests are essentially testing extractParameters and are thus redundant.
+    // Will be removed and replaced by only a few tests once extractParameters are rewritten.
+    
     @Test
     public void parse_listWithDescription_exceptionThrown() {
         try {
@@ -154,6 +157,26 @@ public class ParserTest {
             fail();
         } catch (BobException e) {
             assertEquals("tell me what's your to", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_addPeriodMissingStart_exceptionThrown() {
+        try {
+            Parser.parse("period a /end 12/2/2024 2158");
+            fail();
+        } catch (BobException e) {
+            assertEquals("tell me what's your start", e.getMessage());
+        }
+    }
+
+    @Test
+    public void parse_addEventMissingEnd_exceptionThrown() {
+        try {
+            Parser.parse("period a /start 12/2/2024 2158");
+            fail();
+        } catch (BobException e) {
+            assertEquals("tell me what's your end", e.getMessage());
         }
     }
 

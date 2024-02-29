@@ -7,6 +7,7 @@ import java.time.format.DateTimeParseException;
 
 import bob.command.AddDeadlineCommand;
 import bob.command.AddEventCommand;
+import bob.command.AddPeriodCommand;
 import bob.command.AddTodoCommand;
 import bob.command.Command;
 import bob.command.DeleteCommand;
@@ -36,6 +37,7 @@ public class Parser {
     private static final String COMMAND_FIND = "find";
     private static final String COMMAND_LIST = "list";
     private static final String COMMAND_MARK = "mark";
+    private static final String COMMAND_PERIOD = "period";
     private static final String COMMAND_TODO = "todo";
     private static final String COMMAND_UNMARK = "unmark";
 
@@ -184,6 +186,19 @@ public class Parser {
         }
     }
 
+    private static Command parseAddPeriod(
+            String commandArgs) throws ParameterNotFoundException, InvalidDateTimeException {
+        try {
+            String[] parameters = Parser.extractParameters(commandArgs, new String[] { "start", "end" });
+            String description = parameters[0];
+            LocalDateTime start = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+            LocalDateTime end = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
+            return new AddPeriodCommand(description, start, end);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        }
+    }
+
     /**
      * Makes sense of the given user command that is either a "todo", "deadline" or "event".
      *
@@ -197,7 +212,7 @@ public class Parser {
             String[] commandArgs) throws InvalidDateTimeException,
             EmptyDescriptionException, ParameterNotFoundException {
         assert commandArgs[0].equals(COMMAND_TODO) || commandArgs[0].equals(COMMAND_DEADLINE)
-                || commandArgs[0].equals(COMMAND_EVENT) : commandArgs[0];
+                || commandArgs[0].equals(COMMAND_EVENT) || commandArgs[0].equals(COMMAND_PERIOD) : commandArgs[0];
 
         // Add command without a description
         if (commandArgs.length == 1) {
@@ -216,6 +231,8 @@ public class Parser {
             return parseAddDeadline(commandArgs[1]);
         case COMMAND_EVENT:
             return parseAddEvent(commandArgs[1]);
+        case COMMAND_PERIOD:
+            return parseAddPeriod(commandArgs[1]);
         default:
             throw new AssertionError();
         }
@@ -270,6 +287,8 @@ public class Parser {
         case COMMAND_DEADLINE:
             // Fallthrough
         case COMMAND_EVENT:
+            // Fallthrough
+        case COMMAND_PERIOD:
             return parseAdd(commandArgs);
         case COMMAND_FIND:
             return parseFind(commandArgs);

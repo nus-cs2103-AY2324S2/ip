@@ -59,7 +59,7 @@ public class Deadline extends Task {
     public boolean isDueIn(int days) {
         boolean isUpcoming = by.isAfter(LocalDateTime.now());
         boolean isWithin = ChronoUnit.DAYS.between(LocalDateTime.now(), by) <= days;
-        return isUpcoming && isWithin;
+        return isUpcoming && isWithin && !isDone;
     }
 
     /**

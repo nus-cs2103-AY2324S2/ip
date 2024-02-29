@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import bob.Storage;
 import bob.TaskList;
 import bob.Ui;
-import bob.exception.InvalidEventException;
+import bob.exception.InvalidPeriodException;
 import bob.exception.SavingException;
 import bob.task.Task;
 
@@ -18,7 +18,7 @@ public class AddEventCommand extends AddCommand {
     private final LocalDateTime to;
 
     /**
-     * Returns a command to add an event with a specified description, start time and due time.
+     * Returns a command to add an event with a specified description, start time and end time.
      *
      * @param description The description for the event to be added.
      * @param from The start time for the event to be added.
@@ -39,7 +39,7 @@ public class AddEventCommand extends AddCommand {
      * @throws SavingException If there was an error saving the new event in hard disk.
      */
     @Override
-    public String execute(Storage storage, TaskList taskList) throws SavingException, InvalidEventException {
+    public String execute(Storage storage, TaskList taskList) throws SavingException, InvalidPeriodException {
         Task task = taskList.addEvent(description, from, to);
         storage.saveTask(task);
         return Ui.getAddResponse(task, taskList.getSize());
