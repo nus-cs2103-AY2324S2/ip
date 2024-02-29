@@ -22,13 +22,18 @@ public class ListCommand extends Command {
      * List all the tasks in the task list.
      */
     @Override
-    public void execute() {
-        System.out.println("Here are the tasks in your list:");
+    public String execute() {
+        String result = "Here are the tasks in your list:\n";
+        System.out.print(result);
 
         for (int i = 1; i <= taskList.size(); i++) {
             Task t = taskList.get(i);
-            System.out.println(i + ". " + t.toString());
+            String taskString = i + ". " + t.toString();
+            System.out.println(taskString);
+            result += taskString + "\n";
         }
+
+        return result;
     }
 
     /**

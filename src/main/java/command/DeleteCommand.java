@@ -27,12 +27,15 @@ public class DeleteCommand extends Command {
      * @throws DukeException If the command cannot be executed.
      */
     @Override
-    public void execute() {
+    public String execute() {
         Task t = taskList.remove(taskIndex);
 
-        System.out.println("Noted, I've removed this task:");
-        System.out.println(" " + t.toString());
-        System.out.println("Now you have " + taskList.size() + " tasks in the list.");
+        String s = "Noted, I've removed this task:\n"
+                + " " + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
+        
+        System.out.println(s);
+        return s;
     }
 
     /**

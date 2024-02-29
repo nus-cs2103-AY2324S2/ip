@@ -18,11 +18,13 @@ public class Ui {
     /**
      * Shows the start up message upon successful loading of the program.
      */
-    public void showWelcome() {
-        String welcomeMessage = "Hello! I'm NextGenerationJarvis.\n"
+    public String showWelcome() {
+        String welcomeMessage = "Good Morning, Hustler! I'm Xavier.\n"
                 + "What can I do for you?";
         System.out.println(welcomeMessage);
         showLine();
+
+        return welcomeMessage;
     }
 
     /**
