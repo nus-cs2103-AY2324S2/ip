@@ -23,6 +23,12 @@ public class Event extends Task {
         this.start = parseDateTime(startString);
         this.end = parseDateTime(endString);
     }
+    public Event(String description, String startString, String endString, boolean isDone) {
+        super(description);
+        this.isDone = isDone;
+        this.start = parseDateTime(startString);
+        this.end = parseDateTime(endString);
+    }
 
     /**
      * Parses the date and time string into a LocalDateTime object.
@@ -100,5 +106,10 @@ public class Event extends Task {
     @Override
     public boolean isDone(){
         return isDone;
+    }
+
+    @Override
+    public void setDone(boolean isDone) {
+        this.isDone = isDone;
     }
 }

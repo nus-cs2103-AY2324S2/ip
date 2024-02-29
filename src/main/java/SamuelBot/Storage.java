@@ -38,11 +38,14 @@ public class Storage {
             String description = parts[2].trim();
             switch (type) {
                 case "T":
-                    return new Todo(description);
+                    Todo td = new Todo(description, isDone);
+                    td.setDone(isDone);
+                    return td;
                 case "D":
                     if (parts.length >= 4) {
                         String by = parts[3].trim();
-                        return new Deadline(description, by);
+                        Deadline dl = new Deadline(description, by, isDone);
+                        return dl;
                     } else {
                         System.out.println("Incomplete input for deadline task.");
                     }
@@ -51,7 +54,8 @@ public class Storage {
                     if (parts.length >= 5) {
                         String from = parts[3].trim();
                         String to = parts[4].trim();
-                        return new Event(description, from, to);
+                        Event ev = new Event(description, from, to, isDone);
+                        return ev;
                     } else {
                         System.out.println("Incomplete input for event task.");
                     }

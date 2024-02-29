@@ -13,9 +13,9 @@ public abstract class Task {
      *
      * @param description The description of the task.
      */
-    public Task(String description) {
+    public Task(String description){
         this.description = description;
-        this.isDone = false;
+        //this.isDone = false;
     }
 
     /**
@@ -69,4 +69,6 @@ public abstract class Task {
      * @return true if the task is done, false otherwise.
      */
     public abstract boolean isDone();
+
+    public abstract void setDone(boolean isDone);
 }

@@ -13,6 +13,10 @@ public class Todo extends Task {
     public Todo(String description) {
         super(description);
     }
+    public Todo(String description, boolean isDone) {
+        super(description);
+        this.isDone = isDone;
+    }
 
     /**
      * Gets the type of the task.
@@ -51,5 +55,10 @@ public class Todo extends Task {
      */
     public boolean isDone(){
         return isDone;
+    }
+
+    @Override
+    public void setDone(boolean isDone){
+        this.isDone = isDone;
     }
 }

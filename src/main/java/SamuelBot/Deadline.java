@@ -23,6 +23,14 @@ public class Deadline extends Task {
         this.byDate = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
     }
 
+    public Deadline(String description, String by, boolean isDone) {
+        super(description);
+        String[] parts = by.split("\\s+");
+        String datePart = parts[0];
+        this.byDate = LocalDate.parse(datePart, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+        this.isDone = isDone;
+    }
+
     /**
      * Gets the deadline of the task.
      *
@@ -89,5 +97,10 @@ public class Deadline extends Task {
     @Override
     public boolean isDone(){
         return isDone;
+    }
+
+    @Override
+    public void setDone(boolean isDone){
+        this.isDone = isDone;
     }
 }
