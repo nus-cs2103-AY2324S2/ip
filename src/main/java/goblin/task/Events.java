@@ -3,7 +3,6 @@ package goblin.task;
 import goblin.calendar.Date;
 import goblin.calendar.Time;
 import goblin.exception.OrkException;
-import goblin.task.Task;
 
 public class Events extends Task {
     protected Date startDate;
@@ -13,6 +12,12 @@ public class Events extends Task {
     public String start;
     public String end;
 
+    /**
+     * create a new event object
+     * @param description what the task is
+     * @param start the start date and time
+     * @param end the end date and time
+     */
     public Events(String description, String start, String end) {
         super(description);
         this.start = start;
@@ -21,6 +26,10 @@ public class Events extends Task {
         processe(end);
     }
 
+    /**
+     * transform the string start date and time to objects of Dats and Times
+     * @param time the start date and time string
+     */
     public void processs(String time) {
         String[] splitTD = time.split(" ");
         try {
@@ -36,6 +45,10 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * transform the string end date and time to objects of Dats and Times
+     * @param time the end date and time string
+     */
     public void processe(String time) {
         String[] splitTD = time.split(" ");
         try {
@@ -46,23 +59,38 @@ public class Events extends Task {
         }
     }
 
+    /**
+     * print the event
+     */
     @Override
     public void print () {
         System.out.println("\t" + "[E]" + getStatusIcon() + getDescription() + "(from:" + startDate.toString()
                 + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() + ")");
     }
 
+    /**
+     * a string representation of the event
+     * @return a string
+     */
     @Override
     public String notPrint () {
         return "\t" + "[E]" + getStatusIcon() + getDescription() + "(from:" + startDate.toString()
                 + " " + startTime.toString() + " to " + endDate.toString() + " " + endTime.toString() + ")";
     }
 
+    /**
+     * a toString method
+     * @return a string
+     */
     @Override
     public String toString () {
         return isDone + " event " + getDescription() + " /from " + start + " /to " + end;
     }
 
+    /**
+     * a getter for the type
+     * @return the type of this task
+     */
     @Override
     public String type () {
         return ("[E]");

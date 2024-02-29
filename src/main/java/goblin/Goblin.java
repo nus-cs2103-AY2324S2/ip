@@ -10,7 +10,12 @@ public class Goblin {
     private TaskList tasks;
     private Ui ui;
 
-    public static ArrayList<Task> actions = new ArrayList<>();
+    /**
+     * Create a Goblin object.
+     * Initiate ui, storage and taskList.
+     *
+     * @param filePath the local path to the storage file.
+     */
     public Goblin(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
@@ -22,6 +27,10 @@ public class Goblin {
         }
     }
 
+    /**
+     * Collect user input
+     * parse them while the app is working
+     */
     public void run() {
         Ui.sayHello();
         boolean working = true;
@@ -40,6 +49,11 @@ public class Goblin {
         }
     }
 
+    /**
+     * the main method
+     *
+     * @param args command line arguments
+     */
     public static void main(String[] args) {
         new Goblin("src/main/java/goblin/data.txt").run();
     }

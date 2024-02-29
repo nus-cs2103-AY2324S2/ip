@@ -9,11 +9,22 @@ import goblin.TaskList;
 public class FindCommand extends Command {
     protected String description;
 
+    /**
+     * create a new FindCommand object
+     * @param description what to find
+     */
     public FindCommand(String description) {
         super();
         this.description = description;
     }
 
+    /**
+     * find some tasks
+     * @param list list of tasks
+     * @param ui handle ui
+     * @param storage handle storage
+     * @throws OrkException when description is empty or not complete
+     */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         Boolean isFind = false;
@@ -33,16 +44,25 @@ public class FindCommand extends Command {
         }
     }
 
+    /**
+     * get description of what to find
+     * @return description
+     */
     public String getDescription() {
         return description;
     }
 
+    /**
+     * equal method
+     * @param object object to compare with
+     * @return
+     */
     @Override
-    public boolean equals(Object o) {
-        if (o == this) {
+    public boolean equals(Object object) {
+        if (object == this) {
             return true;
-        } else if (o instanceof FindCommand) {
-            FindCommand obj = (FindCommand) o;
+        } else if (object instanceof FindCommand) {
+            FindCommand obj = (FindCommand) object;
             return obj.getDescription().equals(description);
         } else {
             return false;
