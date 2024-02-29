@@ -4,8 +4,9 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Event class that extends Task class. Handles all event related tasks.
- * Can specify event starting date time and ending date time.
+ * The Event class used to create an Event Object.
+ * A subclass of Task class.
+ * Has a description start date/time, and end date/time.
  */
 public class Event extends Task {
 

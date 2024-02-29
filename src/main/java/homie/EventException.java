@@ -1,8 +1,8 @@
 package homie;
 
 /**
- * Event exception class. Handles all exceptions related to Event Class.
- * Thrown when no description of event is given, or start date or end date is of incorrect format.
+ * EventException thrown when no description of event is given, or when start date/time or end date/time is of
+ * incorrect format when creating an event task.
  */
 public class EventException extends Exception {
     /**

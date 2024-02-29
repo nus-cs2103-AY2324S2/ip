@@ -4,7 +4,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Parser class to parse the user command. Process all the user commands and performs the relevant tasks.
+ * Parser class to parse the user command.
+ * Process all the user commands and performs the relevant tasks.
  */
 public class Parser {
     private boolean isExit = false;
@@ -15,7 +16,7 @@ public class Parser {
 
     /**
      * Constructor for Parser object.
-     * Initialise taskList, ui and storage objects to be used.
+     * Initialises taskList, ui and storage objects to be used.
      *
      * @param taskList The taskList to be updated.
      * @param ui The ui object to interact with the user interface.
@@ -30,7 +31,7 @@ public class Parser {
     //Reused from https://www.baeldung.com/java-string-valid-date
     // with minor modifications
     /**
-     * Checks if input string is of 'dd MM yyyy HHmm' format
+     * Checks if input string is of 'dd MM yyyy HHmm' format.
      *
      * @param inDate The string to be checked.
      * @return The boolean value of whether the String is of specified date format "dd MM yyy HHmm".
@@ -46,9 +47,9 @@ public class Parser {
         return true;
     }
     /**
-     * Parses user input calling the relevant methods to process the command.
+     * Parses user input, calling relevant methods to process the command.
      *
-     * @param fullCommand The full user input command
+     * @param fullCommand The full user input command.
      */
     public String parse(String fullCommand) throws HomieException, TodoException, EventException, DeadlineException,
             MarkException, UnmarkException, DeleteException, FindException {
@@ -94,13 +95,13 @@ public class Parser {
             outputResponse = this.processEventCommand(fullCommand, inputStringSplits);
             break;
         default:
-            outputResponse = this.processInvalidCommand(fullCommand);
+            outputResponse = this.processInvalidCommand();
             break;
         }
         return outputResponse;
     }
     /**
-     * Process bye command and set isExit to true.
+     * Processes bye command and set isExit to true.
      *
      * @return Returns a goodbye message in String.
      */
@@ -112,7 +113,7 @@ public class Parser {
     }
 
     /**
-     * Process list command and show all tasks in the task list.
+     * Processes list command and returns all tasks in the task list.
      *
      * @return String of tasks in the tasks list.
      */
@@ -124,14 +125,13 @@ public class Parser {
     }
 
     /**
-     * Process the to-do command to add new to-do task into the task list.
-     * Updates the storage file as well.
+     * Processes Todo command to add a new Todo task into the task list.
      *
      * @param fullCommand The full command of the user input.
      * @return String message to show that task has been added.
      */
     private String processTodoCommand(String fullCommand, String[] inputStringSplits) throws TodoException {
-        // Get Description for new to-do tasks
+        // Get Description for new Todo tasks
         if (inputStringSplits.length < 2) {
             throw new TodoException("No description given!");
         }
@@ -140,9 +140,9 @@ public class Parser {
             startIndexForTodoDescription = 2;
         }
         String todoDescription = fullCommand.trim().substring(startIndexForTodoDescription);
-        // Create to-do task
+        // Create Todo task
         Todo currTodo = new Todo(todoDescription);
-        // Add to-do task to task list
+        // Add Todo task to task list
         this.taskList.addTask(currTodo);
         // Update storage
         this.storage.updateStorageFile(this.taskList);
@@ -151,8 +151,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process deadline command to add new deadline task into the task list.
-     * Updates the storage file as well.
+     * Processes deadline command to add a new deadline task into the task list.
      *
      * @param fullCommand The full user input command.
      * @return String message showing that selected deadline task has been added into the task list.
@@ -190,8 +189,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process event command to add new event task into the task list.
-     * Updates the storage file as well.
+     * Processes event command to add a new event task into the task list.
      *
      * @param fullCommand The full user input command.
      * @return String message showing that selected event task has been added into the task list.
@@ -239,8 +237,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process delete command to delete selected task from task list.
-     * Update the storage file for future loading of tasks.
+     * Processes delete command to delete selected task from task list.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message that shows selected task is deleted.
@@ -267,7 +264,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process mark command to mark selected task as done.
+     * Processes mark command to mark selected task as done.
      * Updates the storage file as well.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
@@ -296,8 +293,7 @@ public class Parser {
     }
 
     /**
-     * Process the unmark command to set selected task as not done.
-     * Updates the storage file as well.
+     * Processes the unmark command to set specified task as not done.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message that shows selected task marked as not done.
@@ -324,7 +320,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process find command to find the selected task from task list.
+     * Processes find command to find the selected task from task list.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return A String of tasks that has the matching keyword.
@@ -347,12 +343,12 @@ public class Parser {
     }
 
     /**
-     * Process any invalid commands.
+     * Processes any invalid commands.
      *
      * @return String message showing that the command is invalid.
      */
-    private String processInvalidCommand(String fullCommand) throws HomieException {
+    private String processInvalidCommand() throws HomieException {
         // Get response message
-        throw new HomieException(fullCommand);
+        throw new HomieException();
     }
 }

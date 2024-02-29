@@ -1,8 +1,8 @@
 package homie;
 
 /**
- * Deadline exception class. Handles all exceptions related to Deadline class.
- * Thrown when no description for deadline task is given, or format of due date is wrong.
+ * DeadlineException thrown when no description for deadline task is given, or format of due date is wrong when
+ * creating a deadline task.
  */
 public class DeadlineException extends Exception {
     /**

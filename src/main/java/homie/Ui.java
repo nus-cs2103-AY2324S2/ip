@@ -27,15 +27,6 @@ public class Ui {
     }
 
     /**
-     * Gets loading error message when there is an error loading tasks from storage.
-     *
-     * @return Loading error message in String.
-     */
-    public String getLoadingErrorMessage() {
-        return "Homie, theres an error loading your tasks!";
-    }
-
-    /**
      * Shows all the tasks in the task lists.
      *
      * @return String message to show all tasks in the list.
@@ -57,11 +48,11 @@ public class Ui {
     }
 
     /**
-     * Gets message after adding a to-do task.
+     * Gets message after adding a Todo task.
      *
-     * @param task The new to-do task to be added.
+     * @param task The new Todo task to be added.
      * @param taskListSize The remaining number of tasks in the task list.
-     * @return String message to acknowledge that the to-do task has been added.
+     * @return String message to acknowledge that the Todo task has been added.
      */
     public String getToDoMessage(Task task, int taskListSize) {
         return "Got it. I've added this task:\n" + "\t" + task.toString()

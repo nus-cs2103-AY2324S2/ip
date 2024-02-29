@@ -1,11 +1,10 @@
 package homie;
 
 /**
- * Homie Exception class. Handles all exceptions related to Homie class.
- * Thrown when invalid commands are given by user.
+ * HomieException thrown when invalid commands are given by user.
  */
 public class HomieException extends Exception {
-    public HomieException(String message) {
+    public HomieException() {
         super("Bruh... Invalid command!\nPlease try again.");
     }
 }

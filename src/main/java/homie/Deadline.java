@@ -5,18 +5,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * The Deadline class that extends the Task class. Handles all deadline related tasks.
- * Can specify the Local Date Time to keep track of when to complete deadline by.
+ * The Deadline class used to create a Deadline Object.
+ * A subclass of Task class.
+ * Has a description and due date.
  */
 public class Deadline extends Task implements Serializable {
 
     protected LocalDateTime dueDateTime;
 
     /**
-     * Constructor for Deadline class to create a new deadline instance.
+     * The constructor for Deadline.
      *
-     * @param description The description of deadline task.
-     * @param by This is the Local Date Time to complete the deadline by.
+     * @param description The description of Deadline object.
+     * @param by This is the due date and time of the Deadline.
      */
     public Deadline(String description, String by) {
         super(description);

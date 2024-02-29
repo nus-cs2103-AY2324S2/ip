@@ -3,10 +3,7 @@ package homie;
 import java.io.IOException;
 
 /**
- * A chatbot program named Homie that helps you keep track
- * of to-do tasks, deadlines and events. Date and time can be specified for deadlines and events.
- * Other functions include adding tasks, finding tasks, marking or un-marking tasks as done,
- * deleting tasks and listing tasks.
+ * The main class for Homie, a chatbot task management application.
  */
 public class Homie {
     private Storage storage;
@@ -14,7 +11,9 @@ public class Homie {
     private Ui ui;
 
     /**
-     * Constructor for Homie class. Initialise storage and task list to be used later.
+     * Constructor for Homie.
+     * Initialises storage to load past data and update new data.
+     * Initialises TaskList to store user tasks for current session.
      */
     public Homie() {
         this.ui = new Ui();
@@ -31,6 +30,9 @@ public class Homie {
      */
     public String getResponse(String input) {
         Parser parser = new Parser(this.tasks, this.ui, this.storage);
+        if (input.equals("bye") || input.equals("b")) {
+            return "bye!";
+        }
         try {
             return parser.parse(input);
         } catch (HomieException | TodoException | EventException | DeadlineException | UnmarkException | MarkException

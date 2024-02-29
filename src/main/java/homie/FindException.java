@@ -1,8 +1,7 @@
 package homie;
 
 /**
- * Find exception class. Handles all exceptions related to Find command.
- * Thrown when no keyword is given, or keyword is more than one word.
+ * FindException thrown when no keyword is given, or keyword is more than one word when using the find command.
  */
 public class FindException extends Exception {
     /**

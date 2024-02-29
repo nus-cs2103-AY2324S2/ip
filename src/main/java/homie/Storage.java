@@ -12,9 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Storage class to handle storing of tasks and
- * loading of tasks when the homie chatbot starts, ends or have
- * any updates in the task list.
+ * Storage class to handle loading of tasks and storing of tasks from a storage text file.
  */
 public class Storage {
     private static final String CURRENT_DIRECTORY_STRING = System.getProperty("user.dir");
@@ -57,7 +55,7 @@ public class Storage {
         }
     }
     /**
-     * Method to create the storage text file if file does not exist.
+     * Creates the storage text file if file does not exist.
      */
     public void createStorageFile(Path filePath) {
         File f = new File(filePath.toString());
@@ -73,7 +71,7 @@ public class Storage {
     }
 
     /**
-     * Method to load tasks from the text file into the tasks object.
+     * Loads tasks from the text file into a TaskList object.
      *
      * @return Returns an ArrayList of type Tasks loaded with tasks from the text file to the caller.
      */
@@ -106,9 +104,9 @@ public class Storage {
     //Reused from https://stackoverflow.com/questions/24475286/saving-class-objects-to-a-text-file-in-java
     // with minor modifications
     /**
-     * Method to update storage text file whenever there are changes to the task list.
+     * Updates storage text file whenever there are changes to the TaskList object.
      *
-     * @param taskList The tasklist that stores all tasks.
+     * @param taskList The TaskList object that stores all tasks.
      */
     public void updateStorageFile(TaskList taskList) {
         try {
