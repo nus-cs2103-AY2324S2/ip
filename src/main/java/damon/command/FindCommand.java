@@ -10,6 +10,15 @@ public class FindCommand extends Command {
         super(command);
     }
 
+    /**
+     * Executes FindCommand
+     * i.e., find target Tasks with specific keyword in their description.
+     *
+     * @param tasks Current TaskList.
+     * @param ui Ui object of Damon object.
+     * @param storage Storage object of Damon object.
+     * @param response Response object of Damon object.
+     */
     public void execute(TaskList tasks, Ui ui, Storage storage, Response response) {
         String keyword = this.command.split(" ")[1];
 

@@ -91,6 +91,12 @@ public class TaskList {
         return this.taskList;
     }
 
+    /**
+     * Returns TaskList of Tasks with specific keyword in their description.
+     *
+     * @param keyword  Keyword that description of to-be-found-Tasks need to contain.
+     * @return TaskList of founded Tasks.
+     */
     public TaskList findTasks(String keyword) {
         TaskList searchedTaskList = new TaskList();
 

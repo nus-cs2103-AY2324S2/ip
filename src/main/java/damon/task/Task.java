@@ -1,6 +1,5 @@
 package damon.task;
 
-
 /**
  * Represents a task by description and status of task.
  * Status is a boolean object to represent whether this task is done or not.
