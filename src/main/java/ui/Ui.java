@@ -29,8 +29,6 @@ public class Ui {
 
     private static final String RECOMMENDER = "Recommendation:";
 
-    private static final String QUOTE_STRING =
-            ">  You must do the things you think you cannot do.\n>  - Eleanor Roosevelt";
 
     private Scanner sc;
 
@@ -156,16 +154,5 @@ public class Ui {
     public String greetingBox() {
         return dividerWrapper(greeting() + question());
     }
-
-    /**
-     * Returns a string containing the quote string.
-     *
-     * @return a string containing the quote string.
-     */
-    public String quote() {
-        return QUOTE_STRING;
-    }
-
-
 
 }
