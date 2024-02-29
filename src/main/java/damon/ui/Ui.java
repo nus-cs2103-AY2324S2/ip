@@ -31,8 +31,8 @@ public class Ui {
                 + "|  _  \\\n"
                 + "| | | |\n"
                 + "| |_| |\n"
-                + "|____/ \n";
-        System.out.println("Hello from\n" + logo);
+                + "|____/ \n\n";
+        System.out.println("Hello from Damon!\n" + logo + "I am your private notes list!");
     }
 
 

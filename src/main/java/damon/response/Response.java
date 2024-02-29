@@ -140,10 +140,11 @@ public class Response {
      * Shows welcome message.
      */
     public String getWelcomeMessage() {
-        return "Hello from\n" + " ____\n"
+        return "Hello from Damon!\n" + " ____\n"
                 + "|  _  \\\n"
                 + "| | | |\n"
                 + "| |_| |\n"
-                + "|____/ \n";
+                + "|____/ \n\n"
+                +"I am your private notes list!";
     }
 }
