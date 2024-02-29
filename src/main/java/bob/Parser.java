@@ -225,6 +225,7 @@ public class Parser {
     public static Command parse(String input) throws BobException {
         // TODO: Use regex
         String[] commandArgs = input.trim().split(" ", 2);
+        assert commandArgs.length > 0 : "commandArgs is empty";
 
         // Set command to be the command entered by the user, rather than the entire line of string
         String command = commandArgs[0];

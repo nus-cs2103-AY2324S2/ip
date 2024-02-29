@@ -31,6 +31,7 @@ public class TaskList {
      * Returns an initialised list of tasks to be used throughout the program.
      */
     public TaskList(ArrayList<Task> tasks) {
+        assert tasks != null : "tasks is null";
         this.tasks = tasks;
     }
 
@@ -65,6 +66,9 @@ public class TaskList {
      * @return The list of tasks.
      */
     public ArrayList<Task> list() {
+        ArrayList<Task> result = listWithFilter(task -> true);
+        assert result.size() == getSize() : String.format(
+                "result.size(): %d, getSize(): %d", result.size(), getSize());
         return listWithFilter(task -> true);
     }
 
