@@ -193,12 +193,14 @@ public class Parser {
                 description = parameters[0];
                 LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
                 return new AddDeadlineCommand(description, by);
-            default:
+            case COMMAND_EVENT:
                 parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
                 description = parameters[0];
                 LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
                 LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
                 return new AddEventCommand(description, from, to);
+            default:
+                throw new AssertionError();
             }
         } catch (DateTimeParseException e) {
             throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
