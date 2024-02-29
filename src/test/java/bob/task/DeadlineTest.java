@@ -24,17 +24,6 @@ public class DeadlineTest {
     }
 
     @Test
-    public void isOccurringOn() {
-        assertFalse(new Deadline("",
-                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 11)));
-
-        assertTrue(new Deadline("",
-                LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
-                .isOccurringOn(LocalDate.of(2024, Month.FEBRUARY, 12)));
-    }
-
-    @Test
     public void isDueIn() {
         assertFalse(new Deadline("", LocalDateTime.now().plusDays(9)).isDueIn(7));
         assertFalse(new Deadline("", LocalDateTime.now().minusDays(1)).isDueIn(0));

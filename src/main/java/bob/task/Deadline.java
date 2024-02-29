@@ -1,6 +1,5 @@
 package bob.task;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -36,17 +35,6 @@ public class Deadline extends Task {
     public String getStorageFormat() {
         return STORAGE_INDICATOR + " | " + super.getStorageFormat() + " | "
                 + Storage.formatDateTime(by);
-    }
-
-    /**
-     * Returns whether the deadline is occurring on a specified day.
-     *
-     * @param date The date on which the deadline is said to occur on.
-     * @return Whether the deadline is due on the specified date.
-     */
-    @Override
-    public boolean isOccurringOn(LocalDate date) {
-        return by.toLocalDate().equals(date);
     }
 
     /**
