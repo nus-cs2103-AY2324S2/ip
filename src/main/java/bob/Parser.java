@@ -48,12 +48,12 @@ public class Parser {
             DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
     private static String[] splitByParameter(String[] splitString, String parameter) throws ParameterNotFoundException {
-        splitString = splitString[0].split(" /" + parameter + ' ', 2);
-        if (splitString.length == 1) {
+        String[] newSplitString = splitString[0].split(" /" + parameter + ' ', 2);
+        if (newSplitString.length == 1) {
             // This implies the last missing parameter will be displayed, rather than the first
             throw new ParameterNotFoundException(parameter);
         }
-        return splitString;
+        return newSplitString;
     }
 
     /**
