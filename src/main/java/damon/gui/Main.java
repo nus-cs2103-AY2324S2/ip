@@ -13,7 +13,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Damon using FXML.
  */
 public class Main extends Application {
 
@@ -26,7 +26,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(damon);
+            fxmlLoader.<MainWindow>getController().setDamon(damon);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();

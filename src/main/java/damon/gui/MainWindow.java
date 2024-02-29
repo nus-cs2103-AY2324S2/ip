@@ -41,10 +41,10 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Damon d) {
+    public void setDamon(Damon d) {
         damon = d;
         dialogContainer.getChildren().addAll(
-                DialogBox.getDukeDialog(new Response().getWelcomeMessage(), dukeImage));
+                DialogBox.getDamonDialog(new Response().getWelcomeMessage(), dukeImage));
     }
 
     /**
@@ -58,8 +58,13 @@ public class MainWindow extends AnchorPane {
         assert !damon.getResponse().equals(null);
         String response = damon.getResponse();
         dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dukeImage));
+                DialogBox.getUserDialog(input, userImage));
+
+        //Solution below adapted from https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
+        PauseTransition responseDelay = new PauseTransition(Duration.seconds(0.3));
+        responseDelay.setOnFinished( event -> dialogContainer.getChildren().addAll(
+                DialogBox.getDamonDialog(response, dukeImage)));
+        responseDelay.play();
 
         userInput.clear();
 
