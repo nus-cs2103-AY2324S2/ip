@@ -49,11 +49,11 @@ test {
 }
 
 application {
-    mainClass.set("bmo.BMO")
+    mainClass.set("gmo.Gmo")
 }
 
 shadowJar {
-    archiveBaseName = "bmo"
+    archiveBaseName = "gmo"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
