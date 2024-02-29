@@ -9,7 +9,7 @@ import gmo.util.TaskList;
 
 import java.io.IOException;
 
-/* BMO is a personal assistant chatbot that helps to keep track of various tasks.
+/* GMO is a personal assistant chatbot that helps to keep track of various tasks.
  * It is able to add, delete, mark as done, list and find tasks.
  * It is also able to save and load tasks from a file.
  */
@@ -20,7 +20,7 @@ public class Gmo {
     private final Ui ui;
 
     /**
-     * Constructor for BMO.
+     * Constructor for GMO.
      */
     public Gmo() {
         ui = new Ui();
@@ -48,10 +48,10 @@ public class Gmo {
 
 
     /**
-     * Gets the response from BMO.
+     * Gets the response from GMO.
      *
      * @param input The input from the user.
-     * @return The response from BMO.
+     * @return The response from GMO.
      * @throws IOException If there is an error reading the file.
      */
     @FXML
