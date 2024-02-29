@@ -31,9 +31,8 @@ public class Ui {
      */
     public void showWelcome() {
         System.out.println("Hello from SamuelBot!");
+        System.out.println("For detailed usages, please refer to the user guide.");
         System.out.println("What can I do for you?");
-        System.out.println("For adding deadline tasks, your format should be 'deadline TaskName /by yyyy-MM-dd'.");
-        System.out.println("For adding event tasks, your format should be 'event TaskName /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'.");
     }
 
     /**
