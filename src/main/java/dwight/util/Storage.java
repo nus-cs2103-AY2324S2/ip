@@ -16,10 +16,27 @@ import dwight.task.EventTask;
 import dwight.exceptions.DwightException;
 
 public class Storage {
-    private final File FILE;
+    private File FILE;
 
     public Storage(String filePath) {
-        this.FILE = new File("./data/duke.txt");
+        try {
+            String dirPath = "./data/";
+            File dir = new File(dirPath);
+
+            if (!dir.exists()) {
+                if (!dir.mkdirs()) {
+                    System.out.println("Failed to create directory!");
+                    return;
+                }
+
+            }
+
+            this.FILE = new File("./data/duke.txt");
+            this.FILE.createNewFile();
+        } catch (IOException e){
+            System.out.println("An error occurred.");
+        }
+
     }
 
 
@@ -30,7 +47,7 @@ public class Storage {
         List<Task> todo = new ArrayList<>();
         try {
             System.out.println("Current Working Directory: " + System.getProperty("user.dir"));
-            Scanner scanner = new Scanner(FILE);
+            Scanner scanner = new Scanner(this.FILE);
 
             while (scanner.hasNext()) {
                 input = scanner.nextLine();
