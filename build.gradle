@@ -51,8 +51,7 @@ mainClassName = 'louie.Launcher'
 
 
 shadowJar {
-    archiveBaseName = "louie"
-    archiveClassifier = null
+    archiveFileName = 'louie.jar'
     dependsOn("distZip", "distTar")
 }
 

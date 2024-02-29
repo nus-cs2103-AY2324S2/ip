@@ -76,12 +76,13 @@ public class Parser {
             throw new LouieOptionParsingException("command ended when an argument was expected");
         }
         while (this.hasNext() && !this.peek().startsWith("/")) {
-            if (!name.isEmpty()) {
+            // check if not-empty
+            if (name.length() > 0) {
                 name.append(" ");
             }
             name.append(this.next());
         }
-        assert(! this.hasNext() || this.peek().startsWith("/"));
+        assert(!this.hasNext() || this.peek().startsWith("/"));
         return name.toString();
     }
 
