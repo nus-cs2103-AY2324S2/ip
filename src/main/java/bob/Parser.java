@@ -90,6 +90,8 @@ public class Parser {
      */
     private static Command parseList(
             String[] commandArgs) throws ParameterNotFoundException, InvalidDateTimeException, InvalidDaysException {
+        assert commandArgs[0].equals(COMMAND_LIST) : commandArgs[0];
+
         if (commandArgs.length == 1) {
             return new ListCommand();
         } else {
@@ -135,6 +137,9 @@ public class Parser {
      */
     private static Command parseDeleteOrMark(
             String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
+        assert commandArgs[0].equals(Parser.COMMAND_DELETE) || commandArgs[0].equals(Parser.COMMAND_MARK)
+                || commandArgs[0].equals(Parser.COMMAND_UNMARK) : commandArgs[0];
+
         try {
             int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
             if (commandArgs[0].equals(Parser.COMMAND_DELETE)) {
@@ -161,6 +166,9 @@ public class Parser {
     private static Command parseAdd(
             String[] commandArgs) throws InvalidDateTimeException,
             EmptyDescriptionException, ParameterNotFoundException {
+        assert commandArgs[0].equals(COMMAND_TODO) || commandArgs[0].equals(COMMAND_DEADLINE)
+                || commandArgs[0].equals(COMMAND_EVENT) : commandArgs[0];
+
         // Add command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
@@ -205,6 +213,8 @@ public class Parser {
      * @throws EmptyDescriptionException If the given command does not have a description.
      */
     public static Command parseFind(String[] commandArgs) throws EmptyDescriptionException {
+        assert commandArgs[0].equals(COMMAND_FIND) : commandArgs[0];
+
         // Find command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
