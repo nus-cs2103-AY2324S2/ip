@@ -53,5 +53,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getHomieDialog(response, homieImage)
         );
         userInput.clear();
+        if (homie.isExit()) {
+            System.exit(0);
+        }
     }
 }

@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
  * Process all the user commands and performs the relevant tasks.
  */
 public class Parser {
-    private boolean isExit = false;
     private String outputResponse = "";
     private final TaskList taskList;
     private final Ui ui;
@@ -59,7 +58,6 @@ public class Parser {
         switch (primaryCommand) {
         case "b":
         case "bye":
-            this.isExit = true;
             outputResponse = this.processByeCommand();
             break;
         case "l":
@@ -101,14 +99,13 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Processes bye command and set isExit to true.
+     * Processes bye command.
      *
      * @return Returns a goodbye message in String.
      */
     private String processByeCommand() {
         // Get response message
         outputResponse = this.ui.getGoodbyeMessage();
-        this.isExit = true;
         return outputResponse;
     }
 

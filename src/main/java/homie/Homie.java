@@ -9,6 +9,7 @@ public class Homie {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
+    private boolean isExit = false;
 
     /**
      * Constructor for Homie.
@@ -31,7 +32,7 @@ public class Homie {
     public String getResponse(String input) {
         Parser parser = new Parser(this.tasks, this.ui, this.storage);
         if (input.equals("bye") || input.equals("b")) {
-            return "bye!";
+            this.isExit = true;
         }
         try {
             return parser.parse(input);
@@ -41,5 +42,14 @@ public class Homie {
         } catch (Exception ex) {
             return "Invalid Command!!";
         }
+    }
+
+    /**
+     * Gets value of isExit.
+     *
+     * @return The boolean value of isExit.
+     */
+    public boolean isExit() {
+        return this.isExit;
     }
 }
