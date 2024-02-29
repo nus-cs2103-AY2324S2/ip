@@ -10,6 +10,7 @@ import command.ExitCommand;
 import command.FindCommand;
 import command.ListCommand;
 import command.MarkCommand;
+import command.SortCommand;
 import command.UnmarkCommand;
 import task.TaskList;
 
@@ -76,12 +77,16 @@ public class Parser {
             cmd = new FindCommand(tasks, st);
             return cmd;
 
+        case "sort":
+            cmd = new SortCommand(tasks);
+            return cmd;
+
         case "bye":
             cmd = new ExitCommand();
             return cmd;
 
         default:
-            throw new DukeException("OOPS!! Pls try again. :)");
+            throw new DukeException("OOPS!! Pls try again, hustler. :)");
         }
     }
 }
