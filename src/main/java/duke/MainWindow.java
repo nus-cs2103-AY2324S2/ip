@@ -66,7 +66,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage));
         userInput.clear();
-        if ("exit".equals(input.trim())) {
+
+        // exit the application if the user input is exit enum
+        if (Commands.getCommand(input) == Commands.Command.EXIT) {
             // sleep for 5 seconds before exiting
             Platform.exit();
         }

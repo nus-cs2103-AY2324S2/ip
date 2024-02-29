@@ -66,7 +66,8 @@ public class Bot {
         exitMsg.append("\n");
         exitMsg.append("I'll be back.");
         exitMsg.append("\n");
-        exitMsg.append("You're supposed to press the exit button or type \"exit\" \n Don't make me do it for you.");
+        exitMsg.append(
+                "You're supposed to press the exit button or type \"exit/quit/q\" \n\n Don't make me do it for you.");
         return exitMsg.toString();
     }
 
@@ -76,9 +77,13 @@ public class Bot {
     public static String getBotHelpMsg() {
         StringBuilder helpMsg = new StringBuilder();
         helpMsg.append("Wasn't I clear earlier? I'm an extremely intelligent AI. But anyways...\n");
-        helpMsg.append("You were probably looking for this:\n");
+        helpMsg.append("You were probably looking for this:\n\n");
         helpMsg.append(
-                "Commands: \n\t- todo \n\t- deadline \n\t- event \n\t- list \n\t- mark \n\t- unmark \n\t- bye \n\t- help\n");
+                "Commands: \n\t- todo (t) \n\t- deadline (d) \n\t- event (e) \n\t- list (l)"
+                        + "\n\t- mark (m) \n\t- unmark (um) \n\t- bye (b) \n\t- help (h) \n"
+                        + "\t- find (f) \n\t- delete (del) \n\t- exit/quit/q\n");
+        helpMsg.append("\n");
+        helpMsg.append("All commands are case-insensitive.");
         return helpMsg.toString();
     }
 
