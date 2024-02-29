@@ -122,7 +122,6 @@ public class Storage {
         }
     }
 
-
     /**
      * Loads data from hard disk.
      *
@@ -139,6 +138,13 @@ public class Storage {
         }
     }
 
+    private void writeFile(FileWriter fw, Task task) throws IOException {
+        try (BufferedWriter bw = new BufferedWriter(fw)) {
+            bw.write(task.getStorageFormat());
+            bw.newLine();
+        }
+    }
+
     /**
      * Saves a new task to hard disk.
      *
@@ -148,12 +154,8 @@ public class Storage {
     public void saveTask(Task task) throws SavingException {
         try {
             FileWriter fw = new FileWriter(dataFile.getAbsoluteFile(), true);
-            try (BufferedWriter bw = new BufferedWriter(fw)) {
-                bw.write(task.getStorageFormat());
-                bw.newLine();
-            }
+            writeFile(fw, task);
         } catch (IOException e) {
-            // Any exception caught here should just be displayed as a server-side error
             throw new SavingException(e.getMessage());
         }
     }
