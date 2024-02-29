@@ -1,26 +1,30 @@
 package ken.ui;
 
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class UiTest {
     @Test
     public void testByeMessage() {
-        // Redirect System.out to capture the printed output
-        ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(outContent));
 
         Ui ui = new Ui();
-        ui.byeMessage();
 
-        System.setOut(System.out);
+        String expected = "Beach off!\n";
+        String actual = ui.getByeMessage().getMessage();
 
-        String expected = "Beach off!";
-        String actual = outContent.toString().trim();  // Trim to remove leading/trailing whitespaces
-
-        // Use assertEquals with trimmed strings
         assertEquals(expected, actual);
     }
+
+
+    @Test
+    public void testWelcomeMessage() {
+
+        Ui ui = new Ui();
+
+        String expected = "Hi Barbie!\nI'm Ken!\nWhat would you like to beach today?\np.s. say help if you need!\n";
+        String actual = ui.getWelcomeMessage().getMessage();
+
+        assertEquals(expected, actual);
+    }
+
 }

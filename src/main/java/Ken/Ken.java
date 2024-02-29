@@ -21,8 +21,6 @@ public class Ken {
 
     /**
      * Constructs a Ken object.
-     *
-     * //@param filePath The file path for storing tasks.
      */
 
     public Ken() {
@@ -36,8 +34,10 @@ public class Ken {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Gets Response for a String input.
+     *
+     * @param input provided.
+     * @return String response message
      */
 
     @FXML
@@ -54,20 +54,10 @@ public class Ken {
 
     /**
      * Runs the Ken application.
-     * It displays a welcome message, initializes the parser, and
-     * starts processing user commands until the user says goodbye.
      */
     public void run() {
 
     }
-
-
-
-    /**
-     * The entry point of the Ken application.
-     *
-     * @param args The command-line arguments.
-     */
     public static void main(String[] args) {
         new Ken().run();
     }

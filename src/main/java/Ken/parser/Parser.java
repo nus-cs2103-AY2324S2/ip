@@ -2,7 +2,6 @@ package ken.parser;
 
 import static com.sun.javafx.application.PlatformImpl.exit;
 
-import javafx.application.Platform;
 import javafx.animation.PauseTransition;
 import javafx.util.Duration;
 
@@ -64,7 +63,7 @@ public class Parser {
         } else if (command.equalsIgnoreCase("bye")) {
             storage.saveTasks(taskList.getTasks());
             exitWithDelay();
-            return new Response(ui.byeMessage().getMessage());
+            return new Response(ui.getByeMessage().getMessage());
         } else if (command.startsWith("seek ")) {
             return taskList.findTasks(command.substring(5));
         } else if (command.startsWith("seek")) {
