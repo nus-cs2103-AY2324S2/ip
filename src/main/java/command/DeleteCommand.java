@@ -35,7 +35,7 @@ public class DeleteCommand extends Command {
         String s = "Noted, I've removed this task:\n"
                 + " " + t.toString()
                 + "\nNow you have " + taskList.size() + " tasks in the list.";
-        
+
         System.out.println(s);
         return s;
     }

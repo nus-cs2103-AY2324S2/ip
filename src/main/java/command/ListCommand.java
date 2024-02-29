@@ -28,6 +28,7 @@ public class ListCommand extends Command {
 
         for (int i = 1; i <= taskList.size(); i++) {
             Task t = taskList.get(i);
+
             String taskString = i + ". " + t.toString();
             System.out.println(taskString);
             result += taskString + "\n";

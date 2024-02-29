@@ -6,6 +6,7 @@ import java.util.StringTokenizer;
 import common.DukeException;
 import task.Deadline;
 import task.Event;
+import task.Task;
 import task.TaskList;
 import task.ToDo;
 
@@ -52,12 +53,7 @@ public class AddCommand extends Command {
                     taskList.add(td);
                     assert taskList.contains(td) : taskName + " is not added.";
 
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + td.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s;                
+                    return produceResponse(td);
                 }
 
             case "deadline":
@@ -83,12 +79,7 @@ public class AddCommand extends Command {
                     taskList.add(d);
                     assert taskList.contains(d) : taskName + " is not added.";
 
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + d.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s;    
+                    return produceResponse(d);
                 }
 
             case "event":
@@ -120,13 +111,7 @@ public class AddCommand extends Command {
                     taskList.add(e);
                     assert taskList.contains(e) : taskName + " is not added.";
 
-
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + e.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s; 
+                    return produceResponse(e);
                 }
 
             default:
@@ -137,6 +122,15 @@ public class AddCommand extends Command {
             System.out.println("Missing field(s) / incorrect input(s). :(");
             return "Missing field(s) / incorrect input(s). :(";
         }
+    }
+
+    private String produceResponse(Task t) {
+        String s = "Got it. I've added this task:\n"
+                + "  " + t.toString()
+                + "\nNow you have " + taskList.size() + " tasks in the list.";
+
+        System.out.println(s);
+        return s;
     }
 
     /**
