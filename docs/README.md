@@ -8,14 +8,16 @@
 
 # Features
 
-:check_mark: Louie manages your tasks in a list format.
+✅ Louie manages your tasks in a list format.
 - Task come in three different types: **Todos**, **Deadlines** and **Events**
 
-:check_mark: Mark your tasks as complete and Louie Will congratulate you!!
+✅ Mark your tasks as complete and Louie Will congratulate you!!
 
-:check_mark: You can prioritise tasks and they appear with a :star: star.
+✅ You can prioritise tasks and they appear with a  star.
 
-:check_mark: Is named after a real cat (!!!).
+✅ Is named after a real cat (!!!).
+# Installation Guide
+Instructions to install Louie can be found [on the repository page](https://github.com/chiaryan/ip).
 # Commands to manage your tasks
 Interact with Louie through typed commands.
 
