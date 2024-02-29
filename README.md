@@ -45,7 +45,7 @@ This bot supports three types of tasks: **To-Do**, **Deadline**, and **Event**.
 
 #### Event Task
 
-- Use: `event` or `e <event_name> /at <time>`
+- Use: `event` or `e <event_name> /from <time1> /to <time2>`
 - Example: `e attend meetings /from Aug 13 2029 10:00 /to Aug 13 2029 23:00`
 - Note: The time must be in the format `MMM dd yyyy HH:mm` (e.g. `Aug 13 2029 10:00`)
 
