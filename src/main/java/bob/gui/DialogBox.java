@@ -17,6 +17,7 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.CornerRadii;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 
@@ -51,6 +52,15 @@ public class DialogBox extends HBox {
 
         displayPicture.setClip(new Circle(
                 DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_RADIUS));
+    }
+
+    /**
+     * Fix the label height to avoid being resized by the scroll pane.
+     */
+    @FXML
+    public void initialize() {
+        dialog.setMinHeight(Region.USE_PREF_SIZE);
+        dialog.setMaxHeight(Region.USE_PREF_SIZE);
     }
 
     private void flip() {
