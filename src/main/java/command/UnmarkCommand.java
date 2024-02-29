@@ -27,6 +27,7 @@ public class UnmarkCommand extends Command {
     public String execute() {
         Task t = taskList.get(taskIndex);
         t.unmark();
+        assert !t.checkStatus() : t.getTaskName() + " not unmarked.";
 
         String s = "OK, I've marked this task as not done yet:\n"
                 + " " + t.toString();

@@ -49,4 +49,14 @@ public class TaskList {
     public LinkedList<Task> getList() {
         return tasks;
     }
+
+    /**
+     * Checks if task is in the list.
+     * 
+     * @param t The task to be checked.
+     * @return True if task is in the list. Else, false.
+     */
+    public boolean contains(Task t) {
+        return tasks.contains(t);
+    }
 }
