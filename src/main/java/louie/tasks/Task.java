@@ -92,6 +92,7 @@ public abstract class Task {
      * @return a String that shows the name and done status of the task.
      */
     public String toStorageString() {
+        assert !this.name.contains(",") : "name cannot contain commas";
         String doneStr = this.isDone ? "T" : "F";
         String priorityStr;
 
