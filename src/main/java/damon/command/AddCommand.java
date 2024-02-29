@@ -3,10 +3,7 @@ package damon.command;
 import damon.response.Response;
 import damon.storage.Storage;
 
-import damon.task.Deadline;
-import damon.task.Event;
-import damon.task.Task;
-import damon.task.ToDo;
+import damon.task.*;
 
 import damon.tasklist.TaskList;
 import damon.ui.Ui;
@@ -66,17 +63,28 @@ public class AddCommand extends Command {
         return new Event(description, startTime, endTime);
     }
 
+    private Task addFixedDuration(String inputString) {
+        String[] splittedString = inputString.substring(14)
+                .split(" /needs ");
+        String description = splittedString[0];
+        String duration = splittedString[1];
+
+        return new FixedDuration(description, duration);
+    }
+
     private Task getNewTask() {
         Task newTask;
 
-        assert this.command.startsWith("todo")
-                || this.command.startsWith("deadline") || this.command.startsWith("event");
+        assert this.command.startsWith("todo") || this.command.startsWith("deadline")
+                || this.command.startsWith("event") || this.command.startsWith("fixedduration");
         if (this.command.startsWith("todo")) {
             newTask = addToDo(this.command);
         } else if (this.command.startsWith("deadline")) {
             newTask = addDeadline(this.command);
-        } else {
+        } else if (this.command.startsWith("event")) {
             newTask = addEvent(this.command);
+        } else {
+            newTask = addFixedDuration(this.command);
         }
 
         return newTask;

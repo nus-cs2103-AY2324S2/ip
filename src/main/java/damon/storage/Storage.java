@@ -2,10 +2,7 @@ package damon.storage;
 
 import damon.exceptions.StorageFileLoadingException;
 
-import damon.task.Deadline;
-import damon.task.Event;
-import damon.task.Task;
-import damon.task.ToDo;
+import damon.task.*;
 
 import damon.tasklist.TaskList;
 
@@ -97,7 +94,7 @@ public class Storage {
 
     private Task creatTask(String existingString) {
         char character = existingString.charAt(1);
-        assert character == 'T' || character == 'D' || character == 'E';
+        assert character == 'T' || character == 'D' || character == 'E' || character == 'F';
         assert existingString.length() >= 5;
         boolean isDone = existingString.charAt(4) == 'X';
 
@@ -120,11 +117,19 @@ public class Storage {
             return new Deadline(description, isDone, date);
         }
 
-        String startTime = existingString.split("\\(from: ")[1]
-                .split(" to: ")[0];
-        String endTime = existingString.split("\\(from: ")[1]
-                .split(" to: ")[1].split("\\)")[0];
+        if (character == 'E') {
+            String startTime = existingString.split("\\(from: ")[1]
+                    .split(" to: ")[0];
+            String endTime = existingString.split("\\(from: ")[1]
+                    .split(" to: ")[1].split("\\)")[0];
 
-        return new Event(description, isDone, startTime, endTime);
+            return new Event(description, isDone, startTime, endTime);
+        }
+
+        //Solution below inspired by  https://howtodoinjava.com/java/date-time/localdate-parse-string/
+        String dateString = existingString.split("\\(needs: ")[1]
+                .split("\\)")[0];
+
+        return new FixedDuration(description, isDone, dateString);
     }
 }
