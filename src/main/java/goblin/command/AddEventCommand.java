@@ -10,12 +10,23 @@ import goblin.task.Task;
 public class AddEventCommand extends Command {
     protected String description;
 
+    /**
+     * create a new AddEventCommand
+     * @param description for the event object
+     */
     public AddEventCommand(String description) {
         super();
         this.description = description;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OrkException {
+    /**
+     * add the event to the list
+     * @param list the list of tasks
+     * @param ui handle ui
+     * @param storage handle storage
+     * @throws OrkException when the description is not complete
+     */
+    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         String[] descriptionSplit = description.split( "/from");
         try {
             if (descriptionSplit.length == 0 || descriptionSplit[0].trim().isEmpty()) {
@@ -39,7 +50,7 @@ public class AddEventCommand extends Command {
                 TaskList.list.add(taskEvent);
                 int numberOfTasks = TaskList.list.size();
                 ui.printAddedMessage(taskEvent, numberOfTasks);
-                Storage.writeToDisk(tasks);
+                storage.writeToDisk(list);
             }
         } catch (OrkException exception) {
             ui.printException(exception);

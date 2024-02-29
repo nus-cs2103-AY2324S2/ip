@@ -10,12 +10,23 @@ import goblin.task.Task;
 public class AddDeadlineCommand extends Command {
     protected String description;
 
+    /**
+     * create a new AddDeadlineCommand object
+     * @param description for the deadlines object
+     */
     public AddDeadlineCommand(String description) {
         super();
         this.description = description;
     }
 
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws OrkException {
+    /**
+     * add the deadline to the list
+     * @param list the list of tasks
+     * @param ui handle ui
+     * @param storage handle storage
+     * @throws OrkException when the description is not complete
+     */
+    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         try {
             String[] detailsSplit = description.split("/by");
             if (detailsSplit.length == 0 || detailsSplit[0].trim().isEmpty()) {
@@ -30,7 +41,7 @@ public class AddDeadlineCommand extends Command {
             TaskList.list.add(Deadline);
             int numberOfTasks = TaskList.list.size();
             ui.printAddedMessage(Deadline, numberOfTasks);
-            Storage.writeToDisk(tasks);
+            storage.writeToDisk(list);
         } catch (OrkException exception) {
             ui.printException(exception);
         }
