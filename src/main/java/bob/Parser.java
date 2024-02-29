@@ -145,11 +145,9 @@ public class Parser {
             String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
         try {
             int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
-            if (commandArgs[0].equals(Parser.COMMAND_DELETE)) {
-                return new DeleteCommand(taskIndex);
-            } else {
-                return new MarkCommand(taskIndex, commandArgs[0].equals(Parser.COMMAND_MARK));
-            }
+            boolean isDelete = commandArgs[0].equals(Parser.COMMAND_DELETE);
+            boolean isMark = commandArgs[0].equals(Parser.COMMAND_MARK);
+            return isDelete ? new DeleteCommand(taskIndex) : new MarkCommand(taskIndex, isMark);
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndexException(commandArgs[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
