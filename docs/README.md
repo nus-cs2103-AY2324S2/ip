@@ -4,13 +4,13 @@
 
 🤖 **WannaBeSkynet** - Get your tasks efficiently managed by a (wannabe) sentient AI bot.
 
-> "Your data is safe with me, I definitely won't use it at all. Trust." - WannaBeSkynet
+> "Your data is safe with me, I definitely won't use it at all." - WannaBeSkynet
 
 Tired of the mortal struggle of remembering tasks? **WannaBeSkynet** is here to offload your memory onto silicon. This bot is a task manager that will help you keep track of your to-dos with a dash of **humorously** offensive charm.
 
 ## Get started in 3 simple steps
 
-1. **Download the jar**: [Click here](#) to download WannaBeSkynet.
+1. **Download the jar**: [Click here](https://github.com/PyromancerBoom/ip/releases/tag/A-Release) to download WannaBeSkynet.
 2. **Launch**: Execute the jar file to awaken the bot. `java -jar bot.jar`
    - You need to have Java installed on your machine to run the bot.
    - The bot will create a `data` folder in the same directory as the jar file to store your tasks.
