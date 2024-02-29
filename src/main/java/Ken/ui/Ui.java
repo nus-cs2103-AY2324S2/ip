@@ -52,6 +52,15 @@ public class Ui {
     }
 
     /**
+     * Gets Already Mark Task Response.
+
+     * @return Response with already mark task message.
+     */
+    public Response getAlreadyMarkTaskMessage() {
+        return new Response("chill, you've already done it");
+    }
+
+    /**
      * Gets Invalid Task Response.
      *
      * @param index index of non-existing task.
@@ -71,6 +80,15 @@ public class Ui {
     public Response getUnmarkTaskMessage(int index, String details) {
         return new Response("ookayy, so task " + index + " is not actually done\n " + details +
                 "\nYou are not doing task very well :(");
+    }
+
+    /**
+     * Gets Already Unmark Task Response.
+
+     * @return Response with already unmark task message.
+     */
+    public Response getAlreadyUnmarkTaskMessage() {
+        return new Response("but it's already not done??");
     }
 
     /**

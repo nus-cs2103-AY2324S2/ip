@@ -153,7 +153,9 @@ public class TaskList {
      * @returns Response with information of task marked.
      */
     public Response markTask(int index) {
-        if (index >= 1 && index <= tasks.size()) {
+        if (tasks.get(index - 1).isDone) {
+            return ui.getAlreadyMarkTaskMessage();
+        } else if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.markAsDone();
             return ui.getMarkTaskMessage(index, task.toString());
@@ -169,11 +171,12 @@ public class TaskList {
      * @returns Response with information of task unmarked.
      */
     public Response unmarkTask(int index) {
-        if (index >= 1 && index <= tasks.size()) {
+        if (!tasks.get(index - 1).isDone) {
+            return ui.getAlreadyUnmarkTaskMessage();
+        } else if (index >= 1 && index <= tasks.size()) {
             Task task = tasks.get(index - 1);
             task.unmarkAsDone();
             return ui.getUnmarkTaskMessage(index, task.toString());
-
         } else {
             return ui.getInvalidTaskMessage(index);
         }
