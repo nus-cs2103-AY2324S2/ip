@@ -18,59 +18,6 @@ public class Parser {
     public Parser() {
     }
 
-//    /**
-//     * Parses a string into a Task object.
-//     * <p>
-//     * The method interprets a string representation of a task (e.g., from a saved file)
-//     * and converts it into a corresponding Task object. The task could be of types Todo,
-//     * Deadline, or Event. It also handles marking tasks as done if indicated in the input.
-//     *
-//     * @param line The string representation of the task to be parsed.
-//     * @return The parsed Task object, or null if the parsing fails or the task type is unknown.
-//     */
-//    public Task parseTask(String line) {
-//        String[] parts = line.split(" \\| ");
-//        if (parts.length < 3) {
-//            return null;
-//        }
-//        try {
-//            String type = parts[0];
-//            boolean isDone = parts[1].trim().equals("1");
-//            String description = parts[2].trim();
-//
-//            switch (type) {
-//            case "T":
-//                Todo todo = new Todo(description);
-//                if (isDone) {
-//                    todo.markDone();
-//                }
-//                return todo;
-//            case "D":
-//                if (parts.length < 4) {
-//                    return null;
-//                }
-//                String by = parts[3].trim();
-//                Deadline deadline = new Deadline(description, parseDateString(by));
-//                if (isDone) {
-//                    deadline.markDone();
-//                }
-//                return deadline;
-//            case "E":
-//                if (parts.length < 5) { // missing from/to or both
-//                    return null;
-//                }
-//                String from = parts[3].trim();
-//                String to = parts[4].trim();
-//                Event event = new Event(description, parseDateString(from), parseDateString(to));
-//                if (isDone) event.markDone();
-//                return event;
-//            default:
-//                return null;
-//            }
-//        } catch (Exception e) {
-//            return null;
-//        }
-//    }
     /**
      * Parses a string into a Task object.
      * <p>

@@ -2,7 +2,6 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
-    // id 'org.openjfx.javafxplugin' version '0.0.8'
 }
 
 sourceCompatibility = 11
@@ -11,10 +10,6 @@ targetCompatibility = 11
 repositories {
     mavenCentral()
 }
-//javafx {
-//    version = "17.0.7"
-//    modules = [ 'javafx.controls' ]
-//}
 
 
 
