@@ -39,8 +39,6 @@ public class Parser {
 
         taskName = String.join(" ", Arrays.copyOfRange(input.split(" "), 1, input.split(" ").length));
         if (!taskName.isBlank()) {
-            System.out.println(taskName);
-            // calling the method
             task = new TodoTask(taskName, input);
             return task;
         } else {

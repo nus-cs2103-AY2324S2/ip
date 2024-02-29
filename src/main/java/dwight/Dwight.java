@@ -240,7 +240,6 @@ public class Dwight extends Application {
                     break;
                 case ("todo"):
                     task = Parser.parseTodo(input);
-                    todo.addTask(task);
                     responseString = handleTodo(task);
                     break;
                 case ("deadline"):
