@@ -223,7 +223,6 @@ public class Parser {
      * @throws BobException If there is an error parsing the given user command.
      */
     public static Command parse(String command) throws BobException {
-        // TODO: Remove Parser. since we are in the same class
         // TODO: Use regex
         String[] commandArgs = command.trim().split(" ", 2);
 
