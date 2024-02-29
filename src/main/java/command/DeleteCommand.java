@@ -29,6 +29,8 @@ public class DeleteCommand extends Command {
     @Override
     public String execute() {
         Task t = taskList.remove(taskIndex);
+        assert !taskList.contains(t) : t.getTaskName() + " is not removed.";
+
 
         String s = "Noted, I've removed this task:\n"
                 + " " + t.toString()

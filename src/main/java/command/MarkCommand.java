@@ -27,6 +27,7 @@ public class MarkCommand extends Command {
     public String execute() {
         Task t = taskList.get(taskIndex);
         t.markAsDone();
+        assert t.checkStatus() : t.getTaskName() + " not marked as done.";
 
         String s = "Nice! I've marked this task as done:\n"
                 + " " + t.toString();

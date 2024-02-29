@@ -29,6 +29,22 @@ public class Task {
     }
 
     /**
+     * Returns task name
+     */
+    public String getTaskName() {
+        return taskName;
+    }
+
+    /**
+     * Returns task status
+     * 
+     * @return True, if done. Else, false.
+     */
+    public boolean checkStatus() {
+        return isDone;
+    }
+
+    /**
      * Returns the status of the task.
      *
      * @return A string to indicate the status.

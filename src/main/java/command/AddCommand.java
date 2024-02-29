@@ -50,6 +50,7 @@ public class AddCommand extends Command {
                 } else {
                     ToDo td = new ToDo(taskName.strip());
                     taskList.add(td);
+                    assert taskList.contains(td) : taskName + " is not added.";
 
                     String s = "Got it. I've added this task:\n"
                             + "  " + td.toString()
@@ -80,6 +81,7 @@ public class AddCommand extends Command {
                 } else {
                     Deadline d = new Deadline(taskName.strip(), deadline);
                     taskList.add(d);
+                    assert taskList.contains(d) : taskName + " is not added.";
 
                     String s = "Got it. I've added this task:\n"
                             + "  " + d.toString()
@@ -116,6 +118,8 @@ public class AddCommand extends Command {
                 } else {
                     Event e = new Event(taskName.strip(), startTime, endTime);
                     taskList.add(e);
+                    assert taskList.contains(e) : taskName + " is not added.";
+
 
                     String s = "Got it. I've added this task:\n"
                             + "  " + e.toString()
