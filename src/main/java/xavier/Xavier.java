@@ -43,6 +43,10 @@ public class Xavier {
         try {
             Command cmd = new Parser(input, tasks).parse();
             isExit = cmd.isExit();
+            if (isExit) {
+                storage.saveDataAndExit(tasks);
+                return cmd.execute();
+            }
             return cmd.execute();
 
         } catch (IndexOutOfBoundsException e) {
