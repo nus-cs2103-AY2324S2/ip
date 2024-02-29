@@ -47,6 +47,15 @@ public class Parser {
     private static final DateTimeFormatter FORMATTER_DATE_TIME =
             DateTimeFormatter.ofPattern(PATTERN_DATE_TIME);
 
+    private static String[] splitByParameter(String[] splitString, String parameter) throws ParameterNotFoundException {
+        String[] newSplitString = splitString[0].split(" /" + parameter + ' ', 2);
+        if (newSplitString.length == 1) {
+            // This implies the last missing parameter will be displayed, rather than the first
+            throw new ParameterNotFoundException(parameter);
+        }
+        return newSplitString;
+    }
+
     /**
      * Extracts the description and parameters from a given command.
      *
@@ -57,26 +66,38 @@ public class Parser {
      */
     private static String[] extractParameters(
             String parametersString, String[] parameters) throws ParameterNotFoundException {
-        // TODO: generalise the method to any given parametersString, desiredParameters and separator
-        // TODO: perform ParameterNotFoundException checks correctly
-        // TODO: return a HashMap that maps each desiredParameter to its value
+        // TODO: this method is a cruft and might be rewritten
         int n = parameters.length;
         String[] result = new String[n + 1];
 
         // Split the string repeatedly to extract the rightmost parameter
         String[] splitString = new String[] { parametersString };
         for (int i = n - 1; i >= 0; i--) {
-            splitString = splitString[0].split(" /" + parameters[i] + ' ', 2);
-            if (splitString.length == 1) {
-                // This implies the last missing parameter will be displayed, rather than the first
-                throw new ParameterNotFoundException(parameters[i]);
-            }
+            splitString = splitByParameter(splitString, parameters[i]);
             result[i + 1] = splitString[1];
         }
 
         // Assign result[0] to be the description before returning result
         result[0] = splitString[0];
         return result;
+    }
+
+    private static Command parseListOn(String onString) throws InvalidDateTimeException {
+        try {
+            LocalDate on = LocalDate.parse(onString, FORMATTER_DATE);
+            return new ListOnDateCommand(on);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE, e.getParsedString());
+        }
+    }
+
+    private static Command parseListDueIn(String dueInString) throws InvalidDaysException {
+        try {
+            int days = Integer.parseInt(dueInString);
+            return new ListDueInCommand(days);
+        } catch (NumberFormatException e) {
+            throw new InvalidDaysException(dueInString);
+        }
     }
 
     /**
@@ -90,39 +111,27 @@ public class Parser {
      */
     private static Command parseList(
             String[] commandArgs) throws ParameterNotFoundException, InvalidDateTimeException, InvalidDaysException {
+        assert commandArgs[0].equals(COMMAND_LIST) : commandArgs[0];
+
         if (commandArgs.length == 1) {
             return new ListCommand();
-        } else {
-            // TODO: use extractParameters once it has been generalised
-            String remaining = commandArgs[1];
-
-            // Try to extract "on" and "due_in" from the remaining portion of the command
-            String[] onSplit = remaining.split("/on ", 2);
-            String[] dueInSplit = remaining.split("/due_in ", 2);
-
-            // Check which parameter is being extracted
-            boolean hasOn = onSplit.length > 1;
-            boolean hasDueIn = dueInSplit.length > 1;
-
-            // Return the corresponding Command depending on the parameter extracted
-            if (hasOn) {
-                try {
-                    LocalDate on = LocalDate.parse(onSplit[1], FORMATTER_DATE);
-                    return new ListOnDateCommand(on);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException(PATTERN_DATE, e.getParsedString());
-                }
-            } else if (hasDueIn) {
-                try {
-                    int days = Integer.parseInt(dueInSplit[1]);
-                    return new ListDueInCommand(days);
-                } catch (NumberFormatException e) {
-                    throw new InvalidDaysException(dueInSplit[1]);
-                }
-            } else {
-                throw new ParameterNotFoundException(new String[] { "on", "due_in" });
-            }
         }
+        // TODO: use extractParameters once it has been rewritten
+        String remaining = commandArgs[1];
+
+        // Try to extract "on" and "due_in" from the remaining portion of the command
+        String[] onSplit = remaining.split("/on ", 2);
+        String[] dueInSplit = remaining.split("/due_in ", 2);
+
+        // Check which parameter is being extracted
+        boolean hasOn = onSplit.length > 1;
+        boolean hasDueIn = dueInSplit.length > 1;
+
+        // Return the corresponding Command depending on the parameter extracted
+        if (!hasOn && !hasDueIn) {
+            throw new ParameterNotFoundException(new String[] { "on", "due_in" });
+        }
+        return hasOn ? parseListOn(onSplit[1]) : parseListDueIn(dueInSplit[1]);
     }
 
     /**
@@ -135,17 +144,43 @@ public class Parser {
      */
     private static Command parseDeleteOrMark(
             String[] commandArgs) throws InvalidTaskIndexException, EmptyDescriptionException {
+        assert commandArgs[0].equals(Parser.COMMAND_DELETE) || commandArgs[0].equals(Parser.COMMAND_MARK)
+                || commandArgs[0].equals(Parser.COMMAND_UNMARK) : commandArgs[0];
+
         try {
             int taskIndex = Integer.parseInt(commandArgs[1]) - 1;
-            if (commandArgs[0].equals(Parser.COMMAND_DELETE)) {
-                return new DeleteCommand(taskIndex);
-            } else {
-                return new MarkCommand(taskIndex, commandArgs[0].equals(Parser.COMMAND_MARK));
-            }
+            boolean isDelete = commandArgs[0].equals(Parser.COMMAND_DELETE);
+            boolean isMark = commandArgs[0].equals(Parser.COMMAND_MARK);
+            return isDelete ? new DeleteCommand(taskIndex) : new MarkCommand(taskIndex, isMark);
         } catch (NumberFormatException e) {
             throw new InvalidTaskIndexException(commandArgs[1]);
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyDescriptionException(commandArgs[0]);
+        }
+    }
+
+    private static Command parseAddDeadline(
+            String commandArgs) throws ParameterNotFoundException, InvalidDateTimeException {
+        try {
+            String[] parameters = Parser.extractParameters(commandArgs, new String[]{ "by" });
+            String description = parameters[0];
+            LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+            return new AddDeadlineCommand(description, by);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        }
+    }
+
+    private static Command parseAddEvent(
+            String commandArgs) throws ParameterNotFoundException, InvalidDateTimeException {
+        try {
+            String[] parameters = Parser.extractParameters(commandArgs, new String[] { "from", "to" });
+            String description = parameters[0];
+            LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
+            LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
+            return new AddEventCommand(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
         }
     }
 
@@ -161,39 +196,28 @@ public class Parser {
     private static Command parseAdd(
             String[] commandArgs) throws InvalidDateTimeException,
             EmptyDescriptionException, ParameterNotFoundException {
+        assert commandArgs[0].equals(COMMAND_TODO) || commandArgs[0].equals(COMMAND_DEADLINE)
+                || commandArgs[0].equals(COMMAND_EVENT) : commandArgs[0];
+
         // Add command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
         }
 
-        // TODO: map each task type to a list of parameters
+        // TODO: can be improved by mapping each task type to a list of parameters
         // Undefined behaviour when there are multiple instances of the same parameter
-        // e.g. event project meeting /from 2019-10-02 /to 2019-10-02 /from 2019-10-04 /to 2019-10-04
         String taskType = commandArgs[0];
-        String[] parameters;
-        String description;
 
         // Return the corresponding Command depending on the type of task to be added
-        try {
-            switch (taskType) {
-            case COMMAND_TODO:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{});
-                description = parameters[0];
-                return new AddTodoCommand(description);
-            case COMMAND_DEADLINE:
-                parameters = Parser.extractParameters(commandArgs[1], new String[]{ "by" });
-                description = parameters[0];
-                LocalDateTime by = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
-                return new AddDeadlineCommand(description, by);
-            default:
-                parameters = Parser.extractParameters(commandArgs[1], new String[] { "from", "to" });
-                description = parameters[0];
-                LocalDateTime from = LocalDateTime.parse(parameters[1], FORMATTER_DATE_TIME);
-                LocalDateTime to = LocalDateTime.parse(parameters[2], FORMATTER_DATE_TIME);
-                return new AddEventCommand(description, from, to);
-            }
-        } catch (DateTimeParseException e) {
-            throw new InvalidDateTimeException(PATTERN_DATE_TIME, e.getParsedString());
+        switch (taskType) {
+        case COMMAND_TODO:
+            return new AddTodoCommand(commandArgs[1]);
+        case COMMAND_DEADLINE:
+            return parseAddDeadline(commandArgs[1]);
+        case COMMAND_EVENT:
+            return parseAddEvent(commandArgs[1]);
+        default:
+            throw new AssertionError();
         }
     }
 
@@ -205,6 +229,8 @@ public class Parser {
      * @throws EmptyDescriptionException If the given command does not have a description.
      */
     public static Command parseFind(String[] commandArgs) throws EmptyDescriptionException {
+        assert commandArgs[0].equals(COMMAND_FIND) : commandArgs[0];
+
         // Find command without a description
         if (commandArgs.length == 1) {
             throw new EmptyDescriptionException(commandArgs[0]);
@@ -223,8 +249,8 @@ public class Parser {
      * @throws BobException If there is an error parsing the given user command.
      */
     public static Command parse(String input) throws BobException {
-        // TODO: Use regex
         String[] commandArgs = input.trim().split(" ", 2);
+        assert commandArgs.length > 0 : "commandArgs is empty";
 
         // Set command to be the command entered by the user, rather than the entire line of string
         String command = commandArgs[0];
