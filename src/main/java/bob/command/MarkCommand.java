@@ -31,6 +31,7 @@ public class MarkCommand extends Command {
      *
      * @param storage The storage to update the task list in hard disk.
      * @param taskList The task list to store the list of tasks after the mark or unmark.
+     * @return The response as a result of marking or unmarking the task.
      * @throws InvalidTaskIndexException If the specified task index is invalid.
      * @throws SavingException If there was an error updating the task list in hard disk.
      */

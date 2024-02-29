@@ -28,6 +28,7 @@ public class ListOnDateCommand extends ListCommand {
      *
      * @param storage The storage to retrieve the tasks to list.
      * @param taskList The task list that stores the tasks that might be listed.
+     * @return The response containing the list of tasks to be displayed.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {

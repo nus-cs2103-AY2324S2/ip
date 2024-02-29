@@ -35,6 +35,7 @@ public class AddEventCommand extends AddCommand {
      *
      * @param storage The storage to save the new event in hard disk.
      * @param taskList The task list to store the new event.
+     * @return The response as a result of adding the event.
      * @throws SavingException If there was an error saving the new event in hard disk.
      */
     @Override

@@ -14,6 +14,7 @@ public class ListCommand extends Command {
      *
      * @param storage The storage to retrieve the tasks to list.
      * @param taskList The task list that stores the tasks to be listed.
+     * @return The response containing the list of tasks to be displayed.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {

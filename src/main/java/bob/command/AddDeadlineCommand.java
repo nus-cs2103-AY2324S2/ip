@@ -31,6 +31,7 @@ public class AddDeadlineCommand extends AddCommand {
      *
      * @param storage The storage to save the new deadline in hard disk.
      * @param taskList The task list to store the new deadline.
+     * @return The response as a result of adding the deadline.
      * @throws SavingException If there was an error saving the new deadline in hard disk.
      */
     @Override

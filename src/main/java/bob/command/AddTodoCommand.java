@@ -25,6 +25,7 @@ public class AddTodoCommand extends AddCommand {
      *
      * @param storage The storage to save the new todo in hard disk.
      * @param taskList The task list to store the new todo.
+     * @return The response as a result of adding the todo.
      * @throws SavingException If there was an error saving the new todo in hard disk.
      */
     @Override

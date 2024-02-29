@@ -14,6 +14,7 @@ public class ExitCommand extends Command {
      *
      * @param storage The storage during which the program exits.
      * @param taskList The task list during which the program exits.
+     * @return The exit message to be displayed.
      */
     @Override
     public String execute(Storage storage, TaskList taskList) {

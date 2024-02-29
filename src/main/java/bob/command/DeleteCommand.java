@@ -28,6 +28,7 @@ public class DeleteCommand extends Command {
      *
      * @param storage The storage to update the task list in hard disk.
      * @param taskList The task list to store the list of tasks after the deletion.
+     * @return The response as a result of deleting the task.
      * @throws InvalidTaskIndexException If the specified task index is invalid.
      * @throws SavingException If there was an error updating the task list in hard disk.
      */
