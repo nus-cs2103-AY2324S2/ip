@@ -14,7 +14,7 @@ import kai.ui.MainWindow;
  */
 public class Main extends Application {
 
-    private Kai kai = new Kai("data/duke.txt");
+    private Kai kai = new Kai("./data/duke.txt");
 
     @Override
     public void start(Stage stage) {

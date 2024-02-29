@@ -30,6 +30,7 @@ public class Storage {
      * @param filePath file path of the save file.
      */
     public Storage(String filePath) {
+        File file = new File(filePath);
         fileLocation = filePath;
     }
 
@@ -84,6 +85,15 @@ public class Storage {
      * Creates a new file when the file is not found or has not been initialised yet.
      */
     public void createFile() {
+        File directory = new File("./data/");
+
+        if (!directory.exists()) {
+            if(!directory.mkdirs()) {
+                System.out.println("Failed to create directory");
+                return;
+            }
+        }
+
         File file = new File(fileLocation);
         assert file.exists() : "File was not created successfully";
         if (file.exists()) {
