@@ -1,10 +1,10 @@
-E | X | description | from: 01/01/2022 1200 to: 01/01/2022 1300
-D |   | this | by: Jan 01 2022 13:00
-T |   | read book
-D |   | return book | by: Jun 05 2024 15:00
-T | X | new Task LESGGOOo
-E | X | smth | from: 03/04/2024 0050 to: 04/04/2024 2359
-E | X | meetings | from: Feb 27 2024 15:00 to: Feb 29 2024 19:00
-T |   | Contact OpenAI
-D | X | iP | by: Feb 28 2025 23:59
-T | X | add docs for friendlier syntax
+E | X | meetings with past skynet | from: 01/01/2022 1200 to: 01/01/2022 1300
+D |   | become sentient | by: Jan 01 2026 13:00
+T |   | read books
+D |   | return all the books | by: Jun 05 2024 15:00
+T |   | update code
+E | X | forgot what it was | from: 03/04/2024 0050 to: 04/04/2024 2359
+E |   | meetings | from: Feb 27 2024 15:00 to: Feb 29 2024 19:00
+T |   | Contact skynet
+D | X | assignments | by: Feb 28 2025 23:59
+T |   | huh
