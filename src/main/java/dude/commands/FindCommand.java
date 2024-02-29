@@ -1,12 +1,11 @@
 package dude.commands;
 
+import java.util.ArrayList;
 
 import dude.exceptions.InvalidFormatException;
 import dude.tasks.Task;
 import dude.tasks.TaskList;
 import dude.utils.Utils;
-
-import java.util.ArrayList;
 
 /**
  * The FindCommand class represents a command to find tasks in the TaskList object.
