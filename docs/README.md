@@ -94,7 +94,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
     ```
     mark read book
     ```
-    ### Expected output
+  ### Expected output
     ```
     Nice! I've marked this task as done: {task name}
     ```
@@ -113,7 +113,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
   ```
   unmark read book
   ```
-  ## Expected output
+  ### Expected output
   ```
   unmarked 
   I've unmarked this task as done: {task name}
@@ -135,7 +135,7 @@ chat is a desktop application for managing tasks, optimized for use via a Comman
     ```
     find book
     ```
-    ### Expected output
+  ### Expected output
     ```
     Here are the matching tasks in your list:
     1. [T][ ] read book
