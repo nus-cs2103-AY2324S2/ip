@@ -79,7 +79,7 @@ public class Event extends Task {
      */
     @Override
     public String toFileString() {
-        return String.format("E | %d | %s | %s | %s", isDone ? 1 : 0, description, start.format(formatter), end.format(formatter));
+        return String.format("E | %d | %s | %s | %s", isDone() ? 1 : 0, description, start.format(formatter), end.format(formatter));
     }
 
     /**
