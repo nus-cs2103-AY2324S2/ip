@@ -80,11 +80,10 @@ public class Ui {
      * @param numberOfTasks The number of tasks after adding the task.
      */
     public static String getAddResponse(Task task, int numberOfTasks) {
-        return getResponse(
-                HEADER_ADD,
-                " ".repeat(INDENT_SPACE_COUNT) + task,
-                String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks)
-        );
+        String content = " ".repeat(INDENT_SPACE_COUNT) + task;
+        String footer = String.format(FOOTER_NUMBER_OF_TASKS, numberOfTasks);
+
+        return getResponse(HEADER_ADD, content, footer);
     }
 
     /**
@@ -104,11 +103,10 @@ public class Ui {
      * @param numberOfTasks The number of tasks after deleting the task.
      */
     public static String getDeleteResponse(Task task, int numberOfTasks) {
-        return getResponse(
-                HEADER_DELETE,
-                " ".repeat(INDENT_SPACE_COUNT) + task,
-                String.format(FOOTER_DELETE, numberOfTasks)
-        );
+        String indentedTask = " ".repeat(INDENT_SPACE_COUNT) + task;
+        String footer = String.format(FOOTER_DELETE, numberOfTasks);
+
+        return getResponse(HEADER_DELETE, indentedTask, footer);
     }
 
     /**
