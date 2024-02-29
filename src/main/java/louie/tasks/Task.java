@@ -17,6 +17,7 @@ public abstract class Task {
     private static final String MISSING_FROM_DATE_MSG = "expected a start date, but none was given";
     private static final String MISSING_TO_DATE_MSG = "expected an end date, but none was given";
     private static final String UNEXPECTED_EXTRA = "unexpected extra field in storage string";
+    private static final String UNEXPECTED_DELIMITER = "name cannot contain commas";
 
     protected final String name;
     protected boolean isDone;
@@ -33,7 +34,7 @@ public abstract class Task {
         assert name != null : "name cannot be null";
         assert !name.contains("\n") : "name cannot contain newline characters";
         if (name.contains(",")) {
-            throw new LouieException("name cannot contain commas");
+            throw new LouieException(UNEXPECTED_DELIMITER);
         }
         this.name = name;
         this.isDone = false;
