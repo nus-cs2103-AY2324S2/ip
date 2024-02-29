@@ -79,6 +79,24 @@ public class Parser {
         return result;
     }
 
+    private static Command parseListOn(String onString) throws InvalidDateTimeException {
+        try {
+            LocalDate on = LocalDate.parse(onString, FORMATTER_DATE);
+            return new ListOnDateCommand(on);
+        } catch (DateTimeParseException e) {
+            throw new InvalidDateTimeException(PATTERN_DATE, e.getParsedString());
+        }
+    }
+
+    private static Command parseListDueIn(String dueInString) throws InvalidDaysException {
+        try {
+            int days = Integer.parseInt(dueInString);
+            return new ListDueInCommand(days);
+        } catch (NumberFormatException e) {
+            throw new InvalidDaysException(dueInString);
+        }
+    }
+
     /**
      * Makes sense of the given user command that is either a "list", "list on" or "list due in".
      *
@@ -92,37 +110,23 @@ public class Parser {
             String[] commandArgs) throws ParameterNotFoundException, InvalidDateTimeException, InvalidDaysException {
         if (commandArgs.length == 1) {
             return new ListCommand();
-        } else {
-            // TODO: use extractParameters once it has been generalised
-            String remaining = commandArgs[1];
-
-            // Try to extract "on" and "due_in" from the remaining portion of the command
-            String[] onSplit = remaining.split("/on ", 2);
-            String[] dueInSplit = remaining.split("/due_in ", 2);
-
-            // Check which parameter is being extracted
-            boolean hasOn = onSplit.length > 1;
-            boolean hasDueIn = dueInSplit.length > 1;
-
-            // Return the corresponding Command depending on the parameter extracted
-            if (hasOn) {
-                try {
-                    LocalDate on = LocalDate.parse(onSplit[1], FORMATTER_DATE);
-                    return new ListOnDateCommand(on);
-                } catch (DateTimeParseException e) {
-                    throw new InvalidDateTimeException(PATTERN_DATE, e.getParsedString());
-                }
-            } else if (hasDueIn) {
-                try {
-                    int days = Integer.parseInt(dueInSplit[1]);
-                    return new ListDueInCommand(days);
-                } catch (NumberFormatException e) {
-                    throw new InvalidDaysException(dueInSplit[1]);
-                }
-            } else {
-                throw new ParameterNotFoundException(new String[] { "on", "due_in" });
-            }
         }
+        // TODO: use extractParameters once it has been generalised
+        String remaining = commandArgs[1];
+
+        // Try to extract "on" and "due_in" from the remaining portion of the command
+        String[] onSplit = remaining.split("/on ", 2);
+        String[] dueInSplit = remaining.split("/due_in ", 2);
+
+        // Check which parameter is being extracted
+        boolean hasOn = onSplit.length > 1;
+        boolean hasDueIn = dueInSplit.length > 1;
+
+        // Return the corresponding Command depending on the parameter extracted
+        if (!hasOn && !hasDueIn) {
+            throw new ParameterNotFoundException(new String[] { "on", "due_in" });
+        }
+        return hasOn ? parseListOn(onSplit[1]) : parseListDueIn(dueInSplit[1]);
     }
 
     /**
