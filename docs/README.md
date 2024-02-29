@@ -1,6 +1,6 @@
 # Skibidi User Guide
 
-![UI Image](https://github.com/LimZiJia/ip/blob/master/docs/UI.png?raw=true)
+![UI Image](https://github.com/LimZiJia/ip/blob/master/docs/Ui.png?raw=true)
 
 Skibidi is a Command-Line task manager. Use it to keep track of todo, deadlines and event tasks.
 
