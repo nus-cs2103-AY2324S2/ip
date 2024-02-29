@@ -143,15 +143,6 @@ public class TaskList {
         return taskCount;
     }
 
-    /**
-     * Method to get the list of tasks
-     * 
-     * @return The list of tasks
-     */
-    public List<Task> getTaskList() {
-        return tasks;
-    }
-
     /*
      * Method to return the string representation of the task list
      * 

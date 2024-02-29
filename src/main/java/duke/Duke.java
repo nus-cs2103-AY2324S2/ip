@@ -72,8 +72,10 @@ public class Duke {
         }
     }
 
+    /* ------------------------- Helpers and Handlers ------------------------- */
+
     /**
-     * Returns a string representing all tasks in the task list.
+     * Returns a string representing bot's response with tasklist
      *
      * @param taskList The task list to be listed.
      * @return A string representing all tasks in the task list.
@@ -144,6 +146,8 @@ public class Duke {
         assert this.taskList != null : "Task list should not be null";
         return "You have " + taskList.getTaskCount() + " tasks in your list.";
     }
+
+    /* ------------------------------ Handlers ------------------------------ */
 
     /**
      * Handles the "find" command by searching for tasks that contain a specified

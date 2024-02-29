@@ -21,7 +21,6 @@ public class Deadline extends Task {
     public Deadline(String description, String dueDate) throws BotException {
         super(description);
         this.dueDateTime = parseDueDate(dueDate);
-        assert this.dueDateTime != null : "Due date should not be null after parsing";
     }
 
     /**

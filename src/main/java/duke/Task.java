@@ -4,7 +4,7 @@ package duke;
  * Represents a Task with a description and a completion status
  */
 public class Task {
-    private String description;
+    private final String description;
     private boolean isComplete;
 
     /**
@@ -30,7 +30,6 @@ public class Task {
      */
     public void markAsDone() {
         this.isComplete = true;
-        assert isComplete : "Task should be marked as done";
     }
 
     /**
@@ -38,7 +37,6 @@ public class Task {
      */
     public void markAsUndone() {
         this.isComplete = false;
-        assert !isComplete : "Task should be marked as undone";
     }
 
     /**
