@@ -54,7 +54,7 @@ public class Storage {
             Scanner scanner = new Scanner(file);
 
             while (scanner.hasNextLine()) {
-                String taskData = scanner.nextLine();
+                String taskData = scanner.nextLine().substring(2);  // Remove first two characters
 
                 Task task = new Task(taskData);
                 tasks.add(task);
@@ -68,7 +68,6 @@ public class Storage {
         return tasks;
     }
 
-
     /**
      * Writes tasks from the provided ArrayList to the file.
      *
@@ -76,15 +75,30 @@ public class Storage {
      */
     public void writeTasks(ArrayList<Task> tasks) {
         try {
-            FileWriter writer = new FileWriter(filePath);
-            for (Task task : tasks) {
-                writer.write(task.toString() + "\n");
+            File file = new File(filePath);
+
+            // Check if the file and its parent directory exist, create them if needed
+            if (!file.exists()) {
+                File parentDir = file.getParentFile();
+                if (!parentDir.exists()) {
+                    parentDir.mkdirs();  // Create parent directories if they don't exist
+                }
+                file.createNewFile();  // Create the file
+            }
+
+            FileWriter writer = new FileWriter(file);
+            for (int i = 0; i < tasks.size(); i++) {
+                // Include the task number (index + 1) in the output
+                writer.write((i + 1) + ". " + tasks.get(i).toString() + "\n");
             }
             writer.close();
             System.out.println("Tasks written to file successfully!");
         } catch (IOException e) {
             e.printStackTrace();
             System.err.println("Error writing tasks to file: " + e.getMessage());
+            fileIsOpen = false;  // Set fileIsOpen to false on error
         }
     }
+
+
 }

@@ -5,16 +5,15 @@ import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-
-public class DeadlineTest {
+public class TodoTest {
 
     @Test
-    public void deadlineToStringFormat() throws DukeException {
+    public void TodoToStringFormat() throws DukeException {
         Storage storage = new Storage("src/test/java/data/duke.txt");
         TaskList taskList = new TaskList(new ArrayList<>());
-        Parser.addDeadlineTask("deadline return books /by 2025-09-09",taskList, storage );
+        Parser.addTodoTask("Todo Homework",taskList, storage );
 
-        assertEquals("[  ] (D) return books | Sep 09 2025", taskList.getTasks().get(0).toString());
+        assertEquals("[  ] (T) Homework", taskList.getTasks().get(0).toString());
     }
 
 }

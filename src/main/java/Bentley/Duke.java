@@ -1,5 +1,6 @@
 package bentley;
 
+import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 /**
@@ -72,7 +73,7 @@ public class Duke {
     public String getResponse(String input) {
         try {
             return Parser.parseCommand(input, taskList, ui, storage);
-        } catch (IllegalArgumentException e) {
+        } catch (DukeException e) {
             return e.getMessage();
         }
     }
@@ -83,7 +84,7 @@ public class Duke {
      * @param args Command-line arguments (not used).
      */
     public static void main(String[] args) {
-        new Duke("data/duke.txt").run();
+        new Duke("src/main/java/data/duke.txt").run();
     }
 
     /**

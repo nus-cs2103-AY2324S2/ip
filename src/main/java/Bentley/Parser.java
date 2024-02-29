@@ -14,9 +14,9 @@ public class Parser {
      * @param ui       The Ui object for user interface interaction.
      * @param storage  The Storage object for reading and writing tasks.
      * @return A string representing the result or feedback of the command.
-     * @throws IllegalArgumentException If the command is not recognized.
+     * @throws DukeException If the command is not recognized.
      */
-    public static String parseCommand(String input, TaskList taskList, Ui ui, Storage storage) {
+    public static String parseCommand(String input, TaskList taskList, Ui ui, Storage storage) throws DukeException {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
 
@@ -50,7 +50,7 @@ public class Parser {
                 String findResult = taskList.findTasks(input);
                 return findResult;
             default:
-                throw new IllegalArgumentException("I'm sorry, but I don't understand that command.");
+                throw new DukeException("I'm sorry, but I don't understand that command.");
         }
     }
 
@@ -61,25 +61,28 @@ public class Parser {
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
      * @return A string representing the result or feedback of adding the todo task.
-     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     * @throws DukeException If the input is incomplete or duplicates an existing task.
      */
-    private static String addTodoTask(String input, TaskList taskList, Storage storage) {
+    public static String addTodoTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 5) {
-            throw new IllegalArgumentException("Looks like something is missing (description)");
+            throw new DukeException("Looks like something is missing (description)");
         }
 
         String description = input.substring(5).trim();
 
         if (description.isEmpty()) {
-            throw new IllegalArgumentException("Looks like the description is missing");
-        }
-
-        if (isDuplicateDescription(description, taskList)) {
-            throw new IllegalArgumentException("Task with the same description already exists");
+            throw new DukeException("Looks like the description is missing");
         }
 
         Task newTask = new Todo(description);
+
+        // Check for duplicate description
+        if (isDuplicateDescription(String.valueOf(newTask), taskList)) {
+            throw new DukeException("This task already exists in the list");
+        }
+
         taskList.getTasks().add(newTask);
+
 
         String result = "Got it. I've added this task:\n  " + newTask + "\nNow you have " + taskList.getTasks().size()
                 + " tasks in the list.";
@@ -94,11 +97,11 @@ public class Parser {
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
      * @return A string representing the result or feedback of adding the deadline task.
-     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     * @throws DukeException If the input is incomplete or duplicates an existing task.
      */
-    private static String addDeadlineTask(String input, TaskList taskList, Storage storage) {
+    public static String addDeadlineTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 9) {
-            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+            throw new DukeException("Looks like something is missing (description/ Deadline)");
         }
 
         String[] parts = input.split("/by");
@@ -106,7 +109,7 @@ public class Parser {
         String date = parts[1].trim();
 
         if (descriptionWithDeadline.isEmpty() || date.isEmpty()) {
-            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+            throw new DukeException("Looks like something is missing (description/ Deadline)");
         }
 
         // Extracting "deadline" from the description
@@ -134,11 +137,11 @@ public class Parser {
      * @param taskList The TaskList object to add the new task to.
      * @param storage  The Storage object for writing tasks.
      * @return A string representing the result or feedback of adding the event task.
-     * @throws IllegalArgumentException If the input is incomplete or duplicates an existing task.
+     * @throws DukeException If the input is incomplete or duplicates an existing task.
      */
-    private static String addEventTask(String input, TaskList taskList, Storage storage) {
+    private static String addEventTask(String input, TaskList taskList, Storage storage) throws DukeException {
         if (input.length() <= 6) {
-            throw new IllegalArgumentException("Looks like something is missing (description/ Deadline)");
+            throw new DukeException("Looks like something is missing (description/ Deadline)");
         }
 
         String[] parts = input.substring(0).split("/from");
@@ -147,7 +150,7 @@ public class Parser {
         String from = eventParts[0].trim();
         String to = eventParts[1].trim();
         if (description.isEmpty() || from.isEmpty() || to.isEmpty()) {
-            throw new IllegalArgumentException(
+            throw new DukeException(
                     "Looks like something is missing (description/ start date/ end date)");
         }
 
@@ -162,7 +165,7 @@ public class Parser {
         storage.writeTasks(taskList.getTasks());
         return result;
     }
-    
+
     /**
      * Checks if a task with the same description already exists in the TaskList.
      *

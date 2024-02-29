@@ -1,6 +1,5 @@
 package bentley;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 
 /**
@@ -46,21 +45,6 @@ public class TaskList {
             result.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
         return result.toString();
-    }
-
-    /**
-     * Checks if a task with the same description already exists in the TaskList.
-     *
-     * @param description The description of the task to check for duplicates.
-     * @return True if a task with the same description exists, false otherwise.
-     */
-    private boolean isDuplicateDescription(String description) {
-        for (Task task : tasks) {
-            if (task.getDescription().trim().equalsIgnoreCase(description.trim())) {
-                return true;
-            }
-        }
-        return false;
     }
 
      /**

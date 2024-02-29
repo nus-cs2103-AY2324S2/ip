@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
  * It extends the Task class and includes functionality to handle events.
  */
 public class Event extends Task {
-     
+
     private LocalDateTime dateTimeFrom;
     private LocalDateTime dateTimeTo;
 

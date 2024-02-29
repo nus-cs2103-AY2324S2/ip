@@ -30,7 +30,7 @@ public class Task {
         if (taskData.matches("^\\[[Xx ]\\] .*")) {
             this.isDone = taskData.charAt(1) == 'X' || taskData.charAt(1) == 'x';
             this.originalTaskData = taskData.trim();
-            this.taskDescription = taskData.substring(4).trim();
+            this.taskDescription = taskData.substring(5).trim();
         } else {
             this.isDone = false;
             this.originalTaskData = "[ ] " + taskData.trim();  // Add [ ] if not present
@@ -50,19 +50,23 @@ public class Task {
     /**
      * Marks the task as done by updating its completion status and original task data.
      */
+
+
     public void markAsDone() {
         this.isDone = true;
         // Update the original task data when marking as done
-        this.originalTaskData = "[X] " + this.originalTaskData.trim();
+        this.taskDescription = "[X] " + this.taskDescription.substring(4).trim();
     }
 
     /**
      * Marks the task as undone by updating its completion status and original task data.
      */
+
+
     public void markAsUndone() {
         this.isDone = false;
         // Update the original task data when marking as undone
-        this.originalTaskData = "[ ] " + this.originalTaskData.trim();
+        this.taskDescription = "[  ] " + this.taskDescription.substring(4).trim();
     }
 
     /**
@@ -87,9 +91,16 @@ public class Task {
         if (taskDescription.matches("^\\[.*\\].*")) {
             return taskDescription;  // Return as is if square brackets are already present
         } else {
-            return "[ " + (doneOrNot()) + " ] " + taskDescription;
+            // Check if the taskDescription starts with a number followed by a dot and whitespace
+            if (taskDescription.matches("^\\d+\\.\\s.*")) {
+                return taskDescription;  // Return as is if numbering is already present
+            } else {
+                // Add numbering and square brackets
+                return "[ " + (doneOrNot()) + " ] " + taskDescription;
+            }
         }
     }
+
 
     /**
      * Retrieves the original task data as it was read from a file or created.
