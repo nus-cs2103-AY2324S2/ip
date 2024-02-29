@@ -28,7 +28,7 @@ public class FindCommand extends Command {
      */
     @Override
     public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
-        Boolean isFind = false;
+        boolean isFind = false;
         if (description.isEmpty()) {
           throw new OrkException("What do you wan to find?");
         } else {
@@ -56,7 +56,7 @@ public class FindCommand extends Command {
     /**
      * equal method
      * @param object object to compare with
-     * @return
+     * @return a boolean
      */
     @Override
     public boolean equals(Object object) {

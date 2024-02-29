@@ -40,14 +40,6 @@ public class TaskList {
     }
 
     /**
-     * delete a task from the current list of tasks
-     * @param index the index of the task in the list to be deleted
-     */
-    public void deleteTask(int index) {
-        list.remove(index);
-    }
-
-    /**
      * a getter for a task in the list
      *
      * @param index the index of the task to get

@@ -19,7 +19,7 @@ public class ByeCommand extends Command {
      * @param storage handle storage
      */
     public void execute(TaskList tasks, Ui ui, Storage storage) {
-        ui.sayBye();;
+        ui.sayBye();
         ui.closeScanner();
     }
 

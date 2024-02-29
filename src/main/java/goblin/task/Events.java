@@ -42,7 +42,7 @@ public class Events extends Task {
             this.startDate = new Date(splitTD[0]);
             this.startTime = new Time(splitTD[1]);
         } catch (OrkException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 
@@ -56,7 +56,7 @@ public class Events extends Task {
             this.endDate = new Date(splitTD[0]);
             this.endTime = new Time(splitTD[1]);
         } catch (OrkException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 

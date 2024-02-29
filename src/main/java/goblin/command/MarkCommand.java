@@ -33,7 +33,7 @@ public class MarkCommand extends Command {
                 throw new OrkException("No such task");
             }
             task.done();
-            ui.printDoneMessage(task);
+            Ui.printDoneMessage(task);
             storage.writeToDisk(list);
         } catch (OrkException exception) {
             ui.printException(exception);

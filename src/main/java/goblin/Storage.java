@@ -93,8 +93,6 @@ public class Storage {
             for (int i = 0; i < TaskList.list.size(); i++) {
                 Task task = taskList.get(i);
                 String type = task.type();
-                int isDone = task.isDone() ? 1 : 0;
-                String description = task.getDescription();
                 String taskInfo;
                 if (type.equals("[D]")) {
                     Deadlines deadline = (Deadlines) task;
@@ -107,7 +105,7 @@ public class Storage {
                     Events event = (Events) task;
                     taskInfo = event.toString();
                 }
-                fileWriter.write(taskInfo.toString() + "\n");
+                fileWriter.write(taskInfo + "\n");
             }
             fileWriter.close();
         } catch (IOException exception) {
