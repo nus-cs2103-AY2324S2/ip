@@ -1,12 +1,7 @@
 # SamuelBot User Guide
 
-// Update the title above to match the actual product name
-
-// Product screenshot goes here
 ![Ui](https://github.com/SamuelZero1/ip/assets/111351811/4c99bafc-e6b7-4f23-8b57-1e7b0fe7a362)
 
-
-// Product intro goes here
 Welcome to SamuelBot, your personal task manager! SamuelBot helps you keep track of your tasks by allowing you to add, delete, mark as done, and find tasks easily. It can even save your previous added tasks! Below is a guide to help you make the most out of SamuelBot's features.
 
 ## Adding todos
