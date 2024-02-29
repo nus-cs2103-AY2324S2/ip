@@ -3,6 +3,8 @@ package dude;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
+import javafx.application.Application;
+
 import dude.commands.Command;
 import dude.commands.CommandTypes;
 import dude.commands.Parser;
@@ -10,6 +12,16 @@ import dude.exceptions.DudeException;
 import dude.tasks.TaskList;
 import dude.utils.Storage;
 import dude.utils.Ui;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 /**
@@ -20,7 +32,7 @@ import dude.utils.Ui;
  * The main loop of the application is responsible for reading user input,
  * parsing it into a command, executing the command and saving the task list to disk.
  **/
-public class Dude {
+public class Dude extends Application {
     private final TaskList taskList;
     private final Storage storage;
     private final Ui ui;
@@ -104,7 +116,86 @@ public class Dude {
         }
     }
 
-    public static void main(String[] args) {
-        new Dude("data/tasklist.ser").run();
+    public Dude() {
+        this("data/tasks.txt");
+    }
+
+    @Override
+    public void start(Stage stage) {
+
+
+        Label label = new Label("Hello Boii");
+
+        ScrollPane scrollPane = new ScrollPane();
+        VBox container = new VBox();
+
+        scrollPane.setContent(container);
+
+        Button sendButton = new Button("Send");
+        TextField textField = new TextField();
+
+        AnchorPane mainLayout = new AnchorPane();
+        mainLayout.getChildren().addAll(label, scrollPane, textField, sendButton);
+
+
+        Scene scene = new Scene(mainLayout);
+
+        stage.setTitle("Duke");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(440);
+
+        scrollPane.setPrefSize(420, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+
+        textField.setPrefWidth(300);
+        sendButton.setPrefWidth(100);
+
+        AnchorPane.setTopAnchor(scrollPane, 1.0);
+        AnchorPane.setLeftAnchor(scrollPane, 1.0);
+
+        AnchorPane.setBottomAnchor(sendButton, 10.0);
+        AnchorPane.setRightAnchor(sendButton, 5.0);
+
+        AnchorPane.setBottomAnchor(textField, 10.0);
+        AnchorPane.setLeftAnchor(textField, 5.0);
+
+        container.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        sendButton.setOnMouseClicked(e -> {
+            String input = textField.getText();
+            container.getChildren().add(getUserMessageView(input));
+            textField.clear();
+        });
+
+        textField.setOnAction(e -> {
+            String input = textField.getText();
+            container.getChildren().add(getUserMessageView(input));
+            textField.clear();
+        });
+
+        mainLayout.setPrefSize(420, 600.0);
+        mainLayout.heightProperty().addListener((observable) -> {
+            scrollPane.setVvalue(1.0);
+            System.out.println("Height: " + mainLayout.getHeight());
+        });
+
+        stage.setScene(scene); // Setting the stage to show our screen
+        stage.show(); // Render the stage.
+    }
+
+
+    private static Label getUserMessageView(String message) {
+        System.out.println("User: " + message);
+        Label label = new Label(message);
+        label.setWrapText(true);
+        label.setMinHeight(Region.USE_PREF_SIZE);
+        label.setPrefWidth(Region.USE_COMPUTED_SIZE);
+        label.getStyleClass().add("dialog-label");
+        return label;
     }
 }
