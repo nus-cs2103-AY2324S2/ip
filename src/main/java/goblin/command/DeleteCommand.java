@@ -31,8 +31,10 @@ public class DeleteCommand extends Command {
             if (index + 1 > TaskList.list.size()) {
                 throw new OrkException("There's no such task.");
             }
+            int oldNumberOfTasks = TaskList.list.size();
             TaskList.list.remove(index);
             int numberOfTasks = TaskList.list.size();
+            assert numberOfTasks == oldNumberOfTasks - 1 : "task did not get deleted";
             Ui.printDeleteMessage(task, numberOfTasks);
             storage.writeToDisk(list);
         } catch (OrkException exception) {
