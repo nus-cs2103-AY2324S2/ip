@@ -3,6 +3,7 @@
 ## Introduction
 
 ![Ui](./Ui.png)
+
 Xavier is a simple chatbot which helps to manage your daily tasks!
 
 Download it from [<u>here</u>](https://github.com/shunjieee/ip/releases/download/A-Release/xavier.jar) now!
@@ -25,7 +26,9 @@ List of features supported:
 There are three types tasks that Xavier supports, to-do, deadline and event. The commands add the respective task to the task list.
 
 **todo**
-Formart: `todo <taskname>`
+
+Formart: 
+`todo <taskname>`
 
 Example:
 `todo wash dishes`
@@ -38,7 +41,9 @@ Now you have 1 tasks in the list.
 ```
 
 **deadline**
-Format: `deadline <taskname> /by <date & time>`
+
+Format: 
+`deadline <taskname> /by <date & time>`
 
 Example:
 `deadline CS2103T Quiz 7 /by 7/3/2024-2359`
@@ -51,7 +56,9 @@ Now you have 2 tasks in the list.
 ```
 
 **event**
-Format: `event <taskname> /from <start date & time> /to <end date & time>`
+
+Format: 
+`event <taskname> /from <start date & time> /to <end date & time>`
 
 Example:
 `event Taylor Swift Concert /from 3/3/2024-1900 /to 3/3/2024-2200`
