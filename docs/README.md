@@ -10,8 +10,8 @@
 - Command:
   - Command to add ToDo Task: <code style="color : Blue">todo {DESCRIPTION}</code>
   - Command to add Deadline Task: <code style="color : Blue">deadline {DESCRIPTION} /by {DUE_DATE}</code>
-      *(DUE_DATE should be in yyyy-mm-dd format)*
-  - Command to add Event Task: <code style="color : Blue">event {DESCRIPTION} /from {START_TIME /to {END_TIME}</code>
+      *p.s. (DUE_DATE should be in yyyy-mm-dd format)*
+  - Command to add Event Task: <code style="color : Blue">event {DESCRIPTION} /from {START_TIME} /to {END_TIME}</code>
   - Command to add FixedDuration Task: <code style="color : Blue">fixedduration {DESCRIPTION} /needs {DURATION}</code>
 
 
