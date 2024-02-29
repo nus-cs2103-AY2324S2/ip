@@ -19,6 +19,7 @@ List of features supported:
 * Sort
 * Exit
 
+---
 ### Adding a task: `todo`, `deadline` and `event`
 
 There are three types tasks that Xavier supports, to-do, deadline and event. The commands add the respective task to the task list.
@@ -35,6 +36,7 @@ Got it. I've added this task:
   [T][ ] wash dishes
 Now you have 1 tasks in the list.
 ```
+
 **deadline**
 Format: `deadline <taskname> /by <date & time>`
 
@@ -47,9 +49,9 @@ Got it. I've added this task:
   [D][ ] CS2103T Quiz 7 (by: Mar 07 2024, 23:59)
 Now you have 2 tasks in the list.
 ```
+
 **event**
 Format: `event <taskname> /from <start date & time> /to <end date & time>`
-
 
 Example:
 `event Taylor Swift Concert /from 3/3/2024-1900 /to 3/3/2024-2200`
@@ -64,6 +66,7 @@ Now you have 3 tasks in the list.
 > [!IMPORTANT]
 > The date-time format **MUST** be in **dd/MM/yyyy-HHmm**.
 
+---
 ### Deleting a task: `delete`
 
 Format:
@@ -79,6 +82,7 @@ Noted, I've removed this task:
 Now you have 2 tasks in the list.
 ```
 
+---
 ### Listing all the task in the list: `list`
 
 Format:
@@ -91,6 +95,7 @@ Here are the tasks in your list:
 2. [E][ ] Taylor Swift Concert (from: Mar 03 2024, 19:00 to: Mar 03 2024, 22:00)
 ```
 
+---
 ### Marking task as done: `mark`
 
 Format:
@@ -105,6 +110,7 @@ Nice! I've marked this task as done:
  [D][X] CS2103T Quiz 7 (by: Mar 07 2024, 23:59)
 ```
 
+---
 ### Unmarking task: `unmark`
 
 Format:
@@ -119,6 +125,7 @@ OK, I've marked this task as not done yet:
  [E][ ] Taylor Swift Concert (from: Mar 03 2024, 19:00 to: Mar 03 2024, 22:00)
 ```
 
+---
 ### Finding tasks in the list: `find`
 
 Format:
@@ -135,6 +142,7 @@ Here are the matching tasks in your list:
 > [!NOTE]
 > `keyword` is case sensitive.
 
+---
 ### Sorting the list: `sort`
 
 The list will be sorting with the unmark tasks at the top and marked tasks at the bottom. In each section, the tasks will be sorted alphabetically.
@@ -149,6 +157,7 @@ Here are the tasks in your list:
 2. [D][X] CS2103T Quiz 7 (by: Mar 07 2024, 23:59)
 ```
 
+---
 ### Exiting the program: `bye`
 
 The program will save the list in `./data/data.txt` before exiting.
