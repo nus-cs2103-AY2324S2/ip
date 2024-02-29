@@ -48,7 +48,7 @@ public class PeriodTest {
 
     @Test
     public void toString_notDone() {
-        assertEquals("[P][ ] a (from: Feb 11 2024 1937 to: Feb 12 2024 1937)", new Period("a",
+        assertEquals("[P][ ] a (start: Feb 11 2024 1937 end: Feb 12 2024 1937)", new Period("a",
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0))
                 .toString());
@@ -60,6 +60,6 @@ public class PeriodTest {
                 LocalDateTime.of(2024, Month.FEBRUARY, 11, 19, 37, 0),
                 LocalDateTime.of(2024, Month.FEBRUARY, 12, 19, 37, 0));
         period.setDone(true);
-        assertEquals("[P][X] a (from: Feb 11 2024 1937 to: Feb 12 2024 1937)", period.toString());
+        assertEquals("[P][X] a (start: Feb 11 2024 1937 end: Feb 12 2024 1937)", period.toString());
     }
 }
