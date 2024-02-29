@@ -48,13 +48,12 @@ test {
 }
 
 application {
-    mainClass.set("riri.Main")
+    mainClass.set("riri.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "riri"
     archiveClassifier = null
-    dependsOn("distZip", "distTar")
     archiveFileName = 'riri.jar'
 }
 

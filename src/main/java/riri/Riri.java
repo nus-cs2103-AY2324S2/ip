@@ -17,9 +17,7 @@ public class Riri {
         commandHandler = new CommandHandler();
         storage = new Storage();
         try {
-            System.out.println("Load tasks");
             tasks = new TaskList(storage.load());
-            System.out.println("Able to load tasks");
         } catch (IOException e) {
             System.out.println(e.getStackTrace());
         }

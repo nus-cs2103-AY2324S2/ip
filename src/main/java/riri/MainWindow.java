@@ -2,6 +2,8 @@ package riri;
 
 import static java.lang.Thread.sleep;
 
+import java.util.Arrays;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -11,7 +13,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
-import java.util.Arrays;
 
 
 /**

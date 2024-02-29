@@ -4,9 +4,25 @@
 
 Welcome to Riri, your personal chatbot assistant! Riri helps you manage tasks efficiently through a simple chat interface.
 
+## Adding Todos
+
+To add todos for tasks, use the following format:
+`todo <description>`
+
+Example: `todo play video games`
+
+After entering this command, a deadline task will be added to your task list.
+
+Expected Output:
+
+```
+Got it. Added: T[][] play video games
+```
+
 ## Adding Deadlines
 
 To add deadlines for tasks, use the following format:
+`deadline <description> /by <date>`
 
 Example: `deadline return books /by 2/2/2024`
 
@@ -15,26 +31,28 @@ After entering this command, a deadline task will be added to your task list.
 Expected Output:
 
 ```
-Added deadline: [D][] return books (by: Feb 2 2024)
+Got it. Added: [D][] return books (by: Feb 2 2024)
 ```
 
 ## Adding Events
 
 To add future events to your task list, follow this format:
+`event <description> /from <start_date> /to <end_date>`
 
-Example: `event birthday party /from 2/2/2024 to 3/2/2024`
+Example: `event birthday party /from 2/2/2024 /to 3/2/2024`
 
 After entering this command, an event task will be added to your task list.
 
 Expected Output:
 
 ```
-Added event: [E][] birthday party (from: Feb 2 2024 to Mar 3 2024)
+Got it. Added: [E][] birthday party (from: Feb 2 2024 to Mar 3 2024)
 ```
 
 ## Marking a Task as Done
 
 To mark a task as done follow this format:
+`mark <task number>`
 
 Example: `mark 3`
 
@@ -49,6 +67,7 @@ Expected Output:
 ## Marking a Task as not done
 
 To mark a task as not done follow this format:
+`unmark <task_number>`
 
 Example: `unmark 3`
 
@@ -63,6 +82,7 @@ Expected Output:
 ## Finding Tasks
 
 Riri allows you to find tasks in your task list based on keywords. Use the following format:
+`find <task>`
 
 Example: `find books`
 
@@ -96,3 +116,17 @@ We can exit the chatbot and save messages by writing `bye`
 Example: `bye`
 
 The chatbot will exit.
+
+## Summary
+
+| Command  | Format                                                  | Example                                            |
+|----------|---------------------------------------------------------|----------------------------------------------------|
+| List     | `list`                                                  | `list`                                             |
+| Mark     | `mark <task_number>`                                    | `mark 3`                                           |
+| Unmark   | `unmark <task_number>`                                  | `unmark 3`                                         |
+| Todo     | `todo <description>`                                    | `todo play video games`                            |
+| Deadline | `deadline <description> /by <date>`                     | `deadline return books /by 2/2/2024`               |
+| Event    | `event <description> /from <start_date> /to <end_date>` | `event birthday party /from 2/2/2024 /to 3/2/2024` |
+| Delete   | `delete <task_number>`                                  | `delete 3`                                         |
+| Find     | `find <task>`                                           | `find book`                                        |
+| Bye      | `bye`                                                   | `bye`                                              |
