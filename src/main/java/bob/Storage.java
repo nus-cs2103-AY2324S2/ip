@@ -4,6 +4,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -16,6 +17,7 @@ import bob.exception.LoadingException;
 import bob.exception.SavingException;
 import bob.task.Deadline;
 import bob.task.Event;
+import bob.task.Period;
 import bob.task.Task;
 import bob.task.Todo;
 
@@ -73,10 +75,13 @@ public class Storage {
         // The second part of the split indicates whether the task is done
         boolean isDone = getDone(parameters[1]);
 
-        Task task = getTask(parameters, taskType);
-        task.setDone(isDone);
-
-        return task;
+        try {
+            Task task = getTask(parameters, taskType);
+            task.setDone(isDone);
+            return task;
+        } catch (ArrayIndexOutOfBoundsException e) {
+            throw new LoadingException(e.getMessage());
+        }
     }
 
     private static Task getTask(String[] parameters, String taskType) throws LoadingException {
@@ -98,8 +103,13 @@ public class Storage {
             LocalDateTime to = LocalDateTime.parse(parameters[4], FORMATTER_DATE_TIME);
             task = new Event(description, from, to);
             break;
+        case Period.STORAGE_INDICATOR:
+            LocalDateTime start = LocalDateTime.parse(parameters[3], FORMATTER_DATE_TIME);
+            LocalDateTime end = LocalDateTime.parse(parameters[4], FORMATTER_DATE_TIME);
+            task = new Period(description, start, end);
+            break;
         default:
-            throw new LoadingException("invalid storage indicator detected");
+            throw new LoadingException("i don't recognise this storage indicator");
         }
         return task;
     }

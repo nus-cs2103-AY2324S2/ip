@@ -19,7 +19,17 @@ public class TaskListTest {
             new TaskList().addEvent("", LocalDateTime.now().plusDays(1), LocalDateTime.now());
             fail();
         } catch (BobException e) {
-            assertEquals("wow your event ends before it starts", e.getMessage());
+            assertEquals("it ends before it starts???", e.getMessage());
+        }
+    }
+
+    @Test
+    public void addPeriod_invalidPeriod_exceptionThrown() {
+        try {
+            new TaskList().addPeriod("", LocalDateTime.now().plusDays(1), LocalDateTime.now());
+            fail();
+        } catch (BobException e) {
+            assertEquals("it ends before it starts???", e.getMessage());
         }
     }
 

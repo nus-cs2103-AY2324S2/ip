@@ -6,11 +6,12 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import bob.exception.InvalidEventException;
+import bob.exception.InvalidPeriodException;
 import bob.exception.InvalidTaskIndexException;
 import bob.exception.SavingException;
 import bob.task.Deadline;
 import bob.task.Event;
+import bob.task.Period;
 import bob.task.Task;
 import bob.task.Todo;
 
@@ -126,19 +127,40 @@ public class TaskList {
      * Adds an event to the list of tasks.
      *
      * @param description The description of the event to be added.
-     * @param from The start time of the deadline to be added.
-     * @param to The end time of the deadline to be added.
+     * @param from The start time of the event to be added.
+     * @param to The end time of the event to be added.
      * @return The added event.
-     * @throws InvalidEventException If the end time of the event is earlier than its start time.
+     * @throws InvalidPeriodException If the end time of the event is earlier than its start time.
      */
-    public Task addEvent(String description, LocalDateTime from, LocalDateTime to) throws InvalidEventException {
+    public Task addEvent(String description, LocalDateTime from, LocalDateTime to) throws InvalidPeriodException {
         // Check whether event is invalid
         if (to.isBefore(from)) {
-            throw new InvalidEventException();
+            throw new InvalidPeriodException();
         }
 
         // Add and return the event
         Task task = new Event(description, from, to);
+        tasks.add(task);
+        return task;
+    }
+
+    /**
+     * Adds a period to the list of tasks.
+     *
+     * @param description The description of the period to be added.
+     * @param start The start time of the period to be added.
+     * @param end The end time of the period to be added.
+     * @return The added period.
+     * @throws InvalidPeriodException If the end time of the period is earlier than its start time.
+     */
+    public Task addPeriod(String description, LocalDateTime start, LocalDateTime end) throws InvalidPeriodException {
+        // Check whether period is invalid
+        if (end.isBefore(start)) {
+            throw new InvalidPeriodException();
+        }
+
+        // Add and return the period
+        Task task = new Period(description, start, end);
         tasks.add(task);
         return task;
     }
