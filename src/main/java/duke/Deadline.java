@@ -41,7 +41,6 @@ public class Deadline extends Task {
             try {
                 return LocalDateTime.parse(dueDate, formatter);
             } catch (DateTimeParseException ignored) {
-                continue;
             }
         }
         throw new BotException("Invalid date format."

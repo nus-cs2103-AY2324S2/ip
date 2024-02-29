@@ -28,23 +28,6 @@ public class Ui {
     }
 
     /**
-     * Wraps a list of strings with separator lines and returns the result
-     * Each string in the list is placed on a new line
-     *
-     * @param list The list of strings to be wrapped
-     * @return The list of strings wrapped with separator lines
-     */
-    public static String wrapWithSepLine(List<String> list) {
-        StringBuilder sb = new StringBuilder(SEPARATOR_LINE);
-        System.out.println();
-        for (String item : list) {
-            sb.append("\n").append(item);
-        }
-        sb.append("\n").append(SEPARATOR_LINE);
-        return sb.toString();
-    }
-
-    /**
      * Prints a list of strings to the terminal
      * Each string in the list is placed on a new line
      *

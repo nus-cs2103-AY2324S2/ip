@@ -81,7 +81,7 @@ public class TaskRepository {
             throws BotException {
         switch (taskType) {
             case "T":
-                processTodoTask(taskDetails, isTaskDone, description);
+                processTodoTask(isTaskDone, description);
                 break;
             case "D":
                 processDeadlineTask(taskDetails, isTaskDone, description);
@@ -95,12 +95,10 @@ public class TaskRepository {
     /**
      * Processes a Todo task's details and adds it to the TaskList.
      * 
-     * @param taskDetails The details of the task.
      * @param isTaskDone  Whether the task is done.
      * @param description The description of the task.
-     * @throws BotException If there is an error while processing the task.
      */
-    private void processTodoTask(String[] taskDetails, Boolean isTaskDone, String description) throws BotException {
+    private void processTodoTask(Boolean isTaskDone, String description) {
         taskList.addTodo(description);
         if (isTaskDone) {
             taskList.getTaskByNum(taskList.getTaskCount()).markAsDone();

@@ -212,7 +212,7 @@ public class Duke {
     /**
      * Handles the marking of a task as done
      *
-     * @param inputs The user inputs
+     * @param userInputArray The user inputs
      * @throws BotException If the task number is missing, not numeric, or out of
      *                      range
      */
@@ -241,7 +241,7 @@ public class Duke {
     /**
      * Handles the command to unmark a task
      *
-     * @param inputs The array of inputs containing the task number to unmark
+     * @param userInputArray The array of inputs containing the task number to unmark
      * @throws BotException If the task number is not provided, is not numeric, or
      *                      is out of range
      */
@@ -270,7 +270,7 @@ public class Duke {
     /**
      * Handles the "todo" command by adding a new todo task to the task list
      * 
-     * @param userInputArr the array containing the user input
+     * @param userInputArray the array containing the user input
      * @throws BotException if the description of the todo is empty
      */
     private String handleTodoCommand(String[] userInputArray) throws BotException {
@@ -288,7 +288,7 @@ public class Duke {
     /**
      * Handles the "deadline" command by adding a deadline task to the task list
      * 
-     * @param userInputArr the array containing the user input
+     * @param userInputArray the array containing the user input
      * @throws BotException if the user input is incomplete
      */
     private String handleDeadlineCommand(String[] userInputArray) throws BotException {
@@ -314,7 +314,7 @@ public class Duke {
      * Adds the event task to the task list with the specified start time and end
      * time
      *
-     * @param userInputArr the user input array containing the event command and its
+     * @param userInputArray the user input array containing the event command and its
      *                     arguments
      * @throws BotException if the description and time of an event are empty
      */
