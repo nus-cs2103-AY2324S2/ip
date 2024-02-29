@@ -21,7 +21,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
-            
+
             stage.setScene(scene);
             stage.setTitle("I'm Xavier, serving your's truly :)");
             fxmlLoader.<MainWindow>getController().setXavier(xavier);
@@ -33,6 +33,11 @@ public class Main extends Application {
         }
     }
 
+    /**
+     * Exits the program when the byeCommand is executed.
+     *
+     * @param isExit Boolean generated after each command is executed.
+     */
     public static void exit(boolean isExit) {
         if (isExit) {
             try {

@@ -52,7 +52,7 @@ public class TaskList {
 
     /**
      * Checks if task is in the list.
-     * 
+     *
      * @param t The task to be checked.
      * @return True if task is in the list. Else, false.
      */
