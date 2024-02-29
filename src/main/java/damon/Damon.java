@@ -51,7 +51,6 @@ public class Damon {
         ui = new Ui();
         storage = new Storage(filePath);
         response = new Response();
-        response.showWelcome();
         try {
             tasks = new TaskList(storage.load());
         } catch (DamonExceptions e) {
