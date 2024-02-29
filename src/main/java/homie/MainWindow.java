@@ -8,7 +8,8 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 /**
- * Controller for MainWindow. Provides the layout for the other controls.
+ * Controller for MainWindow.
+ * Provides the layout for the other controls.
  */
 public class MainWindow extends AnchorPane {
     @FXML
@@ -24,7 +25,8 @@ public class MainWindow extends AnchorPane {
     private final Image homieImage = new Image(this.getClass().getResourceAsStream("/images/homie.png"));
 
     /**
-     * Initializes the chatbot GUI and also instantly shows a welcome message.
+     * Initializes the chatbot GUI.
+     * Instantly shows a welcome message.
      */
     @FXML
     public void initialize() {
@@ -51,5 +53,8 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getHomieDialog(response, homieImage)
         );
         userInput.clear();
+        if (homie.isExit()) {
+            System.exit(0);
+        }
     }
 }

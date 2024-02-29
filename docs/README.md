@@ -218,3 +218,13 @@ Here are the matching tasks in your list:
   1. [T][] read book
   2. [T][] read CS2103 lecture notes
 ```
+
+### Exit Application
+
+Exits the Application.
+
+Formats:
+- `bye`
+- `b`
+
+This is the end of the **Homie** User Guide!

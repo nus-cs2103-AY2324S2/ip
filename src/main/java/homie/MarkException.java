@@ -1,8 +1,8 @@
 package homie;
 
 /**
- * Mark exception class. Handles all exceptions related to mark command.
- * Thrown when no index is given as a parameter, or index out of range.
+ * MarkException thrown when no index is given as a parameter, or when index is out of range when marking a task
+ * as done.
  */
 public class MarkException extends Exception {
     /**

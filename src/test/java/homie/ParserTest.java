@@ -12,12 +12,19 @@ public class ParserTest {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
         Parser parser = new Parser(taskList, ui, storage);
+        String expectedMessage;
+        // Test case 1
+        expectedMessage = "Got it. I've added this task:\n"
+                + "\t" + "[T][ ] read book"
+                + "\nNow you have 1 tasks in the list.";
         String outputMessage = parser.parse("todo read book");
-        assertEquals(ui.getToDoMessage(new Todo("read book"), 1), outputMessage);
-        assertEquals(1, taskList.getSize());
+        assertEquals(expectedMessage, outputMessage);
+        // Test case 2
+        expectedMessage = "Got it. I've added this task:\n"
+                + "\t" + "[T][ ] read manga"
+                + "\nNow you have 2 tasks in the list.";
         outputMessage = parser.parse("todo read manga");
-        assertEquals(ui.getToDoMessage(new Todo("read manga"), 2), outputMessage);
-        assertEquals(2, taskList.getSize());
+        assertEquals(expectedMessage, outputMessage);
     }
 
     @Test
@@ -26,31 +33,31 @@ public class ParserTest {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
         Parser parser = new Parser(taskList, ui, storage);
-        // no description
+        String expectedMessage = "Bruh... No description given!"
+                + "\nPlease follow this format:"
+                + "\ntodo {TODO_DESCRIPTION}";
+        // Test case 1: no description
         try {
             parser.parse("todo");
             fail();
         } catch (TodoException e) {
-            assertEquals("Bruh... No description given!\nPlease follow this format:"
-                    + "\ntodo {TODO_DESCRIPTION}", e.getMessage());
+            assertEquals(expectedMessage, e.getMessage());
             assertEquals(0, taskList.getSize());
         }
-        // one empty white space
+        // Test case 2: one empty white space
         try {
             parser.parse("todo ");
             fail();
         } catch (TodoException e) {
-            assertEquals("Bruh... No description given!\nPlease follow this format:"
-                    + "\ntodo {TODO_DESCRIPTION}", e.getMessage());
+            assertEquals(expectedMessage, e.getMessage());
             assertEquals(0, taskList.getSize());
         }
-        // two empty white space
+        // Test case 3: two empty white space
         try {
             parser.parse("todo  ");
             fail();
         } catch (TodoException e) {
-            assertEquals("Bruh... No description given!\nPlease follow this format:"
-                    + "\ntodo {TODO_DESCRIPTION}", e.getMessage());
+            assertEquals(expectedMessage, e.getMessage());
             assertEquals(0, taskList.getSize());
         }
     }
@@ -60,14 +67,19 @@ public class ParserTest {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
         Parser parser = new Parser(taskList, ui, storage);
+        String expectedMessage;
+        // Test case 1
+        expectedMessage = "Got it. I've added this task:\n"
+                + "\t[D][ ] cs2103 quiz 3 (by: 03-23-2024 23:59)"
+                + "\nNow you have 1 tasks in the list.\n";
         String outputMessage = parser.parse("deadline cs2103 quiz 3 /by 23 03 2024 2359");
-        assertEquals(ui.getDeadlineMessage(
-                new Deadline("cs2103 quiz 3", "23 03 2024 2359"), 1), outputMessage);
-        assertEquals(1, taskList.getSize());
+        assertEquals(expectedMessage, outputMessage);
+        // Test case 2
+        expectedMessage = "Got it. I've added this task:\n"
+                + "\t[D][ ] cs2107 assignment (by: 02-28-2024 23:59)"
+                + "\nNow you have 2 tasks in the list.\n";
         outputMessage = parser.parse("deadline cs2107 assignment /by 28 02 2024 2359");
-        assertEquals(ui.getDeadlineMessage(
-                new Deadline("cs2107 assignment", "28 02 2024 2359"), 2), outputMessage);
-        assertEquals(2, taskList.getSize());
+        assertEquals(expectedMessage, outputMessage);
     }
 
     @Test
@@ -76,23 +88,27 @@ public class ParserTest {
         Storage storage = new Storage();
         TaskList taskList = new TaskList();
         Parser parser = new Parser(taskList, ui, storage);
-        // no description
+        String expectedMessage = "Bruh... No description given!"
+                + "\nPlease follow the format:\ndeadline "
+                + "{DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}";
+        // Test case 1: no description
         try {
             parser.parse("deadline");
             fail();
         } catch (DeadlineException e) {
-            assertEquals("Bruh... No description given!\nPlease follow the format:\ndeadline "
-                    + "{DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}", e.getMessage());
-            assertEquals(taskList.getSize(), 0);
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(0, taskList.getSize());
         }
-        // incorrect date format
+        // Test case 2: incorrect date format
+        expectedMessage = "Bruh... Invalid date format!"
+                + "\nPlease follow the format:\ndeadline "
+                + "{DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}";
         try {
             parser.parse("deadline cs2103 quiz /by 23022024 3pm");
             fail();
         } catch (DeadlineException e) {
-            assertEquals(e.getMessage(), "Bruh... Invalid date format!\nPlease follow the format:\ndeadline "
-                    + "{DEADLINE_DESCRIPTION} /by {dd MM yyyy HHmm}");
-            assertEquals(taskList.getSize(), 0);
+            assertEquals(expectedMessage, e.getMessage());
+            assertEquals(0, taskList.getSize());
         }
     }
 }

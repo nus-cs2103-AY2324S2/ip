@@ -12,9 +12,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 
 /**
- * Storage class to handle storing of tasks and
- * loading of tasks when the homie chatbot starts, ends or have
- * any updates in the task list.
+ * Storage class to handle loading of tasks and storing of tasks from a storage text file.
  */
 public class Storage {
     private static final String CURRENT_DIRECTORY_STRING = System.getProperty("user.dir");
@@ -30,10 +28,12 @@ public class Storage {
         if (!storageDirectory.exists()) {
             createStorageDirectory(STORAGE_DIRECTORY_PATH);
         }
+        assert storageDirectory.exists() : "Storage Directory does not exists!";
         File storageFile = new File(STORAGE_FILE_PATH.toString());
         if (!storageFile.exists()) {
             createStorageFile(STORAGE_FILE_PATH);
         }
+        assert storageFile.exists() : "Storage File Does not Exists";
         this.myStorageFile = storageFile;
     }
 
@@ -49,23 +49,27 @@ public class Storage {
             if (!f.exists()) {
                 Files.createDirectory(STORAGE_DIRECTORY_PATH);
                 System.out.println("directory created!");
+                assert f.exists() : "Directory does not Exists!";
             } else {
                 System.out.println("create directory fail!");
+                assert !f.exists() : "Directory exists!";
             }
         } catch (Exception e) {
             throw e;
         }
     }
     /**
-     * Method to create the storage text file if file does not exist.
+     * Creates the storage text file if file does not exist.
      */
     public void createStorageFile(Path filePath) {
         File f = new File(filePath.toString());
         try {
             if (f.createNewFile()) {
                 System.out.println("file created!");
+                assert f.exists() : "File is not created!";
             } else {
                 System.out.println("create file fail!");
+                assert !f.exists() : "File exists!";
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -73,7 +77,7 @@ public class Storage {
     }
 
     /**
-     * Method to load tasks from the text file into the tasks object.
+     * Loads tasks from the text file into a TaskList object.
      *
      * @return Returns an ArrayList of type Tasks loaded with tasks from the text file to the caller.
      */
@@ -106,9 +110,9 @@ public class Storage {
     //Reused from https://stackoverflow.com/questions/24475286/saving-class-objects-to-a-text-file-in-java
     // with minor modifications
     /**
-     * Method to update storage text file whenever there are changes to the task list.
+     * Updates storage text file whenever there are changes to the TaskList object.
      *
-     * @param taskList The tasklist that stores all tasks.
+     * @param taskList The TaskList object that stores all tasks.
      */
     public void updateStorageFile(TaskList taskList) {
         try {

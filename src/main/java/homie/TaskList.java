@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 /**
  * TaskList class that handles everything related to storing tasks.
- * Contains methods to add tasks, delete tasks, get task, mark tasks as done/undone,
+ * Provides methods to add tasks, delete tasks, get task, mark tasks as done/undone,
  * show tasks, find tasks, get task list size, and get the whole list of tasks.
  */
 public class TaskList {
@@ -19,18 +19,18 @@ public class TaskList {
     }
 
     /**
-     * Adds new task into the task list.
+     * Adds a new task into the TaskList.
      *
-     * @param task The task to be added to the task list.
+     * @param task The task to be added to the TaskList object.
      */
     public void addTask(Task task) {
         this.myList.add(task);
     }
 
     /**
-     * Returns the task with the specified index in the task list.
+     * Returns the task with the specified index in the TaskList object.
      *
-     * @param taskIndex Index of the task in the task list.
+     * @param taskIndex Index of the task in the TaskList.
      * @return The task with the specified index.
      */
     public Task getTask(int taskIndex) {
@@ -38,7 +38,7 @@ public class TaskList {
     }
 
     /**
-     * Deletes the task with the specified index from the task list.
+     * Deletes the task with the specified index from the TaskList object.
      *
      * @param taskIndex The index of the task to be deleted.
      */
@@ -47,9 +47,9 @@ public class TaskList {
     }
 
     /**
-     * Gets all tasks from the task list.
+     * Gets all tasks from the TaskList.
      *
-     * @return All the tasks contained in the task list object in a String.
+     * @return All the tasks contained in the TaskList object as a String.
      */
     public String getTasks() {
         String tasks = "";
@@ -62,46 +62,46 @@ public class TaskList {
     }
 
     /**
-     * Returns the size of the task list.
+     * Returns the size of the TaskList object.
      *
-     * @return The size of the task list.
+     * @return The integer representation of the size of the TaskList object.
      */
     public int getSize() {
         return this.myList.size();
     }
 
     /**
-     * Returns an Array list of the task list.
+     * Returns an Array list of the TaskList object.
      *
-     * @return The Array list of the task list.
+     * @return The Array list of the TaskList object.
      */
     public ArrayList<Task> getListOfTasks() {
         return this.myList;
     }
 
     /**
-     * Marks a task in the task list as done.
+     * Marks a task in the TaskList object as done.
      *
-     * @param taskIndex Index of the task to be marked in the task list.
+     * @param taskIndex Index of the task to be marked in the TaskList object.
      */
     public void markTask(int taskIndex) {
         this.myList.get(taskIndex - 1).setDone();
     }
 
     /**
-     * Marks a task in the task list as not done.
+     * Marks a task in the TaskList as not done.
      *
-     * @param taskIndex Index of the task to be marked in the task list.
+     * @param taskIndex Index of the task to be marked in the TaskList.
      */
     public void unMarkTask(int taskIndex) {
         this.myList.get(taskIndex - 1).setNotDone();
     }
 
     /**
-     * Finds all tasks with matching keyword.
+     * Finds all tasks with matching keyword from the TaskList object.
      *
-     * @param keyword The keyword to be matched in the task list
-     * @return The matching tasks in a string
+     * @param keyword The keyword to find for matching tasks in the TaskList object.
+     * @return All the matching tasks from the TaskList object as a String.
      */
     public String findTask(String keyword) {
         String matchingTasks = "";
@@ -114,8 +114,4 @@ public class TaskList {
         }
         return matchingTasks;
     }
-
-
-
-
 }

@@ -4,10 +4,10 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 /**
- * Parser class to parse the user command. Process all the user commands and performs the relevant tasks.
+ * Parser class to parse the user command.
+ * Process all the user commands and performs the relevant tasks.
  */
 public class Parser {
-    private boolean isExit = false;
     private String outputResponse = "";
     private final TaskList taskList;
     private final Ui ui;
@@ -15,7 +15,7 @@ public class Parser {
 
     /**
      * Constructor for Parser object.
-     * Initialise taskList, ui and storage objects to be used.
+     * Initialises taskList, ui and storage objects to be used.
      *
      * @param taskList The taskList to be updated.
      * @param ui The ui object to interact with the user interface.
@@ -30,7 +30,7 @@ public class Parser {
     //Reused from https://www.baeldung.com/java-string-valid-date
     // with minor modifications
     /**
-     * Checks if input string is of 'dd MM yyyy HHmm' format
+     * Checks if input string is of 'dd MM yyyy HHmm' format.
      *
      * @param inDate The string to be checked.
      * @return The boolean value of whether the String is of specified date format "dd MM yyy HHmm".
@@ -46,9 +46,9 @@ public class Parser {
         return true;
     }
     /**
-     * Parses user input calling the relevant methods to process the command.
+     * Parses user input, calling relevant methods to process the command.
      *
-     * @param fullCommand The full user input command
+     * @param fullCommand The full user input command.
      */
     public String parse(String fullCommand) throws HomieException, TodoException, EventException, DeadlineException,
             MarkException, UnmarkException, DeleteException, FindException {
@@ -58,7 +58,6 @@ public class Parser {
         switch (primaryCommand) {
         case "b":
         case "bye":
-            this.isExit = true;
             outputResponse = this.processByeCommand();
             break;
         case "l":
@@ -79,7 +78,7 @@ public class Parser {
             break;
         case "f":
         case "find":
-            outputResponse = this.processFindCommand(fullCommand, inputStringSplits);
+            outputResponse = this.processFindCommand(inputStringSplits);
             break;
         case "t":
         case "todo":
@@ -94,25 +93,24 @@ public class Parser {
             outputResponse = this.processEventCommand(fullCommand, inputStringSplits);
             break;
         default:
-            outputResponse = this.processInvalidCommand(fullCommand);
+            outputResponse = this.processInvalidCommand();
             break;
         }
         return outputResponse;
     }
     /**
-     * Process bye command and set isExit to true.
+     * Processes bye command.
      *
      * @return Returns a goodbye message in String.
      */
     private String processByeCommand() {
         // Get response message
         outputResponse = this.ui.getGoodbyeMessage();
-        this.isExit = true;
         return outputResponse;
     }
 
     /**
-     * Process list command and show all tasks in the task list.
+     * Processes list command and returns all tasks in the task list.
      *
      * @return String of tasks in the tasks list.
      */
@@ -124,22 +122,24 @@ public class Parser {
     }
 
     /**
-     * Process the to-do command to add new to-do task into the task list.
-     * Updates the storage file as well.
+     * Processes Todo command to add a new Todo task into the task list.
      *
      * @param fullCommand The full command of the user input.
      * @return String message to show that task has been added.
      */
-    private String processTodoCommand(String fullCommand, String[] commandSplits) throws TodoException {
-        // Get Description for new to-do tasks
-        if (commandSplits.length < 2) {
+    private String processTodoCommand(String fullCommand, String[] inputStringSplits) throws TodoException {
+        // Get Description for new Todo tasks
+        if (inputStringSplits.length < 2) {
             throw new TodoException("No description given!");
         }
         int startIndexForTodoDescription = 5;
+        if (inputStringSplits[0].equals("t")) {
+            startIndexForTodoDescription = 2;
+        }
         String todoDescription = fullCommand.trim().substring(startIndexForTodoDescription);
-        // Create to-do task
+        // Create Todo task
         Todo currTodo = new Todo(todoDescription);
-        // Add to-do task to task list
+        // Add Todo task to task list
         this.taskList.addTask(currTodo);
         // Update storage
         this.storage.updateStorageFile(this.taskList);
@@ -148,21 +148,26 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process deadline command to add new deadline task into the task list.
-     * Updates the storage file as well.
+     * Processes deadline command to add a new deadline task into the task list.
      *
      * @param fullCommand The full user input command.
      * @return String message showing that selected deadline task has been added into the task list.
      */
-    private String processDeadlineCommand(String fullCommand, String[] commandSplits) throws DeadlineException {
+    private String processDeadlineCommand(String fullCommand, String[] inputStringSplits) throws DeadlineException {
+        if (inputStringSplits.length < 2) {
+            throw new DeadlineException("No description given!");
+        }
         int startIndexForDeadlineDescription = 9;
         int startIndexForDeadlineDueDate = 3;
-        if (commandSplits.length < 2) {
-            throw new DeadlineException("No description given!");
+        if (inputStringSplits[0].equals("dead")) {
+            startIndexForDeadlineDescription = 5;
         }
         // Create new deadline task
         String[] deadlineCommandStringSplits = (fullCommand.trim().substring(startIndexForDeadlineDescription))
                 .split("/");
+        if (deadlineCommandStringSplits.length != 2) {
+            throw new DeadlineException("Invalid format!");
+        }
         String deadlineDescription = deadlineCommandStringSplits[0].trim();
         if (deadlineDescription.isEmpty()) {
             throw new DeadlineException("No description given!");
@@ -181,14 +186,13 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process event command to add new event task into the task list.
-     * Updates the storage file as well.
+     * Processes event command to add a new event task into the task list.
      *
      * @param fullCommand The full user input command.
      * @return String message showing that selected event task has been added into the task list.
      */
-    private String processEventCommand(String fullCommand, String[] commandSplits) throws EventException {
-        if (commandSplits.length < 2) {
+    private String processEventCommand(String fullCommand, String[] inputStringSplits) throws EventException {
+        if (inputStringSplits.length < 2) {
             throw new EventException("No description given!");
         }
         int startIndexForEventDescription = 6;
@@ -196,12 +200,18 @@ public class Parser {
         int startIndexForEndDateTime = 3;
         int endIndexForStartDateTime = 20;
         int endIndexForEndDateTime = 18;
+        if (inputStringSplits[0].equals("e")) {
+            startIndexForEventDescription = 2;
+        }
         // Create new event task
         String[] eventCommandStringSplits = (fullCommand.trim()
                 .substring(startIndexForEventDescription)).split("/");
         String eventDescription = eventCommandStringSplits[0].trim();
         if (eventDescription.isEmpty()) {
             throw new EventException("No description given!");
+        }
+        if (eventCommandStringSplits.length != 3) {
+            throw new EventException("Invalid format!");
         }
         String eventStartDateTimeInString = eventCommandStringSplits[1].substring(startIndexForStartDateTime,
                 endIndexForStartDateTime);
@@ -224,8 +234,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process delete command to delete selected task from task list.
-     * Update the storage file for future loading of tasks.
+     * Processes delete command to delete selected task from task list.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message that shows selected task is deleted.
@@ -235,6 +244,9 @@ public class Parser {
         Task currTask;
         if (inputStringSplits.length < 2) {
             throw new DeleteException("No index given!");
+        }
+        if (inputStringSplits.length != 2) {
+            throw new DeleteException("Invalid Format!");
         }
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
         if (taskIndex < 1 || taskIndex > this.taskList.getSize()) {
@@ -249,7 +261,7 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process mark command to mark selected task as done.
+     * Processes mark command to mark selected task as done.
      * Updates the storage file as well.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
@@ -259,6 +271,9 @@ public class Parser {
         // Mark task as done (execute command)
         if (inputStringSplits.length < 2) {
             throw new MarkException("No index given!");
+        }
+        if (inputStringSplits.length != 2) {
+            throw new MarkException("Invalid format!");
         }
         Task currTask;
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
@@ -275,8 +290,7 @@ public class Parser {
     }
 
     /**
-     * Process the unmark command to set selected task as not done.
-     * Updates the storage file as well.
+     * Processes the unmark command to set specified task as not done.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return String message that shows selected task marked as not done.
@@ -286,12 +300,15 @@ public class Parser {
         if (inputStringSplits.length < 2) {
             throw new UnmarkException("No index given!");
         }
+        if (inputStringSplits.length != 2) {
+            throw new UnmarkException("Invalid format!");
+        }
         Task currTask;
         int taskIndex = Integer.parseInt(inputStringSplits[1]);
-        this.taskList.unMarkTask(taskIndex);
         if (taskIndex < 1 || taskIndex > this.taskList.getSize()) {
             throw new UnmarkException("Invalid index.");
         }
+        this.taskList.unMarkTask(taskIndex);
         // Update Storage
         this.storage.updateStorageFile(this.taskList);
         // Get response message
@@ -300,16 +317,16 @@ public class Parser {
         return outputResponse;
     }
     /**
-     * Process find command to find the selected task from task list.
+     * Processes find command to find the selected task from task list.
      *
      * @param inputStringSplits The String array containing the input command split by whitespace.
      * @return A String of tasks that has the matching keyword.
      */
-    private String processFindCommand(String fullCommand, String[] inputStringSplits) throws FindException {
+    private String processFindCommand(String[] inputStringSplits) throws FindException {
         if (inputStringSplits.length < 2) {
             throw new FindException("No keyword given!");
         }
-        if (inputStringSplits.length != 3) {
+        if (inputStringSplits.length != 2) {
             throw new FindException("Keyword can only be 1 word!");
         }
         String keywordToFind = inputStringSplits[1].trim();
@@ -323,12 +340,12 @@ public class Parser {
     }
 
     /**
-     * Process any invalid commands.
+     * Processes any invalid commands.
      *
      * @return String message showing that the command is invalid.
      */
-    private String processInvalidCommand(String fullCommand) throws HomieException {
+    private String processInvalidCommand() throws HomieException {
         // Get response message
-        throw new HomieException(fullCommand);
+        throw new HomieException();
     }
 }

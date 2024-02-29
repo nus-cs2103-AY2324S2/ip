@@ -1,8 +1,7 @@
 package homie;
 
 /**
- * Delete exception class. Handles all exceptions related to Delete command.
- * Thrown when no index is given, or index is out of range.
+ * DeleteException thrown when no index is given, or index is out of range when deleting a task.
  */
 public class DeleteException extends Exception {
     /**

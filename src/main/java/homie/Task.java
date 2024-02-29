@@ -3,7 +3,8 @@ package homie;
 import java.io.Serializable;
 
 /**
- * Task class that contains task objects.
+ * Task class is a generic task that has a description and a status.
+ * Provides methods to set the task's status as done or not done, and get the task's current status icon.
  */
 public class Task implements Serializable {
     protected String description;
@@ -12,7 +13,7 @@ public class Task implements Serializable {
     /**
      * Constructor for Task class.
      *
-     * @param description This is the String description of the tasks.
+     * @param description This is the description of the Task in String.
      */
     public Task(String description) {
         this.description = description;

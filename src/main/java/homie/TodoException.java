@@ -1,8 +1,7 @@
 package homie;
 
 /**
- * TodoException class. Handles all exceptions related to to-do tasks.
- * Thrown when no description is given when creating to-do task.
+ * TodoException thrown when no description is given when creating Todo task.
  */
 public class TodoException extends Exception {
     public TodoException(String message) {
