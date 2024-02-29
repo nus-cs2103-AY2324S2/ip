@@ -1,0 +1,6 @@
+/* Style for the dialog box container */
+.dialog-box {
+    -fx-background-color: #AEC6CF; /* Background color */
+    -fx-spacing: 5px; /* Spacing between elements within the dialog box */
+}
+

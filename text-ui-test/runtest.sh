@@ -7,6 +7,7 @@ then
 fi
 
 # delete output from previous run
+diff -w ACTUAL.TXT EXPECTED-UNIX.TXT
 if [ -e "./ACTUAL.TXT" ]
 then
     rm ACTUAL.TXT
