@@ -5,22 +5,11 @@ import damon.task.Task;
 import damon.tasklist.TaskList;
 
 public class Response {
-    private String responseMessage = "hi";
+    private String responseMessage;
 
     public Response() {
         //...
     }
-    /**
-     * Prints welcome message.
-     */
-    public void showWelcome() {
-        this.responseMessage = " ____\n"
-                + "|  _  \\\n"
-                + "| | | |\n"
-                + "| |_| |\n"
-                + "|____/ \n";
-    }
-
 
     /**
      * Prints message of loading error.

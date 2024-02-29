@@ -66,6 +66,8 @@ public class AddCommand extends Command {
     private Task getNewTask() {
         Task newTask;
 
+        assert this.command.startsWith("todo")
+                || this.command.startsWith("deadline") || this.command.startsWith("event");
         if (this.command.startsWith("todo")) {
             newTask = addToDo(this.command);
         } else if (this.command.startsWith("deadline")) {

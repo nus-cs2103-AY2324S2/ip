@@ -30,6 +30,4 @@ public abstract class Command {
     public String toString() {
         return "Command";
     }
-
-    public String getResponse() {return "";};
 }

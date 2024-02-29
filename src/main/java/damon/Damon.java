@@ -42,20 +42,6 @@ public class Damon {
     private Response response;
     private boolean isExit = false;
 
-    private ScrollPane scrollPane;
-    private VBox dialogContainer;
-    private TextField userInput;
-    private Button sendButton;
-    private Scene scene;
-    private Image user = new Image(this.getClass().getResourceAsStream("/images/gorrilaz.jpg"));
-    private Image damon = new Image(this.getClass().getResourceAsStream("/images/Damon.jpg"));
-
-    public Damon() {
-        tasks = new TaskList();
-        ui = new Ui();
-        storage = new Storage("");
-    }
-
     /**
      * Constructs a new Damon object with String filePath parameter.
      *
@@ -65,7 +51,6 @@ public class Damon {
         ui = new Ui();
         storage = new Storage(filePath);
         response = new Response();
-        response.showWelcome();
         try {
             tasks = new TaskList(storage.load());
         } catch (DamonExceptions e) {
@@ -97,8 +82,10 @@ public class Damon {
 
     public void run(String fullCommand) {
         try {
+            assert Parser.parse(fullCommand) instanceof Command;
             Command c = Parser.parse(fullCommand);
             if (c.isExit()) {
+                assert !isExit;
                 isExit = true;
             }
             c.execute(tasks, ui, storage, response);
