@@ -24,22 +24,33 @@ public class Parser {
         if (inputString.equals("bye")) {
             return new ExitCommand(inputString);
         }
+
         if (inputString.equals("list")) {
             return new ShowListCommand(inputString);
         }
+
         if (inputString.startsWith("mark ")) {
             return new MarkCommand(inputString);
         }
+
         if (inputString.startsWith("unmark ")) {
             return new UnMarkCommand(inputString);
         }
+
         if (inputString.startsWith("delete ")) {
             return new DeleteCommand(inputString);
         }
-        if (inputString.startsWith("todo ") || inputString.startsWith("deadline ")
-                || inputString.startsWith("event ")) {
+
+        boolean isToDo = inputString.startsWith("todo ");
+        boolean isDeadline = inputString.startsWith("deadline ");
+        boolean isEvent = inputString.startsWith("event ");
+        boolean isFixedDuration = inputString.startsWith("fixedduration ");
+        boolean isTask = isToDo || isDeadline || isEvent || isFixedDuration;
+
+        if (isTask) {
             return new AddCommand(inputString);
         }
+
         if (inputString.startsWith("find ")) {
             return new FindCommand(inputString);
         }
