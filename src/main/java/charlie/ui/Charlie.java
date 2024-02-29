@@ -18,7 +18,7 @@ import charlie.parser.Parser;
 import charlie.storage.Storage;
 import charlie.storage.TaskList;
 
-public class Duke extends Application {
+public class Charlie extends Application {
 
     private Storage storage;
     private TaskList tasks;

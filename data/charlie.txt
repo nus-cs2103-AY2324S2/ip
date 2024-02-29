@@ -1,1 +1,5 @@
 T | 1 | borrow book
+D | 0 | 5 | return book | Sunday 
+T | 0 | 6 | go to the zoo 
+E | 0 | 10 | hangout | 6pm | 10pm
+T | 0 | 10 | say bye to heather

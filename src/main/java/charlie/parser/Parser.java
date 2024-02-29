@@ -40,7 +40,15 @@ public class Parser {
     }
 
     private static Command initiateAddCommand(String fullCommand) {
+<<<<<<< Updated upstream
         return new AddCommand(fullCommand);
+=======
+        String[] words = fullCommand.split(" ");
+        String priorityString = words[words.length-1];
+        Integer priorityNumber = Integer.parseInt(priorityString);
+        String actualCommand = fullCommand.substring(0, fullCommand.length()-2);
+        return new AddCommand(actualCommand, priorityNumber);
+>>>>>>> Stashed changes
     }
     private static Command initiateList() {
         return new ListCommand();
