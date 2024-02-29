@@ -70,7 +70,7 @@ public class MainWindow extends AnchorPane {
 
         //Solution below adapted from https://stackoverflow.com/questions/27334455/how-to-close-a-stage-after-a-certain-amount-of-time-javafx
         if (damon.getIsExit()) {
-            PauseTransition delay = new PauseTransition(Duration.seconds(3));
+            PauseTransition delay = new PauseTransition(Duration.seconds(2));
             delay.setOnFinished( event -> Platform.exit() );
             delay.play();
         }
