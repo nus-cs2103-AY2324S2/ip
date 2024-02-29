@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("damon.Damon")
+    mainClass.set("damon.Launcher")
 }
 
 shadowJar {
