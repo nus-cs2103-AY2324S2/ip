@@ -25,7 +25,7 @@ List of features supported:
 
 There are three types tasks that Xavier supports, to-do, deadline and event. The commands add the respective task to the task list.
 
-**todo**
+<u>**todo**</u>
 
 Formart: 
 `todo <taskname>`
@@ -40,7 +40,7 @@ Got it. I've added this task:
 Now you have 1 tasks in the list.
 ```
 
-**deadline**
+<u>**deadline**</u>
 
 Format: 
 `deadline <taskname> /by <date & time>`
@@ -55,7 +55,7 @@ Got it. I've added this task:
 Now you have 2 tasks in the list.
 ```
 
-**event**
+<u>**event**</u>
 
 Format: 
 `event <taskname> /from <start date & time> /to <end date & time>`
