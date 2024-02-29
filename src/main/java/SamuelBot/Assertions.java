@@ -37,3 +37,4 @@ public class Assertions {
         LOGGER.info("Assertion passed: File path is valid.");
     }
 }
+//
