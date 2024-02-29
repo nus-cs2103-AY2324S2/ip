@@ -9,7 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Irwyn chatbot using FXML.
+ * A GUI for Irwyn chatbot using FXML. git standard
  */
 public class Main extends Application {
 
