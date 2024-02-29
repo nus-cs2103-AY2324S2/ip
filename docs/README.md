@@ -8,11 +8,11 @@
 
 - Add a new Task to current TaskList.
 - Command:
-  - Command to add ToDo Task: <code style="color : Blue">todo *DESCRIPTION*</code>
-  - Command to add Deadline Task: deadline *DESCRIPTION* /by *DUE_DATE*
-      *(DUE_DATE should be in yyyy-mm-dd format)*
-  - Command to add Event Task: event *DESCRIPTION* /from *START_TIME* /to *END_TIME*
-  - Command to add FixedDuration Task: fixedduration *DESCRIPTION* /needs *DURATION*
+  - Command to add ToDo Task: <code style="color : Blue">todo {DESCRIPTION}</code>
+  - Command to add Deadline Task: <code style="color : Blue">deadline {DESCRIPTION} /by {DUE_DATE}</code>
+      *(DUE_DATE should be in yyyy-mm-dd format)}
+  - Command to add Event Task: event {DESCRIPTION} /from {START_TIME* /to {END_TIME}
+  - Command to add FixedDuration Task: fixedduration {DESCRIPTION} /needs {DURATION}
 
 
 ## <code style="color : Orange">Feature 2 - Delete a Task</code>
