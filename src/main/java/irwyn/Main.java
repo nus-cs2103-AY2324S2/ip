@@ -16,7 +16,7 @@ public class Main extends Application {
     private final Irwyn irwyn = new Irwyn();
 
     /**
-     * Starts the GUI.
+     * Starts the GUI. git standard
      *
      * @param stage Stage to be taken in for display on the GUI.
      */
