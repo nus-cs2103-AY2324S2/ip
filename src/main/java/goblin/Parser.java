@@ -3,6 +3,8 @@ package goblin;
 import goblin.command.*;
 import goblin.exception.OrkException;
 
+//@@Chow Yi Yin nusliuyifan-reused
+//{slightly modified from a past student's work(github name: Chow Yi Yin)
 public class Parser {
     /**
      * Translate user's input and return corresponding command

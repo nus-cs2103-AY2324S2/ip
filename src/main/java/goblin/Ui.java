@@ -4,6 +4,7 @@ import goblin.task.Task;
 import goblin.exception.OrkException;
 import java.util.Scanner;
 
+//Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
 public class Ui {
     Scanner input = new Scanner(System.in);
     static String greetings = "Hello, I'm NetGoblin\n"

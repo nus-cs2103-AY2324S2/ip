@@ -26,6 +26,8 @@ public class AddDeadlineCommand extends Command {
      * @param storage handle storage
      * @throws OrkException when the description is not complete
      */
+
+    //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
     public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         try {
             String[] detailsSplit = description.split("/by");

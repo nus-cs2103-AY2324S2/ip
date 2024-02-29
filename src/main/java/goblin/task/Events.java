@@ -4,6 +4,7 @@ import goblin.calendar.Date;
 import goblin.calendar.Time;
 import goblin.exception.OrkException;
 
+//Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
 public class Events extends Task {
     protected Date startDate;
     protected Date endDate;

@@ -13,6 +13,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.io.IOException;
 
+//Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
 public class Storage {
     protected String filePath;
 

@@ -2,6 +2,8 @@ package goblin.calendar;
 
 import goblin.exception.OrkException;
 
+//@@Chow Yi Yin nusliuyifan-reused
+//{slightly modified from a past student's work(github name: Chow Yi Yin)
 public class Time {
     protected String unprocessed;
     protected String processed;
