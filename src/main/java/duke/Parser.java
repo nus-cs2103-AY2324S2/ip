@@ -78,9 +78,12 @@ public class Parser {
         } else if (info.startsWith("event")) {
             int indfrom = argVal.indexOf("/from");
             String eventname = argVal.substring(0,indfrom);
+            eventname = eventname.trim();
             String eventFromStr = argVal.substring(indfrom+6, argVal.indexOf("/to"));
+            eventFromStr = eventFromStr.trim();
             int indto = argVal.indexOf("/to");
             String eventToStr = argVal.substring(indto+4);
+            eventToStr = eventFromStr.trim();
             todo = new Event(eventname, false, -1, "E", eventFromStr, eventToStr);
         } else if (info.startsWith("deadline")) {
             int indfrom = argVal.indexOf("/by");

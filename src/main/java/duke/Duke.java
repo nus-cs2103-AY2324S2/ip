@@ -72,7 +72,7 @@ public class Duke extends Application {
         stage.show();
 
         //Step 2
-        stage.setTitle("Duke");
+        stage.setTitle("Lighthouse");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
