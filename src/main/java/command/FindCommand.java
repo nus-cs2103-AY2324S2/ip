@@ -30,6 +30,7 @@ public class FindCommand extends Command {
     public String execute() {
         String result = "Here are the matching tasks in your list:\n";
         System.out.print(result);
+
         LinkedList<Task> tl = taskList.getList();
 
         int counter = 1;
@@ -38,10 +39,10 @@ public class FindCommand extends Command {
                 String taskString = counter + ". " + t.toString();
                 System.out.print(taskString);
                 result += taskString + "\n";
+
                 counter++;
             }
         }
-
         return result;
     }
 
