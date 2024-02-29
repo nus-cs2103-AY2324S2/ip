@@ -11,10 +11,9 @@ public class ExitCommand extends Command {
      * Exits the program.
      */
     @Override
-    public String execute() {
+    public void execute() {
         String exitMessage = "Bye. Hope to see you again soon!";
         System.out.println(exitMessage);
-        return exitMessage;
     }
 
     /**

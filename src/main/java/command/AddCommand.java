@@ -34,7 +34,7 @@ public class AddCommand extends Command {
      * @throws DukeException If the command cannot be executed.
      */
     @Override
-    public String execute() throws DukeException {
+    public void execute() throws DukeException {
         try {
             String taskName = "";
 
@@ -51,13 +51,11 @@ public class AddCommand extends Command {
                     ToDo td = new ToDo(taskName.strip());
                     taskList.add(td);
 
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + td.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s;                
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + td.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
+                break;
 
             case "deadline":
                 String deadline = "";
@@ -81,13 +79,11 @@ public class AddCommand extends Command {
                     Deadline d = new Deadline(taskName.strip(), deadline);
                     taskList.add(d);
 
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + d.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s;    
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println(" " + d.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
+                break;
 
             case "event":
                 String startTime = "";
@@ -117,22 +113,20 @@ public class AddCommand extends Command {
                     Event e = new Event(taskName.strip(), startTime, endTime);
                     taskList.add(e);
 
-                    String s = "Got it. I've added this task:\n"
-                            + "  " + e.toString()
-                            + "\nNow you have " + taskList.size() + " tasks in the list.";
-
-                    System.out.println(s);
-                    return s; 
+                    System.out.println("Got it. I've added this task:");
+                    System.out.println("  " + e.toString());
+                    System.out.println("Now you have " + taskList.size() + " tasks in the list.");
                 }
+                break;
 
             default:
-                return "Missing field(s) / incorrect input(s). :(";
+                // Unreachable line
             }
 
         } catch (NoSuchElementException e) {
             System.out.println("Missing field(s) / incorrect input(s). :(");
-            return "Missing field(s) / incorrect input(s). :(";
         }
+
     }
 
     /**

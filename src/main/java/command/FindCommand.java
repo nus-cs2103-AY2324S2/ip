@@ -27,22 +27,16 @@ public class FindCommand extends Command {
      * Finds a task by searching for a keyword.
      */
     @Override
-    public String execute() {
-        String result = "Here are the matching tasks in your list:\n";
-        System.out.print(result);
+    public void execute() {
+        System.out.println("Here are the matching tasks in your list:");
         LinkedList<Task> tl = taskList.getList();
-
         int counter = 1;
         for (Task t : tl) {
             if (t.hasKeyword(keyword)) {
-                String taskString = counter + ". " + t.toString();
-                System.out.print(taskString);
-                result += taskString + "\n";
+                System.out.println(counter + ". " + t.toString());
                 counter++;
             }
         }
-
-        return result;
     }
 
     /**
