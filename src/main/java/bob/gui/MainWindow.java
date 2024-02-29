@@ -1,6 +1,7 @@
 package bob.gui;
 
 import java.io.IOException;
+import java.net.URL;
 import java.util.Objects;
 
 import bob.Bob;
@@ -19,6 +20,14 @@ import javafx.stage.Stage;
  * The <code>MainWindow</code> control. Provides the layout for the other controls.
  */
 public class MainWindow extends VBox {
+    private static final String IMAGE_BOB = "DaDuke.png";
+    private static final String IMAGE_USER = "DaUser.png";
+
+    private static final String PATH_IMAGES = "/images/";
+    private static final String PATH_STYLESHEETS = "/stylesheets/";
+
+    private static final String STYLESHEET = "styles.css";
+
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -33,9 +42,9 @@ public class MainWindow extends VBox {
     private Bob bob;
 
     private final Image userImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaUser.png")));
+            Objects.requireNonNull(this.getClass().getResourceAsStream(PATH_IMAGES + IMAGE_USER)));
     private final Image bobImage = new Image(
-            Objects.requireNonNull(this.getClass().getResourceAsStream("/images/DaDuke.png")));
+            Objects.requireNonNull(this.getClass().getResourceAsStream(PATH_IMAGES + IMAGE_BOB)));
 
     /**
      * Returns a <code>MainWindow</code> control that provides the layout for the other controls.
@@ -50,8 +59,8 @@ public class MainWindow extends VBox {
             fxmlLoader.load();
 
             Scene scene = new Scene(this);
-            scene.getStylesheets().add(Objects.requireNonNull(
-                    MainWindow.class.getResource("/stylesheets/styles.css")).toExternalForm());
+            URL url = Objects.requireNonNull(MainWindow.class.getResource(PATH_STYLESHEETS + STYLESHEET));
+            scene.getStylesheets().add(url.toExternalForm());
 
             stage.setTitle("Bob");
             stage.setResizable(false);
@@ -80,10 +89,10 @@ public class MainWindow extends VBox {
     private void handleUserInput() {
         String input = userInput.getText();
         String response = bob.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBobDialog(response, bobImage)
-        );
+
+        DialogBox userDialog = DialogBox.getUserDialog(input, userImage);
+        DialogBox bobDialog = DialogBox.getBobDialog(response, bobImage);
+        dialogContainer.getChildren().addAll(userDialog, bobDialog);
         userInput.clear();
 
         if (input.equals(Parser.COMMAND_EXIT)) {

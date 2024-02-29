@@ -19,14 +19,14 @@ public class Bob {
      */
     public Bob(String dataPath) {
         storage = new Storage();
+
         try {
             tasks = new TaskList(storage.load(dataPath));
+            initialMessage = Ui.getGreetResponse();
         } catch (BobException e) {
-            initialMessage = Ui.getLoadingErrorResponse(e.getMessage());
             tasks = new TaskList();
+            initialMessage = Ui.getLoadingErrorResponse(e.getMessage());
         }
-
-        initialMessage = Ui.getGreetResponse();
     }
 
     public String getInitialMessage() {
