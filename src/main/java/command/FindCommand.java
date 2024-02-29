@@ -37,7 +37,7 @@ public class FindCommand extends Command {
         for (Task t : tl) {
             if (t.hasKeyword(keyword)) {
                 String taskString = counter + ". " + t.toString();
-                System.out.print(taskString);
+                System.out.println(taskString);
                 result += taskString + "\n";
 
                 counter++;
