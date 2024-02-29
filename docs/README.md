@@ -1,8 +1,6 @@
 # Damon User Guide
+![Ui.png]
 
-[Ui.png]
-
-// Product intro goes here
 
 
 ## `rgb(153, 51, 2255)` Feature 1 - Add a new Task
