@@ -25,9 +25,9 @@ public class Ui {
     public void showMessage(String msg) {
 
         String temp = msg;
-
         temp = temp.replaceAll("\n", "\n\t\t");
-        temp = "\t\t" + "\t-----------------------------------\n" + temp
+        temp = "\t-----------------------------------\n"
+                + "\t\t" + temp
                 + "\n\t-----------------------------------";
         System.out.println(temp);
     }

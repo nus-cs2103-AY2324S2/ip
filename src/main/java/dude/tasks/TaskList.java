@@ -7,7 +7,7 @@ import dude.exceptions.TaskListFullException;
 
 /**
  * The TaskList class handles keeping track of the list of tasks.
- * It also provides methods to add, remove, mark as done, mark as undone and get tasks from the list.
+ * It also provides various methods to interact with the list of tasks.
  */
 public class TaskList {
 
@@ -36,41 +36,26 @@ public class TaskList {
      * Adds a task to the list of tasks.
      *
      * @param task The task to be added to the list of tasks.
-     * @return A string representation of the task added to the list of tasks.
      * @throws TaskListFullException if the task list is full.
      */
-    public String add_task(Task task) throws TaskListFullException {
-
+    public void add_task(Task task) throws TaskListFullException {
         if (list.size() >= 100) {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
-
         list.add(task);
-
-        return "\t-----------------------------------\n"
-                + "\tGot it. I've added this task:\n"
-                + "\t\t" + task.toString() + "\n"
-                + "\tNow you have " + list.size() + " tasks in the list.\n"
-                + "\t-----------------------------------";
     }
 
     /**
      * Removes a task from the list of tasks.
      *
      * @param taskID The id of the task to be removed from the list of tasks.
-     * @return A string representation of the task removed from the list of tasks.
      * @throws DudeException if the task id is invalid.
      */
-    public String remove_task(int taskID) throws DudeException {
+    public void remove_task(int taskID) throws DudeException {
         if (taskID > list.size() || taskID < 1) {
             throw new DudeException("Sorry, the provided id is invalid.");
         }
         Task removed = list.remove(taskID - 1);
-        return "\t-----------------------------------\n"
-                + "\tNoted. I've removed this task:\n"
-                + "\t  " + removed.toString() + "\n"
-                + "\tNow you have " + list.size() + " tasks in the list.\n"
-                + "\t-----------------------------------";
     }
 
     /**
@@ -99,25 +84,27 @@ public class TaskList {
         list.get(id - 1).markAsUndone();
     }
 
-
     /**
-     * Returns a string representation of the list of tasks.
+     * Finds tasks whose string representation matches with the given keyword.
      *
-     * @return A string representation of the list of tasks.
+     * @param keyword The keyword to be used to find tasks.
+     * @return An ArrayList of Task objects that contain the keyword.
      */
-    @Override
-    public String toString() {
-        String result = "";
-        for (int i = 0; i < list.size(); i++) {
-            //if it is the last task, do not add a new line
-            if (i == list.size() - 1) {
-                result += (i + 1) + ". " + list.get(i).toString();
-                break;
+    public ArrayList<Task> find(String keyword) {
+        ArrayList<Task> result = new ArrayList<>();
+        String taskString;
+        String keywordLowerCase = keyword.toLowerCase();
+        for (Task task : list) {
+            taskString = task.toString();
+            taskString = taskString.toLowerCase();
+
+            if (taskString.contains(keywordLowerCase)) {
+                result.add(task);
             }
-            result += (i + 1) + ". " + list.get(i).toString() + "\n";
         }
         return result;
     }
+
 
     /**
      * Returns a deep copy of the list of tasks
@@ -161,5 +148,24 @@ public class TaskList {
                     + "Use the list command to see the list of tasks.");
         }
         return list.get(taskID - 1);
+    }
+
+    /**
+     * Returns a string representation of the list of tasks.
+     *
+     * @return A string representation of the list of tasks.
+     */
+    @Override
+    public String toString() {
+        String result = "";
+        for (int i = 0; i < list.size(); i++) {
+            //if it is the last task, do not add a new line
+            if (i == list.size() - 1) {
+                result += (i + 1) + ". " + list.get(i).toString();
+                break;
+            }
+            result += (i + 1) + ". " + list.get(i).toString() + "\n";
+        }
+        return result;
     }
 }

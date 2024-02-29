@@ -10,11 +10,16 @@ public class HelpCommand extends Command {
     private static final String COMMAND_FORMAT = "help <?command>";
 
     private final String[] supportedCommands = new String[]{
-        "bye: Exits the program.", "deadline: Adds a deadline task to the task list.",
-        "delete: Deletes a task from the task list.", "event: Adds an event task to the task list.",
-        "help: Provides help on the commands I support.", "list: Lists all the tasks in the task list.",
-        "mark: Marks a task as done.", "todo: Adds a todo task to the task list.",
-        "unmark: Marks a task as undone."
+            "list: Lists all the tasks in the task list.",
+            "todo: Adds a todo task to the task list.",
+            "deadline: Adds a deadline task to the task list.",
+            "event: Adds an event task to the task list.",
+            "mark: Marks a task as done.",
+            "unmark: Marks a task as undone.",
+            "delete: Deletes a task from the task list.",
+            "find: Finds tasks with mathing keyword",
+            "bye: Exits the program.",
+            "help: Provides help on the commands I support."
     };
 
     private final String input;
@@ -99,6 +104,11 @@ public class HelpCommand extends Command {
                     + "\n\tFormat: delete <id>"
                     + "\n\tExample: delete 1"
                     + "\n\t*Note: The id must be a valid integer task id.";
+        case "find":
+            return "find: Finds tasks whose string representation matches with the given keyword."
+                    + "\n\tFormat: find <keyword>"
+                    + "\n\tExample: find book"
+                    + "\n\t*Note: The keyword cannot be empty.";
         case "bye":
             return "bye: Exits the program."
                     + "\n\tFormat: bye"
