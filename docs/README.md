@@ -77,7 +77,7 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Expected Outcome:**
 
-    Deleted: [T][ ] Read a book
+    Okay Traveller, I've deleted the task! You now have 5 tasks remaining.
 
 
 ## Find Tasks by Keyword
