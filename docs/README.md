@@ -54,7 +54,8 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Expected Outcome:**
 
-    Marked as done: [D][X] Submit assignment (by: Mar 10)
+    Okay Traveller, I've marked the task as done:
+    [D][X] Submit assignment (by: Mar 10)
 
 ## Unmark a Task
 
@@ -64,6 +65,7 @@ Paimon is a versatile task manager designed to help you keep track of your tasks
 
 **Expected Outcome:**
 
+    Okay Traveller, I've marked the task as not done
     Marked as not done: [D][ ] Submit assignment (by: Mar 10)
 
 
