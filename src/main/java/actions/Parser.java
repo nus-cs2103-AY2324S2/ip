@@ -16,13 +16,17 @@ import java.util.List;
  */
 public class Parser {
         private final String input;
+        private TaskList tasklist;
+        private Ui ui;
 
         /**
          * Instantiates a parser object
          */
-        public Parser(String input) {
+        public Parser(String input, TaskList tasklist, Ui ui) {
             assert input !=null : "please enter command";
             this.input = input;
+            this.tasklist = tasklist;
+            this.ui = ui;
         }
 
         /**
@@ -31,7 +35,7 @@ public class Parser {
          * @param ui a ui object
          * @return returns isExit boolean that indicates if the program has reach termination
          */
-        public boolean parse(TaskList tasklist, Ui ui) {
+        public String parse(String input) throws DukeException{
             String[] parts = input.split(" ", 2);
             String command = parts[0].toLowerCase();
             boolean isExit = false;
@@ -39,92 +43,80 @@ public class Parser {
             switch(command) {
             case"bye":
                     isExit = true;
-                    break;
+                    return ui.Outro();
             case "list" :
                     ArrayList<Task> tasks = tasklist.getTasks();
-                    ui.printList(tasks);
-                    break;
+                    return ui.printList(tasks);
             case "mark":
-                    handleMarkCommand(tasklist, ui, parts);
-                    break;
+                    return handleMarkCommand(tasklist, ui, parts);
             case "unmark" :
-                    handleUnmarkCommand(tasklist, ui, parts);
-                    break;
+                    return handleUnmarkCommand(tasklist, ui, parts);
             case "delete" :
-                    handleDeleteCommand(tasklist, ui, parts);
-                    break;
+                    return handleDeleteCommand(tasklist, ui, parts);
             case "todo" :
-                    handleTodoCommand(tasklist, ui, parts);
-                    break;
+                    return handleTodoCommand(tasklist, ui, parts);
             case "deadline" :
-                    handleDeadlineCommand(tasklist, ui, parts);
-                    break;
+                    return handleDeadlineCommand(tasklist, ui, parts);
             case "event" :
-                    handleEventCommand(tasklist, ui, parts);
-                    break;
+                    return handleEventCommand(tasklist, ui, parts);
             case "find" :
-                    handleFindCommand(tasklist, ui, parts);
-                    break;
+                    return handleFindCommand(tasklist, ui, parts);
             case "update" :
-                handleUpdateCommand(tasklist, ui, parts);
-                break;
+                return handleUpdateCommand(tasklist, ui, parts);
             default:
-                    ui.printInputError();
-
-
+                return ui.printInputError();
             }
-            return isExit;
         }
 
-        public void handleMarkCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleMarkCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts != null && parts.length >= 2 : "Missing components for mark command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
           
             assert current != null : "No such task";
             taskList.markTask(current);
-            ui.printMarkMessage(current);
+            return ui.printMarkMessage(current);
         }
 
-        public void handleUnmarkCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleUnmarkCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts != null && parts.length >= 2 : "Missing components for unmark command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
           
             assert current != null : "No such task";
             taskList.unmarkTask(current);
-            ui.printUnmarkMessge(current);
+            return ui.printUnmarkMessge(current);
     }
 
-        public void handleDeleteCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleDeleteCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts != null && parts.length >= 2 : "Missing components for delete command";
             int num = Integer.parseInt(parts[1]);
             Task current = taskList.getTask(num -1);
           
             assert current != null : "No such task";
             taskList.deleteTask(num-1);
-            ui.printDeleteMessage(current, taskList.getArraySize());
+            return ui.printDeleteMessage(current, taskList.getArraySize());
           
         }
 
-        public void handleTodoCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleTodoCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts !=null : "Input should not be null";
+            String task = parts[1];
+            Task todo = new Todo(task, false);
             try {
-               String task = parts[1];
                if (task.isEmpty()) {
                        throw new DukeException("Don't forget the description!");
                } else {
-                       Task todo = new Todo(task, false);
                        taskList.addTask(todo);
-                       ui.printAddMessage(todo, taskList.getArraySize());
                }
 
            } catch (DukeException e) {
-                   ui.printError(e.getMessage());
+                   System.out.println(ui.printError(e.getMessage()));
            }
+            return ui.printAddMessage(todo, taskList.getArraySize());
         }
 
-        public void updateTodoCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+        public String updateTodoCommand(TaskList taskList, Ui ui, String[] parts, int index) {
             assert parts !=null : "Input should not be null";
             try {
                 String task = parts[1];
@@ -133,38 +125,38 @@ public class Parser {
                 } else {
                     Task todo = new Todo(task, false);
                     taskList.setTask(todo, index);
-                    ui.printUpdate();
                 }
 
             } catch (DukeException e) {
-                ui.printError(e.getMessage());
+                System.out.println(ui.printError(e.getMessage()));
             }
+            return ui.printUpdate();
         }
 
-        public void handleDeadlineCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleDeadlineCommand(TaskList taskList, Ui ui, String[] parts) throws DukeException{
             assert parts !=null : "Input should not be null";
+            String task = getTask(parts[1]);
+            String time = getTime(parts[1]);
+            String[] timeparts = time.split("by");
+            LocalDateTime by = parseToLocalDate(timeparts[1].trim());
+            Task deadline = new Deadline(task, false, by);
+            taskList.addTask(deadline);
+
             try {
-                String task = getTask(parts[1]);
-                String time = getTime(parts[1]);
-              
                 if (task.isEmpty()) {
                         throw new DukeException("Don't forget the description!");
                 } else if (time.isEmpty()) {
                         throw new DukeException("Don't forget the deadline!");
                 } else {
-                        String[] timeparts = time.split("by");
-                        LocalDateTime by = parseToLocalDate(timeparts[1].trim());
-                  
-                        Task deadline = new Deadline(task, false, by);
                         taskList.addTask(deadline);
-                        ui.printAddMessage(deadline, taskList.getArraySize());
                 }
             } catch (DukeException e) {
-                    ui.printError(e.getMessage());
+                    System.out.println(ui.printError(e.getMessage()));
             }
+            return  ui.printAddMessage(deadline, taskList.getArraySize());
         }
 
-        public void updateDeadlineCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+        public String updateDeadlineCommand(TaskList taskList, Ui ui, String[] parts, int index) {
             assert parts !=null : "Input should not be null";
             try {
                 String task = getTask(parts[1]);
@@ -180,21 +172,26 @@ public class Parser {
 
                     Task deadline = new Deadline(task, false, by);
                     taskList.setTask(deadline, index);
-                    ui.printUpdate();
                 }
             } catch (DukeException e) {
                 ui.printError(e.getMessage());
             }
+            return ui.printUpdate();
         }
 
-        public void handleEventCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleEventCommand(TaskList taskList, Ui ui, String[] parts) throws DukeException{
             assert parts !=null : "Input should not be null";
-            try {
-                  String task = getTask(parts[1]);
-                  String time = getTime(parts[1]);
-                  String[] timeparts = time.split("from");
-                  String[] dateParts = timeparts[1].trim() .split("/to");
+            String task = getTask(parts[1]);
+            String time = getTime(parts[1]);
+            String[] timeparts = time.split("from");
+            String[] dateParts = timeparts[1].trim() .split("/to");
 
+            LocalDateTime from = parseToLocalDate(dateParts[0].trim());
+            LocalDateTime to = parseToLocalDate(dateParts[1].trim());
+
+            Task event = new Event(task, false, from, to);
+
+            try {
                   if (task.isEmpty()) {
                           throw new DukeException("Don't forget the description!");
                   } else if (time.isEmpty()) {
@@ -202,22 +199,17 @@ public class Parser {
                   } else if (dateParts[0].isEmpty() || dateParts[1].isEmpty()) {
                           throw new DukeException("Don't forget to include start and end time!");
                   } else {
-                          LocalDateTime from = parseToLocalDate(dateParts[0].trim());
-                          LocalDateTime to = parseToLocalDate(dateParts[1].trim());
-
-                          Task event = new Event(task, false, from, to);
                           taskList.addTask(event);
 
                           ui.printAddMessage(event, taskList.getArraySize());
                   }
             } catch (DukeException e) {
-                    ui.printError(e.getMessage());
+                    System.out.println(ui.printError(e.getMessage()));
             }
-
-          
+            return ui.printAddMessage(event, taskList.getArraySize());
         }
 
-        public void updateEventCommand(TaskList taskList, Ui ui, String[] parts, int index) {
+        public String updateEventCommand(TaskList taskList, Ui ui, String[] parts, int index) {
             assert parts !=null : "Input should not be null";
             try {
                 String task = getTask(parts[1]);
@@ -241,26 +233,26 @@ public class Parser {
                     ui.printUpdate();
                 }
             } catch (DukeException e) {
-                ui.printError(e.getMessage());
+                System.out.println(ui.printError(e.getMessage()));
             }
+            return ui.printUpdate();
         }
 
-        public void handleUpdateCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleUpdateCommand(TaskList taskList, Ui ui, String[] parts) {
             String[] commandParts = parts[1].split(" ", 2);
             int index = Integer.parseInt(commandParts[0]) - 1;
 
-            Parser newParser = new Parser(commandParts[1]);
+            Parser newParser = new Parser(commandParts[1],taskList,ui);
 
             String[] taskParts = commandParts[1].split(" ", 2);
 
             if(commandParts[1].startsWith("todo")) {
-                newParser.updateTodoCommand(taskList, ui, taskParts, index);
+                return newParser.updateTodoCommand(taskList, ui, taskParts, index);
             } else if (commandParts[1].startsWith("deadline")) {
-                newParser.updateDeadlineCommand(taskList, ui, taskParts, index);
+                return newParser.updateDeadlineCommand(taskList, ui, taskParts, index);
             } else {
-                newParser.updateEventCommand(taskList, ui, taskParts, index);
+                return newParser.updateEventCommand(taskList, ui, taskParts, index);
             }
-
         }
 
         /**
@@ -304,15 +296,13 @@ public class Parser {
             }
         }
 
-        public void handleFindCommand(TaskList taskList, Ui ui, String[] parts) {
+        public String handleFindCommand(TaskList taskList, Ui ui, String[] parts) {
             assert parts !=null : "Input should not be null";
             if(parts.length < 2 ) {
-                    ui.printError("Oops what keyword are you searching for?");
-            } else {
-                    List<Task> findTasks = taskList.find(parts[1]);
-                    ui.printFindList(findTasks);
+                    System.out.println("Oops what keyword are you searching for?");
             }
-
+            List<Task> findTasks = taskList.find(parts[1]);
+            return ui.printFindList(findTasks);
         }
 
 }

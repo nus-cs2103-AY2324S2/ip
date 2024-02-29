@@ -1,5 +1,6 @@
 package actions;
 
+import Duke.DukeException;
 import task.Task;
 
 import java.util.ArrayList;
@@ -14,14 +15,8 @@ public class Ui {
     public static final String InputError = "Sorry, I'm not sure what you mean";
 
     public static String Intro() {
-        return " ____        _        \n"
-                + "|  _ \\ _   _| | _____ \n"
-                + "| | | | | | | |/ / _ \\\n"
-                + "| |_| | |_| |   <  __/\n"
-                + "|____/ \\__,_|_|\\_\\___|\n" + "____________________________________________________________\n" +
-                " Hello! I'm Duke.Duke\n" +
-                " What can I do for you?\n" +
-                "____________________________________________________________\n";
+        return " Hello! I'm LeBron\n" +
+                " What can I do for you?\n";
     }
 
     public void printWelcome() {
@@ -29,9 +24,7 @@ public class Ui {
     }
 
     public static String Outro() {
-        return "____________________________________________________________\n" +
-                " Bye. Hope to see you again soon!\n" +
-                "____________________________________________________________\n";
+        return " Bye. Hope to see you again soon!\n";
     }
 
     public void printOutro() {
@@ -39,78 +32,80 @@ public class Ui {
     }
     
 
-    public void printList(ArrayList<Task> tasks) {
-        if (tasks.size() == 0) {
-            System.out.println("You have no tasks yet");
-        } else {
-            System.out.println("Here are the tasks in your list:");
-            System.out.println(LINE);
-            for (int i = 0; i < tasks.size(); i++) {
-                System.out.println((i + 1) + ". " + tasks.get(i).toString());
+    public String printList(ArrayList<Task> tasks) throws DukeException{
+        try {
+            if (tasks.size() == 0) {
+                return "You have no tasks yet";
+            } else {
+                String result = "";
+                for (int i = 0; i < tasks.size(); i++) {
+                    int number = i + 1;
+                    result += number + ". " + tasks.get(i) + "\n";
+                }
+                return "Here are the tasks in your list:\n" + result;
             }
-            System.out.println(LINE);
+        } catch (Exception e) {
+            throw new DukeException("Error loading tasks");
         }
     }
 
-    public void printMarkMessage(Task task) {
-        System.out.println(LINE);
-        System.out.println("Nice! I've marked this task as done:" + "\n" + task.toString());
-        System.out.println(LINE);
+    public String printMarkMessage(Task task) {
+        return LINE + "Nice! I've marked this task as done:" + "\n" + task.toString();
     }
 
-    public void printUnmarkMessge(Task task) {
-        System.out.println(LINE);
-        System.out.println("OK, I've marked this task as not done yet-:" + "\n" + task.toString());
-        System.out.println(LINE);
+    public String printUnmarkMessge(Task task) {
+        return LINE + "OK, I've marked this task as not done yet-:" + "\n" + task.toString();
     }
 
-    public void printAddMessage(Task task, int count) {
-        System.out.println(LINE);
-        System.out.println("Got it.I've added this task:");
-        System.out.println(task.toString());
-
+    public String printAddMessage(Task task, int count) {
         if(count == 1){
-            System.out.println("Now you have " + count + " task in the list.");
+            return  "Got it.I've added this task:\n"
+                    + task.toString() + "\n"
+                    +"Now you have " + count + " task in the list.\n";
         } else {
-            System.out.println("Now you have " + count + " tasks in the list.");
+            return  "Got it.I've added this task:\n"
+                    + task.toString() + "\n"
+                    +"Now you have " + count + " tasks in the list.\n";
         }
 
-        System.out.println(LINE);
     }
 
-    public void printDeleteMessage(Task task, int count) {
-        System.out.println(LINE);
-        System.out.println("Noted. I've removed this task:");
-        System.out.println(task.toString());
+    public String printDeleteMessage(Task task, int count) {
         if (count == 1){
-            System.out.println("Now you have " + count + " task in the list.");
+            return  "Noted. I've removed this task:\n"
+                    + task.toString() + "\n"
+                    + "Now you have " + count + " task in the list.\n";
         } else {
-            System.out.println("Now you have " + count + " tasks in the list.");
+            return  "Noted. I've removed this task:\n"
+                    + task.toString() + "\n"
+                    + "Now you have " + count + " tasks in the list.\n";
         }
-        System.out.println(LINE);
     }
 
-    public void printError(String message) {
-        System.out.println(message);
+    public String printError(String message) {
+        return message;
     }
 
-    public void printInputError(){
-        System.out.println(InputError);
+    public String printInputError(){
+        return InputError;
     }
 
-    public void printFindList(List<Task> findTasks) {
-        System.out.println(LINE);
-        System.out.println("Here are some task you could be looking for:");
-
+    public String printFindList(List<Task> findTasks) {
+        String result = "";
         for (int i = 0; i < findTasks.size(); i++) {
-            System.out.println((i + 1) + ". " + findTasks.get(i).toString());
+            int num = i + 1;
+            result += num + ". " + findTasks.get(i) + "\n";
         }
-
-        System.out.println(LINE);
+        return  "Here are some task you could be looking for:\n"
+                + result;
     }
 
-    public void printUpdate() {
-        System.out.println("Okay! I have updated your task list.");
+    public String printUpdate() {
+        return "Okay! I have updated your task list.";
+    }
+
+    public String ReplyMessage() {
+        return "";
     }
 
 
