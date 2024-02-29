@@ -112,6 +112,17 @@ public class Storage {
         return dateTime.format(FORMATTER_DATE_TIME);
     }
 
+    private ArrayList<Task> loadData() throws IOException, LoadingException {
+        try (Scanner s = new Scanner(dataFile)) {
+            ArrayList<Task> tasks = new ArrayList<>();
+            while (s.hasNext()) {
+                tasks.add(parseStorageLine(s.nextLine()));
+            }
+            return tasks;
+        }
+    }
+
+
     /**
      * Loads data from hard disk.
      *
@@ -121,19 +132,9 @@ public class Storage {
      */
     public ArrayList<Task> load(String dataPath) throws LoadingException {
         try {
-            // Create or retrieve the data file
             dataFile = createOrRetrieve(dataPath);
-
-            // Read the data file and load its content into tasks.
-            try (Scanner s = new Scanner(dataFile)) {
-                ArrayList<Task> tasks = new ArrayList<>();
-                while (s.hasNext()) {
-                    tasks.add(parseStorageLine(s.nextLine()));
-                }
-                return tasks;
-            }
-        } catch (Exception e) {
-            // Any exception caught here should just be displayed as a server-side error
+            return loadData();
+        } catch (IOException e) {
             throw new LoadingException(e.getMessage());
         }
     }
