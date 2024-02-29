@@ -26,8 +26,8 @@ public class MainWindow extends AnchorPane {
 
     private Gmo gmo;
     private Ui ui = new Ui();
-    private final Image userImg = new Image(getClass().getResourceAsStream("/images/DaUser.png"));
-    private final Image gmoImg = new Image(getClass().getResourceAsStream("/images/DaGmo.png"));
+    private final Image userImg = new Image(getClass().getResourceAsStream("/images/user.png"));
+    private final Image gmoImg = new Image(getClass().getResourceAsStream("/images/gmo.png"));
 
     /**
      * Initializes the main window.
