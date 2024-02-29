@@ -49,8 +49,8 @@ public class DialogBox extends HBox {
         dialog.setText(text);
         displayPicture.setImage(img);
 
-        displayPicture.setClip(new Circle(
-                DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_SIZE / 2, DISPLAY_PICTURE_RADIUS));
+        double centerLocation = DISPLAY_PICTURE_SIZE / 2;
+        displayPicture.setClip(new Circle(centerLocation, centerLocation, DISPLAY_PICTURE_RADIUS));
     }
 
     private void flip() {
