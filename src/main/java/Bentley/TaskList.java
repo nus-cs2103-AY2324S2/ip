@@ -47,7 +47,7 @@ public class TaskList {
         return result.toString();
     }
 
-    /**
+     /**
      * Marks a task as done based on user input.
      *
      * @param userInput The user input containing the task index to mark as done.
@@ -75,8 +75,7 @@ public class TaskList {
     /**
      * Marks a task as not done yet based on user input.
      *
-     * @param userInput The user input containing the task index to mark as not done
-     *                  yet.
+     * @param userInput The user input containing the task index to mark as not done yet.
      * @return A string indicating the result of marking the task as not done yet.
      */
     public String markAsUndone(String userInput) {
@@ -125,12 +124,11 @@ public class TaskList {
         }
     }
 
-    /**
+     /**
      * Finds tasks containing a given keyword and displays them.
      *
      * @param userInput The user input containing the keyword to search for.
-     * @return A string containing the matching tasks or a message if no tasks match
-     *         the keyword.
+     * @return A string containing the matching tasks or a message if no tasks match the keyword.
      */
     public String findTasks(String userInput) {
 

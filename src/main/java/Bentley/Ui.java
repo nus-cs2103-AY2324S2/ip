@@ -35,12 +35,14 @@ public class Ui {
         return "Hello! I'm Bentley\n" + "What can I do for you?";
     }
 
+
     /**
      * Displays the goodbye message to the user.
      */
     public String getByeMessage() {
         return "Bye. Hope to see you again soon!";
     }
+
 
     /**
      * Displays an error message to the user.
@@ -50,5 +52,5 @@ public class Ui {
     public void showError(String errorMessage) {
         System.out.println("Error: " + errorMessage);
     }
-
+    
 }

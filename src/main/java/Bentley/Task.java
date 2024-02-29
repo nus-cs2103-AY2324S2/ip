@@ -1,10 +1,8 @@
 package bentley;
 
 /**
- * The Task class represents a basic task with a description and completion
- * status.
- * It provides methods to mark the task as done or undone and retrieve
- * information about the task.
+ * The Task class represents a basic task with a description and completion status.
+ * It provides methods to mark the task as done or undone and retrieve information about the task.
  */
 public class Task {
     /**
@@ -26,8 +24,7 @@ public class Task {
      * Constructs a Task object based on the provided task data.
      * The task data is parsed to extract the completion status and description.
      *
-     * @param taskData The raw task data, including completion status and
-     *                 description.
+     * @param taskData The raw task data, including completion status and description.
      */
     public Task(String taskData) {
         if (taskData.matches("^\\[[Xx ]\\] .*")) {
@@ -36,7 +33,7 @@ public class Task {
             this.taskDescription = taskData.substring(5).trim();
         } else {
             this.isDone = false;
-            this.originalTaskData = "[ ] " + taskData.trim(); // Add [ ] if not present
+            this.originalTaskData = "[ ] " + taskData.trim();  // Add [ ] if not present
             this.taskDescription = taskData.trim();
         }
     }
@@ -51,9 +48,9 @@ public class Task {
     }
 
     /**
-     * Marks the task as done by updating its completion status and original task
-     * data.
+     * Marks the task as done by updating its completion status and original task data.
      */
+
 
     public void markAsDone() {
         this.isDone = true;
@@ -62,9 +59,9 @@ public class Task {
     }
 
     /**
-     * Marks the task as undone by updating its completion status and original task
-     * data.
+     * Marks the task as undone by updating its completion status and original task data.
      */
+
 
     public void markAsUndone() {
         this.isDone = false;
@@ -83,8 +80,7 @@ public class Task {
 
     /**
      * Returns a formatted string representation of the task.
-     * If the task description already contains square brackets, it is returned as
-     * is.
+     * If the task description already contains square brackets, it is returned as is.
      * Otherwise, square brackets are added to indicate the completion status.
      *
      * @return A formatted string representation of the task.
@@ -93,18 +89,18 @@ public class Task {
     public String toString() {
         // Check if taskDescription already contains square brackets
         if (taskDescription.matches("^\\[.*\\].*")) {
-            return taskDescription; // Return as is if square brackets are already present
+            return taskDescription;  // Return as is if square brackets are already present
         } else {
-            // Check if the taskDescription starts with a number followed by a dot and
-            // whitespace
+            // Check if the taskDescription starts with a number followed by a dot and whitespace
             if (taskDescription.matches("^\\d+\\.\\s.*")) {
-                return taskDescription; // Return as is if numbering is already present
+                return taskDescription;  // Return as is if numbering is already present
             } else {
                 // Add numbering and square brackets
                 return "[ " + (doneOrNot()) + " ] " + taskDescription;
             }
         }
     }
+
 
     /**
      * Retrieves the original task data as it was read from a file or created.
@@ -115,3 +111,4 @@ public class Task {
         return originalTaskData;
     }
 }
+

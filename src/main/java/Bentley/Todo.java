@@ -1,10 +1,8 @@
 package bentley;
 
 /**
- * The Todo class represents a specific type of task in the Bentley task
- * management application.
- * It extends the Task class and is used to handle tasks without specific
- * deadlines or events.
+ * The Todo class represents a specific type of task in the Bentley task management application.
+ * It extends the Task class and is used to handle tasks without specific deadlines or events.
  */
 public class Todo extends Task {
     /**
