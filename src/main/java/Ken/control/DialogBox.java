@@ -9,11 +9,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 /**
@@ -21,8 +21,6 @@ import javafx.scene.text.TextFlow;
  * containing text from the speaker.
  */
 public class DialogBox extends HBox {
-    @FXML
-    private Label dialog;
     @FXML
     private ImageView displayPicture;
     @FXML
@@ -41,7 +39,11 @@ public class DialogBox extends HBox {
             e.printStackTrace();
         }
 
-        dialog.setText(text);
+
+        Text dialogText = new Text(text);
+        dialogText.setWrappingWidth(380);
+
+        dialogTextFlow.getChildren().add(dialogText);
         displayPicture.setImage(img);
 
         Circle clipCircle = new Circle();

@@ -145,3 +145,52 @@ Example: `bye`
 ```
 Beach off!
 ```
+
+# Fun things to try!
+
+These are all fun things you can say to ken!
+
+What happens when you don't give a command in the right format?
+Let's find out!
+
+## todo
+
+Example: `todo`
+
+```
+do what?
+```
+
+## deadline
+
+Example: `deadline`
+
+```
+oh no! which line died?
+```
+
+## event
+
+Example: `event`
+
+```
+where you going?
+```
+
+## seek
+
+Example: `seek`
+
+```
+OKAY I'LL GO HIDE!
+```
+
+## list when there are no tasks
+
+Example: `list`
+
+```
+Hold my ice cream,
+actually, wait, I'm taking my ice cream back
+no tasks yet
+```
