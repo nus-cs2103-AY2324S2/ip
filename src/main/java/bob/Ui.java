@@ -17,12 +17,12 @@ public class Ui {
 
     private static final int INDENT_SPACE_COUNT = 2;
 
-    private static final String LOADING_ERROR = "wait what happened i cant load any data";
-
     private static final String HEADER_ADD = "added:";
     private static final String HEADER_DELETE = "removed:";
     private static final String HEADER_FIND = "matching tasks:";
     private static final String HEADER_LIST = "list of tasks:";
+    private static final String HEADER_LOADING_ERROR = "wait what happened i cant load any data";
+    private static final String FOOTER_LOADING_ERROR = "lets just assume you have no tasks";
     private static final String HEADER_MARK = "good job!";
     private static final String HEADER_UNMARK = "ok you just undid this task";
 
@@ -59,7 +59,7 @@ public class Ui {
      * @param message The error message to be displayed.
      */
     public static String getLoadingErrorResponse(String message) {
-        return getResponse(LOADING_ERROR, message);
+        return getResponse(HEADER_LOADING_ERROR, message, FOOTER_LOADING_ERROR);
     }
 
     /**
