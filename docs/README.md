@@ -25,7 +25,7 @@ List of features supported:
 
 There are three types tasks that Xavier supports, to-do, deadline and event. The commands add the respective task to the task list.
 
-<u>**todo**</u>
+<u>**<u>todo</u>**</u>
 
 Formart: 
 `todo <taskname>`
