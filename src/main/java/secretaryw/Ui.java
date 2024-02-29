@@ -60,11 +60,14 @@ public class Ui {
 
     public String showHelpMessage() {
         return "Commands Supported:\n " +
-                    "bye->exit chatbot, list->show tasks\n" +
-                    "todo [descr], deadline [descr]/by [date]\n" +
-                    "event [descr]/from [date]/to [date]\n" +
-                    "->adds todo, deadline & event tasks\n" +
-                    "mark [i]->ticks task, unmark [i]->unticks task\n" +
-                    "delete [i]->remove task, find [descr]-> find task\n";
+                    "bye -> exit chatbot\n" +
+                    "list -> show tasks\n" +
+                    "todo [descr] -> adds todos\n" +
+                    "deadline [descr]/by [date] -> adds deadlines\n" +
+                    "event [descr]/from [date]/to [date] -> adds events\n" +
+                    "mark [i] -> ticks task\n" +
+                    "unmark [i] -> unticks task\n" +
+                    "delete [i] -> remove task\n" +
+                    "find [descr]-> find task\n";
     }
 }

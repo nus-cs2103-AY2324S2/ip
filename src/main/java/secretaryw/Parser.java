@@ -79,12 +79,18 @@ public class Parser {
      */
     private String markTaskAsDone(String argument) {
         assert (argument != null);
-        int index = Integer.parseInt(argument.trim()) - 1;
-        checkIndexBounds(index);
-        taskList.getTasks().get(index).markAsDone();
-        return ui.showMessage("Nice! I've marked this task as done:\n  " +
-                taskList.getTasks().get(index).getStatusIcon() + " " +
-                taskList.getTasks().get(index).getDescription());
+        try {
+            int index = Integer.parseInt(argument.trim()) - 1;
+            if (checkIndexBounds(index)) {
+                return ui.showMessage("Please enter a valid index!");
+            }
+            taskList.getTasks().get(index).markAsDone();
+            return ui.showMessage("Nice! I've marked this task as done:\n  " +
+                    taskList.getTasks().get(index).getStatusIcon() + " " +
+                    taskList.getTasks().get(index).getDescription());
+        } catch (NumberFormatException e) {
+            return ui.showMessage("Please enter a valid index!");
+        }
     }
 
     /**
@@ -94,14 +100,18 @@ public class Parser {
      */
     private String markTaskAsUndone(String argument) {
         assert (argument != null);
-        int index = Integer.parseInt(argument.trim()) - 1;
-        if (checkIndexBounds(index)) {
-            return ui.showMessage("Index out of bounds");
+        try {
+            int index = Integer.parseInt(argument.trim()) - 1;
+            if (checkIndexBounds(index)) {
+                return ui.showMessage("Please enter a valid index!");
+            }
+            taskList.getTasks().get(index).markAsUndone();
+            return ui.showMessage("OK, I've marked this task as not done yet:\n  " +
+                    taskList.getTasks().get(index).getStatusIcon() + " " +
+                    taskList.getTasks().get(index).getDescription());
+        } catch (NumberFormatException e) {
+            return ui.showMessage("Please enter a valid index!");
         }
-        taskList.getTasks().get(index).markAsUndone();
-        return ui.showMessage("OK, I've marked this task as not done yet:\n  " +
-                taskList.getTasks().get(index).getStatusIcon() + " " +
-                taskList.getTasks().get(index).getDescription());
     }
 
     /**
@@ -111,12 +121,16 @@ public class Parser {
      */
     private String deleteTask(String argument) {
         assert (argument != null);
-        int index = Integer.parseInt(argument.trim()) - 1;
-        if (checkIndexBounds(index)) {
-            return ui.showMessage("Index out of bounds");
+        try {
+            int index = Integer.parseInt(argument.trim()) - 1;
+            if (checkIndexBounds(index)) {
+                return ui.showMessage("Please enter a valid index!");
+            }
+            Task removedTask = taskList.getTasks().remove(index);
+            return ui.showMessage("Noted. I've removed this task:\n  " + removedTask);
+        } catch (NumberFormatException e) {
+            return ui.showMessage("Please enter a valid index!");
         }
-        Task removedTask = taskList.getTasks().remove(index);
-        return ui.showMessage("Noted. I've removed this task:\n  " + removedTask);
     }
 
     /**
@@ -144,7 +158,7 @@ public class Parser {
         String description = parts[0].trim();
         String by = parts[1].trim();
         if (checkDeadline(by)) {
-            return ui.showMessage("Wrong date format. Please use d/mm/yyyy");
+            return ui.showMessage("Wrong date format. Please use dd/mm/yyyy");
         }
         taskList.addTask(new Task(TaskType.DEADLINE, description, by));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
@@ -169,7 +183,7 @@ public class Parser {
         String from = time[0].trim();
         String to = time[1].trim();
         if (checkEvent(from, to)) {
-            ui.showMessage("Wrong format. Please use d/mm/yyyy");
+            ui.showMessage("Wrong format. Please use dd/mm/yyyy");
         }
         taskList.addTask(new Task(TaskType.EVENT, description, from, to));
         return ui.showTaskAdded(taskList.getTasks().get(taskList.size() - 1), taskList.size());
@@ -200,7 +214,7 @@ public class Parser {
     private boolean checkDeadline(String by) {
         assert (by != null);
         try {
-            LocalDate.parse(by, DateTimeFormatter.ofPattern("d/M/yyyy"));
+            LocalDate.parse(by, DateTimeFormatter.ofPattern("dd/M/yyyy"));
         } catch (DateTimeParseException e) {
             return true;
             //return "Wrong date format. Please use dd/mm/yyyy";
@@ -218,8 +232,8 @@ public class Parser {
         assert (from != null);
         assert (to != null);
         try {
-            LocalDate.parse(from, DateTimeFormatter.ofPattern("d/M/yyyy"));
-            LocalDate.parse(to, DateTimeFormatter.ofPattern("d/M/yyyy"));
+            LocalDate.parse(from, DateTimeFormatter.ofPattern("dd/M/yyyy"));
+            LocalDate.parse(to, DateTimeFormatter.ofPattern("dd/M/yyyy"));
         } catch (DateTimeParseException e) {
             return true;
             //return "Wrong date format. Please use dd/mm/yyyy";
