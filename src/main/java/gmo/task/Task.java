@@ -7,6 +7,11 @@ public class Task implements Comparable<Task> {
     protected String description;
     protected Boolean isDone;
 
+    /**
+     * Constructor for the Task class.
+     *
+     * @param description Description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
@@ -44,7 +49,9 @@ public class Task implements Comparable<Task> {
      *
      * @return Integer representing the type priority of the task.
      */
-    public int getTypePriority() { return Integer.MAX_VALUE; }
+    public int getTypePriority() {
+        return Integer.MAX_VALUE;
+    }
 
     /**
      * Returns the comparison of the description of the tasks, used for sorting.

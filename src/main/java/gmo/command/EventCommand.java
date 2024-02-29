@@ -1,12 +1,12 @@
 package gmo.command;
 
+import java.time.LocalDateTime;
+
 import gmo.task.Events;
 import gmo.task.Task;
 import gmo.ui.Ui;
 import gmo.util.Storage;
 import gmo.util.TaskList;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents an event command to be executed.

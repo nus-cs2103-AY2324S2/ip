@@ -31,12 +31,13 @@ public class FindCommand extends Command {
     public String execute(TaskList tasks, Ui ui, Storage storage) {
         StringBuilder output = new StringBuilder();
         StringBuilder tasksFound = new StringBuilder();
-        int idx_counter = 1;
+        int idxCounter = 1;
         for (Task currTask : tasks) {
             if (currTask.toString().contains(keyword)) {
-                tasksFound.append(idx_counter).append(". ").append(currTask.getStatusIcon()).append(" ").append(currTask).append("\n");
+                tasksFound.append(idxCounter).append(". ").append(currTask.getStatusIcon()).append(" ")
+                        .append(currTask).append("\n");
             }
-            idx_counter++;
+            idxCounter++;
         }
 
         if (tasksFound.length() == 0) {

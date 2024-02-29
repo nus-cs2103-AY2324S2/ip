@@ -1,12 +1,25 @@
 package gmo.util;
 
-import gmo.command.*;
-
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import gmo.command.Command;
+import gmo.command.DefaultCommand;
+import gmo.command.DeleteCommand;
+import gmo.command.DoneCommand;
+import gmo.command.DueCommand;
+import gmo.command.EventCommand;
+import gmo.command.ExitCommand;
+import gmo.command.FindCommand;
+import gmo.command.GreetCommand;
+import gmo.command.GuideCommand;
+import gmo.command.LogCommand;
+import gmo.command.RedoCommand;
+import gmo.command.SortCommand;
+import gmo.command.ToDoCommand;
 
 /**
  * Parser class to handle parsing of user input.
@@ -25,32 +38,32 @@ public class Parser {
         String[] inputArr = input.split(" ");
         String keyword = inputArr[0];
         switch (keyword) {
-            case "hi":
-                return new GreetCommand();
-            case "bye":
-                return new ExitCommand();
-            case "log":
-                return new LogCommand();
-            case "sort":
-                return new SortCommand();
-            case "done":
-                return parseDoneCommand(input);
-            case "redo":
-                return parseRedoCommand(input);
-            case "delete":
-                return parseDeleteCommand(input);
-            case "find":
-                return parseFindCommand(input);
-            case "todo":
-                return parseToDoCommand(input);
-            case "due":
-                return parseDueCommand(input);
-            case "event":
-                return parseEventCommand(input);
-            case "commands":
-                return new GuideCommand();
-            default:
-                return new DefaultCommand(0);
+        case "hi":
+            return new GreetCommand();
+        case "bye":
+            return new ExitCommand();
+        case "log":
+            return new LogCommand();
+        case "sort":
+            return new SortCommand();
+        case "done":
+            return parseDoneCommand(input);
+        case "redo":
+            return parseRedoCommand(input);
+        case "delete":
+            return parseDeleteCommand(input);
+        case "find":
+            return parseFindCommand(input);
+        case "todo":
+            return parseToDoCommand(input);
+        case "due":
+            return parseDueCommand(input);
+        case "event":
+            return parseEventCommand(input);
+        case "commands":
+            return new GuideCommand();
+        default:
+            return new DefaultCommand(0);
         }
     }
 
@@ -131,7 +144,7 @@ public class Parser {
      */
     private static Command parseFindCommand(String input) {
         Command output;
-     
+
         String findFormat = "^find\\s+(\\S+(\\s+\\w+)*)$";
         Pattern findPattern = Pattern.compile(findFormat);
         Matcher findMatcher = findPattern.matcher(input);
@@ -210,7 +223,8 @@ public class Parser {
     private static Command parseEventCommand(String input) {
         Command output;
 
-        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+|/)*)\\s+/to\\s+(\\S+(\\s+\\w+|/)*)$";
+        String eventFormat = "^event\\s+(\\w+(\\s+\\w+)*)\\s+/from\\s+(\\S+(\\s+\\w+|/)*)"
+                + "\\s+/to\\s+(\\S+(\\s+\\w+|/)*)$";
         Pattern eventPattern = Pattern.compile(eventFormat);
         Matcher eventMatcher = eventPattern.matcher(input);
 

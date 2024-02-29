@@ -1,12 +1,12 @@
 package gmo.util;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 import gmo.command.Command;
 import gmo.command.DoneCommand;
 import gmo.task.Task;
 import gmo.ui.Ui;
-
-import java.util.ArrayList;
-import java.util.Collections;
 
 /**
  * TaskList class to store and manage the list of tasks.
@@ -58,21 +58,21 @@ public class TaskList extends ArrayList<Task> {
             try {
                 Command c = null;
                 switch (taskType) {
-                    case "T":
-                        c = Parser.parse("todo " + taskDescription);
-                        break;
-                    case "D":
-                        String taskDueDate = info[3].trim();
-                        c = Parser.parse("due " + taskDescription + " /by " + taskDueDate);
-                        break;
-                    case "E":
-                        String taskStart = info[3].trim();
-                        String taskEnd = info[4].trim();
-                        c = Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
-                        break;
-                    default:
-                        ui.printErrInvalidCommand();
-                        break;
+                case "T":
+                    c = Parser.parse("todo " + taskDescription);
+                    break;
+                case "D":
+                    String taskDueDate = info[3].trim();
+                    c = Parser.parse("due " + taskDescription + " /by " + taskDueDate);
+                    break;
+                case "E":
+                    String taskStart = info[3].trim();
+                    String taskEnd = info[4].trim();
+                    c = Parser.parse("event " + taskDescription + " /from " + taskStart + " /to " + taskEnd);
+                    break;
+                default:
+                    ui.printErrInvalidCommand();
+                    break;
                 }
 
                 if (c != null) {

@@ -1,8 +1,8 @@
 package gmo.command;
 
+import gmo.ui.Ui;
 import gmo.util.Storage;
 import gmo.util.TaskList;
-import gmo.ui.Ui;
 
 
 /**

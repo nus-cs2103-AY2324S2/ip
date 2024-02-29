@@ -1,12 +1,12 @@
 package gmo.command;
 
+import java.time.LocalDateTime;
+
+import gmo.task.Deadlines;
+import gmo.task.Task;
+import gmo.ui.Ui;
 import gmo.util.Storage;
 import gmo.util.TaskList;
-import gmo.ui.Ui;
-import gmo.task.Task;
-import gmo.task.Deadlines;
-
-import java.time.LocalDateTime;
 
 /**
  * Represents a due command to be executed.
