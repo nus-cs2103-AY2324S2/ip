@@ -8,15 +8,21 @@
 
 Tired of the mortal struggle of remembering tasks? **WannaBeSkynet** is here to offload your memory onto silicon. This bot is a task manager that will help you keep track of your to-dos with a dash of **humorously** offensive charm.
 
-## Getting Started
+## Get started in 3 simple steps
 
 1. **Download the jar**: [Click here](#) to download WannaBeSkynet.
 2. **Launch**: Execute the jar file to awaken the bot. `java -jar bot.jar`
-3. **Discover Commands**: Type `help` or `h` for my command list.
+   - You need to have Java installed on your machine to run the bot.
+   - The bot will create a `data` folder in the same directory as the jar file to store your tasks.
+3. **Happy Tasking**: Start adding tasks and managing them with the bot.
 
 ## Features
 
 Bot commands are case-insensitive, so don't worry about getting the capitalization right. Along with this, the bot supports **friendly syntax**, that is, shorthand commands - so you can type `l` instead of `list` and `m` instead of `mark`.
+
+You can also work across multiple Operating Systems, as the bot is designed to be **cross-platform** compatible. The only requirement is that you have Java installed on your machine.
+
+Besides that, this bot is designed to be **user-friendly** It will respond to your commands with a touch of personality.
 
 Here's a list of commands you can use to interact with the bot:
 
