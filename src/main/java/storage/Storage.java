@@ -2,6 +2,7 @@ package storage;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -43,6 +44,29 @@ public class Storage {
             System.out.println("Error writing list to file.");
             System.out.println("Error writing to file.");
 
+        }
+    }
+
+    /**
+     * Checks if there is a local saved txt file at the filePath.
+     * If there exists no such .txt file, it will create a new save file at the filePath.
+     * */
+    public void createLocalStorage() {
+        try {
+            File file = new File(filePath);
+
+            if (!file.getParentFile().exists()) {
+                file.getParentFile().mkdirs();
+            }
+
+            if (file.createNewFile()) {
+                System.out.println("I have made a new save file for ya : " + file.getAbsolutePath());
+            } else {
+                System.out.println("You seem to have an existing save file, YAY : " + file.getAbsolutePath());
+            }
+
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

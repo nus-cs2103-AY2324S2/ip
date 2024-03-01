@@ -24,6 +24,7 @@ public abstract class Processor {
         this.taskList = taskList;
         this.chatbotUi = chatbotUi;
         this.storage = new Storage("src/data/tasks.txt", taskList);
+        storage.createLocalStorage();
     }
 
     /**
