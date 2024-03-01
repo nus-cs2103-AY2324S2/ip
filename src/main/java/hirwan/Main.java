@@ -13,7 +13,7 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
 
-    private Hirwan duke = new Hirwan();
+    private Hirwan hirwan = new Hirwan();
 
     /**
      * the start method that initiates the chatbot
@@ -29,7 +29,7 @@ public class Main extends Application {
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setHirwan(duke);
+            fxmlLoader.<MainWindow>getController().setHirwan(hirwan);
             fxmlLoader.<MainWindow>getController().printGreeting();
             stage.show();
         } catch (IOException e) {
