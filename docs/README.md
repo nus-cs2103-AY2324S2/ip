@@ -38,7 +38,7 @@ When the users say "hi" to Zizhen, Zizhen will greet the user!
 
 ## Feature Exiting
 
-Users can say **"bye"** to Zizhen to exit the application!
+Users can say **"bye"** to Zizhen and Zizhen will reply **"Bye bye!"**
 
 ## Feature List
 
@@ -51,7 +51,7 @@ The above command would mark the task at INDEX i as done.
 
 For example:
 **mark 1** will mark the first task as done, so that an additional **X** is added to mark the task.
-The output would looks like 
+The output would looks like
 "Nice! I've marked this task as done:"
 "[T][X] clean the house".
 
@@ -62,7 +62,7 @@ The above command would unmark the task at INDEX i.
 
 For example:
 **unmark 1** will mark the first task as not done, so the additional **X** will be deleted to unmark the task.
-The output would looks like 
+The output would looks like
 "OK, I've marked this task as not done yet:"
 "[T][] clean the house".
 
