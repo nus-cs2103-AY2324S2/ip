@@ -12,7 +12,7 @@
    <children>
       <VBox minHeight="600" AnchorPane.bottomAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="0">
          <children>
-             <ListView fx:id="listView" >
+             <ListView fx:id="listView" VBox.vgrow="ALWAYS">
                  <VBox fx:id="dialogContainer" minWidth="-Infinity" VBox.vgrow="ALWAYS" />
              </ListView>
             <HBox AnchorPane.rightAnchor="0" AnchorPane.leftAnchor="0" AnchorPane.bottomAnchor="0" >
