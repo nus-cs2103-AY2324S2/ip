@@ -3,10 +3,18 @@ package baron.managers;
 import java.util.ArrayList;
 import java.util.List;
 
-import baron.dao.*;
+import baron.dao.ClientDao;
+import baron.dao.DeadlineDao;
+import baron.dao.EventDao;
+import baron.dao.TaskDao;
+import baron.dao.TodoDao;
 import baron.enums.Command;
 import baron.enums.TaskType;
-import baron.models.*;
+import baron.models.Client;
+import baron.models.Deadline;
+import baron.models.Event;
+import baron.models.Task;
+import baron.models.Todo;
 import baron.utils.StringUtils;
 
 // TODO: Stretch goal: add exceptions for marking and listing non-existent indexes
