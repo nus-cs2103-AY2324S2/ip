@@ -2,7 +2,7 @@ package ui;
 
 import java.util.ArrayList;
 
-import duke.Duke;
+import duke.Zizhen;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -28,7 +28,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private Zizhen zizhen;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
@@ -38,8 +38,8 @@ public class MainWindow extends AnchorPane {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d) {
-        duke = d;
+    public void setDuke(Zizhen zizhen) {
+        this.zizhen = zizhen;
     }
 
     /**
@@ -58,7 +58,7 @@ public class MainWindow extends AnchorPane {
         Parser parser = new Parser(todoList, storage, archived);
 
         String input = userInput.getText();
-        String response = duke.getResponse(input, parser);
+        String response = zizhen.getResponse(input, parser);
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, dukeImage));

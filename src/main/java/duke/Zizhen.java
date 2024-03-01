@@ -24,10 +24,10 @@ import storage.Storage;
 import parser.Parser;
 
 /**
- * The main class for duke chat bot.
+ * The main class for Zizhen chat bot.
  */
 
-public class Duke extends Application {
+public class Zizhen extends Application {
 
     private ScrollPane scrollPane;
     private VBox dialogContainer;
@@ -37,15 +37,15 @@ public class Duke extends Application {
     private Image user = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
 
-    public Duke() {
+    public Zizhen() {
 
     }
 
     public static void main(String[] args) {
-        Ui duke = new Ui("Zizhen");
+        Ui Zizhen = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
         Storage archived = new Storage("./data/archived.txt");
-        duke.greeting();
+        Zizhen.greeting();
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
@@ -65,7 +65,7 @@ public class Duke extends Application {
         }
         scanner.close();
 
-        duke.exit();
+        Zizhen.exit();
     }
 
     /**
@@ -97,9 +97,14 @@ public class Duke extends Application {
         userInput.clear();
     }
 
+    private void greet(Ui Zizhen) {
+        Label dukeText = getDialogLabel(Zizhen.greeting());
+        dialogContainer.getChildren().addAll(
+                DialogBox.getDukeDialog(dukeText, new ImageView(duke)));
+    }
+
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Passes in the user input and returns what the parser will return.
      */
     public String getResponse(String userInput, Parser parser) {
         return parser.parse(userInput);
@@ -107,29 +112,16 @@ public class Duke extends Application {
 
     @Override
     public void start(Stage stage) {
-        Ui duke = new Ui("Zizhen");
+        Ui Zizhen = new Ui("Zizhen");
         Storage storage = new Storage("./data/duke.txt");
         Storage archived = new Storage("./data/archived.txt");
-        duke.greeting();
+        greet(Zizhen);
 
         ArrayList<Task> temp = new ArrayList<>();
         temp = storage.getHistory();
         TaskList todoList = new TaskList(temp);
 
         Parser parser = new Parser(todoList, storage, archived);
-
-        boolean isExit = false;
-        Scanner scanner = new Scanner(System.in);
-        while ((!isExit) && scanner.hasNextLine()) {
-            String userInput = scanner.nextLine();
-            if (userInput.equals("bye")) {
-                isExit = true;
-            }
-            parser.parse(userInput);
-        }
-        scanner.close();
-
-        duke.exit();
 
         // Step 1. Setting up required components
 
@@ -187,5 +179,18 @@ public class Duke extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+
+        boolean isExit = false;
+        Scanner scanner = new Scanner(System.in);
+        while ((!isExit) && scanner.hasNextLine()) {
+            String userInput = scanner.nextLine();
+            if (userInput.equals("bye")) {
+                isExit = true;
+            }
+            parser.parse(userInput);
+        }
+        scanner.close();
+
+        Zizhen.exit();
     }
 }

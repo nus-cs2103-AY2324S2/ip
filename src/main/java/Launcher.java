@@ -1,4 +1,4 @@
-import duke.Duke;
+import duke.Zizhen;
 import javafx.application.Application;
 import ui.Main;
 

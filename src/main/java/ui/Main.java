@@ -2,7 +2,7 @@ package ui;
 
 import java.io.IOException;
 
-import duke.Duke;
+import duke.Zizhen;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -10,11 +10,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 /**
- * A GUI for Duke using FXML.
+ * A GUI for Zizhen(based on Duke) using FXML.
  */
 public class Main extends Application {
 
-    private Duke duke = new Duke();
+    private Zizhen duke = new Zizhen();
 
     @Override
     public void start(Stage stage) {

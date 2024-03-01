@@ -19,8 +19,9 @@ public class Ui {
     }
 
     public String greeting() {
-        String output = "Hello from\n" + logo;
-        output += "Hello! I'm " + this.botName + "\n" + "What can I do for you?\n";
+        // String output = "Hello from\n" + logo;
+        String output = "";
+        output += "Hello! I'm " + this.botName + ", your personal TodoList assistant!\n" + "What can I do for you?\n";
         return output;
     }
 

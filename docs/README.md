@@ -42,7 +42,8 @@ When the users say "hi" to Zizhen, Zizhen will greet the user!
 
 ## Feature Exiting
 
-Users can say **"bye"** to Zizhen to exit the application!
+Users can say **"bye"** to Zizhen and Zizhen will reply **"Bye bye!"**
+
 
 ## Feature List
 

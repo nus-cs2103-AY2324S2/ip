@@ -5,10 +5,12 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.Todo;
+import ui.Ui;
 import task.TaskList;
 
 /**
- * Read in user input and execute relative commands.
+ * Read in user input and extract relevant information to execute relative
+ * commands.
  */
 
 public class Parser {
@@ -28,7 +30,12 @@ public class Parser {
      */
 
     public String parse(String userInput) {
-        if (userInput.equals("list")) {
+        if (userInput.equals("bye")) {
+            return "Bye bye!";
+        } else if (userInput.equals("hi")) {
+            Ui zizhen = new Ui("Zizhen");
+            return zizhen.greeting();
+        } else if (userInput.equals("list")) {
             return this.todoList.printList();
         } else if (userInput.equals("archived")) {
             TaskList archivedTasks = new TaskList(this.archived.getHistory());
@@ -155,6 +162,13 @@ public class Parser {
         }
         return false;
     }
+
+    /**
+     * Check whether the user is intend to find tasks with keyword.
+     * 
+     * @param userInput
+     * @return True means the user want to fins taks, or false, which is otherwise.
+     */
 
     public boolean isFindTask(String userInput) {
         String[] words = userInput.split("\\s+");
