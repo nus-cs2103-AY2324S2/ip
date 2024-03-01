@@ -9,7 +9,8 @@ import ui.Ui;
 import task.TaskList;
 
 /**
- * Read in user input and execute relative commands.
+ * Read in user input and extract relevant information to execute relative
+ * commands.
  */
 
 public class Parser {
