@@ -7,7 +7,7 @@
 > Hey, I'm Judy! You personal assistant for task management.
 
 ## Start Using Judy
-1. Click [here](https://github.com/ziyi22/ip/releases/download/v0.1/Judy.jar) to download Judy.
+1. Click [here](https://github.com/ziyi22/ip/releases/download/A-Release/Judy.jar) to download Judy.
 2. Navigate to your Downloads folder using the terminal.
 3. Enter `java -jar Judy.jar` in your terminal.
 4. Press enter.
@@ -15,7 +15,7 @@
 
 ## Adding todo
 
-Add a todo task in your list.
+Use `todo` to add a todo task in your list.
 
 Example: `todo laundry`
 
@@ -28,7 +28,7 @@ Got it! I've added this task:
 
 ## Adding Deadline
 
-Add a deadline task in your list.
+Use 'deadline` to add a deadline task in your list.
 
 Example: `deadline Assignment 1 /by 2025-03-01 2359`
 
@@ -41,7 +41,7 @@ Got it! I've added this task:
 
 ## Adding Event
 
-Add an event task in your list.
+Use 'event' to add an event task in your list.
 
 Example: `event CNY party /from 2024-05-05 1400 /to 2024-05-05 2200`
 
@@ -53,7 +53,7 @@ Got it! I've added this task:
 ```
 ## Displaying task list
 
-Display all the tasks in your task list.
+Use `list` to display all the tasks in your task list.
 
 Example: `list`
 
