@@ -107,8 +107,16 @@ public class TaskManager {
         return UiManager.add(client, clients.size());
     }
 
+    private int getItemIndex(String input, Command command) {
+        int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, command.getCommand(), null)) - 1;
+        if (taskIndex < 0) {
+            throw new IllegalArgumentException("Error: Negative index should not be specified");
+        }
+        return taskIndex;
+    }
+
     private String mark(String input, boolean isDone) {
-        int taskIndex = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.MARK.getCommand(), null)) - 1;
+        int taskIndex = getItemIndex(input, Command.MARK);
         assert (taskIndex >= 0 && taskIndex < this.tasks.size()) : "Accessing a task that doesn't exist";
         Task task = this.get(taskIndex);
         TaskType type = getTaskType(task);
@@ -117,16 +125,16 @@ public class TaskManager {
     }
 
     protected String delete(String input) {
-        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE_TASK.getCommand(), null)) - 1;
-        Task task = this.tasks.remove(i);
+        int taskIndex = getItemIndex(input, Command.DELETE_TASK);
+        Task task = this.tasks.remove(taskIndex);
         TaskType type = getTaskType(task);
         TaskDao.delete(type.getTaskType(), task.getId());
         return UiManager.delete(task, this.tasks.size());
     }
 
     protected String deleteClient(String input) {
-        int i = Integer.parseInt(StringUtils.getValueOfCommand(input, Command.DELETE_CLIENT.getCommand(), null)) - 1;
-        Client client = this.clients.remove(i);
+        int clientIndex = getItemIndex(input, Command.DELETE_CLIENT);
+        Client client = this.clients.remove(clientIndex);
         clientDao.delete(client.getId());
         return UiManager.delete(client, this.clients.size());
     }
