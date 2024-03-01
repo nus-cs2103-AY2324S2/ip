@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
 class Ui {
 
     /**
-     * The input class that reads in the text that the user inputs
+     * The input class that reads in the text that the user inputs and parses it out as a string
      * @return The string representation of the input of the user
      */
     public static String input() {
