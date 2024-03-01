@@ -1,1 +1,1 @@
-T | 1 | slay
+T | 0 | slay
