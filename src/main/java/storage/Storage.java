@@ -16,7 +16,7 @@ import task.Task;
 import task.Todo;
 
 /**
- * Handle the read and storage of data.
+ * Handle the read, write and storage of data.
  */
 public class Storage {
     private String pathName;
