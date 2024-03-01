@@ -84,3 +84,6 @@ The above command would filter the tasks that contains the String s.
 
 When the user delete some tasks, Zizhen will archive the tasks instead of simply delete it!
 So, it will save the archived tasks for future use if nedded!
+
+Users can find archived tasks by entering **"archived"**
+The above command would show the archived tasks.
