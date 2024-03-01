@@ -5,6 +5,10 @@
 Welcome to Zizhen Bot, your personal TodoList assistant! Zizhen is here to help you stay organized and on top of your tasks with ease.
 **Easy Task Management**: Zizhen allows you to effortlessly create, update, and manage your tasks in a simple and intuitive manner.
 
+## Saved TodoList
+
+The todolist will be saved locally so that users can view the history simply by **list** command.
+
 ## Adding Todo
 
 Users can add **todo** to the TodoList by entering "todo Task".
@@ -39,6 +43,7 @@ When the users say "hi" to Zizhen, Zizhen will greet the user!
 ## Feature Exiting
 
 Users can say **"bye"** to Zizhen and Zizhen will reply **"Bye bye!"**
+
 
 ## Feature List
 
@@ -85,5 +90,5 @@ The above command would filter the tasks that contains the String s.
 When the user delete some tasks, Zizhen will archive the tasks instead of simply delete it!
 So, it will save the archived tasks for future use if nedded!
 
-Users can find archived tasks by entering **"archived"**
-The above command would show the archived tasks.
+Users can retrive the archived list by typing **"archived"** command.
+Then all the archived tasks will show up in the page.
