@@ -50,8 +50,10 @@ public class StringUtils {
      */
     public static int getIndexOf(String input, String toFind, int offset) {
         int index = input.indexOf(toFind) + offset;
-        if (index < 0 || index >= input.length()) {
+        if (index >= input.length()) {
             throw new IllegalArgumentException("No " + toFind + " specified");
+        } else if (index < 0) {
+            throw new IllegalArgumentException("Error: negative index was given");
         }
         return index;
     }
