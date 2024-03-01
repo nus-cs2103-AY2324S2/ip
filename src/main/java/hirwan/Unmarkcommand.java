@@ -35,7 +35,8 @@ public class Unmarkcommand extends Command {
     }
 
     /**
-     * the updateData method which updates the tasks in the external text file everytime a task is unmarked
+     * the updateData method which updates the tasks in the external text file everytime a task is unmarked and saves
+     * it to the file
      */
     public void updateData() {
         String number = this.input.substring(7);
