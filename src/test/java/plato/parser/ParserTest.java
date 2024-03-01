@@ -16,8 +16,8 @@ import plato.task.Todo;
 
 class ParserTest {
     private static final String RESPONSE_ADD = "Got it. I've added this task:";
-    private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date!!";
-    private static final String RESPONSE_FIND = "Here are the matching tasks in your list";
+    private static final String RESPONSE_VIEW_DATES = "Here are the task scheduled on that date: ";
+    private static final String RESPONSE_FIND = "Here are the matching tasks in your list: ";
 
     @Test
     public void parse_todo() throws PlatoException {
