@@ -4,9 +4,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import baron.Baron;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
@@ -34,18 +37,22 @@ public class MainWindow implements Initializable {
     private Image botImage = new Image(this.getClass().getResourceAsStream("/images/da-duke.jpg"));
 
     @FXML
+    private ListView<DialogBox> listView;
+    private ObservableList<DialogBox> chats = FXCollections.observableArrayList();
+
+    @FXML
     private void handleUserInput() {
         String input = userInput.getText();
         String response = baron.getResponse(input);
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getBaronDialog(response, botImage));
+        chats.addAll(DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getBaronDialog(response, botImage));
+        listView.scrollTo(chats.size()-1);
         userInput.clear();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        listView.setItems(chats);
     }
 
     public void setBotInstance(Baron baron) {
