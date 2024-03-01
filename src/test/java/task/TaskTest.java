@@ -1,11 +1,14 @@
 package task;
 
-import exceptions.*;
-import org.junit.jupiter.api.Test;
-import java.time.LocalDate;
-
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import java.time.LocalDate;
+
+import org.junit.jupiter.api.Test;
+
+import exceptions.InvalidStatusUpdateException;
+import exceptions.LuluException;
 
 public class TaskTest {
     @Test

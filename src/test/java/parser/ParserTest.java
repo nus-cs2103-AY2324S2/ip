@@ -1,14 +1,15 @@
 package parser;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import org.junit.jupiter.api.Test;
+
+import command.Command;
 import exceptions.InvalidCommandException;
 import exceptions.InvalidDateException;
 import exceptions.InvalidSlashParameterException;
 import exceptions.LuluException;
-import org.junit.jupiter.api.Test;
-import command.Command;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class ParserTest {
     @Test

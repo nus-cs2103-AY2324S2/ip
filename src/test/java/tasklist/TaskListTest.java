@@ -1,15 +1,19 @@
 package tasklist;
 
-import exceptions.DuplicateInsertionException;
-import org.junit.jupiter.api.Test;
-import task.Deadline;
-import task.Task;
-import task.Todo;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.*;
+import org.junit.jupiter.api.Test;
+
+import exceptions.DuplicateInsertionException;
+import task.Deadline;
+import task.Task;
+import task.Todo;
 
 public class TaskListTest {
 
