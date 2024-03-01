@@ -1,0 +1,15 @@
+delete all
+hello
+mark 2
+list
+deadline finish homework /by tomorrow
+deadline finish homework /by 07/02/2024 2000
+deadline finish homework /by
+event concert /from 10/02/2024 1900 /to 10/02/2024 2130
+mark 2 3
+mark 2
+list
+delete 4
+delete 2
+list
+bye
