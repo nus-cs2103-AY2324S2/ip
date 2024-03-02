@@ -70,15 +70,19 @@ public class DeadlineCommand extends Command {
      */
     @Override
     public String execute(StorageManager storageManager, Ui ui, TaskList taskList) {
-        String description = this.deadline[0];
-        String by = this.deadline[1];
-        Deadline deadline = new Deadline(description, by);
-        if (!isDuplicate(deadline, taskList)) {
-            taskList.addTask(deadline);
-        } else {
-            return ui.getReply("This task already exists in the task list.");
+        try {
+            String description = this.deadline[0];
+            String by = this.deadline[1];
+            Deadline deadline = new Deadline(description, by);
+            if (!isDuplicate(deadline, taskList)) {
+                taskList.addTask(deadline);
+            } else {
+                return ui.getReply("This task already exists in the task list.");
+            }
+            storageManager.save(taskList.getTasks());
+            return ui.getReply(deadline.replyString(taskList.getTasksSize()));
+        } catch (DateTimeParseException e) {
+            return ui.getReply("Invalid date format. Please use YYYY-MM-DD or YYYY-MM-DD HH:MM:SS format.\n");
         }
-        storageManager.save(taskList.getTasks());
-        return ui.getReply(deadline.replyString(taskList.getTasksSize()));
     }
 }
