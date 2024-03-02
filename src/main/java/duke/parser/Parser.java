@@ -95,19 +95,17 @@ public class Parser {
         if (!input.trim().equals("help")) {
             throw new DukeException("Please input only help");
         } else {
-            String helpMessage = """
-            Please input all time in 24hrs format and date in YYYY-MM-DD.
-            Here are the list of commands and formats:
-            1) todo <EVENT>
-            2) deadline <EVENT> /by <DATE> <TIME>
-            3) event EVENT /from <DATE> <TIME> /to <DATE> <TIME>
-            4) mark <INDEX>
-            5) unmark <INDEX>
-            6) delete <INDEX>
-            7) list
-            8) sort
-            9) find <KEYWORD>
-                """;
+            String helpMessage = "Please input all time in 24hrs format and date in YYYY-MM-DD.\n"
+                + "Here are the list of commands and formats:\n"
+                + "1) todo <EVENT>\n"
+                + "2) deadline <EVENT> /by <DATE> <TIME>\n"
+                + "3) event EVENT /from <DATE> <TIME> /to <DATE> <TIME>\n"
+                + "4) mark <INDEX>\n"
+                + "5) unmark <INDEX>\n"
+                + "6) delete <INDEX>\n"
+                + "7) list\n"
+                + "8) sort\n"
+                + "9) find <KEYWORD>\n";
             return helpMessage;
         }
     }
