@@ -17,6 +17,20 @@ public class Ui {
         System.out.println("____________________________________________________________");
     }
 
+    public void showHelpMessage() {
+        System.out.println("Welcome to RochinBot Help Page:");
+        System.out.println("- list: View all tasks in the task list");
+        System.out.println("- todo <description>: Add a new todo task");
+        System.out.println("- deadline <description> /by yyyy-MM-dd HHmm: Add a new deadline task");
+        System.out.println("- event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm: Add a new event task");
+        System.out.println("- delete <taskIndex>: Delete the task at the specified index");
+        System.out.println("- mark <taskIndex>: Mark the task at the specified index as done");
+        System.out.println("- unmark <taskIndex>: Mark the task at the specified index as not done");
+        System.out.println("- find <keyword>: Search for tasks containing the specified keyword");
+        System.out.println("- help: View this help page");
+        System.out.println("- bye: Exit the application");
+    }
+
     /**
      * Display the goodbye message.
      */

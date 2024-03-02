@@ -23,6 +23,24 @@ public class Response extends Ui {
     }
 
     /**
+     * Display the Help page.
+     */
+    @Override
+    public void showHelpMessage() {
+        this.string.append("Welcome to RochinBot Help Page:\n");
+        this.string.append("- list: View all tasks in the task list\n");
+        this.string.append("- todo <description>: Add a new todo task\n");
+        this.string.append("- deadline <description> /by yyyy-MM-dd HHmm: Add a new deadline task\n");
+        this.string.append("- event <description> /from yyyy-MM-dd HHmm /to yyyy-MM-dd HHmm: Add a new event task\n");
+        this.string.append("- delete <taskIndex>: Delete the task at the specified index\n");
+        this.string.append("- mark <taskIndex>: Mark the task at the specified index as done\n");
+        this.string.append("- unmark <taskIndex>: Mark the task at the specified index as not done\n");
+        this.string.append("- find <keyword>: Search for tasks containing the specified keyword\n");
+        this.string.append("- help: View this help page\n");
+        this.string.append("- bye: Exit the application\n");
+    }
+
+    /**
      * Display the goodbye message.
      */
     @Override

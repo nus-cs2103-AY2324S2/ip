@@ -24,6 +24,9 @@ public class CommandProcessor {
                 case "hello":
                     ui.showWelcomeMessage();
                     break;
+                case "help":
+                    ui.showHelpMessage();
+                    break;
                 case "bye":
                     ui.showGoodbyeMessage();
                     break;
