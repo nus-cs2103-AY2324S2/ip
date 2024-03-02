@@ -1,5 +1,7 @@
 package dune.task;
 
+import dune.DuneException;
+
 /**
  * Represents a task. A task has a description and a boolean isDone status.
  */
@@ -9,14 +11,19 @@ public abstract class Task {
     private String description;
     private boolean isDone;
 
+    private static final String EMPTY = "Description cannot be empty";
+
     /**
      * Constructor for Task.
      *
      * @param description String description of task.
      */
-    public Task(String description) {
+    public Task(String description) throws DuneException {
         this.description = description;
         this.isDone = false;
+        if (description.equals("")) {
+            throw new DuneException(EMPTY);
+        }
     }
 
     /**
@@ -25,9 +32,12 @@ public abstract class Task {
      * @param description String description of task.
      * @param isDone Boolean isDone status of task.
      */
-    public Task(String description, boolean isDone) {
+    public Task(String description, boolean isDone) throws DuneException {
         this.description = description;
         this.isDone = isDone;
+        if (description.equals("")) {
+            throw new DuneException(EMPTY);
+        }
     }
 
     public void mark() {

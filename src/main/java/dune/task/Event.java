@@ -23,6 +23,7 @@ public class Event extends Task {
 
     private static final String BEFORE = "Start date must be before end date";
 
+
     // test this method
 
     /**
@@ -54,7 +55,7 @@ public class Event extends Task {
         super(description, isDone);
         this.start = LocalDateTime.parse(start);
         this.end = LocalDateTime.parse(end);
-        if (this.start.isAfter(this.end)) {
+        if (!this.start.isBefore(this.end)) {
             throw new DuneException(BEFORE);
         }
     }

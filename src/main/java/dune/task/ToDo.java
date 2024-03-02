@@ -1,5 +1,7 @@
 package dune.task;
 
+import dune.DuneException;
+
 /**
  * Represents a todo. A todo has a description and a boolean isDone status.
  */
@@ -9,7 +11,7 @@ public class ToDo extends Task {
      *
      * @param description
      */
-    public ToDo(String description) {
+    public ToDo(String description) throws DuneException {
         super(description);
     }
 
@@ -19,7 +21,7 @@ public class ToDo extends Task {
      * @param description
      * @param isDone
      */
-    public ToDo(String description, boolean isDone) {
+    public ToDo(String description, boolean isDone) throws DuneException {
         super(description, isDone);
     }
 

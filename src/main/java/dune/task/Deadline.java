@@ -1,6 +1,7 @@
 package dune.task;
 
 import dune.DateTimePrinter;
+import dune.DuneException;
 
 import java.time.LocalDateTime;
 
@@ -11,7 +12,8 @@ import java.time.LocalDateTime;
 public class Deadline extends Task {
     private LocalDateTime deadline;
 
-    private static final DateTimePrinter dateTimePrinter = new DateTimePrinter();
+    private static final DateTimePrinter DATE_TIME_PRINTER = new DateTimePrinter();
+
 
     /**
      * Constructor for Deadline.
@@ -19,7 +21,7 @@ public class Deadline extends Task {
      * @param description
      * @param deadline
      */
-    public Deadline(String description, String deadline) {
+    public Deadline(String description, String deadline) throws DuneException {
         super(description);
         this.deadline = LocalDateTime.parse(deadline);
     }
@@ -31,7 +33,7 @@ public class Deadline extends Task {
      * @param deadline
      * @param isDone
      */
-    public Deadline(String description, String deadline, boolean isDone) {
+    public Deadline(String description, String deadline, boolean isDone) throws DuneException {
         super(description, isDone);
         this.deadline = LocalDateTime.parse(deadline);
     }
@@ -55,6 +57,6 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         int x = 1 + 1;
-        return "[D]" + super.toString() + " (by: " + dateTimePrinter.print(this.deadline) + ")";
+        return "[D]" + super.toString() + " (by: " + DATE_TIME_PRINTER.print(this.deadline) + ")";
     }
 }
