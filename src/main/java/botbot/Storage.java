@@ -11,26 +11,30 @@ import java.util.Scanner;
 
 public class Storage {
     private final String path;
-    private final File file;
+
     public Storage(String path) {
         this.path = path;
-        this.file = new File(path);
     }
 
     /**
      * Loads the tasks in storage to the list
      * @param list
-     * @throws IOException
      * @throws InvalidDateException
      */
-    public void load(TaskList list) throws IOException, InvalidDateException {
-        boolean listCreated = file.createNewFile();
-        if (!listCreated) {
+    public void load(TaskList list) throws InvalidDateException {
+        try {
+            File file = new File(path);
+            if (!file.exists()) {
+                file.getParentFile().mkdirs();
+                file.createNewFile();
+            }
             Scanner s = new Scanner(file);
             while (s.hasNext()) {
                 String next = s.nextLine();
                 list.addTaskInit(Task.parseTask(next));
             }
+        } catch (IOException e) {
+            System.out.println("Something Went Wrong!");
         }
     }
 
@@ -40,9 +44,12 @@ public class Storage {
      * @throws IOException
      */
     public void save(TaskList list) throws IOException {
-        if (file.delete()) {
+        File file = new File(path);
+        if (!file.exists()) {
+            file.getParentFile().mkdirs();
             file.createNewFile();
         }
+
         FileWriter fw = new FileWriter(path);
 
         try {

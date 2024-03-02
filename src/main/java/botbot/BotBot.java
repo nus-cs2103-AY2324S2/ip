@@ -8,7 +8,7 @@ import botbot.task.TaskList;
 
 
 public class BotBot  {
-    public static final String LIST_PATH = "./data/list.txt";
+    public static final String LIST_PATH = "././data/list.txt";
     private Storage storage;
     private TaskList taskList;
     private Ui ui;
@@ -20,7 +20,7 @@ public class BotBot  {
      */
     public BotBot() throws BotBotException, IOException {
         ui = new Ui();
-        storage = new Storage(BotBot.LIST_PATH);
+        storage = new Storage("./data/list.txt");
         taskList = new TaskList();
         storage.load(taskList);
     }
