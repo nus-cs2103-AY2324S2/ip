@@ -20,7 +20,7 @@ For example:
 
 ## Adding Deadlines
 
-Users can add **deadlines** to the TodoList by entering "deadline Task \by Date".
+Users can add **deadlines** to the TodoList by entering "deadline Task \by [Date yyyy-MM-dd]".
 This allows Zizhen to catch the information and add to the TodoList.
 
 For example:
@@ -29,7 +29,7 @@ For example:
 
 ## Adding Events
 
-Users can add **event** to the TodoList by entering "event Task \from Date \to Date".
+Users can add **event** to the TodoList by entering "event Task \from [Date yyyy-MM-dd] \to [Date yyyy-MM-dd]".
 This allows Zizhen to catch the information and add to the TodoList.
 
 For example:
