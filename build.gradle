@@ -28,7 +28,7 @@ test {
 }
 
 application {
-    mainClass.set("src.main.java.goblin.Goblin")
+    mainClassName = 'goblin.Goblin'
 }
 
 shadowJar {
