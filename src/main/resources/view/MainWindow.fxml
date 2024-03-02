@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ping.gui.MainWindow">
+    <children>
+      <BorderPane prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <center>
+              <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="400.0" prefWidth="800.0" style="-fx-background-color: #F6F6F7;" vvalue="1.0" BorderPane.alignment="CENTER">
+               <content>
+                      <VBox fx:id="dialogContainer" prefHeight="544.0" prefWidth="797.0" />
+               </content>
+              </ScrollPane>
+         </center>
+         <bottom>
+            <SplitPane dividerPositions="0.8" nodeOrientation="LEFT_TO_RIGHT" prefHeight="50.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+               <items>
+                    <TextField fx:id="userInput" alignment="TOP_LEFT" onAction="#handleUserInput" prefHeight="50.0" prefWidth="674.0" />
+                    <Button fx:id="sendButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="50.0" prefWidth="117.0" text="Send" />
+               </items>
+            </SplitPane>
+         </bottom>
+      </BorderPane>
+    </children>
+</AnchorPane>
