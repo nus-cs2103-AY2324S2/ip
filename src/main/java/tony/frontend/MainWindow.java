@@ -8,6 +8,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 import tony.Tony;
@@ -36,7 +37,10 @@ public class MainWindow extends AnchorPane {
      */
     @FXML
     public void initialize() {
+        assert userImage != null;
+        assert dukeImage != null;
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
         String dukeText = Ui.greeting();
         dialogContainer.getChildren().addAll(
                 DialogBox.getTonyDialog(dukeText, dukeImage)

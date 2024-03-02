@@ -33,7 +33,9 @@ public class TaskFactory {
                 LocalDateTime dueDate = Parser.parseDate(due);
                 return new Deadline(description, dueDate);
             } catch (Exception e) {
-                throw new InvalidTaskException("Error creating DEADLINE task " + e.getMessage());
+                throw new InvalidTaskException("Please use the correct input format for Deadline Tasks!\n"
+                + "e.g. deadline description /by YYYY-MM-DDTHH:MM \n"
+                );
             }
         case EVENT:
             try {
@@ -43,7 +45,9 @@ public class TaskFactory {
                 LocalDateTime to = Parser.parseDate(toString);
                 return new Event(description, from, to);
             } catch (Exception e) {
-                throw new InvalidTaskException("Error creating EVENT task " + e.getMessage());
+                throw new InvalidTaskException("Please use the correct input format for Event Tasks!\n"
+                        + "e.g. event description /from YYYY-MM-DDTHH:MM /to YYYY-MM-DDTHH:MM \n"
+                );
             }
         default:
             throw new IllegalArgumentException("Invalid task type: " + type);
