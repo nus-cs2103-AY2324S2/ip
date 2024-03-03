@@ -24,7 +24,8 @@ public class MainView extends AnchorPane {
     @FXML
     private VBox dialogContainer;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.jpg"));
+    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
+    private Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/dude.png"));
 
     @FXML
     public void initialize() {
@@ -41,7 +42,7 @@ public class MainView extends AnchorPane {
 
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, userImage)
+                DialogBox.getDukeDialog(response, dudeImage)
         );
 
         dialogContainer.heightProperty().addListener((observable) -> {
