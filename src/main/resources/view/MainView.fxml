@@ -11,7 +11,7 @@
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="349.0"
             style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="dude.MainView">
+            xmlns:fx="http://javafx.com/fxml/1" fx:controller="dude.gui.MainView">
     <children>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="350.0"
                     style="-fx-background-color: #18181b;">
