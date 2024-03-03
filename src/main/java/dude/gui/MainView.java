@@ -31,6 +31,9 @@ public class MainView extends AnchorPane {
     private Image dudeImage;
     private Dude dude;
 
+    /**
+     * Initializes the MainView, setting up the images and the Dude object.
+     */
     @FXML
     public void initialize() {
         this.dude = new Dude("data/tasks.ser");

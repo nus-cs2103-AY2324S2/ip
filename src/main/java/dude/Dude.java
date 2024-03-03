@@ -48,7 +48,7 @@ public class Dude {
         Command c = Parser.parse(input, taskList);
         String response = executeCommand(c);
         try {
-            saveToDisk();
+            saveTaskListToDisk();
         } catch (IOException e) {
             return STORAGE_SAVING_ERROR_MESSAGE;
         }
@@ -63,7 +63,7 @@ public class Dude {
         }
     }
 
-    private void saveToDisk() throws IOException, SecurityException {
+    private void saveTaskListToDisk() throws IOException, SecurityException {
         this.storage.saveTasks(taskList);
     }
 
