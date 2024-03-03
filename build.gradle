@@ -50,7 +50,7 @@ test {
 }
 
 application {
-    mainClass.set("seedu.eve.Eve")
+    mainClass.set("eve.gui.Launcher")
 }
 
 shadowJar {
