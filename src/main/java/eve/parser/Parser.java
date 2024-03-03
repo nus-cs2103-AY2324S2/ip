@@ -24,36 +24,36 @@ public class Parser {
 
         ArrayList<Task> list = eve.getTaskList();
         try {
-                switch (commandCheck) {
-                case "BYE":
-                    return Commands.commandBye();
-                case "LIST":
-                    return TaskList.commandList(list);
-                case "MARK":
-                    return TaskList.commandMark(tempyArr, list);
-   
-                case "UNMARK":
-                    return TaskList.commandUnMark(tempyArr, list);
-                case "DELETE":
-                    return TaskList.commandDelete(tempyArr, list);
-                case "TODO":
-                    return TaskList.commandTodo(tempyArr, list);
-                case "DEADLINE":
-                    return TaskList.commandDeadline(tempyArr, list);
-                case "EVENT":
-                    return TaskList.commandEvent(tempyArr, list);
-                case "FIND":
-                    return TaskList.commandFind(tempyArr, list);
-                case "TAG":
-                    return TaskList.commandTag(tempyArr, list);
+            switch (commandCheck) {
+            case "BYE":
+                return Commands.commandBye();
+            case "LIST":
+                return TaskList.commandList(list);
+            case "MARK":
+                return TaskList.commandMark(tempyArr, list);
 
-                default:
-                    return "OOPS!!! I'm sorry, but I don't know what that means, please try again";
+            case "UNMARK":
+                return TaskList.commandUnMark(tempyArr, list);
+            case "DELETE":
+                return TaskList.commandDelete(tempyArr, list);
+            case "TODO":
+                return TaskList.commandTodo(tempyArr, list);
+            case "DEADLINE":
+                return TaskList.commandDeadline(tempyArr, list);
+            case "EVENT":
+                return TaskList.commandEvent(tempyArr, list);
+            case "FIND":
+                return TaskList.commandFind(tempyArr, list);
+            case "TAG":
+                return TaskList.commandTag(tempyArr, list);
 
-                }
-            } catch (EveExceptions e) {
-                return "Error occured: " + e.getMessage();
+            default:
+                return "OOPS!!! I'm sorry, but I don't know what that means, please try again";
+
             }
+        } catch (EveExceptions e) {
+            return "Error occured: " + e.getMessage();
+        }
 
     }
     
