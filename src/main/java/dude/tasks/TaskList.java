@@ -33,6 +33,20 @@ public class TaskList {
     }
 
     /**
+     * Static method to create a TaskList object from an arbitrary number of tasks.
+     *
+     * @param tasks Task objects to be put into a TaskList object.
+     * @return The TaskList object created from the Task objects.
+     */
+    public static TaskList from(Task... tasks) {
+        TaskList taskList = new TaskList();
+        for (Task task : tasks) {
+            taskList.list.add(task);
+        }
+        return taskList;
+    }
+
+    /**
      * Adds a task to the list of tasks.
      *
      * @param task The task to be added to the list of tasks.
