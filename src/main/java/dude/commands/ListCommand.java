@@ -19,6 +19,9 @@ public class ListCommand extends Command {
      */
     public ListCommand(TaskList tasklist) {
         super("list", "list");
+
+        assert(tasklist != null);
+
         this.tasklist = tasklist;
     }
 

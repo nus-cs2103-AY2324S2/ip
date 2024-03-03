@@ -23,6 +23,11 @@ public class TodoCommand extends Command {
      */
     public TodoCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "todo .*");
+
+        assert(input != null);
+        assert(tasklist != null);
+        assert(input.contains("todo"));
+
         this.input = input;
         this.taskList = tasklist;
     }
