@@ -51,7 +51,7 @@ public class Utils {
      * @param array  The array of strings.
      * @param target The target string.
      * @return The index of the first occurrence of the target string in the array. If the target string is not found,
-     * -1 is returned.
+     *     -1 is returned.
      */
     public static int findIndex(String[] array, String target) {
         for (int i = 0; i < array.length; i++) {
