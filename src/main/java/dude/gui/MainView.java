@@ -39,6 +39,8 @@ public class MainView extends AnchorPane {
         this.dude = new Dude("data/tasks.ser");
         this.userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
         this.dudeImage = new Image(this.getClass().getResourceAsStream(DUDE_IMAGE_PATH));
+
+        this.showWelcomeMessage();
     }
 
     /**
@@ -73,4 +75,8 @@ public class MainView extends AnchorPane {
         );
     }
 
+    private void showWelcomeMessage() {
+        String welcomeMessage = dude.getWelcomeMessage();
+        dialogContainer.getChildren().add(DialogBox.getDukeDialog(welcomeMessage, dudeImage));
+    }
 }

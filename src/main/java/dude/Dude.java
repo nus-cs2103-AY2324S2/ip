@@ -79,4 +79,13 @@ public class Dude {
         return temp;
     }
 
+    /**
+     * Returns the welcome message of the application.
+     *
+     * @return The welcome message of the application.
+     */
+    public String getWelcomeMessage() {
+        return "Hello! I'm Dude\nWhat can I do for you?";
+    }
+
 }
