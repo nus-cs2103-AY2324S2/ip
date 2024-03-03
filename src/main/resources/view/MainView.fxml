@@ -10,13 +10,13 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="-Infinity" minWidth="-Infinity" prefHeight="564.0" prefWidth="349.0"
-            style="-fx-background-color: #262626;" xmlns="http://javafx.com/javafx/21"
+            style="-fx-background-color: #18181b;" xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1" fx:controller="dude.gui.MainView">
     <children>
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" prefHeight="518.0" prefWidth="350.0"
                     style="-fx-background-color: #18181b;">
             <content>
-                <VBox fx:id="dialogContainer" prefHeight="518.0" prefWidth="350.0"
+                <VBox fx:id="dialogContainer" prefHeight="520.0" prefWidth="350.0"
                       style="-fx-background-color: #18181b;">
                     <padding>
                         <Insets left="8.0" right="8.0"/>
@@ -24,16 +24,21 @@
                 </VBox>
             </content>
         </ScrollPane>
-        <TextField fx:id="userInputField" layoutX="8.0" layoutY="531.0" onAction="#handleUserInput" prefHeight="26.0"
-                   prefWidth="224.0" promptText="Type in command"/>
-        <Button fx:id="sendButton" layoutX="241.0" layoutY="530.0" mnemonicParsing="false" onAction="#handleUserInput"
-                prefHeight="26.0" prefWidth="99.0" style="-fx-background-color: #0f172a;" text="Send" textFill="WHITE">
-            <tooltip>
-                <Tooltip text="Send Message"/>
-            </tooltip>
-            <font>
-                <Font name="Century Gothic" size="12.0"/>
-            </font>
-        </Button>
+        <AnchorPane layoutY="508.0" prefHeight="58.0" prefWidth="350.0" style="-fx-background-color: #262626;">
+            <children>
+                <Button fx:id="sendButton" layoutX="243.0" layoutY="16.0" mnemonicParsing="false"
+                        onAction="#handleUserInput" prefHeight="26.0" prefWidth="99.0"
+                        style="-fx-background-color: #0f172a;" text="Send" textFill="WHITE">
+                    <tooltip>
+                        <Tooltip text="Send Message"/>
+                    </tooltip>
+                    <font>
+                        <Font name="Century Gothic" size="12.0"/>
+                    </font>
+                </Button>
+                <TextField fx:id="userInputField" layoutX="11.0" layoutY="16.0" onAction="#handleUserInput"
+                           prefHeight="26.0" prefWidth="224.0" promptText="Type in command"/>
+            </children>
+        </AnchorPane>
     </children>
 </AnchorPane>
