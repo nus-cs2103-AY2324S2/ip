@@ -128,9 +128,11 @@ public class TaskList {
         ArrayList<Task> copy = new ArrayList<>();
         for (Task task : list) {
             if (task instanceof Deadline) {
-                copy.add(new Deadline(task.getDescription(), ((Deadline) task).extractBy()));
+                Deadline deadline = (Deadline) task;
+                copy.add(new Deadline(deadline.getDescription(), deadline.getByTime()));
             } else if (task instanceof Event) {
-                copy.add(new Event(task.getDescription(), ((Event) task).getFromTime(), ((Event) task).getToTime()));
+                Event event = (Event) task;
+                copy.add(new Event(event.getDescription(), event.getFromTime(), event.getToTime()));
             } else if (task instanceof Todo) {
                 copy.add(new Todo(task.getDescription()));
             } else {
@@ -171,7 +173,7 @@ public class TaskList {
      */
     @Override
     public String toString() {
-        if (list.size() == 0) {
+        if (list.isEmpty()) {
             return "No tasks in the list! :(";
         }
 

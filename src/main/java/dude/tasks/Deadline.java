@@ -46,7 +46,7 @@ public class Deadline extends Task {
         int byIndex = Utils.findIndex(arr, "/by");
 
         String description = extractDescription(byIndex, arr);
-        String by = extractBy(byIndex, arr);
+        String by = extractByString(byIndex, arr);
         LocalDateTime dt = extractDateFromString(by);
 
         return new Deadline(description, dt);
@@ -57,11 +57,11 @@ public class Deadline extends Task {
      *
      * @return The deadline date-time of the Deadline object.
      */
-    public LocalDateTime extractBy() {
+    public LocalDateTime getByTime() {
         return deadlineDate;
     }
 
-    private static String extractBy(int byIndex, String[] arr) throws InvalidArgumentException {
+    private static String extractByString(int byIndex, String[] arr) throws InvalidArgumentException {
         String by = "";
         for (int i = byIndex + 1; i < arr.length; i++) {
             by += arr[i] + " ";
@@ -126,7 +126,7 @@ public class Deadline extends Task {
     public boolean equals(Object object) {
         if (object instanceof Deadline) {
             Deadline t = (Deadline) object;
-            return t.getDescription().equals(this.getDescription()) && t.extractBy().equals(this.extractBy());
+            return t.getDescription().equals(this.getDescription()) && t.getByTime().equals(this.getByTime());
         }
         return false;
     }
