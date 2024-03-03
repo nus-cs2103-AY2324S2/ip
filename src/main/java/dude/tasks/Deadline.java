@@ -44,34 +44,30 @@ public class Deadline extends Task {
      */
     public static Deadline from(String s) throws InvalidFormatException,
             InvalidDescriptionException, InvalidArgumentException {
-
         assert (s != null);
-
-        //get rid of the command
         String rest = Utils.discardFirstWord(s.trim()).trim();
-
         String[] arr = rest.split(" ");
 
-        int byOccurences = Utils.countOccurrences(arr, "/by");
-
-        if (byOccurences == 0 || byOccurences > 1) {
-            throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. "
-                    + "Provide one and only one '/by'.");
-        }
-
-        //they will not be -1 as I have already checked for their occurences
+        validateBy(arr);
         int byIndex = Utils.findIndex(arr, "/by");
 
-        //description is from 0 to byIndex
-        String description = "";
-        for (int i = 0; i < byIndex; i++) {
-            description += arr[i] + " ";
-        }
-        description = description.trim();
-        if (description.isEmpty()) {
-            throw new InvalidDescriptionException("The description of a deadline cannot be empty.");
-        }
+        String description = extractDescription(byIndex, arr);
+        String by = extractByString(byIndex, arr);
+        LocalDateTime dt = extractDateFromString(by);
 
+        return new Deadline(description, dt);
+    }
+
+    /**
+     * Returns the deadline of the Deadline object.
+     *
+     * @return The deadline date-time of the Deadline object.
+     */
+    public LocalDateTime getByTime() {
+        return deadlineDate;
+    }
+
+    private static String extractByString(int byIndex, String[] arr) throws InvalidArgumentException {
         String by = "";
         for (int i = byIndex + 1; i < arr.length; i++) {
             by += arr[i] + " ";
@@ -81,24 +77,40 @@ public class Deadline extends Task {
             throw new InvalidArgumentException("The 'by' of a deadline cannot be empty. "
                     + "Follow this format: deadline <description> /by <deadline date time>");
         }
+        return by;
+    }
 
+    private static LocalDateTime extractDateFromString(String by) throws InvalidFormatException {
         try {
             LocalDateTime dt = parseDate(by);
-            return new Deadline(description, dt);
+            return dt;
         } catch (DateTimeParseException e) {
             throw new InvalidFormatException("Invalid date format after '/by'. "
                     + "Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
         }
     }
 
-    /**
-     * Returns the deadline of the Deadline object.
-     *
-     * @return The deadline date-time of the Deadline object.
-     */
-    public LocalDateTime getBy() {
-        return deadlineDate;
+    private static String extractDescription(int byIndex, String[] arr) throws InvalidDescriptionException {
+        String description = "";
+        for (int i = 0; i < byIndex; i++) {
+            description += arr[i] + " ";
+        }
+
+        description = description.trim();
+        if (description.isEmpty()) {
+            throw new InvalidDescriptionException("The description of a deadline cannot be empty.");
+        }
+        return description;
     }
+
+    private static void validateBy(String[] arr) throws InvalidFormatException {
+        int byOccurences = Utils.countOccurrences(arr, "/by");
+        if (byOccurences == 0 || byOccurences > 1) {
+            throw new InvalidFormatException("deadline", "format: deadline <description> /by <deadline date>. "
+                    + "Provide one and only one '/by'.");
+        }
+    }
+
 
     /**
      * Returns a string representation of the Deadline object.
@@ -120,7 +132,7 @@ public class Deadline extends Task {
     public boolean equals(Object object) {
         if (object instanceof Deadline) {
             Deadline t = (Deadline) object;
-            return t.getDescription().equals(this.getDescription()) && t.getBy().equals(this.getBy());
+            return t.getDescription().equals(this.getDescription()) && t.getByTime().equals(this.getByTime());
         }
         return false;
     }

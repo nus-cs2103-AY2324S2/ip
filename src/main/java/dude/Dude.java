@@ -1,16 +1,12 @@
 package dude;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import dude.commands.Command;
-import dude.commands.CommandTypes;
 import dude.commands.Parser;
 import dude.exceptions.DudeException;
 import dude.tasks.TaskList;
 import dude.utils.Storage;
-import dude.utils.Ui;
 
 
 /**
@@ -22,11 +18,11 @@ import dude.utils.Ui;
  * parsing it into a command, executing the command and saving the task list to disk.
  **/
 public class Dude {
+    private static final String STORAGE_LOADING_ERROR_MESSAGE = "An error occurred while loading the tasks. "
+            + "Deleting the storage and starting with an empty task list.";
+    private static final String STORAGE_SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks to disk.";
     private final TaskList taskList;
     private final Storage storage;
-
-    private final Ui ui;
-    private boolean isRunning = true;
 
     /**
      * Constructor for the Dude class.
@@ -38,70 +34,25 @@ public class Dude {
      */
     public Dude(String filePath) {
         this.storage = new Storage(filePath);
-        this.ui = new Ui();
-
-        TaskList temp = null;
-        try {
-            temp = this.storage.loadTasks();
-        } catch (Exception e) { //Thrown when file gets corrupted
-            System.out.println("An error occurred while loading the tasks. Deleting the storage and starting with "
-                    + "an empty task list.");
-            this.storage.deleteStorage();
-            temp = new TaskList();
-        }
-
-        this.taskList = temp;
+        this.taskList = loadTaskList();
     }
 
+    /**
+     * The main method used to interact with dude. User input is passed to this method to execute the
+     * appropriate command and send back a response from dude.
+     * <p>
+     *
+     * @param input The user input to be processed.
+     */
     public String getResponse(String input) {
         Command c = Parser.parse(input, taskList);
         String response = executeCommand(c);
         try {
-            saveToDisk();
+            saveTaskListToDisk();
         } catch (IOException e) {
-            return "An error occurred while saving the tasks to disk.";
+            return STORAGE_SAVING_ERROR_MESSAGE;
         }
         return response;
-    }
-
-    /**
-     * This method runs the main loop of the application.
-     * <p>
-     * This method is responsible for reading user input, parsing it into a command,
-     * executing the command and saving the task list to disk.
-     */
-    public void run() {
-
-        ui.showWelcome();
-        Scanner sc = new Scanner(System.in);
-        while (this.isRunning) {
-            String input = extractInput(sc);
-            Command command = Parser.parse(input, taskList);
-
-            String response = executeCommand(command);
-            ui.showMessage(response);
-
-            try {
-                saveToDisk();
-            } catch (IOException e) {
-                System.out.println("An error occurred while saving the tasks to disk.");
-            }
-
-            if (command.getCommandType() == CommandTypes.BYE) {
-                this.isRunning = false;
-            }
-        }
-    }
-
-    private static String extractInput(Scanner sc) {
-        String input = "";
-        try {
-            input = sc.nextLine();
-        } catch (NoSuchElementException e) {
-            //this will not be handled. App will only exit at bye command.
-            input = "";
-        }
-        return input;
     }
 
     private static String executeCommand(Command command) {
@@ -112,8 +63,20 @@ public class Dude {
         }
     }
 
-    private void saveToDisk() throws IOException, SecurityException {
+    private void saveTaskListToDisk() throws IOException, SecurityException {
         this.storage.saveTasks(taskList);
+    }
+
+    private TaskList loadTaskList() {
+        TaskList temp;
+        try {
+            temp = this.storage.loadTasks();
+        } catch (Exception e) { //Thrown when file gets corrupted
+            System.out.println(STORAGE_LOADING_ERROR_MESSAGE);
+            this.storage.deleteStorage();
+            temp = new TaskList();
+        }
+        return temp;
     }
 
 }

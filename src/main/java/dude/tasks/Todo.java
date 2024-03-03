@@ -27,15 +27,12 @@ public class Todo extends Task {
      * @throws InvalidDescriptionException if the description of the todo is empty.
      */
     public static Todo from(String s) throws InvalidDescriptionException {
-
-        //get rid of the command
         String description = Utils.discardFirstWord(s.trim()).trim();
-
-        if (!description.isEmpty()) {
-            return new Todo(description);
-        } else {
+        if (description.isEmpty()) {
             throw new InvalidDescriptionException("The description of a todo cannot be empty.");
         }
+
+        return new Todo(description);
     }
 
     /**
