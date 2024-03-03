@@ -32,6 +32,10 @@ public class HelpCommand extends Command {
      */
     public HelpCommand(String input) {
         super("help <?command>", "help");
+
+        assert(input != null);
+        assert(input.contains("help"));
+
         this.input = input.trim();
     }
 

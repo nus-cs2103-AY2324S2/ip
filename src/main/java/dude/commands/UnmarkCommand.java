@@ -23,6 +23,11 @@ public class UnmarkCommand extends Command {
      */
     public UnmarkCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "unmark \\d+");
+
+        assert(input != null);
+        assert(tasklist != null);
+        assert(input.contains("unmark"));
+
         this.input = input.trim();
         this.taskList = tasklist;
     }

@@ -15,6 +15,9 @@ public class Parser {
      * @return The parsed command from the user input.
      */
     public static Command parse(String input, TaskList tasklist) {
+        assert(input != null);
+        assert(tasklist != null);
+
         String[] command = input.split(" ", 2);
         switch (command[0]) {
         case "bye":

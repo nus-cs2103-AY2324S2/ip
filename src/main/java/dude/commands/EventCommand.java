@@ -24,6 +24,12 @@ public class EventCommand extends Command {
      */
     public EventCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "event .* /from .* /to .*");
+
+        assert(input != null);
+        assert(tasklist != null);
+        assert(input.contains("event"));
+
+
         this.input = input;
         this.taskList = tasklist;
     }
