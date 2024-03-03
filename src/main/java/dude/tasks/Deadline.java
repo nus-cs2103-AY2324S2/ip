@@ -24,6 +24,11 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
+
+        assert (by != null);
+        assert (description != null);
+        assert (!description.isEmpty());
+
         this.deadlineDate = by;
     }
 
@@ -39,6 +44,7 @@ public class Deadline extends Task {
      */
     public static Deadline from(String s) throws InvalidFormatException,
             InvalidDescriptionException, InvalidArgumentException {
+        assert (s != null);
         String rest = Utils.discardFirstWord(s.trim()).trim();
         String[] arr = rest.split(" ");
 

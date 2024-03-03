@@ -26,6 +26,8 @@ public class Storage {
      * @param fileLocation The file path to the storage file.
      */
     public Storage(String fileLocation) {
+        assert (fileLocation != null);
+
         this.filepath = extractFilePath(fileLocation);
         this.filename = extractFileName(fileLocation);
     }
@@ -76,6 +78,7 @@ public class Storage {
      * @throws SecurityException if a security manager exists and its checkWrite method denies write access to the file.
      */
     public void saveTasks(TaskList taskList) throws IOException, SecurityException {
+        assert (taskList != null);
         try {
             FileOutputStream fos = new FileOutputStream(this.filepath + this.filename);
             ObjectOutputStream oos = new ObjectOutputStream(fos);

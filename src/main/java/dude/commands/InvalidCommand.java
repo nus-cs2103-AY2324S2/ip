@@ -1,7 +1,7 @@
 package dude.commands;
 
 /**
- * The InvalidCommand class represents a command that is invalid.
+ * The InvalidCommand Class is used to wrap around any invalid commands that are input by the user.
  */
 public class InvalidCommand extends Command {
 
@@ -15,7 +15,7 @@ public class InvalidCommand extends Command {
     /**
      * Does nothing
      *
-     * @return The string message for an invalid command.
+     * @return The string message for trying to execute an invalid command.
      */
     public String execute() {
         return "Sorry I don't understand that command. Please try again.";

@@ -25,6 +25,11 @@ public class FindCommand extends Command {
      */
     public FindCommand(String input, TaskList taskList) {
         super(COMMAND_FORMAT, "find .*");
+
+        assert(input != null);
+        assert(taskList != null);
+        assert(input.contains("find"));
+
         this.input = input;
         this.taskList = taskList;
     }

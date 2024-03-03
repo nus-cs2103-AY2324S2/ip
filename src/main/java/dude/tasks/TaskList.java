@@ -27,6 +27,8 @@ public class TaskList {
      * @return The TaskList object created from the ArrayList of Task objects.
      */
     public static TaskList from(ArrayList<Task> tasks) {
+        assert (tasks != null);
+
         TaskList taskList = new TaskList();
         taskList.list.addAll(tasks);
         return taskList;
@@ -39,6 +41,8 @@ public class TaskList {
      * @return The TaskList object created from the Task objects.
      */
     public static TaskList from(Task... tasks) {
+        assert (tasks != null);
+
         TaskList taskList = new TaskList();
         for (Task task : tasks) {
             taskList.list.add(task);
@@ -53,6 +57,7 @@ public class TaskList {
      * @throws TaskListFullException if the task list is full.
      */
     public void add_task(Task task) throws TaskListFullException {
+        assert (task != null);
         if (list.size() >= 100) {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
@@ -105,6 +110,7 @@ public class TaskList {
      * @return An ArrayList of Task objects that contain the keyword.
      */
     public ArrayList<Task> find(String keyword) {
+        assert (keyword != null);
         ArrayList<Task> result = new ArrayList<>();
         String taskString;
         String keywordLowerCase = keyword.toLowerCase();

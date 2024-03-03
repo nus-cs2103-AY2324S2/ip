@@ -23,6 +23,11 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "mark \\d+");
+
+        assert(input != null);
+        assert(tasklist != null);
+        assert(input.contains("mark"));
+
         this.input = input.trim();
         this.taskList = tasklist;
     }
