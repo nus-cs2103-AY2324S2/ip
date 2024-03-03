@@ -1,19 +1,13 @@
 package charlie.parser;
 
-import charlie.commands.AddCommand;
-import charlie.commands.Command;
-import charlie.commands.DeleteCommand;
-import charlie.commands.ExitCommand;
-import charlie.commands.FindCommand;
-import charlie.commands.ListCommand;
-import charlie.commands.MarkCommand;
+import charlie.commands.*;
 import charlie.exceptions.CharlieException;
 
 public class Parser {
 
     public static Command parse(String fullCommand) throws CharlieException {
         boolean addCommand = fullCommand.startsWith("todo") || fullCommand.startsWith("event")
-                || fullCommand.startsWith("deadline")
+                || fullCommand.startsWith("deadline");
         if (fullCommand.startsWith("delete")) {
             return initiateDelete(fullCommand);
         } else if (addCommand) {
@@ -40,15 +34,11 @@ public class Parser {
     }
 
     private static Command initiateAddCommand(String fullCommand) {
-<<<<<<< Updated upstream
-        return new AddCommand(fullCommand);
-=======
         String[] words = fullCommand.split(" ");
         String priorityString = words[words.length-1];
         Integer priorityNumber = Integer.parseInt(priorityString);
         String actualCommand = fullCommand.substring(0, fullCommand.length()-2);
         return new AddCommand(actualCommand, priorityNumber);
->>>>>>> Stashed changes
     }
     private static Command initiateList() {
         return new ListCommand();

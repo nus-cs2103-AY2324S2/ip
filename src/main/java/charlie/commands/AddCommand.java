@@ -19,7 +19,7 @@ public class AddCommand extends Command {
      * constructor for AddCommand
      * @param fullCommand the user command in its full string form
      */
-    public AddCommand(String fullCommand) {
+    public AddCommand(String fullCommand, Integer priorityNumber) {
         assert fullCommand != null && !fullCommand.trim().isEmpty() : "Full command must not be null or empty";
         this.fullCommand = fullCommand;
     }
@@ -78,7 +78,7 @@ public class AddCommand extends Command {
         }
         Deadline deadline = new Deadline(parts[0], parts[1]);
         taskList.add(deadline);
-        return generateResponse(deadline, taskList.size())
+        return generateResponse(deadline, taskList.size());
     }
 
     /**
@@ -97,7 +97,7 @@ public class AddCommand extends Command {
         String[] timeParts = parts[1].split(" /to ");
         Event event = new Event(parts[0], timeParts[0], timeParts[1]);
         taskList.add(event);
-        return generateResponse(Event, taskList.size())
+        return generateResponse(event, taskList.size());
     }
 
     private String generateResponse(Task task, int size) {
