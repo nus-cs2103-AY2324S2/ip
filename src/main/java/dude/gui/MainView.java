@@ -13,6 +13,8 @@ import javafx.scene.layout.VBox;
  * Controller for MainView. Provides the layout for the other controls.
  */
 public class MainView extends AnchorPane {
+    private static final String USER_IMAGE_PATH = "/images/user.png";
+    private static final String DUDE_IMAGE_PATH = "/images/dude.png";
     @FXML
     private ScrollPane scrollPane;
 
@@ -25,37 +27,47 @@ public class MainView extends AnchorPane {
     @FXML
     private VBox dialogContainer;
 
-    private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
-    private Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/dude.png"));
-
+    private Image userImage;
+    private Image dudeImage;
     private Dude dude;
 
     @FXML
     public void initialize() {
-        dude = new Dude("data/tasks.ser");
+        this.dude = new Dude("data/tasks.ser");
+        this.userImage = new Image(this.getClass().getResourceAsStream(USER_IMAGE_PATH));
+        this.dudeImage = new Image(this.getClass().getResourceAsStream(DUDE_IMAGE_PATH));
     }
 
+    /**
+     * Creates two dialog boxes, one echoing user input and the other containing Dude's reply and then appends them to
+     * the dialog container. Clears the user input after processing.
+     */
     @FXML
     public void handleUserInput() {
         String input = userInputField.getText();
-        String response = dude.getResponse(input);
-
-        System.out.println("User input: " + input);
-        userInputField.clear();
-
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(input, userImage),
-                DialogBox.getDukeDialog(response, dudeImage)
-        );
-
-        dialogContainer.heightProperty().addListener((observable) -> {
-            scrollPane.setVvalue(1.0);
-        });
-
         if (input.equals("bye")) {
             System.exit(0);
         }
 
+        String response = dude.getResponse(input);
+        ;
+        userInputField.clear();
+
+        showInputAndResponse(input, response);
+        scrollDown();
+    }
+
+    private void scrollDown() {
+        dialogContainer.heightProperty().addListener((observable) -> {
+            scrollPane.setVvalue(1.0);
+        });
+    }
+
+    private void showInputAndResponse(String input, String response) {
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(input, userImage),
+                DialogBox.getDukeDialog(response, dudeImage)
+        );
     }
 
 }
