@@ -19,6 +19,7 @@ public class Task implements Serializable {
      * @param description The description of the task.
      */
     public Task(String description) {
+        assert (description != null);
         this.description = description;
         this.isDone = false;
     }
