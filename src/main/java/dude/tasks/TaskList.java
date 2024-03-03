@@ -64,6 +64,7 @@ public class TaskList {
             throw new TaskListFullException("Sorry, the task list is full.");
         }
         list.add(task);
+        sortTaskList();
     }
 
     /**
@@ -172,6 +173,28 @@ public class TaskList {
                     + "Use the list command to see the list of tasks.");
         }
         return list.get(taskID - 1);
+    }
+
+    private void sortTaskList() {
+        list.sort((task1, task2) -> {
+            if (task1 instanceof Deadline && task2 instanceof Deadline) {
+                return ((Deadline) task1).getByTime().compareTo(((Deadline) task2).getByTime());
+            } else if (task1 instanceof Event && task2 instanceof Event) {
+                return ((Event) task1).getFromTime().compareTo(((Event) task2).getFromTime());
+            } else if (task1 instanceof Todo && task2 instanceof Todo) {
+                return 0;
+            } else if (task1 instanceof Deadline && task2 instanceof Event) {
+                return ((Deadline) task1).getByTime().compareTo(((Event) task2).getFromTime());
+            } else if (task1 instanceof Event && task2 instanceof Deadline) {
+                return ((Event) task1).getFromTime().compareTo(((Deadline) task2).getByTime());
+            } else if (!(task1 instanceof Todo) && task2 instanceof Todo) {
+                return 1;
+            } else if (task1 instanceof Todo && !(task2 instanceof Todo)) {
+                return -1;
+            } else {
+                return 0;
+            }
+        });
     }
 
     /**
