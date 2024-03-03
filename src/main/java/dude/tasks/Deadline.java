@@ -44,10 +44,7 @@ public class Deadline extends Task {
      */
     public static Deadline from(String s) throws InvalidFormatException,
             InvalidDescriptionException, InvalidArgumentException {
-
         assert (s != null);
-
-        //get rid of the command
         String rest = Utils.discardFirstWord(s.trim()).trim();
 
         String[] arr = rest.split(" ");
