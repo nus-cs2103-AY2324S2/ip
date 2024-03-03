@@ -4,12 +4,14 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
+
 
 /**
  * Represents a DylanBot
@@ -47,6 +49,10 @@ public class DylanBot {
         } finally {
             this.ps = new Parser(ui, tl);
         }
+    }
+
+    public static void main(String[] args) {
+        Application.launch(Main.class, args);
     }
 
     /**
