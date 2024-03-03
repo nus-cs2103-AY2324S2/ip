@@ -15,6 +15,7 @@ public class Utils {
      * @return The input string with the first word discarded.
      */
     public static String discardFirstWord(String input) {
+        assert (input != null);
         // Split the string by whitespace
         String[] words = input.split(" ", 2);
         // Check if there are at least two words
@@ -49,7 +50,8 @@ public class Utils {
      *
      * @param array  The array of strings.
      * @param target The target string.
-     * @return The index of the first occurrence of the target string in the array.
+     * @return The index of the first occurrence of the target string in the array. If the target string is not found,
+     * -1 is returned.
      */
     public static int findIndex(String[] array, String target) {
         for (int i = 0; i < array.length; i++) {

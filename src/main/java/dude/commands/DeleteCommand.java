@@ -24,6 +24,11 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String input, TaskList tasklist) {
         super(COMMAND_FORMAT, "delete \\d+");
+
+        assert(input != null);
+        assert(tasklist != null);
+        assert(input.contains("delete"));
+
         this.input = input.trim();
         this.taskList = tasklist;
     }
