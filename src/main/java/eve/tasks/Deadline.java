@@ -31,19 +31,21 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-        if (super.tag == null){
+        if (super.tag == null) {
             return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")";
         } else  {
-            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")" + "#" + super.tag;
+            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")" + "#"
+                    + super.tag;
         }
 
     }
     @Override
     public String toStore() {
-        if(super.tag == null){
+        if (super.tag == null) {
             return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by;
         } else {
-            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by + "\n" + "#" + super.tag;
+            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by + "\n" + "#"
+                    + super.tag;
         }
     }
 }
