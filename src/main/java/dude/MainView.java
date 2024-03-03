@@ -28,10 +28,8 @@ public class MainView extends AnchorPane {
 
     @FXML
     public void initialize() {
-        System.out.println("Initializing MainView");
 
     }
-
 
     @FXML
     public void handleUserInput() {
@@ -45,6 +43,10 @@ public class MainView extends AnchorPane {
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getDukeDialog(response, userImage)
         );
+
+        dialogContainer.heightProperty().addListener((observable) -> {
+            scrollPane.setVvalue(1.0);
+        });
 
     }
 
