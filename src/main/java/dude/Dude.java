@@ -25,7 +25,6 @@ public class Dude {
     private final TaskList taskList;
     private final Storage storage;
 
-    private final Ui ui;
     private boolean isRunning = true;
 
     /**
@@ -38,7 +37,6 @@ public class Dude {
      */
     public Dude(String filePath) {
         this.storage = new Storage(filePath);
-        this.ui = new Ui();
 
         TaskList temp = null;
         try {
@@ -53,6 +51,7 @@ public class Dude {
         this.taskList = temp;
     }
 
+
     public String getResponse(String input) {
         Command c = Parser.parse(input, taskList);
         String response = executeCommand(c);
@@ -62,46 +61,6 @@ public class Dude {
             return "An error occurred while saving the tasks to disk.";
         }
         return response;
-    }
-
-    /**
-     * This method runs the main loop of the application.
-     * <p>
-     * This method is responsible for reading user input, parsing it into a command,
-     * executing the command and saving the task list to disk.
-     */
-    public void run() {
-
-        ui.showWelcome();
-        Scanner sc = new Scanner(System.in);
-        while (this.isRunning) {
-            String input = extractInput(sc);
-            Command command = Parser.parse(input, taskList);
-
-            String response = executeCommand(command);
-            ui.showMessage(response);
-
-            try {
-                saveToDisk();
-            } catch (IOException e) {
-                System.out.println("An error occurred while saving the tasks to disk.");
-            }
-
-            if (command.getCommandType() == CommandTypes.BYE) {
-                this.isRunning = false;
-            }
-        }
-    }
-
-    private static String extractInput(Scanner sc) {
-        String input = "";
-        try {
-            input = sc.nextLine();
-        } catch (NoSuchElementException e) {
-            //this will not be handled. App will only exit at bye command.
-            input = "";
-        }
-        return input;
     }
 
     private static String executeCommand(Command command) {
