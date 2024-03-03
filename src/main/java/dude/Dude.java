@@ -25,8 +25,6 @@ public class Dude {
     private final TaskList taskList;
     private final Storage storage;
 
-    private boolean isRunning = true;
-
     /**
      * Constructor for the Dude class.
      * <p>
@@ -51,7 +49,13 @@ public class Dude {
         this.taskList = temp;
     }
 
-
+    /**
+     * The main method used to interact with dude. User input is passed to this method to execute the
+     * appropriate command and send back a response from dude.
+     * <p>
+     *
+     * @param input The user input to be processed.
+     */
     public String getResponse(String input) {
         Command c = Parser.parse(input, taskList);
         String response = executeCommand(c);
