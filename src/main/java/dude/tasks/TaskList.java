@@ -26,11 +26,13 @@ public class TaskList {
      * @param tasks The ArrayList of Task objects to be converted into a TaskList object.
      * @return The TaskList object created from the ArrayList of Task objects.
      */
-    public static TaskList from(ArrayList<Task> tasks) {
+    public static TaskList from(ArrayList<Task> tasks) throws TaskListFullException {
         assert (tasks != null);
 
         TaskList taskList = new TaskList();
-        taskList.list.addAll(tasks);
+        for (Task task : tasks) {
+            taskList.add_task(task);
+        }
         return taskList;
     }
 
@@ -40,12 +42,12 @@ public class TaskList {
      * @param tasks Task objects to be put into a TaskList object.
      * @return The TaskList object created from the Task objects.
      */
-    public static TaskList from(Task... tasks) {
+    public static TaskList from(Task... tasks) throws TaskListFullException {
         assert (tasks != null);
 
         TaskList taskList = new TaskList();
         for (Task task : tasks) {
-            taskList.list.add(task);
+            taskList.add_task(task);
         }
         return taskList;
     }

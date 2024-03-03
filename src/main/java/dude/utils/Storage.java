@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+import dude.exceptions.TaskListFullException;
 import dude.tasks.Task;
 import dude.tasks.TaskList;
 
@@ -98,7 +99,7 @@ public class Storage {
      * @throws ClassNotFoundException If the class of the object to be loaded was not found.
      * @throws SecurityException If a security manager exists and its checkRead method denies read access to the file.
      */
-    public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException {
+    public TaskList loadTasks() throws IOException, ClassNotFoundException, SecurityException, TaskListFullException {
         createStorageIfNotExists();
 
         ArrayList<Task> list;
