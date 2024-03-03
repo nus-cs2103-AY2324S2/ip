@@ -10,6 +10,8 @@ import java.time.format.DateTimeParseException;
  * The Task class represents a task with a description and a status.
  */
 public class Task implements Serializable {
+    private static final String DATE_TIME_FORMAT = "d/M/yyyy H:m";
+    private static final String DATE_FORMAT = "d/M/yyyy";
     private final String description;
     private boolean isDone;
 
@@ -74,12 +76,11 @@ public class Task implements Serializable {
         String dateTimePattern = "\\d{1,2}/\\d{1,2}/\\d{4} \\d{1,2}:\\d{2}";
         String datePattern = "\\d{1,2}/\\d{1,2}/\\d{4}";
 
-
         if (string.matches(dateTimePattern)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy H:m");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_TIME_FORMAT);
             return LocalDateTime.parse(string, formatter);
         } else if (string.matches(datePattern)) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy");
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
             LocalDate date = LocalDate.parse(string, formatter);
             return date.atStartOfDay();
         } else {

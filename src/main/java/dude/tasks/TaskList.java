@@ -134,7 +134,7 @@ public class TaskList {
         ArrayList<Task> copy = new ArrayList<>();
         for (Task task : list) {
             if (task instanceof Deadline) {
-                copy.add(new Deadline(task.getDescription(), ((Deadline) task).getBy()));
+                copy.add(new Deadline(task.getDescription(), ((Deadline) task).extractBy()));
             } else if (task instanceof Event) {
                 copy.add(new Event(task.getDescription(), ((Event) task).getFromTime(), ((Event) task).getToTime()));
             } else if (task instanceof Todo) {

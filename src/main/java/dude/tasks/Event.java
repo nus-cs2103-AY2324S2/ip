@@ -53,6 +53,72 @@ public class Event extends Task {
         String rest = Utils.discardFirstWord(input.trim()).trim();
         String[] arr = rest.split(" ");
 
+        validateKeywordOccurences(arr);
+
+        int fromIndex = Utils.findIndex(arr, "/from");
+        int toIndex = Utils.findIndex(arr, "/to");
+        if (fromIndex > toIndex) {
+            throw new InvalidFormatException("The 'from time' of an event cannot be after the 'to time'.");
+        }
+
+        String description = extractDescription(fromIndex, arr);
+        String fromTime = extractFromString(fromIndex, toIndex, arr);
+        String toTime = extractToTimeString(toIndex, arr);
+
+        Event event = getEvent(fromTime, toTime, description);
+        return event;
+    }
+
+    private static Event getEvent(String fromTime, String toTime, String description) throws InvalidFormatException {
+        Event event = null;
+        try {
+            LocalDateTime from = parseDate(fromTime);
+            LocalDateTime to = parseDate(toTime);
+            event = new Event(description, from, to);
+        } catch (DateTimeParseException e) {
+            throw new InvalidFormatException("Invalid date format after '/from' or '/to'."
+                    + "Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
+        }
+        return event;
+    }
+
+    private static String extractToTimeString(int toIndex, String[] arr) throws InvalidArgumentException {
+        String toTime = "";
+        for (int i = toIndex + 1; i < arr.length; i++) {
+            toTime += arr[i] + " ";
+        }
+        toTime = toTime.trim();
+        if (toTime.isEmpty()) {
+            throw new InvalidArgumentException("The '/to' of an event cannot be empty.");
+        }
+        return toTime;
+    }
+
+    private static String extractFromString(int fromIndex, int toIndex, String[] arr) throws InvalidArgumentException {
+        String fromTime = "";
+        for (int i = fromIndex + 1; i < toIndex; i++) {
+            fromTime += arr[i] + " ";
+        }
+        fromTime = fromTime.trim();
+        if (fromTime.isEmpty()) {
+            throw new InvalidArgumentException("The '/from' of an event cannot be empty.");
+        }
+        return fromTime;
+    }
+
+    private static String extractDescription(int fromIndex, String[] arr) throws InvalidDescriptionException {
+        String description = "";
+        for (int i = 0; i < fromIndex; i++) {
+            description += arr[i] + " ";
+        }
+        description = description.trim();
+        if (description.isEmpty()) {
+            throw new InvalidDescriptionException("The description of an event cannot be empty.");
+        }
+        return description;
+    }
+
+    private static void validateKeywordOccurences(String[] arr) throws InvalidFormatException {
         int fromOccurrences = Utils.countOccurrences(arr, "/from");
         if (fromOccurrences == 0 || fromOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format :" + EventCommand.COMMAND_FORMAT
@@ -63,51 +129,6 @@ public class Event extends Task {
         if (toOccurrences == 0 || toOccurrences > 1) {
             throw new InvalidFormatException("Invalid format. Follow this format: " + EventCommand.COMMAND_FORMAT
                     + ". Provide one and only one '/to'.");
-        }
-
-        //they will not be -1 as I have already checked for their occurences
-        int fromIndex = Utils.findIndex(arr, "/from");
-        int toIndex = Utils.findIndex(arr, "/to");
-
-        if (fromIndex > toIndex) {
-            throw new InvalidFormatException("The 'from time' of an event cannot be after the 'to time'.");
-        }
-
-        //description is from 0 to fromIndex
-        String description = "";
-        for (int i = 0; i < fromIndex; i++) {
-            description += arr[i] + " ";
-        }
-        description = description.trim();
-        if (description.isEmpty()) {
-            throw new InvalidDescriptionException("The description of an event cannot be empty.");
-        }
-
-        String fromTime = "";
-        for (int i = fromIndex + 1; i < toIndex; i++) {
-            fromTime += arr[i] + " ";
-        }
-        fromTime = fromTime.trim();
-        if (fromTime.isEmpty()) {
-            throw new InvalidArgumentException("The 'fromTime' of an event cannot be empty.");
-        }
-
-        String toTime = "";
-        for (int i = toIndex + 1; i < arr.length; i++) {
-            toTime += arr[i] + " ";
-        }
-        toTime = toTime.trim();
-        if (toTime.isEmpty()) {
-            throw new InvalidArgumentException("The 'toTime' of an event cannot be empty.");
-        }
-
-        try {
-            LocalDateTime from = parseDate(fromTime);
-            LocalDateTime to = parseDate(toTime);
-            return new Event(description, from, to);
-        } catch (DateTimeParseException e) {
-            throw new InvalidFormatException("Invalid date format after '/from' or '/to'."
-                    + "Use d/M/yyyy or d/M/yyy H:m in 24-hour format");
         }
     }
 
