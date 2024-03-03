@@ -13,6 +13,11 @@ import java.io.IOException;
  */
 public class Main extends Application {
 
+    /**
+     * Method caled to start the application. It initializes the UI and sets up the javafx stage
+     *
+     * @param stage The stage to be used for the application.
+     */
     @Override
     public void start(Stage stage) {
         stage.setTitle("Dude");
