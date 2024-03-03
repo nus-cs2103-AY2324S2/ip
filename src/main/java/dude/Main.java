@@ -13,6 +13,7 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) {
         stage.setTitle("Dude");
+        stage.setResizable(false);
 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/view/MainView.fxml"));
         AnchorPane anchorPane = null;

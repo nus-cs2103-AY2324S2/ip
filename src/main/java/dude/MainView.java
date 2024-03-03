@@ -27,15 +27,17 @@ public class MainView extends AnchorPane {
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/user.png"));
     private Image dudeImage = new Image(this.getClass().getResourceAsStream("/images/dude.png"));
 
+    private Dude dude;
+
     @FXML
     public void initialize() {
-
+        dude = new Dude("data/tasks.ser");
     }
 
     @FXML
     public void handleUserInput() {
         String input = userInputField.getText();
-        String response = "Duke heard: " + input;
+        String response = dude.getResponse(input);
 
         System.out.println("User input: " + input);
         userInputField.clear();
@@ -48,6 +50,10 @@ public class MainView extends AnchorPane {
         dialogContainer.heightProperty().addListener((observable) -> {
             scrollPane.setVvalue(1.0);
         });
+
+        if (input.equals("bye")) {
+            System.exit(0);
+        }
 
     }
 
