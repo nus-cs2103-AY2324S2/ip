@@ -1,7 +1,10 @@
 package dude;
 
+import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
+
+import javafx.application.Application;
 
 import dude.commands.Command;
 import dude.commands.CommandTypes;
@@ -10,6 +13,16 @@ import dude.exceptions.DudeException;
 import dude.tasks.TaskList;
 import dude.utils.Storage;
 import dude.utils.Ui;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 
 /**
@@ -23,8 +36,8 @@ import dude.utils.Ui;
 public class Dude {
     private final TaskList taskList;
     private final Storage storage;
-    private final Ui ui;
 
+    private final Ui ui;
     private boolean isRunning = true;
 
     /**
@@ -43,13 +56,24 @@ public class Dude {
         try {
             temp = this.storage.loadTasks();
         } catch (Exception e) { //Thrown when file gets corrupted
-            ui.showMessage("An error occurred while loading the tasks. Deleting the storage and starting with "
+            System.out.println("An error occurred while loading the tasks. Deleting the storage and starting with "
                     + "an empty task list.");
             this.storage.deleteStorage();
             temp = new TaskList();
         }
 
         this.taskList = temp;
+    }
+
+    public String getResponse(String input) {
+        Command c = Parser.parse(input, taskList);
+        String response = executeCommand(c);
+        try {
+            saveToDisk();
+        } catch (IOException e) {
+            return "An error occurred while saving the tasks to disk.";
+        }
+        return response;
     }
 
     /**
@@ -69,7 +93,11 @@ public class Dude {
             String response = executeCommand(command);
             ui.showMessage(response);
 
-            saveToDisk();
+            try {
+                saveToDisk();
+            } catch (IOException e) {
+                System.out.println("An error occurred while saving the tasks to disk.");
+            }
 
             if (command.getCommandType() == CommandTypes.BYE) {
                 this.isRunning = false;
@@ -96,15 +124,8 @@ public class Dude {
         }
     }
 
-    private void saveToDisk() {
-        try {
-            this.storage.saveTasks(taskList);
-        } catch (Exception e) {
-            this.ui.showMessage("An error occurred while saving the tasks.");
-        }
+    private void saveToDisk() throws IOException, SecurityException {
+        this.storage.saveTasks(taskList);
     }
 
-    public static void main(String[] args) {
-        new Dude("data/tasklist.ser").run();
-    }
 }
