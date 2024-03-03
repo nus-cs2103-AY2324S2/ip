@@ -179,9 +179,9 @@ public class Dude extends Application {
         });
 
         mainLayout.setPrefSize(420, 600.0);
-        mainLayout.heightProperty().addListener((observable) -> {
+
+        container.heightProperty().addListener((observable) -> {
             scrollPane.setVvalue(1.0);
-            System.out.println("Height: " + mainLayout.getHeight());
         });
 
         stage.setScene(scene); // Setting the stage to show our screen
