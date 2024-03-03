@@ -29,6 +29,9 @@ public class DialogBox extends HBox {
     @FXML
     private ImageView displayPicture;
 
+    @FXML
+    private HBox dialogBox;
+
     private DialogBox(String text, Image img) {
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(MainView.class.getResource("/view/DialogBox.fxml"));
@@ -40,7 +43,9 @@ public class DialogBox extends HBox {
         }
 
         dialog.setText(text);
+        dialog.setMaxHeight(Double.MAX_VALUE);
         displayPicture.setImage(img);
+        dialog.prefHeightProperty().bind(dialog.heightProperty());
     }
 
     /**
