@@ -1,16 +1,12 @@
 package dude;
 
 import java.io.IOException;
-import java.util.NoSuchElementException;
-import java.util.Scanner;
 
 import dude.commands.Command;
-import dude.commands.CommandTypes;
 import dude.commands.Parser;
 import dude.exceptions.DudeException;
 import dude.tasks.TaskList;
 import dude.utils.Storage;
-import dude.utils.Ui;
 
 
 /**
@@ -22,6 +18,9 @@ import dude.utils.Ui;
  * parsing it into a command, executing the command and saving the task list to disk.
  **/
 public class Dude {
+    private static final String STORAGE_LOADING_ERROR_MESSAGE = "An error occurred while loading the tasks. "
+            + "Deleting the storage and starting with an empty task list.";
+    private static final String STORAGE_SAVING_ERROR_MESSAGE = "An error occurred while saving the tasks to disk.";
     private final TaskList taskList;
     private final Storage storage;
 
@@ -35,18 +34,7 @@ public class Dude {
      */
     public Dude(String filePath) {
         this.storage = new Storage(filePath);
-
-        TaskList temp = null;
-        try {
-            temp = this.storage.loadTasks();
-        } catch (Exception e) { //Thrown when file gets corrupted
-            System.out.println("An error occurred while loading the tasks. Deleting the storage and starting with "
-                    + "an empty task list.");
-            this.storage.deleteStorage();
-            temp = new TaskList();
-        }
-
-        this.taskList = temp;
+        this.taskList = loadTaskList();
     }
 
     /**
@@ -62,7 +50,7 @@ public class Dude {
         try {
             saveToDisk();
         } catch (IOException e) {
-            return "An error occurred while saving the tasks to disk.";
+            return STORAGE_SAVING_ERROR_MESSAGE;
         }
         return response;
     }
@@ -77,6 +65,18 @@ public class Dude {
 
     private void saveToDisk() throws IOException, SecurityException {
         this.storage.saveTasks(taskList);
+    }
+
+    private TaskList loadTaskList() {
+        TaskList temp;
+        try {
+            temp = this.storage.loadTasks();
+        } catch (Exception e) { //Thrown when file gets corrupted
+            System.out.println(STORAGE_LOADING_ERROR_MESSAGE);
+            this.storage.deleteStorage();
+            temp = new TaskList();
+        }
+        return temp;
     }
 
 }
