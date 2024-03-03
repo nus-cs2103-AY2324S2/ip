@@ -66,13 +66,13 @@ public class Storage {
 
         switch (parts[0]) {
             case "T":
-                task = new Todo(parts[2]);
+                task = new Todo(parts[3], Integer.parseInt(parts[2]));
                 break;
             case "D":
-                task = new Deadline(parts[2], parts[3]);
+                task = new Deadline(parts[3], Integer.parseInt(parts[2]), parts[4]);
                 break;
             case "E":
-                task = new Event(parts[2], parts[3], parts[4]);
+                task = new Event(parts[3], Integer.parseInt(parts[2]), parts[4], parts[5]);
                 break;
             default:
                 throw new IllegalArgumentException("Invalid task type in file.");
@@ -116,6 +116,7 @@ public class Storage {
                 : task instanceof Event ? "E"
                 : "";
         int done = task.isDone() ? 1 : 0;
+        int priority = task.getPriority();
         String details = task.getDescription();
 
         if (task instanceof Deadline) {
@@ -126,6 +127,6 @@ public class Storage {
             details += " | " + event.getStartsAt() + " | " + event.getEndsAt();
         }
 
-        return String.join(" | ", type, String.valueOf(done), details);
+        return String.join(" | ", type, String.valueOf(done), String.valueOf(priority), details);
     }
 }

@@ -1,6 +1,15 @@
 package charlie.parser;
 
-import charlie.commands.*;
+
+import charlie.commands.AddCommand;
+import charlie.commands.Command;
+import charlie.commands.DeleteCommand;
+import charlie.commands.ExitCommand;
+import charlie.commands.FindCommand;
+import charlie.commands.ListCommand;
+import charlie.commands.MarkCommand;
+import charlie.commands.UnmarkCommand;
+
 import charlie.exceptions.CharlieException;
 
 public class Parser {

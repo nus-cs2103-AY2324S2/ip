@@ -2,14 +2,16 @@ package charlie.models;
 public class Task {
     protected String description;
     protected boolean isDone;
+    protected Integer priorityNumber;
 
     /**
      * constructor for tasks
      * @param description contains information in the form of a string about the task
      */
-    public Task(String description) {
+    public Task(String description, Integer priorityNumber) {
         assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
         this.description = description;
+        this.priorityNumber = priorityNumber;
         this.isDone = false;
     }
 
@@ -19,6 +21,11 @@ public class Task {
      */
     public String getStatusIcon() {
         return (isDone ? "[X]" : "[ ]"); // mark done task with X
+    }
+
+    public Integer getPriority() {
+
+        return this.priorityNumber;
     }
 
     /**
@@ -57,6 +64,6 @@ public class Task {
      */
     @Override
     public String toString() {
-        return getStatusIcon() + " " + description;
+        return getStatusIcon() + " [" + priorityNumber.toString() + "] " + description;
     }
 }

@@ -23,6 +23,8 @@ public class Charlie extends Application {
     private Storage storage;
     private TaskList tasks;
     private String fullCommand;
+    private boolean priorityCommand = false;
+    private String priorityTaskCommand;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/User.png"));
     private Image duke = new Image(this.getClass().getResourceAsStream("/images/Duke.png"));
 
@@ -32,7 +34,6 @@ public class Charlie extends Application {
             storage = new Storage(filePath);
             tasks = new TaskList(storage.loadTasks());
         } catch (CharlieException exception) {
-            System.out.println("Reached here, this is where the error happens!");
             exception.printStackTrace(); // Or handle it appropriately
             tasks = new TaskList();
         }
@@ -118,11 +119,39 @@ public class Charlie extends Application {
     }
 
     private void handleUserInput(TextField userInput, VBox dialogContainer) throws CharlieException {
-        dialogContainer.getChildren().addAll(
-                DialogBox.getUserDialog(userInput.getText(), user),
-                DialogBox.getDukeDialog(getResponse(userInput.getText()), duke)
-        );
-        userInput.clear();
+
+        String input = userInput.getText();
+        boolean isAddCommand = input.startsWith("todo") || input.startsWith("deadline")
+                || input.startsWith("event");
+
+        if (isAddCommand) {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, user),
+                    DialogBox.getDukeDialog("Assign this task a priority: ", duke)
+            );
+            setPriority(true,input);
+            userInput.clear();
+        } else if (this.priorityCommand & this.priorityTaskCommand != null) {
+            if (isNumeric(input)) {
+                String fullPriorityCommand = this.priorityTaskCommand + " " + input;
+                String response = "Assigned the task this priority " + input;
+                dialogContainer.getChildren().addAll(
+                        DialogBox.getUserDialog(input, user),
+                        DialogBox.getDukeDialog(response, duke),
+                        DialogBox.getDukeDialog(getResponse(fullPriorityCommand), duke)
+                );
+                userInput.clear();
+                setPriority(false, null);
+            } else {
+                throw new CharlieException("Priority should be a number");
+            }
+        } else {
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, user),
+                    DialogBox.getDukeDialog(getResponse(input), duke)
+            );
+            userInput.clear();
+        }
     }
 
     /**
@@ -139,4 +168,18 @@ public class Charlie extends Application {
             return e.getMessage();
         }
     }
+    private void setPriority(boolean priorityCommand, String priorityTaskCommand) {
+        this.priorityCommand = priorityCommand;
+        this.priorityTaskCommand = priorityTaskCommand;
+    }
+
+    private static boolean isNumeric(String str) {
+        try {
+            Double.parseDouble(str);
+            return true;
+        } catch(NumberFormatException e){
+            return false;
+        }
+    }
+
 }

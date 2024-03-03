@@ -14,6 +14,7 @@ public class AddCommand extends Command {
 
     private String fullCommand;
     private String response;
+    private Integer priorityNumber;
 
     /**
      * constructor for AddCommand
@@ -22,6 +23,7 @@ public class AddCommand extends Command {
     public AddCommand(String fullCommand, Integer priorityNumber) {
         assert fullCommand != null && !fullCommand.trim().isEmpty() : "Full command must not be null or empty";
         this.fullCommand = fullCommand;
+        this.priorityNumber = priorityNumber;
     }
 
     /**
@@ -58,9 +60,9 @@ public class AddCommand extends Command {
             throw new CharlieException("Sorry, the description of a todo cannot be empty.");
         }
         String description = input.substring(5);
-        Todo todo = new Todo(description);
+        Todo todo = new Todo(description, priorityNumber);
         taskList.add(todo);
-        return generateResponse(todo, taskList.size())
+        return generateResponse(todo, taskList.size());
     }
 
     /**
@@ -76,7 +78,7 @@ public class AddCommand extends Command {
             throw new CharlieException("Sorry, the description of a deadline "
                     + "cannot be empty and must include a /by time.");
         }
-        Deadline deadline = new Deadline(parts[0], parts[1]);
+        Deadline deadline = new Deadline(parts[0], priorityNumber, parts[1]);
         taskList.add(deadline);
         return generateResponse(deadline, taskList.size());
     }
@@ -95,7 +97,7 @@ public class AddCommand extends Command {
                     + "and must include start /from and /to end times.");
         }
         String[] timeParts = parts[1].split(" /to ");
-        Event event = new Event(parts[0], timeParts[0], timeParts[1]);
+        Event event = new Event(parts[0], priorityNumber, timeParts[0], timeParts[1]);
         taskList.add(event);
         return generateResponse(event, taskList.size());
     }
