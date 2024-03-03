@@ -1,25 +1,27 @@
 package dude.gui;
 
-import javafx.scene.control.Label;
-import javafx.scene.layout.HBox;
-import javafx.fxml.FXML;
 
 import java.io.IOException;
 import java.util.Collections;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-
+import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+// @@author Jeffry Lum
+// Solution below is reused from https://se-education.org/guides/tutorials/javaFxPart4.html
+
 /**
- * An example of a custom control using FXML.
  * This control represents a dialog box consisting of an ImageView to represent the speaker's face and a label
  * containing text from the speaker.
+ *
  */
 public class DialogBox extends HBox {
     @FXML
