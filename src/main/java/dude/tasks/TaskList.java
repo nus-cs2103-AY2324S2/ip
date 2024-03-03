@@ -157,6 +157,10 @@ public class TaskList {
      */
     @Override
     public String toString() {
+        if (list.size() == 0) {
+            return "No tasks in the list! :(";
+        }
+
         String result = "";
         for (int i = 0; i < list.size(); i++) {
             //if it is the last task, do not add a new line
