@@ -1,5 +1,10 @@
 package ui;
 
+import java.util.ArrayList;
+
+import task.Task;
+import taskList.TaskList;
+
 /**
  * The Ui class provides messages returned by JerryBot that will interact with the user.
  */
@@ -31,6 +36,29 @@ public class Ui {
 
     public static String markTaskAsUndoneMessage(String taskString) {
         return String.format("Nooo! I've marked this task as undone:\n%s", taskString);
+    }
+
+    public static String listMessage(TaskList taskArrayList) {
+        StringBuilder listStringBuilder = new StringBuilder("Here are the tasks in your list:\n");
+        for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
+            listStringBuilder.append(i);
+            listStringBuilder.append(". ");
+            listStringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
+            listStringBuilder.append("\n");
+        }
+        return listStringBuilder.toString();
+    }
+
+    public static String findMessage(TaskList taskArrayList, String description) {
+        ArrayList<Task> tasksWithKeyword = taskArrayList.getTasksWithKeyword(description);
+        StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasksWithKeyword.size(); i++) {
+            findStringBuilder.append(i + 1);
+            findStringBuilder.append(". ");
+            findStringBuilder.append(tasksWithKeyword.get(i).toString());
+            findStringBuilder.append("\n");
+        }
+        return findStringBuilder.toString();
     }
 
 }

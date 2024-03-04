@@ -1,6 +1,5 @@
-package jerrybot;
+package jerryBot;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 import exception.DuplicateTaskException;
@@ -13,7 +12,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-import tasklist.TaskList;
+import taskList.TaskList;
 import ui.Ui;
 
 /**
@@ -103,25 +102,10 @@ public class JerryBot {
             isTerminate = true;
             return Ui.byeMessage();
         case "list":
-            StringBuilder listStringBuilder = new StringBuilder("Here are the tasks in your list:\n");
-            for (int i = 1; i <= taskArrayList.getLastIdx(); i++) {
-                listStringBuilder.append(i);
-                listStringBuilder.append(". ");
-                listStringBuilder.append(taskArrayList.getTaskByIdx(i - 1).toString());
-                listStringBuilder.append("\n");
-            }
-            return listStringBuilder.toString();
+            return Ui.listMessage(taskArrayList);
         case "find":
             try {
-                ArrayList<Task> tasksWithKeyword = taskArrayList.getTasksWithKeyword(parser.extractDescription(s));
-                StringBuilder findStringBuilder = new StringBuilder("Here are the matching tasks in your list:\n");
-                for (int i = 0; i < tasksWithKeyword.size(); i++) {
-                    findStringBuilder.append(i + 1);
-                    findStringBuilder.append(". ");
-                    findStringBuilder.append(tasksWithKeyword.get(i).toString());
-                    findStringBuilder.append("\n");
-                }
-                return findStringBuilder.toString();
+                return Ui.findMessage(taskArrayList, parser.extractDescription(s));
             } catch (IncompleteCommandException e) {
                 return e.toString();
             }
