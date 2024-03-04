@@ -182,10 +182,8 @@ public class Storage {
 
             while ((line = reader.readLine()) != null) {
                 currentLineNumber++;
-                if (currentLineNumber == i) {
-                    if (line.substring(2, 3) == "0") {
-                        line = line.substring(0, 2) + "1" + line.substring(3);
-                    }
+                if (currentLineNumber == i && line.substring(2, 3) == "0") {
+                    line = line.substring(0, 2) + "1" + line.substring(3);
                 }
                 content.append(line);
                 content.append("\n");
@@ -217,10 +215,8 @@ public class Storage {
 
             while ((line = reader.readLine()) != null) {
                 currentLineNumber++;
-                if (currentLineNumber == i) {
-                    if (line.substring(2, 3) == "1") {
-                        line = line.substring(0, 2) + "0" + line.substring(3);
-                    }
+                if (currentLineNumber == i && line.substring(2, 3) == "1") {
+                    line = line.substring(0, 2) + "0" + line.substring(3);
                 }
                 content.append(line);
                 content.append("\n");
