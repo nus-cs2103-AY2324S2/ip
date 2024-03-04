@@ -1,9 +1,5 @@
 package storage;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
@@ -13,6 +9,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -41,6 +39,18 @@ public class Storage {
         Path path = Paths.get(filePath);
         try {
             if (!Files.exists(path)) {
+
+                int lastSlashIndex = filePath.lastIndexOf("/");
+                String directoryPath = filePath.substring(0, lastSlashIndex);
+
+                Path directory = Paths.get(directoryPath);
+                if (Files.exists(directory) && Files.isDirectory(directory)) {
+                    System.out.println("Directory exists.");
+                } else {
+                    System.out.println("Directory does not exist.");
+                    Files.createDirectories(directory);
+                }
+
                 Files.createFile(path);
                 System.out.println("Data store created.");
             }

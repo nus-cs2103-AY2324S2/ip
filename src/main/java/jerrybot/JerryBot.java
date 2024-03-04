@@ -1,4 +1,4 @@
-package jerryBot;
+package jerrybot;
 
 import java.util.Scanner;
 
@@ -12,7 +12,7 @@ import task.Deadline;
 import task.Event;
 import task.Task;
 import task.ToDo;
-import taskList.TaskList;
+import tasklist.TaskList;
 import ui.Ui;
 
 /**
@@ -21,7 +21,7 @@ import ui.Ui;
  */
 public class JerryBot {
     private static boolean isTerminate = false;
-    private static final String FILEPATH = "./data/jerrybot.txt";
+    private static final String FILEPATH = "data/jerrybot.txt";
     private static Storage storage;
     private static TaskList taskArrayList;
     private static Parser parser;

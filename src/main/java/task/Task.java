@@ -1,9 +1,16 @@
 package task;
 
+/**
+ * The Task class contains a task string and a boolean representing if the task is done.
+ */
 public class Task {
     private boolean isDone;
     private String taskString;
 
+    /**
+     * Constructor that initialises the task with the task string and isDone status to false.
+     * @param s Task string
+     */
     public Task(String s) {
         this.taskString = s.strip();
         this.isDone = false;
@@ -34,6 +41,10 @@ public class Task {
         }
     }
 
+    /**
+     * Converts the isDone status of a task to a String of 0 or 1
+     * @return String 0 if the task is not done and 1 if the task is done
+     */
     public String convertToDataStoreLine() {
         if (this.getDoneStatus()) {
             return "1";

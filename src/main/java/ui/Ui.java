@@ -3,7 +3,7 @@ package ui;
 import java.util.ArrayList;
 
 import task.Task;
-import taskList.TaskList;
+import tasklist.TaskList;
 
 /**
  * The Ui class provides messages returned by JerryBot that will interact with the user.
