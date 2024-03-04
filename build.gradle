@@ -4,6 +4,11 @@ plugins {
     id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
+sourceCompatibility = 11 // Added this line to fix the error
+targetCompatibility = 11 // Added this line to fix the error
+
+// Rest of the code
+
 repositories {
     mavenCentral()
 }
@@ -47,7 +52,7 @@ application {
 }
 
 shadowJar {
-    archiveFileName = "botFinal.jar"
+    archiveFileName = "botFinalv2.jar"
     archiveBaseName = "bot"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
