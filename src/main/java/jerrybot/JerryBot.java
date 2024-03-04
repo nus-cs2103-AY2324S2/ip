@@ -100,12 +100,12 @@ public class JerryBot {
         switch (command) {
         case "bye":
             isTerminate = true;
-            return Ui.byeMessage();
+            return Ui.printByeMessage();
         case "list":
-            return Ui.listMessage(taskArrayList);
+            return Ui.printListMessage(taskArrayList);
         case "find":
             try {
-                return Ui.findMessage(taskArrayList, parser.extractDescription(s));
+                return Ui.printFindMessage(taskArrayList, parser.extractDescription(s));
             } catch (IncompleteCommandException e) {
                 return e.toString();
             }
@@ -135,7 +135,7 @@ public class JerryBot {
         default:
             try {
                 addTask(s);
-                return Ui.addTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
+                return Ui.printAddTaskMessage(taskArrayList.getTaskByIdx(taskArrayList.getLastIdx() - 1).toString(),
                         taskArrayList.getLastIdx());
             } catch (Exception e) {
                 return e.toString();
@@ -152,7 +152,7 @@ public class JerryBot {
      */
     public static String markTaskAsDone(int taskNum) throws InvalidTaskNumberException {
         taskArrayList.getTaskByIdx(taskNum - 1).markAsDone();
-        return Ui.markTaskAsDoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
+        return Ui.printMarkTaskAsDoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
     /**
@@ -180,7 +180,7 @@ public class JerryBot {
      */
     public static String unmarkTaskAsDone(int taskNum) throws InvalidTaskNumberException {
         taskArrayList.getTaskByIdx(taskNum - 1).markAsUndone();
-        return Ui.markTaskAsUndoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
+        return Ui.printMarkTaskAsUndoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
 
     /**
@@ -200,7 +200,7 @@ public class JerryBot {
             storage.removeFromDataStore(taskNum - 1);
             taskArrayList.removeTask(taskNum - 1);
             storage = new Storage(FILEPATH);
-            return Ui.taskRemovalMessage(deletedTaskString, taskArrayList.getLastIdx());
+            return Ui.printTaskRemovalMessage(deletedTaskString, taskArrayList.getLastIdx());
         } catch (NumberFormatException e) {
             throw new InvalidTaskNumberException(requestedDeletion);
         }
@@ -210,7 +210,7 @@ public class JerryBot {
         parser = new Parser();
         storage = new Storage(FILEPATH);
         taskArrayList = new TaskList(storage.readDataStore());
-        System.out.println(Ui.hiMessage());
+        System.out.println(Ui.printHiMessage());
 
         Scanner userInput = new Scanner(System.in);
 
