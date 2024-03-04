@@ -16,7 +16,7 @@ public abstract class Command {
     private final boolean isExit;
 
     /**
-     * Constructor for a Command. git standard 4
+     * Constructor for a Command.
      * @param isExit Exit status.
      */
     Command(boolean isExit) {
