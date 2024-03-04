@@ -80,8 +80,8 @@ public class MainWindow extends AnchorPane {
         Timeline timeline = new Timeline();
         timeline.setCycleCount(0);
         timeline.getKeyFrames().addAll(
-                getKeyFrame(1.5, true, WELCOME_STRING),
-                getKeyFrame(3.0, true, PROMPT_STRING));
+                getKeyFrame(1.0, true, WELCOME_STRING),
+                getKeyFrame(2.0, true, PROMPT_STRING));
         timeline.play();
         danceAnimation = new Timeline();
         danceAnimation.setCycleCount(0);
@@ -110,7 +110,7 @@ public class MainWindow extends AnchorPane {
         if (input.equals("bye")) {
             timeline.getKeyFrames().addAll(
                     getKeyFrame(0, false, input),
-                    getKeyFrame(1.5, true, response),
+                    getKeyFrame(1.0, true, response),
                     new KeyFrame(Duration.seconds(3),
                             event -> Platform.exit())
             );
@@ -123,7 +123,7 @@ public class MainWindow extends AnchorPane {
             timeline.setCycleCount(0);
             timeline.getKeyFrames().addAll(
                     getKeyFrame(0, false, input),
-                    getKeyFrame(1.5, true, response));
+                    getKeyFrame(1.0, true, response));
         }
         timeline.play();
     }
