@@ -86,7 +86,13 @@ public class Parser {
                 return new DeleteCommand(arguments);
             case "t":
             case "todo":
-                return new AddCommand(new ToDo(extractTaskDescription(arguments)));
+                String taskDescription = extractTaskDescription(arguments);
+                if (taskDescription.isEmpty()) {
+                    String errorMessage = Messages.PARSER_TODO_DESCRIPTION_ERROR.getMessage();
+                    ui.appendResponse(errorMessage);
+                    throw new CoatException(errorMessage);
+                }
+                return new AddCommand(new ToDo(taskDescription));
             case "dl":
             case "deadline":
                 return parseDeadline(arguments);
