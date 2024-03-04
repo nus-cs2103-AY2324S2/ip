@@ -12,35 +12,31 @@ repositories {
 def javaFxVersion = '17.0.7'
 
 application {
-    mainClass.set('yapper.Main')
+    mainClass.set('yapper.YapperLauncher')
 }
 
 shadowJar {
     archiveFileName = 'yapper.jar'
     dependencies {
-        include dependency('org.openjfx:javafx-base:' + javaFxVersion)
-        include dependency('org.openjfx:javafx-controls:' + javaFxVersion)
-        include dependency('org.openjfx:javafx-fxml:' + javaFxVersion)
-        include dependency('org.openjfx:javafx-graphics:' + javaFxVersion)
+        include dependency("org.openjfx:javafx-base:$javaFxVersion:win")
+        include dependency("org.openjfx:javafx-controls:$javaFxVersion:win")
+        include dependency("org.openjfx:javafx-fxml:$javaFxVersion:win")
+        include dependency("org.openjfx:javafx-graphics:$javaFxVersion:win")
+
+        include dependency("org.openjfx:javafx-base:$javaFxVersion:linux")
+        include dependency("org.openjfx:javafx-controls:$javaFxVersion:linux")
+        include dependency("org.openjfx:javafx-fxml:$javaFxVersion:linux")
+        include dependency("org.openjfx:javafx-graphics:$javaFxVersion:linux")
+
+        include dependency("org.openjfx:javafx-base:$javaFxVersion:mac")
+        include dependency("org.openjfx:javafx-controls:$javaFxVersion:mac")
+        include dependency("org.openjfx:javafx-fxml:$javaFxVersion:mac")
+        include dependency("org.openjfx:javafx-graphics:$javaFxVersion:mac")
     }
 }
-
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
-
-    implementation "org.openjfx:javafx-base:$javaFxVersion:win"
-    implementation "org.openjfx:javafx-base:$javaFxVersion:mac"
-    implementation "org.openjfx:javafx-base:$javaFxVersion:linux"
-    implementation "org.openjfx:javafx-controls:$javaFxVersion:win"
-    implementation "org.openjfx:javafx-controls:$javaFxVersion:mac"
-    implementation "org.openjfx:javafx-controls:$javaFxVersion:linux"
-    implementation "org.openjfx:javafx-fxml:$javaFxVersion:win"
-    implementation "org.openjfx:javafx-fxml:$javaFxVersion:mac"
-    implementation "org.openjfx:javafx-fxml:$javaFxVersion:linux"
-    implementation "org.openjfx:javafx-graphics:$javaFxVersion:win"
-    implementation "org.openjfx:javafx-graphics:$javaFxVersion:mac"
-    implementation "org.openjfx:javafx-graphics:$javaFxVersion:linux"
 }
 
 checkstyle {
