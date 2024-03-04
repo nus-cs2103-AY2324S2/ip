@@ -1,6 +1,7 @@
 plugins {
     id 'java'
     id 'org.openjfx.javafxplugin' version '0.1.0'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
 }
 
 group = 'duke'
@@ -8,7 +9,7 @@ version = '1.0'
 
 apply plugin: 'java'
 apply plugin: 'application'
-mainClassName = 'duke.Duke'
+mainClassName = 'duke.DukeLauncher'
 repositories {
     mavenCentral()
 }
@@ -51,4 +52,8 @@ jar {
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+}
+
+shadowJar {
+    archiveFileName = 'duke.jar'
 }
