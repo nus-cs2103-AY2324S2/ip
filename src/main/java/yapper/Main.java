@@ -15,11 +15,6 @@ import javafx.stage.Stage;
 public class Main extends Application {
     private static final String FILE_PATH = "./src/main/java/data/yapper.Yapper.txt";
     private Yapper yapper = new Yapper(FILE_PATH, System.in);
-
-
-    public static void main(String[] args) {
-        launch(args);
-    }
     @Override
     public void start(Stage stage) {
         try {
