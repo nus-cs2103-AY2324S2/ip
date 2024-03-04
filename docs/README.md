@@ -1,29 +1,57 @@
-# User Guide
+# Gops Userguide
+![](Ui.png)
 
-## Features 
+## Setup
+1. Configure Java 11 SE
+2. Download latest version of [JAR file](https://github.com/bgopi23/ip/releases)
+3. Run JAR file
 
-### Feature-ABC
+## Features
+### Todo / Deadline / Event
 
-Description of the feature.
+Adds a task to tasklist
 
-### Feature-XYZ
-
-Description of the feature.
-
-## Usage
-
-### `Keyword` - Describe action
-
-Describe the action and its outcome.
-
-Example of usage: 
-
-`keyword (optional arguments)`
-
-Expected outcome:
-
-Description of the outcome.
+`Format`
 
 ```
-expected output
+todo [description]
+deadline [description] /by [YYYY-MM-DD]
+event [description]] /from [start-date] /to [end-date]
+```
+
+### List
+
+Prints out list of tasks in the tasklist
+
+`Format`
+
+```
+list
+```
+### Mark / Unmark
+
+Marks or unmarks a specified task in the task list
+
+`Format`
+
+```
+mark [index]
+unmark [index]
+```
+### Delete
+
+Deletes a specified task from the task list
+
+`Format`
+
+```
+delete [index]
+```
+### Clear
+Clears tasklist
+
+`Format`
+
+```
+clear
 ```
