@@ -208,7 +208,7 @@ public class Parser {
         tempInputArgs = input.split(" ");
         try {
             index = Integer.parseInt(tempInputArgs[1]) - 1;
-            if (index < 1) {
+            if (index < 0) {
                 throw new ChaterpillarException("Index should not be less than 1.");
             }
         } catch (IndexOutOfBoundsException | NumberFormatException e) {
