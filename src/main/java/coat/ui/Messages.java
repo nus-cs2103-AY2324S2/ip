@@ -44,6 +44,7 @@ public enum Messages {
     UNMARK_MISSING_INDEX_ERROR("I can't do that.. You need to specify a task index! Try \"mark <index>\".."),
     UNMARK_SUCCESS("Oh no.. Marked task %d as undone: %s"),
 
+    PARSER_TODO_DESCRIPTION_ERROR("Error: ToDo description cannot be empty."),
     PARSER_DEADLINE_DESCRIPTION_ERROR("Error: Deadline description cannot be empty."),
     PARSER_DEADLINE_DATE_TIME_ERROR("Error: Deadline date/time cannot be empty."),
     PARSER_EVENT_DESCRIPTION_ERROR("Error: Event description cannot be empty."),
