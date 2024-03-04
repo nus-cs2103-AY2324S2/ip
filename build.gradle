@@ -2,6 +2,8 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+
+    id 'checkstyle'
 }
 
 repositories {
@@ -9,8 +11,11 @@ repositories {
 }
 
 dependencies {
+    // Junit
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
+
+    // javaFx
     String javaFxVersion = '17.0.7'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
@@ -39,13 +44,10 @@ test {
         showStackTraces true
         showStandardStreams = false
     }
-
-    jvmArgs('-ea')
 }
 
 application {
-    mainClass.set("gui.Main")
-    applicationDefaultJvmArgs = ['-ea']
+    mainClass.set("Launcher")
 }
 
 shadowJar {
@@ -54,7 +56,10 @@ shadowJar {
     dependsOn("distZip", "distTar")
 }
 
-run{
+run {
     standardInput = System.in
-    enableAssertions = true
+}
+
+checkstyle {
+    toolVersion = '10.2'
 }
