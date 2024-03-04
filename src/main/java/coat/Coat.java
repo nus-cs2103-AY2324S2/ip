@@ -61,7 +61,7 @@ public class Coat {
             }
 
             // For debugging purposes.
-            System.out.printf("\n------------\nInput: %s\nOutput: %s\n-----------", input, this.ui.getResponse());
+            // System.out.printf("\n------------\nInput: %s\nOutput: %s\n-----------", input, this.ui.getResponse());
             return this.ui.getResponse();
 
         } catch (IOException e) {
