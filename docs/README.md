@@ -1,29 +1,50 @@
-# User Guide
+# User Guide for Lighthouse
 
 ## Features 
 
-### Feature-ABC
+### Adding a task: todo
 
-Description of the feature.
+Adds a desired task to task list.
 
-### Feature-XYZ
+Format: todo TASK
 
-Description of the feature.
+Example: todo read book
 
-## Usage
+### Adding a task with a deadline: deadline
 
-### `Keyword` - Describe action
+Adds a task with a deadline to task list. 
 
-Describe the action and its outcome.
+Format: deadline TASK /by DATE 
 
-Example of usage: 
+Example: deadline return book /by 2024/04/01
 
-`keyword (optional arguments)`
+### Adding an event: event
 
-Expected outcome:
+Adds an event with a start date and end date to task list. 
 
-Description of the outcome.
+Format: event EVENT /from START DATE /to END DATE
 
-```
-expected output
-```
+Example: event project meeting /from 2024/01/01 /to 2024/01/06
+
+### List all current tasks in task list: list
+
+Shows a list of all tasks in task list. 
+
+Format: list
+
+### Delete a given task from task list: delete
+
+Deletes a task at the specified index. 
+
+Format: delete INDEX
+
+Example: delete 7
+
+
+### Exit from the program: bye
+
+Exits from the program.
+
+Format: bye
+
+
