@@ -154,7 +154,7 @@ public class Parser {
                                             + "The way to use the command is: deadline taskname /by date_and_time");
         } catch (DateTimeParseException e) {
             throw new ChaterpillarException("Unable to add task, wrong date/time format!\n"
-                                            + "Suggested format: DD/MM/YYY HH:MM");
+                                            + "Suggested format: DD/MM/YYYY HH:MM AM/PM");
         }
     }
 
@@ -170,7 +170,7 @@ public class Parser {
                                             + "/from date_and_time /to date_and_time");
         } catch (DateTimeParseException e) {
             throw new ChaterpillarException("Unable to add task, wrong date/time format!\n"
-                                            + "Suggested format: DD/MM/YYY HH:MM");
+                                            + "Suggested format: DD/MM/YYYY HH:MM AM/PM");
         }
     }
 
