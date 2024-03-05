@@ -120,7 +120,7 @@ Task removed:
 Now you have x tasks in the list.
 ```
 ## Tagging tasks 
-Tags task with tag.
+Tags specific task with tag given.
 
 Command Format: `tag LIST_INDEX TAG_NAME`
 
