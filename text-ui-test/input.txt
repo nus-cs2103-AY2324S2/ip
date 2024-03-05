@@ -1,0 +1,17 @@
+list
+todo 1
+todo
+event
+event 1
+event 1 /from 2
+event 2 /from 3 /to 4
+mark 1
+unmark 2
+list
+deadline 3
+deadline 3 /by 4
+unmark 1
+list
+gaevhtesvteh9hu32v
+bye uviahiuvheiuvah
+bye
