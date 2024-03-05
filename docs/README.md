@@ -96,7 +96,7 @@ Tasks on yyyy-MM-dd:
 1. ...
 ```
 ## Finding tasks 
-Lists tasks with keyword in the task description.
+Lists all tasks with keyword in the task description.
 
 Command Format: `find KEYWORD`
 
