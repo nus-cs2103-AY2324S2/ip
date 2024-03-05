@@ -85,7 +85,7 @@ OK! I've marked this task as not done yet:
  [T][] TASK
 ```
 ## Checking tasks on a specific date
-Lists task occurring on a specific date.
+Lists all tasks occurring on a specific date.
 
 Command Format: `check yyyy-MM-dd`
 
