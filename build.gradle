@@ -61,7 +61,7 @@ checkstyle {
 }
 
 javafx {
-    version = "17.0.7"
+    version = "11"
     modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
