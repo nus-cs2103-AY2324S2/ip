@@ -1,0 +1,5 @@
+D|false|something|2022-09-28
+E|false|another thing|1973-11-12|2073-11-12
+E|true|haha|2015-03-28|2006-08-29
+T|false|something 
+D|false|aha|2023-12-31
