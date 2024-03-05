@@ -132,7 +132,7 @@ Task tagged:
  Tags: TAG_NAME
 ```
 ## Untagging tasks
-Removes tag for task.
+Removes tag given from specific task.
 
 Command Format: `untag LIST_INDEX TAG_NAME`
 
