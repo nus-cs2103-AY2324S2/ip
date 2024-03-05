@@ -2,6 +2,8 @@ package chaterpillar.launcher;
 
 import chaterpillar.Chaterpillar;
 import chaterpillar.exceptions.ChaterpillarException;
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -9,6 +11,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 import javafx.util.Pair;
 
 /**
@@ -67,10 +70,14 @@ public class MainWindow extends AnchorPane {
             boolean hasExited = pair.getValue();
             assert !response.isBlank() : "Response should not be blank";
 
-            if (!hasExited) {
-                dialogContainer.getChildren().addAll(
-                        DialogBox.getUserDialog(input, userImage),
-                        DialogBox.getChaterpillarDialog(response, chaterpillarImage));
+            dialogContainer.getChildren().addAll(
+                    DialogBox.getUserDialog(input, userImage),
+                    DialogBox.getChaterpillarDialog(response, chaterpillarImage));
+
+            if (hasExited) {
+                PauseTransition delay = new PauseTransition(Duration.seconds(3));
+                delay.setOnFinished( event -> Platform.exit() );
+                delay.play();
             }
         } catch (ChaterpillarException e) {
             dialogContainer.getChildren().addAll(
