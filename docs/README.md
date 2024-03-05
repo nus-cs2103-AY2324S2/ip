@@ -108,7 +108,7 @@ Here are the matching tasks in your list:
 ```
 
 ## Deleting tasks
-Deletes task from the list.
+Deletes specific task from the list.
 
 Command Format: `delete LIST_INDEX`
 
