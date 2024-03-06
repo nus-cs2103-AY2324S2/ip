@@ -59,6 +59,9 @@ public class Parser {
         String type = getFirstWord(input);
         try {
             String firstWordRemoved = removeFirstWord(input);
+            if (firstWordRemoved.trim().isEmpty()) {
+                throw new EmptyIndexException(type);
+            }
             // Solution below adapted from
             // https://stackoverflow.com/questions/4674850/converting-a-sentence-string-to-a-string-array-of-words-in-java
             String[] stringIndices = firstWordRemoved.split("\\s+");
@@ -90,6 +93,9 @@ public class Parser {
 
         try {
             firstWordRemoved = removeFirstWord(input);
+            if (firstWordRemoved.trim().isEmpty()) {
+                throw new EmptyDescriptionException(type);
+            }
         } catch (ArrayIndexOutOfBoundsException e) {
             throw new EmptyDescriptionException(type);
         }

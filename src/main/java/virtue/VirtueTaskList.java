@@ -99,6 +99,13 @@ public class VirtueTaskList {
         int numOfIndices = 0;
         String message = "";
 
+        // Check if indices are in the appropriate range
+        for (int index : indices) {
+            if (index <= 0 || index > numTasks()) {
+                return "Make sure all indices are in the appropriate range.";
+            }
+        }
+
         for (int index : indices) {
             VirtueTask task = getTask(index);
             task.markAsDone();
@@ -120,6 +127,13 @@ public class VirtueTaskList {
     private String markTasksAsNotDone(Integer... indices) {
         int numOfIndices = 0;
         String message = "";
+
+        // Check if indices are in the appropriate range
+        for (int index : indices) {
+            if (index <= 0 || index > numTasks()) {
+                return "Make sure all indices are in the appropriate range.";
+            }
+        }
 
         for (int index : indices) {
             VirtueTask task = getTask(index);
@@ -163,6 +177,13 @@ public class VirtueTaskList {
     private String deleteTasks(Integer... indices) {
         int numOfIndices = 0;
         String message = "";
+
+        // Check if indices are in the appropriate range
+        for (int index : indices) {
+            if (index <= 0 || index > numTasks()) {
+                return "Make sure all indices are in the appropriate range.";
+            }
+        }
 
         for (int index : indices) {
             VirtueTask deletedTask = tasks.remove(index - 1);
