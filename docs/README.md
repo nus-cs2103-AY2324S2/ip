@@ -73,9 +73,9 @@ A: Install the app on the other computer and overwrite the empty data file with 
 - **List Tasks:** `list`
 - **Add Todo:** `todo <task_description>` e.g., `todo Read book`
 - **Add Deadline:** `deadline <task_description> /by <date>` e.g., `deadline Submit report /by 2024-02-25`
-- **Add Event:** `event <task_description> /at <date/time>` e.g., `event Project meeting /at Monday 10am from 2024-02-25 1600 to 2024-02-25 1800`
+- **Add Event:** `event <task_description> /at <date/time>` e.g., `event Project meeting /at Monday 10am from 2024-02-25 1600 to 2024-02-25 1800 (output may show unexpected error, however the event is added`
 - **Find Task:** `find <keyword>` e.g., `find book`
-- **Delete Task:** `delete <task_index>` e.g., `delete 1`
+- **Delete Task:** `delete <task_index - 1>` e.g., `delete 0 -> deletes first task`
 - **Mark Task as Done:** `mark <task_index>` e.g., `mark 1`
 - **Unmark Task:** `unmark <task_index>` e.g., `unmark 1`
 - **Exit:** `bye`

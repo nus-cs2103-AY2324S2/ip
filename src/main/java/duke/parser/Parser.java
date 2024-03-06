@@ -20,6 +20,7 @@ import duke.ui.Ui;
  */
 public class Parser {
     private static Storage storage;
+    private static Task newTask;
     /**
      * Parses the user input and executes the corresponding command.
      *
@@ -39,7 +40,6 @@ public class Parser {
             break;
         case "list":
             ui.showMessage(tasks.listTasks());
-
             break;
         case "mark":
             if (parts.length < 2) {
@@ -97,8 +97,6 @@ public class Parser {
         if (parts.length < 2 || parts[1].isEmpty()) {
             throw new DukeException("The description of a " + command + " cannot be empty.");
         }
-
-        Task newTask = null;
         switch (command) {
         case "todo":
             newTask = new Todo(parts[1], false);
@@ -120,12 +118,12 @@ public class Parser {
         case "event":
             String[] eventParts = parts[1].split(" /at ", 2);
             if (eventParts.length < 2) {
-                throw new DukeException("duke.task.Event format incorrect. "
-                    + "Please use the format: event description /at from to");
+                throw new DukeException("Event format incorrect. "
+                    + "Please use the format: event description /at from yyyy-mm-dd HHmm to yyyy-mm-dd HHmm");
             }
             String[] timeParts = eventParts[1].split(" to ", 2);
             if (timeParts.length < 2) {
-                throw new DukeException("duke.task.Event time format incorrect. "
+                throw new DukeException("Event time format incorrect. "
                     + "Please include both start and end times.");
             }
             newTask = new Event(eventParts[0], timeParts[0], timeParts[1], false);

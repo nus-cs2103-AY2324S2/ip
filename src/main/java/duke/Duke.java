@@ -75,14 +75,13 @@ public class Duke extends Application {
      */
     public String getResponse(String input) {
         try {
-            ui.clearResponse();
             Parser.parse(input, tasks, ui);
-            return ui.getResponse();
         } catch (DukeException e) {
-            return e.getMessage();
+            ui.showError(e.getMessage());
         } catch (Exception e) {
-            return "An unexpected error occurred: " + e.getMessage();
+            ui.showError("An unexpected error occurred: " + e.getMessage());
         }
+        return ui.getResponse();
     }
 
     private void handleUserInput() {
