@@ -1,6 +1,6 @@
 package duke.parser;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
@@ -110,15 +110,16 @@ public class Parser {
             String[] deadlineParts = parts[1].split(" /by ", 2);
             if (deadlineParts.length < 2) {
                 throw new DukeException("duke.task.Deadline format incorrect. "
-                    + "Please use the format: deadline description /by yyyy-MM-dd");
+                    + "Please use the format: deadline description /by d/M/yyyy HHmm");
             }
-            LocalDate deadlineDate;
+            LocalDateTime deadlineDate;
             try {
-                deadlineDate = LocalDate.parse(deadlineParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                deadlineDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
             } catch (DateTimeParseException e) {
-                throw new DukeException("Date format incorrect. Please use the format: yyyy-MM-dd");
+                throw new DukeException("Date format incorrect. Please use the format: d/M/yyyy HHmm");
             }
-            newTask = new Deadline(deadlineParts[0], deadlineDate, false);
+            newTask = new Deadline(deadlineParts[0], deadlineDate.format(
+                DateTimeFormatter.ofPattern("d/M/yyyy HHmm")), false);
             break;
         case "event":
             String[] eventParts = parts[1].split(" /at ", 2);
