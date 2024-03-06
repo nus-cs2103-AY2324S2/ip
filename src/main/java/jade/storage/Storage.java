@@ -3,6 +3,7 @@ package jade.storage;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,12 +45,12 @@ public class Storage {
     public List<Task> load() throws JadeException {
         try {
             String[] dirs = filePath.split("/");
-            String jadeDirStr = System.getProperty("user.dir") + "/" + String.join("/", Arrays
+            Path jadeDirPath = java.nio.file.Paths.get(System.getProperty("user.dir"), Arrays
                     .copyOfRange(dirs, 0, dirs.length - 1));
-            createJadeDir(jadeDirStr);
-            String jadeFileDirStr = System.getProperty("user.dir") + "/" + filePath;
-            File jadeFile = createJadeFile(jadeFileDirStr);
-            return readFromLocal(jadeFile);
+            createJadeDir(jadeDirPath);
+            Path jadeFilePath = java.nio.file.Paths.get(System.getProperty("user.dir"), dirs);
+            createJadeFile(jadeFilePath);
+            return readFromLocal(jadeFilePath);
         } catch (JadeException e) {
             System.out.println(e.getMessage());
             return new ArrayList<>();
@@ -58,24 +59,25 @@ public class Storage {
     /**
      * Creates directory for saving the local file if not exists.
      */
-    private void createJadeDir(String dirStr) throws JadeException {
-        File jadeDir = new File(dirStr);
-        if (!jadeDir.exists()) {
-            jadeDir.mkdir();
-            throw new JadeException(DIR_NOT_EXIT_MSG);
+    private void createJadeDir(Path dirPath) throws JadeException {
+        try {
+            if (!Files.exists(dirPath)) {
+                Files.createDirectory(dirPath);
+                throw new JadeException(DIR_NOT_EXIT_MSG);
+            }
+        } catch (IOException e) {
+            throw new JadeException(e.getMessage());
         }
     }
     /**
      * Creates the local file for saving user tasks if not exists.
      */
-    private File createJadeFile(String fileDirStr) throws JadeException {
+    private void createJadeFile(Path filePath) throws JadeException {
         try {
-            File jadeFile = new File(fileDirStr);
-            if (!jadeFile.exists()) {
-                jadeFile.createNewFile();
+            if (!Files.exists(filePath)) {
+                Files.createFile(filePath);
                 throw new JadeException(FILE_NOT_EXIT_MSG);
             }
-            return jadeFile;
         } catch (IOException e) {
             throw new JadeException(e.getMessage());
         }
@@ -83,9 +85,9 @@ public class Storage {
     /**
      * Reads all strings and add tasks from local file which saves all user tasks.
      */
-    private List<Task> readFromLocal(File file) throws JadeException {
+    private List<Task> readFromLocal(Path filePath) throws JadeException {
         try {
-            Scanner sc = new Scanner(file);
+            Scanner sc = new Scanner(filePath);
             ArrayList<Task> savedTaskList = new ArrayList<>();
             while (sc.hasNext()) {
                 addTask(savedTaskList, sc.nextLine());
