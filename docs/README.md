@@ -14,9 +14,9 @@ Sample commands:
 - `deadline Submit iP /by 270224T0000`
 - `event Workshop /from 270224T1200 /to 270224T1400`
 
-### Exit App
-You can exit the app. (if not exited with `exit` command, changes would not be saved)
-Command format: `exit`
+### Close App
+You can close the app. (if not exited with `close` command, changes would not be saved)
+Command format: `close`
 
 ### List Tasks
 You can list the tasks saved.
