@@ -83,7 +83,6 @@ public class Parser {
                 throw new CommandNotFoundException(input);
             }
         } catch (CommandNotFoundException e) {
-            System.out.println(e.getMessage());
             return e.getMessage();
         }
     }
