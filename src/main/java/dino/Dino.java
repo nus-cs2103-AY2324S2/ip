@@ -2,11 +2,12 @@ package dino;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import dino.commands.Command;
 import dino.commands.Parser;
 import dino.tasks.TaskList;
-import javafx.scene.image.Image;
 
 /**
  * The Dino class is a Java program that acts as a task manager, allowing users to input commands to manage and
@@ -30,7 +31,7 @@ public class Dino {
         greeting.add("Hello! I'm Dino");
         Reminders.getReminders(tasks, greeting);
         greeting.add("\nHow can I help you?");
-        return String.join("\n", greeting);
+        return greeting.stream().collect(Collectors.joining("\n"));
     }
 
     /**
