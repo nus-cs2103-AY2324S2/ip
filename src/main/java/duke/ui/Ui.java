@@ -52,7 +52,7 @@ public class Ui {
         for (int i = 1; i <= taskList.getNumOfTasks(); i++) {
             result += (i + "." + taskList.getTask(i).toString()) + "\n";
         }
-        return result;
+        return result.isBlank() ? "Task list is empty" : result;
     }
 
     /**
@@ -65,6 +65,6 @@ public class Ui {
         for (int i = 1; i <= taskList.getNumOfFilteredTasks(); i++) {
             result += (i + "." + taskList.getTask(i).toString()) + "\n";
         }
-        return result;
+        return result.isBlank() ? "No tasks found, please try other keywords" : result;
     }
 }

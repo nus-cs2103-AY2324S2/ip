@@ -66,7 +66,7 @@ public class Parser {
             case "deadline":
             case "event":
                 return createTask(input, words);
-            case "close":
+            case "exit":
                 saveToMemory();
                 return terminateSession();
             case "list":
@@ -149,7 +149,7 @@ public class Parser {
                     + "\n"
                     + "Now you have " + taskList.getNumOfTasks() + " tasks in the list.";
         } else {
-            return "Action failed: task index input is not an integer";
+            return "Action failed: task index input needs to be an integer";
         }
     }
 
@@ -159,7 +159,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(words[1]);
             return taskList.setTaskDoneWithIndex(taskIndex, isDone);
         } else {
-            return "Action failed: task index input is not an integer";
+            return "Action failed: task index input needs to be an integer";
         }
     }
 
@@ -169,7 +169,7 @@ public class Parser {
             int taskIndex = Integer.parseInt(words[1]);
             return taskList.setTaskDoneWithIndex(taskIndex, !isDone);
         } else {
-            return "Action failed: task index input is not an integer";
+            return "Action failed: task index input needs to be an integer";
         }
     }
 

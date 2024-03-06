@@ -7,6 +7,7 @@
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.layout.StackPane?>
 
+<?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Rectangle?>
 <fx:root alignment="TOP_RIGHT" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <children>
@@ -21,7 +22,11 @@
               <Font name="System Bold" size="13.0" />
            </font></Text>
     </StackPane>
-    <ImageView fx:id="displayPicture" fitHeight="65.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true" />
+    <StackPane>
+        <Circle radius="25" fill="#FFFCF9BF" />
+        <Rectangle width="64.0" height="65.0" fill="transparent" />
+        <ImageView fx:id="displayPicture" fitHeight="45.0" fitWidth="45.0" pickOnBounds="true" preserveRatio="true" />
+    </StackPane>
   </children>
   <padding>
     <Insets bottom="0" left="0" right="0" top="0" />
