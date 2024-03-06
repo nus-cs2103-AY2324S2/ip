@@ -1,9 +1,11 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import duke.parser.MissingInputFieldException;
 import duke.parser.Parser;
+import duke.parser.WrongDateTimeInputException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -25,13 +27,13 @@ public class Event extends Task {
      * @param input User specified input to create Event.
      * @throws MissingInputFieldException
      */
-    public Event(String input) throws MissingInputFieldException {
+    public Event(String input) throws MissingInputFieldException, WrongDateTimeInputException {
         super(TaskType.EVENT);
         setUpTask(input);
     }
 
     @Override
-    public void setUpTask(String input) throws MissingInputFieldException {
+    public void setUpTask(String input) throws MissingInputFieldException, WrongDateTimeInputException {
         try {
             input = input.trim();
             if (!input.contains(getCommand())) {
@@ -43,6 +45,8 @@ public class Event extends Task {
             eventEndTiming = Parser.parseDateAndTime(inputArray[2].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeInputException();
         }
     }
 

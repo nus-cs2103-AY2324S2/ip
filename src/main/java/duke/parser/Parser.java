@@ -126,7 +126,8 @@ public class Parser {
         return "bye";
     }
 
-    private String createTask(String input, String[] words) throws MissingInputFieldException {
+    private String createTask(String input, String[] words) throws MissingInputFieldException,
+            WrongDateTimeInputException {
         Task newTask = null;
         newTask = Task.createTask(words[0], input);
         taskList.addTask(newTask);
