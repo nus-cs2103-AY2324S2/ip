@@ -43,31 +43,30 @@ public class Duke extends Application {
 
     /**
      * Constructs a Duke object with the specified file path.
+     *
+     * @param filePath The file path where tasks will be stored.
+     */
+    public Duke(String filePath) {
+        if (filePath != null) {
+            ui = new Ui();
+            storage = new Storage(filePath);
+
+            try {
+                tasks = new TaskList(storage.load());
+            } catch (DukeException e) {
+                ui.showLoadingError();
+                tasks = new TaskList();
+            }
+        }
+    }
+
+    /**
+     * Constructs a Duke object with the specified file path.
      */
     public Duke() {
         this("./data/duke.txt");
     }
 
-    /**
-     * Constructs a Duke object with the specified file path.
-     *
-     * @param filePath The file path where tasks will be stored.
-     */
-    public Duke(String filePath) {
-        storage = new Storage(filePath);
-        tasks = new TaskList();
-    }
-
-    /**
-     * Loads tasks from the file specified by the user upon starting the application.
-     */
-    public void loadTasks() {
-        try {
-            tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
-            System.out.println("An error occurred while loading tasks: " + e.getMessage());
-        }
-    }
     /**
      * Processes the user input and returns Duke's response.
      *

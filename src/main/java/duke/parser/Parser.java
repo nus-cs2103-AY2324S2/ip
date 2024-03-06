@@ -1,11 +1,6 @@
 package duke.parser;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-
 import duke.DukeException;
-import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -19,10 +14,7 @@ import duke.ui.Ui;
  * deleting tasks, listing tasks, and searching for tasks based on user input.
  */
 public class Parser {
-    private static Storage storage;
-    public Parser(Storage storage) {
-        this.storage = storage;
-    }
+
     /**
      * Parses the user input and executes the corresponding command.
      *
@@ -73,7 +65,6 @@ public class Parser {
         case "deadline":
         case "event":
             handleTaskCreation(command, parts, tasks, ui);
-            storage.save(tasks.getTasks());
             break;
         case "find":
             if (parts.length < 2 || parts[1].isEmpty()) {
@@ -110,29 +101,22 @@ public class Parser {
             String[] deadlineParts = parts[1].split(" /by ", 2);
             if (deadlineParts.length < 2) {
                 throw new DukeException("duke.task.Deadline format incorrect. "
-                    + "Please use the format: deadline description /by d/M/yyyy HHmm");
+                    + "Please use the format: deadline description /by yyyy-MM-dd");
             }
-            LocalDateTime deadlineDate;
-            try {
-                deadlineDate = LocalDateTime.parse(deadlineParts[1], DateTimeFormatter.ofPattern("d/M/yyyy HHmm"));
-            } catch (DateTimeParseException e) {
-                throw new DukeException("Date format incorrect. Please use the format: d/M/yyyy HHmm");
-            }
-            newTask = new Deadline(deadlineParts[0], deadlineDate.format(
-                DateTimeFormatter.ofPattern("d/M/yyyy HHmm")), false);
+            newTask = new Deadline(deadlineParts[0], deadlineParts[1], false);
             break;
         case "event":
             String[] eventParts = parts[1].split(" /at ", 2);
             if (eventParts.length < 2) {
-                newTask = new Event(eventParts[0], "", "", false);
-            } else {
-                String[] timeParts = eventParts[1].split(" to ", 2);
-                if (timeParts.length < 2) {
-                    throw new DukeException("duke.task.Event time format incorrect. "
-                        + "Please include both start and end times.");
-                }
-                newTask = new Event(eventParts[0], timeParts[0], timeParts[1], false);
+                throw new DukeException("duke.task.Event format incorrect. "
+                    + "Please use the format: event description /at from to");
             }
+            String[] timeParts = eventParts[1].split(" to ", 2);
+            if (timeParts.length < 2) {
+                throw new DukeException("duke.task.Event time format incorrect. "
+                    + "Please include both start and end times.");
+            }
+            newTask = new Event(eventParts[0], timeParts[0], timeParts[1], false);
             break;
         default:
             throw new DukeException("I'm sorry, but I don't know what that means :-(");
@@ -145,4 +129,3 @@ public class Parser {
         }
     }
 }
-
