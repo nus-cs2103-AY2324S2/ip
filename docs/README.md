@@ -74,7 +74,7 @@ Example input: mark`ww`2
 As part of the BCD-extension requirement. Gandalf is able to create expenses and
 help track information such as the total cost.
 
-To add an expense: expense`ww`school`ww`3.5
+To add an expense: expenses`ww`school`ww`3.5
 
 ### Sum
 
@@ -99,6 +99,6 @@ Total expenses for all: 8.5 dollars
 ```
 
 >### Command summary
-> todo, event, deadline, expense, find, delete, sum, mark, unmark, list, bye
+> todo, event, deadline, expenses, find, delete, sum, mark, unmark, list, bye
 
 >Note: images used are royalty-free, taken from https://pixabay.com/
