@@ -2,7 +2,6 @@ package duke.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
 
 /**
  * The Deadline class represents a task with a deadline in the Duke application.
@@ -18,17 +17,10 @@ public class Deadline extends Task {
      * @param by          The deadline for the task.
      * @param isComplete  The completion status of the task.
      */
-    public Deadline(String description, String by, boolean isComplete) {
+    public Deadline(String description, LocalDateTime by, boolean isComplete) {
         super(description);
         this.isComplete = isComplete;
-        assert this.by != null : "Deadline date-time parsing failed";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-        try {
-            this.by = LocalDateTime.parse(by, formatter);
-        } catch (DateTimeParseException e) {
-            System.err.println("Error parsing date-time: " + e.getMessage());
-        }
+        this.by = by;
     }
 
     /**
@@ -42,7 +34,6 @@ public class Deadline extends Task {
             isComplete ? 1 : 0,
             description,
             by.format(DateTimeFormatter.ofPattern("d/M/yyyy HHmm")));
-
     }
 
     /**

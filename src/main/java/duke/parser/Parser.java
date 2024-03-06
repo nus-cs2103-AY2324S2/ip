@@ -1,6 +1,11 @@
 package duke.parser;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+
 import duke.DukeException;
+import duke.storage.Storage;
 import duke.task.Deadline;
 import duke.task.Event;
 import duke.task.Task;
@@ -14,7 +19,7 @@ import duke.ui.Ui;
  * deleting tasks, listing tasks, and searching for tasks based on user input.
  */
 public class Parser {
-
+    private static Storage storage;
     /**
      * Parses the user input and executes the corresponding command.
      *
@@ -65,6 +70,7 @@ public class Parser {
         case "deadline":
         case "event":
             handleTaskCreation(command, parts, tasks, ui);
+            storage.save(tasks.getTasks());
             break;
         case "find":
             if (parts.length < 2 || parts[1].isEmpty()) {
@@ -100,10 +106,16 @@ public class Parser {
         case "deadline":
             String[] deadlineParts = parts[1].split(" /by ", 2);
             if (deadlineParts.length < 2) {
-                throw new DukeException("duke.task.Deadline format incorrect. "
-                    + "Please use the format: deadline description /by yyyy-MM-dd");
+                throw new DukeException("Deadline format incorrect. "
+                    + "Please use the format: deadline description /by d/M/yyyy HHmm");
             }
-            newTask = new Deadline(deadlineParts[0], deadlineParts[1], false);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+            try {
+                LocalDateTime by = LocalDateTime.parse(deadlineParts[1], formatter);
+                newTask = new Deadline(deadlineParts[0], by, false);
+            } catch (DateTimeParseException e) {
+                throw new DukeException("Invalid date-time format. Please use the format: d/M/yyyy HHmm");
+            }
             break;
         case "event":
             String[] eventParts = parts[1].split(" /at ", 2);

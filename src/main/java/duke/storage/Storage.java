@@ -5,6 +5,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,7 +50,9 @@ public class Storage {
                     task = new Todo(parts[2], parts[1].equals("1"));
                     break;
                 case "D":
-                    task = new Deadline(parts[2], parts[3], parts[1].equals("1"));
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+                    LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
+                    task = new Deadline(parts[2], by, parts[1].equals("1"));
                     break;
                 case "E":
                     task = new Event(parts[2], parts[3], parts[4], parts[1].equals("1"));
