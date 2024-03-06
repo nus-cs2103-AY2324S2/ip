@@ -1,0 +1,13 @@
+help
+list
+deadline submit CS2103T Assignment /by November 10th
+list
+event project meeting /from Tuesday 1pm /to 4pm
+todo go to the gym
+mark 1
+list
+mark 2
+unmark 2
+list
+donuts
+bye
