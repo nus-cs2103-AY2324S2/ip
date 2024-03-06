@@ -1,6 +1,7 @@
 package duke.task;
 
 import duke.parser.MissingInputFieldException;
+import duke.parser.WrongDateTimeInputException;
 
 /**
  * Represents a task.
@@ -58,7 +59,8 @@ public abstract class Task implements Comparable<Task> {
      * @return Task created.
      * @throws MissingInputFieldException If number of input field does not match with requirement.
      */
-    public static Task createTask(String type, String input) throws MissingInputFieldException {
+    public static Task createTask(String type, String input) throws MissingInputFieldException,
+            WrongDateTimeInputException {
         if (type.equals(ToDo.COMMAND)) {
             return new ToDo(input);
         } else if (type.equals(Deadline.COMMAND)) {
@@ -141,14 +143,16 @@ public abstract class Task implements Comparable<Task> {
                 task = createTask(Deadline.COMMAND, Deadline.COMMAND + " " + inputArray[2] + " /by "
                         + inputArray[3]);
             } else {
-                throw new RuntimeException("Data Corrupted: No Matching duke.task.Task Type");
+                throw new RuntimeException("Data Corrupted: No matching task type");
             }
             if (isTaskDataEntryDone(inputArray)) {
                 task.isDone = true;
             }
             return task;
         } catch (MissingInputFieldException | ArrayIndexOutOfBoundsException e) {
-            throw new RuntimeException("Data Corrupted: Missing Input Field");
+            throw new RuntimeException("Data corrupted: Missing input field");
+        } catch (WrongDateTimeInputException e) {
+            throw new RuntimeException("Data corrupted: Unrecognised date&time format");
         }
     }
 
@@ -215,5 +219,5 @@ public abstract class Task implements Comparable<Task> {
      * @param input Input from user specifying task properties.
      * @throws MissingInputFieldException If number of input fields does not match with requirements.
      */
-    public abstract void setUpTask(String input) throws MissingInputFieldException;
+    public abstract void setUpTask(String input) throws MissingInputFieldException, WrongDateTimeInputException;
 }

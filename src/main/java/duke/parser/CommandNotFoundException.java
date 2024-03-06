@@ -5,6 +5,6 @@ package duke.parser;
  */
 public class CommandNotFoundException extends InputException {
     public CommandNotFoundException(String command) {
-        super("Command not found: " + command);
+        super("Command does not exist: " + command + '\n' + "Please try another command");
     }
 }

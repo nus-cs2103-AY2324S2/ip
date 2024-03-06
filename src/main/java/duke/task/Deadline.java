@@ -1,9 +1,11 @@
 package duke.task;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeParseException;
 
 import duke.parser.MissingInputFieldException;
 import duke.parser.Parser;
+import duke.parser.WrongDateTimeInputException;
 import duke.storage.Storage;
 import duke.ui.Ui;
 
@@ -20,15 +22,16 @@ public class Deadline extends Task {
      * Returns an instance of Deadline object created using user input.
      *
      * @param input User input to create Deadlien with.
-     * @throws MissingInputFieldException
+     * @throws MissingInputFieldException When input is missing
+     * @throws WrongDateTimeInputException When date&time format is wrong
      */
-    public Deadline(String input) throws MissingInputFieldException {
+    public Deadline(String input) throws MissingInputFieldException, WrongDateTimeInputException {
         super(TaskType.DEADLINE);
         setUpTask(input);
     }
 
     @Override
-    public void setUpTask(String input) throws MissingInputFieldException {
+    public void setUpTask(String input) throws MissingInputFieldException, WrongDateTimeInputException {
         try {
             input = input.trim();
             if (!input.contains(getCommand())) {
@@ -39,6 +42,8 @@ public class Deadline extends Task {
             deadlineTiming = Parser.parseDateAndTime(inputArray[1].trim());
         } catch (ArrayIndexOutOfBoundsException | NullPointerException e) {
             throw new MissingInputFieldException(type);
+        } catch (DateTimeParseException e) {
+            throw new WrongDateTimeInputException();
         }
     }
 
