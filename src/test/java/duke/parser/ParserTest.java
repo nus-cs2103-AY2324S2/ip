@@ -18,22 +18,16 @@ public class ParserTest {
     }
 
     @Test
-    public void parseDueTime_wrongFormatDateTimeString_exceptionThrown() {
-        try {
-            new Parser("deadline task /by 2022-12-0318:00").parseDueTime();
-        } catch (DateTimeParseException e) {
-            assertEquals("Text '2022-12-0318:00' could not be parsed at index 10", e.getMessage());
-        }
+    public void parseDueTime_wrongFormatDateTimeString_dateTimeParseExceptionThrown() {
+        assertThrows(DateTimeParseException.class,
+                () -> new Parser("deadline task /by 2022-12-0318:00").parseDueTime());
 
-        try {
-            new Parser("deadline other task /by 2023/10/03 0500").parseDueTime();
-        } catch (DateTimeParseException e) {
-            assertEquals("Text '2023/10/03 0500' could not be parsed at index 4", e.getMessage());
-        }
+        assertThrows(DateTimeParseException.class,
+                () -> new Parser("deadline other task /by 2023/10/03 0500").parseDueTime());
     }
 
     @Test
-    public void parseDueTime_emptyDueTime_fail() {
+    public void parseDueTime_emptyDueTime_failExceptionThrown() {
         assertThrows(ArrayIndexOutOfBoundsException.class,
                 () -> new Parser("deadline task /by ").parseDueTime());
     }

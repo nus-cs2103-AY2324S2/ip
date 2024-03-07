@@ -1,5 +1,6 @@
 package duke.task;
 
+import duke.exception.EmptyTaskNameException;
 import org.junit.jupiter.api.Test;
 
 import java.time.LocalDate;
@@ -48,5 +49,7 @@ public class TaskListTest {
     public void deleteTask_indexOutOfBound_fail() {
         assertThrows(IndexOutOfBoundsException.class,
                 () -> new TaskList().deleteTask(2));
+        assertThrows(IndexOutOfBoundsException.class,
+                () -> new TaskList().deleteTask(-1));
     }
 }
