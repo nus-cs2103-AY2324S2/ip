@@ -104,7 +104,7 @@ public class Ui {
      * Prints when file is found
      */
     public void fileFoundForUser() {
-        add("Found the file... loading");
+        add("Loading...");
     }
 
     /**
