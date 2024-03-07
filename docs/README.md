@@ -201,5 +201,3 @@ Syntax: `bye`
 Bye. Hope to see you again soon!
 --------------------------------
 ```
-
-*Note: you will automatically exit the app in a second.*
