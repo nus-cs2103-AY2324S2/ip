@@ -1,3 +1,0 @@
-deadline|cry|false|2024-04-03| #hi
-todo|laugh|false|
-event|procrastinate|true|today|tomorrow|

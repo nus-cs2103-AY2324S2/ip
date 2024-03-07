@@ -5,7 +5,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 
 import java.io.IOException;
@@ -28,7 +27,7 @@ public class MainWindow extends AnchorPane {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
     private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaButo.png"));
-    private Image sky = new Image(this.getClass().getResourceAsStream("/images/BackGround.png"));
+    private Image sky = new Image(this.getClass().getResourceAsStream("/images/Background.png"));
     private BackgroundImage backgroundImage = new BackgroundImage(
             sky,
             BackgroundRepeat.NO_REPEAT,

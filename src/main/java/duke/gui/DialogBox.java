@@ -33,8 +33,7 @@ import javafx.scene.text.TextAlignment;
 public class DialogBox extends HBox {
     @FXML
     private Text dialog;
-    @FXML
-    private AnchorPane chatBox;
+
     @FXML
     private Circle displayPicture;
 
