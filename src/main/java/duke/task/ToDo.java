@@ -16,7 +16,7 @@ public class ToDo extends Task {
 
     @Override
     public String toFileString() {
-        return "todo|" + super.toFileString() + "|" + tagToString();
+        return "todo|" + super.toFileString() + "|" + super.tagToString();
     }
 
     @Override

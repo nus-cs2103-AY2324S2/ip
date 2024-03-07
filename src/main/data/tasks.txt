@@ -1,0 +1,6 @@
+todo|me|false| #hehe
+todo|fun|false| #wiiieeeee
+todo|yay|false|
+todo|haha|false|
+event|ak|false|now|tomorrow|
+deadline|cry|false|2024-04-03| #hi

@@ -59,8 +59,10 @@ public class Storage {
                 assert taskDescriptions[0].equals("event");
                 tasks.addTask(new Event(taskName, done, taskDescriptions[3], taskDescriptions[4]));
             }
-            String[] tags = taskDescriptions[taskDescriptions.length - 1].split("#");
-            Arrays.stream(tags).filter(t -> !t.isEmpty()).forEach(t -> tasks.tagTask(tasks.getSize(), t.trim()));
+            if (taskDescriptions[taskDescriptions.length - 1].contains("#")) {
+                String[] tags = taskDescriptions[taskDescriptions.length - 1].split("#");
+                Arrays.stream(tags).filter(t -> !t.isEmpty()).forEach(t -> tasks.tagTask(tasks.getSize(), t.trim()));
+            }
         }
     }
 
