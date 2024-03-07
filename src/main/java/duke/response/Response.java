@@ -16,7 +16,7 @@ public class Response {
     public Response () { }
 
     public String getMessage(String message) {
-        return String.format("     %s\n", message);
+        return String.format("%s\n", message);
     }
 
     /**

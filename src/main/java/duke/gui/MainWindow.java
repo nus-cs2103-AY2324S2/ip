@@ -5,8 +5,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
 
 import java.io.IOException;
 
@@ -27,11 +27,23 @@ public class MainWindow extends AnchorPane {
     private Duke duke;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/DaUser.png"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaDuke.png"));
+    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/DaButo.png"));
+    private Image sky = new Image(this.getClass().getResourceAsStream("/images/BackGround.png"));
+    private BackgroundImage backgroundImage = new BackgroundImage(
+            sky,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundRepeat.NO_REPEAT,
+            BackgroundPosition.DEFAULT,
+            new BackgroundSize(
+                    1.0, 1.0, true, true, false, true));
 
     @FXML
     public void initialize() {
+        dialogContainer.setBackground(new Background(backgroundImage));
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setFitToWidth(true);
+        scrollPane.setFitToHeight(true);
         sendButton.setOnMouseClicked((event) -> {
             try {
                 handleUserInput();
