@@ -45,7 +45,7 @@ by offering a wide range of features. Here's what Sophia can do for you:
 
 2. Download the latest [Sophia.jar](https://github.com/gauravuj/ip/releases/tag/A-Release) from here.
 
-3. Copy the file into a new folder.
+3. Copy the file into a new folder. Make sure to name the folder in **one word**, for example `SophiaBot`, otherwise it may show error.
 
 4. Open a command terminal, cd into the folder you put the jar file in. 
    Here's how to know the filepath ([Mac](https://www.digitaltrends.com/computing/how-to-find-and-copy-a-file-path-on-mac/) or [Win](https://www.sony.com/electronics/support/articles/00015251)).
@@ -114,7 +114,7 @@ Format: `help` or `commands`
 
 ## Adding Tasks
 
-### 1. Adding Todos
+### 1. Adding Todos `todo`
 To add a todo task, use the following __command format__:
 
 `t <description>`
@@ -133,7 +133,7 @@ Yay! Your task is on the board 📋. Here's what you told me to remember:
 Bringing your total to 1 tasks. Let's keep this productivity train going! 🚂💨
 ```
 
-### 2. Adding Deadlines
+### 2. Adding Deadlines `deadline`
 To add a deadline task, use the following __command format__:
 
 `deadline <description> /by <deadline>`
@@ -153,7 +153,7 @@ Yay! Your task is on the board 📋. Here's what you told me to remember:
 Bringing your total to 2 tasks. Let's keep this productivity train going! 🚂💨
 ```
 
-### 3. Adding Events
+### 3. Adding Events `event`
 To add an event, use the following __command format__:
 
 `event <description> /from <start time> /to <end time>`
@@ -176,7 +176,7 @@ Bringing your total to 3 tasks. Let's keep this productivity train going! 🚂�
 
 
 ## Managing Tasks
-### 1. Listing all tasks
+### 1. Listing all tasks `list`
 Command format:
 
 `list`
@@ -193,7 +193,7 @@ Here are the tasks in your list:
 3. [E][] tutorial zoom meeting (from: 2 Feb 2024 12:00 to: 2 Feb 2024 14:00)
 ```
 
-### 2. Mark Task as Done
+### 2. Mark Task as Done `mark`
 __Command format__:
 
 `mark <task index>`
@@ -210,7 +210,7 @@ Feels good, doesn't it? Here's a high five! ✋
  [T][] go to gym
 ```
 
-### 3. Unmark Task as Not Done
+### 3. Unmark Task as Not Done `unmark`
 __Command format__:
 
 `unmark <task index>` 
@@ -227,7 +227,7 @@ Remember, completing tasks is a journey, not a sprint.
  [T][] go to gym
 ```
 
-### 4. Delete Task
+### 4. Delete Task `delete`
 __Command format__:
 
 `delete <task number>`
@@ -243,7 +243,7 @@ Poof! ✨ Your task vanished into thin air! Here's what we said goodbye to:
 You're now down to 2 tasks in the list.
 ```
 
-### 5. Delete All Tasks
+### 5. Delete All Tasks `delete all`
 __Command format__:
 
 `delete all`
@@ -257,7 +257,7 @@ __Expected Output__:
 All clear! 🧹✨ I've removed every single task from the list.
 ```
 
-## Find a Task
+## Find a Task `find`
 Search for a specific task by keywords.
 
 __Command format__:
@@ -282,7 +282,7 @@ Hmm, my crystal ball 🔮 shows no tasks matching that description.
 Maybe try a different keyword? I'm sure we'll find something! 🕵️‍♂
 ```
 
-## Define a shortcut
+## Define a shortcut `define`
 Sophia is capable of creating a new shortcut or alias for a command. This allows you to customize 
 how you interact with Sophia, making commands easier and faster to use.
 
