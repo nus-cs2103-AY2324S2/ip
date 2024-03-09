@@ -244,4 +244,4 @@ Hammy
 I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
 
 ## 🖼️ How does it look like?
-![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
+![Image of the current GUI](Ui.png)
