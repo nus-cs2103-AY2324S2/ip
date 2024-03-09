@@ -1,0 +1,6 @@
+todo update project documentation
+list
+event workshop /from 9am /to 12pm
+deadline review project /by Thursday
+list
+bye

@@ -1,0 +1,6 @@
+event webinar /from 3pm /to 5pm
+list
+todo write a blog post
+deadline finish reading novel /by Sunday evening
+list
+bye
