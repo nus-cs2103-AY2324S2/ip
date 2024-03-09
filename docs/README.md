@@ -1,6 +1,7 @@
 # Dobby User Guide
 
-![image](docs/Ui.png)
+![image]([docs/Ui.png](https://doyelee0313.github.io/ip/Ui.png))
+
 
 Dobby will help your task managing skill
 
