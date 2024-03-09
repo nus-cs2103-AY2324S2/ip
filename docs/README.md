@@ -197,7 +197,7 @@ list a
 > If the method of `list` is not recognizable, it will list in default.
 
 
-### Say Hi To Me <3
+### • Say Hi To Me <3
 Say **Hi** to Hammy!
 
 ```
@@ -210,7 +210,7 @@ Hello
 ```
 
 
-### Surprised!
+### • Surprised!
 Nothing much! Just some little easter eggs!
 Call me maybe🤔? 😏
 
