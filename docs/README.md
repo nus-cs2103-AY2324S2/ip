@@ -1,5 +1,7 @@
 # Hammy User Guide
 
+Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide.
+
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
 
 * [How to read?](#how-to-read)
@@ -37,7 +39,7 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 ## Features 
 
-### Viewing all available commands within application
+### * Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
 
 Command:
