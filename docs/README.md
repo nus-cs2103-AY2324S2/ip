@@ -34,10 +34,8 @@ by offering a wide range of features. Here's what Sophia can do for you:
 3. [Viewing Help](#viewing-help)
 4. [Adding Tasks](#adding-tasks)
 5. [Managing Tasks](#managing-tasks)
-6. [Finding Task](#find-a-task)
-7. [Defining Shortcut](#define-a-shortcut)
-8. [Basic Conversation](#basic-conversation)
-9. [Summary](#sophia-chatbot-commands)
+6. [Basic Conversation](#basic-conversation)
+7. [Summary](#sophia-chatbot-commands)
 
 ## Getting Started 
 
@@ -257,7 +255,7 @@ __Expected Output__:
 All clear! 🧹✨ I've removed every single task from the list.
 ```
 
-## Find a Task `find`
+### 6. Find a Task `find`
 Search for a specific task by keywords.
 
 __Command format__:
@@ -282,7 +280,7 @@ Hmm, my crystal ball 🔮 shows no tasks matching that description.
 Maybe try a different keyword? I'm sure we'll find something! 🕵️‍♂
 ```
 
-## Define a shortcut `define`
+### 7. Define a shortcut `define`
 Sophia is capable of creating a new shortcut or alias for a command. This allows you to customize 
 how you interact with Sophia, making commands easier and faster to use.
 
