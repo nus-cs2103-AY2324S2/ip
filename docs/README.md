@@ -4,8 +4,8 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide.
 
-* [How to read?](#how-to-read)
-* [Features](#features)
+* [📖 How to read?](#how-to-read)
+* [💡 Features](#features)
   * [Viewing all available commands within application](#viewing-all-available-commands-within-application)
   * [Listing all tasks](#listing-all-tasks)
   * [Adding tasks](#adding-tasks)
@@ -15,11 +15,11 @@ Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if 
   * [Other listing tasks methods](#other-listing-tasks-methods)
   * [Say Hi To Me <3](#say-hi-to-me-3)
   * [Surprised!](#surprised)
-* [FAQ](#faq)
-* [Future Updates](#future-updates)
-* [How does it look like?](#how-does-it-look-like)
+* [❓ FAQ](#faq)
+* [🐹 Future Updates](#future-updates)
+* [🌅 How does it look like?](#how-does-it-look-like)
 
-## How to read?
+## 📖 How to read?
 ```
 [A][B] YOUR_TASK_HERE (Information: date ...)
 ```
@@ -37,7 +37,7 @@ Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if 
 > 
 > * List: DDMMMYYYY
 
-## Features 
+## 💡 Features 
 
 ### • Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
@@ -218,7 +218,7 @@ Call me maybe🤔? 😏
 Hammy
 ```
 
-## FAQ
+## ❓ FAQ
 1. Where can I check your Github page?
 * You can click [here](https://github.com/jinhanfromNUS/ip)
 
@@ -240,8 +240,8 @@ Hammy
 * No! It is totally fine if there is no database upon using this application. The application will create a text file called **tasklist.txt** store all your tasks. **tasklist.txt** will be in the same directory as your jar file.
 
 
-## Future Updates
+## 🐹 Future Updates
 I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
 
-## How does it look like?
+## 🌅 How does it look like?
 ![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
