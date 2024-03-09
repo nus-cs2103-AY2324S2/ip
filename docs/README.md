@@ -1,6 +1,6 @@
 # Dobby User Guide
 
-![image](/Users/leedoye/ip/docs/Ui.png)
+![image](/Users/leedoye0313/ip/docs/Ui.png)
 
 Dobby will help your task managing skill
 
