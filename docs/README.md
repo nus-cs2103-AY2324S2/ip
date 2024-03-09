@@ -7,8 +7,6 @@ ready to help you manage your day-to-day tasks with ease. Whether it's keeping t
 of your to-dos, scheduling events, setting deadlines, or simply reminding you of 
 important dates, Sophia has got you covered. 
 
-![GUI window](Ui.png)
-
 ## Key Features of Sophia
 Sophia, your AI ChatBot Assistant, is designed to simplify your daily life 
 by offering a wide range of features. Here's what Sophia can do for you:
@@ -28,13 +26,15 @@ by offering a wide range of features. Here's what Sophia can do for you:
                           thoughts. Sophia is here to make your day a little easier and a lot more 
                             interesting.
 
+![GUI window](Ui.png)
+
 ## Table of Contents
-1. [Getting Started](#getting-started-)
+1. [Getting Started](#getting-started)
 2. [List of Features](#list-of-features)
 3. [Viewing Help](#viewing-help)
 4. [Adding Tasks](#adding-tasks)
 5. [Managing Tasks](#managing-tasks)
-6. [Finding Task]()
+6. [Finding Task](#find-a-task)
 7. [Defining Shortcut](#define-a-shortcut)
 8. [Basic Conversation](#basic-conversation)
 9. [Summary](#sophia-chatbot-commands)
