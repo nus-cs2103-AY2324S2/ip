@@ -2,9 +2,9 @@
 
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
 
-Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide.
+Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide. (For some reason, it does not show the image/emojis from the website.)
 
-* [📖 How to read?](#how-to-read)
+* [📖 How to read?](#how-to-read) 
 * [💡 Features](#features)
   * [Viewing all available commands within application](#viewing-all-available-commands-within-application)
   * [Listing all tasks](#listing-all-tasks)
@@ -17,7 +17,7 @@ Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if 
   * [Surprised!](#surprised)
 * [❓ FAQ](#faq)
 * [🐹 Future Updates](#future-updates)
-* [🌅 How does it look like?](#how-does-it-look-like)
+* [🖼️ How does it look like?](#how-does-it-look-like)
 
 ## 📖 How to read?
 ```
@@ -243,5 +243,5 @@ Hammy
 ## 🐹 Future Updates
 I will be adding more features, such as mass delete and mass marking. Besides, I will also enhance the GUI of the application. Moreover, I will try to make customizable available, so that you can customize your own bot name and theme!
 
-## 🌅 How does it look like?
+## 🖼️ How does it look like?
 ![Image of the current GUI](https://github.com/jinhanfromNUS/ip/blob/master/docs/Ui.png)
