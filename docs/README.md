@@ -1,8 +1,8 @@
 # Hammy User Guide
 
-Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide.
-
 Hammy chatbot is an application for people to navigate their tasks in daily lives. It consists of a variety of tasks, including Todo, Deadline and Event tasks. Besides, Hammy chatbot also includes other features, such as list, mark and unmark to help you control your tasks more effeciently. Most importantly, it is user-friendly and easy-to-use!
+
+Click [here](https://github.com/jinhanfromNUS/ip/blob/master/docs/README.md) if there are problems with this user guide.
 
 * [How to read?](#how-to-read)
 * [Features](#features)
@@ -39,7 +39,7 @@ Hammy chatbot is an application for people to navigate their tasks in daily live
 
 ## Features 
 
-### * Viewing all available commands within application
+### • Viewing all available commands within application
 To view all available commands within application, we can enter `help` to in the user input to list out all commands.
 
 Command:
@@ -47,7 +47,7 @@ Command:
 help
 ```
 
-### Listing all tasks
+### • Listing all tasks
 You can list all your tasks using the `list` command.
 
 Command:
@@ -64,7 +64,7 @@ Shortcut:
 > If there is no tasks in the list, Hammy will output `There is no tasks currently!` instead
 
 
-### Adding tasks
+### • Adding tasks
 There are three types of tasks
 1. todo: A task with a description
 2. deadline: A task with a Deadline date
@@ -125,7 +125,7 @@ Got it. I have added:
 > Just like deadline tasks, description is optional.
 
 
-### Deleting tasks
+### • Deleting tasks
 You can delete certain tasks using `delete` command.
 ```
 delete TASK_INDEX
@@ -140,21 +140,21 @@ Shotcut:
 > Task index must be a valid index. If you wish to know the indexes of each tasks, you can use `list` command.
 
 
-### Marking tasks as done
+### • Marking tasks as done
 You can mark certain task as done using `done` command.
 ```
 done TASK_INDEX
 ```
 
 
-### Marking tasks as not done
+### • Marking tasks as not done
 You can mark certain task as not done using `undone` command.
 ```
 undone TASK_INDEX
 ```
 
 
-### Other listing tasks methods
+### • Other listing tasks methods
 There are various types of ways to list your tasks
 1. done: List out only completed tasks
 2. undone: List out tasks which are not completed
@@ -194,6 +194,7 @@ list a
 
 > [!TIP]
 > all `list` in the command can be shotcutted to `/ls`.
+> If the method of `list` is not recognizable, it will list in default.
 
 
 ### Say Hi To Me <3
