@@ -1,29 +1,59 @@
-# User Guide
+> Easy to use, task manager!
 
-## Features 
+# Tars Chatbot
 
-### Feature-ABC
+This is a **chatbot** application that allows you to _manage tasks_.
 
-Description of the feature.
+## Installation
 
-### Feature-XYZ
+1. Clone the repo
+2. Find the `Launcher.java` file
+3. Click run!
 
-Description of the feature.
+It's that easy :+1:
 
-## Usage
 
-### `Keyword` - Describe action
+## Features
+### Create a task
 
-Describe the action and its outcome.
+- Create a **Todo** task using the follow format
 
-Example of usage: 
+Example: `todo TASKNAME`
 
-`keyword (optional arguments)`
+- Create a **deadline** task
 
-Expected outcome:
+Example: `deadline TASKNAME /by DD/MM/YYYY"`
 
-Description of the outcome.
+- Create a **event** task
 
-```
-expected output
-```
+Example: `event TASKNAME /from DAY TIME/to DAY TIME"`
+
+### List a task
+
+- Use **list** to view all the tasks
+
+Example: `list`
+
+### Delete a task
+- Use **delete** followed by the index number to get rid of a task
+
+Example: `delete index`
+
+### Help
+
+- Use the **help** keyword to list all the possible commands
+Example: `help`
+
+### Mark a task
+
+- Use the `mark` followed by the index number to mark a task as completed
+Example: `mark` index
+
+### Unark a task
+
+- Use the `mark` followed by the index number to mark a task as incomplete
+  Example: `unmark` index
+
+
+This site was built using [GitHub Pages](https://pages.github.com/).
+
