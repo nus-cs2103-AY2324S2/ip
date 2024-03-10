@@ -1,4 +1,4 @@
-# Duke User Guide
+# Yapper User Guide
 
 ![Screenshot of Ui.](Ui.png)
 
