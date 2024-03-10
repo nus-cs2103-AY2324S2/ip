@@ -140,7 +140,7 @@ When you execute this command, ChatBro saves all your tasks to a text file  (sav
 
 If `savedTasks.txt` is in the wrong format, you will see this pop-up alert when you run ChatBro:
 <p align="center">
-  <img width="415" height="150" src="https://cdn.discordapp.com/attachments/523125126540165121/1210286867006881906/image.png?ex=65ea027b&is=65d78d7b&hm=e7a5e69c3fec31607ee979692df955c815247f9d8b45f35f7af1d44d96ab3222&">
+  <img width="415" height="150" src="https://cdn.discordapp.com/attachments/523125126540165121/1210286867006881906/image.png?ex=65fc777b&is=65ea027b&hm=c351463a49afbd0c0643947cb959900910d85c70818254d85fc8e1f094f13cd9&">
 </p>
 
 Simply follow the instructions given and delete `savedTasks.txt`, then start ChatBro again.
