@@ -118,10 +118,10 @@ Search for a task with Date and Time
 > [!IMPORTANT]
 > `Taylor v1.0` only supports <YYYY-MM-dd HHmm> format at the moment
 
-Format: `find <YYYY-MM-dd HHmm>`
+Format: `search <YYYY-MM-dd HHmm>`
 
 Example input
-- `find 2024-03-02 1900`
+- `search 2024-03-02 1900`
 
 Example output
 - `[E][] The Eras Tour Singapore (from: 02 Mar 2024 07:00PM to: 09 Mar 2024 10:00PM)`
