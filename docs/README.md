@@ -26,7 +26,8 @@ Duc supports three types of tasks:
 - **Todo**: A basic task with a description.
   - Command: `todo [task description]`
 - **Deadline**: A task with a due date.
-  - Command: `deadline [task description] /by [DD-MM-YYYY]`
+  - Command: `deadline [task description] /by [dd/mm/yyyy] [time]`
+  - example : deadline return book /by 2/12/2019 1800
 - **Event**: A task that occurs over a period.
   - Command: `event [event description] /from [start date] /to [end date]`
 
