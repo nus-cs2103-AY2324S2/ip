@@ -101,8 +101,8 @@ public class Storage {
      */
     public String convertTaskToLine(Task t) throws DuneException {
 
-        boolean validTaskType = (t instanceof ToDo) || (t instanceof Deadline) || (t instanceof Event);
-        assert validTaskType;
+        boolean isValidTaskType = (t instanceof ToDo) || (t instanceof Deadline) || (t instanceof Event);
+        assert isValidTaskType;
 
         String ans = "";
         if (t instanceof ToDo) {
