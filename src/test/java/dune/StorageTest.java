@@ -41,7 +41,10 @@ public class StorageTest {
         try {
             Task task = storage.convertLineToTask(s);
         } catch (DuneException d) {
-            assertEquals("Invalid task type", d.getMessage());
+            // not supposed to come here
+            throw new AssertionError();
+        } catch (AssertionError a) {
+            assertEquals("Task type is invalid", a.getMessage());
         }
     }
 }

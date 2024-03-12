@@ -79,7 +79,7 @@ public class Storage {
                 break;
             }
         }
-        assert isValidTaskType;
+        assert isValidTaskType: "Task type is invalid";
 
         if (taskType.equals("T")) {
             return new ToDo(components[2], isDone);
