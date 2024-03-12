@@ -124,6 +124,7 @@ and the window will close after a few seconds.
 
 * Automatic saving and retrieval of tasks
 * Custom errors for invalid inputs
+* Duplicate task detection
 * If you ever forget the commands or feel lost, type `help` and you will
   be reminded of the available commands :)
 
