@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import javafx.util.Pair;
@@ -60,6 +61,11 @@ public class Storage {
             }
         } catch (FileNotFoundException f) {
             ResponseHandler.appendLineToResponse("Sleepy encountered a bug and could not recover your data!");
+        } catch (NoSuchElementException n) {
+            ResponseHandler.appendLineToResponse("Sleepy encountered a problem upon startup!"
+                    + " Your saved data has unfortunately been lost.");
+            // Clear corrupted data
+            tasksReadFromFile.clear();
         }
         return tasksReadFromFile;
     }

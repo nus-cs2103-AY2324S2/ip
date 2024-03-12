@@ -127,7 +127,8 @@ public class Parser {
         String[] details = deadlineDetails.split("(?i)/by ");
         String deadlineDescription = details[0].trim();
         if (details.length == 1 || deadlineDescription.isEmpty()) {
-            throw new IllegalArgumentException("Missing the deadline description or the '/by' field! Try again.");
+            throw new IllegalArgumentException("Missing the deadline description "
+                    + "or the '/by' field! Try again.");
         } else if (details.length >= 3) {
             throw new IllegalArgumentException("You can only have one '/by' field! Try again.");
         }

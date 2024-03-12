@@ -44,6 +44,7 @@ public class TaskList {
             ResponseHandler.appendLineToResponse("Sleepy encountered a problem upon startup!"
                     + " Your saved data has unfortunately been lost.");
         }
+        storage.saveTasks(tasks);
         isStartingUp = false;
     }
 

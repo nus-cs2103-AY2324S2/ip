@@ -65,7 +65,7 @@ public class EventTask extends Task {
     @Override
     public String getRawDescription() {
         String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
-        return "event " + details + "/from " + start + "/to " + end;
+        return "event " + details + " /from " + start + " /to " + end;
     }
 
     /**

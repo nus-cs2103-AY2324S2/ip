@@ -48,6 +48,6 @@ public class PlannedTask extends Task {
     @Override
     public String getRawDescription() {
         String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
-        return "plan " + details + "/after " + precedingEvent;
+        return "plan " + details + " /after " + precedingEvent;
     }
 }

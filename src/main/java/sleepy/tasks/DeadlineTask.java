@@ -48,6 +48,6 @@ public class DeadlineTask extends Task {
     @Override
     public String getRawDescription() {
         String details = super.getDescription().substring(TASK_DESCRIPTION_OFFSET);
-        return "deadline " + details + "/by " + givenDeadline;
+        return "deadline " + details + " /by " + givenDeadline;
     }
 }
