@@ -23,9 +23,6 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-
-
-
 /**
  * Main application class for Duke, a JavaFX application that facilitates interactive chat.
  * <p>
@@ -41,25 +38,31 @@ public class Duke extends Application {
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/me.jpg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.jpeg"));
-    /**
-     * Initializes images for the user and Duke, and sets up other necessary components.
-     * This constructor is used to prepare any preliminary data or resources required by the application.
-     */
-    public Duke() {
-        // ...
+    private Image duke = new Image(this.getClass().getResourceAsStream("/images/brothers.png"));
+    private Stage stage;
+    private AnchorPane mainLayout;
+    private Storage storage = new Storage();
+
+    public static void main(String[] args) {
+        launch(args);
     }
 
     /**
      * Starts the main application stage, setting up the layout, scene, and event handlers.
      * This method initializes the graphical user interface, including input fields, buttons,
      * and display areas for messages.
-     * @param stage The primary stage for this application, onto which the scene is set.
      */
     @Override
-    public void start(Stage stage) {
-        // Step 1. Setting up required components
-        // The container for the content of the chat to scroll.
+    public void start(Stage primaryStage) {
+        stage = primaryStage;
+        setupComponents();
+        formatWindow();
+        initializeChatInterface();
+        showWelcomeMessage();
+        addInputHandlers();
+    }
+
+    private void setupComponents() {
         scrollPane = new ScrollPane();
         dialogContainer = new VBox();
         scrollPane.setContent(dialogContainer);
@@ -67,12 +70,13 @@ public class Duke extends Application {
         userInput = new TextField();
         sendButton = new Button("Send");
 
-        AnchorPane mainLayout = new AnchorPane();
+        mainLayout = new AnchorPane();
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton);
 
         scene = new Scene(mainLayout);
+    }
 
-        // Step 2. Formatting the window to look as expected
+    private void formatWindow() {
         stage.setTitle("Duke");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
@@ -100,13 +104,9 @@ public class Duke extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        // Here, after setting up the UI but before the stage is shown
-        showWelcomeMessage();
-
-        // Add functionality to handle user input.
-        addInputHandlers();
-
+    private void initializeChatInterface() {
         stage.setScene(scene);
         stage.show();
     }
@@ -135,9 +135,10 @@ public class Duke extends Application {
     private void showWelcomeMessage() {
         Output output = new Output(new Parser(new Storage()), new Storage());
         String welcomeMsg = output.welcome();
-        HBox dialogHBox = createDialogHBox(welcomeMsg, duke); // Use the duke Image object
-        dialogContainer.getChildren().add(dialogHBox); // Add HBox to the dialog container
+        HBox dialogHBox = createDialogHBox(welcomeMsg, duke);
+        dialogContainer.getChildren().add(dialogHBox);
     }
+
     /**
      * Creates a horizontal box containing a message and an associated image.
      * This method is used to format the display of messages in the chat interface.
@@ -149,26 +150,13 @@ public class Duke extends Application {
         Label textToAdd = new Label(text);
         textToAdd.setWrapText(true);
         ImageView imageView = new ImageView(image);
-        imageView.setFitHeight(100); // Adjust based on your UI needs
-        imageView.setFitWidth(100); // Adjust based on your UI needs
+        imageView.setFitHeight(100);
+        imageView.setFitWidth(100);
         imageView.setPreserveRatio(true);
-        HBox hbox = new HBox(10); // 10 is the spacing between elements in the HBox
-        hbox.setAlignment(Pos.CENTER_LEFT); // Aligns children within the HBox
+        HBox hbox = new HBox(10);
+        hbox.setAlignment(Pos.CENTER_LEFT);
         hbox.getChildren().addAll(imageView, textToAdd);
         return hbox;
-    }
-
-    /**
-     * Generates a label with specified text, enabling word wrapping.
-     * This utility method is used to create labels for displaying messages in the chat.
-     * @param text The text to be displayed in the label.
-     * @return A label configured to display the specified text.
-     */
-    private Label getDialogLabel(String text) {
-        // You will need to import `javafx.scene.control.Label`.
-        Label textToAdd = new Label(text);
-        textToAdd.setWrapText(true);
-        return textToAdd;
     }
 
     /**
@@ -186,7 +174,6 @@ public class Duke extends Application {
         userInput.clear();
     }
 
-
     /**
      * Generates a response to the user's input.
      * This method encapsulates the logic for processing user commands and generating
@@ -195,20 +182,18 @@ public class Duke extends Application {
      * @return A String containing Duke's response to the input.
      */
     private String getResponse(String input) {
-        Storage storage = new Storage();
         Parser parser = new Parser(storage);
         Output output = new Output(parser, storage);
         String response = output.execute(input);
-        //writing into the file
         try {
-            storage.writeToFile(storage.load());
+            storage.overWriteToFile(storage.load());
         } catch (IOException e) {
             System.out.println("Something went wrong: " + e.getMessage());
         }
         if (input.equalsIgnoreCase("bye")) {
-            String byeMessage = output.execute(input); // Assume this returns the "Bye" message
+            String byeMessage = output.execute(input);
             Platform.runLater(() -> {
-                PauseTransition delay = new PauseTransition(Duration.seconds(1.5)); // Adjust the delay as needed
+                PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
                 delay.setOnFinished(e -> Platform.exit());
                 delay.play();
             });
@@ -217,5 +202,4 @@ public class Duke extends Application {
             return response;
         }
     }
-
 }

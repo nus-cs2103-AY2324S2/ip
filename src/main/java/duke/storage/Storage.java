@@ -5,9 +5,16 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Scanner;
 
+import duke.exception.DukeException;
+import duke.tasks.Deadlines;
+import duke.tasks.Events;
 import duke.tasks.Task;
+import duke.tasks.ToDo;
 
 /**
  * Manages storage operations for Duke application tasks.
@@ -29,7 +36,96 @@ public class Storage {
     private static final Path FILE_PATH = Paths.get(DATA_DIR.toString(), FILE_NAME);
 
     // In-memory list of tasks
-    private static ArrayList<Task> tasks = new ArrayList<>();
+    private static ArrayList<Task> tasks;
+
+    /**
+     * Constructs a new Storage instance and loads tasks from the file.
+     */
+    public Storage() {
+        tasks = new ArrayList<>();
+        loadDataFromFile();
+    }
+
+
+    /**
+     * Loads tasks from the file into the in-memory list.
+     * Handles exceptions such as IOException and DukeException.
+     */
+    public void loadDataFromFile() {
+        try {
+            File file = FILE_PATH.toFile();
+            if (file.exists()) {
+                Scanner scanner = new Scanner(file);
+                while (scanner.hasNext()) {
+                    String taskData = scanner.nextLine();
+                    Task task = createTaskFromData(taskData);
+                    tasks.add(task);
+                }
+                scanner.close();
+            }
+        } catch (IOException | DukeException e) {
+            // Handle exceptions as needed
+            System.err.println("Error creating task: " + e.getMessage());
+        }
+    }
+
+    /**
+      * Creates a Task object based on the provided task data.
+      * @param taskData The string representation of the task.
+      * @return The Task object created from the task data.
+      * @throws DukeException If an error occurs during task creation.
+      */
+    public Task createTaskFromData(String taskData) throws DukeException {
+        String taskType = taskData.substring(0, 3);
+        String taskStatus = taskData.substring(4, 5);
+        switch (taskType) {
+        case "[T]":
+            return createToDoTask(taskData, taskStatus);
+        case "[D]":
+            return createDeadlinesTask(taskData, taskStatus);
+        case "[E]":
+            return createEventsTask(taskData, taskStatus);
+        default:
+            throw new DukeException("Unknown task type: " + taskType);
+        }
+    }
+
+    private ToDo createToDoTask(String taskData, String taskStatus) {
+        String description = taskData.substring(7);
+        boolean isCompleted = taskStatus.equals("X");
+        return new ToDo(description, isCompleted);
+    }
+
+    private Deadlines createDeadlinesTask(String taskData, String taskStatus) throws DukeException {
+        String[] token = taskData.substring(7).split("\\(");
+        if (token.length < 2) {
+            throw new DukeException("Invalid task data format: " + taskData);
+        }
+        String description = token[0].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm'hrs'");
+        String dateInput = token[1].substring(4, 22);
+        LocalDateTime localDateTime = LocalDateTime.parse(dateInput, formatter);
+        boolean isCompleted = taskStatus.equals("X");
+        return new Deadlines(description, isCompleted, localDateTime);
+    }
+
+    private Events createEventsTask(String taskData, String taskStatus) throws DukeException {
+        String[] token = taskData.substring(7).split("\\(");
+        if (token.length < 2) {
+            throw new DukeException("Invalid task data format: " + taskData);
+        }
+        String description = token[0].trim();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm'hrs'");
+        String input = token[1];
+        String date1 = input.substring(6, 24);
+        String date2 = input.substring(30, 48);
+        System.out.println("DATE 1: " + date1);
+        System.out.println("DATE 2: " + date2);
+        LocalDateTime dateTime1 = LocalDateTime.parse(date1, formatter);
+        LocalDateTime dateTime2 = LocalDateTime.parse(date2, formatter);
+        boolean isCompleted = taskStatus.equals("X");
+        return new Events(description, isCompleted, dateTime1, dateTime2);
+    }
 
     /**
      * Writes the given list of tasks to the file specified in {@code FILE_PATH}.
@@ -38,7 +134,7 @@ public class Storage {
      * @param inventory The list of tasks to be written to the file.
      * @throws IOException If an I/O error occurs while writing to the file.
      */
-    public void writeToFile(ArrayList<Task> inventory) throws IOException {
+    public void overWriteToFile(ArrayList<Task> inventory) throws IOException {
         File file = FILE_PATH.toFile();
         // Ensure the directory exists
         file.getParentFile().mkdirs();
@@ -84,4 +180,3 @@ public class Storage {
         return result.toString();
     }
 }
-

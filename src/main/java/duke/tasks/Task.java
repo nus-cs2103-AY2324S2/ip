@@ -11,38 +11,43 @@ import java.time.LocalDate;
  */
 public abstract class Task {
     private String description;
-    private boolean marked;
+    private boolean isMarked;
 
     /**
      * Constructs a Task with the given description.
-     * The task is initially marked as not completed.
+     * The task is initially isMarked as not completed.
      * @param description A String describing the task.
      */
     Task(String description) {
         this.description = description;
-        this.marked = false;
+        this.isMarked = false;
+    }
+
+    Task(String description, boolean isMarked) {
+        this.description = description;
+        this.isMarked = isMarked;
     }
 
     /**
      * Marks the task as completed.
      */
     public void mark() {
-        this.marked = true;
+        this.isMarked = true;
     }
 
     /**
      * Unmarks the task as completed.
      */
     public void unmark() {
-        this.marked = false;
+        this.isMarked = false;
     }
 
     /**
-     * Checks if the task is marked as completed.
-     * @return true if the task is marked as completed, false otherwise.
+     * Checks if the task is isMarked as completed.
+     * @return true if the task is isMarked as completed, false otherwise.
      */
     public boolean isMarked() {
-        return this.marked;
+        return this.isMarked;
     }
 
     public String getDescription() {

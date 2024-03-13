@@ -29,19 +29,33 @@ public class Events extends Task {
     }
 
     /**
+     * Constructs an Events task with the given description, completion status, actual start, and actual end times.
+     * @param description  The description of the Events task.
+     * @param isMarked     A boolean indicating whether the Events task is marked as completed.
+     * @param actualStart  The actual start time for the task, represented as a LocalDateTime object.
+     * @param actualEnd    The actual end time for the task, represented as a LocalDateTime object.
+     */
+    public Events(String description, boolean isMarked, LocalDateTime actualStart, LocalDateTime actualEnd) {
+        super(description, isMarked);
+        this.actualStart = actualStart;
+        this.actualEnd = actualEnd;
+    }
+
+
+    /**
      * Returns a String representation of the Events task, indicating its completion status and event times.
      * @return A formatted String indicating the completion status, description, and event times of the Events task.
      */
     @Override
     public String toString() {
-        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm'hrs'");
+        DateTimeFormatter outputFormatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm'hrs'");
         if (this.isMarked()) {
             return "[E][X] "
                 + super.toString()
                 +
                 "(from: " + this.actualStart.format(outputFormatter)
                 +
-                " to: " + this.actualEnd.format(outputFormatter)
+                ", to: " + this.actualEnd.format(outputFormatter)
                 + ")";
         } else {
             return "[E][ ] "
@@ -58,6 +72,10 @@ public class Events extends Task {
     @Override
     public String identifier() {
         return "[E]";
+    }
+
+    public LocalDateTime getStart() {
+        return this.actualStart;
     }
 
     /**
