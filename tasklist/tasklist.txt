@@ -1,2 +1,5 @@
 TODO | not done | another one
 TODO | not done | newnew
+TODO | not done | new task
+EVENT | not done | this (from: 22 Mar 2000, to: 22 Mar 2000)
+EVENT | not done | newEvent (from: 22 Mar 2000, to: 22 Apr 2000)
