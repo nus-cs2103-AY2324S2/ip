@@ -1,0 +1,9 @@
+todo clean room
+deadline submit hw /by 5pm
+list
+mark 1
+mark 5
+list
+unmark 1
+list
+bye
