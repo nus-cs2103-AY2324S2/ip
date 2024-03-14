@@ -32,6 +32,7 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
+
 }
 
 test {
@@ -49,13 +50,13 @@ test {
 }
 
 application {
-    mainClass.set("duke.Duke")
+    mainClass.set("duke.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "PepegPro"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+//    archiveClassifier = null
+//    dependsOn("distZip", "distTar")
 }
 
 run{
