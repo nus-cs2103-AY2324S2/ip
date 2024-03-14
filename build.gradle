@@ -43,13 +43,13 @@ test {
 }
 
 application {
-    mainClass.set("bentley.Duke")
+    mainClass.set("bentley.Launcher")
 }
 
 shadowJar {
     archiveBaseName = "bentley"
-    archiveClassifier = null
-    dependsOn("distZip", "distTar")
+    //archiveClassifier = null
+    //dependsOn("distZip", "distTar")
 }
 
 run{
