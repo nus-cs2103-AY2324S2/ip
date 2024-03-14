@@ -118,8 +118,9 @@ Format: `bye`<br>
 <br>
 
 ## Command Summary <a name ="command-summary"/>
+
 | Action | Command Format, Examples |
-|---|---| 
+| --- | --- | 
 | List content | `List` |
 | Add todo | `todo DESCRIPTION` <br>e.g., `todo read book` |
 | Add deadline | `deadline DESCRIPTION /by yyyy-MM-dd HH:mm` <br>e.g., `deadline return book /by 2024-02-21 23:59` | 
