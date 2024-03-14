@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600" prefWidth="450" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="judy.javafx.MainWindow">
+
+    <!-- Root layout -->
+    <children>
+        <!-- Text input field -->
+        <TextField fx:id="userInput" layoutY="550" onAction="#handleUserInput" prefHeight="50.0" prefWidth="500" AnchorPane.bottomAnchor="1.0" />
+
+        <!-- Send button -->
+        <Button fx:id="sendButton" layoutX="500.0" layoutY="550" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="50" prefWidth="100" text="Send">
+            <style>
+                -fx-background-color: #BED1CF;
+                -fx-text-fill: #E78895;
+                -fx-font-weight: bold;
+            </style>
+            <font>
+                <Font name="Comic Sans MS Bold" size="20.0" />
+            </font>
+        </Button>
+
+        <!-- Scrollable area -->
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="550.0" prefWidth="600.0" vvalue="1.0">
+            <!-- Conversation container -->
+            <VBox fx:id="dialogContainer" prefHeight="550" prefWidth="600">
+                <style>-fx-background-color: #FFF8E3;</style>
+            </VBox>
+        </ScrollPane>
+    </children>
+</AnchorPane>

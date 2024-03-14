@@ -1,0 +1,5 @@
+ E | 0 | formal night | Dec 12 2024 06:00 PM - Dec 12 2024 10:00 PM
+ T | 0 | grocery
+ T | 0 | return book
+ T | 0 | borrow book
+ D | 0 | project | Feb 02 2024 11:59 PM
