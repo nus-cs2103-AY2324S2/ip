@@ -1,5 +1,6 @@
 package duke;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -30,6 +31,18 @@ public class Duke {
             myList = new MyList(storage.load());
         } catch (FileNotFoundException e) {
             ui.showError("Error: File not Found");
+            File directory = new File("data");
+            File file = new File(directory, "duke.txt");
+            try {
+                if (!directory.exists()) {
+                    directory.mkdirs(); // Create directory if it doesn't exist
+                }
+                if (!file.exists()) {
+                    file.createNewFile(); // Create file if it doesn't exist
+                }
+            } catch (IOException ex) {
+                ui.showError("Error creating duke.txt");
+            }
             myList = new MyList();
         } catch (DukeException e) {
             ui.showError(e.getMsg());
@@ -107,6 +120,6 @@ public class Duke {
     }
 
     public static void main(String[] args) {
-        new Duke("src/main/java/data/duke.txt").run();
+        new Duke("./data/duke.txt").run();
     }
 }
