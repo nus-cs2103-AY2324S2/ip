@@ -20,16 +20,16 @@ Examples:
 Format: `deadline <description> /by <date>`
 
 Examples:
-* `deadline Win Money /by 11/11/2024`
-* `d Get rich /by 11/9/2024`
+* `deadline Win Money /by 2024-03-15`
+* `d Get rich /by 2024-03-15`
 
 ### _3 . Add an **Event** task._ 
 
 Format: `event <description> /from <date> /to <date>`
 
 Examples:
-* `event project meeting /from 2/12/2019 /to 2/12/2019`
-* `e project meeting /from Mon 2/12/2019 /to 2/12/2019`
+* `event project meeting /from 2024-03-15 /to 2024-03-15`
+* `e project meeting /from 2024-03-15 /to 2024-03-15`
 
 ### _4 . **Mark** a task as done._
 Format: `mark <task index>`
