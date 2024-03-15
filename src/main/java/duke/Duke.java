@@ -35,10 +35,10 @@ public class Duke {
             File file = new File(directory, "duke.txt");
             try {
                 if (!directory.exists()) {
-                    directory.mkdirs(); // Create directory if it doesn't exist
+                    directory.mkdirs();
                 }
                 if (!file.exists()) {
-                    file.createNewFile(); // Create file if it doesn't exist
+                    file.createNewFile();
                 }
             } catch (IOException ex) {
                 ui.showError("Error creating duke.txt");

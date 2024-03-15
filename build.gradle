@@ -55,8 +55,6 @@ application {
 
 shadowJar {
     archiveBaseName = "PepegPro"
-//    archiveClassifier = null
-//    dependsOn("distZip", "distTar")
 }
 
 run{
