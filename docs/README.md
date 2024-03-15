@@ -15,7 +15,7 @@
 
 ## Adding todo
 
-Use `todo` to add a todo task in your list.
+Use `todo <description>` to add a todo task in your list.
 
 Example: `todo laundry`
 
@@ -28,7 +28,7 @@ Got it! I've added this task:
 
 ## Adding Deadline
 
-Use 'deadline` to add a deadline task in your list.
+Use `deadline <description> /by <DATE TIME>` to add a deadline task in your list.
 
 Example: `deadline Assignment 1 /by 2025-03-01 2359`
 
@@ -41,7 +41,7 @@ Got it! I've added this task:
 
 ## Adding Event
 
-Use 'event' to add an event task in your list.
+Use `event <description> /from <DATE TIME> /to <DATE TIME>` to add an event task.
 
 Example: `event CNY party /from 2024-05-05 1400 /to 2024-05-05 2200`
 
@@ -67,7 +67,7 @@ Here are the tasks in your task list:
 
 ## Mark a task
 
-Use `mark` to mark a task as done by specifying the task index.
+Use `mark <task index>` to mark a task as done by specifying the task index.
 The task index must be a positive integer.
 
 Example: `mark 1`
@@ -80,7 +80,7 @@ Nice! I've marked this task as done:
 
 ## Unmark a task
 
-Use `unmark` to mark a task as undone by specifying the task index.
+Use `unmark <task index>` to mark a task as undone by specifying the task index.
 The task index must be a positive integer.
 
 Example: `unmark 1`
@@ -93,7 +93,7 @@ Nice! I've unmarked this task as done:
 
 ## Delete a task
 
-Use `delete` to delete a task by specifying the task index.
+Use `delete <task index>` to delete a task by specifying the task index.
 The task index must be a positive integer.
 
 Example: `delete 1`
@@ -107,7 +107,7 @@ Noted. I've removed this task:
 
 ## Finding a task
 
-Use `find` to find a task using keyword.
+Use `find <keyword>` to find a task using keyword.
 
 Example: `find Assingment`
 
@@ -116,6 +116,9 @@ Expected output:
 Here are the matching tasks in your list:
    1. [D][ ] ssignment 1 (by: Jan 03 2025 11:59 PM)
 ```
+## Seek Help
+
+Use `help` to view all command available.
 
 ## Exit Judy
 
