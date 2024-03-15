@@ -1,5 +1,9 @@
 # Patrick User Guide
-
+### Launching Patrick
+Prerequisites: JDK 11
+1. Download patrick.jar [here](https://github.com/erv-teo/ip/releases/tag/A-Release)
+2. Navigate to the file directory containing patrick.jar
+3. Launch by entering java -jar patrick.jar
 
 ## Features
 
