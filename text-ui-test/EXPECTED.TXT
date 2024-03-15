@@ -1,7 +1,23 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+  Hello! I'm Sleepy
+  What can I do for you?
+  This is not a task! Nice try, you won't catch me sleeping :p
+  added: [T][ ] fail CS2103T
+  added: [D][ ] submit Level-6 (by: Week 2)
+  added: [E][ ] CS2103T lecture (from: Fri 4pm to: 6pm)
+  added: [T][ ] a
+  added: [D][ ] submit b (by: c)
+  added: [E][ ] d (from: e to: f)
+  You forgot to include the description at all! Nice try, you won't catch me sleeping :p
+  1.[T][ ] fail CS2103T
+  2.[D][ ] submit Level-6 (by: Week 2)
+  3.[E][ ] CS2103T lecture (from: Fri 4pm to: 6pm)
+  4.[T][ ] a
+  5.[D][ ] submit b (by: c)
+  6.[E][ ] d (from: e to: f)
+  Missing the '/by' field! Try again. Nice try, you won't catch me sleeping :p
+  Missing the '/from' field! Try again. Nice try, you won't catch me sleeping :p
+  Missing the '/to' field! Try again. Nice try, you won't catch me sleeping :p
+  Noted. I've removed this task:
+    [E][ ] CS2103T lecture (from: Fri 4pm to: 6pm)
+  Now you have 5 task(s) in the list.
+  Bye. Gonna go back to sleep now *yawn*

@@ -1,0 +1,14 @@
+nope
+todo fail CS2103T
+deadline submit Level-6 /by Week 2
+event CS2103T lecture /from Fri 4pm /to 6pm
+todo a
+deadline submit b /by c
+event d /from e /to f
+todo
+list
+deadline im dead
+event nope
+event /from 5
+delete 3
+bye
