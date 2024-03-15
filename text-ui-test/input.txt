@@ -1,0 +1,20 @@
+todo
+todo read book
+deadline
+deadline /by
+deadline buy lunch /by
+deadline /by 2pm
+deadline buy lunch /by 12pm
+event
+event /from /to
+event party /from /to
+event party /from 2pm /to
+event party /from /to 3pm
+event party /from 2pm /to 3pm
+mark 1
+unmark 1
+mark 3
+mark 2
+list
+unmark 4
+list

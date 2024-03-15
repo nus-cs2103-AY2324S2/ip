@@ -1,0 +1,6 @@
+T 1 read book
+T 0 buy lunch
+D 1 eat dinner /by 7pm tonight
+D 0 meet haris /by 3pm today
+E 1 meet RF /from 630pm /to 7pm
+E 0 go sleep /from 121 /to 213
