@@ -1,7 +1,43 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm JerryBot.
+ What can I do for you?
+Invalid command erm. Please try again with todo, deadline, event or list.
+Command is missing a description.
+Line added to the file successfully.
+Got it. I've added this task:
+[T] [ ] borrow book
+Now you have 1 tasks in the list.
+Deadline command incomplete. It should be in the form of deadline description /by datetime.
+Line added to the file successfully.
+Got it. I've added this task:
+[D] [ ] return book (by: 29/2/20241400)
+Now you have 2 tasks in the list.
+A duplicate task exists in store!
+File successfully updated.
+Nice! I've marked this task as done:
+[T] [X] borrow book
+File successfully updated.
+Nice! I've marked this task as done:
+[D] [X] return book (by: 29/2/20241400)
+Invalid task number 3. Please try again.
+File successfully updated.
+Nooo! I've marked this task as undone:
+[T] [ ] borrow book
+Event command incomplete. It should be in the form of event description /from datetime /to datetime.
+Line added to the file successfully.
+Got it. I've added this task:
+[E] [ ] project meeting (from: 1/3/20241400 to: 1/3/20241600)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1. [T] [ ] borrow book
+2. [D] [X] return book (by: 29/2/20241400)
+3. [E] [ ] project meeting (from: 1/3/20241400 to: 1/3/20241600)
 
+Noted. I've removed this task:
+[T] [ ] borrow book
+Now you have 2 tasks in the list.
+Invalid task number 3. Please try again.
+Here are the tasks in your list:
+1. [D] [X] return book (by: 29/2/20241400)
+2. [E] [ ] project meeting (from: 1/3/20241400 to: 1/3/20241600)
+
+Bye. Hope to see you again soon!
