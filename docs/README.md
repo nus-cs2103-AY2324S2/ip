@@ -19,7 +19,7 @@ It is:
     - [Delete a Task](#delete)
     - [Mark a task](#mark)
     - [Unmark a task](#unmark)
-    - [Search tasks by description](#search)
+    - [Find tasks by description](#search)
     - [Search tasks by date](#date)
     - [Set a priority](#priority)
     - [Exit the program](#bye)
@@ -90,9 +90,9 @@ Format: `unmark INDEX`<br>
 
 <br>
 
-### ▶️ Searching tasks based on the description: `search` <a name ="search"/>
+### ▶️ Finding tasks based on the description: `search` <a name ="search"/>
 Find all tasks with matching keywords for description. <br>
-Format: `search DESCRIPTION`<br>
+Format: `find DESCRIPTION`<br>
 
 <br>
 
@@ -128,7 +128,7 @@ Format: `bye`<br>
 | Delete task | `delete INDEX` <br>e.g., `delete 2` <br>The `INDEX` refers to the index number of a task in the list. <br>⚠️: `INDEX` must be positive and not exceed the size of the list. |
 | Mark for completed | `mark INDEX` <br>e.g., `mark 2` <br>The `INDEX` refers to the index number of a task in the list. <br>⚠️: `INDEX` must be positive and not exceed the size of the list. |
 | UnMark for incomplete | `unmark INDEX` <br>e.g., `unmark 2` <br>The `INDEX` refers to the index number of a task in the list.  <br> ⚠️: `INDEX` must be positive and not exceed the size of the list. |
-| Search task based on description | `search DESCRIPTION` <br>e.g., `search book` |
+| Find task based on description | `find DESCRIPTION` <br>e.g., `find book` |
 | Search task based on date | `date yyyy-MM-dd` <br>e.g., `date 2024-02-20` |
 | Setting priority | `todo DESCRIPTION /priority LEVEL` <br>e.g., `todo join club /priority medium` <br>📝: `DEFAULT` if not stated explicitly <br> Set the priority level for each task. <br> Levels: `HIGH`, `MEDIUM`, `LOW`, `DEFAULT`|
 | Exit | `bye` |
