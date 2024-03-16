@@ -221,7 +221,7 @@ Okay Boss! Task marked as undone:
 Marks the completed task as undone.
 
 
-**Example of usage:** ```delete 5```
+**Example of usage:** ```delete 4```
 
 
 
