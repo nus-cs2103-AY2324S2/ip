@@ -90,7 +90,7 @@ Format: `unmark INDEX`<br>
 
 <br>
 
-### ▶️ Finding tasks based on the description: `search` <a name ="search"/>
+### ▶️ Searching tasks based on the description: `search` <a name ="search"/>
 Find all tasks with matching keywords for description. <br>
 Format: `Search DESCRIPTION`<br>
 
