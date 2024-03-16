@@ -179,7 +179,7 @@ Hi!, Following are your scheduled Tasks for the day
 Marks the completed task as done.
 
 
-**Example of usage:** ```mark 1```
+**Example of usage:** ```mark 0```
 
 
 
@@ -200,7 +200,7 @@ Okay Boss! Task marked as done:
 Marks the completed task as undone.
 
 
-**Example of usage:** ```unmark 4```
+**Example of usage:** ```unmark 3```
 
 
 
