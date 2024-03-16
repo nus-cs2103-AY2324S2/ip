@@ -1,7 +1,127 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+	  __   __    ____  ____  ____  ____
+	 / _\ (  )  (  __)(  _ \(  __)(    \
+	/    \/ (_/\ ) _)  )   / ) _)  ) D (
+	\_/\_/\____/(__)  (__\_)(____)(____/
+
+	____________________________________________________________
+	Greetings! I am Alfred.
+	How may I be of service to you today?
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [T][ ] read book
+ 	Currently, the list comprises  1 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [D][ ] return book (by: June 6th)
+ 	Currently, the list comprises  2 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+ 	Currently, the list comprises  3 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [T][ ] join sports club
+ 	Currently, the list comprises  4 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [T][ ] borrow book
+ 	Currently, the list comprises  5 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	It is my pleasure to inform you that I have officially marked this particular task as 'completed':
+	   [T][X] read book
+	____________________________________________________________
+
+	____________________________________________________________
+	It is my pleasure to inform you that I have officially marked this particular task as 'completed':
+	   [T][X] join sports club
+	____________________________________________________________
+
+	____________________________________________________________
+	Per your request, I am outlining the tasks from your designated list:
+	1. [T][X] read book
+	2. [D][ ] return book (by: June 6th)
+	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	4. [T][X] join sports club
+	5. [T][ ] borrow book
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [D][ ] return book (by: Sunday)
+ 	Currently, the list comprises  6 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [E][ ] project meeting (from: Mon 2pm to: 4pm)
+ 	Currently, the list comprises  7 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I am pleased to convey that the following task has been added to the outlined list:
+	   [D][ ] do homework (by: no idea :-p)
+ 	Currently, the list comprises  8 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	Per your request, I am outlining the tasks from your designated list:
+	1. [T][X] read book
+	2. [D][ ] return book (by: June 6th)
+	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	4. [T][X] join sports club
+	5. [T][ ] borrow book
+	6. [D][ ] return book (by: Sunday)
+	7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	8. [D][ ] do homework (by: no idea :-p)
+	____________________________________________________________
+
+	____________________________________________________________
+	I wish to communicate that I have marked this particular task as 'incomplete' at this juncture:
+	   [T][ ] join sports club
+	____________________________________________________________
+
+	____________________________________________________________
+	It is my pleasure to inform you that I have officially marked this particular task as 'completed':
+	   [T][X] borrow book
+	____________________________________________________________
+
+	____________________________________________________________
+	Per your request, I am outlining the tasks from your designated list:
+	1. [T][X] read book
+	2. [D][ ] return book (by: June 6th)
+	3. [E][ ] project meeting (from: Aug 6th 2pm to: 4pm)
+	4. [T][ ] join sports club
+	5. [T][X] borrow book
+	6. [D][ ] return book (by: Sunday)
+	7. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+	8. [D][ ] do homework (by: no idea :-p)
+	____________________________________________________________
+
+	____________________________________________________________
+	I acknowledge your update. The specified task has been duly removed:
+	   [T][X] read book
+	Currently, the list comprises  7 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	I acknowledge your update. The specified task has been duly removed:
+	   [D][ ] return book (by: June 6th)
+	Currently, the list comprises  6 tasks.
+	____________________________________________________________
+
+	____________________________________________________________
+	Farewell. Wishing for the opportunity to meet you again soon.
+	____________________________________________________________
 
