@@ -1,24 +1,59 @@
-# Duke project template
+# HAL 9000 User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![HAL 9000 UI Screenshot](Ui.png)
 
-## Setting up in Intellij
+Welcome to the HAL 9000 User Guide!
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Adding a Todo
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+To add a new task to your list without a specific deadline or event time, use the `todo` command followed by the task description.
+
+Example: `todo Read a book`
+
+## Adding a Deadline
+
+For tasks that need to be completed by a certain date, use the `deadline` command followed by the task description and `/by` with the date in `YYYY-MM-DD` format.
+
+Example: `deadline Submit CS2109 Problem Set /by 2024-03-01`
+
+## Adding an Event
+
+To schedule an event, use the `event` command followed by the event description, `/from` with the start date, and `/to` with the end date in `YYYY-MM-DD` format.
+
+Example: `event CS2103T project meeting /from 2024-03-15 /to 2024-03-16`
+
+## Listing All Tasks
+
+To view all your tasks, simply use the `list` command.
+
+Example: `list`
+
+## Marking a Task as Done
+
+To mark a task as completed, use the `mark` command followed by the task number.
+
+Example: `mark 1`
+
+## Unmarking a Task
+
+If you need to mark a task as not done, use the `unmark` command followed by the task number.
+
+Example: `unmark 1`
+
+## Deleting a Task
+
+To remove a task from your list, use the `delete` command followed by the task number.
+
+Example: `delete 1`
+
+## Finding Tasks by Keyword
+
+To search for tasks that contain a specific keyword, use the `find` command followed by the keyword.
+
+Example: `find book`
+
+## Exiting the Program
+
+To exit TaskMaster Pro, simply use the `bye` command.
+
+Example: `bye`
