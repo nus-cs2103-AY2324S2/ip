@@ -48,6 +48,9 @@ public class Parser {
                 if (all.length > 2) {
                     throw new InvalidNumOfArgsException();
                 }
+                if (!isNumber(all[1])) {
+                    throw new FirerayaException("Error! An integer value has to be inputted");
+                }
                 int curr = Integer.parseInt(all[1]) - 1;
                 return new MarkCommand(curr);
             }
@@ -55,6 +58,9 @@ public class Parser {
             if (keyword.equals("unmark")) {
                 if (all.length > 2) {
                     throw new InvalidNumOfArgsException();
+                }
+                if (!isNumber(all[1])) {
+                    throw new FirerayaException("Error! An integer value has to be inputted");
                 }
                 int curr = Integer.parseInt(all[1]) - 1;
                 return new UnmarkCommand(curr);
@@ -69,6 +75,9 @@ public class Parser {
             }
 
             if (keyword.equals("deadline")) {
+                if (arrLen == 1) {
+                    throw new FirerayaException("Error! Description of a deadline cannot be empty");
+                }
                 int index = -1;
                 int i = 0;
                 String breakpoint = "/by";
@@ -95,6 +104,9 @@ public class Parser {
             }
 
             if (keyword.equals("do")) {
+                if (arrLen == 1) {
+                    throw new FirerayaException("Error! Description of a do after task cannot be empty");
+                }
                 int index = -1;
                 int i = 0;
                 String breakpoint = "/after";
@@ -106,7 +118,7 @@ public class Parser {
                     i++;
                 }
                 if (index == -1) {
-                    throw new FirerayaException("No /after detected in deadline");
+                    throw new FirerayaException("No /after detected in do after task");
                 }
 
                 String description = String.join(" ", Arrays.copyOfRange(all, 1, index));
@@ -130,6 +142,9 @@ public class Parser {
 
 
             if (keyword.equals("event")) {
+                if (arrLen == 1) {
+                    throw new FirerayaException("Error! Description of an event cannot be empty");
+                }
                 int indexf = -1;
                 int indext = -1;
                 int f = 0;
@@ -145,7 +160,7 @@ public class Parser {
                     f++;
                 }
                 if (indexf == -1) {
-                    throw new FirerayaException("No /from detected in deadline");
+                    throw new FirerayaException("No /from detected in event");
                 }
                 for (String element : all) {
                     if (element.equals(toPoint)) {
@@ -155,7 +170,7 @@ public class Parser {
                     t++;
                 }
                 if (indext == -1) {
-                    throw new FirerayaException("No /to detected in deadline");
+                    throw new FirerayaException("No /to detected in event");
                 }
 
                 String description = String.join(" ", Arrays.copyOfRange(all, 1, indexf));
