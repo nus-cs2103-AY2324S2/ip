@@ -63,7 +63,7 @@ public class LoanTaken {
         int[] thirtyDayMonth = new int[] { 4, 6, 9, 11 };
         int[] thirtyOneDayMonth = new int[] { 1, 3, 5, 7, 8, 10, 12 };
 
-        for (int i = 0; i < thirtyOneDayMonth.length; i++) {
+        for (int i = 0; i < thirtyDayMonth.length; i++) {
             if (thirtyDayMonth[i] == month) {
                 return day <= 30;
             }
