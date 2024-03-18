@@ -1,0 +1,13 @@
+todo eat lunch
+event movie /from 2pm /to 4pm
+deadline assignment 1 /by 31st Feb 2020
+list
+mark 1
+list
+unmark 1
+list
+find movie
+delete 3
+delete 2
+delete 1
+bye
