@@ -42,7 +42,10 @@ public class Anna {
     }
 
     /**
-     * @return Greeting message
+     * Greets the user and returns the result of
+     * the flushed buffer.
+     *
+     * @return result of the flushed buffer
      */
     public String greet() {
         ui.greet();
@@ -54,8 +57,11 @@ public class Anna {
     }
 
     /**
-    * Runs the Anna chatbot application.
-    */
+     * Retrieves the reply based on the user input.
+     *
+     * @param userInput the input provided by the user
+     * @return the reply generated after processing the user input
+     */
     public String getReply(String userInput) {
         try {
             Command cmd = Parser.parseCommand(userInput);

@@ -258,46 +258,120 @@ class CommandFixedDuration implements Command {
 }
 
 /**
- * Creates objects that implements the Command interface
+ * The CommandFactory class provides static methods
+ * to create various command objects.
  */
 public class CommandFactory {
 
+    /**
+     * Creates a CommandEnd object.
+     * CommandEnd signals the termination
+     * of a session.
+     *
+     * @return a CommandEnd object
+     */
     public static Command createEnd() {
         return new CommandEnd();
     }
 
+    /**
+     * Creates a CommandList object.
+     * CommandList lists the tasks.
+     *
+     * @return a CommandList object
+     */
     public static Command createList() {
         return new CommandList();
     }
 
+    /**
+     * Creates a CommandMark object with the specified task index.
+     * CommandMark marks a task as done.
+     *
+     * @param taskIdx the index of the task to mark
+     * @return a CommandMark object with the specified task index
+     */
     public static Command createMark(Integer taskIdx) {
         return new CommandMark(taskIdx);
     }
 
+    /**
+     * Creates a CommandUnmark object with the specified task index.
+     * CommandUnmark marks a task as not done.
+     *
+     * @param taskIdx the index of the task to unmark
+     * @return a CommandUnmark object with the specified task index
+     */
     public static Command createUnmark(Integer taskIdx) {
         return new CommandUnmark(taskIdx);
     }
 
+    /**
+     * Creates a CommandDelete object with the specified task index.
+     * CommandDelete deletes a task.
+     *
+     * @param taskIdx the index of the task to delete
+     * @return a CommandDelete object with the specified task index
+     */
     public static Command createDelete(Integer taskIdx) {
         return new CommandDelete(taskIdx);
     }
 
+    /**
+     * Creates a CommandTodo object with the specified task description.
+     * CommandTodo creates a todo task.
+     *
+     * @param taskDesc the description of the todo task
+     * @return a CommandTodo object with the specified task description
+     */
     public static Command createTodo(String taskDesc) {
         return new CommandTodo(taskDesc);
     }
 
+    /**
+     * Creates a CommandFind object with the specified query.
+     * CommandFind finds the task satisfying the query.
+     *
+     * @param query the query to search for tasks
+     * @return a CommandFind object with the specified query
+     */
     public static Command createFind(String query) {
         return new CommandFind(query);
     }
 
+    /**
+     * Creates a CommandDeadline object with the specified task description and deadline.
+     * CommandDeadline creates a deadline task.
+     *
+     * @param taskDesc the description of the deadline task
+     * @param deadline the deadline of the task
+     * @return a CommandDeadline object with the specified task description and deadline
+     */
     public static Command createDeadline(String taskDesc, String deadline) {
         return new CommandDeadline(taskDesc, deadline);
     }
 
+    /**
+     * Creates a CommandEvent object with the specified task description, start time, and end time.
+     * CommandEvent creates and event task.
+     *
+     * @param taskDesc the description of the event task
+     * @param fromTime the start time of the event
+     * @param toTime the end time of the event
+     * @return a CommandEvent object with the specified task description, start time, and end time
+     */
     public static Command createEvent(String taskDesc, String fromTime, String toTime) {
         return new CommandEvent(taskDesc, fromTime, toTime);
     }
 
+    /**
+     * Creates a CommandFixedDuration object with the specified task description and duration.
+     * CommandFixedDuration creates a fixed-duration task.
+     *
+     * @param taskDesc the description of the fixed duration task
+     * @param duration the duration of the task
+     * @return a CommandFixedDuration object with the specified task description and duration
+     */
     public static Command createFixedDuration(String taskDesc, String duration) {
         return new CommandFixedDuration(taskDesc, duration);
     }

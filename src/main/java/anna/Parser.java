@@ -41,6 +41,119 @@ public class Parser {
         return Arrays.copyOfRange(xs, a, b);
     }
 
+    private static Command parseIntArgCommand(String command, String[] cmdSplit) throws AnnaException {
+        String ferr1 = "%s command: expected an integer argument.";
+        if (cmdSplit.length != 2) {
+            throw new AnnaException(String.format(ferr1, command));
+        }
+        String idxString = cmdSplit[1];
+        if (!isNumber(idxString)) {
+            throw new AnnaException(String.format(ferr1, command));
+        }
+        Integer idx = Integer.parseInt(idxString) - 1;
+        return command.equals("mark")
+            ? CommandFactory.createMark(idx)
+            : command.equals("unmark")
+            ? CommandFactory.createUnmark(idx)
+            : CommandFactory.createDelete(idx);
+    }
+
+    private static Command parseStringArgCommand(String command, String[] cmdSplit) throws AnnaException {
+        String ferr1 = "%s command: %s cannot be empty.";
+        if (cmdSplit.length < 2) {
+            throw new AnnaException(String.format(
+                ferr1,
+                command,
+                command.equals("find") ? "query" : "description"
+            ));
+        }
+        String argument = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
+        return command.equals("find")
+            ? CommandFactory.createFind(argument)
+            : CommandFactory.createTodo(argument);
+    }
+
+    private static Command parseDeadlineCommand(String command, String[] cmdSplit) throws AnnaException {
+        List<String> cmds = Arrays.asList(cmdSplit);
+        String ferr1 = "deadline command: expected `%s` argument.";
+        String ferr2 = "deadline command: %s description cannot be empty.";
+        if (!cmds.contains(BY_CMD)) {
+            throw new AnnaException(String.format(ferr1, BY_CMD));
+        }
+        int byIdx = cmds.indexOf(BY_CMD);
+        String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
+        String deadline = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
+        if (taskStr.length() == 0) {
+            throw new AnnaException(String.format(ferr2, "task"));
+        }
+        if (deadline.length() == 0) {
+            throw new AnnaException(String.format(ferr2, "deadline"));
+        }
+        return CommandFactory.createDeadline(taskStr, deadline);
+    }
+
+    private static Command parseEventCommand(String command, String[] cmdSplit) throws AnnaException {
+        List<String> cmds = Arrays.asList(cmdSplit);
+        String ferr1 = "event command: expected `%s` argument.";
+        String ferr2 = "event command: %s description cannot be empty.";
+        String ferr3 = "event command: `%s` argument expected before `%s` argument.";
+        if (!cmds.contains(FROM_CMD)) {
+            throw new AnnaException(
+                String.format(ferr1, FROM_CMD)
+            );
+        }
+        if (!cmds.contains(TO_CMD)) {
+            throw new AnnaException(
+                String.format(ferr1, TO_CMD)
+            );
+        }
+        int fromIdx = cmds.indexOf(FROM_CMD);
+        int toIdx = cmds.indexOf(TO_CMD);
+        if (toIdx < fromIdx) {
+            throw new AnnaException(
+                String.format(ferr3, FROM_CMD, TO_CMD)
+            );
+        }
+        String taskStr = cmdJoin(range(cmdSplit, 1, fromIdx));
+        String fromStr = cmdJoin(range(cmdSplit, fromIdx + 1, toIdx));
+        String toStr = cmdJoin(range(cmdSplit, toIdx + 1, cmds.size()));
+        if (taskStr.length() == 0) {
+            throw new AnnaException(
+                String.format(ferr2, "task")
+            );
+        }
+        if (fromStr.length() == 0) {
+            throw new AnnaException(
+                String.format(ferr2, "from")
+            );
+        }
+        if (toStr.length() == 0) {
+            throw new AnnaException(
+                String.format(ferr2, "to")
+            );
+        }
+        return CommandFactory.createEvent(taskStr, fromStr, toStr);
+    }
+
+    private static Command parseDurationCommand(String command, String[] cmdSplit) throws AnnaException {
+        List<String> cmds = Arrays.asList(cmdSplit);
+        String ferr1 = "duration command: expected `%s` argument.";
+        String ferr2 = "duration command: %s description cannot be empty.";
+        if (!cmds.contains(DURATION_CMD)) {
+            throw new AnnaException(String.format(ferr1, DURATION_CMD));
+        }
+        int byIdx = cmds.indexOf(DURATION_CMD);
+        String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
+        String duration = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
+        if (taskStr.length() == 0) {
+            throw new AnnaException(String.format(ferr2, "task"));
+        }
+        if (duration.length() == 0) {
+            throw new AnnaException(String.format(ferr2, "duration"));
+        }
+        return CommandFactory.createFixedDuration(taskStr, duration);
+    }
+
     /**
     * Parses the command string provided by the user.
     *
@@ -62,115 +175,17 @@ public class Parser {
             return CommandFactory.createList();
         case "mark":
         case "unmark":
-        case "delete": {
-            String ferr1 = "%s command: expected an integer argument.";
-            if (cmdSplit.length != 2) {
-                throw new AnnaException(String.format(ferr1, command));
-            }
-            String idxString = cmdSplit[1];
-            if (!isNumber(idxString)) {
-                throw new AnnaException(String.format(ferr1, command));
-            }
-            Integer idx = Integer.parseInt(idxString) - 1;
-            return command.equals("mark")
-                ? CommandFactory.createMark(idx)
-                : command.equals("unmark")
-                ? CommandFactory.createUnmark(idx)
-                : CommandFactory.createDelete(idx);
-        }
+        case "delete":
+            return Parser.parseIntArgCommand(command, cmdSplit);
         case "find":
-        case "todo": {
-            String ferr1 = "%s command: %s cannot be empty.";
-            if (cmdSplit.length < 2) {
-                throw new AnnaException(String.format(
-                    ferr1,
-                    command,
-                    command.equals("find") ? "query" : "description"
-                ));
-            }
-            String argument = cmdJoin(range(cmdSplit, 1, cmdSplit.length));
-            return command == "find"
-                ? CommandFactory.createFind(argument)
-                : CommandFactory.createTodo(argument);
-        }
-        case "deadline": {
-            List<String> cmds = Arrays.asList(cmdSplit);
-            String ferr1 = "deadline command: expected `%s` argument.";
-            String ferr2 = "deadline command: %s description cannot be empty.";
-            if (!cmds.contains(BY_CMD)) {
-                throw new AnnaException(String.format(ferr1, BY_CMD));
-            }
-            int byIdx = cmds.indexOf(BY_CMD);
-            String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
-            String deadline = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
-            if (taskStr.length() == 0) {
-                throw new AnnaException(String.format(ferr2, "task"));
-            }
-            if (deadline.length() == 0) {
-                throw new AnnaException(String.format(ferr2, "deadline"));
-            }
-            return CommandFactory.createDeadline(taskStr, deadline);
-        }
-        case "event": {
-            List<String> cmds = Arrays.asList(cmdSplit);
-            String ferr1 = "event command: expected `%s` argument.";
-            String ferr2 = "event command: %s description cannot be empty.";
-            String ferr3 = "event command: `%s` argument expected before `%s` argument.";
-            if (!cmds.contains(FROM_CMD)) {
-                throw new AnnaException(
-                    String.format(ferr1, FROM_CMD)
-                );
-            }
-            if (!cmds.contains(TO_CMD)) {
-                throw new AnnaException(
-                    String.format(ferr1, TO_CMD)
-                );
-            }
-            int fromIdx = cmds.indexOf(FROM_CMD);
-            int toIdx = cmds.indexOf(TO_CMD);
-            if (toIdx < fromIdx) {
-                throw new AnnaException(
-                    String.format(ferr3, FROM_CMD, TO_CMD)
-                );
-            }
-            String taskStr = cmdJoin(range(cmdSplit, 1, fromIdx));
-            String fromStr = cmdJoin(range(cmdSplit, fromIdx + 1, toIdx));
-            String toStr = cmdJoin(range(cmdSplit, toIdx + 1, cmds.size()));
-            if (taskStr.length() == 0) {
-                throw new AnnaException(
-                    String.format(ferr2, "task")
-                );
-            }
-            if (fromStr.length() == 0) {
-                throw new AnnaException(
-                    String.format(ferr2, "from")
-                );
-            }
-            if (toStr.length() == 0) {
-                throw new AnnaException(
-                    String.format(ferr2, "to")
-                );
-            }
-            return CommandFactory.createEvent(taskStr, fromStr, toStr);
-        }
-        case "duration": {
-            List<String> cmds = Arrays.asList(cmdSplit);
-            String ferr1 = "duration command: expected `%s` argument.";
-            String ferr2 = "duration command: %s description cannot be empty.";
-            if (!cmds.contains(DURATION_CMD)) {
-                throw new AnnaException(String.format(ferr1, DURATION_CMD));
-            }
-            int byIdx = cmds.indexOf(DURATION_CMD);
-            String taskStr = cmdJoin(range(cmdSplit, 1, byIdx));
-            String duration = cmdJoin(range(cmdSplit, byIdx + 1, cmds.size()));
-            if (taskStr.length() == 0) {
-                throw new AnnaException(String.format(ferr2, "task"));
-            }
-            if (duration.length() == 0) {
-                throw new AnnaException(String.format(ferr2, "duration"));
-            }
-            return CommandFactory.createFixedDuration(taskStr, duration);
-        }
+        case "todo":
+            return Parser.parseStringArgCommand(command, cmdSplit);
+        case "deadline":
+            return Parser.parseDeadlineCommand(command, cmdSplit);
+        case "event":
+            return Parser.parseEventCommand(command, cmdSplit);
+        case "duration":
+            return Parser.parseDurationCommand(command, cmdSplit);
         default:
             throw new AnnaException(
                 String.format("Unhandled command: %s", command)

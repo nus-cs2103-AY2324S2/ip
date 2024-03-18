@@ -118,10 +118,19 @@ class FixedDuration extends Task {
 }
 
 /**
- * Represents a task list
+ * The TaskFactory class provides static methods to create various task objects.
  */
 public class TaskFactory {
 
+    /**
+     * Creates an Event task.
+     *
+     * @param task the description of the task
+     * @param from the start time of the event
+     * @param to the end time of the event
+     * @param done the status indicating whether the task is done or not
+     * @return an Event task
+     */
     public static Task createEvent(
         String task,
         String from,
@@ -131,10 +140,25 @@ public class TaskFactory {
         return new Event(task, from, to, done);
     }
 
+    /**
+     * Creates a Todo task.
+     *
+     * @param task the description of the task
+     * @param done the status indicating whether the task is done or not
+     * @return a Todo task
+     */
     public static Task createTodo(String task, boolean done) {
         return new Todo(task, done);
     }
 
+    /**
+     * Creates a Deadline task.
+     *
+     * @param task the description of the task
+     * @param deadline the deadline of the task
+     * @param done the status indicating whether the task is done or not
+     * @return a Deadline task
+     */
     public static Task createDeadline(
         String task,
         String deadline,
@@ -143,6 +167,14 @@ public class TaskFactory {
         return new Deadline(task, deadline, done);
     }
 
+    /**
+     * Creates a FixedDuration task.
+     *
+     * @param task the description of the task
+     * @param timeNeeded the time needed for the task
+     * @param done the status indicating whether the task is done or not
+     * @return a FixedDuration task
+     */
     public static Task createFixedDuration(
         String task,
         String timeNeeded,
@@ -152,7 +184,10 @@ public class TaskFactory {
     }
 
     /**
-     * Deserealise string into Task
+     * Deserializes a string into a Task object.
+     *
+     * @param taskStr the serialized string representation of the task
+     * @return a Task object deserialized from the given string
      */
     public static Task deserealiseTask(String taskStr) {
         String[] xs = taskStr.split("<1>");

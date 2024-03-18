@@ -1,6 +1,7 @@
 package gui;
 
 import anna.Anna;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
@@ -53,5 +54,9 @@ public class MainWindow extends AnchorPane {
                 DialogBox.getAiDialog(anna.getReply(input), ai)
         );
         userInput.clear();
+        if (!anna.isContinue()) {
+            Platform.exit();
+            System.exit(0);
+        }
     }
 }
