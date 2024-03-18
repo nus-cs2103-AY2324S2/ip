@@ -23,8 +23,8 @@ enum TaskID {
 
 class Todo extends Task {
 
-    Todo(String task, boolean done) {
-        super(task, done, TaskID.TODO_ID);
+    Todo(String task, boolean isDone) {
+        super(task, isDone, TaskID.TODO_ID);
     }
 
     public String serialise() {
@@ -40,8 +40,8 @@ class Deadline extends Task {
 
     private LocalDateTime deadline;
 
-    Deadline(String task, String deadline, boolean done) {
-        super(task, done, TaskID.DEADLINE_ID);
+    Deadline(String task, String deadline, boolean isDone) {
+        super(task, isDone, TaskID.DEADLINE_ID);
         this.deadline = LocalDateTime.parse(deadline, DATETIME_FORMAT);
     }
 
@@ -67,8 +67,8 @@ class Event extends Task {
     private LocalDateTime to;
     private LocalDateTime from;
 
-    Event(String task, String from, String to, boolean done) {
-        super(task, done, TaskID.EVENT_ID);
+    Event(String task, String from, String to, boolean isDone) {
+        super(task, isDone, TaskID.EVENT_ID);
         this.from = LocalDateTime.parse(from, DATETIME_FORMAT);
         this.to = LocalDateTime.parse(to, DATETIME_FORMAT);
     }
@@ -95,8 +95,8 @@ class Event extends Task {
 class FixedDuration extends Task {
     private Duration timeNeeded;
 
-    FixedDuration(String task, String timeNeeded, boolean done) {
-        super(task, done, TaskID.FIXEDDURATION_ID);
+    FixedDuration(String task, String timeNeeded, boolean isDone) {
+        super(task, isDone, TaskID.FIXEDDURATION_ID);
         this.timeNeeded = Duration.between(LocalTime.MIN, LocalTime.parse(timeNeeded));
     }
 
@@ -128,27 +128,27 @@ public class TaskFactory {
      * @param task the description of the task
      * @param from the start time of the event
      * @param to the end time of the event
-     * @param done the status indicating whether the task is done or not
+     * @param isDone the status indicating whether the task is done or not
      * @return an Event task
      */
     public static Task createEvent(
         String task,
         String from,
         String to,
-        boolean done
+        boolean isDone
     ) {
-        return new Event(task, from, to, done);
+        return new Event(task, from, to, isDone);
     }
 
     /**
      * Creates a Todo task.
      *
      * @param task the description of the task
-     * @param done the status indicating whether the task is done or not
+     * @param isDone the status indicating whether the task is done or not
      * @return a Todo task
      */
-    public static Task createTodo(String task, boolean done) {
-        return new Todo(task, done);
+    public static Task createTodo(String task, boolean isDone) {
+        return new Todo(task, isDone);
     }
 
     /**
@@ -156,15 +156,15 @@ public class TaskFactory {
      *
      * @param task the description of the task
      * @param deadline the deadline of the task
-     * @param done the status indicating whether the task is done or not
+     * @param isDone the status indicating whether the task is done or not
      * @return a Deadline task
      */
     public static Task createDeadline(
         String task,
         String deadline,
-        boolean done
+        boolean isDone
     ) {
-        return new Deadline(task, deadline, done);
+        return new Deadline(task, deadline, isDone);
     }
 
     /**
@@ -172,15 +172,15 @@ public class TaskFactory {
      *
      * @param task the description of the task
      * @param timeNeeded the time needed for the task
-     * @param done the status indicating whether the task is done or not
+     * @param isDone the status indicating whether the task is done or not
      * @return a FixedDuration task
      */
     public static Task createFixedDuration(
         String task,
         String timeNeeded,
-        boolean done
+        boolean isDone
     ) {
-        return new FixedDuration(task, timeNeeded, done);
+        return new FixedDuration(task, timeNeeded, isDone);
     }
 
     /**
