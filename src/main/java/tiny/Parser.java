@@ -185,7 +185,9 @@ public class Parser {
             taskList.get(ind - 1).taskDone();
             assert taskList.get(ind - 1).taskIsDone() == true;
             return "Nice! I've marked this task as done:\n      " + taskList.get(ind - 1);
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
+            return "Index is out of bounds! Use \"list task\" to check the available tasks.";
+        } catch (NumberFormatException e) {
             return "OOPS! You need to type \"mark <number>\" to change the status to done!";
         } catch (NullPointerException e) {
             return "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";
@@ -210,7 +212,9 @@ public class Parser {
             taskList.get(ind - 1).taskUndone();
             assert taskList.get(ind - 1).taskIsDone() == false;
             return "OK, I've marked this task as not done yet:\n      " + taskList.get(ind - 1);
-        } catch (NumberFormatException | IndexOutOfBoundsException e) {
+        } catch (IndexOutOfBoundsException e) {
+            return "Index is out of bounds! Use \"list task\" to check the available tasks.";
+        } catch (NumberFormatException e) {
             return "OOPS! You need to type \"unmark <number>\" to change the status to not done!";
         } catch (NullPointerException e) {
             return "OOPS! Please type a valid number! Type \"list\" to check the lists of tasks.";

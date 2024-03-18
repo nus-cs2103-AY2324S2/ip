@@ -8,7 +8,7 @@ import tiny.exceptions.TinyException;
 
 /**
  * Represents an event task.
-*/
+ */
 public class Event extends Task {
     protected LocalDateTime startDateTime;
     protected LocalTime endTime;
@@ -58,6 +58,8 @@ public class Event extends Task {
         String errorMsg = "Please ensure that you are using the format event <description> "
                 + "/from yyyy-MM-dd <time> /to <end date>. "
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
+        String invalidDateErrorMessage = "Please ensure that the date is valid. eg. 2024-01-29";
+
         // Processes the date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
@@ -66,6 +68,11 @@ public class Event extends Task {
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
 
+            if (!isValidDate(month, day)) {
+                throw new TinyException(invalidDateErrorMessage);
+            }
+        } catch (TinyException e) {
+            throw e;
         } catch (Exception e) {
             throw new TinyException(errorMsg);
         }
@@ -81,6 +88,8 @@ public class Event extends Task {
                 assert hourMinuteSplit.length == 4;
                 hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
                 minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
+            } catch (TinyException e) {
+                throw e;
             } catch (Exception e) {
                 throw new TinyException(errorMsg);
             }
@@ -106,7 +115,7 @@ public class Event extends Task {
                 + "eg. event meeting /from 2024-01-29 1835 /to 2035";
         int time = Integer.parseInt(timeStr);
         try {
-            if (isValidTime(time)) {
+            if (!isValidTime(time)) {
                 throw new TinyException("Please choose your end time from 0000 to 2359!");
             }
             String[] hourMinuteSplit = timeStr.split("");
@@ -161,7 +170,33 @@ public class Event extends Task {
     }
 
     private boolean isValidTime(int time) {
-        return time >= 2400 || time < 0;
+        return time >= 0 && time <= 2359;
+    }
+
+    private Boolean isValidDate(int month, int day) {
+        if (month > 12 || month < 1) {
+            return false;
+        }
+
+        if (month == 2) {
+            return day <= 29;
+        }
+
+        int[] thirtyDayMonth = new int[] { 4, 6, 9, 11 };
+        int[] thirtyOneDayMonth = new int[] { 1, 3, 5, 7, 8, 10, 12 };
+
+        for (int i = 0; i < thirtyOneDayMonth.length; i++) {
+            if (thirtyDayMonth[i] == month) {
+                return day <= 30;
+            }
+        }
+
+        for (int i = 0; i < thirtyOneDayMonth.length; i++) {
+            if (thirtyOneDayMonth[i] == month) {
+                return day <= 31;
+            }
+        }
+        return true;
     }
 
     /**

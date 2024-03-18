@@ -7,7 +7,7 @@ import tiny.exceptions.TinyException;
 
 /**
  * Represents a deadline task.
-*/
+ */
 public class Deadline extends Task {
     protected LocalDateTime endDatetime;
 
@@ -50,6 +50,7 @@ public class Deadline extends Task {
         int minute = 0;
         String errorMsg = "Please ensure that you are using the format deadline <description> /by "
                 + "yyyy-MM-dd <time>. eg. deadline assignment /by 2024-01-29 1835";
+        String invalidDateErrorMessage = "Please ensure that the date is valid. eg. 2024-01-29";
         // Processes the date
         try {
             String[] dateSplit = dateTimeSplit[0].split("-");
@@ -58,6 +59,12 @@ public class Deadline extends Task {
             month = Integer.parseInt(dateSplit[1]);
             day = Integer.parseInt(dateSplit[2]);
 
+            if (!isValidDate(month, day)) {
+                throw new TinyException(invalidDateErrorMessage);
+            }
+
+        } catch (TinyException e) {
+            throw e;
         } catch (Exception e) {
             throw new TinyException(errorMsg);
         }
@@ -66,13 +73,15 @@ public class Deadline extends Task {
         if (dateTimeSplit[1].length() == 4) {
             try {
                 int time = Integer.parseInt(dateTimeSplit[1]);
-                if (isValidTime(time)) {
+                if (!isValidTime(time)) {
                     throw new TinyException("Please choose a time from 0000 to 2359!");
                 }
                 String[] hourMinuteSplit = dateTimeSplit[1].split("");
                 assert hourMinuteSplit.length == 4;
                 hour = Integer.parseInt(hourMinuteSplit[0] + hourMinuteSplit[1]);
                 minute = Integer.parseInt(hourMinuteSplit[2] + hourMinuteSplit[3]);
+            } catch (TinyException e) {
+                throw e;
             } catch (Exception e) {
                 throw new TinyException(errorMsg);
             }
@@ -83,6 +92,32 @@ public class Deadline extends Task {
         } catch (Exception e) {
             throw new TinyException(errorMsg);
         }
+    }
+
+    private Boolean isValidDate(int month, int day) {
+        if (month > 12 || month < 1) {
+            return false;
+        }
+
+        if (month == 2) {
+            return day <= 29;
+        }
+
+        int[] thirtyDayMonth = new int[] { 4, 6, 9, 11 };
+        int[] thirtyOneDayMonth = new int[] { 1, 3, 5, 7, 8, 10, 12 };
+
+        for (int i = 0; i < thirtyOneDayMonth.length; i++) {
+            if (thirtyDayMonth[i] == month) {
+                return day <= 30;
+            }
+        }
+
+        for (int i = 0; i < thirtyOneDayMonth.length; i++) {
+            if (thirtyOneDayMonth[i] == month) {
+                return day <= 31;
+            }
+        }
+        return true;
     }
 
     /**
@@ -106,7 +141,7 @@ public class Deadline extends Task {
     }
 
     private boolean isValidTime(int time) {
-        return time >= 2400 || time < 0;
+        return time >= 0 && time <= 2359;
     }
 
     /**

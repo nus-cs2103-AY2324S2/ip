@@ -1,6 +1,6 @@
 # Tiny User Guide
 
-Meet Tiny, your all-in-one desktop chatbot designed to streamline your daily life. Whether you're juggling tasks, keeping track of contacts, brushing up on trivia, jotting down notes, managing clients, organizing merchandise, handling loans, tracking expenses, or exploring new places, Tiny has you covered. With the ability to save, delete, find, and load your saved items seamlessly, Tiny simplifies your workflow, making it easier than ever to stay organized and productive. Say goodbye to scattered to-do lists and scattered information—Tiny puts everything you need at your fingertips, helping you tackle each day with confidence and efficiency.
+Meet Tiny, your all-in-one desktop chatbot designed to streamline your daily life. Whether you're juggling tasks, keeping track of contacts, brushing up on trivia, jotting down notes, managing contacts, organizing merchandise, handling loans, tracking expenses, or exploring new places, Tiny has you covered. With the ability to save, delete, find, and load your saved items seamlessly, Tiny simplifies your workflow, making it easier than ever to stay organized and productive. Say goodbye to scattered to-do lists and scattered information—Tiny puts everything you need at your fingertips, helping you tackle each day with confidence and efficiency.
 
 
 ## Quick Start
@@ -14,16 +14,6 @@ Prerequisites: Ensure you have Java 11 or above installed in your Computer.
 
 
 ## Features
-
-### Adding a client: `client`
-Adds a client to the program.
-
-Format: `client <name> /num <contact number>`
-
-Example: 
-`client Duke /num 91234567`
-
-<br>
 
 ### Adding a contact: `contact`
 Adds a contact to the program.
@@ -172,13 +162,6 @@ Format: `list task`
 
 <br>
 
-### Listing clients: `list client`
-Shows a list of all clients in the program.
-
-Format: `list client`
-
-<br>
-
 ### Listing contacts: `list contact`
 Shows a list of all contacts in the program.
 
@@ -244,16 +227,6 @@ Format: `delete task <number>`
 
 Example: 
 `delete task 1`
-
-<br>
-
-### Deleting a client: `delete client`
-Deletes the specified client from the program.
-You can use the `list client` command to find the specific client to delete.
-
-Format: `delete client <number>`
-Example: 
-`delete client 1`
 
 <br>
 
@@ -360,7 +333,6 @@ Format: `bye`
 
 | Action | Type | Format |
 | ------------- | ------------- | ------------- |
-| Add | client | `client <name> /num <contact number>` |
 | Add | contact | `contact <name> /num <contact number>` |
 | Add | deadline | `deadline <description> /by <yyyy-mm-dd> <time>` |
 | Add | expense | `expense <description> /for <amount> /on <yyyy-MM-dd>` |
@@ -376,7 +348,6 @@ Format: `bye`
 | Mark | mark | `mark <number>` |
 | Unmark | unmark | `mark <number>` |
 | List | task | `list task` |
-| List | client | `list client` |
 | List | contact | `list contact` |
 | List | expense | `list expense` |
 | List | loan given | `list loan given` |
@@ -386,7 +357,6 @@ Format: `bye`
 | List | place | `list place` |
 | List | trivia | `list trivia` |
 | Delete | task | `delete task <number>` |
-| Delete | client | `delete client <number>` |
 | Delete | contact | `delete contact <number>` |
 | Delete | expense | `delete expense <number>` |
 | Delete | loan given | `delete loan given <number>` |
