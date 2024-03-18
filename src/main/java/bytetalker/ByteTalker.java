@@ -108,29 +108,17 @@ public class ByteTalker extends Application {
 
         scene = new Scene(mainLayout);
 
-        stage.setScene(scene);
-        stage.show();
+        setWindow(stage, mainLayout);
 
-        stage.setTitle("ByteTalker");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        //functionality
+        handleActions();
 
-        mainLayout.setPrefSize(400.0, 600.0);
+        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+        dialogContainer.getChildren().add(DialogBox.getByteTalkerDialog(new Label(this.ui.showWelcome()),
+                new ImageView(byteTalker)));
+    }
 
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
-
-        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
-
-        userInput.setPrefWidth(340.0);
-
-        sendButton.setPrefWidth(55.0);
-
+    private void setAcnhorPane() {
         AnchorPane.setTopAnchor(scrollPane, 1.0);
 
         AnchorPane.setBottomAnchor(sendButton, 1.0);
@@ -138,8 +126,9 @@ public class ByteTalker extends Application {
 
         AnchorPane.setLeftAnchor(userInput , 1.0);
         AnchorPane.setBottomAnchor(userInput, 1.0);
+    }
 
-        //functionality
+    private void handleActions() {
         sendButton.setOnMouseClicked((event -> {
             handleUserInput();
         }));
@@ -147,10 +136,45 @@ public class ByteTalker extends Application {
         userInput.setOnAction((event -> {
             handleUserInput();
         }));
+    }
 
-        dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
-        dialogContainer.getChildren().add(DialogBox.getByteTalkerDialog(new Label(this.ui.showWelcome()),
-                new ImageView(byteTalker)));
+    private void setStage(Stage stage) {
+        stage.setTitle("ByteTalker");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
+    }
+
+    private void setScrollPane() {
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+    }
+
+    private void setPref() {
+        dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
+
+        userInput.setPrefWidth(340.0);
+
+        sendButton.setPrefWidth(55.0);
+    }
+
+    private void setWindow(Stage stage, AnchorPane mainLayout) {
+        stage.setScene(scene);
+        stage.show();
+
+        setStage(stage);
+
+        mainLayout.setPrefSize(400.0, 600.0);
+
+        setScrollPane();
+
+        setPref();
+
+        setAcnhorPane();
     }
 
     /**
