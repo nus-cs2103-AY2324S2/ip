@@ -183,6 +183,9 @@ public class Parser {
                 if (all.length > 2) {
                     throw new InvalidNumOfArgsException();
                 }
+                if (arrLen == 1) {
+                    throw new FirerayaException("Error! Please input the index to delete");
+                }
                 if (!isNumber(all[1])) {
                     throw new FirerayaException("Error: argument must be a number");
                 }
