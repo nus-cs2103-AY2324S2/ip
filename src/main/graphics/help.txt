@@ -1,0 +1,10 @@
+Command     Description
+list        Lists all tasks
+find        Finds task with matching name
+todo        Creates todo
+event       Creates event
+deadline    Creates deadline
+mark        Marks task as done
+unmark      Marks task as not done
+delete      Deletes task
+bye         Ends program

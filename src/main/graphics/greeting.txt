@@ -1,0 +1,2 @@
+ Hello! I'm Duke
+ Type 'help' for list of commands

@@ -1,0 +1,10 @@
+hello
+todo homework
+deadline project /by Monday
+event travel /from saturday /to tuesday
+list
+mark 1
+mark 2
+unmark 2
+list
+bye
