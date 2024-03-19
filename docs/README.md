@@ -17,6 +17,7 @@ Duke Zeh is a task management application based on [Project Duke](https://nus-cs
 ### Add ToDo Task
 Adds a new task with no datetime attached.
 - Note that the `<task-name>` **cannot** be empty.
+
 ```
 todo <task-name>
 ```
@@ -25,6 +26,7 @@ todo <task-name>
 Adds a new task with a deadline attached.
 - `<task-name>` **cannot** be empty.
 - Datetime format **must** adhere to `dd-MM-yyyy HH:mm`.
+
 ```
 deadline <task-name> \by <dd-MM-yyyy HH:mm>
 ```
@@ -33,12 +35,14 @@ deadline <task-name> \by <dd-MM-yyyy HH:mm>
 Adds a new task with a start datetime and end datetime.
 - `<task-name>` **cannot** be empty.
 - Datetime format **must** adhere to `dd-MM-yyyy HH:mm`.
+
 ```
 event <task-name> \from <dd-MM-yyyy HH:mm> \to <dd-MM-yyyy HH:mm>
 ```
 
 ### List Tasks
 List out all tasks saved in the list.
+
 ```
 list
 ```
@@ -46,6 +50,7 @@ list
 ### Mark Task
 Marks a task as done based on specified index.
 - `<task-number>` is based on the **displayed index** of task.
+
 ```
 mark <task-number>
 ```
@@ -53,6 +58,7 @@ mark <task-number>
 ### Unmark Task
 Marks a task a not done based on specified index.
 - `<task-number>` is based on the **displayed index** of task.
+
 ```
 unmark <task-number>
 ```
@@ -61,6 +67,7 @@ unmark <task-number>
 Deletes a given task based on specified index. Tasks after the deleted task will have its index shifted.
 - `<task-number>` is based on the **displayed index** of task.
 - Task deletion can cause displayed indexes to **change**. Recommended to call `list` after `delete` operation.
+
 ```
 delete <task-number>
 ```
@@ -71,6 +78,7 @@ Assigns a priority to a task based on specified index and value.
 - By default no priority (priority none) is attached to all added tasks.
 - `<priority-value>` **ONLY** accepts `high`, `low` or `none`.
 - priority value of `none` will remove the given priority to the task.
+
 ```
 priority <task-number> <priority-value>
 ```
@@ -78,12 +86,14 @@ priority <task-number> <priority-value>
 ### Find Task
 Lists tasks whose `<task-name>` contains all characters of `<keyword>` in order.
 - `<keyword>` cannot be empty but can contain ` `.
+
 ```
 find <keyword>
 ```
 
 ### Exiting Program
 Program can be exited through closing the window or running the `bye` command.
+
 ```
 bye
 ```
