@@ -18,7 +18,7 @@ public class TaskService {
     /** An Array of all the tasks in the system */
     public static final ArrayList<Task> TASKS = new ArrayList<>();
     /** The relative file path to the tasklist.txt where all the tasks are stored  */
-    private final String tasklistFilePath = "/src/main/resources/tasklist.txt";
+    private final String tasklistFilePath = System.getProperty("user.dir") + "/tasklist.txt";
     /** The separator for the tasklist.txt */
     private final String taskListSep = "\\|";
     /** An instance of the file utility class to load, save and delete tasks */

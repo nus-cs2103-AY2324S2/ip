@@ -14,13 +14,13 @@ public class FileUtility {
     /**
      * Load file array list.
      *
-     * @param filename the filename
+     * @param filePath the filePath
      * @return the array list
      * @throws FileNotFoundException the file not found exception
      */
-    public ArrayList<String> loadFile(String filename) throws IOException {
+    public ArrayList<String> loadFile(String filePath) throws IOException {
         ArrayList<String> fileData = new ArrayList<>();
-        File file = new File(System.getProperty("user.dir") + filename);
+        File file = new File(filePath);
 
         if (!file.exists()) {
             file.createNewFile();
@@ -39,12 +39,12 @@ public class FileUtility {
     /**
      * Write to file.
      *
-     * @param filename the filename
+     * @param filePath the filePath
      * @param data     the data
      * @throws IOException the io exception
      */
-    public void writeToFile(String filename, String data) throws IOException {
-        File file = new File(System.getProperty("user.dir") + filename);
+    public void writeToFile(String filePath, String data) throws IOException {
+        File file = new File(filePath);
         file.createNewFile();
         FileWriter fw = new FileWriter(file, true);
         data = "\n" + data;
@@ -55,17 +55,17 @@ public class FileUtility {
     /**
      * Updates the file contents by replacing the line matching `originalData` with `newData`
      *
-     * @param filename
+     * @param filePath
      * @param originalData
      * @param newData
      * @throws IOException
      */
-    public void updateFile(String filename, String originalData, String newData) throws IOException {
-        File file = new File(System.getProperty("user.dir") + filename);
-        File tempFile = new File(System.getProperty("user.dir") + "temp");
+    public void updateFile(String filePath, String originalData, String newData) throws IOException {
+        File file = new File(filePath);
+        File tempFile = new File("temp");
         FileWriter fw = new FileWriter(tempFile, true);
 
-        ArrayList<String> originalFileData = this.loadFile(filename);
+        ArrayList<String> originalFileData = this.loadFile(filePath);
         for (String line : originalFileData) {
             if (line.equals(originalData)) {
                 fw.write("\n" + newData);
@@ -76,22 +76,22 @@ public class FileUtility {
 
         fw.close();
         file.delete();
-        tempFile.renameTo(new File(System.getProperty("user.dir") + filename));
+        tempFile.renameTo(new File(filePath));
     }
 
     /**
      * Remove line from file.
      *
-     * @param filename the filename
+     * @param filePath the filePath
      * @param data     the data
      * @throws IOException the io exception
      */
-    public void removeLineFromFile(String filename, String data) throws IOException {
-        File file = new File(System.getProperty("user.dir") + filename);
-        File tempFile = new File(System.getProperty("user.dir") + "temp");
+    public void removeLineFromFile(String filePath, String data) throws IOException {
+        File file = new File(filePath);
+        File tempFile = new File("temp");
         FileWriter fw = new FileWriter(tempFile, true);
 
-        ArrayList<String> originalFileData = this.loadFile(filename);
+        ArrayList<String> originalFileData = this.loadFile(filePath);
         for (String line : originalFileData) {
             if (line.equals(data)) {
                 continue;
@@ -103,6 +103,6 @@ public class FileUtility {
 
         fw.close();
         file.delete();
-        tempFile.renameTo(new File(System.getProperty("user.dir") + filename));
+        tempFile.renameTo(new File(filePath));
     }
 }

@@ -2,6 +2,7 @@ package oak.task;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 import oak.task.model.Deadline;
 import oak.task.model.Event;
@@ -18,7 +19,8 @@ public class ReminderService {
      * @return A Formatted String about the tasks to remind the user of
      */
     public String getReminders() {
-        StringBuilder result = new StringBuilder();
+        ArrayList<String> result = new ArrayList<>();
+        result.add("Here are your reminders! \n");
 
         ArrayList<Task> allTasks = TaskService.TASKS;
 
@@ -26,21 +28,19 @@ public class ReminderService {
             // Note: No need to check Todo since we do not have set deadlines for them
             if (task instanceof Event) {
                 if (toRemind(((Event) task).getToDateTime())) {
-                    result.append(task).append("\n");
+                    result.add(task + "\n");
                 }
             } else if (task instanceof Deadline) {
                 if (toRemind(((Deadline) task).getByDateTime())) {
-                    result.append(task).append("\n");
+                    result.add(task + "\n");
                 }
             }
         }
-        if (result.length() > 1) {
-            result.append("Here are your daily reminders! \n").append(result);
-        } else {
-            result.append("Congratulations! You have no reminders for any tasks!");
+        if (result.size() <= 1) {
+            result.set(0, "Congratulations! You have no reminders for any tasks!");
         }
 
-        return result.toString();
+        return String.join("", result);
     }
 
     /**
