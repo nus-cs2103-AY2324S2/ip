@@ -54,7 +54,7 @@ public class Main extends Application {
         // Load any local files
         TaskManager.loadLocalSavedTasks();
 
-        // set up main diaplay
+        // set up main display
         ScrollPane scrollPane = new ScrollPane();
         dialogContainer = new VBox();
 
@@ -117,6 +117,10 @@ public class Main extends Application {
 
         // Scroll down to the end every time dialogContainer's height changes.
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
+    }
+
+    private void initializeComponents(Stage stage) {
+
     }
 
     /**

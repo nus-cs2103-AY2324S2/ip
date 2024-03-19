@@ -43,8 +43,8 @@ public class Deadline extends Task {
      * @param isCompleted Boolean of whether Task is completed.
      * @param tags        A list of tags to identify the task.
      */
-    public Deadline(String name, LocalDate endDate, boolean IsCompleted, ArrayList<String> tags) {
-        super(name, TYPE, IsCompleted, tags);
+    public Deadline(String name, LocalDate endDate, boolean isCompleted, ArrayList<String> tags) {
+        super(name, TYPE, isCompleted, tags);
         this.endDate = endDate;
     }
 
