@@ -33,8 +33,12 @@ public class TaskYapper {
     }
 
     /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
+     * Processes the user input and generates a response.
+     * This method parses the user input to understand the command, executes it, and returns the result.
+     * If an error occurs during the processing of the command, an error message is returned.
+     *
+     * @param userInput The string input provided by the user.
+     * @return A string response after executing the command based on the user input.
      */
     public String getResponse(String userInput) {
         assert userInput != null;
