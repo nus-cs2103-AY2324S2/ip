@@ -26,7 +26,7 @@ public class Task implements Serializable {
      * @return "X" if the task is done, " " (empty string) otherwise.
      */
     public String getStatusIcon() {
-        return (isDone ? "X" : " ");
+        return isDone ? "X" : " ";
     }
 
     /**
@@ -56,7 +56,9 @@ public class Task implements Serializable {
     /**
      * Returns mark status of task.
      */
-    public boolean isMarked() {return this.isDone;}
+    public boolean isMarked() {
+        return this.isDone;
+    }
 
     public void snooze() {};
 }
