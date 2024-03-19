@@ -193,7 +193,7 @@ public class JerryBot {
     public static String deleteTask(String requestedDeletion) throws InvalidTaskNumberException {
         try {
             int taskNum = Integer.parseInt(requestedDeletion);
-            if (taskNum > taskArrayList.getLastIdx()) {
+            if (taskNum <= 0 || taskNum > taskArrayList.getLastIdx()) {
                 throw new InvalidTaskNumberException(requestedDeletion);
             }
             String deletedTaskString = taskArrayList.getTaskByIdx(taskNum - 1).toString();

@@ -15,6 +15,10 @@ To add a new event task, enter: `event <task description> /from <start time> /to
 
 To see a list of all your tasks, type: `list`
 
+## Finding a matching task:
+
+To find tasks that contain a certain keyword, type: `find <keyword>`
+
 ## Marking Tasks as Done:
 
 If you've completed a task, mark it as done by typing: `mark <task number>`
@@ -36,9 +40,10 @@ Examples:
 
 ```
 todo Read a book
-deadline Complete project /by 2024-03-01
-event Team meeting /from 2024-02-28 14:00 /to 2024-02-28 15:00
+deadline Complete project /by 01/03/2024 1800
+event Team meeting /from 04/03/2024 1800 /to 04/03/2024 2000
 list
+find book
 mark 2
 delete 3
 ```
