@@ -23,4 +23,5 @@ public class Messages {
     public static final String SAVE = "No worries human. My mighty brain will remember your tasks for you.";
     public static final String MARK_REPEAT = "It's already %smarked, so nothing's changed.";
     public static final String FIND = "I found some matching tasks:\n";
+    public static final String FIND_NOT_FOUND = "I couldn't find any tasks matching that!";
 }

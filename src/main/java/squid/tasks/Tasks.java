@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import squid.constants.CorrectUsage;
 import squid.constants.Exceptions;
@@ -123,9 +125,10 @@ public class Tasks {
      * @param regex the input to match similar tasks with.
      */
     public static String find(String regex) {
-        List<Task> filtered = new ArrayList<Task>(
-                (Collection) arr.stream().filter(x -> x.getTaskName().matches(".*" + regex + ".*")));
-        return list(filtered);
+        Stream<String> s = arr.stream().filter(task -> task.getTaskName().matches(regex)).map(x -> x + "\n");
+        String result = s.reduce("", (x, y) -> x + "\n" + y);
+
+        return result.isBlank() ? "Not found" : result;
     }
 
     /**

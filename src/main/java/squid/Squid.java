@@ -1,5 +1,6 @@
 package squid;
 
+import java.security.Key;
 import java.util.Objects;
 import java.util.Scanner;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -287,8 +288,13 @@ public class Squid extends Application {
             throw new NotEnoughInputsException(
                     String.format(Exceptions.NOT_ENOUGH_INPUTS, "find", CorrectUsage.FIND));
         }
-        String keyword = params[1];
-        return echo(Messages.FIND) + "\n" + Tasks.find(keyword);
+        String key = input.split(" ", 2)[1];
+//        String keyword = params[1];
+        if (Objects.equals(Tasks.find(key), "Not found")) {
+            return echo(Messages.FIND_NOT_FOUND);
+        } else {
+            return echo(Messages.FIND) + "\n" + Tasks.find(key);
+        }
     }
 
     /**
