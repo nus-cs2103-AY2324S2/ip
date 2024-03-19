@@ -20,9 +20,10 @@ public class Help extends Command {
             "delete <int:index>: deletes task at index. (Example: delete 1)\n" +
             "\nADD TASK\n" +
             "todo <String:name>: adds a todo task with its name. (Example: todo homework)\n" +
-            "deadline <String:name> /by <date>: adds a deadline task with name and date in d-M-yy format. (Example: deadline homework /by 19-2-24)"
-            +
-            "event <String:name> /from <date> /to <date>: adds an event task with name and date in d-M-yy format. (Example: event career fair /from 20-2-24 /to 22-2-24)";
+            "deadline <String:name> /by <date>: adds a deadline task with name and date in d-M-yy format." +
+            " (Example: deadline homework /by 19-2-24)" +
+            "event <String:name> /from <date> /to <date>: adds an event task with name and date in d-M-yy format. " +
+            "(Example: event career fair /from 20-2-24 /to 22-2-24)";
 
     /**
      * Constructor for Help command.

@@ -20,13 +20,11 @@ import kbot.exceptions.InvalidInputException;
 public class Parser {
 
     /**
-     * Execute whatever command thrown at the bot by the user
+     * Executes whatever command thrown at the bot by the user
      * 
      * @param userInput String representing command to the bot.
-     * @throws InvalidCommandException Exceptions thrown when the command is not
-     *                                 valid.
-     * @throws InvalidInputException   Exception thrown when command parameters are
-     *                                 not valid.
+     * @throws InvalidCommandException Exceptions thrown when the command is not valid.
+     * @throws InvalidInputException   Exception thrown when command parameters are not valid.
      * @return Returns a Command to be executed.
      */
     public static Command parse(String userInput) throws InvalidCommandException, InvalidInputException {
@@ -77,6 +75,7 @@ public class Parser {
 
     /**
      * Parses parameters for Mark Task Object.
+     *
      * @param index The index which the MarkTask will mark within the tasks.
      * @return a new MarkTask.
      */
@@ -87,6 +86,7 @@ public class Parser {
 
     /**
      * Parses parameters for UnMark Task Object.
+     *
      * @param index The index which the UnMarkTask will unmark within the tasks.
      * @return a new UnMarkTask.
      */
@@ -97,6 +97,7 @@ public class Parser {
 
     /**
      * Parses parameters for Delete Task Object.
+     *
      * @param index The index which the DeleteTask will Delete within the tasks.
      * @return a new DeleteTask.
      */
@@ -107,6 +108,7 @@ public class Parser {
 
     /**
      * Parses parameters for Add Task Object.
+     *
      * @param params The parameters for instantiating new Task object by AddTask.
      * @return a new AddTask.
      */
@@ -116,11 +118,11 @@ public class Parser {
 
     /**
      * Parses parameters for Find Task Object.
+     *
      * @param key The keu which the FindTask will find a match within the tasks.
      * @return a new FindTask.
      */
     public static FindTask parseFindTask(String key) {
         return new FindTask(key);
     }
-
 }

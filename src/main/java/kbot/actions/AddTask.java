@@ -33,8 +33,8 @@ public class AddTask extends Command {
     /**
      * Constructor for AddTask.
      * 
-     * @param taskInstruction Takes in an instruction.
-     * @param taskInfo        Takes in instruction parameters.
+     * @param instruction Takes in an instruction.
+     * @param parameter Takes in instruction parameters.
      */
     public AddTask(String instruction, String parameter) {
         this.instruction = instruction;
@@ -52,7 +52,7 @@ public class AddTask extends Command {
         Task t = null;
         assert instruction != null && instruction.length() > 0 : "Command is not initialised or is empty.";
         String[] tagSplit = parameter.split("/tags", 2);
-        String parametersWithoutTags = tagSplit[0].trim();
+        String parametersWithoutTags = tagSplit[0];
         ArrayList<String> tagsList = tagSplit.length > 1 ? handleTags(tagSplit[1]) : new ArrayList<String>();
 
         // create Command based on instruction
@@ -111,9 +111,7 @@ public class AddTask extends Command {
      */
     public static Deadline makeDeadlineCommand(String instruction, String parameter, ArrayList<String> tags)
             throws InvalidInputException, DateTimeParseException {
-        System.out.println(parameter);
         String[] deadlineParameter = parameter.split(" /by ", 2);
-        System.out.println(deadlineParameter[0] +" " + deadlineParameter[1]);
         if (deadlineParameter.length == 1) { // if there is command but no input
             throw new InvalidInputException(
                     "Invalid parameters for " + instruction + "\nType \"help\" if you're unsure.");
@@ -128,10 +126,10 @@ public class AddTask extends Command {
      * Makes a new Event object.
      * 
      * @param instruction String representing the type of Task.
-     * @param parameter   Parameters trailing the instruction.
-     * @param tags        Tags user has input into the command line.
+     * @param parameter Parameters trailing the instruction.
+     * @param tags Tags user has input into the command line.
      * @return A new Event object.
-     * @throws InvalidInputException  If the parameters are incorrect.
+     * @throws InvalidInputException If the parameters are incorrect.
      * @throws DateTimeParseException If time format is not input correctly.
      */
     public static Event makeEventCommand(String instruction, String parameter, ArrayList<String> tags)

@@ -26,9 +26,9 @@ public class Deadline extends Task {
     /**
      * Constructor for the ToDo.
      * 
-     * @param name    A String value that states the name of the Task.
+     * @param name A String value that states the name of the Task.
      * @param endDate A LocalDate to state the date of deadline.
-     * @param tags    A list of tags to identify the task.
+     * @param tags A list of tags to identify the task.
      */
     public Deadline(String name, LocalDate endDate, ArrayList<String> tags) {
         super(name, TYPE, false, tags);
@@ -38,10 +38,10 @@ public class Deadline extends Task {
     /**
      * Constuctor used when we are loading from storage.
      * 
-     * @param name        A String value that states the name of the Task.
-     * @param endDate     LocalDate of when the deadline is.
+     * @param name A String value that states the name of the Task.
+     * @param endDate LocalDate of when the deadline is.
      * @param isCompleted Boolean of whether Task is completed.
-     * @param tags        A list of tags to identify the task.
+     * @param tags A list of tags to identify the task.
      */
     public Deadline(String name, LocalDate endDate, boolean isCompleted, ArrayList<String> tags) {
         super(name, TYPE, isCompleted, tags);

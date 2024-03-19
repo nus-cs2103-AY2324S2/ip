@@ -25,10 +25,10 @@ public class Task {
     /**
      * Constructor for the Task.
      * 
-     * @param name        A String value that states the name of the Task.
-     * @param type        Type of task.
+     * @param name A String value that states the name of the Task.
+     * @param type Type of task.
      * @param isCompleted Whether the task has been completed.
-     * @param tags        A list of tags to identify the task.
+     * @param tags A list of tags to identify the task.
      */
     public Task(String name, String type, boolean isCompleted, ArrayList<String> tags) {
         this.name = name;

@@ -31,8 +31,7 @@ public class DeleteTask extends Command {
      * 
      * @return String of whether there has been an error or a success.
      * @throws IndexOutOfBoundsException If the index to mark is out of range.
-     * @throws IOException               If saving to file and the directory does
-     *                                   not exist.
+     * @throws IOException If saving to file and the directory does not exist.
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {

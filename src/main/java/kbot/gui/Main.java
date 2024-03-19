@@ -51,19 +51,16 @@ public class Main extends Application {
      */
     @Override
     public void start(Stage stage) throws Exception {
-        // Load any local files
         TaskManager.loadLocalSavedTasks();
 
-        // set up main display
+        // initialise GUI variables
         ScrollPane scrollPane = new ScrollPane();
         dialogContainer = new VBox();
-
-        // Initialising the main layout
-        scrollPane.setContent(dialogContainer);
         userInput = new TextField();
         Button sendButton = new Button("Send");
         Button closeButton = new Button("Close");
         AnchorPane mainLayout = new AnchorPane();
+        scrollPane.setContent(dialogContainer);
         mainLayout.getChildren().addAll(scrollPane, userInput, sendButton, closeButton);
 
         // Initialising the Scene
@@ -72,18 +69,11 @@ public class Main extends Application {
         stage.show();
 
         // Formatting the window
-        stage.setTitle("Kaipybara Bot");
-        stage.setResizable(false);
-        stage.setMinHeight(600.0);
-        stage.setMinWidth(400.0);
+        setStage(stage);
         mainLayout.setPrefSize(400.0, 600.0);
 
         // Formatting the scrollpane
-        scrollPane.setPrefSize(385, 535);
-        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
-        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
-        scrollPane.setVvalue(1.0);
-        scrollPane.setFitToWidth(true);
+        formatScrollPane(scrollPane);
 
         // Formatting dialogue container
         dialogContainer.setPrefHeight(Region.USE_COMPUTED_SIZE);
@@ -119,10 +109,20 @@ public class Main extends Application {
         dialogContainer.heightProperty().addListener((observable) -> scrollPane.setVvalue(1.0));
     }
 
-    private void initializeComponents(Stage stage) {
-
+    private void setStage(Stage stage) {
+        stage.setTitle("Kaipybara Bot");
+        stage.setResizable(false);
+        stage.setMinHeight(600.0);
+        stage.setMinWidth(400.0);
     }
 
+    private void formatScrollPane(ScrollPane scrollPane) {
+        scrollPane.setPrefSize(385, 535);
+        scrollPane.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        scrollPane.setVbarPolicy(ScrollPane.ScrollBarPolicy.ALWAYS);
+        scrollPane.setVvalue(1.0);
+        scrollPane.setFitToWidth(true);
+    }
     /**
      * Creates two dialog boxes, one echoing user input and the other containing
      * Duke's reply and then appends them to

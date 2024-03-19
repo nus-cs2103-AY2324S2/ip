@@ -39,7 +39,7 @@ public class TaskFileManager {
     }
 
     /**
-     * Implementation to save tasks to file
+     * Saves tasks to file
      * 
      * @param tasks Tasks to be saved to the local drive.
      * @throws IOException Thrown when saving to file and file is not found.
@@ -54,10 +54,10 @@ public class TaskFileManager {
     }
 
     /**
-     * Implementation to load tasks from local drive.
+     * Loads tasks from local drive.
      * 
      * @throws FileNotFoundException Thrown when file cannot be found.
-     * @throws IOException           Thrown when there is issue loading the file.
+     * @throws IOException Thrown when there is issue loading the file.
      * @return Tasks which are saved in the local drive as an ArrayList<Task>.
      */
     public static ArrayList<Task> loadTasksFromFile() throws FileNotFoundException, IOException {

@@ -26,10 +26,10 @@ public class Event extends Task {
     /**
      * Constructor for the Event.
      * 
-     * @param name      A String value that states the name of the Task.
+     * @param name A String value that states the name of the Task.
      * @param startDate A LocalDate representation of the start of the event.
-     * @param endDate   A LocalDate representation of the end of the event.
-     * @param tags      A list of tags to identify the task.
+     * @param endDate A LocalDate representation of the end of the event.
+     * @param tags A list of tags to identify the task.
      */
     public Event(String name, LocalDate startDate, LocalDate endDate, ArrayList<String> tags) {
         super(name, TYPE, false, tags);
@@ -40,11 +40,11 @@ public class Event extends Task {
     /**
      * Constuctor used when we are loading from storage.
      * 
-     * @param name        A String value that states the name of the Task.
-     * @param startDate   A LocalDateTime to state the start of event.
-     * @param endDate     A LocalDateTime to state the end of event.
+     * @param name A String value that states the name of the Task.
+     * @param startDate A LocalDateTime to state the start of event.
+     * @param endDate A LocalDateTime to state the end of event.
      * @param isCompleted Boolean of whether Task is completed.
-     * @param tags        A list of tags to identify the task.
+     * @param tags A list of tags to identify the task.
      */
     public Event(String name, LocalDate startDate, LocalDate endDate, boolean isCompleted, ArrayList<String> tags) {
         super(name, TYPE, isCompleted, tags);

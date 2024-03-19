@@ -18,7 +18,7 @@ public class DialogBox extends HBox {
     /**
      * Constructor for a dialogue box.
      * 
-     * @param label     Label of what the dialogue box will say.
+     * @param label Label of what the dialogue box will say.
      * @param imageView Image of the user/chatbot.
      */
     public DialogBox(Label label, ImageView imageView) {
@@ -45,7 +45,7 @@ public class DialogBox extends HBox {
     /**
      * Makes a dialogue box for the user.
      * 
-     * @param label     Label containing what user will say.
+     * @param label Label containing what user will say.
      * @param imageView Image of the user.
      * @return The dialogue box of the user.
      */
@@ -56,7 +56,7 @@ public class DialogBox extends HBox {
     /**
      * Flips the dialogue box and return the chatbot output.
      * 
-     * @param label     Label containing what chatbot will say.
+     * @param label Label containing what chatbot will say.
      * @param imageView Image of the chatbot.
      * @return The dialogue box of the chatbot.
      */

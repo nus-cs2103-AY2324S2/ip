@@ -30,10 +30,8 @@ public class MarkTask extends Command {
      * Marks a Task as completed.
      * 
      * @return String of whether there has been an error or a success.
-     * @throws IndexOutOfBoundsException Throws the exception when the index to mark
-     *                                   is out of range.
-     * @throws IOException               When saving to file and the directory does
-     *                                   not exist.
+     * @throws IndexOutOfBoundsException Throws the exception when the index to mark is out of range.
+     * @throws IOException When saving to file and the directory does not exist.
      */
     public String execute() throws IndexOutOfBoundsException, IOException {
         try {

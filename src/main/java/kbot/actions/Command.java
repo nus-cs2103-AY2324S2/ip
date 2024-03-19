@@ -21,11 +21,10 @@ public abstract class Command {
      * Executes the task.
      * 
      * @return String to show if the task has been ran successfully.
-     * @throws IOException               If writing and loading from memory.
-     * @throws IndexOutOfBoundsException If the user mark/unmark/deletes off the
-     *                                   array.
-     * @throws InvalidInputException     If input parameters are invalid.
-     * @throws InvalidCommandException   If command is invalid.
+     * @throws IOException If writing and loading from memory.
+     * @throws IndexOutOfBoundsException If the user mark/unmark/deletes off the array.
+     * @throws InvalidInputException If input parameters are invalid.
+     * @throws InvalidCommandException If command is invalid.
      */
     abstract public String execute()
             throws IOException, IndexOutOfBoundsException, InvalidInputException, InvalidCommandException;
