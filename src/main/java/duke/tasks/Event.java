@@ -43,10 +43,6 @@ public class Event extends Task {
             + " to: " + Parser.FORMATER.dateToString(by) + ")";
     }
 
-    public LocalDate getStart() {
-        return start;
-    }
-
     public LocalDate getBy() {
         return by;
     }

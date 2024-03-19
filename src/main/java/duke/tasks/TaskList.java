@@ -2,7 +2,6 @@ package duke.tasks;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Comparator;
 
 import duke.exceptions.EmptyBodyException;
 import duke.exceptions.InvalidDateTimeException;
@@ -157,32 +156,7 @@ public class TaskList {
     public TaskList findNextDueTasks(int numOfTasks) {
         ArrayList<Task> nextTasks = new ArrayList<>(tasks);
         nextTasks.removeIf(Task::getIsDone); // remove completed tasks
-        nextTasks.sort(new Comparator<Task>() {
-            @Override
-            public int compare(Task o1, Task o2) {
-                if (o1 instanceof Todo) {
-                    return 1;
-                }
-                if (o2 instanceof Todo) {
-                    return -1;
-                }
-
-                if (o1 instanceof Deadline) {
-                    if (o2 instanceof Deadline) {
-                        return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
-                    } else if (o2 instanceof Event) {
-                        return ((Deadline) o1).getBy().compareTo(((Event) o2).getBy());
-                    }
-                } else if (o1 instanceof Event) {
-                    if (o2 instanceof Deadline) {
-                        return ((Event) o1).getBy().compareTo(((Deadline) o2).getBy());
-                    } else if (o2 instanceof Event) {
-                        return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
-                    }
-                }
-                return 0;
-            }
-        });
+        nextTasks.sort(this::compareTaskByDate);
 
         if (nextTasks.size() <= numOfTasks) {
             return new TaskList(nextTasks);
@@ -198,6 +172,30 @@ public class TaskList {
             counter--;
         }
         return new TaskList(tempTasks);
+    }
+
+    private int compareTaskByDate(Object o1, Object o2) {
+        if (o1 instanceof Todo) {
+            return 1;
+        }
+        if (o2 instanceof Todo) {
+            return -1;
+        }
+
+        if (o1 instanceof Deadline) {
+            if (o2 instanceof Deadline) {
+                return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
+            } else if (o2 instanceof Event) {
+                return ((Deadline) o1).getBy().compareTo(((Event) o2).getBy());
+            }
+        } else if (o1 instanceof Event) {
+            if (o2 instanceof Deadline) {
+                return ((Event) o1).getBy().compareTo(((Deadline) o2).getBy());
+            } else if (o2 instanceof Event) {
+                return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
+            }
+        }
+        return 0;
     }
 
     public String nextDueTasksToString(int numOfTasks) {

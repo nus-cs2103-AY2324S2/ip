@@ -56,7 +56,7 @@ public class Storage {
      * @return task list read from file
      * @throws FileNotFoundException if the file is not found
      */
-    private ArrayList<Task> readFile() throws FileNotFoundException, IOException {
+    private ArrayList<Task> readFile() throws IOException {
         ArrayList<Task> taskList = new ArrayList<>();
         Scanner s = new Scanner(file); // create a Scanner using the File as the source
         Boolean isCorrupted = false;
@@ -98,7 +98,7 @@ public class Storage {
      * @param str String format of the task
      * @return The respective task object
      */
-    private Task stringToTask(String str) throws IOException, DateTimeParseException {
+    private Task stringToTask(String str) throws DateTimeParseException {
         assert str != null : "String should not be null";
         String[] strSplit = str.split("\\|");
         if (strSplit.length <= 1) {
@@ -106,24 +106,18 @@ public class Storage {
         }
         Boolean status = strSplit[1].equals("1");
         String detail = strSplit[2];
-        Task task = new Task(status, detail);
         switch (strSplit[0]) {
         case "T":
-            task = new Todo(status, detail);
-            break;
+            return new Todo(status, detail);
         case "D":
             LocalDate by = Parser.formatDate(strSplit[3]);
-            task = new Deadline(status, detail, by);
-            break;
+            return new Deadline(status, detail, by);
         case "E":
             LocalDate from = Parser.formatDate(strSplit[3]);
             LocalDate to = Parser.formatDate(strSplit[4]);
-            task = new Event(status, detail, from, to);
-            break;
+            return new Event(status, detail, from, to);
         default:
-            break;
+            return new Task(status, detail);
         }
-        return task;
-
     }
 }

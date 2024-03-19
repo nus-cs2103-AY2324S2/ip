@@ -8,7 +8,6 @@ import duke.storage.Storage;
 import duke.tasks.Task;
 import duke.tasks.TaskList;
 import duke.ui.UI;
-import duke.utils.KeyEnum;
 import duke.utils.Parser;
 
 /**
@@ -65,59 +64,111 @@ public class Duke {
      * @return Response from the chatbot.
      */
     public String getResponse(String userInput) {
-        String response = "";
         try {
             // use parser to process the userInput
             // the parser object contains all the current user input line information
             Parser parser = new Parser();
             parser.parse(userInput);
-
-            // check for end the session
-            if (parser.getCurrentKey().equals(KeyEnum.EXITKEY)) {
-                response = ui.onExit();
-            }
-
             // continue for the functionality
             switch (parser.getCurrentKey()) {
+            case EXITKEY:
+                return getExitResponse(parser);
             case DEADLINE:
             case TODO:
             case EVENT:
-                Task task = tasks.addTask(parser.getInputDetail(),
-                    parser.getFrom(), parser.getTo(), parser.getCurrentKey());
-                storage.writeTasksToFile(tasks);
-                response = ui.onAddSuccess(task, tasks.getNumOfTasks());
-                break;
+                return getAddResponse(parser);
             case LIST:
-                response = ui.showList(tasks);
-                break;
+                return getListResponse();
             case MARK:
-                Task markedTask = tasks.markTaskById(parser.getIndex(), true);
-                storage.writeTasksToFile(tasks);
-                response = ui.onMarkDone(markedTask);
-                break;
+                return getMarkResponse(parser);
             case UNMARK:
-                Task unMarkedTask = tasks.markTaskById(parser.getIndex(), false);
-                storage.writeTasksToFile(tasks);
-                response = ui.onUnmarkDone(unMarkedTask);
-                break;
+                return getUnMarkResponse(parser);
             case DELETE:
-                Task deletedTask = tasks.deleteTaskById(parser.getIndex());
-                storage.writeTasksToFile(tasks);
-                response = ui.onDelete(deletedTask, tasks);
-                break;
+                return getDeleteResponse(parser);
             case FIND:
-                TaskList matchedTasks = tasks.findTasks(parser.getInputDetail());
-                response = ui.showMatchedList(matchedTasks);
-                break;
+                return getFindResponse(parser);
             default:
-                break;
+                return ui.showErrorMsg("Invalid command");
             }
         } catch (BaseException e) {
-            response = ui.showErrorMsg(e.getMessage());
+            return ui.showErrorMsg(e.getMessage());
         } catch (IOException e) {
-            response = ui.showLoadingError();
+            return ui.showLoadingError();
         }
-        return response;
+    }
+
+    /**
+     * Gets response for adding a task.
+     * @param parser parser object
+     * @return response for adding a task
+     * @throws IOException if the file is not found
+     */
+    public String getAddResponse(Parser parser) throws IOException {
+        Task task = tasks.addTask(parser.getInputDetail(),
+            parser.getFrom(), parser.getTo(), parser.getCurrentKey());
+        storage.writeTasksToFile(tasks);
+        return ui.onAddSuccess(task, tasks.getNumOfTasks());
+    }
+
+    /**
+     * Gets list response.
+     * @return list response
+     */
+    public String getListResponse() {
+        return ui.showList(tasks);
+    }
+
+    /**
+     * Gets response for marking a task as done.
+     * @param parser parser object
+     * @return response for marking a task as done
+     * @throws IOException if the file is not found
+     */
+    public String getMarkResponse(Parser parser) throws IOException {
+        Task markedTask = tasks.markTaskById(parser.getIndex(), true);
+        storage.writeTasksToFile(tasks);
+        return ui.onMarkDone(markedTask);
+    }
+
+    /**
+     * Gets response for unmarking a task.
+     * @param parser parser object
+     * @return response for unmarking a task
+     * @throws IOException if the file is not found
+     */
+    public String getUnMarkResponse(Parser parser) throws IOException {
+        Task unMarkedTask = tasks.markTaskById(parser.getIndex(), false);
+        storage.writeTasksToFile(tasks);
+        return ui.onUnmarkDone(unMarkedTask);
+    }
+
+    /**
+     * Gets response for deleting a task.
+     * @param parser parser object
+     * @return response for deleting a task
+     * @throws IOException if the file is not found
+     */
+    public String getDeleteResponse(Parser parser) throws IOException {
+        Task deletedTask = tasks.deleteTaskById(parser.getIndex());
+        storage.writeTasksToFile(tasks);
+        return ui.onDelete(deletedTask, tasks);
+    }
+
+    /**
+     * Gets response for finding tasks.
+     * @param parser parser object
+     * @return response for finding tasks
+     */
+    public String getFindResponse(Parser parser) {
+        TaskList matchedTasks = tasks.findTasks(parser.getInputDetail());
+        return ui.showMatchedList(matchedTasks);
+    }
+
+    /**
+     * Gets response for exiting the chatbot.
+     */
+    public String getExitResponse(Parser parser) {
+        return ui.onExit();
     }
 
     /**

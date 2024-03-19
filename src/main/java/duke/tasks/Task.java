@@ -30,10 +30,6 @@ public class Task {
         return detail;
     }
 
-    public void setDetail(String detail) {
-        this.detail = detail;
-    }
-
     /**
      * Formats object to be stored in file.
      *

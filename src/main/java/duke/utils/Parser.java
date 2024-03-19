@@ -19,6 +19,7 @@ public class Parser {
     private LocalDate to;
     private LocalDate from;
     private Integer index;
+    private String[] userInputSplit;
 
     /**
      * Parses user input and store the information.
@@ -31,64 +32,112 @@ public class Parser {
      */
     public void parse(String userInput) throws InvalidKeyException, EmptyBodyException,
             WrongFormatException, InvalidNumberException, DateTimeParseException, InvalidDateTimeException {
-        String[] userInputSplit = userInput.split(" ");
+        String userInputLowerCase = userInput.toLowerCase();
+        userInputSplit = userInputLowerCase.split(" ");
         // verify that the user input is valid
-        String checkInputMsg = checkSpecialCharacter(userInputSplit);
-        if (!checkInputMsg.equals("valid")) {
-            throw new WrongFormatException(checkInputMsg);
-        }
+        isValidCommand();
         this.determineCurrentKey(userInputSplit[0]);
         switch (this.currentKey) {
         case DEADLINE:
-            if (userInput.length() <= 9) {
-                throw new EmptyBodyException();
-            }
-            try {
-                inputDetail = userInput.substring(9, userInput.indexOf("/by"));
-                to = formatDate(userInput.substring(userInput.indexOf("/by") + 4));
-            } catch (Exception e) {
-                throw new WrongFormatException("\"deadline content /by yyyy-mm-dd\"");
-            }
+            parseDeadlineCommand(userInputLowerCase);
             break;
         case TODO:
         case FIND:
-            if (userInput.length() <= 5) {
-                throw new EmptyBodyException();
-            }
-            inputDetail = userInput.substring(5);
+            parseOneParameterCommand(userInputLowerCase);
             break;
         case EVENT:
-            if (userInput.length() <= 6) {
-                throw new EmptyBodyException();
-            }
-            try {
-                inputDetail = userInput.substring(6, userInput.indexOf("/from"));
-                from = formatDate(userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1));
-                to = formatDate(userInput.substring(userInput.indexOf("/to") + 4));
-                if (from.isAfter(to)) {
-                    throw new InvalidDateTimeException("The start date should be before the end date");
-                }
-            } catch (InvalidDateTimeException e) {
-                throw e;
-            } catch (Exception e) {
-                throw new WrongFormatException("\"event content /from yyyy-mm-dd /to yyyy-mm-dd\"");
-            }
+            parseEventCommand(userInputLowerCase);
             break;
         case MARK:
         case UNMARK:
         case DELETE:
-            try {
-                this.index = new Integer(userInputSplit[1]) - 1;
-                this.inputDetail = this.index.toString();
-            } catch (Exception e) {
-                throw new InvalidNumberException();
-            }
+            parseIndexCommand(userInputLowerCase);
             break;
         default:
             break;
         }
 
         // check if the user input contains only empty spaces.
+        checkEmptyCommand(userInput);
+    }
+
+    /**
+     * Checks if the user input is valid.
+     */
+    public void isValidCommand() {
+        String checkInputMsg = checkSpecialCharacter(userInputSplit);
+        if (!checkInputMsg.equals("valid")) {
+            throw new WrongFormatException(checkInputMsg);
+        }
+    }
+
+    /**
+     * Parses deadline command and store the information.
+     * @param userInput String user input.
+     */
+    public void parseDeadlineCommand(String userInput) {
+        if (userInput.length() <= 9) {
+            throw new EmptyBodyException();
+        }
+        try {
+            inputDetail = userInput.substring(9, userInput.indexOf("/by"));
+            to = formatDate(userInput.substring(userInput.indexOf("/by") + 4));
+        } catch (Exception e) {
+            throw new WrongFormatException("\"deadline content /by yyyy-mm-dd\"");
+        }
+    }
+
+    /**
+     * Parses command with one parameter and store the information.
+     * @param userInput String user input.
+     */
+    public void parseOneParameterCommand(String userInput) {
+        if (userInput.length() <= 5) {
+            throw new EmptyBodyException();
+        }
+        inputDetail = userInput.substring(5);
+    }
+
+    /**
+     * Parses event command and store the information.
+     * @param userInput String user input.
+     */
+    public void parseEventCommand(String userInput) {
+        if (userInput.length() <= 6) {
+            throw new EmptyBodyException();
+        }
+        try {
+            inputDetail = userInput.substring(6, userInput.indexOf("/from"));
+            from = formatDate(userInput.substring(userInput.indexOf("/from") + 6, userInput.indexOf("/to") - 1));
+            to = formatDate(userInput.substring(userInput.indexOf("/to") + 4));
+            if (from.isAfter(to)) {
+                throw new InvalidDateTimeException("The start date should be before the end date");
+            }
+        } catch (InvalidDateTimeException e) {
+            throw e;
+        } catch (Exception e) {
+            throw new WrongFormatException("\"event content /from yyyy-mm-dd /to yyyy-mm-dd\"");
+        }
+    }
+
+    /**
+     * Parses command with one index as parameter and store the information.
+     * @param userInput String user input.
+     */
+    public void parseIndexCommand(String userInput) {
+        try {
+            this.index = Integer.parseInt(userInputSplit[1]) - 1;
+            this.inputDetail = this.index.toString();
+        } catch (Exception e) {
+            throw new InvalidNumberException();
+        }
+    }
+
+    /**
+     * Checks if the user input contains no information.
+     * @param userInput String user input.
+     */
+    public void checkEmptyCommand(String userInput) {
         if (!(currentKey.equals(KeyEnum.LIST) || currentKey.equals(KeyEnum.EXITKEY)) && inputDetail.trim().isEmpty()) {
             throw new EmptyBodyException();
         }
