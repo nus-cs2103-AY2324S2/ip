@@ -185,13 +185,16 @@ public class TaskList {
         if (o1 instanceof Deadline) {
             if (o2 instanceof Deadline) {
                 return ((Deadline) o1).getBy().compareTo(((Deadline) o2).getBy());
-            } else if (o2 instanceof Event) {
+            }
+            if (o2 instanceof Event) {
                 return ((Deadline) o1).getBy().compareTo(((Event) o2).getBy());
             }
-        } else if (o1 instanceof Event) {
+        }
+        if (o1 instanceof Event) {
             if (o2 instanceof Deadline) {
                 return ((Event) o1).getBy().compareTo(((Deadline) o2).getBy());
-            } else if (o2 instanceof Event) {
+            }
+            if (o2 instanceof Event) {
                 return ((Event) o1).getBy().compareTo(((Event) o2).getBy());
             }
         }
