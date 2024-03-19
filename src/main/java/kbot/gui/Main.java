@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 import kbot.actions.Command;
 import kbot.exceptions.InvalidCommandException;
 import kbot.exceptions.InvalidInputException;
-import kbot.managers.Parser;
+import kbot.parser.Parser;
 import kbot.managers.TaskManager;
 
 /**
