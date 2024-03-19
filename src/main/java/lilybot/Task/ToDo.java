@@ -1,9 +1,11 @@
-package lilybot;
+package lilybot.Task;
+
+import lilybot.Task.Task;
 
 /**
  * ToDo class, a task without start or end dtae.
  */
-public class ToDo extends Task{
+public class ToDo extends Task {
     protected String description;
 
     /**

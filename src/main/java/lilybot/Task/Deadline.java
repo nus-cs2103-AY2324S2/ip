@@ -1,10 +1,10 @@
-package lilybot;
+package lilybot.Task;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Deadline class, a subtype of task.
+ * Deadline class, a subtype of task.+
  * Deadlines are specified byDate a due date.
  */
 public class Deadline extends Task {

@@ -1,10 +1,11 @@
-package lilybot;
+package lilybot.Task;
+
 
 /**
  * Event class, a subtype of task.
  * Events are specified with a startTime and an endTime.
  */
-public class Event extends Task{
+public class Event extends Task {
     /** Start time of event */
     protected String startTime;
     /** End time of event */

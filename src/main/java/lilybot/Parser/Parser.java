@@ -1,4 +1,4 @@
-package lilybot;
+package lilybot.Parser;
 
 /**
  * Parser class for helping the bot understand user commands.
