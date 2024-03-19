@@ -1,4 +1,4 @@
-package lilybot;
+package lilybot.Gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
+import lilybot.LilyBot;
 
 import java.io.IOException;
 
@@ -39,7 +40,13 @@ public class MainWindow extends AnchorPane{
     }
 
     public void setLilyBot(LilyBot l) {
+
         lilyBot = l;
+
+        String hi = "Helloo! I'm LilyBot ;)\nWhat's up'?\n";
+        dialogContainer.getChildren().add(
+                DialogBox.getBotDialog(hi, botImage)
+        );
     }
 
 

@@ -1,4 +1,7 @@
-package lilybot;
+package lilybot.Storage;
+
+import lilybot.Gui.Ui;
+import lilybot.Task.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;

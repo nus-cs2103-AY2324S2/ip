@@ -1,4 +1,6 @@
-package lilybot;
+package lilybot.Task;
+
+import lilybot.Task.Task;
 
 import java.util.ArrayList;
 

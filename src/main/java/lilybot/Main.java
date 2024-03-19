@@ -1,5 +1,7 @@
 package lilybot;
 
+import lilybot.Gui.MainWindow;
+
 import java.io.IOException;
 
 import javafx.application.Application;
@@ -7,6 +9,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import lilybot.Storage.Storage;
 
 //@@author SE-EDU
 //Reused from https://se-education.org/guides/tutorials/javaFx.html

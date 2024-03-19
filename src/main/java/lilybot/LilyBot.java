@@ -1,5 +1,11 @@
 package lilybot;
 
+import lilybot.Command.*;
+import lilybot.Gui.Ui;
+import lilybot.Parser.Parser;
+import lilybot.Storage.Storage;
+import lilybot.Task.TaskList;
+
 import java.io.IOException;
 
 
@@ -27,68 +33,53 @@ public class LilyBot {
 
 
     /**
-     * Initializes LilyBot.
+     * Gets responses from the bot.
      *
-     * @param command Command entered by the user.
+     * @param input Command entered by the user.
      * @param lastCommand Previous command entered by the user.
      * @return What should be displayed for the user based on the command.
      * @throws IOException For input error.
      */
-    public String getResponse(String command, String lastCommand) throws IOException{
-        ui.sayHi();
+    public String getResponse(String input, String lastCommand) throws IOException{
+        String[] inputBySpace = Parser.parseCommand(input);
+        String firstWord = inputBySpace[0].toUpperCase();
+        Command command;
+        switch (firstWord) {
+        case "LIST":
+            command = new ListCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "TODO":
+            command = new TodoCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "DEADLINE":
+            command = new DeadlineCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "EVENT":
+            command = new EventCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "MARK":
+            command = new MarkCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "UNMARK":
+            command = new UnmarkCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "DELETE":
+            command = new DeleteCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "UNDO":
+            command = new UndoCommand(ui, lastCommand, ls);
+            return command.exceute(ui, lastCommand, ls);
+        case "FIND":
+            command = new FindCommand(ui, input, ls);
+            return command.exceute(ui, input, ls);
+        case "BYE":
+            ByeCommand bye = new ByeCommand(storage, ui, input, ls);
+            return bye.exceute(storage, ui, input, ls);
+        default:
+            return ui.invalidInput();
 
-
-        while (!command.equals("bye")) {
-            if (command.equals("list")) {
-                return ui.listTask(ls);
-            } else if (command.equals("undo")) {
-                if (lastCommand.equals(null)) {
-                    return ui.noLastCommand();
-                } else {
-                    return ui.undoTask(lastCommand, ls);
-                }
-            } else if (command.startsWith("unmark")) {
-                try {
-                    return ui.markNotDone(command, ls);
-                } catch (Exception exc) {
-                    return ui.invalidInputNumber();
-                }
-
-            } else if (command.startsWith("mark")) {
-                try {
-                    return ui.markDone(command, ls);
-                } catch (Exception exc) {
-                    return ui.invalidInputNumber();
-                }
-
-            } else if (command.startsWith("delete")) {
-                try {
-                    return ui.taskRemoved(command, ls);
-                } catch (Exception exc) {
-                    return ui.invalidInputNumber();
-                }
-            } else if (command.startsWith("find")) {
-                try {
-                    String keyWord = (Parser.parseCommand(command))[1];
-                    return ui.findMatchingTask(keyWord, ls);
-
-                } catch (Exception exc) {
-                    return ui.invalidKeyWord();
-
-                }
-            } else {
-
-                return ui.addTask(command, ls);
-            }
         }
 
-        if (command.equals("bye")) {
-            //Update the file
-            Storage.saveFile(storage.getFile(), ls);
-
-            return ui.sayBye();
-        }
-        return "";
     }
 
 
