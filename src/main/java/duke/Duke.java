@@ -80,6 +80,8 @@ public class Duke {
 
     /**
      * Gets the result of processing the user input from the text box
+     * Ui grabs echo, tells parser to analyse and returns a result to Ui.
+     * Ui then knows what command to execute, and passes back here for taskList + storage to execute
      *
      * @param echo
      * @return String to be added to dialog box
@@ -87,9 +89,6 @@ public class Duke {
     public String getResponse(String echo) {
         String output = " ";
         try {
-            //Ui grabs echo, tells parser to analyse and returns a result to Ui.
-            //Ui then knows what command to execute, and passes back here for taskList + storage to execute
-
             int[] result = ui.analyseUserInput(echo);
             switch (result[0]) {
             case BYE_COMMAND:
@@ -105,28 +104,17 @@ public class Duke {
                 output = tasks.unmarkMechanism(result[1]);
                 break;
             case DELETE_COMMAND:
-                output = tasks.deleteMechanism(result[1]);
-                if (result[1] <= tasks.getSize() + 1) {
-                    storage.updateFile(new Task("To Delete"), STORAGE_DELETE_COMMAND, result[1]);
-                }
+                output = deleteResponse(result);
                 break;
             case FIND_COMMAND:
                 String keywordToFind = ui.analyseFind(echo);
                 output = tasks.findMechanism(keywordToFind);
                 break;
             case SNOOZE_COMMAND:
-                Pair<String, Task> taskToSnooze = tasks.snoozeMechanism(result[1]);
-                output = taskToSnooze.getKey();
-                if (result[1] <= tasks.getSize() + 1) {
-                    storage.updateFile(taskToSnooze.getValue(), STORAGE_SNOOZE_COMMAND, result[1]);
-                }
+                output = snoozeResponse(result);
                 break;
             case TASK_COMMAND:
-                //tell ui to parse and return task to make
-                //pass to tasklist to add the task only, no other computation needed
-                Task taskToAdd = ui.analyseTask(echo);
-                output = tasks.taskMechanism(taskToAdd);
-                storage.updateFile(taskToAdd, STORAGE_ADD_COMMAND, 0);
+                output = taskResponse(result, echo);
                 break;
             default:
                 assert false : "Should not reach this point";
@@ -140,7 +128,56 @@ public class Duke {
             output = "There are only: " + tasks.getSize()
                     + " task(s) in the list to delete.\n";
         }
+        return output;
+    }
 
+    /**
+     * Gets the result of processing a deleteCommand
+     *
+     * @param result the result array to take info from
+     * @return String to be added to dialog box
+     * @throws IndexOutOfBoundsException if user chooses invalid task number
+     */
+    private String deleteResponse(int[] result) throws IndexOutOfBoundsException {
+        String output = tasks.deleteMechanism(result[1]);
+        if (result[1] <= tasks.getSize() + 1) {
+            storage.updateFile(new Task("To Delete"), STORAGE_DELETE_COMMAND, result[1]);
+        }
+        return output;
+    }
+
+    /**
+     * Gets the result of processing a snoozeCommand
+     *
+     * @param result the result array to take info from
+     * @return String to be added to dialog box
+     * @throws IndexOutOfBoundsException if user chooses invalid task number
+     * @throws DukeException if an error occurs
+     */
+    private String snoozeResponse(int[] result) throws DukeException, IndexOutOfBoundsException {
+        Pair<String, Task> taskToSnooze = tasks.snoozeMechanism(result[1]);
+        String output = taskToSnooze.getKey();
+        if (result[1] <= tasks.getSize() + 1) {
+            storage.updateFile(taskToSnooze.getValue(), STORAGE_SNOOZE_COMMAND, result[1]);
+        }
+        return output;
+    }
+
+    /**
+     * Gets the result of processing a taskCommand
+     *
+     * @param result the result array to take info from
+     * @return String to be added to dialog box
+     * @throws DateTimeParseException if user enters invalid dateTime format
+     * @throws DukeException if UI has error parsing input
+     */
+
+    private String taskResponse(int[] result, String echo) throws DukeException, DateTimeParseException {
+        //tell ui to parse and return task to make
+        //pass to tasklist to add the task only, no other computation needed
+        Task taskToAdd = ui.analyseTask(echo);
+        String output = tasks.taskMechanism(taskToAdd);
+        storage.updateFile(taskToAdd, STORAGE_ADD_COMMAND, 0);
         return output;
     }
 

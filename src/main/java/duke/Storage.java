@@ -119,65 +119,104 @@ public class Storage {
         assert command == Duke.STORAGE_ADD_COMMAND
                 || command == Duke.STORAGE_DELETE_COMMAND
                 || command == 2 : "Invaliid command used";
+
+        if (command == Duke.STORAGE_ADD_COMMAND) {
+            addToFile(dataFile, taskString);
+        } else if (command == Duke.STORAGE_DELETE_COMMAND) {
+            deleteFromFile(dataFile, lineNum);
+        } else if (command == Duke.STORAGE_SNOOZE_COMMAND) {
+            snoozeTaskInFile(dataFile, lineNum, taskString);
+        } else {
+            assert false : "Invalid command sent to storage";
+        }
+    }
+
+    /**
+     * Adds the new task to the file in the hard disk everytime the taskList is updated
+     *
+     * @param  dataFile File to update
+     * @param  taskString String of the task
+     */
+    private void addToFile(File dataFile, String taskString) {
         try {
-            if (command == Duke.STORAGE_ADD_COMMAND) {
+            BufferedWriter writer = new BufferedWriter(new FileWriter(
+                    dataFile, true));
 
-                BufferedWriter writer = new BufferedWriter(new FileWriter(
-                        dataFile, true));
-
-                if (dataFile.length() != 0) {
-                    writer.newLine();
-                }
-
-                writer.write(taskString);
-                writer.close();
-
-            } else if (command == Duke.STORAGE_DELETE_COMMAND) {
-                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
-                String line;
-                StringBuilder sb = new StringBuilder();
-                int lineNumCount = 1;
-
-                while ((line = reader.readLine()) != null) {
-                    if ((lineNumCount == lineNum)) {
-                        sb.append("");
-                    } else {
-                        sb.append(line);
-                        sb.append("\n");
-                    }
-                    lineNumCount++;
-                }
-
-                sb.deleteCharAt(sb.lastIndexOf("\n"));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
-                writer.write(sb.toString());
-                writer.close();
-                reader.close();
-            } else if (command == Duke.STORAGE_SNOOZE_COMMAND) {
-                BufferedReader reader = new BufferedReader(new FileReader(dataFile));
-                String line;
-                StringBuilder sb = new StringBuilder();
-                int lineNumCount = 1;
-
-                while ((line = reader.readLine()) != null) {
-                    if ((lineNumCount == lineNum)) {
-                        sb.append(taskString + "\n");
-                    } else {
-                        sb.append(line);
-                        sb.append("\n");
-                    }
-                    lineNumCount++;
-                }
-                sb.deleteCharAt(sb.lastIndexOf("\n"));
-                BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
-                writer.write(sb.toString());
-                writer.close();
-                reader.close();
-            } else {
-                assert false : "Invalid command sent to storage";
+            if (dataFile.length() != 0) {
+                writer.newLine();
             }
+
+            writer.write(taskString);
+            writer.close();
         } catch (IOException e) {
             System.out.println("Oops!");
         }
     }
+
+    /**
+     * Deletes the line from the file in the hard disk everytime the taskList is updated
+     *
+     * @param  dataFile File to update
+     * @param  lineNum line where task is
+     */
+    private void deleteFromFile(File dataFile, int lineNum) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            int lineNumCount = 1;
+
+            while ((line = reader.readLine()) != null) {
+                if ((lineNumCount == lineNum)) {
+                    sb.append("");
+                } else {
+                    sb.append(line);
+                    sb.append("\n");
+                }
+                lineNumCount++;
+            }
+
+            sb.deleteCharAt(sb.lastIndexOf("\n"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
+            writer.write(sb.toString());
+            writer.close();
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Oops!");
+        }
+    }
+
+    /**
+     * Snoozes the task from the file in the hard disk when the taskList is updated
+     *
+     * @param  dataFile File to update
+     * @param  lineNum line where task is
+     * @param  taskString task to snooze
+     */
+    private void snoozeTaskInFile(File dataFile, int lineNum, String taskString) {
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader(dataFile));
+            String line;
+            StringBuilder sb = new StringBuilder();
+            int lineNumCount = 1;
+
+            while ((line = reader.readLine()) != null) {
+                if ((lineNumCount == lineNum)) {
+                    sb.append(taskString + "\n");
+                } else {
+                    sb.append(line);
+                    sb.append("\n");
+                }
+                lineNumCount++;
+            }
+            sb.deleteCharAt(sb.lastIndexOf("\n"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(dataFile));
+            writer.write(sb.toString());
+            writer.close();
+            reader.close();
+        } catch (IOException e) {
+            System.out.println("Oops!");
+        }
+    }
+
 }
