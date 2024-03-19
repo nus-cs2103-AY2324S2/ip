@@ -119,7 +119,7 @@ Add a task with a specific time period to the task list. The time should be in t
 
 **Aliases**: `event`, `ev`
 
-**Example**: `event Meeting /at 2022-12-01 14:00 /to 2022-12-01 16:00`
+**Example**: `event Meeting /from 2022-12-01 14:00 /to 2022-12-01 16:00`
 
 <br>
 
