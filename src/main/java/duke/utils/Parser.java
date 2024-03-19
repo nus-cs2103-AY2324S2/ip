@@ -37,7 +37,7 @@ public class Parser {
         // verify that the user input is valid
         isValidCommand();
         this.determineCurrentKey(userInputSplit[0]);
-        switch (this.currentKey) {
+        switch (currentKey) {
         case DEADLINE:
             parseDeadlineCommand(userInputLowerCase);
             break;
@@ -51,14 +51,13 @@ public class Parser {
         case MARK:
         case UNMARK:
         case DELETE:
-            parseIndexCommand(userInputLowerCase);
+            parseIndexCommand();
             break;
         default:
             break;
         }
-
         // check if the user input contains only empty spaces.
-        checkEmptyCommand(userInput);
+        checkEmptyCommand();
     }
 
     /**
@@ -122,9 +121,8 @@ public class Parser {
 
     /**
      * Parses command with one index as parameter and store the information.
-     * @param userInput String user input.
      */
-    public void parseIndexCommand(String userInput) {
+    public void parseIndexCommand() {
         try {
             this.index = Integer.parseInt(userInputSplit[1]) - 1;
             this.inputDetail = this.index.toString();
@@ -135,9 +133,8 @@ public class Parser {
 
     /**
      * Checks if the user input contains no information.
-     * @param userInput String user input.
      */
-    public void checkEmptyCommand(String userInput) {
+    public void checkEmptyCommand() {
         if (!(currentKey.equals(KeyEnum.LIST) || currentKey.equals(KeyEnum.EXITKEY)) && inputDetail.trim().isEmpty()) {
             throw new EmptyBodyException();
         }
@@ -194,12 +191,6 @@ public class Parser {
             currentKey = KeyEnum.FIND;
             break;
         default:
-            currentKey = KeyEnum.INVALID;
-            break;
-        }
-        assert currentKey != null : "currentKey should not be null";
-        if (this.currentKey.equals(KeyEnum.INVALID)) {
-            // raise InvalidKeyException
             throw new InvalidKeyException();
         }
     }
