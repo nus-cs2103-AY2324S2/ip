@@ -34,7 +34,7 @@ public class Parser {
             return new FindCommand(fullCommand, 0);
         case "LIST":
             return new ListCommand(fullCommand, 0);
-        case "LISTTASKONDATE":
+        case "LISTONDATE":
             return new ListCommand(fullCommand, 1);
         case "DELETE":
             return new DeleteCommand(fullCommand, 0);

@@ -52,6 +52,10 @@ public class Saopig extends Application {
     public String getResponse(String input) {
         try {
             Command c = Parser.parse(input);
+            if (c.isExit()) {
+                this.storage.saveTaskList(this.taskList);
+                System.exit(0);
+            }
             return c.execute(this.taskList, this.ui, this.storage);
         } catch (SaopigInvaildSizeException e) {
             return "Unknown command error.";

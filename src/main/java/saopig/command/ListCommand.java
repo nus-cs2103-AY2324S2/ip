@@ -64,7 +64,7 @@ public class ListCommand extends Command {
         StringBuilder response = new StringBuilder();
         for (int i = 0; i < taskList.getTasks().size(); i++) {
             Task task = taskList.getTasks().get(i);
-            response.append((i + 1)).append(". ").append(task.toString());
+            response.append((i + 1)).append(". ").append(task.toString()).append("\n");
         }
         return response.toString();
     }
@@ -85,9 +85,9 @@ public class ListCommand extends Command {
     public String listTasksOnDate(String input, TaskList taskList, Ui ui) {
         try {
             StringBuilder response = new StringBuilder();
-            checkValue(input.length(), 16, Integer.MAX_VALUE);
-            assert input.length() >= 16 : "Input length should be at least 16";
-            String date = input.substring(15);
+            checkValue(input.length(), 12, Integer.MAX_VALUE);
+            assert input.length() >= 12 : "Input length should be at least 12";
+            String date = input.substring(11);
             response.append("\n" + "Oh, splendid! Let me check my calendar for tasks on ").append(date).append("...");
             LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);
             ArrayList<Task> tasksOnDate = new ArrayList<>();
