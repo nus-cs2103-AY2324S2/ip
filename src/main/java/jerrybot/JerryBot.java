@@ -151,6 +151,9 @@ public class JerryBot {
      * @throws InvalidTaskNumberException If the task number is invalid.
      */
     public static String markTaskAsDone(int taskNum) throws InvalidTaskNumberException {
+        if (taskNum <= 0 || taskNum > taskArrayList.getLastIdx()) {
+            throw new InvalidTaskNumberException(Integer.toString(taskNum));
+        }
         taskArrayList.getTaskByIdx(taskNum - 1).markAsDone();
         return Ui.printMarkTaskAsDoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }
@@ -165,7 +168,7 @@ public class JerryBot {
     private static int convertTaskNumStringToInt(String s) throws InvalidTaskNumberException {
         String taskNumString = s.split("\\s+")[1];
         int taskNum = Integer.parseInt(taskNumString);
-        if (taskNum > taskArrayList.getLastIdx()) {
+        if (taskNum <= 0 || taskNum > taskArrayList.getLastIdx()) {
             throw new InvalidTaskNumberException(taskNumString);
         }
         return taskNum;
@@ -179,6 +182,9 @@ public class JerryBot {
      * @throws InvalidTaskNumberException If the task number is invalid.
      */
     public static String unmarkTaskAsDone(int taskNum) throws InvalidTaskNumberException {
+        if (taskNum <= 0 || taskNum > taskArrayList.getLastIdx()) {
+            throw new InvalidTaskNumberException(Integer.toString(taskNum));
+        }
         taskArrayList.getTaskByIdx(taskNum - 1).markAsUndone();
         return Ui.printMarkTaskAsUndoneMessage(taskArrayList.getTaskByIdx(taskNum - 1).toString());
     }

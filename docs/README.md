@@ -50,7 +50,7 @@ delete 3
 
 ### Note
 
-Make sure to follow the specified format for deadlines (YYYY-MM-DD) and events (YYYY-MM-DD HH:mm) to 
+Make sure to follow the specified format for deadlines and events (DD/MM/YYYY HHmm) to 
 ensure accurate task management.
 
 That's it! With these simple commands, you can efficiently manage your tasks and stay organized. 
