@@ -4,6 +4,7 @@ import exception.InvalidCommandException;
 import exception.InvalidIndexException;
 import objects.Task;
 import objects.TaskList;
+import view.AlreadyMarked;
 import view.MarkedTask;
 
 /**
@@ -45,8 +46,13 @@ public class MarkTask implements Command {
             throw new InvalidIndexException();
         }
 
-        tasks.markTask(this.index);
         Task task = tasks.get(this.index);
+        if (task.isMarked()) {
+            return AlreadyMarked.display(task);
+        }
+
+        tasks.markTask(this.index);
+        task = tasks.get(this.index);
 
         return MarkedTask.display(task);
     }

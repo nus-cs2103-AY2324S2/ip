@@ -1,5 +1,7 @@
 package commands;
 
+import exception.InvalidCommandException;
+import exception.InvalidIndexException;
 import exception.SnoozeException;
 import objects.Task;
 import objects.TaskList;
@@ -31,7 +33,13 @@ public class Snooze implements Command {
      * @throws SnoozeException If the task is a ToDo task, which cannot be snoozed.
      */
     @Override
-    public String execute() throws SnoozeException {
+    public String execute() throws SnoozeException, InvalidCommandException, InvalidIndexException {
+        if (this.index == -1) {
+            throw new InvalidCommandException();
+        } else if (this.index < 0 || this.index > tasks.size() - 1) {
+            throw new InvalidIndexException();
+        }
+
         Task task = tasks.get(index);
 
         if (task instanceof ToDo) {

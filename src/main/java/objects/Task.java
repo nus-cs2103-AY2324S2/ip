@@ -53,5 +53,10 @@ public class Task implements Serializable {
         this.isDone = false;
     }
 
+    /**
+     * Returns mark status of task.
+     */
+    public boolean isMarked() {return this.isDone;}
+
     public void snooze() {};
 }

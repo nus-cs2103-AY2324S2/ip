@@ -33,7 +33,7 @@ public class Parser {
      *
      * @param input The user input to be parsed.
      * @param tasks The TaskList to perform operations on.
-     * @return
+     * @return command The command to be executed.
      */
     public static Command parse(String input, TaskList tasks) {
         Command command;
