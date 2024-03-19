@@ -5,6 +5,8 @@ import joy.task.Event;
 import joy.task.Task;
 import joy.task.Todo;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -71,7 +73,13 @@ public class Storage {
         }
 
         String type = parts[0];
-        boolean isDone = Integer.parseInt(parts[1]) == 1;
+        boolean isDone;
+        try {
+            isDone = Integer.parseInt(parts[1]) == 1;
+        } catch (NumberFormatException e) {
+            // Handle the case where parts[1] is not a valid integer
+            isDone = false; // Set isDone to false or any default value as needed
+        }
         String description = parts[2];
 
         Task task;
@@ -84,6 +92,13 @@ public class Storage {
                 throw new IOException("Invalid deadline format. Skipping line.");
             }
             String by = parts[3];
+            try {
+                // Validate the time format using a DateTimeFormatter
+
+                LocalDate parsedTime = LocalDate.parse(by, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             task = new Deadline(description, by);
             break;
         case "E":

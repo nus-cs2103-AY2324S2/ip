@@ -45,13 +45,14 @@ test {
 
 application {
     mainClass.set("joy.Joy")
+    mainClassName = "joy.Launcher"
 }
 
 shadowJar {
     archiveBaseName = "joy"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
-    mainClassName = "joy.Launcher"
+    archiveFileName = "joy.jar"
 }
 
 checkstyle {

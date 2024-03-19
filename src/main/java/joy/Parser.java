@@ -6,6 +6,7 @@ import joy.task.Event;
 
 import joy.task.Todo;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
@@ -152,7 +153,7 @@ public class Parser {
         boolean isDeadline = false;
         for (int i = 1; i < words.length; i++) {
             if (isDeadline) {
-                timeBuilder.append(words[i]).append(" ");
+                timeBuilder.append(words[i]);
             }
             if (words[i].equals("/by")) {
                 isDeadline = true;
@@ -163,8 +164,8 @@ public class Parser {
 
         try {
             // Validate the time format using a DateTimeFormatter
-            LocalDateTime parsedTime = LocalDateTime.parse(time, DateTimeFormatter.ofPattern("MMM dd yyyy"));
-            String formattedTime = parsedTime.format(DateTimeFormatter.ofPattern("MMM dd yyyy"));
+
+            LocalDate parsedTime = LocalDate.parse(time, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         } catch (Exception e) {
             throw new JoyException.DeadlineException("OOPS!!! Your time is of the wrong format.");
         }
