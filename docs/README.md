@@ -4,47 +4,62 @@ Welcome to TaskYapper by [Justin Tan](https://www.linkedin.com/in/tan-wee-kian-j
 
 The ultimate task management tool that helps you keep track of your todos, deadlines, and events with ease! 🚀🚀🚀
 
-![Representative Screenshot for TaskYapper](/docs/Ui.png)
+![Representative Screenshot for TaskYapper](Ui.png)
 
-## TaskYapper Features
+TaskYapper helps you manage your tasks efficiently with a variety of commands. Below is a guide structured by command descriptors to help you navigate and use TaskYapper effectively.
 
-1. **Starting TaskYapper**: Launch the application from your terminal or command prompt.
-2. **Adding Tasks**: Use commands to add tasks. Supported task types include *todos*, *deadlines*, and *events*.
-3. **Viewing Tasks**: Easily view all your tasks or filter them based on specific criteria.
-4. **Updating Tasks**: Mark tasks as done or unmark them with simple commands.
-5. **Removing Tasks**: No longer need a task? Delete it with a single command.
+## Getting Started
+
+1. Download the jar file.
+2. Open the folder containing the downloaded jar file in Terminal
+3. Run `java -jar taskyapper.jar`
 
 ## TaskYapper Commands
-- `BYE`: Exits the application. Your tasks are automatically saved.
-- `YAP`: Lists all your tasks.
-- `MARK <task_number>`: Marks a task as done.
-- `UNMARK <task_number>`: Reverts a task to not done.
-- `ADD_TODO <task_description>`: Adds a new todo task.
-- `ADD_DEADLINE <task_description> /by <date: yyyy-mm-dd>`: Adds a new deadline task. 
-- `ADD_EVENT <task_description> /from <date: yyyy-mm-dd> /to <date: yyyy-mm-dd>`: Adds a new event task.
-- `DELETE <task_number>`: Deletes a specified task.
-- `FIND <keyword>`: Finds tasks containing the specified keyword.
-- `SCHEDULE <date: yyyy-mm-dd>`: Lists events and deadlines occurring on a specified date.
 
-Example Commands:
-```
-todo Finish reading TaskYapper user guide
-```
-This task adds a "todo" task to our task list.
+### Listing All Tasks
+- **Command Descriptor:** `yap`
+- **Format:** `yap`
+- **Example:** Typing `yap` lists all your tasks.
 
-```
-deadline CS2103T IP /by 2024-02-23
-```
-This task adds a "deadline" task to our task list.
+### Marking a Task as Done
+- **Command Descriptor:** `mark`
+- **Format:** `mark <task_number>`
+- **Example:** `mark 1` marks the first task in your list as done.
 
-```
-event AY23/24 Semester 2 /from 2024-01-15 /to 2024-05-11
-```
-This task adds a "event" task to our task list.
+### Unmarking a Task
+- **Command Descriptor:** `unmark`
+- **Format:** `unmark <task_number>`
+- **Example:** `unmark 1` reverts the first task in your list to not done.
 
-- [ ] I have read finish this user guide and am ready to start using TaskYapper!
+### Adding a Todo Task
+- **Command Descriptor:** `todo`
+- **Format:** `todo <task_description>`
+- **Example:** `todo finish reading TaskYapper user guide` adds a new todo task.
+
+### Adding a Deadline Task
+- **Command Descriptor:** `deadline`
+- **Format:** `deadline <task_description> /by <date: yyyy-mm-dd>`
+- **Example:** `deadline cs2103t ip /by 2024-02-23` adds a new deadline task.
+> Note that deadlines require a date, representing the date this task should be done by.
+
+### Adding an Event Task
+- **Command Descriptor:** `add_event`
+- **Format:** `add_event <task_description> /from <date: yyyy-mm-dd> /to <date: yyyy-mm-dd>`
+- **Example:** `add_event ay23/24 semester 2 /from 2024-01-15 /to 2024-05-11` adds a new event task.
+> Note that events require a start date and an end date.
+
+### Exiting the Application
+- **Command Descriptor:** `bye`
+- **Format:** `bye`
+- **Example:** Typing `bye` exits the application and automatically saves your tasks.
 
 ## Tips
-> Pro Tip: Regularly use the YAP command to review your tasks and stay on top of your commitments!
+> **Pro Tip:** Regularly use the `yap` command to review your tasks and stay on top of your commitments!
+
+## Final Acknowledgements
+- [X] Congratulations for reading the user guide finish!
+  You are now ready to start using TaskYapper!
+
+Thank you to the CS2103 teaching team, and fellow CS2103T team project mates for all your contributions and advice in this project!
 
 Feel free to contact [@jyztintan](https://github.com/jyztintan) for any enquiries, bug reports or suggestions for improvements.
