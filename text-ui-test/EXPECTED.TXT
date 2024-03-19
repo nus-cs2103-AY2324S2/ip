@@ -1,7 +1,164 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+    (>^.^<) Hello, my name is... Louie!!!!
+            What can I do for you today?
+
+
+    (>^.^<) no matching command...
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] read book
+
+
+    (>^.^<) Ok, I've added a new deadline...
+              [D][ ] return book (by: 12:00 am, 6-06-2024)
+
+
+    (>^.^<) Ok, I've added a new event...
+              [E][ ] project meeting (from: 04:00 pm, 9-04-2000 to: 04:00 pm, 9-04-2000)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: this
+
+
+    (>^.^<) Here's what you've done today...
+            1.[T][ ] read book
+            2.[D][ ] return book (by: 12:00 am, 6-06-2024)
+            3.[E][ ] project meeting (from: 04:00 pm, 9-04-2000 to: 04:00 pm, 9-04-2000)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 4
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
+    (>^.^<) CONGRATULATION!!!!!! you completed this task:
+            [T][X] read book
+
+
+    (>^.^<) Here's what you've done today...
+            1.[T][X] read book
+            2.[D][ ] return book (by: 12:00 am, 6-06-2024)
+            3.[E][ ] project meeting (from: 04:00 pm, 9-04-2000 to: 04:00 pm, 9-04-2000)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 4
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
+    (>^.^<) CONGRATULATION!!!!!! you un completed this task:
+            [T][ ] read book
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] do sumting
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ]  do anadating
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ] do  samadating
+
+
+    (>^.^<) Ok, I've added a new todo...
+              [T][ ]   do  sumting  with trailingspace
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your deadline
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/by'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! I encountered an unexpected option '/nonsenseoption'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! Couldn't parse the end date 2001-02-03 14001
+
+
+    (>^.^<) Ok, I've added a new deadline...
+              [D][ ] do sumting (by: 02:00 pm, 2-03-2001)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! I encountered an unexpected option '/to'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an start date using '/from'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! command ended when an argument was expected
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you failed to specify an end date using '/to'
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! you didn't specify specify a name for your event
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! Couldn't parse the start/end date 2001-02-03 1400/nonsensedate
+
+
+    (>^.^<) Ok, I've added a new event...
+              [E][ ] eventname (from: 02:00 pm, 2-03-2001 to: 02:00 pm, 2-03-2001)
+
+
+    (>^.^<) Here's what you've done today...
+            1.[T][ ] read book
+            2.[D][ ] return book (by: 12:00 am, 6-06-2024)
+            3.[E][ ] project meeting (from: 04:00 pm, 9-04-2000 to: 04:00 pm, 9-04-2000)
+            4.[T][ ] do sumting
+            5.[T][ ]  do anadating
+            6.[T][ ] do  samadating
+            7.[T][ ]   do  sumting  with trailingspace
+            8.[D][ ] do sumting (by: 02:00 pm, 2-03-2001)
+            9.[E][ ] eventname (from: 02:00 pm, 2-03-2001 to: 02:00 pm, 2-03-2001)
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 0
+
+
+    (>^.^<) I'm deleting this task. bye...
+            [T][ ] do sumting
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: should
+
+
+    (>^.^<) I'm deleting this task. bye...
+            [T][ ] do  samadating
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! You tried to access an invalid task index: 9
+
+
+    (>^.^<) OH NYO ERROR!!!!!!!!!!!!! option was not expected but was given: this
+
+
+    (>^.^<) Ok, going to sleep...
 

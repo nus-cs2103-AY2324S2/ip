@@ -1,0 +1,44 @@
+
+todo read book
+deadline return book /by 2024-06-06 0000
+event project meeting /from 2000-09-04 1600 /to 2000-09-04 1600
+list this should throw 
+list
+mark 0
+mark 4
+mark 1 should throw
+mark 1
+list
+unmark 0
+unmark 4
+unmark 1 should throw
+unmark 1
+todo
+todo do sumting
+todo  do anadating
+todo do  samadating
+todo   do  sumting  with trailingspace   
+deadline
+deadline do sumting
+deadline /by 2001-02-03 1400
+deadline no by /by
+deadline do sumting /nonsenseoption asjkldf
+deadline do sumting /by 2001-02-03 14001
+deadline do sumting /by 2001-02-03 1400
+event
+event no from to
+event no fromop /to 2001-02-03 1400
+event no from /from /to 2001-02-03 1400
+event no toop /from 2001-02-03 1400
+event no to /from no 2001-02-03 1400 /to
+event /from 2001-02-03 1400 /to 2001-02-03 1500
+event eventname /from 2001-02-03 1400 /to nonsensedate
+event eventname /from 2001-02-03 1400 /to 2001-02-03 1400
+list
+delete 0
+delete 4
+delete 5 should throw
+delete 5
+delete 9
+bye this should throw
+bye
