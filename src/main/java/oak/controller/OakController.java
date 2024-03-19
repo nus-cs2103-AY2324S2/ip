@@ -3,6 +3,7 @@ package oak.controller;
 import java.io.IOException;
 
 import oak.exceptions.InvalidInputException;
+import oak.exceptions.OakException;
 import oak.feedback.FeedbackService;
 
 /**
@@ -21,7 +22,7 @@ public class OakController {
     public String getResponse(String input) {
         try {
             return feedbackService.run(input);
-        } catch (InvalidInputException | IOException e) {
+        } catch (InvalidInputException | OakException e) {
             return e.getMessage();
         }
     }

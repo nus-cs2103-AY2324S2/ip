@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 import oak.exceptions.InvalidInputException;
+import oak.exceptions.OakException;
 import oak.feedback.enums.CommandEnum;
 import oak.task.ReminderService;
 import oak.task.TaskService;
@@ -27,7 +28,7 @@ public class FeedbackService {
      * @throws InvalidInputException the invalid input exception
      * @throws IOException           the io exception
      */
-    public String run(String userInput) throws InvalidInputException, IOException {
+    public String run(String userInput) throws InvalidInputException, OakException {
         String[] cur = userInput.split(" ");
         CommandEnum curCommand = CommandEnum.getCommandEnum(cur[0]);
         String feedback;
@@ -38,39 +39,43 @@ public class FeedbackService {
             throw new InvalidInputException.InvalidCommandException(cur[0]);
         }
 
-        switch (curCommand) {
-        case REMINDER:
-            feedback = handleReminderCommand();
-            break;
-        case BYE:
-            feedback = handleByeCommand();
-            break;
-        case LIST:
-            feedback = handleListCommand();
-            break;
-        case FIND:
-            feedback = handleFindCommand(cur);
-            break;
-        case MARK:
-            feedback = handleMarkCommand(cur);
-            break;
-        case UNMARK:
-            feedback = handleUnmarkCommand(cur);
-            break;
-        case TODO:
-            feedback = handleTodoCommand(cur);
-            break;
-        case DEADLINE:
-            feedback = handleDeadlineCommand(cur);
-            break;
-        case EVENT:
-            feedback = handleEventCommand(cur);
-            break;
-        case DELETE:
-            feedback = handleDeleteCommand(cur);
-            break;
-        default:
-            throw new InvalidInputException.InvalidCommandException(cur[0]);
+        try {
+            switch (curCommand) {
+            case REMINDER:
+                feedback = handleReminderCommand();
+                break;
+            case BYE:
+                feedback = handleByeCommand();
+                break;
+            case LIST:
+                feedback = handleListCommand();
+                break;
+            case FIND:
+                feedback = handleFindCommand(cur);
+                break;
+            case MARK:
+                feedback = handleMarkCommand(cur);
+                break;
+            case UNMARK:
+                feedback = handleUnmarkCommand(cur);
+                break;
+            case TODO:
+                feedback = handleTodoCommand(cur);
+                break;
+            case DEADLINE:
+                feedback = handleDeadlineCommand(cur);
+                break;
+            case EVENT:
+                feedback = handleEventCommand(cur);
+                break;
+            case DELETE:
+                feedback = handleDeleteCommand(cur);
+                break;
+            default:
+                throw new InvalidInputException.InvalidCommandException(cur[0]);
+            }
+        } catch (Exception e) { // Catch all exceptions
+            throw new OakException("Oops, seems like there was an issue executing the " + curCommand + " command.\n");
         }
 
         return feedback;
