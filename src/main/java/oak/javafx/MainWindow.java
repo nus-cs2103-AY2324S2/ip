@@ -10,7 +10,6 @@ import javafx.stage.Stage;
 import oak.controller.OakController;
 import oak.feedback.FeedbackService;
 import oak.feedback.enums.CommandEnum;
-import oak.task.ReminderService;
 
 // @@author SherisseTJW-reused
 // The contents of this file is mainly reused, with minor modifications from the JavaFX Tutorial as provided here
@@ -30,7 +29,6 @@ public class MainWindow extends VBox {
     private Button sendButton;
 
     private OakController oak;
-    private ReminderService reminderService = new ReminderService();
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/oak_dex.png"));
     private Image oakImage = new Image(this.getClass().getResourceAsStream("/images/Oak.png"));

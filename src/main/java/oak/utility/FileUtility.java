@@ -18,9 +18,14 @@ public class FileUtility {
      * @return the array list
      * @throws FileNotFoundException the file not found exception
      */
-    public ArrayList<String> loadFile(String filename) throws FileNotFoundException {
-        File file = new File(System.getProperty("user.dir") + filename);
+    public ArrayList<String> loadFile(String filename) throws IOException {
         ArrayList<String> fileData = new ArrayList<>();
+        File file = new File(System.getProperty("user.dir") + filename);
+
+        if (!file.exists()) {
+            file.createNewFile();
+            return fileData;
+        }
 
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
@@ -40,6 +45,7 @@ public class FileUtility {
      */
     public void writeToFile(String filename, String data) throws IOException {
         File file = new File(System.getProperty("user.dir") + filename);
+        file.createNewFile();
         FileWriter fw = new FileWriter(file, true);
         data = "\n" + data;
         fw.write(data);

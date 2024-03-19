@@ -37,7 +37,7 @@ public class TaskService {
 
         try {
             fileData = this.fileUtility.loadFile(this.tasklistFilePath);
-        } catch (FileNotFoundException e) {
+        } catch (IOException e) { // IOException / FileNotFoundException
             System.out.println("Error reading file.. Unable to load tasks from "
                     + this.tasklistFilePath);
         }

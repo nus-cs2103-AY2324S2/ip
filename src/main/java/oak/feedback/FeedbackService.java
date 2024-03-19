@@ -312,6 +312,6 @@ public class FeedbackService {
      * @return the formatted String of the welcome message
      */
     public static String getWelcomeMessage() {
-        return "Welcome to Oak-Dex! How can I help you today?";
+        return "Welcome to Oak-Dex!\n How may I help you?";
     }
 }

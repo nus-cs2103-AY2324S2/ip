@@ -39,7 +39,7 @@ public class FileUtilityTest {
     }
 
     @Test
-    public void loadFileLoadsTheCorrectContentTest() throws FileNotFoundException {
+    public void loadFileLoadsTheCorrectContentTest() throws IOException {
         ArrayList<String> fileContents = this.fileUtility.loadFile(DIRPATH + "/" + FILENAME);
 
         assertEquals(fileContents.size(), 1);

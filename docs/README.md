@@ -54,7 +54,7 @@ Added new Event: lecture occuring from 2024-12-01 @ 10:00 to 2024-12-01 @ 12:00
 
 Adds a new Deadline item to Oak-Dex
 
-Syntax: `event <name> /by <by-date> @ <by-time>`
+Syntax: `deadline <name> /by <by-date> @ <by-time>`
 
 Note that the formats for Date and Time are:
 - `YYYY-MM-DD`: `by-date`
