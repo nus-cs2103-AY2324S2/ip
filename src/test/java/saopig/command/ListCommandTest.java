@@ -57,7 +57,7 @@ public class ListCommandTest {
 
     @Test
     void testListTasksOnDateNoTasks() {
-        String command = "listtaskondate 2022-01-01";
+        String command = "listondate 2022-01-01";
         String result;
         listCommand = new ListCommand(command, 1);
         when(mockTaskList.getTasks()).thenReturn(new ArrayList<>());
