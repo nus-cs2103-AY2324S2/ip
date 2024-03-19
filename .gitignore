@@ -18,7 +18,6 @@ bin/
 /text-ui-test/EXPECTED-UNIX.TXT
 /text-ui-test/EXPECTED.TXT
 /text-ui-test/input.txt
-/src/test/
 *.class
 
 # VSCode files
