@@ -55,39 +55,38 @@ public class AddTask extends Command {
         // handle tag inputs
         String[] tagSplit = parameter.split("/tags", 2);
         String parametersWithoutTags = tagSplit[0];
-        String tagsParameter;
         ArrayList<String> tagsList = new ArrayList<>();
         if (tagSplit.length > 1) {
-            tagsParameter = tagSplit[1];
+            String tagsParameter = tagSplit[1];
             ParseTags parsedTags = new ParseTags(tagsParameter);
             tagsList = parsedTags.tagsStringToArray();
         }
 
         // create Command based on instruction
         switch (instruction) {
-            case "todo":
-                t = new ToDo(parametersWithoutTags, tagsList);
-                break;
-            case "deadline": {
-                try {
-                    t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
-                } catch (DateTimeParseException e) {
-                    return ("Error while parsing date: Format should be d-M-yy.");
-                } catch (InvalidInputException e) {
-                    return e.getMessage();
-                }
-                break;
+        case "todo":
+            t = new ToDo(parametersWithoutTags, tagsList);
+            break;
+        case "deadline": {
+            try {
+                t = makeDeadlineCommand(instruction, parametersWithoutTags, tagsList);
+            } catch (DateTimeParseException e) {
+                return ("Error while parsing date: Format should be d-M-yy.");
+            } catch (InvalidInputException e) {
+                return e.getMessage();
             }
-            case "event": {
-                try {
-                    t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
-                } catch (DateTimeParseException e) {
-                    return ("Error while parsing date: Format should be d-M-yy.");
-                } catch (InvalidInputException e) {
-                    return e.getMessage();
-                }
-                break;
+            break;
+        }
+        case "event": {
+            try {
+                t = makeEventCommand(instruction, parametersWithoutTags, tagsList);
+            } catch (DateTimeParseException e) {
+                return ("Error while parsing date: Format should be d-M-yy.");
+            } catch (InvalidInputException e) {
+                return e.getMessage();
             }
+            break;
+        }
         }
         if (t != null) {
             TaskManager.getTasks().add(t);

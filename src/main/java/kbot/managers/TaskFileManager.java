@@ -91,26 +91,26 @@ public class TaskFileManager {
         assert instruction != null && instruction.length() > 0 : "File may be corrupted: Task type is not found!";
         Task t = null;
         switch (instruction) {
-            case "T": {
-                t = loadToDo(parameter);
-                break;
+        case "T": {
+            t = loadToDo(parameter);
+            break;
+        }
+        case "D": {
+            try {
+                t = loadDeadline(parameter);
+            } catch (DateTimeParseException e) {
+                System.out.println(e.getMessage());
             }
-            case "D": {
-                try {
-                    t = loadDeadline(parameter);
-                } catch (DateTimeParseException e) {
-                    System.out.println(e.getMessage());
-                }
-                break;
+            break;
+        }
+        case "E": {
+            try {
+                t = loadEvent(parameter);
+            } catch (DateTimeParseException f) {
+                System.out.println(f.getMessage());
             }
-            case "E": {
-                try {
-                    t = loadEvent(parameter);
-                } catch (DateTimeParseException f) {
-                    System.out.println(f.getMessage());
-                }
-                break;
-            }
+            break;
+        }
         }
         return t;
     }
