@@ -6,10 +6,10 @@ plugins {
     id 'org.openjfx.javafxplugin' version '0.1.0'
 }
 
-mainClassName = "duke.Launcher"
+mainClassName = "talkingcat.Launcher"
 
 application {
-    mainClass.set("duke.Launcher")
+    mainClass.set("talkingcat.Launcher")
 }
 
 
@@ -53,5 +53,5 @@ jar {
 }
 
 shadowJar {
-    archiveFileName = 'duke.jar'
+    archiveFileName = 'talkingcat.jar'
 }

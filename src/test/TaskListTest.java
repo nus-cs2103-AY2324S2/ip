@@ -1,4 +1,4 @@
-package seedu.duke;
+package seedu.talkingcat;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

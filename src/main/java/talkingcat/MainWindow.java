@@ -1,4 +1,4 @@
-package duke;
+package talkingcat;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -19,22 +19,22 @@ public class MainWindow extends AnchorPane {
     @FXML
     private Button sendButton;
 
-    private Duke duke;
+    private TalkingCat talkingcat;
 
     private TaskList tasks;
     private Ui ui;
     private Storage storage;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/minnie.jpeg"));
-    private Image dukeImage = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
+    private Image talkingcatImage = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
 
     @FXML
     public void initialize() {
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
     }
 
-    public void setDuke(Duke d, TaskList tasks, Ui ui, Storage storage) {
-        this.duke = d;
+    public void settalkingcat(TalkingCat d, TaskList tasks, Ui ui, Storage storage) {
+        this.talkingcat = d;
         this.tasks = tasks;
         this.ui = ui;
         this.storage = storage;
@@ -54,7 +54,7 @@ public class MainWindow extends AnchorPane {
 
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing talkingcat's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -65,14 +65,14 @@ public class MainWindow extends AnchorPane {
         try {
             Command command = Parser.parse(userInputText);
             response = command.execute(tasks, ui, storage);
-        } catch (DukeException e) {
+        } catch (TalkingCatException e) {
             response = e.getMessage();
         }
 
         // Display the user input and the response in the GUI
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInputText, userImage),
-                DialogBox.getDukeDialog(response, dukeImage)
+                DialogBox.gettalkingcatDialog(response, talkingcatImage)
         );
 
         userInput.clear();

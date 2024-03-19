@@ -13,13 +13,13 @@ Deadlines are tasks that need to be done before a specific date/time.
 Events are tasks that occur at a specific date/time.
 
 Finding Tasks
-You can search for tasks by keywords. Duke will show you all tasks that contain the keyword in their description.
+You can search for tasks by keywords. talkingcat will show you all tasks that contain the keyword in their description.
 
 Marking Tasks as Done
 Tasks can be marked as done. This helps you keep track of tasks that you have completed.
 
 Listing All Tasks
-Duke can list all your tasks at once, allowing you to see everything you have planned at a glance.
+talkingcat can list all your tasks at once, allowing you to see everything you have planned at a glance.
 
 ## Usage
 

@@ -1,4 +1,4 @@
-package duke;
+package talkingcat;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
@@ -28,31 +28,31 @@ import java.nio.file.Paths;
 
 
 /**
- * Represents the main class for the Duke application.
+ * Represents the main class for the TalkingCat application.
  * Initializes the application and starts the interaction with the user.
  */
-public class Duke extends Application {
+public class TalkingCat extends Application {
     private Storage storage;
     private TaskList tasks;
     private Ui ui;
-    private String FILE_PATH = "./data/duke.txt/duke.txt";
+    private String FILE_PATH = "./data/talkingcat.txt/talkingcat.txt";
     private ScrollPane scrollPane;
     private VBox dialogContainer;
     private TextField userInput;
     private Button sendButton;
     private Scene scene;
     private Image user = new Image(this.getClass().getResourceAsStream("/images/minnie.jpeg"));
-    private Image duke = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
+    private Image talkingCat = new Image(this.getClass().getResourceAsStream("/images/spinminnie.jpeg"));
     /**
-     * Constructs a new Duke instance with the specified file path for data storage.
+     * Constructs a new talkingcat instance with the specified file path for data storage.
      *
      */
-    public Duke() {
+    public TalkingCat() {
         ui = new Ui();
         storage = new Storage(FILE_PATH);
         try {
             tasks = new TaskList(storage.load());
-        } catch (DukeException e) {
+        } catch (TalkingCatException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
@@ -72,13 +72,13 @@ public class Duke extends Application {
      * @param stage The primary stage for this application.
      */
     private void initializeStage(Stage stage) {
-        Duke duke = new Duke();
+        TalkingCat talkingCat = new TalkingCat();
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(Duke.class.getResource("/view/MainWindow.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(TalkingCat.class.getResource("/view/MainWindow.fxml"));
             AnchorPane ap = fxmlLoader.load();
             Scene scene = new Scene(ap);
             stage.setScene(scene);
-            fxmlLoader.<MainWindow>getController().setDuke(this, tasks, ui, storage);
+            fxmlLoader.<MainWindow>getController().settalkingcat(this, tasks, ui, storage);
             stage.show();
         } catch (IOException e) {
             e.printStackTrace();
@@ -107,7 +107,7 @@ public class Duke extends Application {
      * @param stage The primary stage to be configured.
      */
     private void configureStage(Stage stage) {
-        stage.setTitle("Duke");
+        stage.setTitle("talkingcat");
         stage.setResizable(false);
         stage.setMinHeight(600.0);
         stage.setMinWidth(400.0);
@@ -170,7 +170,7 @@ public class Duke extends Application {
     }
 
     /**
-     * Creates two dialog boxes, one echoing user input and the other containing Duke's reply and then appends them to
+     * Creates two dialog boxes, one echoing user input and the other containing talkingcat's reply and then appends them to
      * the dialog container. Clears the user input after processing.
      */
     @FXML
@@ -190,7 +190,7 @@ public class Duke extends Application {
                 // For other commands, you can customize the response
                 response = "Command executed successfully.";
             }
-        } catch (DukeException e) {
+        } catch (TalkingCatException e) {
             // Handle exceptions, for example, invalid command, task not found, etc.
             response = e.getMessage();
         }
@@ -198,22 +198,18 @@ public class Duke extends Application {
         // Display the response or updated task list in the GUI
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(userInputText, user),
-                DialogBox.getDukeDialog(response, duke)
+                DialogBox.gettalkingcatDialog(response, talkingCat)
         );
 
         userInput.clear();
     }
 
-    /**
-     * You should have your own function to generate a response to user input.
-     * Replace this stub with your completed method.
-     */
     public String getResponse(String input) {
         return "NyanTasks heard: " + input;
     }
 
     /**
-     * Runs the Duke application. Initializes the necessary components and starts
+     * Runs the talkingcat application. Initializes the necessary components and starts
      * the command loop to receive and process user input.
      */
     public void run() {
@@ -225,17 +221,13 @@ public class Duke extends Application {
                 Command command = Parser.parse(fullCommand);
                 command.execute(tasks, ui, storage);
                 isExit = command.isExit(); // Check if the command signals to exit
-            } catch (DukeException e) {
+            } catch (TalkingCatException e) {
                 ui.showError(e.getMessage());
             }
         }
         ui.closeScanner();
     }
-    /**
-     * The entry point of the application.
-     *
-     * @param args Command line arguments.
-     */
+
     public static void main(String[] args) {
         Launcher.main(new String[2]);
     }
@@ -247,13 +239,13 @@ public class Duke extends Application {
  */
 class Launcher {
     public static void main(String[] args) {
-        Application.launch(Duke.class, args);
+        Application.launch(TalkingCat.class, args);
     }
 }
 
 
-class DukeException extends Exception {
-    public DukeException(String message) {
+class TalkingCatException extends Exception {
+    public TalkingCatException(String message) {
         super(message);
     }
 }
@@ -435,7 +427,7 @@ class Ui {
 
 
 /**
- * Handles storage operations for Duke application, including loading from and saving tasks to a file.
+ * Handles storage operations for talkingcat application, including loading from and saving tasks to a file.
  */
 class Storage {
     private String filePath;
@@ -472,12 +464,12 @@ class Storage {
      * Loads tasks from the storage file.
      *
      * @return A list of tasks loaded from the file.
-     * @throws DukeException If the file cannot be read.
+     * @throws TalkingCatException If the file cannot be read.
      */
-    public List<Task> load() throws DukeException {
+    public List<Task> load() throws TalkingCatException {
         File file = new File(filePath);
         if (!file.exists()) {
-            throw new DukeException("File not found");
+            throw new TalkingCatException("File not found");
         }
 
         try {
@@ -486,7 +478,7 @@ class Storage {
                     .filter(java.util.Objects::nonNull)
                     .collect(Collectors.toList());
         } catch (IOException e) {
-            throw new DukeException("Error reading from file: " + e.getMessage());
+            throw new TalkingCatException("Error reading from file: " + e.getMessage());
         }
     }
 
@@ -505,7 +497,7 @@ class Storage {
             Task task = createTask(type, description, parts);
             if (isDone) task.markAsDone();
             return task;
-        } catch (DukeException | DateTimeParseException e) {
+        } catch (TalkingCatException | DateTimeParseException e) {
             System.out.println("Skipping invalid task: " + line);
             return null;
         }
@@ -518,24 +510,24 @@ class Storage {
      * @param description The description of the task.
      * @param parts An array containing additional information needed to create the task.
      * @return The created Task object.
-     * @throws DukeException If the task type is unknown or format is invalid.
+     * @throws TalkingCatException If the task type is unknown or format is invalid.
      */
-    private Task createTask(String type, String description, String[] parts) throws DukeException {
+    private Task createTask(String type, String description, String[] parts) throws TalkingCatException {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
         switch (type) {
             case "T":
                 return new Todo(description);
             case "D":
-                if (parts.length < 4) throw new DukeException("Invalid deadline format in file.");
+                if (parts.length < 4) throw new TalkingCatException("Invalid deadline format in file.");
                 LocalDateTime byDate = LocalDateTime.parse(parts[3], formatter);
                 return new Deadline(description, byDate);
             case "E":
-                if (parts.length < 5) throw new DukeException("Invalid event format in file.");
+                if (parts.length < 5) throw new TalkingCatException("Invalid event format in file.");
                 LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
                 LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
                 return new Event(description, from, to);
             default:
-                throw new DukeException("Unknown task type: " + type);
+                throw new TalkingCatException("Unknown task type: " + type);
         }
     }
 
@@ -593,9 +585,9 @@ class Parser {
      *
      * @param fullCommand The full string input by the user.
      * @return The command object corresponding to the user input.
-     * @throws DukeException If the command is unknown or if there is a format issue with the input.
+     * @throws TalkingCatException If the command is unknown or if there is a format issue with the input.
      */
-    public static Command parse(String fullCommand) throws DukeException {
+    public static Command parse(String fullCommand) throws TalkingCatException {
         String[] commandParts = fullCommand.split(" ", 2);
         String commandType = commandParts[0].toLowerCase(); // Consider case-insensitivity
         String commandArgs = commandParts.length > 1 ? commandParts[1] : "";
@@ -620,7 +612,7 @@ class Parser {
             case "bye":
                 return new ExitCommand();
             default:
-                throw new DukeException("Unknown command");
+                throw new TalkingCatException("Unknown command");
         }
     }
 
@@ -629,41 +621,41 @@ class Parser {
      *
      * @param args The argument for the todo command, which is the description of the task.
      * @return An instance of AddTodoCommand.
-     * @throws DukeException If the description is empty.
+     * @throws TalkingCatException If the description is empty.
      */
-    private static Command createAddTodoCommand(String args) throws DukeException {
+    private static Command createAddTodoCommand(String args) throws TalkingCatException {
         if (args.isEmpty()) {
-            throw new DukeException("The description of a todo cannot be empty.");
+            throw new TalkingCatException("The description of a todo cannot be empty.");
         }
         return new AddTodoCommand(args);
     }
 
-    private static Command createAddDeadlineCommand(String args) throws DukeException {
+    private static Command createAddDeadlineCommand(String args) throws TalkingCatException {
         return parseAddDeadlineCommand(args);
     }
 
-    private static Command createAddEventCommand(String args) throws DukeException {
+    private static Command createAddEventCommand(String args) throws TalkingCatException {
         return parseAddEventCommand(args);
     }
 
-    private static Command createMarkCommand(String args) throws DukeException {
+    private static Command createMarkCommand(String args) throws TalkingCatException {
         int index = parseIndex(args);
         return new MarkCommand(index);
     }
 
-    private static Command createUnmarkCommand(String args) throws DukeException {
+    private static Command createUnmarkCommand(String args) throws TalkingCatException {
         int index = parseIndex(args);
         return new UnmarkCommand(index);
     }
 
-    private static Command createDeleteCommand(String args) throws DukeException {
+    private static Command createDeleteCommand(String args) throws TalkingCatException {
         int index = parseIndex(args);
         return new DeleteCommand(index);
     }
 
-    private static Command createFindCommand(String args) throws DukeException {
+    private static Command createFindCommand(String args) throws TalkingCatException {
         if (args.isEmpty()) {
-            throw new DukeException("The keyword for find cannot be empty.");
+            throw new TalkingCatException("The keyword for find cannot be empty.");
         }
         return new FindCommand(args);
     }
@@ -673,20 +665,20 @@ class Parser {
      *
      * @param args The command arguments containing the index.
      * @return The parsed index.
-     * @throws DukeException If the index is not a valid integer.
+     * @throws TalkingCatException If the index is not a valid integer.
      */
-    private static int parseIndex(String args) throws DukeException {
+    private static int parseIndex(String args) throws TalkingCatException {
         try {
             return Integer.parseInt(args) - 1;
         } catch (NumberFormatException e) {
-            throw new DukeException("Invalid task number format.");
+            throw new TalkingCatException("Invalid task number format.");
         }
     }
 
-    private static Command parseAddDeadlineCommand(String commandArgs) throws DukeException {
+    private static Command parseAddDeadlineCommand(String commandArgs) throws TalkingCatException {
         String[] parts = commandArgs.split("/by", 2);
         if (parts.length < 2 || parts[0].trim().isEmpty() || parts[1].trim().isEmpty()) {
-            throw new DukeException("Invalid deadline command format.");
+            throw new TalkingCatException("Invalid deadline command format.");
         }
         String description = parts[0].trim();
         String by = parts[1].trim();
@@ -694,20 +686,20 @@ class Parser {
             LocalDateTime byDate = LocalDateTime.parse(by, dateTimeFormatter);
             return new AddDeadlineCommand(description, byDate);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
+            throw new TalkingCatException("Invalid date format. Please use yyyy-MM-dd HHmm format.");
         }
     }
 
-    private static Command parseAddEventCommand(String commandArgs) throws DukeException {
+    private static Command parseAddEventCommand(String commandArgs) throws TalkingCatException {
         String[] parts = commandArgs.split("/from", 2);
         if (parts.length < 2) {
-            throw new DukeException("Invalid event command format. Missing '/from'.");
+            throw new TalkingCatException("Invalid event command format. Missing '/from'.");
         }
         String description = parts[0].trim();
 
         String[] timeParts = parts[1].trim().split("/to", 2);
         if (timeParts.length < 2) {
-            throw new DukeException("Invalid event command format. Missing '/to'.");
+            throw new TalkingCatException("Invalid event command format. Missing '/to'.");
         }
         String from = timeParts[0].trim();
         String to = timeParts[1].trim();
@@ -718,14 +710,14 @@ class Parser {
             LocalDateTime endDateTime = LocalDateTime.parse(to, formatter);
             return new AddEventCommand(description, startDateTime, endDateTime);
         } catch (DateTimeParseException e) {
-            throw new DukeException("Invalid date and time format. Please use 'MMM dd yyyy, HH:mm' format.");
+            throw new TalkingCatException("Invalid date and time format. Please use 'MMM dd yyyy, HH:mm' format.");
         }
     }
 }
 
 
 /**
- * Represents a list of tasks in the Duke application.
+ * Represents a list of tasks in the talkingcat application.
  * Provides functionality to add, remove, and query tasks.
  */
 class TaskList {
@@ -974,7 +966,7 @@ class Event extends Task {
 
 
 abstract class Command {
-    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws TalkingCatException;
     public abstract boolean isExit();
 }
 
@@ -1001,12 +993,12 @@ class MarkCommand extends Command {
      * @param ui The user interface for displaying messages.
      * @param storage The storage for saving the updated task list.
      * @return A string indicating the task has been marked as done.
-     * @throws DukeException If the specified index is invalid.
+     * @throws TalkingCatException If the specified index is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkingCatException {
         if (index < 0 || index >= tasks.getSize()) {
-            throw new DukeException("Invalid task number.");
+            throw new TalkingCatException("Invalid task number.");
         }
         Task task = tasks.getTask(index);
         task.markAsDone();
@@ -1049,12 +1041,12 @@ class UnmarkCommand extends Command {
      * @param ui The user interface for displaying messages.
      * @param storage The storage for saving the updated task list.
      * @return A string indicating the task has been unmarked as not done.
-     * @throws DukeException If the specified index is invalid.
+     * @throws TalkingCatException If the specified index is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkingCatException {
         if (index < 0 || index >= tasks.getSize()) {
-            throw new DukeException("Invalid task number.");
+            throw new TalkingCatException("Invalid task number.");
         }
         Task task = tasks.getTask(index);
         task.markAsNotDone();
@@ -1097,12 +1089,12 @@ class DeleteCommand extends Command {
      * @param ui The user interface for displaying messages.
      * @param storage The storage for saving the updated task list.
      * @return A string indicating the task has been deleted.
-     * @throws DukeException If the specified index is invalid.
+     * @throws TalkingCatException If the specified index is invalid.
      */
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkingCatException {
         if (index < 0 || index >= tasks.getSize()) {
-            throw new DukeException("Invalid task number.");
+            throw new TalkingCatException("Invalid task number.");
         }
         Task task = tasks.removeTask(index);
         ui.showDeletedTask(task, tasks.getSize());
@@ -1329,7 +1321,7 @@ class FindCommand extends Command {
     }
 
     @Override
-    public String execute(TaskList tasks, Ui ui, Storage storage) throws DukeException {
+    public String execute(TaskList tasks, Ui ui, Storage storage) throws TalkingCatException {
         List<Task> matchedTasks = tasks.findTasks(keyword);
         if (matchedTasks.isEmpty()) {
             return "No tasks matched your keyword.";
