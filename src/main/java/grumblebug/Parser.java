@@ -38,8 +38,6 @@ public class Parser {
             return "";
         } else if (input.equals("save")) {
             return storage.writeToFile(taskList);
-        } else if (input.equals("changecolor")) {
-            return processChangeColor();
         } else if (input.startsWith("mark")) {
             return processMarkTaskInput(input, true, GrumbleBug.NUM_PARAMS_FOR_MARK, taskList);
         } else if (input.startsWith("unmark")) {
@@ -60,8 +58,7 @@ public class Parser {
     }
 
     /**
-     * Parses user input and tells taskList to mark or unmark the corresponding
-     * task,
+     * Parses user input and tells taskList to mark or unmark the corresponding task,
      * if the input format is legible.
      * 
      * @param input    The user input into the chat.
@@ -72,8 +69,14 @@ public class Parser {
     private String processMarkTaskInput(String input, boolean doneness, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
+        if (words.length < numParams || words[1].length() < 1) {
+            return "Give a number you silly goose, stupid!";
+        }
         try {
             int i = Integer.parseInt(words[1]);
+            if (i > taskList.size()) {
+                return "Out of bounds. Get your head in the game, please.";
+            }
             if (doneness) {
                 taskList.mark(i);
             } else {
@@ -85,11 +88,6 @@ public class Parser {
         }
     }
 
-    private String processChangeColor() {
-
-        return "Color changed";
-    }
-
     /**
      * Parses user input and tells taskList to find the tasks using the keyword.
      * 
@@ -99,6 +97,9 @@ public class Parser {
     public String processFindTasksInput(String input, int numParams, TaskList taskList) {
         String[] words = input.split(" ", numParams);
         assert words.length <= numParams;
+        if (words.length < numParams || words[1].length() < 1) {
+            return "Give a non-empty search query, you stupid!";
+        }
         return taskList.findMatches(words[1]);
     }
 
@@ -137,7 +138,7 @@ public class Parser {
             taskList.addDeadline(words[1], this.parseDate(words[2]));
             return "k";
         } catch (DateTimeParseException e) {
-            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
+            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format... And keep the title spaceless!";
         }
     }
 
@@ -156,10 +157,15 @@ public class Parser {
             return "Give the correct number of arguments! This should be simple by now.";
         }
         try {
-            taskList.addEvent(words[1], this.parseDate(words[2]), this.parseDate(words[3]));
+            LocalDate startDate = this.parseDate(words[2]);
+            LocalDate endDate = this.parseDate(words[3]);
+            if (endDate.isBefore(startDate)) {
+                return "I don't think we can time-travel. How come it ends before it starts? Lol...";
+            }
+            taskList.addEvent(words[1], startDate, endDate);
             return "k";
         } catch (DateTimeParseException e) {
-            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format...";
+            return "Ugh, I don't get it. Date should be in yyyy-MM-dd format... And keep the title spaceless!";
         }
     }
 

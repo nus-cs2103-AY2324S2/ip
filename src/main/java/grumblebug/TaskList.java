@@ -78,17 +78,17 @@ public class TaskList {
     }
 
     public void addToDo(String desc) {
-        Task t = new Task(false, desc);
+        Task t = new Todo(false, desc);
         this.add(t);
     }
 
     public void addDeadline(String desc, LocalDate deadline) {
-        Task t = new Task(false, desc, deadline);
+        Task t = new Deadline(false, desc, deadline);
         this.add(t);
     }
 
     public void addEvent(String desc, LocalDate start, LocalDate end) {
-        Task t = new Task(false, desc, start, end);
+        Task t = new Event(false, desc, start, end);
         this.add(t);
     }
 }
