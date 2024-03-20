@@ -1,6 +1,8 @@
 package eve.tasks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
 
 import eve.parser.Parser;
 /*
@@ -31,10 +33,12 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
         if (super.tag == null){
-            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")";
+            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by.format(formatter) + ")";
         } else  {
-            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by + ")" + "#" + super.tag;
+            return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by.format(formatter) + ")" + "#" + super.tag;
         }
 
     }
