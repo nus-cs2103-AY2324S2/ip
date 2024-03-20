@@ -10,18 +10,19 @@ Welcome to Eve, your personal chatbot for managing tasks. This guide will help y
 
 ## Features
 1. [Adding of Task](#adding-task)
-    - 'Todo'
-    - 'Event'
-    - 'Deadline'
-2. Editing of Task
-    - Deleting
-    - Tagging
-    - Marking as Done
-    - Marking as UnDone
-3. Viewing of Task
-    - Viewing the List of Task
-4. Exiting
-    - Exiting the Chatbot
+    - [Creating a Todo](#adding-todo) `Todo`
+    - [Adding a Event](#adding-event) `Event`
+    - [Making a Deadline](#adding-deadline) `Deadline`
+2. [Task Manipulation](#task-manipulation)
+    - [Deleting your task](#deleting-a-task) `Delete`
+    - [Tagging your task](#tagging-a-task) `Tag`
+    - [Marking as Done](#updating-a-task-as-done) `Mark`
+    - [Marking as UnDone](#updating-a-task-as-not-done) `Unmark`
+3. [Finding your Tasks](#filtering-your-tasks)
+    - [Finding your Task](#finding-a-task) `Find`
+    - [Viewing back to the List of Task](#listing-all-the-availble-task) `List`
+4. [Exiting](#exiting-the-chatbot)
+    - [Exiting the Chatbot](#exiting-the-chatbot) `Bye`
 
 ### Adding Task
 There are 3 different types of Tasks, Todo, Deadline and Event
@@ -67,6 +68,7 @@ There are various way to manipulate yout task with eve, there are
 - Task Finding
 - Marking a Task as done/not done
 - Tagging a task 
+
 ## Deleting a Task
 We all make mistake, perhaps the task is is wrongly inputed or you would not like to track it anymore, in this case do delete the task with
 
@@ -75,14 +77,6 @@ Example input: delete 2
 Expected Output: Got it. I've removed the task 
                  [D][ ] return book (by: Dec 2 2019 1800)
                  Now you have 2 task in your list
-
-## Finding a Task
-To find a task in the list, we can just use the 'Find' Command.
-
-Example input: find meeting
-
-Expected Output: Here are the matching tasks in your list
-                1. [E][ ] project meeting (from: Dec 2 2019 1800 to Dec 2 2019 2000)
 
 
 ## Updating a Task as Done
@@ -112,6 +106,15 @@ Example input: tag 1 hard
 Expected Output: Nice! I've added a tag to this:
                 [T][ ] Submit project # Hard
 
+### Filtering your Tasks
+
+## Finding a Task
+To find a task in the list, we can just use the 'Find' Command.
+
+Example input: find meeting
+
+Expected Output: Here are the matching tasks in your list
+                1. [E][ ] project meeting (from: Dec 2 2019 1800 to Dec 2 2019 2000)
 
 ### Listing all the availble task
 Eve provides the ability to unmark a task as done using the 'List' command
@@ -126,6 +129,9 @@ Expected Output: Here are the tasks in your list:
 ### Exiting the Chatbot
 To exit the chatbot, use the 'bye' command !
 
+This command is optional, it just let's Eve know that you don't want to talk to her anymore,
+tasks are saved upon telling Eve your task.
 Example input: bye:
 
 Expected Output: Bye. Hope to see you again soon !
+
