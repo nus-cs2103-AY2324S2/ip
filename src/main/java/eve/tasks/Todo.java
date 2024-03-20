@@ -20,7 +20,7 @@ public class Todo extends Task {
 
     @Override
     public String toString() {
-        if(super.tag == null) { 
+        if (super.tag == null) {
             return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString();
         } else {
             return "[T]" + "[" + super.getStatusIcon() + "] " + super.toString() + "#" + super.tag;
@@ -29,7 +29,7 @@ public class Todo extends Task {
 
     @Override
     public String toStore() {
-        if(super.tag == null) {
+        if (super.tag == null) {
             return "T" + " | " + super.getStatusInteger() + " | " + super.toString();
         } else {
             return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "#" + super.tag + "\n";

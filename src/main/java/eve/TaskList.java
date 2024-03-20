@@ -26,9 +26,6 @@ public class TaskList {
         }
         return response.toString().trim();
     }
-        
-
-
     /**
      * This method is used to mark a task as done
      * @param tempyArr is the array of the input command
@@ -43,11 +40,10 @@ public class TaskList {
         StringBuilder response = new StringBuilder("Nice! I've marked this task as done:  \n");
         
         response.append(temp.toString()).append("\n");
-        
         return response.toString().trim();
     }
 
-    public static String commandTag(String[] tempyArr, ArrayList<Task> list){
+    public static String commandTag(String[] tempyArr, ArrayList<Task> list) {
         assert list.size() > 0 : "Task list is empty";
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
@@ -56,7 +52,6 @@ public class TaskList {
         StringBuilder response = new StringBuilder("Nice! I've added a tag to this task:  \n");
         
         response.append(temp.toString()).append("\n");
-        
         return response.toString().trim();
     }
 
@@ -71,11 +66,8 @@ public class TaskList {
         int index = Integer.parseInt(tempyArr[1]) - 1;
         Task temp = list.get(index);
         temp.markAsNotDone();
-
         StringBuilder response = new StringBuilder("Nice! I've marked this task as not done yet:  \n");
-        
         response.append(temp.toString()).append("\n");
-
         return response.toString().trim();
     }
     /**

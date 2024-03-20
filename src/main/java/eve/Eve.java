@@ -1,18 +1,18 @@
 package eve;
 
-import eve.parser.Commands;
-import eve.parser.Parser;
-import eve.fileStorage.Storage;
-import eve.tasks.Task;
 import java.util.ArrayList;
 
+import eve.fileStorage.Storage;
+import eve.parser.Commands;
+import eve.parser.Parser;
+import eve.tasks.Task;
 
-public class Eve{
+public class Eve {
     private Storage storage;
     private ArrayList<Task> tasks = new ArrayList<Task>();
     private Parser parser;
 
-    public Eve(){
+    public Eve() {
         this.storage = new Storage();
 
         try {
@@ -27,11 +27,10 @@ public class Eve{
     public String sayHello() {
         return Commands.commandHello();
     }
- 
 
-    //need to implement getResponse
+
     public String getResponse(String input) {
-        try{
+        try {
             String response = parser.parseAndExecute(input);
             //save tasks to file
             Storage.writeToFile(tasks);

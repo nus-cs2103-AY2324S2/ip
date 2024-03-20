@@ -2,13 +2,12 @@ package eve.gui;
 
 import java.io.IOException;
 
+import eve.Eve;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-
-import eve.Eve;
 /**
  * A GUI for eve using FXML.
  */
@@ -24,7 +23,7 @@ public class Main extends Application {
             Scene scene = new Scene(ap);
             stage.setScene(scene);
 
-            MainWindow controller = fxmlLoader.getController();  
+            MainWindow controller = fxmlLoader.getController();
             controller.setEve(eve);
             stage.show();
         } catch (IOException e) {
