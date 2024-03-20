@@ -28,11 +28,11 @@ Welcome to Eve, your personal chatbot for managing tasks. This guide will help y
 There are 3 different types of Tasks, `Todo`, `Deadline` and `Event`
 
 Notes on formatting:
-- Commands typed are not case senitive (e.g Mark is parsed the same as mark)
+- Commands typed are not case senitive (e.g `Mark` is parsed the same as `mark`)
 - the first [ ] represents the type of task, 
-    - T for Todo
-    - D for Dealine
-    - E for Event
+    - T for `Todo`
+    - D for `Dealine`
+    - E for `Event`
 - The second [ ] represents whether the task is completed ornot, if it's empty it means the task is not done yet, once it's marked as done it'll be represented with an X.
 - Tasks are automatically saved after every input.
 
