@@ -9,14 +9,14 @@ import eve.tasks.Task;
 
 public class Eve {
     private Storage storage;
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks;
     private Parser parser;
 
     public Eve() {
         this.storage = new Storage();
 
         try {
-            storage.loadFileContents(tasks);
+            tasks = storage.loadFileContents();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

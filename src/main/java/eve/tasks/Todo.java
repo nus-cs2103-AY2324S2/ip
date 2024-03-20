@@ -30,7 +30,7 @@ public class Todo extends Task {
     @Override
     public String toStore() {
         if (super.tag == null) {
-            return "T" + " | " + super.getStatusInteger() + " | " + super.toString();
+            return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "\n";
         } else {
             return "T" + " | " + super.getStatusInteger() + " | " + super.toString() + "#" + super.tag + "\n";
         }

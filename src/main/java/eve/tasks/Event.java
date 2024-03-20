@@ -39,19 +39,26 @@ public class Event extends Task {
         if (super.tag == null) {
             return "[E]" + "[" + super.getStatusIcon() + "]"
                     + super.toString() + " (from: " + startString.format(formatter)
-                    + "to: " + endString.format(formatter) + ")";
+                    + " to: " + endString.format(formatter) + ")";
         } else {
             return "[E]" + "[" + super.getStatusIcon() + "]"
             + super.toString() + " (from: " + startString.format(formatter)
-            + "to: " + endString.format(formatter) + ")" + super.tag;
+            + " to: " + endString.format(formatter) + ")" + super.tag;
         }
     }
 
     @Override
     public String toStore() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
+        if(super.tag == null) {
         return "E" + " | " + super.getStatusInteger() + " | "
-                + super.toString() + " | " + startString
-                + endString + "\n" + super.tag;
+                + super.toString() + " | " + startString.format(formatter) + " | "
+                + endString.format(formatter) + "\n";
+        } else {
+            return "E" + " | " + super.getStatusInteger() + " | "
+                + super.toString() + " | " + startString.format(formatter) + " | "
+                + endString.format(formatter) + "#" + super.tag + "\n";    
+        }
     }
 
     public String getStartString() {

@@ -44,11 +44,12 @@ public class Deadline extends Task {
     }
     @Override
     public String toStore() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm");
         if (super.tag == null) {
-            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by;
+            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by.format(formatter) + "\n";
         } else {
-            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by + "\n" + "#"
-                    + super.tag;
+            return "D" + " | " + super.getStatusInteger() + " | " + super.toString() + " | " + by.format(formatter) + "#"
+                    + super.tag + "\n";
         }
     }
 }
