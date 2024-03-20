@@ -91,10 +91,9 @@ public class Parser {
     }
 
     private static void markTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
-        if (!isValid(token)) {
+        if (!isValid(token, taskList)) {
             throw new RizException(Ui.markError());
         }
-
         int curr = Integer.parseInt(token[1]) - 1;
         Task task = taskList.get(curr);
         task.mark();
@@ -104,7 +103,7 @@ public class Parser {
     }
 
     private static void unmarkTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
-        if (!isValid(token)) {
+        if (!isValid(token, taskList)) {
             throw new RizException(Ui.unmarkError());
         }
         int curr = Integer.parseInt(token[1]) - 1;
@@ -121,7 +120,7 @@ public class Parser {
     }
 
     private static void deleteTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
-        if (!isValid(token)) {
+        if (!isValid(token, taskList)) {
             throw new RizException(Ui.deleteError());
         }
         int curr = Integer.parseInt(token[1]) - 1;
@@ -133,14 +132,10 @@ public class Parser {
     }
 
     private static void addToDo(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
-        if (!isValidTask(token)) {
-            throw new RizException(Ui.todoError());
-        } else {
         Task task = new ToDo(token[1]);
         taskList.add(task);
         storage.writeToFile(taskList.getTaskList());
         sb.append("added: ").append(task.toString()).append("...").append("\n\n");
-        }
     }
 
     private static void addDeadline(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
@@ -190,7 +185,7 @@ public class Parser {
         return helpMessage;
     }
 
-    private static boolean isValid(String[] token) {
+    private static boolean isValid(String[] token, TaskList taskList) {
         boolean isValid = true;
         if (token.length != 2) {
             isValid = false;
@@ -200,6 +195,8 @@ public class Parser {
                 isValid = false;
             }
         }
+        int curr = Integer.parseInt(token[1]);
+        isValid = isValid && taskList.size() >= curr;
         return isValid;
     }
 
@@ -208,11 +205,7 @@ public class Parser {
         String format = "dd/MM/yyyy HHmm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         String taskType = token[0];
-        if (taskType.equals("todo")) {
-            if (token.length != 2) {
-                isValid = false;
-            }
-        } else if (taskType.equals("deadline")) {
+        if (taskType.equals("deadline")) {
             if (token.length != 2) {
                 isValid = false;
             }

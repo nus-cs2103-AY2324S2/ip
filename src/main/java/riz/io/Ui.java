@@ -35,14 +35,7 @@ public class Ui {
      * prints the error when the delete command is input wrongly.
      */
     public static String deleteError() {
-        return "Oh you sure you wanna delete the task?...";
-    }
-
-    /**
-     * prints the error when the ToDo command is input wrongly.
-     */
-    public static String todoError() {
-        return "Indecisive aren't we...";
+        return "Error in deleting the task...";
     }
 
     /**

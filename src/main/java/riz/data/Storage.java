@@ -32,7 +32,7 @@ public class Storage {
         try (Scanner scanner = new Scanner(file)) {
             while(scanner.hasNext()) {
                 String[] token = scanner.nextLine().split(" \\| ");
-                tasks = createTaskList(token);
+                tasks.addAll(createTaskList(token));
             }
         } catch (FileNotFoundException e) {
             File dir = new File("riz/data");
