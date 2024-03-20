@@ -44,7 +44,7 @@ public class TaskList {
     }
     /**
      * This method is used to add a tag to a task
-     * @param tempyArr is the array of the input command
+     * @param inputArr is the array of the input command
      * @param list is the list of tasks
      */
     public static String commandTag(String[] inputArr, ArrayList<Task> list) {
