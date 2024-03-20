@@ -52,7 +52,7 @@ Format: `deadline DESCRIPTION /by DATETIME`
 
 Example of usage:
 
-`deadline return book /by 09/30/2023 2000` adds a deadline task with the description "return book" and the deadline 
+`deadline return book /by 30/03/2023 2000` adds a deadline task with the description "return book" and the deadline 
 30 September 2023 2000 hrs.
 
 &nbsp;
@@ -64,7 +64,7 @@ Format: `event DESCRIPTION /from DATETIME /to DATETIME`
 
 Example of usage:
 
-`event project meeting /from 09/30/2023 1400 /to 09/30/2023 1600` adds an event task with the description "project 
+`event project meeting /from 30/09/2023 1400 /to 30/09/2023 1600` adds an event task with the description "project 
 meeting" that starts at 30 September 2023 1400 hrs and ends at 30 September 2023 1600 hrs.
 
 &nbsp;
