@@ -3,12 +3,13 @@ package eve.tasks;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.LocalDateTime;
-import eve.parser.Parser;
 
 import org.junit.jupiter.api.Test;
 
+import eve.parser.Parser;
 
-public class DeadlineTest {    
+
+public class DeadlineTest {
     //3 test to test if event is created correctly or not
 
     @Test

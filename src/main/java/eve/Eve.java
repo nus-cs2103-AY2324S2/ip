@@ -2,21 +2,27 @@ package eve;
 
 import java.util.ArrayList;
 
-import eve.fileStorage.Storage;
+import eve.filestorage.Storage;
 import eve.parser.Commands;
 import eve.parser.Parser;
 import eve.tasks.Task;
 
+/**
+ * main class of the chatbot
+ */
 public class Eve {
     private Storage storage;
-    private ArrayList<Task> tasks = new ArrayList<Task>();
+    private ArrayList<Task> tasks;
     private Parser parser;
 
+    /**
+     * Constructor for the Eve class
+     */
     public Eve() {
         this.storage = new Storage();
 
         try {
-            storage.loadFileContents(tasks);
+            tasks = storage.loadFileContents();
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }

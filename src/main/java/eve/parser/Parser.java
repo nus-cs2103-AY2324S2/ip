@@ -8,6 +8,10 @@ import eve.TaskList;
 import eve.exceptions.EveExceptions;
 import eve.tasks.Task;
 
+/**
+ * Parser class is used to parse the input and execute the commands
+ */
+
 public class Parser {
 
     private Eve eve;
@@ -16,6 +20,13 @@ public class Parser {
         this.eve = eve;
     }
 
+    /**
+     * This method is used to parse the input and execute the commands
+     * this is the main business logic of the chatbot
+     * @param input
+     * @return String
+     * @throws EveExceptions
+     */
     public String parseAndExecute(String input) throws EveExceptions {
         String[] tempyArr = getSplitParts(input);
         String commandCheck = tempyArr[0].toUpperCase();
@@ -56,7 +67,12 @@ public class Parser {
         }
 
     }
-    
+
+    /**
+     * This method is used to convert a string to a date time object
+     * @param s
+     * @return LocalDateTime
+     */
     public static LocalDateTime stringToDateTime(String s) {
         String[] temp = s.split(" ");
         int hour = Integer.parseInt(temp[1].substring(0, 2));

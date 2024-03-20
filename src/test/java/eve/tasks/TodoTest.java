@@ -16,7 +16,7 @@ public class TodoTest {
     @Test
     public void test2() {
         String input = "todo return book";
-        Todo todo = new Todo(input);    
+        Todo todo = new Todo(input);
         todo.markAsDone();
         assertEquals(true, todo.getTaskStatus());
     }
@@ -24,8 +24,8 @@ public class TodoTest {
     @Test
     public void test3() {
         String input = "todo return book";
-        Todo todo = new Todo(input);    
+        Todo todo = new Todo(input);
         todo.markAsNotDone();
-        assertEquals(false, todo.getTaskStatus());   
+        assertEquals(false, todo.getTaskStatus());
     }
 }

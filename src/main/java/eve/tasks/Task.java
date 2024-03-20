@@ -1,5 +1,5 @@
 package eve.tasks;
-/*
+/**
  * This object is what is stored in the list
  */
 public class Task {
@@ -7,6 +7,10 @@ public class Task {
     protected boolean isDone;
     protected String tag;
 
+    /**
+     * Constructor for the Task class
+     * @param description
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;

@@ -36,6 +36,9 @@ public class MainWindow extends AnchorPane {
         eve = d;
         displayGreeting();
     }
+    /**
+     * Displays Eve's greeting message.
+     */
 
     public void displayGreeting() {
         String greeting = eve.sayHello();
