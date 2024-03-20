@@ -38,11 +38,15 @@ public class TaskList {
         temp.markAsDone();
 
         StringBuilder response = new StringBuilder("Nice! I've marked this task as done:  \n");
-        
+
         response.append(temp.toString()).append("\n");
         return response.toString().trim();
     }
-
+    /**
+     * This method is used to add a tag to a task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
     public static String commandTag(String[] tempyArr, ArrayList<Task> list) {
         assert list.size() > 0 : "Task list is empty";
         int index = Integer.parseInt(tempyArr[1]) - 1;
@@ -50,7 +54,7 @@ public class TaskList {
         temp.addTag(tempyArr[2]);
 
         StringBuilder response = new StringBuilder("Nice! I've added a tag to this task:  \n");
-        
+
         response.append(temp.toString()).append("\n");
         return response.toString().trim();
     }
@@ -82,7 +86,7 @@ public class TaskList {
         list.remove(temp);
 
         StringBuilder response = new StringBuilder("Noted. I've removed this task:   \n");
-        
+
         response.append(temp.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
 
         return response.toString().trim();
@@ -105,7 +109,7 @@ public class TaskList {
         list.add(t);
 
         StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
-        
+
         response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
 
         return response.toString().trim();
@@ -125,7 +129,7 @@ public class TaskList {
         list.add(t);
 
         StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
-        
+
         response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
 
         return response.toString().trim();
@@ -147,17 +151,22 @@ public class TaskList {
         list.add(t);
 
         StringBuilder response = new StringBuilder("Got it. I've added this task   \n");
-        
+
         response.append(t.toString()).append("\n").append("Now you have " + list.size() + " tasks in the list.");
 
         return response.toString().trim();
     }
 
+    /**
+     * This method is used to find a task
+     * @param tempyArr is the array of the input command
+     * @param list is the list of tasks
+     */
     public static String commandFind(String[] tempyArr, ArrayList<Task> list) {
         ArrayList<Task> matchingTasks = new ArrayList<>();
 
         String taskToFind = tempyArr[1];
-        
+
         for (Task task : list) {
             if (task.getTask().contains(taskToFind)) {
                 matchingTasks.add(task);
@@ -165,7 +174,7 @@ public class TaskList {
         }
 
         StringBuilder response = new StringBuilder();
-        
+
         if (matchingTasks.isEmpty()) {
             response.append("No matching tasks found");
         } else {

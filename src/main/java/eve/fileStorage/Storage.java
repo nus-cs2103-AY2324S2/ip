@@ -1,19 +1,14 @@
-package eve.fileStorage;
-// will split into this next time
+package eve.filestorage;
 
-import java.io.File;
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.Files;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.io.BufferedReader;
 
-import eve.TaskList;
 import eve.tasks.Deadline;
 import eve.tasks.Event;
 import eve.tasks.Task;
@@ -33,14 +28,18 @@ public class Storage {
      * Constructor for the Storage class
      */
     public Storage() {
-        
+
     }
-    // The below functions are adapted from CS2103T website Week 3
+
+    /**
+     * This method is used to load the tasks from the file
+     * The below functions are adapted from CS2103T website Week 3
+     */
     public ArrayList<Task> loadFileContents() throws FileNotFoundException {
         ArrayList<Task> list = new ArrayList<Task>();
         try {
             doesFileExist();
-            BufferedReader br= Files.newBufferedReader(path);
+            BufferedReader br = Files.newBufferedReader(path);
             while (br.ready()) {
                 String temp = br.readLine();
                 String[] tempyArr = temp.split(" \\| ");
@@ -76,7 +75,10 @@ public class Storage {
     }
 
 
-    // currently works to write to file
+    /**
+     * This method is used to write the tasks into the file
+     * @param tasks is the list of tasks
+     */
     public static void writeToFile(ArrayList<Task> tasks) throws IOException {
         try {
             FileWriter fw = new FileWriter(filePath);
