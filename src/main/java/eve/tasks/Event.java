@@ -1,6 +1,7 @@
 package eve.tasks;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import eve.parser.Parser;
 
@@ -33,9 +34,17 @@ public class Event extends Task {
 
     @Override
     public String toString() {
-        return "[E]" + "[" + super.getStatusIcon() + "]"
-                + super.toString() + " (from: " + startString
-                + "to: " + endString + ")" + super.tag;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+
+        if (super.tag == null) {
+            return "[E]" + "[" + super.getStatusIcon() + "]"
+                    + super.toString() + " (from: " + startString.format(formatter)
+                    + "to: " + endString.format(formatter) + ")";
+        } else {
+            return "[E]" + "[" + super.getStatusIcon() + "]"
+            + super.toString() + " (from: " + startString.format(formatter)
+            + "to: " + endString.format(formatter) + ")" + super.tag;
+        }
     }
 
     @Override
