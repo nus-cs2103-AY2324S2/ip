@@ -88,7 +88,7 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleEventButton() {
         userInput.requestFocus();
-        userInput.setText("event  /from /to");
+        userInput.setText("event  /from  /to ");
         userInput.positionCaret(6);
     }
 

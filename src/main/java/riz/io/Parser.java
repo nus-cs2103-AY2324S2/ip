@@ -3,6 +3,8 @@ package riz.io;
 import riz.data.*;
 import riz.data.*;
 
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 /**
@@ -23,52 +25,56 @@ public class Parser {
         StringBuilder sb = new StringBuilder();
         String[] token = input.split(" ", 2);
         String cmd = token[0];
-        switch (cmd) {
-            case "help":
-                String helpMessage = getHelp();
-                sb.append(helpMessage);
-                return sb.toString();
-            case "clear":
-                clearTasks(taskList, storage, sb);
-                break;
-            case "find":
-                findTask(taskList, sb, token);
-                break;
-            case "mark":
-                markTask(taskList, storage, sb, token);
-                break;
-            case "unmark":
-                unmarkTask(taskList, storage, sb, token);
-                break;
-            case "list":
-                listTasks(storage, sb);
-                break;
-            case "delete":
-                deleteTask(taskList, storage, sb, token);
-                break;
-            case "todo":
-                addToDo(taskList, storage, sb, token);
-                break;
-            case "deadline":
-                addDeadline(taskList, storage, sb, token);
-                break;
-            case "event":
-                addEvent(taskList, storage, sb, token);
-                break;
-            default:
-                sb.append(Ui.yapError());
-                break;
+        try {
+            switch (cmd) {
+                case "help":
+                    String helpMessage = getHelp();
+                    sb.append(helpMessage);
+                    return sb.toString();
+                case "clear":
+                    clearTasks(taskList, storage, sb);
+                    break;
+                case "find":
+                    findTask(taskList, sb, token);
+                    break;
+                case "mark":
+                    markTask(taskList, storage, sb, token);
+                    break;
+                case "unmark":
+                    unmarkTask(taskList, storage, sb, token);
+                    break;
+                case "list":
+                    listTasks(storage, sb);
+                    break;
+                case "delete":
+                    deleteTask(taskList, storage, sb, token);
+                    break;
+                case "todo":
+                    addToDo(taskList, storage, sb, token);
+                    break;
+                case "deadline":
+                    addDeadline(taskList, storage, sb, token);
+                    break;
+                case "event":
+                    addEvent(taskList, storage, sb, token);
+                    break;
+                default:
+                    sb.append(Ui.yapError());
+                    break;
 
+            }
+            int size = storage.countFromFile();
+            if (size == 0) {
+                sb.append(" You currently have nothing to do... yay...");
+            } else if (size == 1) {
+                sb.append(" You currently have only one thing to do... just get it done with...");
+            } else {
+                sb.append(" You currently have ").append(size).append(" things to do...");
+            }
+            sb.append("\n\n");
+        } catch (RizException e) {
+            sb.append(e.getMessage());
         }
-        int size = storage.countFromFile();
-        if (size == 0) {
-            sb.append(" You currently have nothing to do... yay...");
-        } else if (size == 1) {
-            sb.append(" You currently have only one thing to do... just get it done with...");
-        } else {
-            sb.append(" You currently have ").append(size).append(" things to do...");
-        }
-        sb.append("\n\n");
         return sb.toString();
     }
 
@@ -78,28 +84,20 @@ public class Parser {
         sb.append(Ui.printAllCleared());
     }
 
-    private static void findTask(TaskList taskList, StringBuilder sb, String[] token) {
+    private static void findTask(TaskList taskList, StringBuilder sb, String[] token) throws RizException {
         if (token.length != 2) {
-            sb.append(Ui.findError());
+            throw new RizException(Ui.findError());
         } else {
             String word = token[1];
             sb.append(taskList.find(word));
         }
     }
 
-    private static void markTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        boolean isNumber = true;
-        if (token.length != 2) {
-            sb.append(Ui.markError());
+    private static void markTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+        if (!isValid(token)) {
+            throw new RizException(Ui.markError());
         }
-        for (char c : token[1].toCharArray()) {
-            if (!Character.isDigit(c)) {
-                isNumber = false;
-            }
-        }
-        if (!isNumber) {
-            sb.append(Ui.markError());
-        }
+
         int curr = Integer.parseInt(token[1]) - 1;
         Task task = taskList.get(curr);
         task.mark();
@@ -108,18 +106,9 @@ public class Parser {
         sb.append(task.toString()).append("\n\n");
     }
 
-    private static void unmarkTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        boolean isNumber = true;
-        if (token.length != 2) {
-            sb.append(Ui.unmarkError());
-        }
-        for (char c : token[1].toCharArray()) {
-            if (!Character.isDigit(c)) {
-                isNumber = false;
-            }
-        }
-        if (!isNumber) {
-            sb.append(Ui.unmarkError());
+    private static void unmarkTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+        if (!isValid(token)) {
+            throw new RizException(Ui.unmarkError());
         }
         int curr = Integer.parseInt(token[1]) - 1;
         Task task = taskList.get(curr);
@@ -134,18 +123,9 @@ public class Parser {
         sb.append(storage.printFromFile()).append("\n\n");
     }
 
-    private static void deleteTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        boolean isNumber = true;
-        if (token.length != 2) {
-            sb.append(Ui.deleteError());
-        }
-        for (char c : token[1].toCharArray()) {
-            if (!Character.isDigit(c)) {
-                isNumber = false;
-            }
-        }
-        if (!isNumber) {
-            sb.append(Ui.deleteError());
+    private static void deleteTask(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+        if (!isValid(token)) {
+            throw new RizException(Ui.deleteError());
         }
         int curr = Integer.parseInt(token[1]) - 1;
         Task task = taskList.get(curr);
@@ -155,27 +135,23 @@ public class Parser {
         sb.append("Removed: ").append(task.toString()).append("...").append("\n\n");
     }
 
-    private static void addToDo(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        if (token[0].equals("todo")) {
-            if (token.length != 2) {
-                sb.append(Ui.todoError());
-            } else {
-                Task task = new ToDo(token[1]);
-                taskList.add(task);
-                storage.writeToFile(taskList.getTaskList());
-                sb.append("added: ").append(task.toString()).append("...").append("\n\n");
-            }
+    private static void addToDo(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+        if (!isValidTask(token)) {
+            throw new RizException(Ui.todoError());
+        } else {
+        Task task = new ToDo(token[1]);
+        taskList.add(task);
+        storage.writeToFile(taskList.getTaskList());
+        sb.append("added: ").append(task.toString()).append("...").append("\n\n");
         }
     }
 
-    private static void addDeadline(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        if (token.length != 2) {
-            sb.append(Ui.deadlineError());
+    private static void addDeadline(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+        if (!isValidTask(token)) {
+            throw new RizException(Ui.deadlineError());
         }
-        String[] details = token[1].split(" /by ");
-        if (details.length < 2) {
-            sb.append(Ui.deadlineError());
-        } else {
+        else {
+            String[] details = token[1].split(" /by ");
             Task task = new Deadline(details[0], details[1]);
             taskList.add(task);
             storage.writeToFile(taskList.getTaskList());
@@ -183,14 +159,11 @@ public class Parser {
         }
     }
 
-    private static void addEvent(TaskList taskList, Storage storage, StringBuilder sb, String[] token) {
-        if (token.length != 2) {
-            sb.append(Ui.eventError());
-        }
-        String[] details = token[1].split(" /from |\\ /to ");
-        if (details.length != 3) {
-            sb.append(Ui.eventError());
+    private static void addEvent(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException{
+        if (!isValidTask(token)) {
+            throw new RizException(Ui.eventError());
         } else {
+            String[] details = token[1].split(" /by ");
             Task task = new Event(details[0], details[1], details[2]);
             taskList.add(task);
             storage.writeToFile(taskList.getTaskList());
@@ -218,5 +191,60 @@ public class Parser {
                 + "Find: Returns all task based on what you searched for, even if it only matches partially\n"
                 + "Format: Find <INSERT TASK NAME HERE>\n\n";
         return helpMessage;
+    }
+
+    private static boolean isValid(String[] token) {
+        boolean isValid = true;
+        if (token.length != 2) {
+            isValid = false;
+        }
+        for (char c : token[1].toCharArray()) {
+            if (!Character.isDigit(c)) {
+                isValid = false;
+            }
+        }
+        return isValid;
+    }
+
+    private static boolean isValidTask(String[] token) {
+        boolean isValid = true;
+        String format = "dd/MM/yyyy HHmm";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
+        String taskType = token[0];
+        if (taskType.equals("todo")) {
+            if (token.length != 2) {
+                isValid = false;
+            }
+        } else if (taskType.equals("deadline")) {
+            if (token.length != 2) {
+                isValid = false;
+            }
+            String[] details = token[1].split(" /by ");
+            if (details.length != 2) {
+                isValid = false;
+            }
+            try {
+                formatter.parse(token[1]);
+            } catch (DateTimeParseException e) {
+                isValid = false;
+            }
+        } else if (taskType.equals("event")) {
+            if (token.length != 2) {
+                isValid = false;
+            }
+            String[] details = token[1].split(" /from |\\ /to ");
+            if (details.length != 3) {
+                isValid = false;
+            }
+            try {
+                formatter.parse(details[1]);
+                formatter.parse(details[2]);
+            } catch (DateTimeParseException e) {
+                isValid = false;
+            }
+        } else {
+            isValid = false;
+        }
+        return isValid;
     }
 }
