@@ -1,11 +1,11 @@
-name: Build and Release
+name: Build and Pre-release
 
 on:
   pull_request:
     types: [closed]
     branches:
       - master
-
+      
 jobs:
   build:
     strategy:
