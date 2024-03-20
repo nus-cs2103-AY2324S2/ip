@@ -36,9 +36,15 @@ public class Event extends Task {
     public String toString() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
 
-        return "[E]" + "[" + super.getStatusIcon() + "]"
-                + super.toString() + " (from: " + startString.format(formatter)
-                + "to: " + endString.format(formatter) + ")" + super.tag;
+        if (super.tag == null) {
+            return "[E]" + "[" + super.getStatusIcon() + "]"
+                    + super.toString() + " (from: " + startString.format(formatter)
+                    + "to: " + endString.format(formatter) + ")";
+        } else {
+            return "[E]" + "[" + super.getStatusIcon() + "]"
+            + super.toString() + " (from: " + startString.format(formatter)
+            + "to: " + endString.format(formatter) + ")" + super.tag;
+        }
     }
 
     @Override

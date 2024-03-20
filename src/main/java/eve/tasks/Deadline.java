@@ -33,8 +33,8 @@ public class Deadline extends Task {
 
     @Override
     public String toString() {
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMM d yyyy HHmm");
+        
         if (super.tag == null){
             return "[D]" + "[" + super.getStatusIcon() + "] " + super.toString() + " (by: " + by.format(formatter) + ")";
         } else  {
