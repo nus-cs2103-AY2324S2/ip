@@ -1,0 +1,14 @@
+todo borrow book
+deadline return book /by 2023-03-11 1800
+event project meeting /from 2022-09-11 1800 /to 2022-09-12 2359
+list
+mark 1
+mark 3
+unmark 1
+delete 2
+list
+invalid command
+delete 6
+deadline nothing
+find project
+bye

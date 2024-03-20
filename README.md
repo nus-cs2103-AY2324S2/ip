@@ -1,24 +1,34 @@
-# Duke project template
+# Huyang Chatbot 🤖
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> "Your mind is for having ideas, not holding them." – David Allen ([source](https://gettingthingsdone.com/))
 
-## Setting up in Intellij
+**Huyang** frees your mind of having to remember things you need to do. It's,
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- *text-based*
+- **easy to learn**
+- ***FAST SUPER FAST*** to use
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+And it is **FREE** (for now)!
+![Huyang](docs/Ui.png)
+### Features:
+
+- [x] Managing tasks
+- [x] Managing deadlines
+- [x] Managing events
+- [x] `delete`, `find`, `list` functions
+
+## Installation
+
+To create a JAR file, run `./gradlew shadowJar` in your terminal. Alternatively, you may download the JAR file directly.
+
+### Download JAR File
+
+You can download the latest version of our application from the [releases page](https://github.com/YourUsername/YourRepository/releases).
+
+1. Navigate to the [releases page](https://github.com/hiivan/ip/releases).
+2. Find the latest release version (e.g., v0.2) and click on it.
+3. Download the JAR file from the assets section.
+
+### Usage
+
+Once you've downloaded the JAR file, you can use it in your project by including it in your classpath or running it using the `java -jar huyang.jar` command.
