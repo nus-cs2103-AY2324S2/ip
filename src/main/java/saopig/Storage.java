@@ -21,6 +21,7 @@ import saopig.task.Todo;
  * Storage class handles the loading and saving of the task list.
  */
 public class Storage {
+    private static final String DIVIDE_SYMBOL = " %&///&% ";
     private static final String FILE_PATH = "./data/saopigTaskList.txt";
     private static final String FILE_DIRECTORY = "./data";
     private static final String TIME_PATTERN = "yyyy-MM-dd HH:mm";
@@ -38,6 +39,59 @@ public class Storage {
         this.taskList = taskList;
 
     }
+    /**
+     * Checks if the directory exists and creates a new directory if it does not exist.
+     */
+    public void checkAndCreateDirectory() {
+        if (!new File(FILE_DIRECTORY).exists()) {
+            new File(FILE_DIRECTORY).mkdirs();
+            System.out.println("Creating new directory");
+        }
+    }
+
+    /**
+     * Checks if the file exists and creates a new file if it does not exist.
+     * @param file File object to check and create.
+     * @throws IOException If an I/O error occurs.
+     */
+    public void checkAndCreateFile(File file) throws IOException {
+        if (!file.exists()) {
+            System.out.println("Creating new file");
+            file.createNewFile();
+        }
+    }
+    /**
+     * Checks the type of the task and returns the corresponding string.
+     * @param task Task object to check the type.
+     * @return String representing the type of the task.
+     */
+    public String checkTaskType(Task task) {
+        if (task instanceof Todo) {
+            return "T";
+        } else if (task instanceof Deadline) {
+            return "D";
+        } else {
+            return "E";
+        }
+    }
+    /**
+     * Returns the description of the task with the time if the task is a Deadline or Event.
+     * @param task Task object to get the description.
+     * @return String representing the description of the task.
+     */
+    public String getDescription(Task task) {
+        String description = task.getDescription();
+        if (task instanceof Deadline) {
+            description += DIVIDE_SYMBOL
+                    + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
+        } else if (task instanceof Event) {
+            description += DIVIDE_SYMBOL
+                    + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime())
+                    + DIVIDE_SYMBOL
+                    + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
+        }
+        return description;
+    }
 
     /**
      * Saves the task list to the file path specified in FILE_PATH.
@@ -45,35 +99,20 @@ public class Storage {
      */
     public void saveTaskList(TaskList taskList) {
         try {
-            if (!new File(FILE_DIRECTORY).exists()) {
-                new File(FILE_DIRECTORY).mkdirs();
-                System.out.println("Creating new directory");
-            }
+            checkAndCreateDirectory();
             File file = new File(FILE_PATH);
-            if (!file.exists()) {
-                System.out.println("Creating new file");
-                file.createNewFile();
-            }
+            checkAndCreateFile(file);
             FileWriter fileWriter = new FileWriter(file);
             if (taskList.getSize() == 0) {
                 fileWriter.write("");
-            } else {
-                for (Task task : taskList.getTasks()) {
-                    String taskType = task instanceof Todo ? "T" : task instanceof Deadline ? "D" : "E";
-                    String isDone = task.getIsDoneState() ? "1" : "0";
-                    String description = task.getDescription();
-                    String divideSymbol = " %&///&% ";
-                    if (task instanceof Deadline) {
-                        description += divideSymbol
-                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Deadline) task).getBy());
-                    } else if (task instanceof Event) {
-                        description += divideSymbol
-                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getStartTime())
-                                + divideSymbol
-                                + DateTimeFormatter.ofPattern(TIME_PATTERN).format(((Event) task).getEndTime());
-                    }
-                    fileWriter.write(taskType + divideSymbol + isDone + divideSymbol + description + "\n");
-                }
+                fileWriter.close();
+                return;
+            }
+            for (Task task : taskList.getTasks()) {
+                String taskType = checkTaskType(task);
+                String isDone = task.getIsDoneState() ? "1" : "0";
+                String description = getDescription(task);
+                fileWriter.write(taskType + DIVIDE_SYMBOL + isDone + DIVIDE_SYMBOL + description + "\n");
             }
             fileWriter.close();
         } catch (IOException | DateTimeException e) {
@@ -93,38 +132,11 @@ public class Storage {
             File file = new File(FILE_PATH);
             if (!file.exists()) {
                 ui.printMessage("\n"
-                        + "Oh dear, it looks like there are no tasks stored yet!\n "
-                        + "But that's alright.\n "
-                        + "It gives us a chance to start fresh and dream up some new plans.\n "
-                        + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
-                        + "Let's make it a magical journey together!");
+                        + "Oh dear, it looks like there are no tasks stored yet!\n ");
                 return taskList;
             }
             Scanner scanner = new Scanner(file);
-            while (scanner.hasNextLine()) {
-                String input = scanner.nextLine();
-                String divideSymbol = " %&///&% ";
-                String[] splitInput = input.split(divideSymbol);
-                switch (splitInput[0]) {
-                case "T":
-                    taskList.getTasks().add(new Todo(splitInput[2]));
-                    break;
-                case "D":
-                    LocalDateTime deadlineDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
-                    taskList.getTasks().add(new Deadline(splitInput[2], deadlineDateTime));
-                    break;
-                case "E":
-                    LocalDateTime fromDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
-                    LocalDateTime toDateTime = LocalDateTime.parse(splitInput[4], DATE_TIME_FORMATTER);
-                    taskList.getTasks().add(new Event(splitInput[2], fromDateTime, toDateTime));
-                    break;
-                default:
-                    break;
-                }
-                if (splitInput[1].equals("1")) {
-                    taskList.getTask(taskList.getSize() - 1).markAsDone();
-                }
-            }
+            scanAndLoadTaskList(taskList, scanner);
             scanner.close();
             ui.printMessage("Successfully loaded your previous task list!\n "
                     + "Now you have " + taskList.getSize() + " tasks in the list.\n");
@@ -134,5 +146,35 @@ public class Storage {
                     + "Please try again, or type 'bye' to exit.");
         }
         return taskList;
+    }
+
+    private static void scanAndLoadTaskList(TaskList taskList, Scanner scanner) {
+        while (scanner.hasNextLine()) {
+            String input = scanner.nextLine();
+            String[] splitInput = input.split(DIVIDE_SYMBOL);
+            loadTaskByType(taskList, splitInput);
+            if (splitInput[1].equals("1")) {
+                taskList.getTask(taskList.getSize() - 1).markAsDone();
+            }
+        }
+    }
+
+    private static void loadTaskByType(TaskList taskList, String[] splitInput) {
+        switch (splitInput[0]) {
+        case "T":
+            taskList.getTasks().add(new Todo(splitInput[2]));
+            break;
+        case "D":
+            LocalDateTime deadlineDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
+            taskList.getTasks().add(new Deadline(splitInput[2], deadlineDateTime));
+            break;
+        case "E":
+            LocalDateTime fromDateTime = LocalDateTime.parse(splitInput[3], DATE_TIME_FORMATTER);
+            LocalDateTime toDateTime = LocalDateTime.parse(splitInput[4], DATE_TIME_FORMATTER);
+            taskList.getTasks().add(new Event(splitInput[2], fromDateTime, toDateTime));
+            break;
+        default:
+            break;
+        }
     }
 }

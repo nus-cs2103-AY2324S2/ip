@@ -44,7 +44,6 @@ public class FindCommand extends Command {
                     matchingTasks.add(task);
                 }
             }
-
             if (matchingTasks.isEmpty()) {
                 return ("No matching tasks found.");
             }

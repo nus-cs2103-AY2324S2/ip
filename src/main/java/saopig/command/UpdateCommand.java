@@ -50,72 +50,89 @@ public class UpdateCommand extends Command {
             String[] splitCommand = input.split(" ");
             int taskIndex = Integer.parseInt(splitCommand[1]) - 1;
             int lengthOfCommand = splitCommand.length;
-            for (int i = 0; i < lengthOfCommand; i += 1) {
-                if (isChangeDesription(splitCommand[i])) {
-                    spliteInput(splitCommand, lengthOfCommand, i);
-                    String description = spliteInput(splitCommand, lengthOfCommand, i);
-                    taskList.getTask(taskIndex).changeDescription(description);
-                    response.append("Change description to ").append(description).append("\n");
-                } else if (isChangeDeadLineTime(splitCommand[i])) {
-                    spliteInput(splitCommand, lengthOfCommand, i);
-                    Task task = taskList.getTask(taskIndex);
-                    String time = spliteInput(splitCommand, lengthOfCommand, i);
-                    LocalDateTime deadlineDateTime;
-                    try {
-                        deadlineDateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
-
-                    } catch (DateTimeParseException e) {
-                        return ("\n"
-                                + "Whoopsie!\n "
-                                + "It seems like you may have given an invalid date time format.\n "
-                                + "Please use the format: yyyy-MM-dd HH:mm");
-                    }
-                    if (task instanceof Deadline) {
-                        Deadline deadline = (Deadline) task;
-                        deadline.changeDeadline(deadlineDateTime);
-                        response.append("Change deadline to ").append(time);
-                    } else if (task instanceof Event) {
-                        Event event = (Event) task;
-                        event.changeEndTime(deadlineDateTime);
-                    }
-                } else if (isChangeStart(splitCommand[i])) {
-                    spliteInput(splitCommand, lengthOfCommand, i);
-                    String time = spliteInput(splitCommand, lengthOfCommand, i);
-                    LocalDateTime startDateTime;
-                    try {
-                        startDateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
-
-                    } catch (DateTimeParseException e) {
-                        return ("\n"
-                                + "Whoopsie!\n "
-                                + "It seems like you may have given an invalid date time format.\n "
-                                + "Please use the format: yyyy-MM-dd HH:mm");
-                    }
-                    Event event = (Event) taskList.getTask(taskIndex);
-                    event.changeStartTime(startDateTime);
-                    response.append("Change start time to ").append(time);
-                }
+            String ui1 = updateTaskByType(taskList, ui, lengthOfCommand, splitCommand, taskIndex, response);
+            if (ui1 != null) {
+                return ui1;
             }
             storage.saveTaskList(taskList);
+            if (response.toString().equals("Got it. I've updated this task:\n")) {
+                return "Nothing to update.";
+            }
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oh, it looks like the 'update' command is missing some details for the task.\n "
-                    + "No problem at all!\n "
-                    + "Just add a bit more information about what you'd like to do, "
-                    + "and it will be as perfect as a sunny day.\n "
-                    + "You're doing wonderfully! ");
+            return (e.getMessage() + ui.getUpdateMissDetail());
         } catch (NumberFormatException e) {
-            return ("\n"
-                    + "Whoopsie!\n "
-                    + "It seems like you may have given an invalid index for the task list "
-                    + "or your input is not a number.");
+            return ("Input is not a number.");
         } catch (IndexOutOfBoundsException e) {
-            return ("\n"
-                    + "Whoopsie!\n "
-                    + "It seems like you may have given an invalid index for the task list.");
+            return (ui.getInvalidIndex());
         }
+    }
+
+    private String updateTaskByType(
+            TaskList taskList, Ui ui, int lengthOfCommand,
+            String[] splitCommand, int taskIndex, StringBuilder response) {
+        for (int i = 0; i < lengthOfCommand; i += 1) {
+            if (isChangeDesription(splitCommand[i])) {
+                spliteInput(splitCommand, lengthOfCommand, i);
+                String description = spliteInput(splitCommand, lengthOfCommand, i);
+                taskList.getTask(taskIndex).changeDescription(description);
+                response.append("Change description to ").append(description).append("\n");
+            } else if (isChangeDeadLineTime(splitCommand[i])) {
+                String ui1 = updateTaskTime(taskList, ui, splitCommand, lengthOfCommand, i, taskIndex, response);
+                if (ui1 != null) {
+                    return ui1;
+                }
+            } else if (isChangeStart(splitCommand[i])) {
+                String ui1 = updateTaskStartTime(
+                        taskList, ui, splitCommand, lengthOfCommand, i, taskIndex, response);
+                if (ui1 != null) {
+                    return ui1;
+                }
+            }
+        }
+        return null;
+    }
+
+    private String updateTaskStartTime(
+            TaskList taskList, Ui ui, String[] splitCommand,
+            int lengthOfCommand, int i, int taskIndex, StringBuilder response) {
+        spliteInput(splitCommand, lengthOfCommand, i);
+        String time = spliteInput(splitCommand, lengthOfCommand, i);
+        LocalDateTime startDateTime;
+        try {
+            startDateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
+
+        } catch (DateTimeParseException e) {
+            return (ui.getInvalidDateFormat());
+        }
+        Event event = (Event) taskList.getTask(taskIndex);
+        event.changeStartTime(startDateTime);
+        response.append("Change start time to ").append(time);
+        return null;
+    }
+
+    private String updateTaskTime(
+            TaskList taskList, Ui ui, String[] splitCommand,
+            int lengthOfCommand, int i, int taskIndex, StringBuilder response) {
+        spliteInput(splitCommand, lengthOfCommand, i);
+        Task task = taskList.getTask(taskIndex);
+        String time = spliteInput(splitCommand, lengthOfCommand, i);
+        LocalDateTime deadlineDateTime;
+        try {
+            deadlineDateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
+
+        } catch (DateTimeParseException e) {
+            return (ui.getInvalidDateFormat());
+        }
+        if (task instanceof Deadline) {
+            Deadline deadline = (Deadline) task;
+            deadline.changeDeadline(deadlineDateTime);
+            response.append("Change deadline to ").append(time);
+        } else if (task instanceof Event) {
+            Event event = (Event) task;
+            event.changeEndTime(deadlineDateTime);
+        }
+        return null;
     }
 
     private String spliteInput(String[] splitCommand, int lengthOfCommand, int i) {

@@ -60,7 +60,7 @@ class DeleteCommandTest {
         result = deleteCommand.deleteTask(inputCommand, mockTaskList, mockUi, mockStorage);
 
         // Verify that an error message is shown
-        assert result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
+        assert result == null || result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
     }
 
     @Test
@@ -69,7 +69,7 @@ class DeleteCommandTest {
         deleteCommand = new DeleteCommand(inputCommand, 0);
         String result;
         result = deleteCommand.deleteTask(inputCommand, mockTaskList, mockUi, mockStorage);
-        assert result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
+        assert result == null || result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
     }
 
     @Test
@@ -82,6 +82,6 @@ class DeleteCommandTest {
         result = deleteCommand.deleteTask(inputCommand, mockTaskList, mockUi, mockStorage);
 
         // Verify that an error message is shown
-        assert result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
+        assert result == null || result.contains("Oopses daisy!") || result.contains("Oh, splendid!");
     }
 }

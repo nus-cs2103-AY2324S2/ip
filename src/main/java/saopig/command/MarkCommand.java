@@ -54,30 +54,23 @@ public class MarkCommand extends Command {
             task.markAsDone();
             assert Objects.equals(task.getStatusIcon(), "X") : "Task should be marked as done";
             storage.saveTaskList(taskList);
-            response.append("\n" + "Oh, splendid! Your task: {")
-                    .append(task.toString())
-                    .append("} has been marked as done successfully.\n ")
-                    .append("Isn't it just wonderful when things go exactly as planned?\n ")
-                    .append("I'm so proud of you for getting it done!");
+            getMarkTaskMessage(response, task);
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have forgotten to give an argument for the mark command.\n "
-                    + "Don't worry, it happens to most of us.\n "
-                    + "Just add the index for the task you'd like to mark, and you'll be all set.\n "
-                    + "Please try again, or type 'bye' to exit.");
+            return (ui.getMarkNoArgument());
         } catch (IndexOutOfBoundsException e) {
-            return ("\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have given an invalid index for the task list.");
+            return (ui.getInvalidIndex());
         } catch (NumberFormatException e) {
-            return ("\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have given an invalid index for the task list "
-                    + "or your input is not a number.");
+            return ("input index should be a number");
         }
+    }
+
+    private static void getMarkTaskMessage(StringBuilder response, Task task) {
+        response.append("\n" + "Oh, splendid! Your task: {")
+                .append(task.toString())
+                .append("} has been marked as done successfully.\n ")
+                .append("Isn't it just wonderful when things go exactly as planned?\n ")
+                .append("I'm so proud of you for getting it done!");
     }
 
     /**
@@ -100,29 +93,22 @@ public class MarkCommand extends Command {
             task.unmarkAsDone();
             assert Objects.equals(task.getStatusIcon(), " ") : "Task should be marked as not done";
             storage.saveTaskList(taskList);
-            response.append("\n" + "Oh, you've unmarked task: {")
-                    .append(task.toString()).append("}?\n ")
-                    .append("No worries at all! It's always okay to reevaluate and adjust your plans.\n ")
-                    .append("Flexibility is a sign of strength, you know. Keep up the great work!");
+            getUnmarkTaskMessage(response, task);
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have forgotten to give an argument for the unmark command.\n "
-                    + "Don't worry, it happens to most of us.\n "
-                    + "Just add the index for the task you'd like to unmark, and you'll be all set.\n "
-                    + "Please try again, or type 'bye' to exit.");
+            return (ui.getUnmarkNoArgument());
         } catch (IndexOutOfBoundsException e) {
-            return ("\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have given an invalid index for the task list.");
+            return (ui.getInvalidIndex());
         } catch (NumberFormatException e) {
-            return ("\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have given an invalid index for the task list "
-                    + "or your input is not a number.");
+            return ("input index should be a number");
         }
+    }
+
+    private static void getUnmarkTaskMessage(StringBuilder response, Task task) {
+        response.append("\n" + "Oh, you've unmarked task: {")
+                .append(task.toString()).append("}?\n ")
+                .append("No worries at all! It's always okay to reevaluate and adjust your plans.\n ")
+                .append("Flexibility is a sign of strength, you know. Keep up the great work!");
     }
 
     /**

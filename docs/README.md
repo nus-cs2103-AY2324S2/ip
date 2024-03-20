@@ -115,3 +115,15 @@ from the current directory where the `saopig.jar` is located.
 Format: `listOnDate <DATE>`
 
 Example: `listOnDate 2021-09-30`
+
+## Update a task
+>Update a task in the task list.
+
+Format: `update <INDEX> [/d <DESCRIPTION>] [/by <DATE>] [/from <DATE>] [/to <DATE>]`
+
+Example: 
+* `update 1 /d read book`
+
+* `update 1 /by 2021-09-30 12:00`
+
+* `update 1 /from 2021-09-30 12:00 /to 2021-09-30 14:00`

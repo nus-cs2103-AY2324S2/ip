@@ -71,13 +71,7 @@ public class AddCommand extends Command {
                     + "Oh, splendid! Your Todo task: {" + task.toString() + "} has been added successfully.\n "
                     + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oh, it looks like the 'todo' command is missing some details for the task.\n "
-                    + "No problem at all!\n "
-                    + "Just add a bit more information about what you'd like to do, "
-                    + "and it will be as perfect as a sunny day.\n "
-                    + "You're doing wonderfully! ");
+            return (e.getMessage() + ui.getTodoMissDetailMessage());
         }
     }
 
@@ -102,49 +96,57 @@ public class AddCommand extends Command {
             assert input.length() >= 10 : "Input length should be at least 10";
             String splitInput = input.substring(9);
             String[] splitArguments = splitInput.split(" /by ");
-            if (splitArguments.length != 2) {
-                response.append("\n"
-                        + "Whoopsie!\n "
-                        + "It seems like you may have forgotten to write the deadline time.");
+            if (deadlineLengthChecker(splitArguments, response)) {
+                return response.toString();
             }
             LocalDateTime deadlineDateTime = null;
-            try {
-                deadlineDateTime = LocalDateTime.parse(splitArguments[1], DATE_TIME_FORMATTER);
-
-            } catch (DateTimeParseException e) {
-                response.append("\n"
-                        + "Whoopsie!\n "
-                        + "It seems like you may have given an invalid date time format.\n "
-                        + "Please use the format: yyyy-MM-dd HH:mm");
-            }
+            deadlineDateTime = getDeadlineDateTime(deadlineDateTime, splitArguments, response);
             Deadline task = new Deadline(splitArguments[0], deadlineDateTime);
             taskList.addDeadlineTask(task);
             storage.saveTaskList(taskList);
-            response.append("\n" + "Oh, splendid! Your Deadline task: {")
-                    .append(task.toString())
-                    .append("} has been added successfully.\n ")
-                    .append("Now you have ").append(taskList.getTasks().size())
-                    .append(" tasks in the list.");
+            addDeadlineMessage(taskList, response, task);
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oh, it looks like the 'deadline' command is missing some details for the task.\n "
-                    + "No problem at all!\n "
-                    + "Just add a bit more information about what you'd like to do, "
-                    + "and it will be as perfect as a sunny day.\n "
-                    + "You're doing wonderfully! ");
+            return (e.getMessage() + ui.getDeadlineMissDetailMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ("\n"
-                    + "Whoopsie! "
-                    + "It seems like you may have forgotten to write the deadline time "
-                    + "or didn't use ' /by ' in your command.\n "
-                    + "Remember there is a space before and after '/by'.\n "
-                    + "It's a tiny detail, "
-                    + "but oh so important! Just add the deadline after '/by ', "
-                    + "and you'll be as organized as a library on a quiet morning.\n "
-                    + "You're doing an amazing job! ");
+            return (ui.getDeadlineMissTimeMessage());
         }
+    }
+
+    private static LocalDateTime getDeadlineDateTime(
+            LocalDateTime deadlineDateTime, String[] splitArguments, StringBuilder response) {
+        try {
+            deadlineDateTime = LocalDateTime.parse(splitArguments[1], DATE_TIME_FORMATTER);
+
+        } catch (DateTimeParseException e) {
+            invalidDateTimeMessage(response);
+        }
+        return deadlineDateTime;
+    }
+
+    private static boolean deadlineLengthChecker(String[] splitArguments, StringBuilder response) {
+        if (splitArguments.length != 2) {
+            response.append("\n"
+                    + "Whoopsie!\n "
+                    + "It seems like you may have forgotten to write the deadline time.");
+            return true;
+        }
+        return false;
+    }
+
+    private static void invalidDateTimeMessage(StringBuilder response) {
+        response.append("\n"
+                + "Whoopsie!\n "
+                + "It seems like you may have given an invalid date time format.\n "
+                + "Please use the format: yyyy-MM-dd HH:mm");
+    }
+
+    private void addDeadlineMessage(TaskList taskList, StringBuilder response, Deadline task) {
+        response.append("\n" + "Oh, splendid! Your Deadline task: {")
+                .append(task.toString())
+                .append("} has been added successfully.\n ")
+                .append("Now you have ").append(taskList.getTasks().size())
+                .append(" tasks in the list.");
     }
 
     /**
@@ -168,10 +170,8 @@ public class AddCommand extends Command {
             assert input.length() >= 7 : "Input length should be at least 7";
             String splitInput = input.substring(6);
             String[] splitArguments = splitInput.split("/");
-            if (splitArguments.length != 3) {
-                response.append("\n"
-                        + "Whoopsie!\n "
-                        + "It seems like you may have forgotten to write the event start or end time ");
+            if (eventLengthChecker(splitArguments, response)) {
+                return response.toString();
             }
             assert splitArguments.length == 3 : "Split arguments length should be 3";
             String description = splitArguments[0].trim();
@@ -179,46 +179,50 @@ public class AddCommand extends Command {
             String toTime = splitArguments[2].trim().substring(3);
             LocalDateTime fromDateTime = null;
             LocalDateTime toDateTime = null;
-            try {
-                fromDateTime = LocalDateTime.parse(fromTime, DATE_TIME_FORMATTER);
-                toDateTime = LocalDateTime.parse(toTime, DATE_TIME_FORMATTER);
-            } catch (DateTimeParseException e) {
-                response.append("\n"
-                        + "Whoopsie!\n "
-                        + "It seems like you may have given an invalid date time format.\n "
-                        + "Please use the format: yyyy-MM-dd HH:mm");
-            }
+            fromDateTime = getEventDateTime(fromDateTime, fromTime, response);
+            toDateTime = getEventDateTime(toDateTime, toTime, response);
             Event task = new Event(description, fromDateTime, toDateTime);
             taskList.addEventTask(task);
             storage.saveTaskList(taskList);
-            response.append("\n" + "Oh, splendid! " + "Your Event task: {")
-                    .append(task.toString())
-                    .append("} has been added successfully.\n ")
-                    .append("Isn't it just wonderful when things go exactly as planned?\n ")
-                    .append("I'm so proud of you for getting it done!\n ")
-                    .append("Now you have ")
-                    .append(taskList.getTasks().size())
-                    .append(" tasks in the list.");
+            addEventMessage(taskList, response, task);
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oh, it looks like the 'event' command is missing some details for the task.\n "
-                    + "No problem at all!\n "
-                    + "Just add a bit more information about what you'd like to do, "
-                    + "and it will be as perfect as a sunny day.\n "
-                    + "You're doing wonderfully! ");
+            return (e.getMessage() + ui.getEventMissDetailMessage());
         } catch (ArrayIndexOutOfBoundsException e) {
-            return ("\n"
-                    + "Whoopsie!\n "
-                    + "It seems like you may have forgotten to write the event start and end time\n "
-                    + "or didn't use ' /from ' or ' /to ' in your command.\n "
-                    + "Remember there is a space before and after '/from' and ' /to '.\n "
-                    + "It's a tiny detail, "
-                    + "but oh so important! Just add the deadline after '/by ', "
-                    + "and you'll be as organized as a library on a quiet morning.\n "
-                    + "You're doing an amazing job! ");
+            return (ui.getEventMissTimeMessage());
         }
+    }
+
+    private static LocalDateTime getEventDateTime(
+            LocalDateTime dateTime, String time, StringBuilder response) {
+        try {
+            dateTime = LocalDateTime.parse(time, DATE_TIME_FORMATTER);
+
+        } catch (DateTimeParseException e) {
+            invalidDateTimeMessage(response);
+        }
+        return dateTime;
+    }
+
+    private static boolean eventLengthChecker(String[] splitArguments, StringBuilder response) {
+        if (splitArguments.length != 3) {
+            response.append("\n"
+                    + "Whoopsie!\n "
+                    + "It seems like you may have forgotten to write the event start or end time ");
+            return true;
+        }
+        return false;
+    }
+
+    private static void addEventMessage(TaskList taskList, StringBuilder response, Event task) {
+        response.append("\n" + "Oh, splendid! " + "Your Event task: {")
+                .append(task.toString())
+                .append("} has been added successfully.\n ")
+                .append("Isn't it just wonderful when things go exactly as planned?\n ")
+                .append("I'm so proud of you for getting it done!\n ")
+                .append("Now you have ")
+                .append(taskList.getTasks().size())
+                .append(" tasks in the list.");
     }
 
     /**

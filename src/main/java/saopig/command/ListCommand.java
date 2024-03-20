@@ -53,12 +53,7 @@ public class ListCommand extends Command {
      */
     public String listTasks(TaskList taskList, Ui ui) {
         if (taskList.getTasks().isEmpty()) {
-            return ("\n"
-                    + "Oh dear, it looks like there are no tasks yet!\n "
-                    + "But that's alright.\n "
-                    + "It gives us a chance to start fresh and dream up some new plans.\n "
-                    + "Whenever you're ready to add tasks, I'll be right here to assist you.\n "
-                    + "Let's make it a magical journey together!");
+            return (ui.getListIsEmpty());
         }
         assert !taskList.getTasks().isEmpty() : "Task list should not be empty";
         StringBuilder response = new StringBuilder();
@@ -91,27 +86,9 @@ public class ListCommand extends Command {
             response.append("\n" + "Oh, splendid! Let me check my calendar for tasks on ").append(date).append("...");
             LocalDateTime dateTime = LocalDateTime.parse(date + " 00:00", DATE_TIME_FORMATTER);
             ArrayList<Task> tasksOnDate = new ArrayList<>();
-            for (Task task : taskList.getTasks()) {
-                if (task instanceof Deadline) {
-                    if (((Deadline) task).getBy().toLocalDate().isEqual(dateTime.toLocalDate())) {
-                        tasksOnDate.add(task);
-                    }
-                } else if (task instanceof Event) {
-                    if (((Event) task).getStartTime().toLocalDate().isEqual(dateTime.toLocalDate())
-                            || ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
-                        tasksOnDate.add(task);
-                    }
-                } else {
-                    continue;
-                }
-            }
+            getTaskOnDate(taskList, dateTime, tasksOnDate);
             if (tasksOnDate.isEmpty()) {
-                response.append("\n" + "Oh dear, it looks like there are no tasks on ")
-                        .append(date).append("!\n ")
-                        .append("But that's alright.\n ")
-                        .append("It gives us a chance to start fresh and dream up some new plans.\n ")
-                        .append("Whenever you're ready to add tasks, I'll be right here to assist you.\n ")
-                        .append("Let's make it a magical journey together!");
+                addNoTaskMessage(response, date);
                 return response.toString();
             }
             response.append("\n" + "Oh, splendid! Here are the tasks on ")
@@ -122,18 +99,41 @@ public class ListCommand extends Command {
             }
             return response.toString();
         } catch (SaopigInvaildSizeException e) {
-            return (e.getMessage()
-                    + "\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have forgotten to give an argument for the listtaskondate command.\n "
-                    + "Don't worry, it happens to most of us.\n "
-                    + "Just add the date for the task you'd like to list, and you'll be all set.\n "
-                    + "Please try again, or type 'bye' to exit.");
+            return (e.getMessage() + ui.getListOnDateNoArgument());
         } catch (DateTimeParseException e) {
-            return ("\n"
-                    + "Oopses daisy!\n "
-                    + "It seems like you might have given an invalid date time format.\n "
-                    + "Please use the format: yyyy-MM-dd");
+            return (ui.getInvalidDateFormat());
+        }
+    }
+
+    private static void addNoTaskMessage(StringBuilder response, String date) {
+        response.append("\n" + "Oh dear, it looks like there are no tasks on ")
+                .append(date).append("!\n ")
+                .append("But that's alright.\n ")
+                .append("It gives us a chance to start fresh and dream up some new plans.\n ")
+                .append("Whenever you're ready to add tasks, I'll be right here to assist you.\n ")
+                .append("Let's make it a magical journey together!");
+    }
+
+    private static void getTaskOnDate(TaskList taskList, LocalDateTime dateTime, ArrayList<Task> tasksOnDate) {
+        for (Task task : taskList.getTasks()) {
+            if (task instanceof Deadline) {
+                deadlineDateChecker(dateTime, tasksOnDate, task);
+            } else if (task instanceof Event) {
+                eventDateChecker(dateTime, tasksOnDate, task);
+            }
+        }
+    }
+
+    private static void deadlineDateChecker(LocalDateTime dateTime, ArrayList<Task> tasksOnDate, Task task) {
+        if (((Deadline) task).getBy().toLocalDate().isEqual(dateTime.toLocalDate())) {
+            tasksOnDate.add(task);
+        }
+    }
+
+    private static void eventDateChecker(LocalDateTime dateTime, ArrayList<Task> tasksOnDate, Task task) {
+        if (((Event) task).getStartTime().toLocalDate().isEqual(dateTime.toLocalDate())
+                || ((Event) task).getEndTime().toLocalDate().isEqual(dateTime.toLocalDate())) {
+            tasksOnDate.add(task);
         }
     }
 
