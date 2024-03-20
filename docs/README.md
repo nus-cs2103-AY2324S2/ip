@@ -9,10 +9,10 @@ Welcome to Eve, your personal chatbot for managing tasks. This guide will help y
 3. Start using EVE !
 
 ## Features
-1. Adding of Task
-    - Todo
-    - Event
-    - Deadline
+1. [Adding of Task](#adding-task)
+    - 'Todo'
+    - 'Event'
+    - 'Deadline'
 2. Editing of Task
     - Deleting
     - Tagging
