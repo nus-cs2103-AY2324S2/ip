@@ -60,6 +60,6 @@ jobs:
           prerelease: true
           files: build/libs/fluffy.jar
           name: Release ${{ env.NOW }}
-          tag_name: ${{ github.ref }}
+          tag_name: ci
           fail_on_unmatched_files: true
           token: ${{ secrets.GITHUB_TOKEN }}
