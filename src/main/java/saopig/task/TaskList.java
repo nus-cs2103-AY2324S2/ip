@@ -22,7 +22,7 @@ public class TaskList {
 
 
     /**
-     * Add a Todo task to the TaskList.
+     * Adds a Todo task to the TaskList.
      *
      * @param task Todo task to be added.
      */
@@ -31,7 +31,7 @@ public class TaskList {
     }
 
     /**
-     * Add a Deadline task to the TaskList.
+     * Adds a Deadline task to the TaskList.
      *
      * @param task Deadline task to be added.
      */
@@ -40,7 +40,7 @@ public class TaskList {
     }
 
     /**
-     * Add an Event task to the TaskList.
+     * Adds an Event task to the TaskList.
      *
      * @param task Event task to be added.
      */
