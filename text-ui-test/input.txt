@@ -1,0 +1,36 @@
+todo borrow book
+list
+deadline read book 1 /by 2024-02-12 12:00
+event project meeting /from 2024-01-02 12:00 /to 2024-03-02 12:00
+list
+mark 2
+unmark 2
+mark 1
+list
+deadline return book /by 2024-02-21 12:00
+event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00
+unmark
+mark
+deadline
+deadline 
+dsadsa
+event
+event 
+todo 
+todo
+deadline spppppeee
+deadline return book /by Monday
+deadline read book 1 /by 2024-02-12 12:00
+event project meeting /from 2025-01-02 12:00 /to 2025-03-02 12:00
+todo Coding the Homework
+deadline return book /by 2024-02-21 12:00
+event project meeting2 /from 2025-01-02 12:00 /to 2025-03-02 12:00
+list
+mark 3
+unmark 1
+listtaskondate 2025-01-02
+listtaskondate
+listtaskondate 
+listtaskondate dsadasdas
+listtaskondate 2025-1-02
+bye
