@@ -18,7 +18,7 @@ public class ParserTest {
         Parser.parse(this.taskList, this.storage,"todo shower");
         Parser.parse(this.taskList, this.storage, "deadline birthday /by 19/06/2001 1800");
         assertEquals("T |   | shower", taskList.get(0).toString());
-        assertEquals("D |   | birthday | 19 Jun 2001 06:00 pm", taskList.get(1).toString());
+        assertEquals("D |   | birthday | 19 Jun 2001 06:00 PM", taskList.get(1).toString());
         Parser.parse(this.taskList, this.storage, "mark 1");
         assertEquals("T | X | shower", taskList.get(0).toString());
         Parser.parse(this.taskList, this.storage, "unmark 1");
