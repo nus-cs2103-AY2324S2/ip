@@ -49,7 +49,7 @@ A Deadline is a task with a description and a date andtime of which it should be
 Example input: deadline return book /by 2/12/2019 1800
 
 Expected Output: Got it. I've added the task 
-                 [D][ ] return book (by: 2019-12-02T18:00)
+                 [D][ ] return book (by: Dec 2 2019 1800)
                  Now you have 2 task in your list
 
 ## Adding Event
@@ -58,7 +58,7 @@ A Event is a task with a description with a date and time of the starting and en
 Example input: event project meeting /from 2/12/2019 1800 /to 2/12/2019 2000
 
 Expected Output: Got it. I've added the task 
-                 [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+                 [E][ ] project meeting (from: Dec 2 2019 1800 to Dec 2 2019 2000)
                  Now you have 3 task in your list
 
 ### Task Manipulation
@@ -73,7 +73,7 @@ We all make mistake, perhaps the task is is wrongly inputed or you would not lik
 Example input: delete 2
 
 Expected Output: Got it. I've removed the task 
-                 [D][ ] return book (by: 2019-12-02T18:00)
+                 [D][ ] return book (by: Dec 2 2019 1800)
                  Now you have 2 task in your list
 
 ## Finding a Task
@@ -82,7 +82,7 @@ To find a task in the list, we can just use the 'Find' Command.
 Example input: find meeting
 
 Expected Output: Here are the matching tasks in your list
-                1. [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+                1. [E][ ] project meeting (from: Dec 2 2019 1800 to Dec 2 2019 2000)
 
 
 ## Updating a Task as Done
@@ -121,7 +121,7 @@ Example input: list
 
 Expected Output: Here are the tasks in your list:
                 1. [T][ ] Submit project
-                2. [E][ ] project meeting (from: 2019-12-02T18:00 to 2019-12-02T20:00 )
+                2. [E][ ] project meeting (from: Dec 2 2019 1800 to Dec 2 2019 2000)
 
 ### Exiting the Chatbot
 To exit the chatbot, use the 'bye' command !
@@ -129,5 +129,3 @@ To exit the chatbot, use the 'bye' command !
 Example input: bye:
 
 Expected Output: Bye. Hope to see you again soon !
-
-// Seems like saving the application is gone, need to find
