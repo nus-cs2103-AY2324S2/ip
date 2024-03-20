@@ -47,11 +47,17 @@ public class TaskList {
      * @param tempyArr is the array of the input command
      * @param list is the list of tasks
      */
-    public static String commandTag(String[] tempyArr, ArrayList<Task> list) {
+    public static String commandTag(String[] inputArr, ArrayList<Task> list) {
         assert list.size() > 0 : "Task list is empty";
-        int index = Integer.parseInt(tempyArr[1]) - 1;
+
+        if (inputArr.length < 2) {
+            return "Your Tag can't be empty";
+        }
+
+        String [] tempyArr = inputArr[1].split(" ");
+        int index = Integer.parseInt(tempyArr[0]) - 1;
         Task temp = list.get(index);
-        temp.addTag(tempyArr[2]);
+        temp.addTag(tempyArr[1]);
 
         StringBuilder response = new StringBuilder("Nice! I've added a tag to this task:  \n");
 
@@ -121,6 +127,9 @@ public class TaskList {
      * @param list is the list of tasks
      */
     public static String commandDeadline(String[] tempyArr, ArrayList<Task> list) {
+        if (tempyArr.length < 2) {
+            return "This Deadline can't be empty";
+        }
         String description = tempyArr[1];
         String[] arrTemp = description.split(" /by ");
         description = arrTemp[0];
