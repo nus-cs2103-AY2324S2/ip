@@ -1,11 +1,8 @@
 package riz.io;
 
 import riz.data.*;
-import riz.data.*;
-
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Scanner;
 
 /**
  * Parser class takes in the inputs and processes them
@@ -159,11 +156,11 @@ public class Parser {
         }
     }
 
-    private static void addEvent(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException{
+    private static void addEvent(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
         if (!isValidTask(token)) {
             throw new RizException(Ui.eventError());
         } else {
-            String[] details = token[1].split(" /by ");
+            String[] details = token[1].split(" /from | /to ");
             Task task = new Event(details[0], details[1], details[2]);
             taskList.add(task);
             storage.writeToFile(taskList.getTaskList());
@@ -224,7 +221,7 @@ public class Parser {
                 isValid = false;
             }
             try {
-                formatter.parse(token[1]);
+                formatter.parse(details[1]);
             } catch (DateTimeParseException e) {
                 isValid = false;
             }
@@ -232,12 +229,16 @@ public class Parser {
             if (token.length != 2) {
                 isValid = false;
             }
-            String[] details = token[1].split(" /from |\\ /to ");
+            String[] details = token[1].split(" /from | /to ");
+            details[1] = details[1].trim();
+            for(String each : details) {
+                System.out.println(each);
+            }
             if (details.length != 3) {
                 isValid = false;
             }
             try {
-                formatter.parse(details[1]);
+                formatter.parse(details[1].trim());
                 formatter.parse(details[2]);
             } catch (DateTimeParseException e) {
                 isValid = false;
