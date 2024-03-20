@@ -17,7 +17,7 @@ public class Parser {
     }
 
     public String parseAndExecute(String input) throws EveExceptions {
-        String[] tempyArr = input.split(" ");
+        String[] tempyArr = getSplitParts(input);
         String commandCheck = tempyArr[0].toUpperCase();
 
         assert tempyArr.length > 0 : "Input is empty";
@@ -73,5 +73,10 @@ public class Parser {
         LocalDateTime newDateTime = LocalDateTime.of(year, month, day, hour, min);
 
         return newDateTime;
+    }
+
+    private static String[] getSplitParts(String input) {
+        String[] parts = input.trim().split("\\s+", 2);
+        return parts;
     }
 }
