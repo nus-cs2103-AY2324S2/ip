@@ -59,6 +59,9 @@ public class Parser {
             throw new DukeException("OOPS!!! The deadline date/time is missing buddy.");
         }
         String description = parts[0].substring(9).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("OOPS!!! The description of a deadline cannot be empty buddy.");
+        }
         String by = parts[1].trim();
 
         Deadline task;
@@ -96,6 +99,9 @@ public class Parser {
             throw new DukeException("OOPS!!! The event time is missing or incomplete buddy.");
         }
         String description = parts[0].substring(6).trim();
+        if (description.isEmpty()) {
+            throw new DukeException("OOPS!!! The description of an event cannot be empty buddy.");
+        }
         String[] timeParts = parts[1].split(" /to ", 2);
         String fromTime = timeParts[0].trim();
         String toTime = timeParts[1].trim();

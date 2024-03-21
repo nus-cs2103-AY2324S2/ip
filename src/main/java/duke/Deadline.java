@@ -57,6 +57,9 @@ public class Deadline extends Task {
             return null;
         }
         String description = parts[2].trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be empty");
+        }
         LocalDate by = LocalDate.parse(parts[3].trim());
         boolean isDone = parts[1].trim().equals("1");
         Deadline deadline = new Deadline(description, by);

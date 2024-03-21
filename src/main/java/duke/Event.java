@@ -61,6 +61,9 @@ public class Event extends Task {
             return null;
         }
         String description = parts[2].trim();
+        if (description.isEmpty()) {
+            throw new IllegalArgumentException("Description cannot be empty");
+        }
         String[] times = parts[3].split(" - ");
         if (times.length < 2) {
             return null;
