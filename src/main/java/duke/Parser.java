@@ -295,14 +295,9 @@ public class Parser {
             throw new DukeException("OOPS!!! The task number or tag is missing buddy.");
         }
 
-        // Check if the task number part is a number
-        if (!parts[1].matches("\\d+")) {
-            throw new DukeException("OOPS!!! The task number is invalid buddy.");
-        }
-
         // Parse the task number and validate it
         int index = Integer.parseInt(parts[1].trim()) - 1;
-        if (index < 0 || index >= list.size() || list.get(index).tag == null) {
+        if (index < 0 || index >= list.size() || !(list.get(index).tag == null)) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
         }
 
