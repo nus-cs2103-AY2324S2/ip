@@ -151,7 +151,7 @@ public class Parser {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
         int index = Integer.parseInt(message.substring(5).trim()) - 1;
-        if (index < 0 || index >= list.size()) {
+        if (index < 0 || index >= list.size() || list.get(index).isDone()) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
         }
         Task task = list.get(index);
@@ -174,7 +174,7 @@ public class Parser {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
         int index = Integer.parseInt(message.substring(7).trim()) - 1;
-        if (index < 0 || index >= list.size()) {
+        if (index < 0 || index >= list.size() || !list.get(index).isDone()) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
         }
         Task task = list.get(index);
@@ -246,27 +246,28 @@ public class Parser {
      *                       or the tag is missing from the input message.
      */
     public static String handleTag(TaskList list, String message) throws DukeException {
-        // Split the message on " /tag " to separate the command with the task number from the tag
-        String[] parts = message.split(" /tag ");
-        if (parts.length < 2) {
-            throw new DukeException("OOPS!!! The tag is missing buddy.");
+        // Split the message on "tag" to separate the command with the task number from the tag
+        if (message.trim().equals("tag")) {
+            throw new DukeException("OOPS!!! The task number and tag are missing buddy.");
         }
 
-        // Further split the first part to get the task number
-        String[] commandParts = parts[0].split(" ");
-        if (commandParts.length < 2) {
-            throw new DukeException("OOPS!!! The task number is missing buddy.");
+        String[] parts = message.split(" ", 3);
+        if (parts.length < 3) {
+            throw new DukeException("OOPS!!! The task number or tag is missing buddy.");
         }
 
         // Parse the task number and validate it
-        int index = Integer.parseInt(commandParts[1].trim()) - 1;
+        if (!parts[1].matches("\\d+")) {
+            throw new DukeException("OOPS!!! The task number is invalid buddy.");
+        }
+        int index = Integer.parseInt(parts[1].trim()) - 1;
         if (index < 0 || index >= list.size()) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
         }
 
         // Retrieve the task and add the tag with a "#" prefix
         Task task = list.get(index);
-        task.addTag("#" + parts[1].trim());
+        task.addTag("#" + parts[2].trim());
 
         // Print the result and return the confirmation message
         Ui.printWithLines("OK, I've added this tag to the task:", task.toString());
@@ -288,14 +289,30 @@ public class Parser {
         if (message.trim().equals("removetag")) {
             throw new DukeException("OOPS!!! The task number is missing buddy.");
         }
-        int index = Integer.parseInt(message.substring(10).trim()) - 1;
-        if (index < 0 || index >= list.size()) {
+
+        String[] parts = message.split(" ", 2);
+        if (parts.length < 2) {
+            throw new DukeException("OOPS!!! The task number or tag is missing buddy.");
+        }
+
+        // Check if the task number part is a number
+        if (!parts[1].matches("\\d+")) {
+            throw new DukeException("OOPS!!! The task number is invalid buddy.");
+        }
+
+        // Parse the task number and validate it
+        int index = Integer.parseInt(parts[1].trim()) - 1;
+        if (index < 0 || index >= list.size() || list.get(index).tag == null) {
             throw new DukeException("OOPS!!! Task number is invalid buddy.");
         }
+
+        // Retrieve the task and remove the tag
         Task task = list.get(index);
         task.removeTag();
-        Ui.printWithLines("OK, I've removed the tag from this task:", task.toString());
-        return String.format("OK, I've removed the tag from this task:\n%s", task);
+
+        // Print the result and return the confirmation message
+        Ui.printWithLines("OK, I've removed this tag from the task:", task.toString());
+        return String.format("OK, I've removed this tag from the task:\n%s", task);
     }
 
 }
