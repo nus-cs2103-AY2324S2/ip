@@ -1,6 +1,5 @@
 # BobBot User Guide
 
-// Product screenshot goes here
 ![Ui.png](Ui.png)
 
 Bob cooks, cleans and keeps your quintessential information for you. It's a chatbot that helps you keep track of your tasks, deadlines and events. It's a simple and easy to use chatbot that is perfect for anyone who wants to keep track of their tasks and deadlines.
