@@ -5,3 +5,34 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Got it. I've added this task:
+[T][ ] grocery shopping
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[E][ ] group meeting  (from: 2pm to: 3pm)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[D][ ] ip  (by: 25 Jan 23:59)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] grocery shopping
+2.[E][ ] group meeting  (from: 2pm to: 3pm)
+3.[D][ ] ip  (by: 25 Jan 23:59)
+OOPS! The description of a todo cannot be left blank.
+Please enter 'help' command to find out more.
+OOPS! The date/time for the deadline cannot be left blank.
+Please enter 'help' command to find out more.
+OOPS! The start time and end time cannot be left blank.
+Please enter 'help' command to find out more.
+[bye: Terminate the program.
+list: Display the list of tasks.
+mark <index>: Mark a task as done.
+unmark <index>: Mark a task as not done.
+todo <description>: Add a todo task.
+deadline <description> /by <dueDate>: Add a deadline task.
+event <description> /from <startDate> /to <endDate>: Add an event task.
+]
+Noted. I've removed this task:
+[T][ ] grocery shopping
+Now you have 2 tasks in the list.
+Goodbye. Have a great day ahead!
