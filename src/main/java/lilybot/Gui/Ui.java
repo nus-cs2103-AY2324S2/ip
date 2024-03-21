@@ -123,7 +123,7 @@ public class Ui {
      * Informs users that the ddl for Deadline task entered is invalid.
      */
     public String invalidDdlFormat() {
-        return "Plz enter a date for the deadline using '/byDate' \n"
+        return "Plz enter a date for the deadline using '/by' \n"
                 + "Also notice the format should be like this: yyyy-mm-dd'";
     }
 

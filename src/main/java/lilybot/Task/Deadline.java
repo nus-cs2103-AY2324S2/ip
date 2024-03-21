@@ -22,7 +22,7 @@ public class Deadline extends Task {
      * @param byDate Due date of the deadline.
      */
     public Deadline(String description, String byDate) {
-        super(description);
+        super(description.trim());
         this.byDate = byDate.trim(); // Trim leading and trailing whitespace
         this.date = LocalDate.parse(byDate);
     }
@@ -30,7 +30,7 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString()
-                + "(byDate:" + getDate()
+                + " (by " + getDate()
                 .format(DateTimeFormatter
                         .ofPattern("MMM dd yyyy"))
                 + ")";

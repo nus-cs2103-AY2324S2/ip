@@ -96,7 +96,6 @@ public class Storage {
                         ls.add(t);
                     } else {
                         Ui.botUnknownFormat(i);
-                        System.out.println("brk pt 1");
                     }
                 } catch (Exception e) {
                     Ui.botUnknownFormat(i);
