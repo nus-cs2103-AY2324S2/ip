@@ -195,9 +195,10 @@ public class Storage {
         }
 
         String fixedDeadline = deadline.substring(0, deadline.toString().length() - 2);
+        boolean storage = true;
 
         try {
-            tasks[current] = new Deadline(taskDescription.toString(), fixedDeadline);
+            tasks[current] = new Deadline(taskDescription.toString(), fixedDeadline, storage);
             markCheck(tasks[current], completed);
         } catch (InvalidInputException | InvalidDateException e) {
             System.out.println(e);
