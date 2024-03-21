@@ -6,7 +6,7 @@
 
 package balkan;
 
-import GUI.GUIUi;
+import gui.GuiUi;
 import storage.Storage;
 import task.TaskList;
 import parser.Parser;
@@ -14,14 +14,14 @@ import parser.Parser;
 public class BalkanBot {
     private final Storage storage;
     private TaskList tasks;
-    private final GUIUi guiUi;
+    private final GuiUi guiUi;
 
     /**
      * Initialises Balkan Bot
      */
 
     public BalkanBot() {
-        guiUi = new GUIUi();
+        guiUi = new GuiUi();
         storage = new Storage();
         try {
             tasks = new TaskList(storage.load());

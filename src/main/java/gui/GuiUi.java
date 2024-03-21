@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 /**
  * This is a UI Class.
@@ -7,9 +7,9 @@ package GUI;
 
 import task.Task;
 
-public class GUIUi {
+public class GuiUi {
 
-    public GUIUi() {
+    public GuiUi() {
     }
 
     /**

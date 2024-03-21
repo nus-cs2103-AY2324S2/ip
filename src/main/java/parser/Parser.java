@@ -7,7 +7,7 @@
 
 package parser;
 
-import GUI.GUIUi;
+import gui.GuiUi;
 import storage.Storage;
 import task.TaskList;
 import task.Task;
@@ -16,7 +16,6 @@ import task.Deadline;
 import task.Event;
 import task.InvalidDateException;
 import task.InvalidInputException;
-import ui.Ui;
 
 import java.util.Arrays;
 
@@ -24,7 +23,7 @@ public class Parser {
     protected static int current = 0;
     protected static String output = "";
     protected static Task[] tasks;
-    protected static GUIUi guiUi;
+    protected static GuiUi guiUi;
     protected static Storage storage;
 
     /**
@@ -37,7 +36,7 @@ public class Parser {
      * true: continue running program
      * false: terminate the program and store the task list into the text file
      */
-    public static String parse(String input, TaskList taskList, GUIUi guiUi, Storage storage) {
+    public static String parse(String input, TaskList taskList, GuiUi guiUi, Storage storage) {
         tasks = taskList.getTaskList();
         Parser.guiUi = guiUi;
         Parser.storage = storage;

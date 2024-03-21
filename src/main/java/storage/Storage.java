@@ -48,13 +48,6 @@ public class Storage {
         }
     }
 
-    /**
-     * Used in the Load method.
-     * Marks a task if it has been completed already.
-     *
-     * @param task      task being checked
-     * @param completed boolean indicating whether task has been completed
-     */
     public static void markCheck(Task task, boolean completed) {
         if (completed) {
             task.mark();
@@ -96,7 +89,7 @@ public class Storage {
     }
 
     private Task[] addTask(Task[] tasks, String task, int current) {
-        boolean proceed = true;
+        boolean isProceed = true;
 
         String taskNature = task.substring(0, 6);
         String[] details = task.substring(7).split("\\s+");
@@ -105,26 +98,26 @@ public class Storage {
 
         TaskType taskType = getTaskType(type);
 
-        boolean[] checkCompleteResult = checkComplete(complete, proceed);
-        boolean completed = checkCompleteResult[0];
+        boolean[] checkCompleteResult = checkComplete(complete, isProceed);
+        boolean isCompleted = checkCompleteResult[0];
 
-        proceed = checkCompleteResult[1];
+        isProceed = checkCompleteResult[1];
         if (taskType == null) {
-            proceed = false;
+            isProceed = false;
         }
 
-        if (proceed) {
+        if (isProceed) {
             switch (taskType) {
                 case ToDo: {
-                    tasks = addToDoTask(tasks, current, details, completed);
+                    tasks = addToDoTask(tasks, current, details, isCompleted);
                     break;
                 }
                 case Deadline: {
-                    tasks = addDeadlineTask(tasks, current, details, completed);
+                    tasks = addDeadlineTask(tasks, current, details, isCompleted);
                     break;
                 }
                 case Event: {
-                    tasks = addEventTask(tasks, current, details, completed);
+                    tasks = addEventTask(tasks, current, details, isCompleted);
                     break;
                 }
             }
@@ -183,12 +176,12 @@ public class Storage {
     private Task[] addDeadlineTask(Task[] tasks, int current, String[] details, boolean completed) {
         StringBuilder taskDescription = new StringBuilder();
         StringBuilder deadline = new StringBuilder();
-        boolean foundDeadline = false;
+        boolean isDeadline = false;
         for (String currentString : details) {
-            if (foundDeadline) {
+            if (isDeadline) {
                 deadline.append(currentString).append(" ");
             } else if (currentString.equals("(by:")) {
-                foundDeadline = true;
+                isDeadline = true;
             } else {
                 taskDescription.append(currentString).append(" ");
             }

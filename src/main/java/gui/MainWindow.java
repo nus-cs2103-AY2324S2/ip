@@ -1,4 +1,4 @@
-package GUI;
+package gui;
 
 import balkan.BalkanBot;
 import javafx.animation.PauseTransition;
@@ -26,7 +26,7 @@ public class MainWindow extends AnchorPane {
 
     private BalkanBot balkanBot;
 
-    private GUIUi guiUi;
+    private GuiUi guiUi;
 
     private boolean isExit = false;
 
@@ -35,7 +35,7 @@ public class MainWindow extends AnchorPane {
 
     @FXML
     public void initialize() {
-        guiUi = new GUIUi();
+        guiUi = new GuiUi();
         scrollPane.vvalueProperty().bind(dialogContainer.heightProperty());
         dialogContainer.getChildren().addAll(
                 DialogBox.getDukeDialog(guiUi.printWelcome(), dukeImage)
