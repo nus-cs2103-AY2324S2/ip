@@ -45,6 +45,7 @@ public class Commands {
         commandMap.put("delete", Command.DELETE);
 
         commandMap.put("t", Command.TODO);
+        commandMap.put("todo", Command.TODO);
 
         commandMap.put("d", Command.DEADLINE);
         commandMap.put("deadline", Command.DEADLINE);
