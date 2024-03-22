@@ -23,6 +23,6 @@ public class InvalidCommandException extends DukeException {
      */
     @Override
     public String getMessage() {
-        return "\nbuzz buzz~~ Something went wrong D:\n";
+        return "buzz buzz~~ Something went wrong D:\n";
     }
 }

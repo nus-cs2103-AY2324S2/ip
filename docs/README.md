@@ -3,13 +3,13 @@
 ![alt text](Ui.png)
 
 ## Product intro
-Bee chatbot is a versatile and intuitive virtual 
+Bee chatbot is a versatile and intuitive virtual
 assistant designed to streamline your daily tasks
 and enhance productivity. With Bee chatbot, you can
-effortlessly manage your to-do lists, schedule events, 
+effortlessly manage your to-do lists, schedule events,
 and much more.\
 Say goodbye to the hassle of juggling multiple apps
-and let Bee chatbot revolutionize the way you stay 
+and let Bee chatbot revolutionize the way you stay
 organized and focused.
 
 ## Features
@@ -20,10 +20,10 @@ supplied by the user.
 e.g. in `todo DESCRIPTION`, `DESCRIPTION` is a
 parameter which can be used as `todo read book`.
 
-Extraneous parameters for commands that do not 
+Extraneous parameters for commands that do not
 take in parameters (such as `list`, `bye`)
 will be ignored.
-e.g. if the command specifies `list 123`, 
+e.g. if the command specifies `list 123`,
 it will be interpreted as `list`.
 
 ## Adding a todo: `todo`
@@ -47,7 +47,7 @@ Now you have 1 tasks in the list.
 
 ## Adding a deadline: `deadline`
 
-When adding deadlines, the task will be added to the 
+When adding deadlines, the task will be added to the
 task list with the specified deadline information.
 
 Format: `deadline DESCRIPTION /by DATE`
@@ -75,7 +75,7 @@ Format: `event DESCRIPTION /from START_DATE /to END_DATE`
 Example: `event project meeting /from 2022-01-01 10:00 /to 2022-01-01 12:00`
 
 This command adds a event task with the description
-"project meeting", start datetime 1 January 2022 10:00 
+"project meeting", start datetime 1 January 2022 10:00
 and end datetime 1 January 2022 12:00.
 
 Expected Output:
@@ -157,7 +157,7 @@ Format: `find KEYWORD`
 
 Example: `find book`
 
-This command will return all tasks with 
+This command will return all tasks with
 description containing the word 'book'.
 
 Expected Output:
@@ -174,12 +174,12 @@ Format: `update INDEX DESCRIPTION`
 
 Example: `update 1 watch lecture`
 
-This command will update task 1's description 
+This command will update task 1's description
 to 'watch lecture'.
 
 Expected Output:
 ```
-buzz buzz~~ I have updated the description:
+buzz buzz~~ I have updated the description: 
 1.[D][ ] watch lecture (by: 01 Jan 2022 10:00)
 ```
 
@@ -189,7 +189,4 @@ Exits the program.
 
 Format: `bye`
 
-Expected Output:
-```
-buzz buzz~~ Bye. Hope to see you again soon!
-```
+Expected Behaviour: System to exit and close
