@@ -63,71 +63,20 @@ public class Storage {
             existingList.add(st);
         }
 
-        //Turn content in the file into a list
+        //Turn content in the file into a list of tasks
         for (int i = 0; i < existingList.size(); i++) {
             String tk = existingList.get(i);
             String[] arr = tk.split("<>", 4);
 
             switch (arr[0]) {
             case "T":
-                try {
-                    if (Integer.valueOf(arr[1]) == 0) {
-                        //The task is not finished
-                        Task t = new ToDo(arr[2]);
-                        ls.add(t);
-                    } else if (Integer.valueOf(arr[1]) == 1) {
-                        //Task Finished
-                        Task t = new ToDo(arr[2]);
-                        t.mark();
-                        ls.add(t);
-                    } else {
-                        Ui.botUnknownFormat(i);
-                    }
-                } catch (Exception e) {
-                    Ui.botUnknownFormat(i);
-                }
+                loadTodo(arr, ls, i);
                 break;
             case "D":
-                try {
-                    if (Integer.valueOf(arr[1]) == 0) {
-                        //The ddl is not finished
-                        Task t = new Deadline(arr[2], arr[3]);
-                        ls.add(t);
-                    } else if (Integer.valueOf(arr[1]) == 1) {
-                        //DDL Finished
-                        Task t = new Deadline(arr[2], arr[3]);
-                        t.mark();
-                        ls.add(t);
-                    } else {
-                        Ui.botUnknownFormat(i);
-                    }
-                } catch (Exception e) {
-                    Ui.botUnknownFormat(i);
-                }
+                loadDeadline(arr, ls, i);
                 break;
             case "E":
-                try {
-                    if (Integer.valueOf(arr[1]) == 0) {
-                        //The event is not finished
-                        String[] temp = arr[3].split("to", 2);
-                        String toTime = temp[1].trim();
-                        String timeOfTo = ("to " + toTime).trim();
-                        Task t = new Event(arr[2], temp[0], timeOfTo);
-                        ls.add(t);
-                    } else if (Integer.valueOf(arr[1]) == 1) {
-                        //Event Finished
-                        String[] temp = arr[3].split(" to ", 2);
-                        String toTime = temp[1].trim();
-                        String timeOfTo = ("to " + toTime).trim();
-                        Task t = new Event(arr[2], temp[0], timeOfTo);
-                        t.mark();
-                        ls.add(t);
-                    } else {
-                        Ui.botUnknownFormat(i);
-                    }
-                } catch (Exception e) {
-                    Ui.botUnknownFormat(i);
-                }
+                loadEvent(arr, ls, i);
                 break;
             default:
                 //Format unknown
@@ -139,9 +88,97 @@ public class Storage {
         return ls;
     }
 
+    /**
+     * Loads the task of type ToDo and adds it to the list of tasks.
+     *
+     * @param arr The task array of string.
+     * @param ls The list of tasks.
+     * @param i The number of the task that is currently handled.
+     */
+    public static void loadTodo(String[] arr, ArrayList<Task> ls, int i) {
+        try {
+            if (Integer.valueOf(arr[1]) == 0) {
+                //The task is not finished
+                Task t = new ToDo(arr[2]);
+                ls.add(t);
+            } else if (Integer.valueOf(arr[1]) == 1) {
+                //Task Finished
+                Task t = new ToDo(arr[2]);
+                t.mark();
+                ls.add(t);
+            } else {
+                Ui.botUnknownFormat(i);
+            }
+        } catch (Exception e) {
+            Ui.botUnknownFormat(i);
+        }
+    }
 
     /**
-     * Writes to file in duke.txt and save it.
+     * Loads the task of type Deadline and adds it to the list of tasks.
+     *
+     * @param arr The task array of string.
+     * @param ls The list of tasks.
+     * @param i The number of the task that is currently handled.
+     */
+    public static void loadDeadline(String[] arr, ArrayList<Task> ls, int i) {
+        try {
+            if (Integer.valueOf(arr[1]) == 0) {
+                //The ddl is not finished
+                Task t = new Deadline(arr[2], arr[3]);
+                ls.add(t);
+            } else if (Integer.valueOf(arr[1]) == 1) {
+                //DDL Finished
+                Task t = new Deadline(arr[2], arr[3]);
+                t.mark();
+                ls.add(t);
+            } else {
+                Ui.botUnknownFormat(i);
+            }
+        } catch (Exception e) {
+            Ui.botUnknownFormat(i);
+        }
+    }
+
+
+    /**
+     * Loads the task of type Event and adds it to the list of tasks.
+     *
+     * @param arr The string array of tasks.
+     * @param ls The list of tasks.
+     * @param i The number of the task that is currently handled.
+     */
+    public static void loadEvent(String[] arr, ArrayList<Task> ls, int i) {
+        try {
+            if (Integer.valueOf(arr[1]) == 0) {
+                //The event is not finished
+                String[] temp = arr[3].split("to", 2);
+                String toTime = temp[1].trim();
+                String timeOfTo = ("to " + toTime).trim();
+                Task t = new Event(arr[2], temp[0], timeOfTo);
+                ls.add(t);
+            } else if (Integer.valueOf(arr[1]) == 1) {
+                //Event Finished
+                String[] temp = arr[3].split(" to ", 2);
+                String toTime = temp[1].trim();
+                String timeOfTo = ("to " + toTime).trim();
+                Task t = new Event(arr[2], temp[0], timeOfTo);
+                t.mark();
+                ls.add(t);
+            } else {
+                Ui.botUnknownFormat(i);
+            }
+        } catch (Exception e) {
+            Ui.botUnknownFormat(i);
+        }
+    }
+
+
+
+
+
+    /**
+     * Writes to file in lilybot.txt and save it.
      *
      * @param file The file used.
      * @param ls   The taskList to be saved.
@@ -158,42 +195,75 @@ public class Storage {
             for (int i = 0; i < ls.getSize(); i++) {
                 Task task = ls.get(i);
                 if (task instanceof ToDo) {
-                    String s;
-                    if (!task.getStatus()) {
-                        s = "T" + separator + "0" + separator + task.getDescription();
-                    } else {
-                        s = "T" + separator + "1" + separator + task.getDescription();
-                    }
-                    arr.add(s);
+                    saveTodo(task, separator, arr);
                 } else if (task instanceof Deadline) {
-                    String s;
-                    if (!task.getStatus()) {
-                        s = "D" + separator + "0" + separator + task.getDescription()
-                                + separator + ((Deadline) task).getByDate();
-                    } else {
-                        s = "D" + separator + "1" + separator + task.getDescription()
-                                + separator + ((Deadline) task).getByDate();
-                    }
-                    arr.add(s);
+                    saveDeadline(task, separator, arr);
                 } else if (task instanceof Event) {
-                    String s;
-                    if (!task.getStatus()) {
-                        s = "E" + separator + "0" + separator + task.getDescription()
-                                + separator + ((Event) task).getFromTo();
-                    } else {
-                        s = "E" + separator + "1" + separator + task.getDescription()
-                                + separator + ((Event) task).getFromTo();
-                    }
-                    arr.add(s);
+                    saveEvent(task, separator, arr);
                 } else {
                     System.out.println("The task you enter is of a type undefined here.");
                 }
             }
-
             for (String str : arr) {
                 fw.write(str + System.lineSeparator());
             }
         }
         fw.close();
     }
+
+    /**
+     * Adds a ToDo task to lilybot.txt.
+     *
+     * @param task The ToDo task to be added.
+     * @param separator The separator.
+     * @param arr The existing array.
+     */
+    public static void saveTodo(Task task, String separator, ArrayList<String> arr) {
+        String s;
+        if (!task.getStatus()) {
+            s = "T" + separator + "0" + separator + task.getDescription();
+        } else {
+            s = "T" + separator + "1" + separator + task.getDescription();
+        }
+        arr.add(s);
+    }
+
+    /**
+     * Adds an Event task to lilybot.txt.
+     *
+     * @param task The Event task to be added.
+     * @param separator The separator.
+     * @param arr The existing array.
+     */
+    public static void saveEvent(Task task, String separator, ArrayList<String> arr) {
+        String s;
+        if (!task.getStatus()) {
+            s = "D" + separator + "0" + separator + task.getDescription()
+                    + separator + ((Deadline) task).getByDate();
+        } else {
+            s = "D" + separator + "1" + separator + task.getDescription()
+                    + separator + ((Deadline) task).getByDate();
+        }
+        arr.add(s);
+    }
+
+    /**
+     * Adds a Deadline task to lilybot.txt.
+     *
+     * @param task The Deadline task to be added.
+     * @param separator The separator.
+     * @param arr The existing array.
+     */
+    public static void saveDeadline(Task task, String separator, ArrayList<String> arr) {
+        String s;
+        if (!task.getStatus()) {
+            s = "D" + separator + "0" + separator + task.getDescription()
+                    + separator + ((Deadline) task).getByDate();
+        } else {
+            s = "D" + separator + "1" + separator + task.getDescription()
+                    + separator + ((Deadline) task).getByDate();
+        }
+        arr.add(s);
+    }
+
 }

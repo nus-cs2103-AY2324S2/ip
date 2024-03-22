@@ -22,7 +22,7 @@ class TaskListTest {
     @Test
     public void checkAddEvent() {
         Task event = new Event("review slides", "2pm", "3pm Tue");
-        String expectedString = "[E][ ] review slides (from 2pm to 3pm Tue)";
+        String expectedString = "[E][ ] review slides ( 2pm to 3pm Tue)";
         assertEquals(expectedString, event.toString());
     }
 
