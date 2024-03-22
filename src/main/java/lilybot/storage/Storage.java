@@ -238,11 +238,11 @@ public class Storage {
     public static void saveEvent(Task task, String separator, ArrayList<String> arr) {
         String s;
         if (!task.getStatus()) {
-            s = "D" + separator + "0" + separator + task.getDescription()
-                    + separator + ((Deadline) task).getByDate();
+            s = "E" + separator + "0" + separator + task.getDescription()
+                    + separator + ((Event) task).getFromTo();
         } else {
-            s = "D" + separator + "1" + separator + task.getDescription()
-                    + separator + ((Deadline) task).getByDate();
+            s = "E" + separator + "1" + separator + task.getDescription()
+                    + separator + ((Event) task).getFromTo();
         }
         arr.add(s);
     }
