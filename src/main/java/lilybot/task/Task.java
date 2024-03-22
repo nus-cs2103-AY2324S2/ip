@@ -1,4 +1,4 @@
-package lilybot.Task;
+package lilybot.task;
 
 /**
  * Tack class.

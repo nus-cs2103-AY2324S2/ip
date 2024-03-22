@@ -1,7 +1,4 @@
-package lilybot.Storage;
-
-import lilybot.Gui.Ui;
-import lilybot.Task.*;
+package lilybot.storage;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -9,6 +6,13 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
+
+import lilybot.gui.Ui;
+import lilybot.task.Deadline;
+import lilybot.task.Event;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
+import lilybot.task.ToDo;
 
 /**
  * Storage class for loading and saving files.
@@ -96,7 +100,6 @@ public class Storage {
                         ls.add(t);
                     } else {
                         Ui.botUnknownFormat(i);
-                        System.out.println("brk pt 1");
                     }
                 } catch (Exception e) {
                     Ui.botUnknownFormat(i);
@@ -165,17 +168,21 @@ public class Storage {
                 } else if (task instanceof Deadline) {
                     String s;
                     if (!task.getStatus()) {
-                        s = "D" + separator + "0" + separator + task.getDescription() + separator + ((Deadline) task).getByDate();
+                        s = "D" + separator + "0" + separator + task.getDescription()
+                                + separator + ((Deadline) task).getByDate();
                     } else {
-                        s = "D" + separator + "1" + separator + task.getDescription() + separator + ((Deadline) task).getByDate();
+                        s = "D" + separator + "1" + separator + task.getDescription()
+                                + separator + ((Deadline) task).getByDate();
                     }
                     arr.add(s);
                 } else if (task instanceof Event) {
                     String s;
                     if (!task.getStatus()) {
-                        s = "E" + separator + "0" + separator + task.getDescription() + separator + ((Event) task).getFromTo();
+                        s = "E" + separator + "0" + separator + task.getDescription()
+                                + separator + ((Event) task).getFromTo();
                     } else {
-                        s = "E" + separator + "1" + separator + task.getDescription() + separator + ((Event) task).getFromTo();
+                        s = "E" + separator + "1" + separator + task.getDescription()
+                                + separator + ((Event) task).getFromTo();
                     }
                     arr.add(s);
                 } else {

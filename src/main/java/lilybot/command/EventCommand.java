@@ -1,32 +1,35 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Parser.Parser;
-import lilybot.Task.Deadline;
-import lilybot.Task.Task;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.Event;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
 
-public class DeadlineCommand implements Command {
+/**
+ * Command for adding an event task.
+ */
+public class EventCommand implements Command {
 
     private Ui ui;
     private String command;
     private TaskList taskList;
 
     /**
-     * Constructs DeadlineCommand with the following constructor.
+     * Constructs EventCommand with the following constructor.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public DeadlineCommand(Ui ui, String command, TaskList taskList) {
+    public EventCommand(Ui ui, String command, TaskList taskList) {
         this.ui = ui;
         this.command = command;
         this.taskList = taskList;
     }
 
     /**
-     * Adds the Deadline task to the list.
+     * Adds the Event task to the list.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
@@ -38,16 +41,18 @@ public class DeadlineCommand implements Command {
         String[] cmd = Parser.parseCommand(command);
 
         try {
-            String[] date = cmd[1].split("/by", 2);
+            String[] date = cmd[1].split("/", 3);
             try {
-                String d = date[1].trim();
-                Task t = new Deadline(date[0], d);
+                Task t = new Event(date[0],
+                        date[1],
+                        date[2]);
                 taskList.add(t);
                 String taskString = t.toString();
                 return ui.printAdded(taskString, taskList);
-            }
-            catch (Exception exc) {
-                return ui.invalidDdlFormat();
+
+            } catch (Exception exc) {
+                return ui.invalidEventFormat();
+
             }
         } catch (Exception exc) {
             return ui.invalidDescription();

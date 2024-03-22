@@ -1,16 +1,20 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Parser.Parser;
-import lilybot.Task.Task;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
 
+
+/**
+ * Command for deleting a task.
+ */
 public class DeleteCommand implements Command {
-
+    private static Task deletedTask;
     private Ui ui;
     private String command;
     private TaskList taskList;
-    private static Task deletedTask;
+
 
     /**
      * Constructs DeleteCommand with the following constructor.

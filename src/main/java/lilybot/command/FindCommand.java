@@ -1,11 +1,15 @@
-package lilybot.Command;
-
-import lilybot.Parser.Parser;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+package lilybot.command;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.TaskList;
+
+
+/**
+ * Command for finding tasks that contain the keywords.
+ */
 public class FindCommand implements Command {
 
     private Ui ui;
@@ -45,7 +49,8 @@ public class FindCommand implements Command {
                     .filter(t -> t.getDescription().contains(keyWord))
                     .forEach(tk -> {
                         s.append(counter + ". " + tk.toString() + "\n");
-                        counter.getAndIncrement();});
+                        counter.getAndIncrement();
+                    });
 
             return s.toString();
 

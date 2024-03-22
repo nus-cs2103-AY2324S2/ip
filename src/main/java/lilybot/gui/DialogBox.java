@@ -1,4 +1,4 @@
-package lilybot.Gui;
+package lilybot.gui;
 
 import java.io.IOException;
 import java.util.Collections;

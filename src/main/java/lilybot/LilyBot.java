@@ -1,12 +1,23 @@
 package lilybot;
 
-import lilybot.Command.*;
-import lilybot.Gui.Ui;
-import lilybot.Parser.Parser;
-import lilybot.Storage.Storage;
-import lilybot.Task.TaskList;
-
 import java.io.IOException;
+
+import lilybot.command.ByeCommand;
+import lilybot.command.Command;
+import lilybot.command.DeadlineCommand;
+import lilybot.command.DeleteCommand;
+import lilybot.command.EventCommand;
+import lilybot.command.FindCommand;
+import lilybot.command.ListCommand;
+import lilybot.command.MarkCommand;
+import lilybot.command.TodoCommand;
+import lilybot.command.UndoCommand;
+import lilybot.command.UnmarkCommand;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.storage.Storage;
+import lilybot.task.TaskList;
+
 
 
 /**
@@ -25,7 +36,7 @@ public class LilyBot {
      * @param filePath For file duke.txt.
      * @throws IOException For input error.
      */
-    public LilyBot(String filePath) throws IOException{
+    public LilyBot(String filePath) throws IOException {
         ui = new Ui();
         storage = new Storage(filePath);
         ls = new TaskList(storage.loadFile());
@@ -40,7 +51,7 @@ public class LilyBot {
      * @return What should be displayed for the user based on the command.
      * @throws IOException For input error.
      */
-    public String getResponse(String input, String lastCommand) throws IOException{
+    public String getResponse(String input, String lastCommand) throws IOException {
         String[] inputBySpace = Parser.parseCommand(input);
         String firstWord = inputBySpace[0].toUpperCase();
         Command command;

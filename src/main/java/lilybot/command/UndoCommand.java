@@ -1,10 +1,13 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Parser.Parser;
-import lilybot.Task.Task;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
 
+/**
+ * Command for undoing the last command.
+ */
 public class UndoCommand implements Command {
 
     private Ui ui;
@@ -25,9 +28,6 @@ public class UndoCommand implements Command {
         this.taskList = taskList;
     }
 
-//    public static void setLastDeletedTask(Task deletedTask) {
-//        lastDeletedTask = deletedTask;
-//    }
 
     /**
      * Undo the last command.
@@ -42,26 +42,32 @@ public class UndoCommand implements Command {
         if (lastCommand.equals(null)) {
             return ui.noLastCommand();
         } else {
+            String message;
             String[] inputBySpace = Parser.parseCommand(lastCommand);
             String firstWord = inputBySpace[0].toUpperCase();
 
             Command revertCommand;
             switch (firstWord) {
             case "LIST":
-                return "Nothing to undo cuz last command is 'LIST'";
+                message = "Nothing to undo cuz last command is 'LIST'";
+                break;
             case "FIND":
-                return "Nothing to undo cuz last command is 'FIND'";
+                message = "Nothing to undo cuz last command is 'FIND'";
+                break;
             case "MARK":
                 revertCommand = new UnmarkCommand(ui, lastCommand, taskList);
-                return revertCommand.exceute(ui, lastCommand, taskList);
+                message = revertCommand.exceute(ui, lastCommand, taskList);
+                break;
             case "UNMARK":
                 revertCommand = new MarkCommand(ui, lastCommand, taskList);
-                revertCommand.exceute(ui, lastCommand, taskList);
+                message = revertCommand.exceute(ui, lastCommand, taskList);
+                break;
             case "DELETE":
                 int taskNum = Parser.parseInt(lastCommand);
                 Task deletedTask = DeleteCommand.getDeletedTask();
                 taskList.add(taskNum - 1, deletedTask);
-                return ui.printAdded(deletedTask.toString(), taskList);
+                message = ui.printAdded(deletedTask.toString(), taskList);
+                break;
             case "TODO":
             case "DEADLINE":
             case "EVENT":
@@ -70,13 +76,16 @@ public class UndoCommand implements Command {
                 taskList.remove(size - 1);
 
                 String taskString = task.toString();
-                return "Noted. The following task is removed:" + "\n"
+                message = "Noted. The following task is removed:" + "\n"
                         + "  " + taskString + "\n"
-                        + "  Now u have " + taskList.getSize() +
-                        " tasks in the list.";
+                        + "  Now u have " + taskList.getSize()
+                        + " tasks in the list.";
+                break;
             default:
-                return "Unexpected command for UNDO.";
+                message = "Unexpected command for UNDO.";
+                break;
             }
+            return message;
         }
     }
 }

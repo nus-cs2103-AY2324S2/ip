@@ -1,31 +1,35 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Parser.Parser;
-import lilybot.Task.Task;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
+import lilybot.task.ToDo;
 
-public class MarkCommand implements Command {
+/**
+ * Command for adding a todo task.
+ */
+public class TodoCommand implements Command {
 
     private Ui ui;
     private String command;
     private TaskList taskList;
 
     /**
-     * Constructs MarkCommand with the following constructor.
+     * Constructs TodoCommand with the following constructor.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public MarkCommand(Ui ui, String command, TaskList taskList) {
+    public TodoCommand(Ui ui, String command, TaskList taskList) {
         this.ui = ui;
         this.command = command;
         this.taskList = taskList;
     }
 
     /**
-     * Marks the task as done.
+     * Adds the ToDo task to the list.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
@@ -34,17 +38,18 @@ public class MarkCommand implements Command {
      */
     @Override
     public String exceute(Ui ui, String command, TaskList taskList) {
+        String[] cmd = Parser.parseCommand(command);
+
         try {
-            int taskNum = Parser.parseInt(command);
-            assert taskNum > 0 : "Task number should be at least 1.";
+            Task t = new ToDo(cmd[1]);
+            taskList.add(t);
 
-            Task task = taskList.get(taskNum - 1);
-            task.mark();
-            String taskString = task.toString();
+            String taskString = t.toString();
+            return ui.printAdded(taskString, taskList);
 
-            return ui.markDone(taskString);
         } catch (Exception exc) {
-            return ui.invalidInputNumber();
+            return ui.invalidDescription();
+
         }
     }
 }

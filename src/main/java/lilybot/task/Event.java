@@ -1,4 +1,4 @@
-package lilybot.Task;
+package lilybot.task;
 
 
 /**
@@ -19,7 +19,7 @@ public class Event extends Task {
      * @param endTime End time of the event.
      */
     public Event(String description, String from, String endTime) {
-        super(description);
+        super(description.trim());
         this.startTime = from.trim();
         this.endTime = endTime.trim();
     }
@@ -27,8 +27,8 @@ public class Event extends Task {
     @Override
     public String toString() {
         return "[E]"
-                + super.toString() + "("
-                + startTime +" "+ endTime.trim() + ")";
+                + super.toString() + " (from "
+                + startTime + " to " + endTime.trim() + ")";
     }
 
     public String getFromTo() {

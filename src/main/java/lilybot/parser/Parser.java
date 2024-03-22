@@ -1,4 +1,5 @@
-package lilybot.Parser;
+package lilybot.parser;
+
 
 /**
  * Parser class for helping the bot understand user commands.
@@ -21,7 +22,7 @@ public class Parser {
      */
     public static int parseInt(String command) {
         String[] cmd = command.split(" ", 2);
-        int taskNum = Integer.valueOf(cmd[1]);
+        int taskNum = Integer.valueOf(cmd[1].trim());
         return taskNum;
     }
 
@@ -34,6 +35,9 @@ public class Parser {
      */
     public static String[] parseCommand(String command) {
         String[] cmd = command.split(" ", 2);
+        for (int i = 0; i < cmd.length; i++) {
+            cmd[i] = cmd[i].trim();
+        }
         return cmd;
     }
 

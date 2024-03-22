@@ -1,11 +1,14 @@
-package lilybot.Command;
-
-import lilybot.Storage.Storage;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+package lilybot.command;
 
 import java.io.IOException;
 
+import lilybot.gui.Ui;
+import lilybot.storage.Storage;
+import lilybot.task.TaskList;
+
+/**
+ * Command for close the app and save the tasks.
+ */
 public class ByeCommand {
 
     private Ui ui;

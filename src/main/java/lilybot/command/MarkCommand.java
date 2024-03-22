@@ -1,31 +1,34 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Parser.Parser;
-import lilybot.Task.Task;
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.parser.Parser;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
 
-public class UnmarkCommand implements Command {
+/**
+ * Command to mark the task as done.
+ */
+public class MarkCommand implements Command {
 
     private Ui ui;
     private String command;
     private TaskList taskList;
 
     /**
-     * Constructs Unmark with the following constructor.
+     * Constructs MarkCommand with the following constructor.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public UnmarkCommand(Ui ui, String command, TaskList taskList) {
+    public MarkCommand(Ui ui, String command, TaskList taskList) {
         this.ui = ui;
         this.command = command;
         this.taskList = taskList;
     }
 
     /**
-     * Marks the task as unfinished.
+     * Marks the task as done.
      *
      * @param ui To be displayed for users.
      * @param command Command entered by users.
@@ -39,10 +42,10 @@ public class UnmarkCommand implements Command {
             assert taskNum > 0 : "Task number should be at least 1.";
 
             Task task = taskList.get(taskNum - 1);
-            task.unmark();
+            task.mark();
             String taskString = task.toString();
 
-            return ui.markNotDone(taskString);
+            return ui.markDone(taskString);
         } catch (Exception exc) {
             return ui.invalidInputNumber();
         }

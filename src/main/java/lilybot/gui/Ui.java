@@ -1,8 +1,8 @@
-package lilybot.Gui;
+package lilybot.gui;
 
-import lilybot.Task.*;
+import lilybot.task.Task;
+import lilybot.task.TaskList;
 
-import java.util.concurrent.atomic.AtomicInteger;
 
 /**
  * Ui class handles interactions with users.
@@ -28,7 +28,7 @@ public class Ui {
         for (int i = 0; i < ls.getSize(); i++) {
             counter++;
             Task tk = ls.get(i);
-            s.append(counter+ ". "
+            s.append(counter + ". "
                     + tk.toString()
                     + "\n");
         }
@@ -40,7 +40,7 @@ public class Ui {
      * Says goodbye to users.
      */
     public String sayBye() {
-        String s = "Bye Bye. See u later! \n" ;
+        String s = "Bye Bye. See u later! \n";
         return s;
     }
 
@@ -63,7 +63,7 @@ public class Ui {
      * @return A string to inform users that task is marked not done.
      */
     public String markNotDone(String taskString) {
-       return "Okie, Marked this task as not done yet: \n"
+        return "Okie, Marked this task as not done yet: \n"
                + "  "
                + taskString;
     }
@@ -76,10 +76,10 @@ public class Ui {
      * @return A statement to inform users that task is added.
      */
     public String printAdded(String task, TaskList taskList) {
-        return "  Got it. I've added this task:"+ "\n"
+        return "  Got it. I've added this task:" + "\n"
                 + "  " + task + "\n"
-                + "  Now u have " + taskList.getSize() +
-                " tasks in the list.";
+                + "  Now u have " + taskList.getSize()
+                + " tasks in the list.";
     }
 
 
@@ -93,8 +93,8 @@ public class Ui {
     public String taskRemoved(String taskString, int tasklistSize) {
         return "Noted. The following task is removed:" + "\n"
                 + "  " + taskString + "\n"
-                + "  Now u have " + tasklistSize +
-                " tasks in the list.";
+                + "  Now u have " + tasklistSize
+                + " tasks in the list.";
     }
 
 
@@ -123,7 +123,7 @@ public class Ui {
      * Informs users that the ddl for Deadline task entered is invalid.
      */
     public String invalidDdlFormat() {
-        return "Plz enter a date for the deadline using '/byDate' \n"
+        return "Plz enter a date for the deadline using '/by' \n"
                 + "Also notice the format should be like this: yyyy-mm-dd'";
     }
 

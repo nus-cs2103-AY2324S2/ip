@@ -1,9 +1,13 @@
-package lilybot.Command;
+package lilybot.command;
 
-import lilybot.Task.TaskList;
-import lilybot.Gui.Ui;
+import lilybot.gui.Ui;
+import lilybot.task.TaskList;
 
-public class ListCommand implements Command{
+/**
+ * Command for listing all tasks.
+ *
+ */
+public class ListCommand implements Command {
 
     private Ui ui;
     private String command;

@@ -1,6 +1,5 @@
-package lilybot.Task;
+package lilybot.task;
 
-import lilybot.Task.Task;
 
 /**
  * ToDo class, a task without start or end dtae.
