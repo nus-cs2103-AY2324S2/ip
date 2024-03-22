@@ -29,7 +29,7 @@ public class TaskService {
     }
 
     /**
-     * Load tasks from the tasklist.txt (located at this.taskListFilePath),
+     * Loads tasks from the tasklist.txt (located at this.taskListFilePath),
      * and calls a helper method, `parseTaskList` to parse each line to save it into this.tasks
      */
     public void loadTasks() {
@@ -98,7 +98,7 @@ public class TaskService {
 
 
     /**
-     * Add todo task to this.tasks, saves it and returns a string updating the status of the operation
+     * Adds todo task to this.tasks, saves it and returns a string updating the status of the operation
      *
      * @param taskName the task name
      * @return the string updating the status of the operation
@@ -118,7 +118,7 @@ public class TaskService {
     }
 
     /**
-     * Add deadline task to this.tasks, saves it and returns a string updating the status of the operation
+     * Adds deadline task to this.tasks, saves it and returns a string updating the status of the operation
      *
      * @param taskName   the task name
      * @param byDateTime the by date time

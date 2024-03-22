@@ -54,17 +54,17 @@ public class FileUtilityTest {
         File file = new File(System.getProperty("user.dir") + DIRPATH + "/" + FILENAME);
         Scanner scanner = new Scanner(file);
 
-        Boolean contentExists = false;
+        Boolean hasContent = false;
         int numLines = 0;
 
         while (scanner.hasNextLine()) {
             numLines++;
             if (scanner.nextLine().strip().equals(testData)) {
-                contentExists = true;
+                hasContent = true;
             }
         }
 
-        assertEquals(contentExists, true);
+        assertEquals(hasContent, true);
         assertEquals(numLines, 2);
 
         scanner.close();
