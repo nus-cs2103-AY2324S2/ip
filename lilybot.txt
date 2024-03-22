@@ -1,0 +1,4 @@
+T<>1<>reading
+E<>0<>grp meeting<>from to day to tmr
+D<>0<>do ur hk<>2024-02-02
+T<>1<>return bk
