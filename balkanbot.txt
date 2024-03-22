@@ -1,0 +1,2 @@
+[T][ ] groceries
+[E][ ] school trip (from: 2024-02-22 to: 2024-02-24)
