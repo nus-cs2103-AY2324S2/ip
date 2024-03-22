@@ -42,31 +42,28 @@ public class Parser {
      */
     public static Command parse(String input) {
         assert input != null : "There should be an input";
-        String temp = input.split(" ")[0];
-        Actions action = Actions.valueOf(temp.toUpperCase());
-        assert action != null : "There should be a command, eg: hello";
-        switch (action) {
-        case BYE:
+        String command = input.split(" ")[0];
+        if (command.equals("bye")) {
             return new ByeCommand(taskList, ui, storage);
-        case LIST:
+        } else if (command.equals("list")) {
             return new ShowListCommand(taskList, ui, storage);
-        case MARK:
+        } else if (command.equals("mark")) {
             return new MarkCommand(taskList, ui, storage);
-        case UNMARK:
+        } else if (command.equals("unmark")) {
             return new UnmarkCommand(taskList, ui, storage);
-        case TODO:
+        } else if (command.equals("todo")) {
             return new TodoCommand(taskList, ui, storage);
-        case DEADLINE:
+        } else if (command.equals("deadline")) {
             return new DeadlineCommand(taskList, ui, storage);
-        case EVENT:
+        } else if (command.equals("event")) {
             return new EventCommand(taskList, ui, storage);
-        case DELETE:
+        } else if (command.equals("delete")) {
             return new DeleteCommand(taskList, ui, storage);
-        case FIND:
+        } else if (command.equals("find")) {
             return new FindCommand(taskList, ui, storage);
-        case UPDATE:
+        } else if (command.equals("update")) {
             return new UpdateCommand(taskList, ui, storage);
-        default:
+        } else {
             return new InvalidCommand(taskList, ui, storage);
         }
     }
