@@ -43,6 +43,22 @@ public class Task implements Serializable {
     }
 
     /**
+     * Returns description of <code>Task</code>.
+     * @return Description of <code>Task</code>
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Returns status of <code>Task</code>.
+     * @return Status of <code>Task</code>
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
      * Represents overridden toString method for printing <code>Task</code> details.
      * @return details of type <code>String</code>
      */
