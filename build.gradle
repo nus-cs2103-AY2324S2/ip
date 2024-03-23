@@ -2,18 +2,23 @@ plugins {
     id 'java'
     id 'application'
     id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'org.openjfx.javafxplugin' version '0.0.13'
+
 }
 
 repositories {
     mavenCentral()
 }
 
+javafx {
+    version = '17.0.6'
+    modules = ['javafx.controls', 'javafx.fxml']
+}
 
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.10.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.10.0'
-    String javaFxVersion = '17.0.7'
-    String javaFxSdkDir = 'lib/javafx-sdk-23'
+    String javaFxVersion = '17.0.6'
 
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-base', version: javaFxVersion, classifier: 'mac'
@@ -27,11 +32,6 @@ dependencies {
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'win'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'mac'
     implementation group: 'org.openjfx', name: 'javafx-graphics', version: javaFxVersion, classifier: 'linux'
-
-    implementation files("${javaFxSdkDir}/lib/javafx.base.jar")
-    implementation files("${javaFxSdkDir}/lib/javafx.controls.jar")
-    implementation files("${javaFxSdkDir}/lib/javafx.fxml.jar")
-    implementation files("${javaFxSdkDir}/lib/javafx.graphics.jar")
 
 }
 
@@ -52,16 +52,17 @@ test {
 }
 
 application {
-    mainClass.set("Duke.Tim")
+    mainClass.set("Tim.Launcher")
 }
 
 shadowJar {
-    archiveBaseName = "duke"
+    archiveBaseName = "tim"
     archiveClassifier = null
     dependsOn("distZip", "distTar")
 }
 
 run{
     standardInput = System.in
+    enableAssertions = true
 }
 
