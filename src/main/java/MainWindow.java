@@ -17,29 +17,6 @@ public class MainWindow extends AnchorPane {
     private VBox dialogContainer;
     @FXML
     private TextField userInput;
-    @FXML
-    private Button sendButton;
-    @FXML
-    private Button todoButton;
-    @FXML
-    private Button deadlineButton;
-    @FXML
-    private Button eventButton;
-    @FXML
-    private Button listButton;
-    @FXML
-    private Button markButton;
-    @FXML
-    private Button unmarkButton;
-    @FXML
-    private Button findButton;
-    @FXML
-    private Button clearListButton;
-    @FXML
-    private Button helpButton;
-    @FXML
-    private Button deleteButton;
-
     private Riz riz;
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Theo.png"));
