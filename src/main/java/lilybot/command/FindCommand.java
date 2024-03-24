@@ -13,32 +13,27 @@ import lilybot.task.TaskList;
 public class FindCommand implements Command {
 
     private Ui ui;
-    private String command;
     private TaskList taskList;
 
     /**
      * Constructs FindCommand with the following constructor.
      *
      * @param ui To be displayed for users.
-     * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public FindCommand(Ui ui, String command, TaskList taskList) {
+    public FindCommand(Ui ui, TaskList taskList) {
         this.ui = ui;
-        this.command = command;
         this.taskList = taskList;
     }
 
     /**
      * Find the tasks that contain the keywords.
      *
-     * @param ui To be displayed for users.
      * @param command Command entered by users.
-     * @param taskList For tracking the list of tasks.
      * @return The messages to be displayed after execution.
      */
     @Override
-    public String exceute(Ui ui, String command, TaskList taskList) {
+    public String exceute(String command) {
         try {
             String keyWord = (Parser.parseCommand(command))[1];
             StringBuilder s = new StringBuilder("Here're the matching tasks in ur list: \n");
