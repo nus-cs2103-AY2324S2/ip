@@ -201,14 +201,15 @@ Advanced users are welcome to update data. Also do take note that corrupted
 data will cause issues with loading and saving.
 
 # Command Summary
-| Action                           | Format, example                                                                                                |
-|----------------------------------|----------------------------------------------------------------------------------------------------------------|
-| Add deadline task                | Format `Deadline TASK /by YYYY-MM-DD` Example: `Deadline finish work /by 2020-02-02`                           |
-| Add event task                   | Format `Event TASK /from YYYY-MM-DD /to YYYY-MM-DD` Example: `Event A meeting /from 2020-02-03 /to 2020-02-04` |
-| Add todo task                    | Format `Todo TASK` Example: `Todo play tennis`                                                                 |
-| Listing all tasks tracked        | Format `List` Example: `List`                                                                                  |
-| Mark a task as done              | Format `Mark INDEX` Example: `Mark 1`                                                                          |
-| Mark a task as not done          | Format `Unmark INDEX` Example: `Unmark 1`                                                                      |
-| Delete a task by index           | Format `Delete INDEX` Example: `Delete 2`                                                                      |
-| Find tasks by a keyword          | Format `Find KEYWORD` Example: `Find film`                                                                     |
-| Find duplicated tasks (GUI only) | Format `Duplicate` Example: `Duplicate`                                                                        |
+
+| Action                               | Format, example                                                                                                    |
+|--------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| Add deadline task                    | Format `Deadline TASK /by YYYY-MM-DD` Example: `Deadline finish work /by 2020-02-02`                               |
+| Add event task                       | Format `Event TASK /from YYYY-MM-DD /to YYYY-MM-DD` Example: `Event A meeting /from 2020-02-03 /to 2020-02-04`     |
+| Add todo task                        | Format `Todo TASK` Example: `Todo play tennis`                                                                     |
+| Listing all tasks tracked            | Format `List` Example: `List`                                                                                      |
+| Mark a task as done                  | Format `Mark INDEX` Example: `Mark 1`                                                                              |
+| Mark a task as not done              | Format `Unmark INDEX` Example: `Unmark 1`                                                                          |
+| Delete a task by index               | Format `Delete INDEX` Example: `Delete 2`                                                                          |
+| Find tasks by a keyword              | Format `Find KEYWORD` Example: `Find film`                                                                         |
+| Find duplicated tasks (GUI only)     | Format `Duplicate` Example: `Duplicate`                                                                            |
