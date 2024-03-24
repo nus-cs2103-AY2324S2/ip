@@ -11,7 +11,6 @@ import lilybot.task.TaskList;
 public class UndoCommand implements Command {
 
     private Ui ui;
-    private String command;
     private TaskList taskList;
 
 
@@ -19,12 +18,10 @@ public class UndoCommand implements Command {
      * Constructs UndoCommand with the following constructor.
      *
      * @param ui To be displayed for users.
-     * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public UndoCommand(Ui ui, String command, TaskList taskList) {
+    public UndoCommand(Ui ui, TaskList taskList) {
         this.ui = ui;
-        this.command = command;
         this.taskList = taskList;
     }
 
@@ -32,13 +29,11 @@ public class UndoCommand implements Command {
     /**
      * Undo the last command.
      *
-     * @param ui To be displayed for users.
      * @param lastCommand Command entered by users.
-     * @param taskList For tracking the list of tasks.
      * @return The messages to be displayed after execution.
      */
     @Override
-    public String exceute(Ui ui, String lastCommand, TaskList taskList) {
+    public String exceute(String lastCommand) {
         if (lastCommand.equals(null)) {
             return ui.noLastCommand();
         }
@@ -56,12 +51,12 @@ public class UndoCommand implements Command {
                 message = "Nothing to undo cuz last command is 'FIND'";
                 break;
             case "MARK":
-                revertCommand = new UnmarkCommand(ui, lastCommand, taskList);
-                message = revertCommand.exceute(ui, lastCommand, taskList);
+                revertCommand = new UnmarkCommand(ui, taskList);
+                message = revertCommand.exceute(lastCommand);
                 break;
             case "UNMARK":
-                revertCommand = new MarkCommand(ui, lastCommand, taskList);
-                message = revertCommand.exceute(ui, lastCommand, taskList);
+                revertCommand = new MarkCommand(ui, taskList);
+                message = revertCommand.exceute(lastCommand);
                 break;
             case "DELETE":
                 message = addTaskBack(lastCommand, taskList, ui);

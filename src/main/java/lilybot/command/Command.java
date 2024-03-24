@@ -8,5 +8,5 @@ import lilybot.task.TaskList;
  */
 public interface Command {
 
-    public String exceute(Ui ui, String command, TaskList taskList);
+    public String exceute(String command);
 }

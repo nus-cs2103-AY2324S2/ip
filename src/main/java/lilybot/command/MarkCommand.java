@@ -11,32 +11,27 @@ import lilybot.task.TaskList;
 public class MarkCommand implements Command {
 
     private Ui ui;
-    private String command;
     private TaskList taskList;
 
     /**
      * Constructs MarkCommand with the following constructor.
      *
      * @param ui To be displayed for users.
-     * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public MarkCommand(Ui ui, String command, TaskList taskList) {
+    public MarkCommand(Ui ui, TaskList taskList) {
         this.ui = ui;
-        this.command = command;
         this.taskList = taskList;
     }
 
     /**
      * Marks the task as done.
      *
-     * @param ui To be displayed for users.
      * @param command Command entered by users.
-     * @param taskList For tracking the list of tasks.
      * @return The messages to be displayed after execution.
      */
     @Override
-    public String exceute(Ui ui, String command, TaskList taskList) {
+    public String exceute(String command) {
         try {
             int taskNum = Parser.parseInt(command);
             assert taskNum > 0 : "Task number should be at least 1.";

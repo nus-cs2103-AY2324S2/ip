@@ -57,35 +57,35 @@ public class LilyBot {
         Command command;
         switch (firstWord) {
         case "LIST":
-            command = new ListCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new ListCommand(ui, ls);
+            return command.exceute(input);
         case "TODO":
-            command = new TodoCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new TodoCommand(ui, ls);
+            return command.exceute(input);
         case "DEADLINE":
-            command = new DeadlineCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new DeadlineCommand(ui, ls);
+            return command.exceute(input);
         case "EVENT":
-            command = new EventCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new EventCommand(ui, ls);
+            return command.exceute(input);
         case "MARK":
-            command = new MarkCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new MarkCommand(ui, ls);
+            return command.exceute(input);
         case "UNMARK":
-            command = new UnmarkCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new UnmarkCommand(ui, ls);
+            return command.exceute(input);
         case "DELETE":
-            command = new DeleteCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new DeleteCommand(ui, ls);
+            return command.exceute(input);
         case "UNDO":
-            command = new UndoCommand(ui, lastCommand, ls);
-            return command.exceute(ui, lastCommand, ls);
+            command = new UndoCommand(ui, ls);
+            return command.exceute(lastCommand);
         case "FIND":
-            command = new FindCommand(ui, input, ls);
-            return command.exceute(ui, input, ls);
+            command = new FindCommand(ui, ls);
+            return command.exceute(input);
         case "BYE":
-            ByeCommand bye = new ByeCommand(storage, ui, input, ls);
-            return bye.exceute(storage, ui, input, ls);
+            ByeCommand bye = new ByeCommand(storage, ui, ls);
+            return bye.exceute(input);
         default:
             return ui.invalidInput();
 

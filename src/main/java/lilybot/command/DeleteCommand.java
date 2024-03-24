@@ -12,7 +12,6 @@ import lilybot.task.TaskList;
 public class DeleteCommand implements Command {
     private static Task deletedTask;
     private Ui ui;
-    private String command;
     private TaskList taskList;
 
 
@@ -20,12 +19,10 @@ public class DeleteCommand implements Command {
      * Constructs DeleteCommand with the following constructor.
      *
      * @param ui To be displayed for users.
-     * @param command Command entered by users.
      * @param taskList For tracking the list of tasks.
      */
-    public DeleteCommand(Ui ui, String command, TaskList taskList) {
+    public DeleteCommand(Ui ui, TaskList taskList) {
         this.ui = ui;
-        this.command = command;
         this.taskList = taskList;
     }
 
@@ -40,13 +37,11 @@ public class DeleteCommand implements Command {
     /**
      * Delete the task from the list.
      *
-     * @param ui To be displayed for users.
      * @param command Command entered by users.
-     * @param taskList For tracking the list of tasks.
      * @return The messages to be displayed after execution.
      */
     @Override
-    public String exceute(Ui ui, String command, TaskList taskList) {
+    public String exceute(String command) {
         try {
             int taskNum = Parser.parseInt(command);
             assert taskNum > 0 : "Task number should be at least 1.";
