@@ -27,13 +27,19 @@ public class Storage {
      */
 
     public Storage(String filePath) {
-        File folder = new File(filePath);
-        if (!folder.exists()) { // handling folder does not exist issues
-            folder.mkdirs(); // Use mkdirs() to create parent directories if necessary
-            System.out.println("Folder does not exist, data folder is created.\n"
-                    + "Do not worry if system say there is error, it will fix itself.:)");
+        String currDir = System.getProperty("user.dir");
+        Path folder = Path.of(currDir, "data");
+        if (!Files.exists(folder)) {
+            try {
+                Files.createDirectories(folder);
+                System.out.println("Folder created under " + currDir);
+            } catch (IOException e) {
+                System.out.println("Folder not created, check your access!");
+                return;
+            }
         }
-        if (!Files.exists(Path.of("data", "venus.txt"))) { // handling file does not exist
+        Path file = folder.resolve("venus.txt");
+        if (!Files.exists(file)) { // handling file does not exist
             // Create the file if it doesn't exist
             File f = new File("data", "venus.txt");
             try {
@@ -54,7 +60,7 @@ public class Storage {
      */
     public void saveToFile(String textToAdd) throws FileNotFoundException {
         try {
-            FileWriter fw = new FileWriter(filePath, true);
+            FileWriter fw = new FileWriter(System.getProperty("user.dir") + filePath, true);
             String amendedText = changeToSaveString(textToAdd);
             fw.write(System.lineSeparator() + amendedText);
             fw.close();

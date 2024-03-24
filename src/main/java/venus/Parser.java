@@ -1,7 +1,5 @@
 package venus;
 
-import java.io.File;
-
 /**
  * This is a Parser class that make strings understandable for the task formatters.
  *
@@ -70,7 +68,7 @@ public class Parser {
      */
     public static String[] findDeadlineContent(String input) throws DukeException {
         String dString = input.substring(9);
-        String[] parts = dString.split(File.separator + "by");
+        String[] parts = dString.split("/by");
         if (parts.length != 2) {
             throw new DukeException("Incorrect, choose a specific deadline only please");
         }
@@ -87,7 +85,7 @@ public class Parser {
      */
     public static String[] findEventParts(String input) throws DukeException {
         String dString = input.substring(6);
-        String[] parts = dString.split(File.separator);
+        String[] parts = dString.split("/");
         if (parts.length != 3) {
             throw new DukeException("Incorrect arguments for events");
         }

@@ -4,7 +4,7 @@ Venus is a **desktop app for managing events** you have planned for yourself.
 It supports both **GUI and CLI** although the `GUI is more recommended`.
 The `GUI` is the newest update and the CLI is a `legacy version`.
 
-![Product Image](/docs/Ui.png)
+![Product Image](Ui.png)
 
 - [Quick Start](#quick-start)
 - Features
@@ -196,7 +196,7 @@ Tasks are automatically saved into the file after each user action, there is
 no need to save manually.
 
 ## Editing the data file
-Data is saved automatically as a [venus.txt](..%2Fdata%2Fvenus.txt)
+Data is saved automatically as a [doc/venus.txt](..%2Fdata%2Fvenus.txt)
 Advanced users are welcome to update data. Also do take note that corrupted
 data will cause issues with loading and saving.
 
