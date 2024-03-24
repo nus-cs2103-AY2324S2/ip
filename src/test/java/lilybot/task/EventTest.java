@@ -30,6 +30,11 @@ class EventTest {
     }
 
     @Test
+    public void checkInvalidMarkIndex() {
+
+    }
+
+    @Test
     public void checkUnmark() {
         Event event = new Event("project meeting", "2pm", "3pm Wed");
         event.mark();

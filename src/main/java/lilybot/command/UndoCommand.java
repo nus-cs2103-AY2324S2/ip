@@ -13,7 +13,7 @@ public class UndoCommand implements Command {
     private Ui ui;
     private String command;
     private TaskList taskList;
-    //private static Task lastDeletedTask;
+
 
     /**
      * Constructs UndoCommand with the following constructor.
@@ -41,7 +41,8 @@ public class UndoCommand implements Command {
     public String exceute(Ui ui, String lastCommand, TaskList taskList) {
         if (lastCommand.equals(null)) {
             return ui.noLastCommand();
-        } else {
+        }
+
             String message;
             String[] inputBySpace = Parser.parseCommand(lastCommand);
             String firstWord = inputBySpace[0].toUpperCase();
@@ -63,29 +64,51 @@ public class UndoCommand implements Command {
                 message = revertCommand.exceute(ui, lastCommand, taskList);
                 break;
             case "DELETE":
-                int taskNum = Parser.parseInt(lastCommand);
-                Task deletedTask = DeleteCommand.getDeletedTask();
-                taskList.add(taskNum - 1, deletedTask);
-                message = ui.printAdded(deletedTask.toString(), taskList);
+                message = addTaskBack(lastCommand, taskList, ui);
                 break;
             case "TODO":
             case "DEADLINE":
             case "EVENT":
-                int size = taskList.getSize();
-                Task task = taskList.get(size - 1);
-                taskList.remove(size - 1);
-
-                String taskString = task.toString();
-                message = "Noted. The following task is removed:" + "\n"
-                        + "  " + taskString + "\n"
-                        + "  Now u have " + taskList.getSize()
-                        + " tasks in the list.";
+                message = removeTask(taskList);
                 break;
             default:
                 message = "Unexpected command for UNDO.";
                 break;
             }
             return message;
-        }
+
+    }
+
+    /**
+     * Adds the deleted task back to list.
+     *
+     * @param lastCommand The last command that user entered.
+     * @param taskList The list of tasks after the task is deleted.
+     * @param ui To be displayed for users.
+     * @return The message after adding the task back.
+     */
+    protected static String addTaskBack(String lastCommand, TaskList taskList, Ui ui) {
+        int taskNum = Parser.parseInt(lastCommand);
+        Task deletedTask = DeleteCommand.getDeletedTask();
+        taskList.add(taskNum - 1, deletedTask);
+        return ui.printAdded(deletedTask.toString(), taskList);
+    }
+
+    /**
+     * Removes the task that was last added.
+     *
+     * @param taskList The list of tasks after the new task is added.
+     * @return The message after removing the task.
+     */
+    protected static String removeTask(TaskList taskList) {
+        int size = taskList.getSize();
+        Task task = taskList.get(size - 1);
+        taskList.remove(size - 1);
+
+        String taskString = task.toString();
+       return  "Noted. The following task is removed:" + "\n"
+                + "  " + taskString + "\n"
+                + "  Now u have " + taskList.getSize()
+                + " tasks in the list.";
     }
 }
