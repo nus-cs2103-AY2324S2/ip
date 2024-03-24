@@ -21,8 +21,8 @@ public class Help {
      */
     private static final String descMark(boolean isComplete) {
         return isComplete
-                ? "mark: Marks a task as complete."
-                : "unmark: Marks a task as incomplete.";
+                ? "mark: Marks a task as complete.\n"
+                : "unmark: Marks a task as incomplete.\n";
     }
 
     /**
