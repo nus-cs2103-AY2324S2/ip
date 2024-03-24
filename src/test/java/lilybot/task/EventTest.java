@@ -1,14 +1,13 @@
 package lilybot.task;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-
-import lilybot.command.EventCommand;
-import lilybot.gui.Ui;
-import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import org.junit.jupiter.api.Test;
+
+import lilybot.command.EventCommand;
+import lilybot.gui.Ui;
 
 class EventTest {
     @Test
@@ -56,7 +55,7 @@ class EventTest {
     public void addEvent_invalidEventFormat() {
         Ui testUi = new Ui();
         TaskList taskList = new TaskList(new ArrayList<Task>());
-        EventCommand cmd = new EventCommand(testUi,  taskList);
+        EventCommand cmd = new EventCommand(testUi, taskList);
         String expectedString = "Plz enter a date for the event using '/from' and '/to'";
         assertEquals(expectedString, cmd.exceute("event meeting"));
     }

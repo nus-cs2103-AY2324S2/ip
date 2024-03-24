@@ -38,39 +38,40 @@ public class UndoCommand implements Command {
             return ui.noLastCommand();
         }
 
-            String message;
-            String[] inputBySpace = Parser.parseCommand(lastCommand);
-            String firstWord = inputBySpace[0].toUpperCase();
 
-            Command revertCommand;
-            switch (firstWord) {
-            case "LIST":
-                message = "Nothing to undo cuz last command is 'LIST'";
-                break;
-            case "FIND":
-                message = "Nothing to undo cuz last command is 'FIND'";
-                break;
-            case "MARK":
-                revertCommand = new UnmarkCommand(ui, taskList);
-                message = revertCommand.exceute(lastCommand);
-                break;
-            case "UNMARK":
-                revertCommand = new MarkCommand(ui, taskList);
-                message = revertCommand.exceute(lastCommand);
-                break;
-            case "DELETE":
-                message = addTaskBack(lastCommand, taskList, ui);
-                break;
-            case "TODO":
-            case "DEADLINE":
-            case "EVENT":
-                message = removeTask(taskList);
-                break;
-            default:
-                message = "Unexpected command for UNDO.";
-                break;
-            }
-            return message;
+        String message;
+        String[] inputBySpace = Parser.parseCommand(lastCommand);
+        String firstWord = inputBySpace[0].toUpperCase();
+
+        Command revertCommand;
+        switch (firstWord) {
+        case "LIST":
+            message = "Nothing to undo cuz last command is 'LIST'";
+            break;
+        case "FIND":
+            message = "Nothing to undo cuz last command is 'FIND'";
+            break;
+        case "MARK":
+            revertCommand = new UnmarkCommand(ui, taskList);
+            message = revertCommand.exceute(lastCommand);
+            break;
+        case "UNMARK":
+            revertCommand = new MarkCommand(ui, taskList);
+            message = revertCommand.exceute(lastCommand);
+            break;
+        case "DELETE":
+            message = addTaskBack(lastCommand, taskList, ui);
+            break;
+        case "TODO":
+        case "DEADLINE":
+        case "EVENT":
+            message = removeTask(taskList);
+            break;
+        default:
+            message = "Unexpected command for UNDO.";
+            break;
+        }
+        return message;
 
     }
 
@@ -99,9 +100,8 @@ public class UndoCommand implements Command {
         int size = taskList.getSize();
         Task task = taskList.get(size - 1);
         taskList.remove(size - 1);
-
         String taskString = task.toString();
-       return  "Noted. The following task is removed:" + "\n"
+        return "Noted. The following task is removed:" + "\n"
                 + "  " + taskString + "\n"
                 + "  Now u have " + taskList.getSize()
                 + " tasks in the list.";
