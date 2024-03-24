@@ -1,24 +1,78 @@
-# Duke project template
+# TheAdvisor project
+This is a chatbot that can help you and store tasks that you wish to do, such as todo, events and deadline. With features such as find, marking and unmarking a task as done or not done and many more!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Features
+- **list**: To view the tasks stored in the list, will also load tasklist from previous usage.
+- **mark**: To mark a task and set it as done.
+- **unmark**: To unmark a task and set it as undone.
+- **todo**: To add a todo task into your tasklist.
+- **deadline**: To add a task with a deadline into your tasklist.
+- **event**: To add a task with a start date and an end date into your tasklist.
+- **find**: Search for tasks by keyword.
+- **Error Handling**: Informative error messages for incorrect inputs.
+- **Storage**: Persist tasks between sessions.
+- **User Interface**: Simple and intuitive user interface.
+=======
+- **list**: View the tasks stored in the list; will also load the task list from previous sessions.
+- **mark**: Mark a task as done.
+- **unmark**: Unmark a task, setting it as undone.
+- **delete** Delete a task, with 1-based indexing
+- **todo**: Add a todo task to your task list.
+- **deadline**: Add a task with a deadline to your task list.
+- **event**: Add a task with a start and end date to your task list.
+- **find**: Search for tasks by keyword.
+- **Error Handling**: Informative error messages for incorrect inputs.
+- **Storage**: Persist tasks between sessions.
+- **User Interface**: Simple and intuitive interface for interaction.
 
-## Setting up in Intellij
+## Examples of creating tasks
+- Todo task
+  - todo sleep
+```
+Very well, your task has been added: 
+[T][ ] sleep
+Now you have 1 tasks in the list.
+```
+- Deadline task
+  - deadline CS2103 ip /by 2024-02-23 2359
+```
+Very well, your task has been added: 
+[D][ ] CS2103 ip (by Feb 23 2024 2359hrs)
+Now you have 1 tasks in the list.
+```
+- Event task
+  - event play game /from 2024-02-20 2100 /to 2024-02-20 2300
+```
+Very well, your task has been added: 
+[E][ ] play game (from Feb 20 2024 2100hrs to: Feb 20 2024 2300hrs)
+Now you have 1 tasks in the list.
+```
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
-
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Examples of functions in the chatbot
+- Delete task
+  - delete 1
+```
+Very well, I've removed this task with my supreme visual prowess: 
+[T][ ] sleep
+Now you have 2 tasks in the list.
+```
+- Mark task
+  - mark 2
+```
+Very well, I've marked this task with my supreme visual prowess: 
+[E][X] play game (from Feb 20 2024 2100hrs to: Feb 20 2024 2300hrs)
+Now you have 2 tasks in the list.
+```
+- Unmark task
+   - unmark 2
+```
+Very well, I've unmarked this task with my supreme visual prowess: 
+[E][ ] play game (from Feb 20 2024 2100hrs to: Feb 20 2024 2300hrs)
+Now you have 2 tasks in the list.
+```
+- Find task
+  - find sl
+```
+My eyes have shown it to me, those that you seek are here:
+1. [T][ ] sleep
+```

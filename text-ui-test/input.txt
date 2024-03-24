@@ -1,0 +1,17 @@
+todo read book
+deadline return book /by 2024-01-01 1800
+event project meeting /from 2024-01-01 1800 /to 2024-02-02 1222
+todo join sports club
+todo borrow book
+list
+mark 1
+mark 5
+list
+unmark 1
+list
+delete 1
+todo
+lmao
+mark 1
+list
+bye
