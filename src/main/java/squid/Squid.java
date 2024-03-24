@@ -2,21 +2,7 @@ package squid;
 
 import java.util.Objects;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicBoolean;
 
-import javafx.application.Application;
-import javafx.application.Platform;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.Region;
-import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 import squid.constants.CorrectUsage;
 import squid.constants.Exceptions;
 import squid.constants.Help;
@@ -36,7 +22,6 @@ import squid.tasks.Event;
 import squid.tasks.Task;
 import squid.tasks.Tasks;
 import squid.tasks.Todo;
-import squid.ui.DialogBox;
 
 /**
  * The main class of Squid.
