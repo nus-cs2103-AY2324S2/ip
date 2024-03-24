@@ -55,6 +55,10 @@ public class Parser {
                 case "event":
                     addEvent(taskList, storage, sb, token);
                     break;
+                case "bye":
+                    String exitMessage = exitProgram();
+                    sb.append(exitMessage);
+                    return sb.toString();
                 default:
                     sb.append(Ui.yapError());
                     break;
@@ -183,6 +187,10 @@ public class Parser {
                 + "Find: Returns all task based on what you searched for, even if it only matches partially\n"
                 + "Format: Find <INSERT TASK NAME HERE>\n\n";
         return helpMessage;
+    }
+
+    private static String exitProgram() {
+        return "Thanks for using me, see you soon...";
     }
 
     private static boolean isValid(String[] token, TaskList taskList) {

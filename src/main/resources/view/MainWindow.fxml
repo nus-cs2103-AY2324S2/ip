@@ -20,6 +20,8 @@
       <Button fx:id="findButton" layoutX="152.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleFindButton" prefHeight="41.0" prefWidth="76.0" text="Find" />
       <Button fx:id="helpButton" layoutX="524.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleHelpButton" prefHeight="41.0" prefWidth="76.0" text="Help" />
       <Button fx:id="deleteButton" layoutX="524.0" layoutY="536.0" mnemonicParsing="false" onAction="#handleDeleteButton" prefHeight="41.0" prefWidth="76.0" text="Delete" />
+        <Button fx:id="byeButton" layoutX="303.0" layoutY="495.0" mnemonicParsing="false" onAction="#handleByeButton" prefHeight="41.0" prefWidth="76.0" text="Bye" />
+
         <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" hvalue="1.0" prefHeight="496.0" prefWidth="600.0" vvalue="1.0">
             <content>
                 <VBox fx:id="dialogContainer" prefHeight="0.0" prefWidth="585.0" />

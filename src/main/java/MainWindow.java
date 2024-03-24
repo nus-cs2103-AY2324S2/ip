@@ -1,5 +1,6 @@
+import javafx.animation.PauseTransition;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -7,6 +8,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
+
 /**
  * Controller for MainWindow. Provides the layout for the other controls.
  */
@@ -127,5 +130,19 @@ public class MainWindow extends AnchorPane {
         userInput.requestFocus();
         userInput.setText("delete ");
         userInput.positionCaret(7);
+    }
+
+    @FXML
+    private void handleByeButton() {
+        Label userText = new Label("bye ");
+        Label RizText = new Label(riz.getResponse("bye"));
+        dialogContainer.getChildren().addAll(
+                DialogBox.getUserDialog(userText, new ImageView(userImage)),
+                DialogBox.getRizDialog(RizText, new ImageView(rizImage))
+        );
+        userInput.clear();
+        PauseTransition pause = new PauseTransition(Duration.seconds(2)); // 2 seconds delay
+        pause.setOnFinished(event -> Platform.exit());
+        pause.play();
     }
 }
