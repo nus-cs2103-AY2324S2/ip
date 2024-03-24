@@ -1,24 +1,33 @@
-# Duke project template
+# Duke IP by Dexter Wong 
+> Wow, I really wished that I have a simple to use, all in one task manager! - Every Software Engineer
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Fear not!  This project supports:
+- Todo list tracking
+- Deadline managers
+- FInd and search features
+- And more!
 
-## Setting up in Intellij
+All you need to do is:
+1. Download the zip file
+2. Extract and run the file
+3. Enjoy!
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+- [x] Self made
+- [x] Fully functional
+- [x] Track your food recipies 😋 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+**UI coming soon!**
+
+Some basic commands are:
+
+```ruby
+todo task 1
+
+deadline task 2 /by 5th Jan
+
+event lecture /from Monday 4pm /to Monday 5pm 
+```
+
+You will never miss an `Event` ever again!
+
+Find my GitHub [here](https://github.com/Dexter-Wong)!
