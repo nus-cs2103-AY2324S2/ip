@@ -29,8 +29,6 @@ public class Parser {
      */
     static Command parse(String command) throws FirerayaException {
 
-        try {
-
             String[] all = command.split(" ");
             String keyword = all[0];
             int arrLen = all.length;
@@ -45,23 +43,15 @@ public class Parser {
             }
 
             if (keyword.equals("mark")) {
-                if (all.length > 2) {
-                    throw new InvalidNumOfArgsException();
-                }
-                if (!isNumber(all[1])) {
-                    throw new FirerayaException("Error! An integer value has to be inputted");
-                }
+                testArgs(all);
+                testIntValue(all);
                 int curr = Integer.parseInt(all[1]) - 1;
                 return new MarkCommand(curr);
             }
 
             if (keyword.equals("unmark")) {
-                if (all.length > 2) {
-                    throw new InvalidNumOfArgsException();
-                }
-                if (!isNumber(all[1])) {
-                    throw new FirerayaException("Error! An integer value has to be inputted");
-                }
+                testArgs(all);
+                testIntValue(all);
                 int curr = Integer.parseInt(all[1]) - 1;
                 return new UnmarkCommand(curr);
             }
@@ -194,13 +184,9 @@ public class Parser {
 
                 return new DeleteCommand(curr);
             }
-
             throw new FirerayaException("Sorry mate, I don't understand what that means");
-
-        } catch (FirerayaException e) {
-            throw e;
-        }
     }
+
 
     /**
      * Checks if the input string is in a date format.
@@ -251,5 +237,26 @@ public class Parser {
         }
     }
 
+    /**
+     * Tests if an array of strings has more than 2 args and throws an error if true.
+     *
+     * @param all the String array to be tested
+     */
+    private static void testArgs(String[] all) throws InvalidNumOfArgsException {
+        if (all.length > 2) {
+            throw new InvalidNumOfArgsException();
+        }
+    }
+
+    /**
+     * Tests if an array of strings is only of Integer values and throws an error if false.
+     *
+     * @param all the String array to be tested
+     */
+    private static void testIntValue(String[] all) throws FirerayaException {
+        if (!isNumber(all[1])) {
+            throw new FirerayaException("Error! An integer value has to be inputted");
+        }
+    }
 }
 
