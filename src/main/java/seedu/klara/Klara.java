@@ -50,21 +50,21 @@ public class Klara {
         if (userInput.equals("bye")) {
             storage.saveTasks(tasks.getList());
             klaraResponse = ui.closingMessage();
-        } else if (userInput.equals("list") || userInput.startsWith("l")) {
+        } else if (userInput.equals("list") || userInput.startsWith("l ")) {
             klaraResponse = ui.printList(tasks.getList());
-        } else if (userInput.startsWith("mark") || userInput.startsWith("m")) {
+        } else if (userInput.startsWith("mark") || userInput.startsWith("m ")) {
             klaraResponse = Parser.parseMark(userInput, tasks, ui);
-        } else if (userInput.startsWith("unmark") || userInput.startsWith("u")) {
+        } else if (userInput.startsWith("unmark") || userInput.startsWith("u ")) {
             klaraResponse = Parser.parseUnmark(userInput, tasks, ui);
-        } else if (userInput.startsWith("deadline") || userInput.startsWith("dead")) {
+        } else if (userInput.startsWith("deadline") || userInput.startsWith("dead ")) {
             klaraResponse = Parser.parseDeadline(userInput, tasks, ui);
-        } else if (userInput.startsWith("todo") || userInput.startsWith("t")) {
+        } else if (userInput.startsWith("todo") || userInput.startsWith("t ")) {
             klaraResponse = Parser.parseTodo(userInput, tasks, ui);
-        } else if (userInput.startsWith("event") || userInput.startsWith("e")) {
+        } else if (userInput.startsWith("event") || userInput.startsWith("e ")) {
             klaraResponse = Parser.parseEvent(userInput, tasks, ui);
-        } else if (userInput.startsWith("delete") || userInput.startsWith("del")) {
+        } else if (userInput.startsWith("delete") || userInput.startsWith("del ")) {
             klaraResponse = Parser.parseDelete(userInput, tasks, ui);
-        } else if (userInput.startsWith("find") || userInput.startsWith("f")) {
+        } else if (userInput.startsWith("find") || userInput.startsWith("f ")) {
             klaraResponse = Parser.parseFind(userInput, tasks, ui);
         } else {
             try {
