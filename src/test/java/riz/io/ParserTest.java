@@ -13,6 +13,7 @@ public class ParserTest {
 
     @Test
     public void parseTest() {
+        taskList.clearList();
         Parser.parse(this.taskList, this.storage,"todo shower");
         Parser.parse(this.taskList, this.storage, "deadline birthday /by 19/06/2001 1800");
         Parser.parse(this.taskList, this.storage, "event staycation /from 17/06/2022 1500 /to 19/06/2022 1200");

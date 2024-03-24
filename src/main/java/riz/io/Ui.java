@@ -38,6 +38,9 @@ public class Ui {
         return "Error in deleting the task...";
     }
 
+    public static String todoError() {
+        return "Please enter your todo again...";
+    }
     /**
      * prints the error when the deadline command is input wrongly.
      */

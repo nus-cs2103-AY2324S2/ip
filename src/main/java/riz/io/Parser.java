@@ -20,7 +20,7 @@ public class Parser {
     public static String parse(TaskList taskList, Storage storage, String input) {
         assert input != null && !input.isEmpty() : "Input string cannot be null or empty";
         StringBuilder sb = new StringBuilder();
-        String[] token = input.split(" ", 2);
+        String[] token = input.trim().split(" ", 2);
         String cmd = token[0];
         try {
             switch (cmd) {
@@ -136,6 +136,9 @@ public class Parser {
     }
 
     private static void addToDo(TaskList taskList, Storage storage, StringBuilder sb, String[] token) throws RizException {
+         if (!isValidTask(token)) {
+            throw new RizException(Ui.todoError());
+        }
         Task task = new ToDo(token[1]);
         taskList.add(task);
         storage.writeToFile(taskList.getTaskList());
@@ -213,7 +216,11 @@ public class Parser {
         String format = "dd/MM/yyyy HHmm";
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(format);
         String taskType = token[0];
-        if (taskType.equals("deadline")) {
+        if (taskType.equals("todo")) {
+            if (token.length != 2) {
+                isValid = false;
+            }
+        } else if (taskType.equals("deadline")) {
             if (token.length != 2) {
                 isValid = false;
             }
