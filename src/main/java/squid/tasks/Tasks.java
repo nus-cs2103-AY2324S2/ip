@@ -120,9 +120,10 @@ public class Tasks {
 
     /**
      * Finds tasks matching the input.
-     * @param regex the input to match similar tasks with.
+     * @param id the input to match similar tasks with.
      */
-    public static String find(String regex) {
+    public static String find(String id) {
+        String regex = ".*" + id + ".*";
         Stream<String> s = arr.stream().filter(task -> task.getTaskName().matches(regex)).map(x -> x + "\n");
         String result = s.reduce("", (x, y) -> x + "\n" + y);
 
