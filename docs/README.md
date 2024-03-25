@@ -18,9 +18,9 @@ Example: `deadline return book /by 02/12/2019 1800`
 
 ### Add Events
 
-To add an event, use the `event` command followed by the event description and the event date. The date should be in the format 'dd/MM/yyyy HHmm'.
+To add an event, use the `event` command followed by the event description, /from followed by the start date-time, /to followed by the end date-time. The date should be in the format 'dd/MM/yyyy HHmm'.
 
-Example: `event team meeting /at 03/12/2019 1400`
+Example: `event student meeting /from 02/12/2019 1800 /to 02/12/2019 2000`
 
 ### Display Tasks
 
