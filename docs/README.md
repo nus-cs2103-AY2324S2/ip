@@ -37,7 +37,7 @@ Here's a brief overview of each command and how to use it:
 - Finds and displays tasks that contain the keyword.
 - Example: `find book`
 
-### 7. `TODO [task description]`
+### 7. `TODO [task description] /dur [Duration in ISO8601 Format]`
 - Adds a ToDo task to your task list.
 - the duration format is ISO8601
 - Example: `todo Read /dur PT1H30M`
