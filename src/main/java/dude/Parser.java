@@ -28,7 +28,7 @@ class Parser {
         if (input.startsWith("done ")) {
             return new Command(Actions.DONE);
         }
-        if (input.startsWith("undo ")) {
+        if (input.startsWith("undone ")) {
             return new Command(Actions.UNDONE);
         }
         if (input.startsWith("delete ")) {
