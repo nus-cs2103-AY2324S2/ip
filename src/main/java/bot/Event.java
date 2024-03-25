@@ -75,8 +75,8 @@ public class Event extends Task {
     public static String getHelpString() {
         return "Add Event: Adds an event to the task list.\n"
                 + "  To add an event, use the following format:\n"
-                + "    event <description> /at <start date> <start time> <end date> <end time>\n"
+                + "    event <description> /from <start date> <start time> /to <end date> <end time>\n"
                 + "  The date and time should be in the format dd/MM/yyyy HHmm.\n"
-                + "    Example: event student meeting /at 02/12/2019 1800 02/12/2019 2000\n";
+                + "    Example: event student meeting /from 02/12/2019 1800 /to 02/12/2019 2000\n";
     }
 }
