@@ -1,0 +1,9 @@
+Small Guide: 
+                'bye'		: exits the application \n"
+                'deadline' 	: to create deadline task, format = 'deadline description /by yyyy-MM-dd HH:mm'
+                'delete' 	: to remove a task at a certain index, format = 'delete index'
+                'event' 	: to create event task, format = 'event description /from yyyy-MM-dd HH:mm /to yyyy-MM-dd HH:mm'
+                'find' 		: to search for a keyword in task descriptions, format = 'find keyword'
+                'mark'	 	: to mark a task at a certain index as complete, format = 'mark index'
+                'todo' 		: to create a todo task with no particular time constraint, format = 'todo description'
+                'unmark' 	: to unmark a task at a certain index as incomplete, format = 'unmark index'
