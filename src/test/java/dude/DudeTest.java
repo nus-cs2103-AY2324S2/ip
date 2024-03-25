@@ -76,7 +76,7 @@ public class DudeTest {
 
     @Test
     void testUndoInputUndoExpectUndoneAction() {
-        assertEquals(Actions.UNDONE, Parser.getCommand("undo 1").action);
+        assertEquals(Actions.UNDONE, Parser.getCommand("undone 1").action);
     }
 
     @Test
