@@ -1,29 +1,55 @@
-# User Guide
+# Bot User Guide
 
-## Features 
+Welcome to Bot, your personal task manager. Bot is designed to help you keep track of your tasks, deadlines, and events. This guide will walk you through all the features you can use.
 
-### Feature-ABC
+## Features
 
-Description of the feature.
+### Add Tasks
 
-### Feature-XYZ
+To add a task, use the `todo` command followed by the task description.
 
-Description of the feature.
+Example: `todo read book`
 
-## Usage
+### Add Deadlines
 
-### `Keyword` - Describe action
+To add a task with a deadline, use the `deadline` command followed by the task description and the deadline date. The deadline should be in the format 'dd/MM/yyyy HHmm'.
 
-Describe the action and its outcome.
+Example: `deadline return book /by 02/12/2019 1800`
 
-Example of usage: 
+### Add Events
 
-`keyword (optional arguments)`
+To add an event, use the `event` command followed by the event description, /from followed by the start date-time, /to followed by the end date-time. The date should be in the format 'dd/MM/yyyy HHmm'.
 
-Expected outcome:
+Example: `event student meeting /from 02/12/2019 1800 /to 02/12/2019 2000`
 
-Description of the outcome.
+### Display Tasks
 
-```
-expected output
-```
+To display all tasks in the list, use the `list` command.
+
+Example: `list`
+
+### Delete Tasks
+
+To delete a task from the list, use the `delete` command followed by the task number.
+
+Example: `delete 1`
+
+### Mark Task as Done
+
+To mark a task as done, use the `mark` command followed by the task number.
+
+Example: `mark 1`
+
+### Unmark Task as Done
+
+To unmark a task as done, use the `unmark` command followed by the task number.
+
+Example: `unmark 1`
+
+### Find Tasks
+
+To find tasks that contain a keyword, use the `find` command followed by the keyword.
+
+Example: `find book`
+
+We hope this guide helps you make the most of Bot. Happy task managing!
