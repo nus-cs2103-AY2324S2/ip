@@ -28,6 +28,8 @@ public class Deadline extends Task {
         } catch (DateTimeParseException e) {
             throw new DukeException(
                     "Invalid date format. Please use dd/MM/yyyy HHmm format. Example: 02/12/2019 1800\n");
+        } catch (Exception e) {
+            throw new DukeException("Invalid format for Deadline.");
         }
         this.by = LocalDateTime.parse(by, DateTimeFormatter.ofPattern("dd/MM/yyyy HHmm"));
     }
