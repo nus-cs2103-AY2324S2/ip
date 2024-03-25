@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * additional useful functions such as find().
  */
 public class TaskList {
-    private ArrayList<Task> taskList = new ArrayList<>();
+    private ArrayList<Task> taskList;
 
     /**
      * Assigns a given ArrayList into the taskList field.

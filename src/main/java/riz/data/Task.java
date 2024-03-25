@@ -1,8 +1,5 @@
 package riz.data;
 
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-
 /**
  * The Task class consists of the task description and
  * information on if the task is already completed or not.
