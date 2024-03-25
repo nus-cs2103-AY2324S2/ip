@@ -70,7 +70,7 @@ public class Handler {
         return taskList.deleteTask(index);
     }
 
-    private String handleFind(String input) {
+    private String handleFind(String input) throws DukeException {
         String keyword = parser.parseDescription(input);
         List<Task> keywordList = taskList.findTasksFromKeyword(keyword);
         String output = "";

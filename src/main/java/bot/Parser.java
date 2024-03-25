@@ -11,8 +11,11 @@ public class Parser {
      * @param input The user input.
      * @return An array of two strings.
      */
-    public String[] parse(String input) {
+    public String[] parse(String input) throws DukeException {
         assert input != null : "Input is null";
+        if (input.isBlank()) {
+            throw new DukeException("Please enter a command.");
+        }
         return input.split(" ", 2);
     }
 
@@ -22,9 +25,15 @@ public class Parser {
      * @param input The user input.
      * @return The command.
      */
-    public String parseCommand(String input) {
+    public String parseCommand(String input) throws DukeException {
         assert input != null : "Input is null";
-        return input.split(" ", 2)[0];
+
+        try {
+            return input.split(" ", 2)[0];
+        } catch (Exception e) {
+            throw new DukeException("Invalid Format for Command.");
+        }
+
     }
 
     /**
@@ -33,11 +42,18 @@ public class Parser {
      * @param input The user input.
      * @return The index.
      */
-    public int parseIndex(String input) {
+    public int parseIndex(String input) throws DukeException {
         assert input != null : "Input is null";
-        int index =  Integer.parseInt(input.split(" ")[1]);
-        assert index >= 0 : "Invalid index";
-        return index;
+        try {
+            int index = Integer.parseInt(input.split(" ")[1]);
+            if (input.split(" ").length < 2) {
+                throw new DukeException("Please enter an index.");
+            }
+            assert index >= 0 : "Invalid index";
+            return index;
+        } catch (Exception e) {
+            throw new DukeException("Index not parsed or index not an integer.");
+        }
     }
 
     /**
@@ -46,9 +62,13 @@ public class Parser {
      * @param input The user input.
      * @return The description.
      */
-    public String parseDescription(String input) {
+    public String parseDescription(String input) throws DukeException {
         assert input != null : "Input is null";
-        return input.split(" ", 2)[1];
+        try {
+            return input.split(" ", 2)[1];
+        } catch (Exception e) {
+            throw new DukeException("Invalid Format for Description.");
+        }
     }
 
     /**
@@ -57,9 +77,13 @@ public class Parser {
      * @param input The user input.
      * @return An array of two strings: the task description and the deadline.
      */
-    public String[] parseDeadline(String input) {
-        // Remove the deadline in the beginning, then split by /by
-        return input.split("deadline ")[1].split(" /by ");
+    public String[] parseDeadline(String input) throws DukeException {
+        try {
+            // Remove the deadline in the beginning, then split by /by
+            return input.split("deadline ")[1].split(" /by ");
+        } catch (Exception e) {
+            throw new DukeException("Invalid Format for Deadline.");
+        }
     }
 
     /**
@@ -69,12 +93,21 @@ public class Parser {
      * @return An array of three strings: the task description, the start time, and
      *         the end time.
      */
-    public String[] parseEvent(String input) {
-        String[] split = input.split(" /");
-        String description = split[0].split("event ")[1];
-        String from = split[1].split("from ")[1];
-        String to = split[2].split("to ")[1];
-        return new String[] { description, from, to };
+    public String[] parseEvent(String input) throws DukeException {
+        try {
+            System.out.println("input");
+            System.out.println(input);
+            String[] split = input.split(" /from ");
+            String beforeFrom = split[0];
+            String afterFrom = split[1];
+            String description = beforeFrom.split("event ")[1];
+            String[] split2 = afterFrom.split(" /to ");
+            String from = split2[0];
+            String to = split2[1];
+            return new String[] { description, from, to };
+        } catch (Exception e) {
+            throw new DukeException("Invalid Format for Event.");
+        }
     }
 
     /**
