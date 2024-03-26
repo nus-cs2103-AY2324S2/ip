@@ -16,6 +16,8 @@ IreneAI is an intuitive chatbot designed to streamline your task management proc
 
 *Task Deletion*: Remove tasks from your list as needed.
 
+*Exit*: Quit the application.
+
 ## Tools Used
 
 - [Java](https://www.java.com/en/)
@@ -53,3 +55,7 @@ Find a task by keyword with the command: `find <keyword>`. Replace `<keyword>` w
 **Deleting a Task**
 
 To remove a task from your list, use: `delete <index>`.Make sure `<index>` specifies the task by index you intend to delete.
+
+**Exit**
+
+To exit, use: `bye` command.
