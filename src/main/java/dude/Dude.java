@@ -53,7 +53,7 @@ public class Dude {
                     msg = ui.showDone(tasks.get(index));
                     break;
                 case UNDONE:
-                    index = Parser.getDoneIndex(input);
+                    index = Parser.getUnDoneIndex(input);
 
                     if (index < 0 || index >= tasks.size()) {
                         throw new IndexOutOfBoundsException("Task number does not exist.");
