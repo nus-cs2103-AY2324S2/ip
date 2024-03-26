@@ -76,6 +76,16 @@ class Parser {
     }
 
     /**
+     * Extracts the task index from a done command input.
+     *
+     * @param input The user input as a String.
+     * @return The index of the task to be marked as done.
+     */
+    public static int getUnDoneIndex(String input) {
+        return Integer.parseInt(input.substring(7));
+    }
+
+    /**
      * Extracts the task index from a delete command input.
      *
      * @param input The user input as a String.
