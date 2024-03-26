@@ -36,7 +36,7 @@ To add an event to your list, use the command: `event <event_name>` //from `<Dat
 
 **Marking a Task as Completed**
 
-To mark a task as completed, input: `mark <index>`. Ensure `<index>` matches the task you wish to update.
+To mark a task as completed, input: `mark <index>`. Ensure `<index>` matches the task by index you wish to update.
 
 **Unmarking a Task**
 
@@ -52,4 +52,4 @@ Find a task by keyword with the command: `find <keyword>`. Replace `<keyword>` w
 
 **Deleting a Task**
 
-To remove a task from your list, use: `delete <task>`.Make sure `<task>` specifies the task you intend to delete.
+To remove a task from your list, use: `delete <index>`.Make sure `<index>` specifies the task by index you intend to delete.
