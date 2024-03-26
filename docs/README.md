@@ -16,6 +16,8 @@ IreneAI is an intuitive chatbot designed to streamline your task management proc
 
 *Task Deletion*: Remove tasks from your list as needed.
 
+*Exit*: Quit the application.
+
 ## Tools Used
 
 - [Java](https://www.java.com/en/)
@@ -24,15 +26,23 @@ IreneAI is an intuitive chatbot designed to streamline your task management proc
 
 **Adding a Task**
 
-To add a task to your list, use the command: `add <task>`. Replace `<task>` with the name of your task.
+To add a task to your list, use the command: `todo <task>`. Replace `<task>` with the name of your task.
+
+**Adding a Task with a deadline**
+
+To add a task with a deadline to your list, use the command: `deadline <Task>` //by `<Date: MM/DD/YYYY HHMM>`. Replace `<task>` with the name of your task. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
+
+**Adding an event**
+
+To add an event to your list, use the command: `event <event_name>` //from `<Date: MM/DD/YYYY HHMM>` //to `<Date: MM/DD/YYYY HHMM>`. Replace `<event_name>` with the name of your event. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
 
 **Marking a Task as Completed**
 
-To mark a task as completed, input: `mark <task>`. Ensure `<task>` matches the task you wish to update.
+To mark a task as completed, input: `mark <index>`. Ensure `<index>` matches the task by index you wish to update.
 
 **Unmarking a Task**
 
-If you need to revert a task to an uncompleted status, type: `unmark <task>`.
+If you need to revert a task to an uncompleted status, type: `unmark <index>`.
 
 **Listing All Tasks**
 
@@ -44,4 +54,8 @@ Find a task by keyword with the command: `find <keyword>`. Replace `<keyword>` w
 
 **Deleting a Task**
 
-To remove a task from your list, use: `delete <task>`.Make sure `<task>` specifies the task you intend to delete.
+To remove a task from your list, use: `delete <index>`.Make sure `<index>` specifies the task by index you intend to delete.
+
+**Exit**
+
+To exit, use: `bye` command.
