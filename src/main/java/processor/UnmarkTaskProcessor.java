@@ -29,7 +29,7 @@ public class UnmarkTaskProcessor extends Processor {
             taskList.unmarkTask(number - 1);
             System.out.println(chatbotUi.dividerWrapper(
                     chatbotUi.unmark() + "\n" + taskList.getTaskAtIndex(number - 1)));
-            storage.writeToFile();
+            storage.writeToFile(taskList);
         } catch (NumberFormatException e) {
             System.out.println(chatbotUi.dividerWrapper("You must use a number to unmark."));
         } catch (IndexOutOfBoundsException e) {

@@ -26,17 +26,14 @@ public class ListTasksProcessor extends Processor {
      * @throws IOException if an I/O error occurs while processing the command
      */
     public void processCommand(String userInput) throws IOException {
-        // if array empty
         assert taskList != null : "Task list should not be null";
 
         if (taskList.size() == 0) {
-            System.out.println(chatbotUi.dividerWrapper("Your list is empty"));
+            System.out.println(chatbotUi.dividerWrapper("Your list is empty."));
         }
         else {
             System.out.println(chatbotUi.dividerWrapper(
                     "Here are the tasks in your list: \n" + storage.generateTasks()));
         }
     }
-
-
 }

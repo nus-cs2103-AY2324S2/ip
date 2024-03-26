@@ -1,2 +1,5 @@
-[T][ ] task1
-[D][ ] task2  (by Sunday)
+[T][ ] a
+[D][ ] b  (by Sunday)
+[D][ ] b2  (Mar 08 1998, 4pm)
+[E][ ] c  (from 03/08/1998 to 03/09/1998)
+[E][ ] c  (Aug 03 1998, 4pm to Sep 03 1998, 4pm)

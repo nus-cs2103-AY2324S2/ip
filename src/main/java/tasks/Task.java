@@ -124,7 +124,7 @@ public class Task {
 
     /**
      * Returns a String representation of the task.
-     * @return a String representation of the task
+     * @return a String
      */
     @Override
     public String toString() {
@@ -135,7 +135,7 @@ public class Task {
         // Append task description
         taskString.append(" ").append(desc);
 
-        // Append date/time information if available
+        // Append date information if available
         if (type == TaskType.DEADLINE) {
             taskString.append(" (").append(start).append(")");
         } else if (type == TaskType.EVENT) {

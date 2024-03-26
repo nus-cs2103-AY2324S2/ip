@@ -20,7 +20,6 @@ public class Parser {
 
     private final AddTaskProcessor addTaskProcessor;
     private final DeleteTaskProcessor deleteTaskProcessor;
-    //private final ExitProcessor exitProcessor;
     private final FindTaskProcessor findTaskProcessor;
     private final ListTasksProcessor listTasksProcessor;
     private final SortTaskProcessor sortTaskProcessor;
@@ -34,7 +33,6 @@ public class Parser {
     public Parser(Factory factory) {
         this.addTaskProcessor = factory.createAddTaskProcessor();
         this.deleteTaskProcessor = factory.createDeleteTaskProcessor();
-        // this.exitProcessor = factory.createExitProcessor();
         this.findTaskProcessor = factory.createFindTaskProcessor();
         this.listTasksProcessor = factory.createListTasksProcessor();
         this.markTaskProcessor = factory.createMarkTaskProcessor();

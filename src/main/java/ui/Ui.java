@@ -3,13 +3,14 @@ package ui;
 import parser.Parser;
 
 import java.util.Scanner;
-
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.IOException;
-
 import java.nio.charset.StandardCharsets;
 
+/**
+ * The Ui class is responsible for visualisation of the app.
+ */
 public class Ui {
 
     private static final String NAME = "IreneAI";
@@ -29,7 +30,7 @@ public class Ui {
     private static final String RECOMMENDER = "RECOMMENDATION";
 
     private static final String QUOTE_STRING =
-            ">  A robot may not harm humanity, or by inaction, allow humanity to come to harm.\n>  - Issac Asimov";
+            "A robot may not harm humanity, or by inaction, allow humanity to come to harm.\n>";
 
     private Scanner sc;
 
@@ -91,10 +92,10 @@ public class Ui {
     }
 
     /**
-     * Returns the chatbot's response as a string.
+     * Return the chatbot's response as a string.
      *
      * @param userInput the user's input
-     * @return the response.
+     * @return chatbot's response.
      */
     public String getResponse(String userInput, Parser parser) {
         PrintStream originalOut = System.out;
@@ -128,7 +129,7 @@ public class Ui {
      * @return a string containing the given text wrapped in a divider
      */
     public String dividerWrapper(String text) {
-        return divider() + text + "\n" + divider();
+        return "\n" + text + "\n";
     }
 
     /**
@@ -138,7 +139,7 @@ public class Ui {
      * @return a string containing the given text wrapped in a recommender
      */
     public String recommenderWrapper(String text) {
-        return RECOMMENDER + "\n" + text + "\n" + RECOMMENDER;
+        return RECOMMENDER + "\n" + text + "\n";
     }
 
     /**
