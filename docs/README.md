@@ -28,11 +28,11 @@ To add a task to your list, use the command: `todo <task>`. Replace `<task>` wit
 
 **Adding a Task with a deadline**
 
-To add a task with a deadline to your list, use the command: `deadline <Task>` //by <Date: MM/DD/YYYY HHMM>. Replace `<task>` with the name of your task. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
+To add a task with a deadline to your list, use the command: `deadline <Task>` //by `<Date: MM/DD/YYYY HHMM>`. Replace `<task>` with the name of your task. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
 
 **Adding an event**
 
-To add an event to your list, use the command: `event <event_name>` //from <Date: MM/DD/YYYY HHMM> //to <Date: MM/DD/YYYY HHMM>. Replace `<event_name>` with the name of your event. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
+To add an event to your list, use the command: `event <event_name>` //from `<Date: MM/DD/YYYY HHMM>` //to `<Date: MM/DD/YYYY HHMM>`. Replace `<event_name>` with the name of your event. Replace `<Date>' with an actual calendar date like 01/24/2000 1600.
 
 **Marking a Task as Completed**
 
