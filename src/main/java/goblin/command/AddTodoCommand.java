@@ -17,7 +17,8 @@ public class AddTodoCommand extends Command {
      * @param storage handle storage
      * @throws OrkException when the description is not complete
      */
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+        String message;
         try {
             if (description.trim().isEmpty()) {
                 throw new OrkException("To do what? You dumb meat!");
@@ -25,11 +26,12 @@ public class AddTodoCommand extends Command {
             Task todo = new ToDos(description.trim());
             list.addTask(todo);
             int size = TaskList.list.size();
-            ui.printAddedMessage(todo, size);
             storage.writeToDisk(list);
+            message = ui.printAddedMessage(todo, size);
         } catch (OrkException exception) {
-            ui.printException(exception);
+            message = exception.getMessage();
         }
+        return message;
     }
 
     /**

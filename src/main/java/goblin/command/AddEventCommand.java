@@ -27,8 +27,9 @@ public class AddEventCommand extends Command {
      * @throws OrkException when the description is not complete
      */
     //    //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         String[] descriptionSplit = description.split( "/from");
+        String message;
         try {
             if (descriptionSplit.length == 0 || descriptionSplit[0].trim().isEmpty()) {
                 throw new OrkException("You need to tell me what the event is! You dumb meat!");
@@ -44,18 +45,18 @@ public class AddEventCommand extends Command {
             } else if (timeSplit.length > 2) {
                 throw new OrkException("Follow the format!");
             }
-            if (timeSplit.length == 2) {
                 String startDateTime = timeSplit[0].trim();
                 String endDateTime = timeSplit[1].trim();
                 Task taskEvent = new Events(event, startDateTime, endDateTime);
                 TaskList.list.add(taskEvent);
                 int numberOfTasks = TaskList.list.size();
-                ui.printAddedMessage(taskEvent, numberOfTasks);
                 storage.writeToDisk(list);
-            }
+                message = ui.printAddedMessage(taskEvent, numberOfTasks);
+
         } catch (OrkException exception) {
-            ui.printException(exception);
+            message = exception.getMessage();
         }
+        return message;
     }
 }
 

@@ -27,22 +27,23 @@ public class FindCommand extends Command {
      * @throws OrkException when description is empty or not complete
      */
     @Override
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
         boolean isFind = false;
+        String message = "Here are the matching tasks:";
         if (description.isEmpty()) {
           throw new OrkException("What do you wan to find?");
         } else {
-            System.out.println("Here are the matching tasks:");
             for (int i = 0; i < TaskList.list.size(); i++) {
                 if (list.getTask(i).getDescription().contains(description)) {
-                    System.out.println("\t " + (i + 1) + "." + list.getTask(i).notPrint());
+                    message = message + "\n" + "\t " + (i + 1) + "." + list.getTask(i).notPrint();
                     isFind = true;
                 }
             }
             if (!isFind) {
-                System.out.println("No matching task");
+                message = "No matching task";
             }
         }
+        return message;
     }
 
     /**

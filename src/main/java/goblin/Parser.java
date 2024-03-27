@@ -48,7 +48,7 @@ public class Parser {
             String description = input.replaceFirst("find", "");
             return new FindCommand(description.trim());
         } else {
-            throw new OrkException("You think you are smart? You fresh meat!");
+            throw new OrkException("Sorry. But I don't know what that means");
         }
     }
 }

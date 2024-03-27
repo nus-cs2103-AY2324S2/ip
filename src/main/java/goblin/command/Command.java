@@ -14,7 +14,7 @@ public abstract class Command {
      * @param storage handle storage
      * @throws OrkException when something is wrong
      */
-    public abstract void execute(TaskList tasks, Ui ui, Storage storage) throws OrkException;
+    public abstract String execute(TaskList tasks, Ui ui, Storage storage) throws OrkException;
 
     /**
      * show the app is working

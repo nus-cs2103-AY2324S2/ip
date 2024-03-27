@@ -18,10 +18,11 @@ public class ListCommand extends Command {
      * @param ui handle ui
      * @param storage handle storage
      */
-    public void execute(TaskList list, Ui ui, Storage storage) {
-        System.out.println("\t" + "Read it yourself.");
+    public String execute(TaskList list, Ui ui, Storage storage) {
+        String message = "\t" + "Here are the tasks.";
         for (int i = 0; i < TaskList.list.size(); i++) {
-            System.out.println("\t" + (i + 1) + "." + TaskList.list.get(i).notPrint());
+            message = message + "\n" + "\t" + (i + 1) + "." + TaskList.list.get(i).notPrint();
         }
+        return message;
     }
 }

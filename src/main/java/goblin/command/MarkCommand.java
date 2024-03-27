@@ -26,17 +26,19 @@ public class MarkCommand extends Command {
      * @throws OrkException when the description is not complete
      */
     //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+        String message;
         try {
             Task task = TaskList.list.get(index);
             if (index + 1 > TaskList.list.size()) {
                 throw new OrkException("No such task");
             }
             task.done();
-            Ui.printDoneMessage(task);
             storage.writeToDisk(list);
+            message = Ui.printDoneMessage(task);
         } catch (OrkException exception) {
-            ui.printException(exception);
+            message = exception.getMessage();
         }
+        return message;
     }
 }

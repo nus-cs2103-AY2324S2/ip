@@ -29,13 +29,6 @@ public class Ui {
     }
 
     /**
-     * print the goodbye message on the screen
-     */
-    public static void sayBye() {
-        System.out.println(bye);
-    }
-
-    /**
      * draw a beautiful line on the screen
      */
     public static void line() {
@@ -47,10 +40,10 @@ public class Ui {
      * @param task the task added
      * @param size the size of the list after the add
      */
-    public void printAddedMessage(Task task, int size) {
-        System.out.println("Got it. I've added this task: ");
-        System.out.println("\t " + task.notPrint());
-        System.out.println("Now you have " + size + (size == 1 ? " task": " tasks") + " in the list.");
+    public String printAddedMessage(Task task, int size) {
+        return "Got it. I've added this task: \n" +
+        "\t " + task.notPrint() + "\n" +
+        "Now you have " + size + (size == 1 ? " task": " tasks") + " in the list.";
     }
 
     /**
@@ -74,19 +67,19 @@ public class Ui {
      * @param task the task deleted
      * @param index the number of tasks left
      */
-    public static void printDeleteMessage(Task task, int index) {
-        System.out.println("Noted. I've removed this task: ");
-        System.out.println("\t " + task.notPrint());
-        System.out.println("Now you have " + index + (index == 1 ? " task": " tasks") + " in the list.");
+    public static String printDeleteMessage(Task task, int index) {
+        return "Noted. I've removed this task: \n" +
+        "\t " + task.notPrint() + "\n" +
+        "Now you have " + index + (index == 1 ? " task": " tasks") + " in the list.";
     }
 
     /**
      *print the message to have marked a task as done
      * @param task the done task
      */
-    public static void printDoneMessage(Task task) {
-        System.out.println("Nice! I've marked this task as done: ");
-        System.out.println("\t " + task.notPrint());
+    public static String printDoneMessage(Task task) {
+        return "Nice! I've marked this task as done: \n" +
+        "\t " + task.notPrint();
     }
 
     /**

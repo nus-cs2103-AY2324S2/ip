@@ -28,7 +28,8 @@ public class AddDeadlineCommand extends Command {
      */
 
     //Solution below inspired by https://github.com/nus-cs2103-AY1920S1/duke/pull/23/commits
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+        String message;
         try {
             String[] detailsSplit = description.split("/by");
             if (detailsSplit.length == 0 || detailsSplit[0].trim().isEmpty()) {
@@ -42,10 +43,11 @@ public class AddDeadlineCommand extends Command {
             Task Deadline = new Deadlines(action,deadline);
             TaskList.list.add(Deadline);
             int numberOfTasks = TaskList.list.size();
-            ui.printAddedMessage(Deadline, numberOfTasks);
             storage.writeToDisk(list);
+            message = ui.printAddedMessage(Deadline, numberOfTasks);
         } catch (OrkException exception) {
-            ui.printException(exception);
+            message = exception.getMessage();
         }
+        return message;
     }
 }

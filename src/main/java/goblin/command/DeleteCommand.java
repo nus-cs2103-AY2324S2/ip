@@ -25,7 +25,8 @@ public class DeleteCommand extends Command {
      * @param storage handle storage
      * @throws OrkException when the description is not complete
      */
-    public void execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+    public String execute(TaskList list, Ui ui, Storage storage) throws OrkException {
+        String message;
         try {
             Task task = TaskList.list.get(index);
             if (index + 1 > TaskList.list.size()) {
@@ -35,10 +36,11 @@ public class DeleteCommand extends Command {
             TaskList.list.remove(index);
             int numberOfTasks = TaskList.list.size();
             assert numberOfTasks == oldNumberOfTasks - 1 : "task did not get deleted";
-            Ui.printDeleteMessage(task, numberOfTasks);
             storage.writeToDisk(list);
+            message = Ui.printDeleteMessage(task, numberOfTasks);
         } catch (OrkException exception) {
-            ui.printException(exception);
+            message = exception.getMessage();
         }
+        return message;
     }
 }
