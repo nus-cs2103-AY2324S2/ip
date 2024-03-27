@@ -1,0 +1,32 @@
+T | 1 | homework
+T | 1 | a
+D | 1 | b | 2004-10-22
+E | 0 | born | 2004-10-22 11:00 | 2004-10-22 12:00
+T | 0 | a
+T | 1 | eat
+T | 0 | sleep
+T | 1 | a
+T | 0 | a
+T | 0 | aa
+T | 0 | abc
+T | 0 | abcd
+D | 0 | return book | 2024-02-29
+D | 0 | return book | 2024-02-22
+T | 0 | a
+T | 0 | home
+T | 0 | a
+T | 0 | play mario kart
+T | 0 | a
+D | 0 | Submit report | 2024-03-15
+T | 0 | eatmeat
+D | 0 | return book | 2024-03-01
+E | 1 | project meeting | 2024-03-01 08:00 | 2024-03-01 16:00
+T | 0 | ip
+T | 0 | play video games
+T | 0 | ip
+T | 0 | study
+T | 0 | test1
+T | 0 | test2
+T | 0 | test3
+T | 0 | test4
+T | 0 | test5

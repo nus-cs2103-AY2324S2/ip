@@ -1,0 +1,55 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    String javaFxVersion = '17.0.7'
+    implementation "org.openjfx:javafx-base:$javaFxVersion:win"
+    implementation "org.openjfx:javafx-base:$javaFxVersion:mac"
+    implementation "org.openjfx:javafx-base:$javaFxVersion:linux"
+    implementation "org.openjfx:javafx-controls:$javaFxVersion:win"
+    implementation "org.openjfx:javafx-controls:$javaFxVersion:mac"
+    implementation "org.openjfx:javafx-controls:$javaFxVersion:linux"
+    implementation "org.openjfx:javafx-fxml:$javaFxVersion:win"
+    implementation "org.openjfx:javafx-fxml:$javaFxVersion:mac"
+    implementation "org.openjfx:javafx-fxml:$javaFxVersion:linux"
+    implementation "org.openjfx:javafx-graphics:$javaFxVersion:win"
+    implementation "org.openjfx:javafx-graphics:$javaFxVersion:mac"
+    implementation "org.openjfx:javafx-graphics:$javaFxVersion:linux"
+
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.10.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.10.0'
+}
+
+test {
+    useJUnitPlatform()
+
+    testLogging {
+        events "passed", "skipped", "failed"
+        showExceptions true
+        exceptionFormat "full"
+        showCauses true
+        showStackTraces true
+        showStandardStreams = false
+    }
+}
+
+application {
+    mainClass.set("SamuelBot.Launcher")
+}
+
+shadowJar {
+    archiveBaseName = "Samuelbot"
+    archiveClassifier = null
+}
+
+run {
+    standardInput = System.in
+    classpath = sourceSets.main.runtimeClasspath + configurations.runtimeClasspath
+}

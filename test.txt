@@ -1,0 +1,12 @@
+E | 0 | born | 2004-10-22 11:00 | 2004-10-22 12:00
+T | 0 | dohomework
+T | 0 | a
+T | 0 | eat
+T | 0 | sleep
+T | 0 | a
+T | 0 | a
+T | 0 | aa
+T | 0 | abc
+T | 0 | abcd
+D | 0 | return book | 2024-02-29
+D | 0 | return book | 2024-02-22
