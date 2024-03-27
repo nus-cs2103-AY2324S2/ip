@@ -19,6 +19,7 @@ public class ByeCommand extends Command {
      * @param storage handle storage
      */
     public String execute(TaskList tasks, Ui ui, Storage storage) {
+        System.exit(0);
         return "bye";
     }
 

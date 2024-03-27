@@ -149,10 +149,6 @@ public class Goblin extends Application{
                 DialogBox.getDukeDialog(dukeText, new ImageView(duke))
         );
         userInput.clear();
-
-        if (messagea == "bye") {
-            System.exit(0);
-        }
     }
 
     /**
@@ -162,15 +158,11 @@ public class Goblin extends Application{
     private String getResponse(String input){
         try {
            boolean working = true;
-           while(working) {
-               Command c = Parser.parse(input);
-               message = c.execute(tasks, ui, storage);
-               working = c.isWorking();
-               return message;
-           }
+           Command c = Parser.parse(input);
+           message = c.execute(tasks, ui, storage);
+           return message;
        } catch (OrkException e){
            return e.getMessage();
        }
-        return "heyhey";
     }
 }
