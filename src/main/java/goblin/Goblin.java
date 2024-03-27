@@ -37,21 +37,16 @@ public class Goblin extends Application{
     /**
      * Create a Goblin object.
      * Initiate ui, storage and taskList.
-     * @param filePath the local path to the storage file.
      */
-    public Goblin(String filePath) {
+    public Goblin() {
         ui = new Ui();
-        storage = new Storage(filePath);
+        storage = new Storage("./data/goblin.txt");
         try {
             tasks = new TaskList(storage.readFile());
         } catch (OrkException e) {
             ui.showLoadingError();
             tasks = new TaskList();
         }
-    }
-
-    public Goblin() {
-
     }
 
     @Override
