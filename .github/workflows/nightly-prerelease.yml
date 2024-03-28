@@ -1,0 +1,69 @@
+name: Nightly Pre-Release
+
+on:
+  schedule:
+    - cron: '25/15 12-13 * * *' # 1200 UTC is 2000 SGT
+
+
+permissions: write-all
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, macos-latest, windows-latest]
+    runs-on: ${{ matrix.platform }}
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@master
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          java-package: jdk+fx
+
+      - name: Run Clean Checks
+        run: ./gradlew clean check
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up repository
+        uses: actions/checkout@master
+
+      - name: Validate Gradle Wrapper
+        uses: gradle/wrapper-validation-action@v2
+
+      - name: Setup JDK 11
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'zulu'
+          java-version: '11'
+          java-package: jdk+fx
+
+      - name: Build Jar
+        run: ./gradlew clean shadowJar
+
+      - name: Get Date
+        id: date
+        run: echo "::set-output name=date::$(date +'%Y-%m-%d-%H%M')"
+
+      - name: Create Pre-Release
+        id: create_pre_release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: false
+          prerelease: true
+          files: build/libs/fluffy.jar
+          name: Nightly Release ${{ steps.date.outputs.date }}-${{ github.sha }}
+          tag_name: nightly-${{ steps.date.outputs.date }}-${{ github.sha }}
+          fail_on_unmatched_files: true
+          token: ${{ secrets.GITHUB_TOKEN }}
