@@ -1,7 +1,29 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+*YAP* Good morning YAPPER! *YAP*
+Greetings from
+▀█▀ ▄▀█ █▀ █▄▀ █▄█ ▄▀█ █▀█ █▀█ █▀▀ █▀█
+░█░ █▀█ ▄█ █░█ ░█░ █▀█ █▀▀ █▀▀ ██▄ █▀▄
+
+What's YAPpening??!! Please yap your instruction more clearly
+Added task:
+[D][ ] CS2103T work (by: Wednesday 11am)
+Added task:
+[E][ ] CS2103T Lecture (from: Friday 4pm to 6pm)
+Added task:
+[T][ ] Learn about Git commands
+Good job Yapper! I've marked this task as done:
+[D][X] CS2103T work (by: Wednesday 11am)
+Stop yappin' bruh... tasks.Task is already marked as done
+[D][X] CS2103T work (by: Wednesday 11am)
+YAPYAP! I've unmarked this task...
+[D][ ] CS2103T work (by: Wednesday 11am)
+1. [D][ ] CS2103T work (by: Wednesday 11am)
+2. [E][ ] CS2103T Lecture (from: Friday 4pm to 6pm)
+3. [T][ ] Learn about Git commands
+Okay, I'll stop yapping about this task:
+[D][ ] CS2103T work (by: Wednesday 11am)
+1. [E][ ] CS2103T Lecture (from: Friday 4pm to 6pm)
+2. [T][ ] Learn about Git commands
+Stoppin' the YAP...
+█▀▀ █▀█ █▀█ █▀▄ █▄▄ █▄█ █▀▀ █
+█▄█ █▄█ █▄█ █▄▀ █▄█ ░█░ ██▄ ▄
 

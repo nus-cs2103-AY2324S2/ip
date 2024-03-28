@@ -1,0 +1,11 @@
+yapyapyap
+deadline CS2103T work /by Wednesday 11am
+event CS2103T Lecture /from Friday 4pm /to 6pm
+todo Learn about Git commands
+mark 1
+mark 1
+unmark 1
+yap
+delete 1
+yap
+bye
