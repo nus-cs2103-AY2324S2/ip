@@ -13,5 +13,15 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# java class files
+*.class
+
+# simple text UI test
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# local storage
+data/PersistentData.json
+
+# jar binary
+*.jar
