@@ -1,0 +1,2 @@
+T|eat|1
+T|clean|0
