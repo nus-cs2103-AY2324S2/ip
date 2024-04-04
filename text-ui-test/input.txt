@@ -1,0 +1,7 @@
+list
+todo Run
+deadline Submission /by Friday
+event Openhouse /from 25 Jan /to 28 Jan
+list
+mark 2
+bye
