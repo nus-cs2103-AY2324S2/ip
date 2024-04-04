@@ -1,29 +1,72 @@
-# User Guide
+# Anita MaxWynn User Guide
 
-## Features 
+![Screenshot of Ui.](Ui.png)
 
-### Feature-ABC
+Anita is a helpful chatbot that can help you remember your tasks so that you can always stay winning!
 
-Description of the feature.
+---
+## Functionalities
 
-### Feature-XYZ
+### _1 . Add a **To-do** task._ 
 
-Description of the feature.
+Format: `todo <description>`
 
-## Usage
+Examples:
+* `todo Max-Win-Now`
+* `t Max Win Today`
 
-### `Keyword` - Describe action
+### _2 . Add a **Deadline** task._ 
 
-Describe the action and its outcome.
+Format: `deadline <description> /by <date>`
 
-Example of usage: 
+Examples:
+* `deadline Win Money /by 2024-03-15`
+* `d Get rich /by 2024-03-15`
 
-`keyword (optional arguments)`
+### _3 . Add an **Event** task._ 
 
-Expected outcome:
+Format: `event <description> /from <date> /to <date>`
 
-Description of the outcome.
+Examples:
+* `event project meeting /from 2024-03-15 /to 2024-03-15`
+* `e project meeting /from 2024-03-15 /to 2024-03-15`
 
-```
-expected output
-```
+### _4 . **Mark** a task as done._
+Format: `mark <task index>`
+
+Examples:
+* `mark 1`
+
+### _5 . **Unmark** a task as not done._
+
+Format: `unmark <index>`
+
+Examples:
+* `unmark 2`
+
+### _6 . **List** out all tasks and their status._ 
+
+Format:`list`
+
+### _7 . **Delete** any tasks from task list._ 
+
+Format: `delete <index>`
+
+Examples:
+* `delete 6`
+
+### _8 . **Find** a task with a matching sequence_ 
+
+Format: `find <sequence>`
+
+Examples:
+* `find win`
+* `find money`
+
+### _9 . Say **bye** to exit the chatbot application_ 
+Format: `bye`
+
+---
+
+
+
