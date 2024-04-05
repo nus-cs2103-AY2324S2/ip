@@ -1,0 +1,3 @@
+alfred.task.Todo borrow book
+alfred.task.Deadline return book /by Sunday
+alfred.task.Event project meeting /from Mon 2pm /to 4pm
