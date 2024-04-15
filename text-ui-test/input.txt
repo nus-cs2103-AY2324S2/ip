@@ -1,0 +1,37 @@
+mark 1
+list tasks
+list
+todo read book
+list
+todo return book
+list
+mark
+mark two
+mark 2
+list
+unmark
+unmark two
+unmark 2
+list
+mark 3
+todo
+todo borrow book
+list
+deadline return book
+deadline return book /on Sunday
+deadline return book /by 2011-01-23
+list
+event /from Mon /to Tue
+event project meeting /at Mon
+event project meeting /from Mon 2pm
+event project meeting /from Mon 2pm /to 4pm
+list
+deadline /by Tue
+deadline do homework /by no idea :-p
+list
+mark 4
+list
+delete 1
+list
+exit
+bye
