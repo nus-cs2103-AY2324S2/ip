@@ -13,5 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Java generated files
+.class
+.jar
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+/data/
+
+/.vscode/
