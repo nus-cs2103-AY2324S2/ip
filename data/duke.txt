@@ -1,0 +1,5 @@
+todo finish /isMarked 1
+todo bug /isMarked 0
+todo manybuggs /isMarked 0
+todo manybgg /isMarked 0
+event recess /from 2024-02-24 /to 2024-03-03 /isMarked 0
