@@ -5,3 +5,17 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+------------------------------------------
+You ran into this error: Na manega! You entered an invalid task type. Sorry!
+------------------------------------------
+You ran into this error: Abe, I don't know what to do! You did not give me instructions!
+------------------------------------------
+Got it. I've added this task:
+[D][ ] project meeting (by: You ran into this error: Oye, dates enter properly man!to: )
+Now you have 1 tasks in the list
+------------------------------------------
+------------------------------------------
+Noted. I've removed this task:
+[D][ ] project meeting (by: You ran into this error: Oye, dates enter properly man!to: )
+Now you have 0 tasks in the list
+------------------------------------------

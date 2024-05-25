@@ -1,0 +1,4 @@
+T|X|read book
+D| |return book|OCTOBER 29 2019 1800
+E| |project meeting|OCTOBER 15 2004 400|2-4pm
+T|X|join sports club
