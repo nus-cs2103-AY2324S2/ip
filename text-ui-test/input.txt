@@ -1,0 +1,25 @@
+todo borrow book
+deadline return book /by 2020-05-13
+list
+event project meeting /from 05/23/2023 /to 01/07/2024
+list
+mark 2
+mark 1
+list
+unmark 1
+list
+event lunch meeting /from 05/01/2023 1200 /to 05/01/2023 1400
+find lunch
+delete 2
+list
+event
+event hello
+unmark -1
+unmark 5
+deadline /by Tuesday
+delete 0
+delete 2
+event lunch meeting /from 05/01/2023 1200 /to 05/01/2023 2500
+unmark 1
+list
+bye

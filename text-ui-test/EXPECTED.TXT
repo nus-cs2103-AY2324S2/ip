@@ -1,7 +1,83 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+	_________________________________________________
+	Hello! I'm roebot.RoeBot!
+	What can I do for you?
+	_________________________________________________
+	Got it. I've added this task:
+	[T][ ] borrow book
+	Now you have 1 task in the list
+	_________________________________________________
+	Got it. I've added this task:
+	[D][ ] return book (by: May 13 2020 12:00 AM)
+	Now you have 2 tasks in the list
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: May 13 2020 12:00 AM)
+	_________________________________________________
+	Got it. I've added this task:
+	[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	Now you have 3 tasks in the list
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][ ] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	_________________________________________________
+	Nice! I've marked this task as done:
+	_________________________________________________
+	Nice! I've marked this task as done:
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][X] borrow book
+	2.[D][X] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	_________________________________________________
+	OK, I've marked this task as not done yet:
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[D][X] return book (by: May 13 2020 12:00 AM)
+	3.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	_________________________________________________
+	Got it. I've added this task:
+	[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	Now you have 4 tasks in the list
+	_________________________________________________
+	Here are the matching tasks in your list:
+	1.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	_________________________________________________
+	Noted. I've removed this task:
+	[D][X] return book (by: May 13 2020 12:00 AM)
+	Now you have 3 tasks in the list
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	3.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	_________________________________________________
+	OOPS! Please enter a task name
+	_________________________________________________
+	Please enter valid event format
+	_________________________________________________
+	List index out of range
+	_________________________________________________
+	List index out of range
+	_________________________________________________
+	Please enter a valid deadline format
+	_________________________________________________
+	Index out of range!
+	_________________________________________________
+	Noted. I've removed this task:
+	[E][ ] project meeting (from: May 23 2023 12:00 AM to: Jul 1 2024 12:00 AM)
+	Now you have 2 tasks in the list
+	_________________________________________________
+	Invalid date format
+	_________________________________________________
+	OK, I've marked this task as not done yet:
+	_________________________________________________
+	Here are the tasks in your list:
+	1.[T][ ] borrow book
+	2.[E][ ] lunch meeting (from: Jan 5 2023 12:00 PM to: Jan 5 2023 02:00 PM)
+	_________________________________________________
+	Bye. Hope to see you again soon!
+	_________________________________________________
