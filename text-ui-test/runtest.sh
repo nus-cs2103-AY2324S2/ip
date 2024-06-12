@@ -12,15 +12,19 @@ then
     rm ACTUAL.TXT
 fi
 
-# compile the code into the bin folder, terminates if error occurred
-if ! javac -cp ../src/main/java -Xlint:none -d ../bin ../src/main/java/*.java
+if [ -e "./data" ]
 then
+   rm -r data
+fi
+
+# find all Java files and compile them into the bin folder, terminates if an error occurred
+if ! find ../src/main/jmsandiegoo/tyrone -name '*.java' -type f -print0 | xargs -0 javac -d ../bin -Xlint:none; then
     echo "********** BUILD FAILURE **********"
     exit 1
 fi
 
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+java -classpath ../bin jmsandiegoo.tyrone.Tyrone < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

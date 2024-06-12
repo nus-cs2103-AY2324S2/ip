@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.BorderPane?>
+
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+
+<BorderPane maxHeight="-Infinity"
+            maxWidth="-Infinity"
+            minHeight="-Infinity"
+            minWidth="-Infinity"
+            prefHeight="600.0"
+            prefWidth="400.0"
+            stylesheets="@styles.css"
+            xmlns="http://javafx.com/javafx/17"
+            xmlns:fx="http://javafx.com/fxml/1"
+            fx:controller="jmsandiegoo.tyrone.ui.MainWindowController">
+    <top>
+        <HBox
+                styleClass="chat-header-hbox"
+                xmlns="http://javafx.com/javafx/17"
+                xmlns:fx="http://javafx.com/fxml/1">
+            <Label text="Tyrone Chat Bot" stylesheets="@styles.css" styleClass="h1-label"/>
+        </HBox>
+    </top>
+    <center>
+        <ScrollPane fx:id="scrollPane"
+                    vvalue="1.0"
+                    styleClass="chat-log-scrollpane"
+                    xmlns="http://javafx.com/javafx/17"
+                    xmlns:fx="http://javafx.com/fxml/1">
+            <VBox fx:id="chatLog" styleClass="chat-log-container"/>
+        </ScrollPane>
+    </center>
+    <bottom>
+        <HBox
+                stylesheets="@styles.css"
+                styleClass="user-input-hbox"
+                xmlns="http://javafx.com/javafx/17"
+                xmlns:fx="http://javafx.com/fxml/1">
+            <TextField fx:id="userInputTextField" HBox.hgrow="ALWAYS" onAction="#handleUserInput" styleClass="user-input-textfield"/>
+            <Button fx:id="userInputSendButton" text="Send" onAction="#handleUserInput" styleClass="user-input-button"/>
+        </HBox>
+    </bottom>
+</BorderPane>
