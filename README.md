@@ -1,24 +1,49 @@
-# Duke project template
+# Kaipybara Bot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+```
+          /'  _/                                /'
+        /' _/~                                /'
+     ,/'_/~  ____     O   ____              /'__     ____      ____     ____
+    /\/~   /'    )  /'  /'    )--/'    /  /'    )  /'    )   )'    )--/'    )
+  /'  \  /'    /' /'  /'    /' /'    /' /'    /' /'    /'  /'       /'    /'
+/'     \(___,/(__(__/(___,/'  (___,/(__(___,/(__(___,/(__/'        (___,/(__
+                  /'             /'
+                /'       /     /'
+              /'        (___,/'
+```
+> Your Best Bot and Friend 
 
-## Setting up in Intellij
+About Me
+-
+I am a bot that helps you organise your tasks and boost your productivity so that you can focus on the more important things in life, such as watching your favourite TV show. I can:
+- Able to read your text inputs.
+- Execute commands to help you organise your life.
+- Keep it saved locally once you leave the program.
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+All you need to do is to [download](https://github.com/c-wenlong/ip) me! :shit: And your life will become so much __*better*__.
+1. No longer worried about forgetting deadlines.
+2. No longer missing your dates with your potential partners.
+3. No longer missing your meds.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+Features
+-
+- [X] Add, Delete, Mark & Unmark Tasks.
+- [X] View all Tasks.
+- [X] Search for Tasks.
+
+If you are a Java programmer
+-
+You can use it to practice Java too. Here's the `main` method:
+
+```java
+public class Main {
+    public static void main(String[] args) {
+        Ui ui = new Ui();
+        System.out.println(ui.getStartMessage()); // opening statement
+        TaskManager.loadLocalSavedTasks(); // checking if there are local files to load
+        KBot.simulate(); // simulate kaipybara chatbot
+        System.out.println(ui.getEndMessage()); // closing statement
+        System.out.println(ui.getFlower());
+    }
+}
+```

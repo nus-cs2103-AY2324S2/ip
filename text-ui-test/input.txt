@@ -1,0 +1,12 @@
+todo homework
+deadline more homework /by tomorrow
+event hackathon /from today /to tomorrow
+todo finish coding for hackathon
+mark 1
+mark 2
+list
+mark 3
+list
+unmark 3
+list
+bye
