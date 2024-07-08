@@ -1,24 +1,46 @@
-# Duke project template
+# It's Duking Time
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+> “*Any fool can write code that a computer can understand. Good programmers write code that humans can understand.*” 
+> – Martin Fowler
 
-## Setting up in Intellij
+## Duking Time lets you duke whenever you want, wherever you can run java. It is:
+- Not scalable
+- Offline only
+- Not easy to use
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+### Prerequisites:
+1. Familiarity with command line
+2. Familiarity with Java, a high level, garbage collected, statically typed, compiled and interpreted, object oriented, perfect programming language 
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+### Features:
+- [ ] Blazingly fast [🦀](https://doc.rust-lang.org/book/) (not possible unless you use ruby, python or javascript)
+- [X] Add and keep track of your tasks, except occasionally making you yell when missing a "/\" in the command
+- [X] Easily see all of your tasks by dumping all of your tasks at once instead of pagination
+- [X] Very intuitive marking/deletion of tasks by ids instead of task details
+- [X] Persistent storage of your tasks in a offline app that probably only runs on your pc instead of putting it in a cloud based cross-platform service that syncs your tasks across all of your devices
+- [X] Very robust app with 0.1% test coverage
+- [x] Impressive GUI that uses JavaFX instead modern web frameworks such as svelte
+
+### It is free!
+- Except it is a waste of your time to use it
+
+### How to Use
+To get started with our application, follow these simple steps:
+
+- Clone the repository:
+```bash
+git clone https://github.com/ForAeons/ip.git
+```
+- Navigate to the project directory:
+```bash
+cd ip
+```
+- Build the app:
+```bash
+./gradlew build
+```
+- Start the application or run the `main` method of the Main class:
+```bash
+./gradlew run
+```
+

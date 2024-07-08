@@ -1,0 +1,10 @@
+todo arg1
+list
+delete 1
+deadline arg1 /by arg2
+event arg1 /from arg2 /to arg3
+list
+delete 2
+list
+delete 1
+bye

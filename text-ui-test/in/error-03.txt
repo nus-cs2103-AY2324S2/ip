@@ -1,0 +1,5 @@
+mark
+mark not_integer
+mark 0.99
+mark 1
+bye

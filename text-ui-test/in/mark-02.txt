@@ -1,0 +1,17 @@
+todo complete cs2103t ip
+deadline solve cs2109s problem set /by this weekend
+event attend cs2101 seminar /from 2pm /to 4pm
+list
+mark 1
+list
+mark 2
+list
+mark 3
+list
+unmark 2
+list
+unmark 3
+list
+unmark 1
+list
+bye
