@@ -1,0 +1,4 @@
+T | X | read book
+D | X | project submission | Jan 24 2024
+E | O | festival | aug 6th
+T | X | work at school
