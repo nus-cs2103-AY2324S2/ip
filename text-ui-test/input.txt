@@ -1,0 +1,4 @@
+deadline clean the room \by tmr
+event celebration \from Monday \to Tuesday
+list
+bye
