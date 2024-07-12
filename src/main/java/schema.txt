@@ -1,0 +1,31 @@
+UkeCat:
+- Storage: to store info on user input and tasks
+- Parses user input
+- Responds accordingly in the output
+
+Parser:
+- Parses the initial user input, stores info in storage
+
+Ui:
+- Based on input, respond or call for further parsing
+- Can give default replies
+- Can ask storage to add / remove tasks
+- Can ask storage to mark / unmark tasks
+
+Storage:
+- Stores input
+- Stores tasks in an ArrayList
+- Can call parser to help with generating required info
+- Has methods to add or give additional info on tasks
+
+FileManager:
+- Loads data on startup
+- Updates data when add/delete/mark tasks
+
+Task:
+- ToDo
+- Deadline
+- Event
+
+UkeCatException:
+- Custom exceptions -> Will print out my manually written messages

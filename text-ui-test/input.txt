@@ -1,0 +1,11 @@
+hi
+todo a
+deadline b /by tmr
+event c /from tdy /to tmr
+mark 1
+unmark 1
+list
+delete 1
+list
+hello?
+bye
