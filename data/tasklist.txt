@@ -1,0 +1,16 @@
+E,0,progress ,2002-11-21,2024-02-04,
+E,0,sem2 ,2024-01-10,2024-05-04,
+E,1,hackathon ,2024-01-20,2024-01-27,#low
+D,1,2109ps0 ,2024-01-24,
+E,1,presentation ,2024-02-01,2024-02-02,
+E,0,group meeting ,2024-02-04,2024-02-04,
+E,0,together with girlfriend ,2024-02-04,2024-02-09,
+D,1,3230 written assignmrnt ,2024-02-06,
+D,1,CNY ,2024-02-10,#moretag#happy#finished
+D,0,flight to china ,2024-02-10,
+D,0,2102 ER diagram ,2024-02-12,
+T,0,change,
+T,0,sleep very deep,#mustdo
+D,0,finalize ip ,2024-02-23,
+T,0,write user guide,
+E,0,weekend ,2024-02-17,2024-02-18,
