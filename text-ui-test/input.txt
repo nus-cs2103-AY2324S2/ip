@@ -1,0 +1,29 @@
+list
+todo a
+deadline b /by 1000-01-01
+event c /from 1000-01-01 /to 1000-01-02
+list
+mark 1
+unmark 1
+delete 1
+list
+save
+bye a
+list a
+mark a
+mark 4
+unmark a
+unmark 4
+delete a
+delete 4
+todo
+deadline
+deadline a
+deadline a /by b
+event a
+event a /from b
+event a /to c
+event a /from 1000-01-01 /to b
+event a /from b /to 1000-01-01
+blah
+bye

@@ -1,7 +1,53 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+    Greetings, Your Excellency! Thy humble
+    ┓┏┓  •  ┓  
+    ┃┫ ┏┓┓┏┓┣┓╋
+    ┛┗┛┛┗┗┗┫┛┗┗
+           ┛
+    doth stand before thee. How may I serve thee on this day?
+    Your Excellency, thy list remaineth free of tasks at this present moment.
+    Understood. This task hath been added to thy list:
+    [T][ ] a
+    Understood. This task hath been added to thy list:
+    [D][ ] b (by: x)
+    Understood. This task hath been added to thy list:
+    [E][ ] c (from: y to: z)
+    Behold, the duties thou hast assigned:
+    1.[T][ ] a
+    2.[D][ ] b (by: x)
+    3.[E][ ] c (from: y to: z)
+    Well met! This task hath been marked as fulfilled:
+    [T][X] a
+    Verily, I have marked this task as not yet done:
+    [T][ ] a
+    Indeed, this task hath been wiped from thy list:
+    [T][ ] a
+    Behold, the duties thou hast assigned:
+    1.[D][ ] b (by: x)
+    2.[E][ ] c (from: y to: z)
+    Thou canst bid me farewell simply with:
+    bye
+    Though canst view thy list simply with:
+    list
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    mark [index]
+    I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    unmark [index]
+    I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Take heed, for thou shouldst reference the task thou wishest to alter by its index:
+    delete [index]
+    I regret to inform thee, Your Excellency, that thou lackest a task bearing this index in thy list.
+    Thou shouldst forge a todo task such as so:
+    todo [description]
+    Thou shouldst forge a deadline task such as so:
+    deadline [description] /by [time]
+    Thou shouldst forge a deadline task such as so:
+    deadline [description] /by [time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    Thou shouldst forge an event task such as so:
+    event [description] /from [start time] /to [end time]
+    I beg thine pardon, but I am clueless of the meaning of your utterance.
+    Farewell, Your Excellency! May we cross paths once more in the near future.
