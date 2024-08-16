@@ -19,8 +19,12 @@ then
     exit 1
 fi
 
+<<<<<<< HEAD
 # run the program, feed commands from input.txt file and redirect the output to the ACTUAL.TXT
-java -classpath ../bin Duke < input.txt > ACTUAL.TXT
+=======
+# run the program, feed Charlie.commands from input.txt file and redirect the output to the ACTUAL.TXT
+>>>>>>> add-gradle-support
+java -classpath ../bin Charlie < input.txt > ACTUAL.TXT
 
 # convert to UNIX format
 cp EXPECTED.TXT EXPECTED-UNIX.TXT

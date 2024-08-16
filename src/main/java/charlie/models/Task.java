@@ -1,0 +1,69 @@
+package charlie.models;
+public class Task {
+    protected String description;
+    protected boolean isDone;
+    protected Integer priorityNumber;
+
+    /**
+     * constructor for tasks
+     * @param description contains information in the form of a string about the task
+     */
+    public Task(String description, Integer priorityNumber) {
+        assert description != null && !description.trim().isEmpty() : "Description cannot be null or empty";
+        this.description = description;
+        this.priorityNumber = priorityNumber;
+        this.isDone = false;
+    }
+
+    /**
+     * prints the current status of task
+     * @return the status of the task (whether it is completed or not
+     */
+    public String getStatusIcon() {
+        return (isDone ? "[X]" : "[ ]"); // mark done task with X
+    }
+
+    public Integer getPriority() {
+
+        return this.priorityNumber;
+    }
+
+    /**
+     * marks a task as done
+     */
+    public void markAsDone() {
+        isDone = true;
+        assert isDone : "Task should be marked as done";
+    }
+
+    /**
+     * marks a task as not done
+     */
+    public void markAsNotDone() {
+        isDone = false;
+        assert !isDone : "Task should be marked as not done";
+    }
+
+    /**
+     * @return whether or not the task has been successfully completed
+     */
+    public boolean isDone() {
+        return isDone;
+    }
+
+    /**
+     * @return the description of task
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * @return returns the description of task and the status icon of
+     * whether or not it has been completed
+     */
+    @Override
+    public String toString() {
+        return getStatusIcon() + " [" + priorityNumber.toString() + "] " + description;
+    }
+}
