@@ -1,0 +1,6 @@
+todo study
+deadline homework /by 2024-01-01
+event trip /from 2024-01-01 /to 2024-01-02
+todo word
+list
+bye

@@ -1,7 +1,37 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm chipchat.task.Chipchat
+What can I do for you?
+
+Got it. I've added this chipchat.task:
+[T][ ] read book
+Now you have 1 tasks in the list.
+
+Got it. I've added this chipchat.task:
+[T][ ] do homework
+Now you have 2 tasks in the list.
+
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [T][ ] do homework
+
+Got it. I've added this chipchat.task:
+[D][ ] return book (by: Sunday)
+Now you have 3 tasks in the list.
+
+Got it. I've added this chipchat.task:
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+Now you have 4 tasks in the list.
+
+Noted. I've removed this chipchat.task:
+[T][ ] do homework
+
+Here are the tasks in your list:
+1. [T][ ] read book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+chipchat.exception.ChipchatException: Please enter something
+chipchat.exception.ChipchatException: Sorry. Please specify the item no. you want to mark
+chipchat.exception.ChipchatException: Sorry. Please specify the item no. you want to mark
+chipchat.exception.ChipchatException: Sorry. Please specify a description
+chipchat.exception.ChipchatException: Sorry. Please specify a description
+Bye. Hope to see you again soon!
 
