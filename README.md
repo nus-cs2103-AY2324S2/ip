@@ -1,24 +1,36 @@
-# Duke project template
+# GMO (GameMate Organizer) 👾 🚀
+> "Who wants to play video games?" - GMO
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+**GMO's not a bad influence... he**
+- helps you remember your tasks
+- ~SULKS~ _reminds_ you when you are slaved by work
+- tells you to hurry so you can play with him!
 
-## Setting up in Intellij
+**All you need to do is**
+1. Download GMO [here](https://github.com/huekoh/ip)
+2. Double click it
+3. Start telling GMO your dues
+4. Let him keep track of them for you 🤩
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+And he is **FREE**
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+GMO's Features:
+- [X] Keep track of tasks (todos, dues, events)
+- [X] Manage task status
+- [X] Sort tasks by date
+- [ ] Tell you to skip lecture
+
+And if you are a Java programmer, use him to practice your coding too! Here's GMO's `constructor` method:
+``` ruby
+public GMO() {
+        ui = new Ui();
+        storage = new Storage();
+
+        try {
+            tasks = new TaskList(storage.loadData(), ui, storage);
+        } catch (IOException e) {
+            System.out.println("Error: Unable to load data. " + e.getMessage());
+            tasks = new TaskList(ui);
+        }
+    }
+```
