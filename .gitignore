@@ -13,5 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# vscode files
+.vscode/
+
+# app data
+data/
+
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+text-ui-test/OUT-DATA.TXT
+
