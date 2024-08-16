@@ -1,0 +1,54 @@
+--------------------------------------------------
+Hello! I'm remi.Remi
+What can I do for you?
+--------------------------------------------------
+--------------------------------------------------
+I've added the task.
+[T][ ] borrow book
+You still have 1 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+1. [T][ ] borrow book
+--------------------------------------------------
+--------------------------------------------------
+I've added the task.
+[D][ ] return book (by: Sunday)
+You still have 2 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+I've added the task.
+[E][ ] project meeting (from: Mon 2pm to: 4pm)
+You still have 3 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+I've added the task.
+[D][ ] do homework (by: no idea :-p)
+You still have 4 tasks in the list.
+--------------------------------------------------
+--------------------------------------------------
+Wow you took your time with that one:
+[T][X] borrow book
+--------------------------------------------------
+--------------------------------------------------
+1. [T][X] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][ ] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
+--------------------------------------------------
+--------------------------------------------------
+Wow you took your time with that one:
+[E][X] project meeting (from: Mon 2pm to: 4pm)
+--------------------------------------------------
+--------------------------------------------------
+Why did you say it was finished then?
+[T][ ] borrow book
+--------------------------------------------------
+--------------------------------------------------
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Sunday)
+3. [E][X] project meeting (from: Mon 2pm to: 4pm)
+4. [D][ ] do homework (by: no idea :-p)
+--------------------------------------------------
+--------------------------------------------------
+Bye. Please finish some of your tasks.
+--------------------------------------------------
