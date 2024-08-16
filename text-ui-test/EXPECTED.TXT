@@ -1,7 +1,87 @@
 Hello from
- ____        _        
-|  _ \ _   _| | _____ 
+ ____        _
+|  _ \ _   _| | _____
 | | | | | | | |/ / _ \
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
+
+Hello, I'm Baron. What can I do for you?
+--------------------
+--------------------
+--------------------
+Got it, I've added this task:
+  [T][ ] eat something nice
+Now you have 1 tasks in the list
+--------------------
+--------------------
+Got it, I've added this task:
+  [D][ ] cs2103 assignment (by: tomorrow)
+Now you have 2 tasks in the list
+--------------------
+--------------------
+Got it, I've added this task:
+  [E][ ] clubbing all night (from: tonight to: tomorrow morning)
+Now you have 3 tasks in the list
+--------------------
+--------------------
+1. [T][ ] eat something nice
+2. [D][ ] cs2103 assignment (by: tomorrow)
+3. [E][ ] clubbing all night (from: tonight to: tomorrow morning)
+--------------------
+--------------------
+Nice! I've marked this task as done:
+[D][X] cs2103 assignment (by: tomorrow)
+--------------------
+--------------------
+1. [T][ ] eat something nice
+2. [D][X] cs2103 assignment (by: tomorrow)
+3. [E][ ] clubbing all night (from: tonight to: tomorrow morning)
+--------------------
+--------------------
+Nice! I've marked this task as done:
+[D][X] cs2103 assignment (by: tomorrow)
+--------------------
+--------------------
+Ok! I've marked this task as not yet done:
+[T][ ] eat something nice
+--------------------
+--------------------
+Nice! I've marked this task as done:
+[T][X] eat something nice
+--------------------
+--------------------
+Ok! I've marked this task as not yet done:
+[D][ ] cs2103 assignment (by: tomorrow)
+--------------------
+--------------------
+1. [T][X] eat something nice
+2. [D][ ] cs2103 assignment (by: tomorrow)
+3. [E][ ] clubbing all night (from: tonight to: tomorrow morning)
+--------------------
+No valid value found after deadline
+No valid value found after /by
+--------------------
+Got it, I've added this task:
+  [D][ ] name name (by: tonight)
+Now you have 4 tasks in the list
+--------------------
+No valid value found after event
+No valid value found after /from
+No valid value found after event
+No /to specified
+No /from specified
+No /from specified
+No valid value found after /to
+No valid value found after /from
+--------------------
+Noted, I've removed this task:
+  [T][X] eat something nice
+Now you have 3 tasks in the list
+--------------------
+--------------------
+Noted, I've removed this task:
+  [D][ ] name name (by: tonight)
+Now you have 2 tasks in the list
+--------------------
+Bye, good riddance
 
