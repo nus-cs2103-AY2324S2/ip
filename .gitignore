@@ -13,5 +13,13 @@ src/main/resources/docs/
 *.iml
 bin/
 
+# Ensured .class is not version controlled
+/src/main/java/pan/*.class
+
+# output .txt file for level 7
+/src/main/java/pan/output/pan.txt
+
+# test scripts
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED.TXT
