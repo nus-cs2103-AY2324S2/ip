@@ -1,0 +1,9 @@
+todo eat lunch
+deadline submit assignment /by 2pm
+event birthday party /from 5pm /to 9pm
+list
+mark 1
+mark 2
+unmark 2
+list
+bye

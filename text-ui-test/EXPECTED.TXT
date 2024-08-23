@@ -1,7 +1,38 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+		Hello, my name is Xilef.
+		How may I help you today??
 
+		Added a new task to the list!
+		  [T][ ] eat lunch
+		You have 1 too many tasks to do!!!
+		Quickly start working on them!!!
+
+		Added a new task to the list!
+		  [D][ ] submit assignment (by: 2pm )
+		You have 2 too many tasks to do!!!
+		Quickly start working on them!!!
+
+		Added a new task to the list!
+		  [E][ ] birthday party (from: 5pm to: 9pm )
+		You have 3 too many tasks to do!!!
+		Quickly start working on them!!!
+
+		These are the things on your agenda today
+		1.[T][ ] eat lunch
+		2.[D][ ] submit assignment (by: 2pm )
+		3.[E][ ] birthday party (from: 5pm to: 9pm )
+
+		Great job, you have accomplished this task:
+		  [T][X] eat lunch
+
+		Great job, you have accomplished this task:
+		  [D][X] submit assignment (by: 2pm )
+
+		Reminder, you have not completed this task yet:
+		  [D][ ] submit assignment (by: 2pm )
+
+		These are the things on your agenda today
+		1.[T][X] eat lunch
+		2.[D][ ] submit assignment (by: 2pm )
+		3.[E][ ] birthday party (from: 5pm to: 9pm )
+
+		Bye bye, see you next time!!!
