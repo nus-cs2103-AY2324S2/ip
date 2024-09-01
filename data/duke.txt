@@ -1,0 +1,5 @@
+T | 1 | Buy groceries
+D | 1 | 0 | Read a book | 2024-03-20 1800
+E | 0 | 1 | Attend meeting | 2024-03-20 1400 | 2024-03-20 1600
+D | 1 | 1 | wash up | 2024-03-17 1800
+E | 1 | 1 | do assignment | 2024-03-20 1800 | 2024-03-20 2100

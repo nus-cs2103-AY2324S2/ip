@@ -5,3 +5,8 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I'm Hao Wen
+What can I do for you?
+Got it. I've added this task:
+[D][ ] borrow book
+Now you have 1 tasks in the list.
