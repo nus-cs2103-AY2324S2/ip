@@ -1,7 +1,25 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello, I am AaronBot, please talk to me I love my students very much :)
+To add a task to the list, type 'add ' followed by your task.
+To add a Todo: add todo [task name]
+To add a Deadline: add deadline [task name] /by [deadline]
+To add an Event: add event [task name] /from [start] /to [end]
+To show the list, type 'show list'.
+To mark a task done: mark [index of task]
+To unmark a task done: unmark [index of task]
+Task added :)
+You now have 1 tasks.
+This task is already in the list!
+Task added :)
+You now have 2 tasks.
+1. [T][ ] swim
+2. [D][ ] run  (by: tommorow)
+Task added :)
+You now have 3 tasks.
+OK, this task has been marked :)
+OK, this task has been marked :)
+Task is already incomplete!
+OK, task has been unmarked :)
+Task is already done!
+1. [T][ ] swim
+2. [D][ ] run  (by: tommorow)
+3. [E][X] networking  (From: today  to: tommorow)

@@ -1,0 +1,12 @@
+add todo swim
+add todo swim
+add deadline run /by tommorow
+show list
+add event networking /from today /to tommorow
+mark 1
+mark 3
+unmark 2
+unmark 1
+mark 3
+show list
+bye
