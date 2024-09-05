@@ -1,0 +1,14 @@
+# create a tag and push it along with a commit
+git add .
+git commit -m "message"
+git tag v-tag
+git push origin master v-tag
+
+
+# create and switch to a new branch
+git branch feature1
+git checkout feature1
+
+git merge master
+git merge feature1
+git merge --no-ff feature -m "message"
