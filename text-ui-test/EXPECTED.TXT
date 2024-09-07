@@ -1,7 +1,30 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello! I'm GhBot
+What can I do for you?
+Got it. I've added this task:
+[T][ ] borrow book
+Now you have 1 tasks in the list.
+Got it. I've added this task:
+[D][ ] return book (by: 12 Mar 2024 1159PM)
+Now you have 2 tasks in the list.
+Got it. I've added this task:
+[E][ ] project meeting (from: 22 Mar 2024 0500PM to: 22 Mar 2024 0600PM)
+Now you have 3 tasks in the list.
+Here are the tasks in your list:
+1.[T][ ] borrow book
+2.[D][ ] return book (by: 12 Mar 2024 1159PM)
+3.[E][ ] project meeting (from: 22 Mar 2024 0500PM to: 22 Mar 2024 0600PM)
+Nice! I've marked this task as done:
+[T][X] borrow book
+Nice! I've marked this task as done:
+[D][X] return book (by: 12 Mar 2024 1159PM)
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[D][X] return book (by: 12 Mar 2024 1159PM)
+3.[E][ ] project meeting (from: 22 Mar 2024 0500PM to: 22 Mar 2024 0600PM)
+OK, I've marked this task as not done yet:
+[D][ ] return book (by: 12 Mar 2024 1159PM)
+Here are the tasks in your list:
+1.[T][X] borrow book
+2.[D][ ] return book (by: 12 Mar 2024 1159PM)
+3.[E][ ] project meeting (from: 22 Mar 2024 0500PM to: 22 Mar 2024 0600PM)
+Bye. Hope to see you again soon!
