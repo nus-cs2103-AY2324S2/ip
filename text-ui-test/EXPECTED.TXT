@@ -1,7 +1,34 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm dune.Dune, your task manager.
+What can I do for you?
 
+OOPS! Tasks can only be of types todo, deadline, or event.
+Here are the tasks in your list:
+Give a valid index to mark
+Got it. I've added this task:
+[E][ ] this (from: 5 to: nights at Freddie's)
+Now you have 1 tasks in your list.
+Got it. I've added this task:
+[D][ ] well (by: 4/2/0 9:11pm)
+Now you have 2 tasks in your list.
+Got it. I've added this task:
+[T][ ] thisndat
+Now you have 3 tasks in your list.
+Give a valid index to mark
+Nice! I've marked this task as done:
+[D][X] well (by: 4/2/0 9:11pm)
+Give a valid index to mark
+Here are the tasks in your list:
+1.[E][ ] this (from: 5 to: nights at Freddie's)
+2.[D][X] well (by: 4/2/0 9:11pm)
+3.[T][ ] thisndat
+OOPS! Give an index to mark
+OOPS! Events need a /from and a /to in this order
+OOPS! There can only be 1 instance of /from and /to
+String cannot be parsed...
+OOPS! Give an index to remove
+Give a valid index to remove
+Index to be removed needs to be an integer
+Noted. I've removed this task:
+[T][ ] thisndat
+Now you have 2 tasks in the list.
+Bye. Hope to see you again soon!

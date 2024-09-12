@@ -1,0 +1,19 @@
+john
+list
+mark 1
+event this /from 5 /to nights at Freddie's
+deadline well /by 4/2/0 9:11pm
+todo thisndat
+mark 0
+mark 2
+mark 4
+list
+mark
+event john /to 9 /from7
+event john /from 6/to 7/to 9
+delete 
+delete 69
+deletejjlin
+delete3
+bye
+
