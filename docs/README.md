@@ -1,29 +1,60 @@
-# User Guide
+# MR WONG User Guide
 
-## Features 
+MR.WONG is a task management chatbot that helps you keep track of your tasks!
 
-### Feature-ABC
+![Ui screenshot](Ui.png)
 
-Description of the feature.
+## Adding todos, deadlines, and events
 
-### Feature-XYZ
+You can add todos, deadlines, or events to your task list.
 
-Description of the feature.
+Format: `todo NAME`, `deadline NAME /by BY`, `event NAME /from FROM /to TO`
 
-## Usage
+Examples:
 
-### `Keyword` - Describe action
+- `todo gym`
+- `deadline homework /by 4pm`
+- `event seminar /from 2pm /to 4pm`
 
-Describe the action and its outcome.
 
-Example of usage: 
+## Listing tasks
 
-`keyword (optional arguments)`
+Shows a list of all tasks saved.
 
-Expected outcome:
+Format: `list`
 
-Description of the outcome.
+## Finding tasks
 
-```
-expected output
-```
+Finds the tasks whose names contain the given string.
+
+Format: `find STRING`
+
+## Deleting tasks
+
+Deletes task from the task list (by index).
+
+Format: `delete INDEX`
+
+- INDEX should be a **positive integer**.
+
+Examples: `delete 2`, `delete 3`
+
+## Marking tasks
+
+You may mark tasks as "done" (by index).
+
+Format: `mark INDEX`
+
+- INDEX should be a **positive integer**.
+
+Examples: `mark 2`, `mark 3`
+
+## Tagging tasks
+
+You may tag tasks (by index) with a keyword.
+
+Format: `tag INDEX NAME`
+
+Examples: 
+- `tag 2 fun` adds the tag "#fun" to the second item in the list.
+- `tag 3 important` adds the tag "#important" to the third item in the list.
