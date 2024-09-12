@@ -1,24 +1,102 @@
-# Duke project template
+# Patrick User Guide
+### Launching Patrick
+Prerequisites: JDK 11
+1. Download patrick.jar [here](https://github.com/erv-teo/ip/releases/tag/A-Release)
+2. Navigate to the file directory containing patrick.jar
+3. Launch by entering java -jar patrick.jar
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+## Features
 
-## Setting up in Intellij
+### Adding Tasks
+Available task types: `deadline`, `todo`, `event`
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+Accepted DATETIME formats: "ddMM", "ddMMyy", "ddMMyy HHmm"
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+#### Adding Deadline tasks
+Deadline tasks can be added using the `deadline` command or simply `d`.
+
+Format: `deadline TASK /by DATETIME` OR `d TASK /by DATETIME`
+
+Expected output: 
+```
+added: [][D] TASK (by DATETIME)
+You now have ___ tasks.
+```
+
+#### Adding Todo tasks
+Todo tasks can be added using the `todo` command or simply `t`.
+
+Format: `todo TASK` OR `t TASK`
+
+Expected output: 
+```
+added: [][T] TASK
+You now have ___ tasks.
+```
+#### Adding Event tasks
+Event tasks can be added using the `event` command or simply `e`.
+
+Format: `event TASK /from DATETIME /to DATETIME` OR `e TASK /from DATETIME /to DATETIME`
+
+Expected output: 
+```
+added: [][E] TASK (from DATETIME to DATETIME)
+You now have ___ tasks.
+```
+
+### Adding Tags
+Tags can be added to tasks to categorize them.
+
+Format: `tag INDEX TAG_NAME`
+
+`INDEX` should be an integer value which represents the index of the task in the list. 
+
+`TAG_NAME` can be any String.
+
+Expected output:
+```
+Tag added to task
+[][T] TASK [TAG_NAME]
+```
+
+### Seeing your tasks
+Use the `list` or `ls` command to view all your tasks.
+
+
+### Finding tasks
+The `find` or `f` command can be used when you are looking for specific tasks. 
+
+Format: `find STRING`
+
+Patrick will list all tasks with names that contain STRING.
+
+### Mark tasks
+You can indicate tasks as completed using the `mark` or `m` keyword.
+
+Format: `mark INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Unmark tasks
+You can unmark a task using the `unmark` or `u` keyword.
+
+Format: `unmark INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Deleting tasks
+You can delete a task from the list using the `delete` or `del` keyword.
+
+Format: `delete INDEX`
+`INDEX` should be an integer value which represents the index of the task in the list.
+
+### Clearing all tasks
+You can clear all tasks in the list using `clear` or `cl`.
+
+### Exiting the program
+Use `bye` or `b` to close the program.
+
+
+
+
+
+
+
