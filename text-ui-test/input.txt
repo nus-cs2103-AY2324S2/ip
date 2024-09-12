@@ -1,0 +1,6 @@
+list commands
+list
+checkdate 2024-01-01
+deadline
+checkdate
+todo
