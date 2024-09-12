@@ -1,7 +1,137 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm Dino
+What can I do for you?
+____________________________________________________________
 
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [T][ ] borrow book
+Now you have 1 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [T][ ] Read a book
+Now you have 2 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [E][ ] Attend meeting (from: 12:00 toto: :00)
+Now you have 3 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Nice! I've marked this tasks as done:
+[T][X] borrow book
+____________________________________________________________
+
+____________________________________________________________
+
+Invalid Instruction: Please enter the valid tasks number
+____________________________________________________________
+
+____________________________________________________________
+
+Invalid Instruction: Please enter instruction in the correct format
+Check if you have provide the tasks description
+Here are valid instructions: list, mark, unmark, deadline, event, todo
+____________________________________________________________
+
+____________________________________________________________
+
+Invalid Instruction: Please enter the valid tasks number
+____________________________________________________________
+
+____________________________________________________________
+
+Here are the tasks in your list:
+  1.[T][X] borrow book
+  2.[T][ ] Read a book
+  3.[E][ ] Attend meeting (from: 12:00 toto: :00)
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [D][ ] CS2101 slides (by: sunday)
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [E][ ] group project meeting (from: 11am to: 12pm)
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Noted. I've removed this tasks:
+[T][X] borrow book
+Now you have 4 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Nice! I've marked this tasks as done:
+[E][X] Attend meeting (from: 12:00 toto: :00)
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [D][ ] (by: m 12:00 to/ 14:00)
+Now you have 5 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Here are the tasks in your list:
+  1.[T][ ] Read a book
+  2.[E][X] Attend meeting (from: 12:00 toto: :00)
+  3.[D][ ] CS2101 slides (by: sunday)
+  4.[E][ ] group project meeting (from: 11am to: 12pm)
+  5.[D][ ] (by: m 12:00 to/ 14:00)
+____________________________________________________________
+
+____________________________________________________________
+
+OK, I've marked this tasks as not done yet
+[D][ ] CS2101 slides (by: sunday)
+____________________________________________________________
+
+____________________________________________________________
+
+Invalid Instruction: Please enter the tasks number that you want to delete: ex. delete 2
+____________________________________________________________
+
+____________________________________________________________
+
+Invalid Instruction: Please enter instruction in the correct format
+Check if you have provide the tasks description
+Here are valid instructions: list, mark, unmark, deadline, event, todo
+____________________________________________________________
+
+____________________________________________________________
+
+Got it. I've added this tasks:
+added: [T][ ] study
+Now you have 6 tasks in the list.
+____________________________________________________________
+
+____________________________________________________________
+
+Here are the tasks in your list:
+  1.[T][ ] Read a book
+  2.[E][X] Attend meeting (from: 12:00 toto: :00)
+  3.[D][ ] CS2101 slides (by: sunday)
+  4.[E][ ] group project meeting (from: 11am to: 12pm)
+  5.[D][ ] (by: m 12:00 to/ 14:00)
+  6.[T][ ] study
+____________________________________________________________
+
+Bye. Hope to see you again soon!
