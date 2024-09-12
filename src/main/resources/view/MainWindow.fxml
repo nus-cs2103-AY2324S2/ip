@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainWindow" style="-fx-background-image: url('images/Background6.jpg'); -fx-background-size: cover; -fx-background-repeat: no-repeat; -fx-background-position: center center;">
+
+    <children>
+        <TextField fx:id="userInput" layoutY="358.0" onAction="#handleUserInput" prefHeight="41.0" prefWidth="400" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="115" AnchorPane.leftAnchor="5" style="-fx-font-family: Courier New; -fx-background-color: lightcyan; -fx-border-radius: 5; -fx-border-color: #24574b; -fx-border-width: 3; -fx-border-insets: 5px; -fx-background-insets: 5px;"/>
+        <Button fx:id="sendButton" layoutX="400.0" layoutY="558.0" mnemonicParsing="false" onAction="#handleUserInput" prefHeight="41.0" prefWidth="110" text="Send" AnchorPane.bottomAnchor="1.0" AnchorPane.rightAnchor="0.0" style="-fx-font-family: Courier New; -fx-background-color: cornflowerblue; -fx-border-radius: 5; -fx-border-color: #24574b; -fx-border-width: 3; -fx-padding: 5px; -fx-border-insets: 5px; -fx-background-insets: 5px;"/>
+        <ScrollPane fx:id="scrollPane" hbarPolicy="NEVER" vbarPolicy="ALWAYS" hvalue="1.0" vvalue="1.0" style="-fx-background-color: transparent; -fx-background: transparent" AnchorPane.topAnchor="0" AnchorPane.rightAnchor="0" AnchorPane.bottomAnchor="50" AnchorPane.leftAnchor="0">
+            <content>
+                <VBox fx:id="dialogContainer" >
+                    <!-- VBox children will go here -->
+                </VBox>
+            </content>
+        </ScrollPane>
+    </children>
+</AnchorPane>
