@@ -1,29 +1,87 @@
-# User Guide
+# Yapper User Guide
 
-## Features 
+![Screenshot of Ui.](Ui.png)
 
-### Feature-ABC
+Let's all manage our brainrot tasks with Yapper!
 
-Description of the feature.
+# Features
 
-### Feature-XYZ
+## Viewing help
 
-Description of the feature.
+View the list of available commands and their formats
 
-## Usage
+Format: `help`
 
-### `Keyword` - Describe action
+## Adding tasks
 
-Describe the action and its outcome.
+Add a task with a description to your list.
 
-Example of usage: 
+Format: `todo <description>`
 
-`keyword (optional arguments)`
+Example: `todo procrastinate homework`
 
-Expected outcome:
+## Adding deadlines
 
-Description of the outcome.
+Add a task with a deadline date to your list.
 
-```
-expected output
-```
+Format: `deadline <description> /by <yyyy-mm-dd>`
+
+Example: `deadline learn fortnite dance /by 2024-02-22`
+
+## Adding events
+
+Add an event with a start and end date to your list.
+
+Format: `event <description> /from <yyyy-mm-dd> /to <yyyy-mm-dd>`
+
+Example: `event party rock /from 2024-02-22 /to 2024-02-23`
+
+## Listing tasks
+
+Lists out all tasks in your task list.
+
+Format: `list`
+
+## Deleting tasks
+
+Delete a task from your task list specified by index.
+* Index should be positive integers starting from 1. (E.g. `1`,`2`,`3` ...)
+
+Format: `delete <index>`
+
+Example: `delete 2`
+
+## Marking tasks
+
+Mark a task as done from your task list specified by index.
+* Index should be positive integers starting from 1. (E.g. `1`,`2`,`3` ...)
+
+Format: `mark <index>`
+
+Example: `mark 2`
+
+## Un-marking tasks
+
+Mark a task as not done from your task list specified by index.
+* Index should be positive integers starting from 1. (E.g. `1`,`2`,`3` ...)
+
+Format: `unmark <index>`
+
+Example: `unmark 2`
+
+## Finding tasks
+
+Shows a list of tasks that has a matches your search.
+* Returns tasks which has a description that contains your searched phrase
+* Returns tasks that contains exact phrase and not individual words
+  - (E.g. searching _**cry and sob**_ will match with tasks that has _**cry and sob and weep**_ but not match with _**sob and cry**_)
+
+Format: `find <description>`
+
+Example: `unmark cry`
+
+## Saving tasks
+
+Saves your changes to your task list to your device.
+
+Format: `bye`
