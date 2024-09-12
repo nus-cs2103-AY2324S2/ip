@@ -5,3 +5,39 @@ Hello from
 | |_| | |_| |   <  __/
 |____/ \__,_|_|\_\___|
 
+Hello! I'm
+Bingus
+What can I do for you?
+
+Exception occured: bingus.DukeException: OOPS!!! The description of a todo cannot be empty.  Please give this instruction in the following format: todo [description]
+Got it. I've added this task:
+
+[T] [ ]  homework
+Now you have 1 tasks in the list.
+Exception occured: bingus.DukeException: OOPS!!! You must provide a deadline for this task.Please give this instruction in the following format: deadline [description] / [deadline date]
+Got it. I've added this task:
+
+[D] [ ]  homework  (by:  tuesday)
+Now you have 2 tasks in the list.
+Here are the tasks in your list:
+
+1. [T] [ ]  homework
+2. [D] [ ]  homework  (by:  tuesday)
+Exception occured: bingus.DukeException: please give this instruction in the following format: delete [task number]
+Noted. I've removed this task:
+
+[T] [ ]  homework
+Now you have 1 tasks in the list.
+Nice! I've marked this task as done:
+
+[D] [X]  homework  (by:  tuesday)
+OK, I've marked this task as not done yet:
+[D] [ ]  homework  (by:  tuesday)
+Got it. I've added this task:
+
+[E] [ ]  project meeting  (from:  Mon 2pm to:  4pm)
+Now you have 2 tasks in the list.
+Nice! I've marked this task as done:
+
+[E] [X]  project meeting  (from:  Mon 2pm to:  4pm)
+Bye. Hope to see you again soon!

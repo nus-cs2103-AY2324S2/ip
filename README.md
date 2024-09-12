@@ -1,24 +1,108 @@
-# Duke project template
+# Bingus: The Friendly Cat TaskChecker!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Cats Galore!
 
-## Setting up in Intellij
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+>   "I have no special talent. I am only passionately curious." -  Albert Einstein [(source)](https://github.com/dwyl/quotes)
+
+
+Bingus is a task management application based on [Project Duke](https://nus-cs2103-ay1920s1.github.io/website/se-book-adapted/projectDuke/index.html).
+
+## Commands that Bingus Understands!
+
+- __todo <task-name>:__ Adds a new ToDo item.
+
+* __deadline <task-name> \by <dd-MM-yyyy HH:mm>:__ Adds a new Deadline task.
+
++ __event <task-name> \from <dd-MM-yyyy HH:mm> \to <dd-MM-yyyy HH:mm>:__ Adds a new Event item.
+
++ __mark <task-number>:__ Marks task at index <task-number> as done.
+
++ __unmark <task-number>:__ Marks task at index <task-number> as not done.
+
++ __delete <task-number>:__ Deletes task at index <task-number>.
+
++ __find <task-name>:__ Finds task with matching keywords of <task-name>.
+
++ __bye:__ Exits the program.
+
+## Levels that Bingus went through!
+
+- [x] Level-0: Renaming Bot
+- [x] Level-1: Greet, Echo, Exit
+- [x] Level-2: Add, List
+- [x] Level-3: Mark as Done
+- [x] Level-4: ToDos, Events, Deadlines
+- [x] Level-5: Handle Errors
+- [x] Level-6: Delete
+- [x] Level-7: Save
+- [x] Level-8: Dates and Times
+- [x] Level-9: Find
+- [x] Level-10: GUI
+
+## Bingus is here to...
+
+1. record the tasks
+2. mark the taks as done or not
+3. record deadlines and durations of deadlines and events!
+
+## Bingus records events using...
+
+````
+```
+public class Event extends Task{
+
+    protected LocalDate from;
+    protected LocalDate to;
+
+    /**
+     * Creates an event task.
+     *
+     * @param description Description of the task.
+     * @param from Start date of the task.
+     * @param to End date of the task.
+     */
+    public Event(String description, String from, String to) {
+        super(description);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        this.from = LocalDate.parse(from, formatter);
+        this.to = LocalDate.parse(to, formatter);
+    }
+
+    /**
+     * getter for task icon.
+     *
+     */
+    @Override
+    public String getTaskIcon() {
+        return "E";
+    }
+
+    /**
+     * returns string representation of event.
+     *
+     */
+    @Override
+    public String ToString() {
+        return super.ToString() + " (from: " + from.format(DateTimeFormatter.ofPattern("MMM d yyyy"))
+                + " to: " + to.format(DateTimeFormatter.ofPattern("MMM d yyyy")) + ")";
+    }
+    /**
+     * returns a string representation of event used to store the event on hard drive.
+     *
+     */
+    @Override
+    public String toStore() {
+        if (isDone) {
+            return getTaskIcon() + "/" + "1" + "/" + description + "/" + from + "/" + to;
+        } else {
+            return getTaskIcon() + "/" + "0" + "/" + description + "/" + from + "/" + to;
+        }
+    }
+```
+````
+    
+
+
+
