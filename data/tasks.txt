@@ -1,0 +1,2 @@
+[D][X]write book (by: today)
+[T][ ]do homework
