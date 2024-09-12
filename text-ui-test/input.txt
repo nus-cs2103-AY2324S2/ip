@@ -1,0 +1,5 @@
+todo Read a book
+deadline Complete assignment /by Tomorrow
+event Team meeting /from 2pm /to 4pm
+list
+bye
