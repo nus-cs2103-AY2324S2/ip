@@ -1,0 +1,31 @@
+
+John Doe
+todo borrow book
+todo
+deadline return book /by Sunday
+deadline return book /by 1999-02-02
+deadline
+deadline return book
+event project meeting /from Mon 2pm /to 4pm
+event
+event project meeting
+event project meeting /from
+event project meeting /from Mon 2pm
+event project meeting /to
+deadline do homework /by no idea :-p
+list
+mark 1
+mark
+mark 3
+mark 10
+list
+unmark 1
+unmark
+unmark 10
+list
+delete
+delete 10
+delete 3
+list
+/find book
+bye
