@@ -1,7 +1,60 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+Hello! I'm
+░█▀▀░█▀█░█▀█░█▀█░█▀█░█▀▀░
+░█░░░█▀█░█▀▀░█░█░█░█░█▀▀░
+░▀▀▀░▀░▀░▀░░░▀▀▀░▀░▀░▀▀▀░
+What can I do for you?
 
+Commands I understand:
+1. list - Lists the tasks entered.
+2. todo [description] - Creates a new capone.tasks.ToDo task. Remember to enter the description!
+3. deadline [description] /by [date] - Creates a new capone.tasks.Deadline task.
+   Remember to enter the description and date!
+4. event [description] /from [date] /to [date] - Creates a new capone.tasks.Event task.
+   Remember to enter the description, as well as the start and end date!
+5. mark [index] - Marks a task as completed. Use this in conjunction with the 'list' command!
+6. unmark [index] - Unmarks a task. Use this in conjunction with the 'list' command!
+7. delete [index] - Deletes a task. Use this in conjunction with the 'list' command!
+Got it. I've added this task:
+[T][ ] make cake
+Now you have 1 task(s) in the list.
+Please enter a description for this capone.tasks.ToDo task!
+Usage: todo [description]
+I'm sorry, I don't understand what you just said.
+Use -h to display the list of valid capone.commands
+Got it. I've added this task:
+[D][ ] submit weekly report (by: friday 26 Jan 2023)
+Now you have 2 task(s) in the list.
+1. [T][ ] make cake
+2. [D][ ] submit weekly report (by: friday 26 Jan 2023)
+Nice! I've marked this task as done:
+[T][X] make cake
+1. [T][X] make cake
+2. [D][ ] submit weekly report (by: friday 26 Jan 2023)
+OK, I've marked this task as not done yet:
+[T][ ] make cake
+Got it. I've added this task:
+[E][ ] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+Now you have 3 task(s) in the list.
+1. [T][ ] make cake
+2. [D][ ] submit weekly report (by: friday 26 Jan 2023)
+3. [E][ ] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+Nice! I've marked this task as done:
+[E][X] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+Nice! I've marked this task as done:
+[D][X] submit weekly report (by: friday 26 Jan 2023)
+Sorry, you have entered an invalid index.
+You can check the list of valid indices using the 'list' command.
+Sorry, you have entered an invalid index.
+You can check the list of valid indices using the 'list' command.
+1. [T][ ] make cake
+2. [D][X] submit weekly report (by: friday 26 Jan 2023)
+3. [E][X] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+OK, I've marked this task as not done yet:
+[E][ ] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+1. [T][ ] make cake
+2. [D][X] submit weekly report (by: friday 26 Jan 2023)
+3. [E][ ] party at home (from: saturday, 27 jan 2023 to: 28 jan 2023, sunday)
+Noted. I've removed this task:
+[T][ ] make cake
+Now you have 2 tasks in the list.
+Bye. Hope to see you again soon!
