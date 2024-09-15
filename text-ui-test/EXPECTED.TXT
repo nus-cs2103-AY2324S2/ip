@@ -1,7 +1,20 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
-
+Hello Master, I'm Demon 
+What can I do for you today?
+Entered: 'deadline return book /by Sunday'
+--------------------------------------------------------
+Yes Master, I've added this task: 
+[D][ ] return book (by: Sunday)
+Now you have 1 tasks in the list.
+--------------------------------------------------------
+Anything else? Please let me know: 
+Entered: 'todo sleep'
+--------------------------------------------------------
+Yes Master, I've added this task: 
+[T][ ] sleep
+Now you have 2 tasks in the list.
+--------------------------------------------------------
+Anything else? Please let me know: 
+Entered: 'bye'
+--------------------------------------------------------
+Bye Master, hope you had a great time, see you!
+--------------------------------------------------------

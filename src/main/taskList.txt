@@ -1,0 +1,2 @@
+T | 0 | submit cs2103t ip
+E | 1 | Bruno Mars concert | 1/4/2024 0000 | 10/4/2024 2359
