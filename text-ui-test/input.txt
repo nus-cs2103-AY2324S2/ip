@@ -1,0 +1,35 @@
+todo Read a book
+deadline Submit assignment /by 2024-01-30
+event Team meeting /from 2024-01-25 10:00 /to 2024-01-25 12:00
+list
+mark 1
+unmark 1
+todo
+deadline Finish project
+event Conference /from 2024-01-28
+mark 100
+unmark 100
+unmark
+dance
+todo Complete Java project
+deadline File taxes /by 2024-04-15
+event Birthday Party /from 2024-03-10 18:00 /to 2024-03-10 22:00
+list
+mark 2
+unmark 2
+deadline Prepare presentation /by 2024-03-05
+event Workshop /from 2024-02-20 09:00 /to 2024-02-20 12:00
+todo Clean the house
+delete 1
+delete 3
+delete 100
+delete
+todo Grocery Shopping
+todo Call Mom
+deadline Renew Insurance /by 2024-05-01
+event Doctor's Appointment /from 2024-04-20 15:00 /to 2024-04-20 16:00
+list
+mark 4
+mark 5
+unmark 4
+bye
