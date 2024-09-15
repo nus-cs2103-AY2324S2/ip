@@ -1,29 +1,66 @@
-# User Guide
+# Roland User Guide
 
-## Features 
+<img width="512" alt="image" src="https://github.com/wolffe88/ip/assets/38790326/b40a9208-d063-4e7a-816a-ccdc6f4b790d">
 
-### Feature-ABC
+## Roland is a task manager chatbot that can assist its users in increasing their productivity.
 
-Description of the feature.
+## Installing Roland
 
-### Feature-XYZ
+1. Download Roland [here](https://github.com/wolffe88/ip/releases/tag/A-Release).
+2. Navigate to your Downloads folder using the terminal.
+3. Type `java -jar Roland.jar` in your terminal.
+4. Press enter.
 
-Description of the feature.
 
-## Usage
 
-### `Keyword` - Describe action
+## Commands
+- Help Command - `help`
+Description: Displays a list of commands
 
-Describe the action and its outcome.
+- Exit Command - `bye`
+Description: Exits the application.
 
-Example of usage: 
+- List Command - `list`
+Description: Lists all tasks.
 
-`keyword (optional arguments)`
+- Find Command - `find [KEYWORD]`
+Description: Finds tasks containing the specified keyword.
 
-Expected outcome:
+- Mark Command - `mark [INDEX]`
+Description: Marks a task as done based on the index given in list.
 
-Description of the outcome.
+- Unmark Command - `unmark [INDEX]`
+Description: Unmarks a task as done based on the index given in list.
 
-```
-expected output
-```
+- Add Notes Command - `note [INDEX] /[NOTES]`
+Description: Adds notes to a task.
+
+- Delete Command - `delete [INDEX]`
+Description: Deletes a task.
+
+- Add To-Do Command - `todo [DESCRIPTION]`
+Description: Adds a to-do task.
+
+- Add Deadline Command - `deadline [DESCRIPTION] /by [YYYY-mm-dd]`
+Description: Adds a task with a deadline.
+
+- Add Event Command - `event [DESCRIPTION] /from [START] /to [END]`
+Description: Adds an event task with start and end times.
+
+## Command summary
+
+| Action   | Format, Examples                                                                                                                       |
+|----------|----------------------------------------------------------------------------------------------------------------------------------------|
+| Todo     | `todo <description>` <br/> e.g. `todo CS2103T assignment`                                                                              |
+| Event    | `event <description> /from <start> /to <end>`<br/> e.g. `event Hackathon /from Monday /to Friday`                                      |
+| Deadline | `deadline <description> /by <YYYY-mm-dd>` <br/> e.g. `deadline assignment /by 2024-03-04`                                              |
+| Note     | `note <index> /<description>` <br/> e.g. `note 1 /add user guide and release jar file`                                                 |
+| List     | `list`                                                                                                                                 |
+| Mark     | `mark <index>` <br/> e.g. `mark 1`                                                                                                     |
+| Unmark   | `unmark <index>` <br/> e.g. `unmark 1`                                                                                                 |
+| Delete   | `delete <index>` <br/> e.g. `delete 1`                                                                                                 |
+| Find     | `find <keyword>` <br/> e.g. `find assignment`                                                                                          |
+| Bye      | `bye`                                                                                                                                  |
+| Help     | `help`                                                                                                                                  |
+
+
