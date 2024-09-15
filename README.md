@@ -1,24 +1,142 @@
-# Duke project template
+# Chronos User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Chronos is a powerful task management application designed to streamline your workflow and boost productivity. 
+With Chronos, you can effortlessly **organize your todos, deadlines, and events**, all in one intuitive platform. Optimised
+for use via a Command Line Interface (CLI), Chronos can track your tasks faster than traditional GUI apps.
 
-## Setting up in Intellij
+<p align="center">
+  <img src="/docs/Ui.png" height="600" alt="Description of the image">
+</p>
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Quick Start
+1. Ensure you have `Java 11` or above installed in your Computer.
+2. Download the latest `chronos.jar` from [here](https://github.com/triciiaaa/ip/releases).
+3. Copy the file to the folder you want to use as the home folder for your Chronos application.
+4. Open a command terminal, `cd` into the folder you put the jar file in, and use the `java -jar chronos.jar` 
+command to run the application. A GUI similar to the below should appear in a few seconds. 
+Note how the app contains some sample data.
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+<p align="center">
+  <img src="/docs/QuickStart.png" height="600" alt="Description of the image">
+</p>
+
+## Features
+
+### Viewing Help: `help` or `sos`
+Shows a message containing the possible list of commands that a user can enter. 
+
+Command Syntax: `help` or `sos`
+
+### Listing Tasks: `list` or `ls`
+Shows the list of tasks stored in the task list.
+
+Command Syntax: `list` or `ls`
+
+### Adding Todo: `todo` or `td`
+Adds a todo into the task list.
+
+Command Syntax: `todo DESCRIPTION` or `td DESCRIPTION`
+
+Examples:
+- `todo complete assignment`
+- `td write proposal`
+
+### Adding Deadline: `deadline` or `dl`
+Adds a deadline into the task list.
+
+Command Syntax: `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `dl DESCRIPTION /by YYYY-MM-DD HH:MM`
+
+Examples:
+- `deadline return library book /by 2024-02-22 12:00`
+- `dl return library book /by 2024-02-22 12:00`
+
+### Adding Event: `event` or `ev`
+Adds an event into the task list.
+
+Command Syntax: `event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` or 
+    `ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM`
+
+Examples:
+- `event concert /from 2024-02-16 18:00 /to 2024-02-16 20:00`
+- `ev concert /from 2024-02-16 18:00 /to 2024-02-16 20:00`
+
+### Marking Task As Completed: `mark` or `mk`
+Marks a task at the specified index as completed.
+
+Command Syntax: `mark INDEX` or `mk INDEX`
+
+Examples:
+- `mark 1` marks the 1st task in the task list.
+- `mk 1` marks the 1st task in the task list.
+
+Note:
+- The index refers to the index number shown in the displayed task list.
+- The index provided must be a positive integer i.e. 1, 2, 3 ...
+
+### Unmarking Task: `unmark` or `umk`
+Unmarks a task at the specified index as incomplete.
+
+Command Syntax: `unmark INDEX` or `umk INDEX`
+
+Examples:
+- `unmark 1` unmarks the 1st task in the task list.
+- `umk 1` unmarks the 1st task in the task list.
+
+Note:
+- The index refers to the index number shown in the displayed task list.
+- The index provided must be a positive integer i.e. 1, 2, 3 ...
+
+### Deleting Task: `delete` or `rm`
+Deletes a task at the specified index from the task list.
+
+Command Syntax: `delete INDEX` or `rm INDEX`
+
+Examples:
+- `delete 1` deletes the 1st task in the task list.
+- `rm 1` deletes the 1st task in the task list.
+
+Note:
+- The index refers to the index number shown in the displayed task list.
+- The index provided must be a positive integer i.e. 1, 2, 3 ...
+
+### Finding Task: `find` or `f`
+Finds a task with descriptions containing any of the given keyword(s).
+
+Command Syntax: `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]`
+
+Examples:
+- `find book`
+- `f book`
+
+Note:
+- The keyword search is case-sensitive. 
+- The order of the keywords does not matter. e.g. `return book` will match `book return`
+- Only the description of the task can be searched.
+- Only full words will be matched e.g. `project` will not match `projects`
+
+### Exiting Program: `bye` 
+Exits the program.
+
+Command Syntax: `bye`
+
+### Saving Data
+The data provided by the user is saved in the hard disk automatically without any additional commands.
+The automatic save happens after any command that changes the data.
+
+## Command Summary
+
+| Command          | Syntax                                                     |
+|------------------|------------------------------------------------------------|
+| **View Help**    | `help` or `sos`                                            |
+| **List Tasks**   | `list` or `ls`                                             |
+| **Add Todo**     | `todo return book` or `td return book`                      |
+| **Add Deadline** | `deadline DESCRIPTION /by YYYY-MM-DD HH:MM` or `dl DESCRIPTION /by YYYY-MM-DD HH:MM` |
+| **Add Event**    | `event DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` or `ev DESCRIPTION /from YYYY-MM-DD HH:MM /to YYYY-MM-DD HH:MM` |
+| **Mark Task**    | `mark INDEX` or `mk INDEX`                                  |
+| **Unmark Task**  | `unmark INDEX` or `umk INDEX`                               |
+| **Delete Task**  | `delete INDEX` or `rm INDEX`                                |
+| **Find Tasks**   | `find KEYWORD [MORE_KEYWORDS]` or `f KEYWORD [MORE_KEYWORDS]` |
+| **Exit Program** | `bye`                                                      |
+
+The structure of this user guide took considerable reference from the user guide of AB3, 
+which can be found [here](https://se-education.org/addressbook-level3/UserGuide.html#features).
