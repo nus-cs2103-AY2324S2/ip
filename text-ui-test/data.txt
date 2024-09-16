@@ -1,0 +1,6 @@
+T|0|borrow book
+D|1|return book |2019-10-15T21:30
+E|0|project meeting |2019-10-15T21:30|2019-10-17T22:30
+T|0|borrow book
+D|0|return book |2019-10-15T21:30
+E|0|project meeting |2019-10-15T21:30|2019-10-17T22:30
