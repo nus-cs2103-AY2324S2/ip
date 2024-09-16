@@ -1,0 +1,48 @@
+.dialog-box {
+    -fx-background-color: white;
+    -fx-border-color: #e1e1e1;
+    -fx-border-radius: 5px;
+    -fx-alignment: center-left;
+    -fx-max-width: 600px;
+    -fx-max-height: 400px;
+}
+
+.main-window {
+    -fx-background-color: #ffffff;
+    -fx-max-width: 800px;
+    -fx-max-height: 600px;
+}
+
+.button {
+    -fx-background-color: #09c;
+    -fx-text-fill: white;
+    -fx-border-radius: 5px;
+}
+
+.text-field {
+    -fx-border-color: #e1e1e1;
+    -fx-border-radius: 5px;
+}
+
+.scroll-pane {
+    -fx-background: transparent;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+}
+
+.vbox {
+    -fx-spacing: 8px;
+    -fx-padding: 10px;
+}
+
+.label {
+    -fx-text-fill: black;
+}
+
+.dialog-box .label {
+    -fx-text-fill: black;
+}
+
+.dialog-box.bot {
+    -fx-alignment: center-right;
+}
