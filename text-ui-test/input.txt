@@ -1,0 +1,21 @@
+todo
+deadline
+event
+list
+quhd qudwduchu qiwucd
+todo borrow book
+deadline return book /by 27-08-2001
+event project meeting /from 27-08-2001 /to 28-08-2001
+event project meeting /from uewfihu i /to iudg9uh o
+list
+mark 1
+mark 2
+mark 3
+list
+mark 4
+delete 3
+delete 2
+delete 1
+list
+delete 0
+bye
