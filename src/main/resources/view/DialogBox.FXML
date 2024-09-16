@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Group?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_RIGHT" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="500.0" stylesheets="@../styles/DialogBox.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+      <Group disable="true">
+         <children>
+           <Label id="message" fx:id="dialog" text="Hello, my name is Mike, a chatbot AI task manager... Please ask me any questions you have about life" textFill="#f0f0f0" wrapText="true">
+           </Label>
+         </children>
+      </Group>
+      <HBox fx:id="pictureContainer">
+         <children>
+              <Circle fx:id="displayPicture" />
+         </children>
+      </HBox>
+    </children>
+</fx:root>
