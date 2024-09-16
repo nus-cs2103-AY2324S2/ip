@@ -1,0 +1,34 @@
+todo 2103 week 2
+todo 2101 presentation prep
+deadline 2101 presentation /by Friday Morning
+deadline 2103 presentation /by Thurs Morning
+event internship talk /from 2 Feb /to 2 Feb
+unknown
+help
+deadline
+todo
+event
+todo event
+deadline 123
+event no idea
+list
+mark 1
+mark 2
+mark 3
+unmark 4
+unmark 6
+unmark 1
+list
+deadline /by
+event /from
+event /to
+event /from /to
+event /from /te
+deadline /be
+event /from /from 123 /to
+delete 1
+delete 2
+list
+delete 1
+list
+bye
