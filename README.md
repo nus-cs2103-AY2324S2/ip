@@ -1,24 +1,32 @@
-# Duke project template
+```
+ _____ _                       
+/  ___| |                      
+\ `--.| |_ _____   _____ _ __  
+ `--. \ __/ _ \ \ / / _ \ '_ \ 
+/\__/ / ||  __/\ V /  __/ | | |
+\____/ \__\___| \_/ \___|_| |_|
+                                                          
+```
+Need advice? Making a list? Steven's the bot!
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+### Features:
+- Creating lists of actions to make
+- Saving said actions to be read again later
+- Marking, deleting and so forth of tasks
 
-## Setting up in Intellij
+### Useful commands in the bot
+- [x] `help` whenever you're not sure what to do
+- [x] `list` to view what you have
+- [x] `bye` to exit the program
+- [ ] and so much more! :smiley:
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+# Sounds great! How do I download it?
+1. Visit [this](https://github.com/TopKec/ip)
+2. Compile it on your machine.
+3. Let it run! **Its as simple as that!**
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+> Steven's advice: Don't wait! Install now!
+
+~~Please understand that Steven is not indeed sentient~~
+
+*Text at top of this readme has been provided by [parorjk.com](https://patorjk.com/software/taag/)* 
