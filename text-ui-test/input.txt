@@ -1,0 +1,20 @@
+list
+todo Finish reading The Mythical Man-Month
+todo
+todo Testing
+deadline /by 4th Feb 2359
+deadline cs2100 assignment 1
+deadline cs2100 assignment 1 /by 4th Feb 2359
+hello
+event /from /to 5th Feb
+event  /from 1800hrs /to 2100hrs
+event career fair /from 1800hrs /to 2100hrs
+list
+mark 1
+mark 20
+mark 3
+list
+unmark 3
+delete 1
+list
+bye
