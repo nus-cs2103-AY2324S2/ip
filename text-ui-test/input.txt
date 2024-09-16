@@ -1,0 +1,7 @@
+todo skr
+deadline yuh /by Tuesday
+event asdfjkl /from 23 feb /to 24 feb
+mark 2
+mark 3
+unmark 3
+list
