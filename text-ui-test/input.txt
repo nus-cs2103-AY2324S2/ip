@@ -1,0 +1,19 @@
+list
+todo read book
+deadline return book/by 12/12/1001 12:12
+event math class/from 12/12/1212 12:12 /to 12/12/1212 12:12
+list
+mark 1
+mark 3
+unmark 1
+delete 2
+list
+mark 5
+todo
+deadline
+event
+deadline math assignment
+event /from a /to b
+mark1
+lala
+bye
