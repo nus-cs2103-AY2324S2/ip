@@ -1,0 +1,28 @@
+aaa
+todo aaa
+deadline bbb fff /by aaa bbb
+event ccc ddd /from aaa ddd /to bbb ccc
+mark 1
+list
+mark 2
+list
+mark 3
+unmark 1
+list
+unmark 2
+list
+unmark 3
+unmark -1
+unmark 9999
+mark 1
+mark 9999
+todo
+deadline
+event
+blah
+delete 1
+list
+delete 2
+list
+delete 3
+list
