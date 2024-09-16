@@ -1,24 +1,95 @@
-# Duke project template
+# Linus the task-managing chatbot
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+Linus is an application used for managing tasks using Command Line Interface (CLI)
 
-## Setting up in Intellij
+* Table of Contents
+{:toc}
 
-Prerequisites: JDK 11, update Intellij to the most recent version.
+## Quickstart
+   1. Download the jar file here
+   2. Run the jar file
+   3. Start adding tasks
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-3. After that, locate the `src/main/java/Duke.java` file, right-click it, and choose `Run Duke.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+## Things to note
+   - Date variables are written like this: "dd/mm/yyyy hhhh"
+      - "30/03/2024 1900"
+   - Indexing starts from 1
+
+## Features
+
+
+### Saving file: `bye`
+
+Saves the file in the task so that the file can be loaded up again
+
+Format: `bye`
+
+
+### Show current list of tasks: `list`
+
+Brings up the current list of task
+
+Format: `list`
+
+
+### Mark task based on index: `mark`
+
+Mark task as done
+
+Format `mark 2`
+
+
+### Unmark task based on index: `unmark`
+
+Mark task as done
+
+Format `unmark 2`
+
+
+### Delete task based on index: `delete`
+
+Deletes task from the list
+
+Format `delete 2`
+
+### Find a specific task from the list: `find`
+
+Finds a task from the list that matches the subsequent word
+
+Format `find homework`
+
+
+### Sorts the list by criteria: `sort`
+
+criteria: `description`, `task`, `mark`, `date`
+
+description: sorts by alphabetical description
+
+task: sorts by task type
+
+mark: sorts by marked and unmarked
+
+date: sorts by task then by date
+
+Format `sort description`
+
+
+### Adds *ToDo* task in list: `todo`
+
+Adds todo task with description, ToDo tasks have no dates
+
+Format `todo homework`
+
+
+### Adds *Deadline* task in list: `deadline`
+
+Adds Deadline task with description and deadline by date
+
+Format `deadline homework \by 20/02/2024 2359`
+
+
+### Adds *Event* task in list: `event`
+
+Adds Event task with description with 2 dates, from and to
+
+Format `event attend meeting /from 20/02/2024 1200 /to 20/02/2024 1400`
