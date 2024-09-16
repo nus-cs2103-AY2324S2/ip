@@ -1,7 +1,68 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+_________________________
+Hello! I'm shu heng
+What can I do for you?
+_________________________
+
+_________________________
+Get off your ass and starting doing work!
+
+_________________________
+
+_________________________
+added: [T][ ] week1 assignments
+_________________________
+Now you have 1 items in your list!
+
+_________________________
+added: [D][ ] math tutorial (by: friday)
+_________________________
+Now you have 2 items in your list!
+
+_________________________
+added: [E][ ] lecture (from: morning to: afternoon)
+_________________________
+Now you have 3 items in your list!
+
+_________________________
+Get off your ass and starting doing work!
+
+1.[T][ ] week1 assignments
+2.[D][ ] math tutorial (by: friday)
+3.[E][ ] lecture (from: morning to: afternoon)
+_________________________
+
+_________________________
+Marking this done!
+[D][X] math tutorial (by: friday)
+_________________________
+
+_________________________
+Marking this done!
+[E][X] lecture (from: morning to: afternoon)
+_________________________
+
+_________________________
+Get off your ass and starting doing work!
+
+1.[T][ ] week1 assignments
+2.[D][X] math tutorial (by: friday)
+3.[E][X] lecture (from: morning to: afternoon)
+_________________________
+
+_________________________
+Ok this is not done...
+[E][ ] lecture (from: morning to: afternoon)
+_________________________
+
+_________________________
+Get off your ass and starting doing work!
+
+1.[T][ ] week1 assignments
+2.[D][X] math tutorial (by: friday)
+3.[E][ ] lecture (from: morning to: afternoon)
+_________________________
+
+_________________________
+Bye. Hope to see you again soon!
+_________________________
 
