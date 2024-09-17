@@ -1,0 +1,3 @@
+D | 1 | create user guide | Feb 23 2023 12:00 AM
+E | 0 | concert | Mar 27 2023 6:00 PM | Mar 27 2023 8:00 PM
+T | 1 | buy milk
