@@ -1,0 +1,10 @@
+todo first
+deadline second /by 01/02/2025
+event third /from 05/12/2025 /to 13/12/2025
+list
+mark 1
+list
+unmark 1
+delete 2
+list
+bye
