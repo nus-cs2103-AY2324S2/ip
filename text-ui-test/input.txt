@@ -1,0 +1,13 @@
+deadline submit report /by 13th Jan
+todo buy groceries
+list
+event conference /from 8:00 /to 10:00
+list
+mark 1
+mark 3
+list
+unmark 1
+mark 2
+todo catch up on cs2103
+list
+bye
