@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import java.net.URL?>
+<fx:root styleClass="error-box" alignment="CENTER"
+         type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <padding>
+        <Insets bottom="15.0" left="15.0" right="15.0" top="15.0"/>
+    </padding>
+    <stylesheets>
+        <URL value="@style.css"/>
+    </stylesheets>
+    <Label styleClass="error-label" fx:id="dialog" text="Label" wrapText="true"/>
+</fx:root>

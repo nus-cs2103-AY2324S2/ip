@@ -1,0 +1,19 @@
+abc
+todo task 1
+deadline task 2 /by b
+deadline task e
+event task 3 /from a /to b
+event task e
+list
+mark 1
+mark 1
+mark e
+unmark 1
+unmark 1
+unmark e
+mark 2
+list
+delete 2
+delete e
+list
+bye
