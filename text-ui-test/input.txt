@@ -1,0 +1,8 @@
+deadline draw /by Sunday
+cherry
+apples
+banana
+event eat /from monday /to thursday
+todo drive
+mark 1
+unmark 1
