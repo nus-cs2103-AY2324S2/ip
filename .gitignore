@@ -15,3 +15,17 @@ bin/
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
+
+# Binary files
+*.class
+*.jar
+*.exe
+
+# Temp files
+temp.txt
+
+# My own notes
+notes.txt
+
+# Storage file
+data/*

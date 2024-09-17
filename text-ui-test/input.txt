@@ -1,0 +1,14 @@
+addtask
+test spacebar
+todo todo1
+event ev /from today /to tomorrow
+event test space /from today 3pm /to tomorrow 4pm
+deadline dl /by tmr
+deadline test space /by tomorrow 4pm
+echo echotest
+list
+mark ev
+list
+unmark ev
+list
+bye
