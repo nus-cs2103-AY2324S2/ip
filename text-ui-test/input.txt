@@ -1,0 +1,28 @@
+delete 1
+delete 1
+delete 1
+todo task1
+deadline task2 /by 2024-01-31
+event task3 /from 2024-02-01 /to 2024-02-28
+no such command
+todo for deleting
+deadline task4 /wrong argument
+event task5 /from 24-02-01 /to 2024-02-28
+event task6 /from 2024-99-01 /to 2024-02-28
+event task7 /from 2024-02-01 /to 2024-02-30
+event task7 /from 2024-02-28 /to 2024-02-01
+list
+mark 1
+mark 2
+mark 3
+list
+unmark 1
+unmark 2
+unmark 3
+list
+mark 5
+unmark 5
+list
+delete 4
+save
+bye
