@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.shape.Circle?>
+
+<fx:root alignment="TOP_LEFT" fillHeight="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefWidth="400.0" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <!-- @@author solomonng2001-reused
+        Reused from https://github.com/ziqing26/ip/blob/master/src/main/java/catobot/BotDialogBox.java
+        with minor modifications -->
+        <ImageView fx:id="displayPicture" fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+            <clip>
+                <Circle radius="30.0" centerX="30.0" centerY="30.0" />
+            </clip>
+        </ImageView>
+        <Region>
+            <padding>
+                <Insets right="5.0"/>
+            </padding>
+        </Region>
+        <Label fx:id="dialog" minHeight="-Infinity" styleClass="label-background" text="Label" wrapText="true"/>
+        <!-- @@author -->
+    </children>
+    <padding>
+        <Insets bottom="15.0" left="5.0" right="5.0" top="15.0" />
+    </padding>
+</fx:root>
