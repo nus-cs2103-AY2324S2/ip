@@ -1,0 +1,26 @@
+list
+todo read many book
+deadline wedding /by Sunday
+deadline yuck /by this Morning
+list
+event wedding /from 26/1 7pm /to 12am
+todo CS2103T ip week2
+list
+deadline
+deadline CS2103T ip week1 /by Sunday
+list
+mark 1
+mark 2
+mark 3
+mark 4
+list
+unmark 1
+unmark 3
+list
+delete 2
+list
+delete 2
+list
+delete 3
+list
+bye
