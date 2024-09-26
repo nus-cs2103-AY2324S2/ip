@@ -1,0 +1,451 @@
+[33mcommit 3817f3e5baf4457ce17fc2ff4fbe2764e14b6be8[m[33m ([m[1;36mHEAD -> [m[1;32mbranch-A-CodeQuality[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 19 23:07:44 2024 +0800
+
+    Shorten parse() method in Parser class
+    
+    Convert the handling of each command word into individual methods
+    so that the line of codes for this method will be within 30 lines.
+
+[33mcommit 57b025363449f2d0f483c811055b342b433c2d03[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 19 18:13:28 2024 +0800
+
+    Shorten prepareCreateEvent() method in Parser class
+    
+    Create isTaskArgumentBlank() and convertToLocalDateTime() method in Parser class
+    to shorten line of codes and following the code quality guideline of no more than
+    30 lines of code for a method.
+
+[33mcommit 441cdb49a4fdacb6730eccd0c9a1811bcb8b5ca9[m[33m ([m[1;33mtag: A-FullCommitMessage[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m, [m[1;32mmaster[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 18 04:22:49 2024 +0800
+
+    Update build.gradle file to generate JAR file
+    
+    Change the mainClass to duke.Launcher for generating JAR file for this
+    new JavaFX GUI. Comment out the JUnit tests as now it is no longer
+    Text-UI based, and the methods have been modified for the JavaFX GUI
+    already.
+
+[33mcommit 859074224746a2af5455e532697f6ba57b5a841a[m[33m ([m[1;33mtag: Level-10[m[33m, [m[1;31morigin/branch-Level-10[m[33m, [m[1;32mbranch-Level-10[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 18 03:32:08 2024 +0800
+
+    Finish Level 10. GUI
+    
+    Add a JavaFX GUI to my Cicada chatbot. Change the display methods
+    to return String.
+
+[33mcommit 171d6bc36ded723aa399494affb3e96cffcf50a2[m[33m ([m[1;33mtag: A-CheckStyle[m[33m, [m[1;32mbranch-A-CheckStyle[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Fri Feb 16 16:05:06 2024 +0800
+
+    Finish A-CheckStyle
+    Add the checktyle config files and add the plugin
+
+[33mcommit fd8454bfc3a5ab4da269311d6beea975e314f432[m[33m ([m[1;33mtag: A-JavaDoc[m[33m)[m
+Merge: 5843bde a7a1083
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 12 05:16:23 2024 +0800
+
+    Merge branch-A-JavaDoc to master
+    Merge them.
+
+[33mcommit 5843bdeca8aa741b57fab951f737936629b19b5b[m[33m ([m[1;33mtag: A-CodingStandard[m[33m)[m
+Merge: 0825448 8efc928
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 12 05:04:02 2024 +0800
+
+    Merge branch-A-CodingStandard
+    Merge them.
+
+[33mcommit 8efc928451af8a8962cae7faf0c6e65b2ce549dd[m[33m ([m[1;31morigin/branch-A-CodingStandard[m[33m, [m[1;32mbranch-A-CodingStandard[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 12 04:51:40 2024 +0800
+
+    Finish A-CodingStandard
+    Tweak the code to comply with Java Coding Standard.
+
+[33mcommit a7a1083f47235df9423290da9d8152e215ed9575[m[33m ([m[1;31morigin/branch-A-JavaDoc[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 12 04:22:27 2024 +0800
+
+    Finish A-JavaDoc
+    Add the Java Doc to every class and methods.
+
+[33mcommit 08254488777b95fefa48f0622ef20fb6d86a9c19[m[33m ([m[1;33mtag: Level-9[m[33m, [m[1;31morigin/branch-Level-9[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Mon Feb 12 03:22:44 2024 +0800
+
+    Finish Level 9. Find
+    Implement the search() method in Task class and find() method
+    in TaskList class to allow user to find a task by searching for
+    a keyword
+
+[33mcommit e5e19946729a805b7303ee112669f94c74b21049[m[33m ([m[1;33mtag: A-Jar[m[33m, [m[1;33mtag: A-JUnit[m[33m, [m[1;32ma[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 11 04:19:51 2024 +0800
+
+    Finish A-JUnit
+    Create 2 test file for 2 classes, Parser and TaskList
+    Test the empty and invalid input for mark task
+    and create deadline task.
+
+[33mcommit 5fcdffc0ac0573b3eeacb0661307c4664a839a98[m[33m ([m[1;33mtag: A-Gradle[m[33m)[m
+Merge: 611e815 a6f7324
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 11 00:37:51 2024 +0800
+
+    Merge remote-tracking branch 'origin/add-gradle-support'
+
+[33mcommit 611e81573b6a492c00af8b500e5a39346718f4eb[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 11 00:34:28 2024 +0800
+
+    Finish A-Packages
+    Commit those files that left out just now
+
+[33mcommit 7e77b7832eab5e1a9fe93a58ed4b324c30f1ad02[m[33m ([m[1;33mtag: A-Packages[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sun Feb 11 00:18:47 2024 +0800
+
+    Finish A-Packages
+    organise the code into packages to make it more neat.
+
+[33mcommit 63a30f8365d492a27641fb1acf90c65c815db63a[m[33m ([m[1;33mtag: A-MoreOOP[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Sat Feb 10 23:02:59 2024 +0800
+
+    Finish A-MoreOOP
+    Change the code structure by adding some packages and add respective
+    new classes to let it be more OOP. The code is structured by
+    its purpose. such as commands, constants, exceptions, parsers,
+    storage, tasks, ui.
+
+[33mcommit 3381b20ba162d8b96c2b2dd757de85f1a418e7a4[m[33m ([m[1;33mtag: Level-8[m[33m, [m[1;31morigin/branch-Level-8[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Wed Feb 7 19:07:44 2024 +0800
+
+    Finish Level 8. Dates and Times
+    Replace the String variable of date time to LocalDateTime var and
+    add exception handling for that. Additionally, change some variable
+    and function name as suggested by the pull request peer code review.
+
+[33mcommit 46c95b280ee48d556cfd0c3e75ec6c09654b6392[m[33m ([m[1;33mtag: Level-7[m[33m)[m
+Merge: 77cb013 dbe36c1
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Wed Jan 31 23:32:36 2024 +0800
+
+    Merge branch 'branch-Level-7'
+
+[33mcommit dbe36c1ca25cc36b182e6f5808392e36479d4e15[m[33m ([m[1;31morigin/branch-Level-7[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Wed Jan 31 23:28:32 2024 +0800
+
+    Finish Level 7. Save
+    Save feature is added as the requirement. Besides that,
+    The code is refractored to Switch statement instead of
+    original if-else statements. This is because when adding
+    new features inside, the original if-else statements become
+    kind of messy. Some code is rearranged into methods to make
+    it more modularised.
+
+[33mcommit 77cb01352878190b7203978a4ce05b943c5f2105[m
+Author: Zeng Zihui <93191650+zengzihui@users.noreply.github.com>
+Date:   Wed Jan 31 13:46:10 2024 +0800
+
+    Update .gitignore
+    
+    ignore the class files
+
+[33mcommit f21d3eecd69642819d812f56a1f2b48d9138bf14[m[33m ([m[1;33mtag: Level-6[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Fri Jan 26 04:31:12 2024 +0800
+
+    Finished Level 6. Delete and fixed Level-5 errors (included handling errors for level 5).
+
+[33mcommit 2b228e66d9327d64a7db5995191795f312304f9e[m[33m ([m[1;33mtag: Level-5[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Thu Jan 25 23:50:09 2024 +0800
+
+    Finish Level 5. Handle Errors
+
+[33mcommit 863f2a2661ae8c501f7eae519eb8c931474c48d4[m[33m ([m[1;33mtag: A-TextUiTesting[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Thu Jan 25 19:37:23 2024 +0800
+
+    Finished A-TextUiTesting
+
+[33mcommit 4031a047b8badffe8481cd344662d3838045ab97[m[33m ([m[1;33mtag: Level-4[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Thu Jan 25 19:07:39 2024 +0800
+
+    Finish Level 4. ToDos, Events, Deadlines
+
+[33mcommit 8e03817382c3f504e0c6d330e6ff7c37c39b129f[m[33m ([m[1;33mtag: Level-3[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Thu Jan 25 17:08:39 2024 +0800
+
+    Finish Level 3. Mark as Done
+
+[33mcommit 77a24f9fef11bdc745f302d229ad8072a4b07baf[m[33m ([m[1;33mtag: Level-2[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Thu Jan 25 16:17:02 2024 +0800
+
+    Finish Level 2. Add, List
+
+[33mcommit 8d1c315dc994ac69bcc02518135712ce73048f9c[m[33m ([m[1;33mtag: Level-1[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Wed Jan 24 17:58:47 2024 +0800
+
+    Finish Level 1. Echo
+
+[33mcommit c3f14f43fd2c2e2fa599025d9a66ad480908734c[m[33m ([m[1;33mtag: Level-0[m[33m)[m
+Author: zengzihui <zeng_zihui@outlook.com>
+Date:   Wed Jan 24 17:32:56 2024 +0800
+
+    Finish Level 0. Rename, Greet, Exit
+
+[33mcommit a6f73244a20539e20c2189973ebf597df34ef631[m[33m ([m[1;31morigin/add-gradle-support[m[33m)[m
+Author: lzq <li.zhaoqi@dhs.sg>
+Date:   Sat Aug 5 15:24:02 2023 +0800
+
+    Bump gradle and lib version
+
+[33mcommit f837ddb7d2b77f6654758f93d056420a580787ca[m
+Author: damithc <damithch@damithch-mbp.comp.nus.edu.sg>
+Date:   Mon May 25 00:58:18 2020 +0800
+
+    Add Gradle support
+
+[33mcommit 55f9f9ff7635cef71b5ee58aec7c1b4ceaffea49[m
+Author: damithc <damithc@github>
+Date:   Sun Jan 7 18:33:52 2024 +0800
+
+    docs/README.md: Tweak document template
+    
+    Let's tweak the docs/README.md (which is used as the user guide)
+    to fit Duke better. Specifically,
+    
+    1. mention product name in the title
+    2. mention adding a product screenshot and a product intro
+    3. tweak the flow to describe feature-by-feature
+
+[33mcommit 3b83789e9ed75b9498c05ee150c073f6492ec6ff[m
+Author: Sean Leong <70213029+seanleong339@users.noreply.github.com>
+Date:   Thu Dec 29 13:56:26 2022 +0800
+
+    .gitignore: Fix ACTUAL.txt -> ACTUAL.TXT  (#73)
+    
+    text-ui-test/runtest.bat|sh scripts generate a file ACTUAL.TXT.
+    However, .gitignore uses ACTUAL.txt, which means the generated
+    file will not be ignored by Git on non-Windows OS.
+    
+    Let's update .gitignore as ACTUAL.txt -> ACTUAL.TXT
+
+[33mcommit e698798c0df9eb614fc9263cf735a609c94e58ba[m
+Author: Damith C. Rajapakse <damith@gmail.com>
+Date:   Thu Jul 29 20:29:39 2021 +0800
+
+    README: Mention the project language level setting
+
+[33mcommit 7bfb6e7cbdc8444041ecc338d625bac60014a630[m
+Author: damithc <damithc@github>
+Date:   Sat Jul 17 16:49:07 2021 +0800
+
+    README.md: Tweak template text
+    
+    * Let's replace 'Feature 1' with 'Feature-ABC'
+      reason: some students kept the 'Feature 1' in the final UG.
+    * Let's tweak the template for features and usage
+      reasons: to fix grammar, to distinguish between output and outcome
+
+[33mcommit eabcfca4d05e76d33f071483bb1d00cc5bdd6f3c[m
+Author: damithc <>
+Date:   Sun Jan 17 12:25:53 2021 +0800
+
+    README: Update setup instructions to match the latest IDE version
+
+[33mcommit 6001e2eb859ce70a5b8ffad77d18410d28c9a9e5[m
+Author: damithc <>
+Date:   Tue Aug 25 17:23:26 2020 +0800
+
+    Improve runtest.* scripts
+    
+    * Improve the javac command to work for multiple java files.
+    * In runtest.bat, delete ACTUAL.TXT only if it exists.
+
+[33mcommit 87eb8b818ae0e244a172420fdab8c46c45c43e0b[m
+Author: Damith C. Rajapakse <damith@gmail.com>
+Date:   Sat Jul 4 01:45:26 2020 +0800
+
+    README.md: Fix typo of => or
+
+[33mcommit ef3c8cd14cc5d9d0350eb62b06f640aab4119f8c[m
+Author: damithc <damithch@damithch-mbp.comp.nus.edu.sg>
+Date:   Mon May 25 00:03:55 2020 +0800
+
+    Add text-ui-test files
+
+[33mcommit 71d7ea84f3d61821643e505e532051fcc09ec2b1[m
+Author: damithc <damithch@damithch-mbp.comp.nus.edu.sg>
+Date:   Sun May 24 23:34:49 2020 +0800
+
+    Remove generic tutorials
+    
+    Let's remove generic tutorials from this repo as they are not specific
+    to this project tempalte
+
+[33mcommit 1416279436d1c0c7c0c87db5dd9fe75a3c72e5bb[m
+Merge: 6f2ddfa 2697ae1
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Wed Feb 12 15:39:44 2020 +0800
+
+    Merge pull request #41 from jiachen247/patch-2
+    
+    Remove unnecessary override annotation
+
+[33mcommit 2697ae1dd966ac2f3ec34eb8a14819b4fa9e6f70[m
+Author: jiachen <jiachen247@users.noreply.github.com>
+Date:   Tue Feb 11 15:13:03 2020 +0800
+
+    Remove unnecessary override annotation
+    
+    Remove extra '@Override' at the start of the code example.
+
+[33mcommit 6f2ddfaef13a62f650128050d8923eff99761f82[m
+Merge: fae28ab 2ca6b28
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Mon Feb 3 23:29:41 2020 +0800
+
+    Merge pull request #35 from j-lum/xplatformjfx
+    
+    JavaFX tutorial: Support cross-platform JARs
+
+[33mcommit 2ca6b28c8d2ebebfe001e1a618a5d5af4094e088[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Fri Sep 20 16:05:59 2019 +0800
+
+    JavaFX tutorial: Support cross-platform JARs
+    
+    The OpenJFX plugin expects applications to be modular and bundled
+    with jlink, resulting in fat jars that are not cross-platform. Let's
+    manually include the required dependencies so that shadow can package
+    them properly.
+
+[33mcommit fae28ab89ea8846e56f2e6df33fbd6f9dd7fbea0[m
+Merge: baa18a5 26a5013
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Sat Aug 31 16:43:08 2019 +0800
+
+    Merge pull request #14 from j-lum/fxml-indent
+    
+    Change indentation in FXML samples to match AB-3
+
+[33mcommit 26a5013d00ef2201cd6433f308f53dc52e277b76[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Sat Aug 31 16:40:20 2019 +0800
+
+    Change indentation in FXML samples to match AB-3
+
+[33mcommit baa18a5b60aee205f3593787bac4dc4a98a7687c[m
+Merge: 999fa98 5df56a8
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Fri Aug 16 16:59:58 2019 +0800
+
+    Merge pull request #8 from j-lum/tutorial-fix
+    
+    Remove references to DukeStub
+
+[33mcommit 5df56a8908679dfc9efc6fcca655b1f9de85d51e[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Fri Aug 16 16:58:43 2019 +0800
+
+    Remove references to DukeStub
+
+[33mcommit 999fa98979ab5be8233b7838451650d8345bb520[m
+Merge: d2ffa00 8d6d6f4
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Thu Aug 15 15:18:12 2019 +0800
+
+    Merge pull request #7 from j-lum/tutorial-fix
+    
+    Address issues #5 and #6
+
+[33mcommit 8d6d6f4b95dd028ee97ba3df4d36b38ffc92d343[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Thu Aug 15 14:05:46 2019 +0800
+
+    Add images to JavaFX tutorial 3
+
+[33mcommit b6df1a32827a0d318ba241a10bfded88101daca3[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Thu Aug 15 13:59:56 2019 +0800
+
+    Fix typo referring to `HelloWorld`
+
+[33mcommit d2ffa00dbe45016b1c087a9a26e2d5be1d595ee4[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Wed Aug 14 15:35:46 2019 +0800
+
+    Update Gradle tutorial to reflect new checkstyle config
+
+[33mcommit f20d61019a2ea5ce166440b47e9a37a8bd373bb0[m
+Merge: 5c47c23 bad66fc
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Wed Aug 14 15:30:37 2019 +0800
+
+    Merge pull request #3 from j-lum/inline-javafx-tutorials
+    
+    Inline JavaFX tutorials
+
+[33mcommit bad66fc459bc2173e26be31598e04c4315df7933[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Mon Aug 12 14:24:27 2019 +0800
+
+    Adapt JavaFX tutorial for Duke
+    
+    Rather than to have distinct tutorials building up to a Duke-like
+    application, let's merge the tutorials into Duke's tutorials
+    to enhance cohesiveness in the course material.
+    
+    We also merge the gradle/gradleless tutorials into one by providing a
+    universal entry point to JavaFX in the style of AddressBook
+    applications.
+    
+    Fix header levels in JavaFX Tutorial 1.
+    
+    Change code samples to use Duke.
+    
+    Add hints on required import statements.
+    
+    Add location hints to code snippets to help students find where to copy
+    and paste them.
+    
+    Remove nitpicks to make the development process smoother.
+    
+    Fix usage of `Collections` to `FXCollections`.
+    
+    Replace image for JavaFX tutorial 3.
+    
+    Specify location to place images.
+    
+    Replace a screenshot that referred to the outdated package structure.
+    
+    Remove reference to DukeStub.
+
+[33mcommit 5c47c238cef0369657cea1f3023dcc053aabe733[m
+Author: Jeffry Lum <22460123+j-lum@users.noreply.github.com>
+Date:   Tue Aug 6 20:38:08 2019 +0800
+
+    Specify checkstyle version
+    
+    Not specifying the checkstyle version causes it to fail with a cryptic
+    error.
+
+[33mcommit a2150c17028761c775b44368ede448060a7ce44e[m
+Author: damithc <damith@gmail.com>
+Date:   Tue Aug 6 20:10:10 2019 +0800
+
+    textUiTestingTutorial.md: mention updating java/javac commands
