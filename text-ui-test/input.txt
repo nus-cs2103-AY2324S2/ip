@@ -1,0 +1,20 @@
+todo buy bread
+deadline return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+list
+deadline do homework /by no idea :-p
+mark 1
+mark 4
+unmark 1
+list
+unmark 4
+mark
+unmark
+delete
+todo
+deadline
+event
+mark 5
+mark 0
+blah
+bye
