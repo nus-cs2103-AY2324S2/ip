@@ -1,0 +1,37 @@
+/* styles.css */
+.root {
+    -fx-background-color: #002b36; /* Solarized base03 */
+    -fx-text-fill: #839496; /* Solarized base0 */
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 12pt;
+}
+
+#userInput, #sendButton {
+    -fx-background-color: #073642; /* Solarized base02 */
+    -fx-text-fill: #93a1a1; /* Solarized base1 */
+    -fx-font-family: 'Roboto';
+    -fx-font-size: 12pt;
+}
+
+#scrollPane {
+    -fx-background: #002b36; /* Solarized base03 */
+}
+
+#dialogContainer {
+    -fx-background-color: #002b36; /* Solarized base03 */
+    -fx-border-color: #073642; /* Solarized base02 */
+    -fx-border-width: 1px;
+}
+
+/* Optional: Add styling for scroll bar */
+.scroll-bar:horizontal, .scroll-bar:vertical {
+    -fx-background-color: #073642; /* Solarized base02 */
+}
+
+.scroll-bar:horizontal .thumb, .scroll-bar:vertical .thumb {
+    -fx-background-color: #586e75; /* Solarized base01 */
+}
+
+.anchor-pane {
+    -fx-background-color: #002b36; /* Solarized base03 */
+}

@@ -13,5 +13,5 @@ src/main/resources/docs/
 *.iml
 bin/
 
-/text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-Ben.ui-test/ACTUAL.TXT
+text-Ben.ui-test/EXPECTED-UNIX.TXT
