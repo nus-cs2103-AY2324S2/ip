@@ -1,0 +1,20 @@
+list
+mark 1
+mark t
+unmark 1
+unmark y
+todo
+todo eat
+deadline homework /
+deadline homework /5pm
+event dinner /5pm /
+event dinner /5pm /6pm
+list
+mark 1
+delete 4
+delete y
+delete 2
+list
+zzz
+getcommands
+bye
