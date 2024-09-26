@@ -1,0 +1,2 @@
+T|0|CS2103T tutorial
+E|0|Project meeting|22/2/2024 2100|22/2/2024 2300
