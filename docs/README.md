@@ -1,29 +1,49 @@
-# User Guide
+# Duck User Guide
 
-## Features 
+<img width="400" alt="Screenshot 2024-02-17 at 11 31 45 PM" src="https://github.com/Jayne1010/ip/assets/122381620/9f907de4-5204-4cac-ac5d-3b1b866f2f65">
 
-### Feature-ABC
+Duck is a chat bot which allows you to keep track of your todo list!
+# duck.Test project template
 
-Description of the feature.
+This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
 
-### Feature-XYZ
+## Setting up in Intellij
 
-Description of the feature.
+Prerequisites: JDK 11, update Intellij to the most recent version.
 
-## Usage
+1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
+1. Open the project into Intellij as follows:
+    1. Click `Open`.
+    1. Select the project directory, and click `OK`.
+    1. If there are any further prompts, accept the defaults.
+1. Configure the project to use **JDK 11** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
+   In the same dialog, set the **Project language level** field to the `SDK default` option.
+3. After that, locate the `src/main/java/duck.Test.java` file, right-click it, and choose `Run duck.Test.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
+   ```
+   Welcome to Duck Chatbot! How can I assist you today? Use help to see the list of commands available
+   ```
+## View all task
+Enter 'List' and you will be able to see your list of tasks.
 
-### `Keyword` - Describe action
+## Mark a task as done/undone
+Enter 'mark (task number)' or 'unmark (task number)' to mark/unmark 
+your task.
 
-Describe the action and its outcome.
+## Delete a task
+Enter 'delete (task number)' to delete the corresponding task.
 
-Example of usage: 
+## Tag/Untag a task
+Enter 'tag (task number) (tag)' or 'untag (task number)' to tag/untag the corresponding task.
 
-`keyword (optional arguments)`
+## Find a task
+Enter 'search (keyword)' to search a task.
 
-Expected outcome:
+## Adding todo
+Enter 'todo (task)' to add a todo task.
 
-Description of the outcome.
+## Adding deadlines
+Enter 'deadline (task) /by (yyyy-mm-dd)' to add a deadline task.
 
-```
-expected output
-```
+## Adding event
+Enter 'event (task) /from (yyyy-mm-dd) /to (yyyy-mm-dd)' to add an event task.
+
