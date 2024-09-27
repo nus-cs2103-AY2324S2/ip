@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="645e8746-42d4-4349-8344-a12d14ec4209" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/YodaUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/components/Replies.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/task/Deadline.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/task/Event.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/task/TaskList.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/utils/DateTimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/utils/Parser.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/utils/Storage.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Command.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/utils/Command.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Deadline.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/EmptyDescriptionException.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/exception/EmptyDescriptionException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Event.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/InvalidTaskException.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/exception/InvalidTaskException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/task/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/TimeMissingException.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/exception/TimeMissingException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Todo.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/yoda/task/Todo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/UnknownCommandException.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/exception/UnknownCommandException.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/Yoda.java" beforeDir="false" afterPath="$PROJECT_DIR$/ip/src/main/java/Yoda.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ip/src/main/java/YodaUI.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/ip" />
+  </component>
+  <component name="ProjectId" id="2bnENeNhZtsV0UHzuxko8p83eJQ" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "/Users/kt/Desktop/NUS/Y2S2/CS2103T/gradle",
+    "settings.editor.selected.configurable": "project.propVCSSupport.DirectoryMappings"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="645e8746-42d4-4349-8344-a12d14ec4209" name="Changes" comment="" />
+      <created>1706842405581</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1706842405581</updated>
+    </task>
+    <servers />
+  </component>
+</project>

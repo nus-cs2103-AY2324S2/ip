@@ -1,0 +1,10 @@
+package yoda.parser;
+
+public enum UpdateState {
+    NONE,
+    AWAITING_UPDATE_CHOICE,
+    AWAITING_NEW_DESCRIPTION,
+    AWAITING_NEW_DEADLINE,
+    AWAITING_NEW_EVENT_START,
+    AWAITING_NEW_EVENT_END;
+}
