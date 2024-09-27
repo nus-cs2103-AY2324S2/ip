@@ -1,3 +1,7 @@
+# Manually added
+*.class
+
+
 # IDEA files
 /.idea/
 /out/
@@ -12,6 +16,9 @@ src/main/resources/docs/
 .DS_Store
 *.iml
 bin/
+
+# .jar builds
+*.jar
 
 /text-ui-test/ACTUAL.TXT
 text-ui-test/EXPECTED-UNIX.TXT
