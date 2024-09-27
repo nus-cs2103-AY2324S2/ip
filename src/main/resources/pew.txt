@@ -1,0 +1,3 @@
+T|0|eat macs
+D|0|return book|June 6th
+E|1|project meeting|Aug 6th 2pm|4pm

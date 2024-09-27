@@ -1,0 +1,7 @@
+todo play
+deadline do homework /by Sun
+event project meeting /Mon 2pm /4pm
+list
+mark 2
+delete 2
+bye
