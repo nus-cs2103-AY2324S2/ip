@@ -1,0 +1,18 @@
+list
+todo read book
+lISt
+deadLIne return book /by June 6th
+event project meeting /from Aug 6th 2pm /to 4pm
+tOdo join sports club
+toDO borrow book
+list
+mARk 1
+unmark 2
+list
+deLEte 3
+list
+deleTE 7
+invalid task
+deadline incomplete task
+event /from 2pm /to 4pm
+bye
