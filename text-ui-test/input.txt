@@ -1,0 +1,9 @@
+todo read a book
+deadline complete assignment 2 /by tomorrow
+event visit family /from Mon 2pm /to 4pm
+todo write homework 2
+mark 2
+mark 3
+unmark 3
+list
+bye
