@@ -1,7 +1,135 @@
-Hello from
- ____        _        
-|  _ \ _   _| | _____ 
-| | | | | | | |/ / _ \
-| |_| | |_| |   <  __/
-|____/ \__,_|_|\_\___|
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Hello! I'm Naruto, and I'm training to become a ninja!
+    Believe it!
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [T][ ] borrow book
+    Now you have 1 outstanding task.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [D][ ] return book (by: 2/12/2019 1800)
+    Now you have 2 outstanding tasks.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task added:
+      [E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
+    Now you have 3 outstanding tasks.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [T][X] borrow book
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    1.[T][X] borrow book
+    2.[D][ ] return book (by: 2/12/2019 1800)
+    3.[E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task deleted:
+      [E][ ] CS2103 Tutorial (from: 2/02/2024 0800 to: 2/02/2024 0900)
+    Now you have 2 tasks remaining.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Great job! You marked that task off your list! That's the way to go! 
+    Keep pushing yourself, and remember, every completed task brings you 
+    one step closer to your goals. Believe it! ᕕ( ᐛ )ᕗ
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+      [D][X] return book (by: 2/12/2019 1800)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    1.[T][X] borrow book
+    2.[D][X] return book (by: 2/12/2019 1800)
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task deleted:
+      [D][X] return book (by: 2/12/2019 1800)
+    Now you have 1 task remaining.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Got it! Task deleted:
+      [T][X] borrow book
+    Now you have 0 tasks remaining.
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Here are the tasks in your list:
+    
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+
+    Bye bye! ヾ( ˃ᴗ˂ )◞ • *✰
+
+    - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 

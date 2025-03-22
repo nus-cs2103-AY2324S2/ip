@@ -14,4 +14,14 @@ src/main/resources/docs/
 bin/
 
 /text-ui-test/ACTUAL.TXT
-text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/EXPECTED-UNIX.TXT
+/text-ui-test/logs/
+
+# .class files
+*.class
+
+# Log files for tasks
+/src/logs/
+/src/main/java/src.logs/
+
+*.jar
