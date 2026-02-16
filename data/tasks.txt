@@ -1,0 +1,2 @@
+T | 0 | attend math lecture
+E | 0 | Fatnom's birthday party | Mar 03 2024 4:00pm | Mar 03 2024 10:00pm
